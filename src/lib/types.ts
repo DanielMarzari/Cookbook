@@ -78,6 +78,8 @@ export interface Recipe {
   servings: number;
   instructions: InstructionStep[];
   source_url?: string;
+  source_name?: string;
+  source_author?: string;
   source_type?: 'user' | 'imported';
   is_favorite: boolean;
   created_at: string;
@@ -98,6 +100,15 @@ export interface Technique {
   tips: string[];
   related_techniques: string[];
   created_at: string;
+}
+
+// User technique skill tracking
+export interface UserTechniqueSkill {
+  id: string;
+  technique_id: string;
+  skill_level: 'learning' | 'comfortable' | 'confident' | 'mastered';
+  notes?: string;
+  updated_at: string;
 }
 
 // Recipe collection

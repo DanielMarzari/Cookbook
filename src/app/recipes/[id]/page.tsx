@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { Recipe } from '@/lib/types';
-import { Clock, Users, Flame, ArrowLeft, Heart } from 'lucide-react';
+import { Clock, Users, Flame, ArrowLeft, Heart, BookOpen } from 'lucide-react';
 import Image from 'next/image';
 
 interface RecipeDetailPageProps {
@@ -218,6 +218,24 @@ export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
                 </li>
               ))}
             </ol>
+          </div>
+        )}
+
+        {/* Source Information */}
+        {(recipe.source_name || recipe.source_author) && (
+          <div className="bg-surface rounded-2xl p-6 border border-border shadow-warm mb-8">
+            <div className="flex items-center gap-2 mb-3">
+              <BookOpen size={20} className="text-text-secondary" />
+              <h3 className="text-sm font-semibold text-text-secondary">Source</h3>
+            </div>
+            <div className="space-y-1">
+              {recipe.source_name && (
+                <p className="text-text font-medium">From: {recipe.source_name}</p>
+              )}
+              {recipe.source_author && (
+                <p className="text-text font-medium">By: {recipe.source_author}</p>
+              )}
+            </div>
           </div>
         )}
 

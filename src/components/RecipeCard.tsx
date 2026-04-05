@@ -136,6 +136,15 @@ export default function RecipeCard({
               {recipe.servings} servings
             </div>
           </div>
+
+          {/* Source Badge */}
+          {recipe.source_name && (
+            <div className="mt-3 pt-3 border-t border-border">
+              <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-text-secondary/10 text-text-secondary">
+                {recipe.source_name}
+              </span>
+            </div>
+          )}
         </div>
       </article>
     </Link>
