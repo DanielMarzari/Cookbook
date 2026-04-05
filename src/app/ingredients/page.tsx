@@ -225,25 +225,25 @@ export default function IngredientsPage() {
                   <div className="bg-background p-2 rounded">
                     <p className="text-text-secondary font-medium">Calories</p>
                     <p className="text-text font-bold">
-                      {Math.round(ingredient.nutrition_per_100g.calories)}
+                      {Math.round(ingredient.calories_per_100g)}
                     </p>
                   </div>
                   <div className="bg-background p-2 rounded">
                     <p className="text-text-secondary font-medium">Protein</p>
                     <p className="text-text font-bold">
-                      {ingredient.nutrition_per_100g.protein.toFixed(1)}g
+                      {ingredient.protein_per_100g.toFixed(1)}g
                     </p>
                   </div>
                   <div className="bg-background p-2 rounded">
                     <p className="text-text-secondary font-medium">Carbs</p>
                     <p className="text-text font-bold">
-                      {ingredient.nutrition_per_100g.carbs.toFixed(1)}g
+                      {ingredient.carbs_per_100g.toFixed(1)}g
                     </p>
                   </div>
                   <div className="bg-background p-2 rounded">
                     <p className="text-text-secondary font-medium">Fat</p>
                     <p className="text-text font-bold">
-                      {ingredient.nutrition_per_100g.fat.toFixed(1)}g
+                      {ingredient.fat_per_100g.toFixed(1)}g
                     </p>
                   </div>
                 </div>

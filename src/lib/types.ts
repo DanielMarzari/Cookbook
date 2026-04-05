@@ -23,13 +23,20 @@ export interface Ingredient {
   name: string;
   brand?: string;
   category: string;
-  nutrition_per_100g: NutritionInfo;
-  custom_nutrition?: NutritionInfo;
+  calories_per_100g: number;
+  protein_per_100g: number;
+  carbs_per_100g: number;
+  fat_per_100g: number;
+  fiber_per_100g: number;
+  sugar_per_100g: number;
+  sodium_per_100g: number;
+  custom_nutrition?: Record<string, any>;
   image_url?: string;
   barcode?: string;
   fdc_id?: string;
   is_custom: boolean;
   created_at: string;
+  updated_at: string;
 }
 
 // Recipe ingredient with quantities

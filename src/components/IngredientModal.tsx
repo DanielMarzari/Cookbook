@@ -43,7 +43,15 @@ export default function IngredientModal({
   const [fdcId, setFdcId] = useState(ingredient?.fdc_id || '');
 
   const [nutrition, setNutrition] = useState<NutritionInfo>(
-    ingredient?.nutrition_per_100g || {
+    ingredient ? {
+      calories: ingredient.calories_per_100g,
+      protein: ingredient.protein_per_100g,
+      carbs: ingredient.carbs_per_100g,
+      fat: ingredient.fat_per_100g,
+      fiber: ingredient.fiber_per_100g,
+      sugar: ingredient.sugar_per_100g,
+      sodium: ingredient.sodium_per_100g,
+    } : {
       calories: 0,
       protein: 0,
       carbs: 0,
@@ -55,7 +63,7 @@ export default function IngredientModal({
   );
 
   const [customNutrition, setCustomNutrition] = useState<NutritionInfo | undefined>(
-    ingredient?.custom_nutrition
+    ingredient?.custom_nutrition as NutritionInfo | undefined
   );
 
   const [tab, setTab] = useState<'form' | 'usda' | 'scan'>('form');
@@ -178,11 +186,18 @@ export default function IngredientModal({
       name: name.trim(),
       brand: brand.trim() || undefined,
       category,
-      nutrition_per_100g: nutrition,
+      calories_per_100g: nutrition.calories,
+      protein_per_100g: nutrition.protein,
+      carbs_per_100g: nutrition.carbs,
+      fat_per_100g: nutrition.fat,
+      fiber_per_100g: nutrition.fiber,
+      sugar_per_100g: nutrition.sugar,
+      sodium_per_100g: nutrition.sodium,
       custom_nutrition: customNutrition,
       fdc_id: fdcId || undefined,
       is_custom: isCustom,
       created_at: ingredient?.created_at || new Date().toISOString(),
+      updated_at: new Date().toISOString(),
     };
 
     try {
