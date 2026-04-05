@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Technique } from '@/lib/types';
+import { Technique, UserTechniqueSkill } from '@/lib/types';
 import { supabase } from '@/lib/supabase';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
-import { ArrowLeft, Video, Lightbulb, AlertCircle, BookOpen } from 'lucide-react';
+import { ArrowLeft, Video, Lightbulb, AlertCircle, BookOpen, Save } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
 
@@ -22,6 +22,10 @@ export default function TechniqueDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [relatedTechniques, setRelatedTechniques] = useState<Technique[]>([]);
+  const [userSkill, setUserSkill] = useState<UserTechniqueSkill | null>(null);
+  const [skillLevel, setSkillLevel] = useState<'learning' | 'comfortable' | 'confident' | 'mastered' | ''>('');
+  const [notes, setNotes] = useState('');
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     const fetchTechnique = async () => {
@@ -43,6 +47,19 @@ export default function TechniqueDetailPage() {
         }
 
         setTechnique(data);
+
+        // Fetch user skill for this technique
+        const { data: skillData } = await supabase
+          .from('user_technique_skills')
+          .select('*')
+          .eq('technique_id', data.id)
+          .single();
+
+        if (skillData) {
+          setUserSkill(skillData);
+          setSkillLevel(skillData.skill_level);
+          setNotes(skillData.notes || '');
+        }
 
         // Fetch related techniques
         if (data.related_techniques && data.related_techniques.length > 0) {
@@ -67,6 +84,64 @@ export default function TechniqueDetailPage() {
       fetchTechnique();
     }
   }, [slug]);
+
+  const handleSaveSkillTracking = async () => {
+    if (!technique) return;
+
+    setSaving(true);
+    try {
+      if (!skillLevel) {
+        // Delete skill record if no level selected
+        if (userSkill) {
+          await supabase
+            .from('user_technique_skills')
+            .delete()
+            .eq('id', userSkill.id);
+          setUserSkill(null);
+          setNotes('');
+        }
+      } else {
+        // Upsert skill record
+        if (userSkill) {
+          const { data } = await supabase
+            .from('user_technique_skills')
+            .update({
+              skill_level: skillLevel,
+              notes: notes || null,
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', userSkill.id)
+            .select()
+            .single();
+
+          if (data) {
+            setUserSkill(data);
+          }
+        } else {
+          const { data } = await supabase
+            .from('user_technique_skills')
+            .insert({
+              technique_id: technique.id,
+              skill_level: skillLevel,
+              notes: notes || null,
+              updated_at: new Date().toISOString(),
+            })
+            .select()
+            .single();
+
+          if (data) {
+            setUserSkill(data);
+          }
+        }
+      }
+      alert('Skill tracking saved!');
+    } catch (err) {
+      console.error('Error saving skill tracking:', err);
+      alert('Failed to save skill tracking');
+    } finally {
+      setSaving(false);
+    }
+  };
 
   if (loading) {
     return (
@@ -131,6 +206,51 @@ export default function TechniqueDetailPage() {
                 <span className="text-sm text-text-secondary">
                   {technique.category}
                 </span>
+              </div>
+            </div>
+
+            {/* Skill Tracking Section */}
+            <div className="mt-6 bg-surface rounded-xl border border-border p-4">
+              <h3 className="font-semibold text-text mb-3">Track Your Progress</h3>
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm text-text-secondary mb-2">
+                    Skill Level
+                  </label>
+                  <select
+                    value={skillLevel}
+                    onChange={(e) => setSkillLevel(e.target.value as any)}
+                    className="w-full px-3 py-2 border border-border rounded-lg text-text bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">Select skill level...</option>
+                    <option value="learning">Learning</option>
+                    <option value="comfortable">Comfortable</option>
+                    <option value="confident">Confident</option>
+                    <option value="mastered">Mastered</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm text-text-secondary mb-2">
+                    Personal Notes
+                  </label>
+                  <textarea
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    placeholder="Add your notes about this technique..."
+                    rows={3}
+                    className="w-full px-3 py-2 border border-border rounded-lg text-text bg-background focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                  />
+                </div>
+
+                <button
+                  onClick={handleSaveSkillTracking}
+                  disabled={saving}
+                  className="w-full px-4 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  <Save size={18} />
+                  {saving ? 'Saving...' : 'Save Progress'}
+                </button>
               </div>
             </div>
           </div>

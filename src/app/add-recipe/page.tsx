@@ -15,6 +15,8 @@ interface FormRecipe {
   servings: number;
   image_url: string;
   source_url: string;
+  source_name: string;
+  source_author: string;
   ingredients: Array<{
     name: string;
     quantity: number;
@@ -65,6 +67,8 @@ export default function AddRecipePage() {
     servings: 4,
     image_url: '',
     source_url: '',
+    source_name: '',
+    source_author: '',
     ingredients: [{ name: '', quantity: 0, unit: 'g', notes: '' }],
     instructions: [{ text: '', timer_minutes: undefined, timer_label: '' }],
   });
@@ -277,6 +281,8 @@ export default function AddRecipePage() {
             timer_label: inst.timer_label,
           })),
           source_url: formData.source_url,
+          source_name: formData.source_name,
+          source_author: formData.source_author,
           source_type: importedData ? 'imported' : 'user',
           is_favorite: false,
         })
@@ -330,6 +336,8 @@ export default function AddRecipePage() {
         servings: 4,
         image_url: '',
         source_url: '',
+        source_name: '',
+        source_author: '',
         ingredients: [{ name: '', quantity: 0, unit: 'g', notes: '' }],
         instructions: [{ text: '', timer_minutes: undefined, timer_label: '' }],
       });
@@ -390,6 +398,25 @@ export default function AddRecipePage() {
                   rows={3}
                   className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 />
+
+                <div className="grid grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    name="source_name"
+                    placeholder="Source / Origin (optional)"
+                    value={formData.source_name}
+                    onChange={handleInputChange}
+                    className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                  <input
+                    type="text"
+                    name="source_author"
+                    placeholder="Author (optional)"
+                    value={formData.source_author}
+                    onChange={handleInputChange}
+                    className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <select
