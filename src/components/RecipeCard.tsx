@@ -1,9 +1,10 @@
 'use client';
 
 import { Recipe } from '@/lib/types';
-import { Heart, Clock, Flame } from 'lucide-react';
+import { Heart, Clock, Flame, Sparkles, Check, ThumbsUp, Wrench } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { supabase } from '@/lib/supabase';
 
 const cuisineColors: Record<string, string> = {
   italian: 'theme-italian',
@@ -27,20 +28,71 @@ const difficultyColors = {
 interface RecipeCardProps {
   recipe: Recipe;
   onToggleFavorite?: (id: string, isFavorite: boolean) => void;
+  onStatusChange?: (id: string, status: 'new' | 'tried' | 'approved' | 'wip') => void;
 }
 
 export default function RecipeCard({
   recipe,
   onToggleFavorite,
+  onStatusChange,
 }: RecipeCardProps) {
   const [isFavorite, setIsFavorite] = useState(recipe.is_favorite);
   const [isImageLoading, setIsImageLoading] = useState(true);
+  const [status, setStatus] = useState<'new' | 'tried' | 'approved' | 'wip'>(recipe.status || 'new');
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
     const newFavorite = !isFavorite;
     setIsFavorite(newFavorite);
     onToggleFavorite?.(recipe.id, newFavorite);
+  };
+
+  const handleCycleStatus = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    const statuses: Array<'new' | 'tried' | 'approved' | 'wip'> = ['new', 'tried', 'approved', 'wip'];
+    const currentIndex = statuses.indexOf(status);
+    const nextStatus = statuses[(currentIndex + 1) % statuses.length];
+
+    try {
+      await supabase
+        .from('recipes')
+        .update({ status: nextStatus })
+        .eq('id', recipe.id);
+      setStatus(nextStatus);
+      onStatusChange?.(recipe.id, nextStatus);
+    } catch (error) {
+      console.error('Error updating recipe status:', error);
+    }
+  };
+
+  const getStatusIcon = () => {
+    switch (status) {
+      case 'new':
+        return <Sparkles size={20} className="text-blue-500" />;
+      case 'tried':
+        return <Check size={20} className="text-yellow-500" />;
+      case 'approved':
+        return <ThumbsUp size={20} className="text-green-500" />;
+      case 'wip':
+        return <Wrench size={20} className="text-orange-500" />;
+      default:
+        return null;
+    }
+  };
+
+  const getStatusLabel = () => {
+    switch (status) {
+      case 'new':
+        return 'New';
+      case 'tried':
+        return 'Tried';
+      case 'approved':
+        return 'Approved';
+      case 'wip':
+        return 'WIP';
+      default:
+        return '';
+    }
   };
 
   const themeClass = cuisineColors[(recipe.cuisine_type || '').toLowerCase()] || '';
@@ -79,21 +131,31 @@ export default function RecipeCard({
             </div>
           )}
 
-          {/* Favorite Button */}
-          <button
-            onClick={handleToggleFavorite}
-            className="absolute top-3 right-3 p-2 bg-surface rounded-full shadow-warm hover:shadow-warm-lg transition-all hover:scale-110"
-            aria-label="Toggle favorite"
-          >
-            <Heart
-              size={20}
-              className={`transition-colors ${
-                isFavorite
-                  ? 'fill-red-500 text-red-500'
-                  : 'text-text-secondary hover:text-red-500'
-              }`}
-            />
-          </button>
+          {/* Status and Favorite Buttons */}
+          <div className="absolute top-3 right-3 flex items-center gap-2">
+            <button
+              onClick={handleCycleStatus}
+              className="p-2 bg-surface rounded-full shadow-warm hover:shadow-warm-lg transition-all hover:scale-110"
+              aria-label="Cycle recipe status"
+              title={getStatusLabel()}
+            >
+              {getStatusIcon()}
+            </button>
+            <button
+              onClick={handleToggleFavorite}
+              className="p-2 bg-surface rounded-full shadow-warm hover:shadow-warm-lg transition-all hover:scale-110"
+              aria-label="Toggle favorite"
+            >
+              <Heart
+                size={20}
+                className={`transition-colors ${
+                  isFavorite
+                    ? 'fill-red-500 text-red-500'
+                    : 'text-text-secondary hover:text-red-500'
+                }`}
+              />
+            </button>
+          </div>
 
           {/* Difficulty Badge */}
           <div className="absolute top-3 left-3">

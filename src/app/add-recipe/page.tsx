@@ -283,7 +283,7 @@ export default function AddRecipePage() {
           source_url: formData.source_url,
           source_name: formData.source_name,
           source_author: formData.source_author,
-          source_type: importedData ? 'imported' : 'user',
+          source_type: importedData ? 'url' : 'manual',
           is_favorite: false,
         })
         .select()
@@ -300,7 +300,7 @@ export default function AddRecipePage() {
           unit: ing.unit,
           notes: ing.notes,
           order_index: idx,
-          ingredient_id: '',
+          ingredient_id: null,
         }));
 
       if (ingredientsWithRecipeId.length > 0) {

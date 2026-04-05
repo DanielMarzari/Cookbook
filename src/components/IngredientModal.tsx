@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { X, Search, Upload, Copy } from 'lucide-react';
 import { Ingredient, NutritionInfo } from '@/lib/types';
 import { supabase } from '@/lib/supabase';
@@ -61,6 +61,34 @@ export default function IngredientModal({
       sodium: 0,
     }
   );
+
+  // Sync form state when ingredient prop changes
+  useEffect(() => {
+    if (ingredient) {
+      setName(ingredient.name);
+      setBrand(ingredient.brand || '');
+      setCategory(ingredient.category);
+      setIsCustom(ingredient.is_custom);
+      setFdcId(ingredient.fdc_id || '');
+      setNutrition({
+        calories: ingredient.calories_per_100g,
+        protein: ingredient.protein_per_100g,
+        carbs: ingredient.carbs_per_100g,
+        fat: ingredient.fat_per_100g,
+        fiber: ingredient.fiber_per_100g,
+        sugar: ingredient.sugar_per_100g,
+        sodium: ingredient.sodium_per_100g,
+      });
+    } else {
+      // Reset for new ingredient
+      setName('');
+      setBrand('');
+      setCategory('Produce');
+      setIsCustom(false);
+      setFdcId('');
+      setNutrition({ calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0, sugar: 0, sodium: 0 });
+    }
+  }, [ingredient]);
 
   const [customNutrition, setCustomNutrition] = useState<NutritionInfo | undefined>(
     ingredient?.custom_nutrition as NutritionInfo | undefined

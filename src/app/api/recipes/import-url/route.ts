@@ -397,6 +397,10 @@ export async function POST(request: NextRequest) {
 
     const html = await fetchRecipe(url);
 
+    // Extract site title from meta tags or hostname
+    const $ = cheerio.load(html);
+    const siteTitle = $('meta[property="og:site_name"]').attr('content') || new URL(url).hostname.replace('www.', '');
+
     // Try JSON-LD first (most reliable), then fall back to HTML parsing
     let recipe = parseJsonLd(html);
     if (!recipe || !recipe.ingredients?.length) {
@@ -434,6 +438,7 @@ export async function POST(request: NextRequest) {
       total_time_minutes: totalTime,
       servings: recipe.servings || 4,
       source_url: url,
+      source_name: siteTitle,
     });
   } catch (error) {
     console.error('Error importing recipe:', error);
