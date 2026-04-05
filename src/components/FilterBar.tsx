@@ -4,35 +4,20 @@ import { useCookbookStore } from '@/lib/store';
 import { Search, X } from 'lucide-react';
 
 const cuisines = [
-  'Italian',
-  'Japanese',
-  'Mexican',
-  'French',
-  'Chinese',
-  'Indian',
-  'Thai',
-  'Mediterranean',
-  'American',
-  'Korean',
+  'Italian', 'Japanese', 'Mexican', 'French', 'Chinese',
+  'Indian', 'Thai', 'Mediterranean', 'American', 'Korean',
 ];
 
 const dietaryOptions = [
-  'Vegetarian',
-  'Vegan',
-  'Gluten-Free',
-  'Dairy-Free',
-  'Low-Carb',
-  'Keto',
+  'Vegetarian', 'Vegan', 'Gluten-Free', 'Dairy-Free', 'Low-Carb', 'Keto',
 ];
 
 const difficulties = ['Easy', 'Medium', 'Hard'];
 
 export default function FilterBar() {
-  const [filters, setFilters, resetFilters] = useCookbookStore((state) => [
-    state.filters,
-    state.setFilters,
-    state.resetFilters,
-  ]);
+  const filters = useCookbookStore((state) => state.filters);
+  const setFilters = useCookbookStore((state) => state.setFilters);
+  const resetFilters = useCookbookStore((state) => state.resetFilters);
 
   const hasActiveFilters =
     filters.search ||
@@ -58,7 +43,6 @@ export default function FilterBar() {
 
         {/* Filter Row */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-          {/* Cuisine Dropdown */}
           <select
             value={filters.cuisine || ''}
             onChange={(e) => setFilters({ cuisine: e.target.value || null })}
@@ -72,7 +56,6 @@ export default function FilterBar() {
             ))}
           </select>
 
-          {/* Difficulty Dropdown */}
           <select
             value={filters.difficulty || ''}
             onChange={(e) => setFilters({ difficulty: e.target.value || null })}
@@ -86,7 +69,6 @@ export default function FilterBar() {
             ))}
           </select>
 
-          {/* Max Time Input */}
           <input
             type="number"
             placeholder="Max time (minutes)"
@@ -97,7 +79,6 @@ export default function FilterBar() {
             className="px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary text-text"
           />
 
-          {/* Reset Button */}
           {hasActiveFilters && (
             <button
               onClick={() => resetFilters()}
@@ -119,9 +100,10 @@ export default function FilterBar() {
               <button
                 key={option}
                 onClick={() => {
-                  const newDietary = filters.dietary.includes(option.toLowerCase())
-                    ? filters.dietary.filter((d) => d !== option.toLowerCase())
-                    : [...filters.dietary, option.toLowerCase()];
+                  const val = option.toLowerCase();
+                  const newDietary = filters.dietary.includes(val)
+                    ? filters.dietary.filter((d) => d !== val)
+                    : [...filters.dietary, val];
                   setFilters({ dietary: newDietary });
                 }}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
