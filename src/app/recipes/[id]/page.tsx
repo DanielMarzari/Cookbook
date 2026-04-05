@@ -3,9 +3,8 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
-import { Recipe } from '@/lib/types';
+import { Recipe, RecipeIngredient, Ingredient, NutritionInfo } from '@/lib/types';
 import { Clock, Users, Flame, ArrowLeft, Heart, BookOpen } from 'lucide-react';
-import Image from 'next/image';
 
 interface RecipeDetailPageProps {
   params: {
@@ -13,16 +12,31 @@ interface RecipeDetailPageProps {
   };
 }
 
+interface NutritionCalculation {
+  nutrition: NutritionInfo;
+  matchedCount: number;
+  totalCount: number;
+}
+
 export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [nutrition, setNutrition] = useState<NutritionCalculation | null>(null);
 
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
         setLoading(true);
+
+        // Safety check: validate that params.id exists and is valid
+        if (!params.id || params.id === 'undefined') {
+          setError('Invalid recipe ID');
+          setLoading(false);
+          return;
+        }
+
         const { data, error: supabaseError } = await supabase
           .from('recipes')
           .select('*')
@@ -36,6 +50,8 @@ export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
         if (data) {
           setRecipe(data);
           setIsFavorite(data.is_favorite);
+          // Calculate nutrition for this recipe
+          await calculateNutrition(data);
         } else {
           setError('Recipe not found');
         }
@@ -61,6 +77,125 @@ export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
       setIsFavorite(newFavorite);
     } catch (err) {
       console.error('Error updating favorite:', err);
+    }
+  };
+
+  const convertUnitToGrams = (quantity: number, unit: string): number | null => {
+    const lowerUnit = unit.toLowerCase().trim();
+
+    const conversions: Record<string, number> = {
+      'g': 1,
+      'gram': 1,
+      'grams': 1,
+      'oz': 28,
+      'ounce': 28,
+      'ounces': 28,
+      'lb': 454,
+      'lbs': 454,
+      'pound': 454,
+      'pounds': 454,
+      'cup': 240,
+      'cups': 240,
+      'tbsp': 15,
+      'tablespoon': 15,
+      'tablespoons': 15,
+      'tsp': 5,
+      'teaspoon': 5,
+      'teaspoons': 5,
+      'ml': 1,
+      'milliliter': 1,
+      'milliliters': 1,
+    };
+
+    if (conversions[lowerUnit]) {
+      return quantity * conversions[lowerUnit];
+    }
+    return null;
+  };
+
+  const calculateNutrition = async (recipeData: Recipe) => {
+    try {
+      // Fetch recipe ingredients
+      const { data: recipeIngredients, error: ingredientsError } = await supabase
+        .from('recipe_ingredients')
+        .select('*')
+        .eq('recipe_id', recipeData.id);
+
+      if (ingredientsError) {
+        console.error('Error fetching ingredients:', ingredientsError);
+        return;
+      }
+
+      if (!recipeIngredients || recipeIngredients.length === 0) {
+        setNutrition(null);
+        return;
+      }
+
+      // Fetch all ingredients from database
+      const { data: allIngredients, error: dbIngredientsError } = await supabase
+        .from('ingredients')
+        .select('*');
+
+      if (dbIngredientsError) {
+        console.error('Error fetching database ingredients:', dbIngredientsError);
+        return;
+      }
+
+      // Calculate nutrition
+      const totalNutrition: NutritionInfo = {
+        calories: 0,
+        protein: 0,
+        carbs: 0,
+        fat: 0,
+        fiber: 0,
+        sugar: 0,
+        sodium: 0,
+      };
+
+      let matchedCount = 0;
+
+      for (const recipeIng of recipeIngredients) {
+        // Try to find matching ingredient (case-insensitive)
+        const matchedIngredient = allIngredients?.find(
+          (ing) => ing.name.toLowerCase() === recipeIng.name.toLowerCase()
+        );
+
+        if (matchedIngredient) {
+          matchedCount++;
+          // Convert quantity to grams
+          const gramsPerServing = convertUnitToGrams(recipeIng.quantity, recipeIng.unit);
+
+          if (gramsPerServing !== null) {
+            const gramsPerGram = gramsPerServing / 100;
+            totalNutrition.calories += matchedIngredient.calories_per_100g * gramsPerGram;
+            totalNutrition.protein += matchedIngredient.protein_per_100g * gramsPerGram;
+            totalNutrition.carbs += matchedIngredient.carbs_per_100g * gramsPerGram;
+            totalNutrition.fat += matchedIngredient.fat_per_100g * gramsPerGram;
+            totalNutrition.fiber += matchedIngredient.fiber_per_100g * gramsPerGram;
+            totalNutrition.sugar += matchedIngredient.sugar_per_100g * gramsPerGram;
+            totalNutrition.sodium += matchedIngredient.sodium_per_100g * gramsPerGram;
+          }
+        }
+      }
+
+      // Calculate per serving
+      const perServing: NutritionInfo = {
+        calories: Math.round(totalNutrition.calories / recipeData.servings),
+        protein: Math.round((totalNutrition.protein / recipeData.servings) * 10) / 10,
+        carbs: Math.round((totalNutrition.carbs / recipeData.servings) * 10) / 10,
+        fat: Math.round((totalNutrition.fat / recipeData.servings) * 10) / 10,
+        fiber: Math.round((totalNutrition.fiber / recipeData.servings) * 10) / 10,
+        sugar: Math.round((totalNutrition.sugar / recipeData.servings) * 10) / 10,
+        sodium: Math.round((totalNutrition.sodium / recipeData.servings) * 10) / 10,
+      };
+
+      setNutrition({
+        nutrition: perServing,
+        matchedCount,
+        totalCount: recipeIngredients.length,
+      });
+    } catch (err) {
+      console.error('Error calculating nutrition:', err);
     }
   };
 
@@ -143,12 +278,11 @@ export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
 
         {/* Image */}
         {recipe.image_url && (
-          <div className="relative w-full h-80 md:h-96 rounded-2xl overflow-hidden shadow-warm-lg mb-8">
-            <Image
+          <div className="w-full h-80 md:h-96 rounded-2xl overflow-hidden shadow-warm-lg mb-8">
+            <img
               src={recipe.image_url}
               alt={recipe.title}
-              fill
-              className="object-cover"
+              className="w-full h-full object-cover"
             />
           </div>
         )}
@@ -190,6 +324,39 @@ export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
             </p>
           </div>
         </div>
+
+        {/* Nutrition Facts */}
+        {nutrition && (
+          <div className="bg-surface rounded-2xl p-6 border border-border shadow-warm mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-2xl font-bold text-text">Nutrition Facts</h2>
+              <span className="text-xs font-medium text-text-secondary bg-background px-2 py-1 rounded">
+                Estimated
+              </span>
+            </div>
+            <p className="text-xs text-text-secondary mb-4">
+              Per serving ({nutrition.matchedCount} of {nutrition.totalCount} ingredients matched)
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="border-l-4 border-primary pl-4">
+                <p className="text-xs text-text-secondary mb-1">Calories</p>
+                <p className="text-2xl font-bold text-text">{nutrition.nutrition.calories}</p>
+              </div>
+              <div className="border-l-4 border-blue-500 pl-4">
+                <p className="text-xs text-text-secondary mb-1">Protein</p>
+                <p className="text-2xl font-bold text-text">{nutrition.nutrition.protein}g</p>
+              </div>
+              <div className="border-l-4 border-orange-500 pl-4">
+                <p className="text-xs text-text-secondary mb-1">Carbs</p>
+                <p className="text-2xl font-bold text-text">{nutrition.nutrition.carbs}g</p>
+              </div>
+              <div className="border-l-4 border-red-500 pl-4">
+                <p className="text-xs text-text-secondary mb-1">Fat</p>
+                <p className="text-2xl font-bold text-text">{nutrition.nutrition.fat}g</p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Instructions */}
         {recipe.instructions && recipe.instructions.length > 0 && (

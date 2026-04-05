@@ -2,7 +2,6 @@
 
 import { Recipe } from '@/lib/types';
 import { Heart, Clock, Flame } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -44,7 +43,12 @@ export default function RecipeCard({
     onToggleFavorite?.(recipe.id, newFavorite);
   };
 
-  const themeClass = cuisineColors[recipe.cuisine_type.toLowerCase()] || '';
+  const themeClass = cuisineColors[(recipe.cuisine_type || '').toLowerCase()] || '';
+
+  // Safety check: don't render link if recipe.id is missing
+  if (!recipe.id) {
+    return null;
+  }
 
   return (
     <Link href={`/recipes/${recipe.id}`}>
@@ -58,12 +62,12 @@ export default function RecipeCard({
               {isImageLoading && (
                 <div className="absolute inset-0 bg-gradient-to-br from-background to-border animate-pulse" />
               )}
-              <Image
+              <img
                 src={recipe.image_url}
                 alt={recipe.title}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-300"
-                onLoadingComplete={() => setIsImageLoading(false)}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                onLoad={() => setIsImageLoading(false)}
+                onError={() => setIsImageLoading(false)}
               />
             </>
           ) : (
@@ -106,7 +110,7 @@ export default function RecipeCard({
         </div>
 
         {/* Content */}
-        <div className="p-4 flex flex-col h-40">
+        <div className="p-4 flex flex-col min-h-[10rem]">
           {/* Title */}
           <h3 className="text-lg font-bold text-text mb-2 line-clamp-2 group-hover:text-primary transition-colors">
             {recipe.title}
@@ -115,7 +119,7 @@ export default function RecipeCard({
           {/* Cuisine Badge */}
           <div className="mb-3">
             <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-primary text-white">
-              {recipe.cuisine_type}
+              {recipe.cuisine_type || 'Other'}
             </span>
           </div>
 
@@ -130,7 +134,7 @@ export default function RecipeCard({
           <div className="flex items-center justify-between gap-3 pt-3 border-t border-border">
             <div className="flex items-center gap-1 text-sm text-text-secondary">
               <Clock size={16} />
-              <span>{recipe.total_time_minutes} min</span>
+              <span>{recipe.total_time_minutes ? `${recipe.total_time_minutes} min` : 'N/A'}</span>
             </div>
             <div className="text-sm text-text-secondary">
               {recipe.servings} servings
