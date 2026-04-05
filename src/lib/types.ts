@@ -89,6 +89,8 @@ export interface Recipe {
   source_author?: string;
   source_type?: 'user' | 'imported';
   is_favorite: boolean;
+  status?: 'new' | 'tried' | 'approved' | 'wip';
+  image_rotation?: number;
   created_at: string;
   updated_at: string;
 }

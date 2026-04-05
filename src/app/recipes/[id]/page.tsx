@@ -1,16 +1,11 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { Recipe, RecipeIngredient, Ingredient, NutritionInfo } from '@/lib/types';
-import { Clock, Users, Flame, ArrowLeft, Heart, BookOpen } from 'lucide-react';
-
-interface RecipeDetailPageProps {
-  params: {
-    id: string;
-  };
-}
+import { Clock, Users, Flame, ArrowLeft, Heart, BookOpen, RotateCw } from 'lucide-react';
 
 interface NutritionCalculation {
   nutrition: NutritionInfo;
@@ -18,20 +13,23 @@ interface NutritionCalculation {
   totalCount: number;
 }
 
-export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
+export default function RecipeDetailPage() {
+  const params = useParams();
+  const id = params.id as string;
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [nutrition, setNutrition] = useState<NutritionCalculation | null>(null);
+  const [imageRotation, setImageRotation] = useState(0);
 
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
         setLoading(true);
 
-        // Safety check: validate that params.id exists and is valid
-        if (!params.id || params.id === 'undefined') {
+        // Safety check: validate that id exists and is valid
+        if (!id || id === 'undefined') {
           setError('Invalid recipe ID');
           setLoading(false);
           return;
@@ -40,7 +38,7 @@ export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
         const { data, error: supabaseError } = await supabase
           .from('recipes')
           .select('*')
-          .eq('id', params.id)
+          .eq('id', id)
           .single();
 
         if (supabaseError) {
@@ -50,6 +48,7 @@ export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
         if (data) {
           setRecipe(data);
           setIsFavorite(data.is_favorite);
+          setImageRotation(data.image_rotation || 0);
           // Calculate nutrition for this recipe
           await calculateNutrition(data);
         } else {
@@ -64,7 +63,7 @@ export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
     };
 
     fetchRecipe();
-  }, [params.id]);
+  }, [id]);
 
   const handleToggleFavorite = async () => {
     if (!recipe) return;
@@ -77,6 +76,20 @@ export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
       setIsFavorite(newFavorite);
     } catch (err) {
       console.error('Error updating favorite:', err);
+    }
+  };
+
+  const handleRotateImage = async () => {
+    if (!recipe) return;
+    try {
+      const newRotation = (imageRotation + 90) % 360;
+      await supabase
+        .from('recipes')
+        .update({ image_rotation: newRotation })
+        .eq('id', recipe.id);
+      setImageRotation(newRotation);
+    } catch (err) {
+      console.error('Error updating image rotation:', err);
     }
   };
 
@@ -278,12 +291,21 @@ export default function RecipeDetailPage({ params }: RecipeDetailPageProps) {
 
         {/* Image */}
         {recipe.image_url && (
-          <div className="w-full h-80 md:h-96 rounded-2xl overflow-hidden shadow-warm-lg mb-8">
+          <div className="relative w-full h-80 md:h-96 rounded-2xl overflow-hidden shadow-warm-lg mb-8">
             <img
               src={recipe.image_url}
               alt={recipe.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-300"
+              style={{ transform: `rotate(${imageRotation}deg)` }}
             />
+            <button
+              onClick={handleRotateImage}
+              className="absolute top-4 right-4 p-3 bg-surface rounded-full shadow-warm hover:shadow-warm-lg transition-all hover:scale-110"
+              aria-label="Rotate image"
+              title="Rotate image"
+            >
+              <RotateCw size={20} className="text-text" />
+            </button>
           </div>
         )}
 

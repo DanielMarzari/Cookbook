@@ -7,21 +7,42 @@ import { supabase } from '@/lib/supabase';
 import IngredientModal from '@/components/IngredientModal';
 
 const CATEGORIES = [
+  'Pantry',
+  'Aromatics',
+  'Herbs & Spices',
   'Produce',
+  'Proteins',
   'Dairy',
-  'Meat/Poultry',
-  'Seafood',
-  'Grains/Pasta',
-  'Baking',
+  'Grains & Carbs',
   'Condiments',
-  'Spices',
-  'Oils/Fats',
+  'Sauces',
+  'Baking',
+  'Oils & Fats',
   'Canned Goods',
   'Frozen',
   'Beverages',
   'Snacks',
   'Other',
 ];
+
+const CATEGORY_EMOJIS: Record<string, string> = {
+  'Pantry': '🧂',
+  'Aromatics': '🧄',
+  'Herbs & Spices': '🌿',
+  'Produce': '🍅',
+  'Proteins': '🥩',
+  'Dairy': '🧀',
+  'Grains & Carbs': '🌾',
+  'Condiments': '🍯',
+  'Sauces': '🫗',
+  'Baking': '🧁',
+  'Oils & Fats': '🫒',
+  'Canned Goods': '🥫',
+  'Frozen': '🧊',
+  'Beverages': '🥤',
+  'Snacks': '🍿',
+  'Other': '📦',
+};
 
 export default function IngredientsPage() {
   const [ingredients, setIngredients] = useState<Ingredient[]>([]);
@@ -182,95 +203,112 @@ export default function IngredientsPage() {
             )}
           </div>
         ) : (
-          <div className="grid grid-responsive gap-4">
-            {filteredIngredients.map(ingredient => (
-              <div
-                key={ingredient.id}
-                onClick={() => handleEditIngredient(ingredient)}
-                className="bg-surface border border-border rounded-lg p-5 hover:shadow-warm transition-shadow cursor-pointer"
-              >
-                {/* Header */}
-                <div className="mb-4">
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-lg text-text">
-                        {ingredient.name}
-                      </h3>
-                      {ingredient.brand && (
-                        <p className="text-sm text-text-secondary">{ingredient.brand}</p>
-                      )}
-                    </div>
-                    <span className="px-3 py-1 bg-background rounded-full text-xs font-medium text-text-secondary">
-                      {ingredient.category}
+          <div className="space-y-8">
+            {CATEGORIES.map(category => {
+              const categoryIngredients = filteredIngredients.filter(ing => ing.category === category);
+
+              if (categoryIngredients.length === 0) return null;
+
+              return (
+                <div key={category}>
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className="text-2xl">{CATEGORY_EMOJIS[category]}</span>
+                    <h2 className="text-xl font-bold text-text">{category}</h2>
+                    <span className="text-sm text-text-secondary ml-auto">
+                      {categoryIngredients.length} item{categoryIngredients.length !== 1 ? 's' : ''}
                     </span>
                   </div>
-                </div>
 
-                {/* Badge */}
-                <div className="mb-4 flex gap-2">
-                  {ingredient.is_custom && (
-                    <span className="px-2 py-1 bg-accent bg-opacity-20 text-accent text-xs font-medium rounded-full">
-                      Custom
-                    </span>
-                  )}
-                  {ingredient.fdc_id && (
-                    <span className="px-2 py-1 bg-primary bg-opacity-20 text-primary text-xs font-medium rounded-full">
-                      USDA
-                    </span>
-                  )}
-                </div>
+                  <div className="grid grid-responsive gap-4">
+                    {categoryIngredients.map(ingredient => (
+                      <div
+                        key={ingredient.id}
+                        onClick={() => handleEditIngredient(ingredient)}
+                        className="bg-surface border border-border rounded-lg p-5 hover:shadow-warm transition-shadow cursor-pointer"
+                      >
+                        {/* Header */}
+                        <div className="mb-4">
+                          <div className="flex items-start justify-between mb-2">
+                            <div className="flex-1">
+                              <h3 className="font-semibold text-lg text-text">
+                                {ingredient.name}
+                              </h3>
+                              {ingredient.brand && (
+                                <p className="text-sm text-text-secondary">{ingredient.brand}</p>
+                              )}
+                            </div>
+                          </div>
+                        </div>
 
-                {/* Nutrition Summary */}
-                <div className="grid grid-cols-4 gap-2 text-xs">
-                  <div className="bg-background p-2 rounded">
-                    <p className="text-text-secondary font-medium">Calories</p>
-                    <p className="text-text font-bold">
-                      {Math.round(ingredient.calories_per_100g)}
-                    </p>
-                  </div>
-                  <div className="bg-background p-2 rounded">
-                    <p className="text-text-secondary font-medium">Protein</p>
-                    <p className="text-text font-bold">
-                      {ingredient.protein_per_100g.toFixed(1)}g
-                    </p>
-                  </div>
-                  <div className="bg-background p-2 rounded">
-                    <p className="text-text-secondary font-medium">Carbs</p>
-                    <p className="text-text font-bold">
-                      {ingredient.carbs_per_100g.toFixed(1)}g
-                    </p>
-                  </div>
-                  <div className="bg-background p-2 rounded">
-                    <p className="text-text-secondary font-medium">Fat</p>
-                    <p className="text-text font-bold">
-                      {ingredient.fat_per_100g.toFixed(1)}g
-                    </p>
-                  </div>
-                </div>
+                        {/* Badge */}
+                        <div className="mb-4 flex gap-2">
+                          {ingredient.is_custom && (
+                            <span className="px-2 py-1 bg-accent bg-opacity-20 text-accent text-xs font-medium rounded-full">
+                              Custom
+                            </span>
+                          )}
+                          {ingredient.fdc_id && (
+                            <span className="px-2 py-1 bg-primary bg-opacity-20 text-primary text-xs font-medium rounded-full">
+                              USDA
+                            </span>
+                          )}
+                        </div>
 
-                {/* Actions */}
-                <div className="mt-4 pt-4 border-t border-border flex gap-2">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleEditIngredient(ingredient);
-                    }}
-                    className="flex-1 px-3 py-2 text-sm font-medium text-primary hover:bg-background rounded transition-colors"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteIngredient(ingredient.id);
-                    }}
-                    className="flex-1 px-3 py-2 text-sm font-medium text-accent hover:bg-background rounded transition-colors"
-                  >
-                    Delete
-                  </button>
+                        {/* Nutrition Summary */}
+                        <div className="grid grid-cols-4 gap-2 text-xs">
+                          <div className="bg-background p-2 rounded">
+                            <p className="text-text-secondary font-medium">Calories</p>
+                            <p className="text-text font-bold">
+                              {Math.round(ingredient.calories_per_100g)}
+                            </p>
+                          </div>
+                          <div className="bg-background p-2 rounded">
+                            <p className="text-text-secondary font-medium">Protein</p>
+                            <p className="text-text font-bold">
+                              {ingredient.protein_per_100g.toFixed(1)}g
+                            </p>
+                          </div>
+                          <div className="bg-background p-2 rounded">
+                            <p className="text-text-secondary font-medium">Carbs</p>
+                            <p className="text-text font-bold">
+                              {ingredient.carbs_per_100g.toFixed(1)}g
+                            </p>
+                          </div>
+                          <div className="bg-background p-2 rounded">
+                            <p className="text-text-secondary font-medium">Fat</p>
+                            <p className="text-text font-bold">
+                              {ingredient.fat_per_100g.toFixed(1)}g
+                            </p>
+                          </div>
+                        </div>
+
+                        {/* Actions */}
+                        <div className="mt-4 pt-4 border-t border-border flex gap-2">
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleEditIngredient(ingredient);
+                            }}
+                            className="flex-1 px-3 py-2 text-sm font-medium text-primary hover:bg-background rounded transition-colors"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteIngredient(ingredient.id);
+                            }}
+                            className="flex-1 px-3 py-2 text-sm font-medium text-accent hover:bg-background rounded transition-colors"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
