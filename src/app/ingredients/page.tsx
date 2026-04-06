@@ -513,6 +513,7 @@ export default function IngredientsPage() {
                             </div>
 
 
+                            {ingredient.calories_per_100g != null && (
                             <div className="grid grid-cols-4 gap-2 text-xs">
                               <div className="bg-background p-2 rounded">
                                 <p className="text-text-secondary font-medium">Calories</p>
@@ -523,22 +524,23 @@ export default function IngredientsPage() {
                               <div className="bg-background p-2 rounded">
                                 <p className="text-text-secondary font-medium">Protein</p>
                                 <p className="text-text font-bold">
-                                  {ingredient.protein_per_100g.toFixed(1)}g
+                                  {(ingredient.protein_per_100g ?? 0).toFixed(1)}g
                                 </p>
                               </div>
                               <div className="bg-background p-2 rounded">
                                 <p className="text-text-secondary font-medium">Carbs</p>
                                 <p className="text-text font-bold">
-                                  {ingredient.carbs_per_100g.toFixed(1)}g
+                                  {(ingredient.carbs_per_100g ?? 0).toFixed(1)}g
                                 </p>
                               </div>
                               <div className="bg-background p-2 rounded">
                                 <p className="text-text-secondary font-medium">Fat</p>
                                 <p className="text-text font-bold">
-                                  {ingredient.fat_per_100g.toFixed(1)}g
+                                  {(ingredient.fat_per_100g ?? 0).toFixed(1)}g
                                 </p>
                               </div>
                             </div>
+                            )}
 
                             <div className="mt-4 pt-4 border-t border-border flex gap-2">
                               <button
