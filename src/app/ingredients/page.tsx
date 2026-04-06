@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Plus, Search, Filter, Leaf, Link2, AlertCircle, Check, Download, Loader } from 'lucide-react';
 import { Ingredient } from '@/lib/types';
 import { supabase } from '@/lib/supabase';
+import { titleCaseIngredient } from '@/lib/utils';
 import IngredientModal from '@/components/IngredientModal';
 
 interface UnmatchedIngredient {
@@ -16,7 +17,9 @@ const CATEGORIES = [
   'Pantry',
   'Aromatics',
   'Herbs & Spices',
+  'Extracts & Flavorings',
   'Produce',
+  'Fruits',
   'Proteins',
   'Dairy',
   'Grains & Carbs',
@@ -27,6 +30,7 @@ const CATEGORIES = [
   'Canned Goods',
   'Frozen',
   'Beverages',
+  'Alcohol',
   'Snacks',
   'Other',
 ];
@@ -35,7 +39,9 @@ const CATEGORY_EMOJIS: Record<string, string> = {
   'Pantry': '🧂',
   'Aromatics': '🧄',
   'Herbs & Spices': '🌿',
-  'Produce': '🍅',
+  'Extracts & Flavorings': '🧪',
+  'Produce': '🥬',
+  'Fruits': '🍎',
   'Proteins': '🥩',
   'Dairy': '🧀',
   'Grains & Carbs': '🌾',
@@ -46,6 +52,7 @@ const CATEGORY_EMOJIS: Record<string, string> = {
   'Canned Goods': '🥫',
   'Frozen': '🧊',
   'Beverages': '🥤',
+  'Alcohol': '🍷',
   'Snacks': '🍿',
   'Other': '📦',
 };
@@ -198,8 +205,9 @@ export default function IngredientsPage() {
         'Pork Products': 'Proteins',
         'Sausages and Luncheon Meats': 'Proteins',
         'Finfish and Shellfish Products': 'Proteins',
+        'Lamb, Veal, and Game Products': 'Proteins',
         'Vegetables and Vegetable Products': 'Produce',
-        'Fruits and Fruit Juices': 'Produce',
+        'Fruits and Fruit Juices': 'Fruits',
         'Nut and Seed Products': 'Pantry',
         'Legumes and Legume Products': 'Pantry',
         'Grain Products': 'Grains & Carbs',
@@ -210,14 +218,21 @@ export default function IngredientsPage() {
         'Soups, Sauces, and Gravies': 'Sauces',
         'Snacks': 'Snacks',
       };
-      const category = categoryMap[best.foodCategory] || 'Other';
 
+      // Refine: detect extracts, flavorings, and alcohol from the name
+      let finalCategory = categoryMap[best.foodCategory] || 'Other';
+      const lowerName = unmatchedName.toLowerCase();
+      if (/\b(extract|vanilla|almond extract|peppermint|flavoring|syrup|molasses|maple syrup|honey|agave)\b/.test(lowerName)) {
+        finalCategory = 'Extracts & Flavorings';
+      } else if (/\b(wine|beer|rum|bourbon|whiskey|vodka|brandy|liqueur|champagne|sake|mirin|sherry|port|marsala|amaretto|kahlua|cointreau|liquor)\b/.test(lowerName)) {
+        finalCategory = 'Alcohol';
+      }
       // Insert into DB
       const { data: newIng, error } = await supabase
         .from('ingredients')
         .insert({
           name: unmatchedName,
-          category,
+          category: finalCategory,
           calories_per_100g: Math.round(nutrition.calories * 10) / 10,
           protein_per_100g: Math.round(nutrition.protein * 10) / 10,
           carbs_per_100g: Math.round(nutrition.carbs * 10) / 10,
@@ -445,7 +460,7 @@ export default function IngredientsPage() {
                               <div className="flex items-start justify-between mb-2">
                                 <div className="flex-1">
                                   <h3 className="font-semibold text-lg text-text">
-                                    {ingredient.name}
+                                    {titleCaseIngredient(ingredient.name)}
                                   </h3>
                                   {ingredient.brand && (
                                     <p className="text-sm text-text-secondary">{ingredient.brand}</p>
@@ -454,18 +469,6 @@ export default function IngredientsPage() {
                               </div>
                             </div>
 
-                            <div className="mb-4 flex gap-2">
-                              {ingredient.is_custom && (
-                                <span className="px-2 py-1 bg-accent bg-opacity-20 text-accent text-xs font-medium rounded-full">
-                                  Custom
-                                </span>
-                              )}
-                              {ingredient.fdc_id && (
-                                <span className="px-2 py-1 bg-primary bg-opacity-20 text-primary text-xs font-medium rounded-full">
-                                  USDA
-                                </span>
-                              )}
-                            </div>
 
                             <div className="grid grid-cols-4 gap-2 text-xs">
                               <div className="bg-background p-2 rounded">
@@ -545,13 +548,13 @@ export default function IngredientsPage() {
               </div>
             ) : (
               <div className="space-y-3">
-                {unmatchedIngredients.map((item, idx) => (
-                  <div key={idx} className="bg-surface border border-border rounded-lg p-4 flex items-center gap-4">
+                {unmatchedIngredients.map((item) => (
+                  <div key={item.name} className="bg-surface border border-border rounded-lg p-4 flex items-center gap-4">
                     <div className="flex-shrink-0">
                       <AlertCircle size={20} className="text-orange-500" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-text capitalize">{item.name}</p>
+                      <p className="font-medium text-text">{titleCaseIngredient(item.name)}</p>
                       <p className="text-xs text-text-secondary mt-0.5">
                         Used in {item.count} recipe{item.count > 1 ? 's' : ''}
                         {item.recipeNames.length > 0 && `: ${item.recipeNames.slice(0, 3).join(', ')}${item.recipeNames.length > 3 ? '...' : ''}`}
@@ -560,7 +563,8 @@ export default function IngredientsPage() {
                     <div className="flex gap-2 flex-shrink-0">
                       {/* Quick-link: find best match from DB */}
                       <select
-                        defaultValue=""
+                        key={item.name}
+                        value=""
                         onChange={(e) => {
                           const dbIng = ingredients.find(i => i.id === e.target.value);
                           if (dbIng) handleLinkIngredient(item.name, dbIng);

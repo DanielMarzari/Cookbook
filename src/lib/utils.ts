@@ -43,3 +43,19 @@ export function toFraction(n: number): string {
   if (bestFrac) return bestFrac;
   return String(Math.round(n * 100) / 100);
 }
+
+// Title-case an ingredient name: "bell pepper" → "Bell Pepper", "sugar (confectioners)" → "Sugar (Confectioners)"
+// Preserves short words like "of", "and", "or" in lowercase unless first word
+const LOWERCASE_WORDS = new Set(['of', 'and', 'or', 'the', 'a', 'an', 'in', 'with', 'for', 'to', 'per']);
+
+export function titleCaseIngredient(name: string): string {
+  if (!name) return name;
+  return name
+    .split(/\s+/)
+    .map((word, i) => {
+      if (i > 0 && LOWERCASE_WORDS.has(word.toLowerCase())) return word.toLowerCase();
+      if (word.startsWith('(')) return '(' + word.charAt(1).toUpperCase() + word.slice(2);
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    })
+    .join(' ');
+}

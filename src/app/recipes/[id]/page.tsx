@@ -7,7 +7,7 @@ import { supabase } from '@/lib/supabase';
 import { Recipe, RecipeIngredient, Ingredient, NutritionInfo } from '@/lib/types';
 import { Clock, Users, Flame, ArrowLeft, Heart, BookOpen, RotateCw, Pencil } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { formatTime, toFraction } from '@/lib/utils';
+import { formatTime, toFraction, titleCaseIngredient } from '@/lib/utils';
 
 interface NutritionCalculation {
   nutrition: NutritionInfo;
@@ -398,7 +398,7 @@ export default function RecipeDetailPage() {
                       {qtyDisplay && (
                         <span className="font-semibold">{qtyDisplay}{unitDisplay}</span>
                       )}
-                      {qtyDisplay ? ' ' : ''}{ing.name}
+                      {qtyDisplay ? ' ' : ''}{titleCaseIngredient(ing.name)}
                       {ing.notes && (
                         <span className="text-text-secondary text-sm ml-1">({ing.notes})</span>
                       )}

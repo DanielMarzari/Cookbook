@@ -17,7 +17,9 @@ const CATEGORIES = [
   'Pantry',
   'Aromatics',
   'Herbs & Spices',
+  'Extracts & Flavorings',
   'Produce',
+  'Fruits',
   'Proteins',
   'Dairy',
   'Grains & Carbs',
@@ -28,6 +30,7 @@ const CATEGORIES = [
   'Canned Goods',
   'Frozen',
   'Beverages',
+  'Alcohol',
   'Snacks',
   'Other',
 ];
