@@ -75,60 +75,64 @@ function findRecipeInJsonLd(obj: any): any | null {
 function extractIngredientSectionsFromHtml($: any): Array<{ name: string; beforeIndex: number }> {
   const sections: Array<{ name: string; beforeIndex: number }> = [];
 
-  // Strategy: find ingredient list elements and look for section headers interspersed
-  const ingredientSelectors = [
+  // Strategy: find the ingredient container, then walk its direct children in order.
+  // Section headers are typically <p><strong>For the X:</strong></p> between <ul> lists.
+  const containerSelectors = [
+    '.tasty-recipes-ingredients',
     '[class*="ingredient"]',
     '[id*="ingredient"]',
-    '.wprm-recipe-ingredient',
-    '.tasty-recipe-ingredients',
+    '.wprm-recipe-ingredients-container',
     '.recipe-ingredients',
     '.ingredients-list',
   ];
 
-  for (const selector of ingredientSelectors) {
-    const container = $(selector).first();
-    if (!container.length) continue;
-
-    // Walk through children looking for section headers (p, span, strong, h3, h4, etc.)
-    // that precede ingredient lists
-    let ingredientCount = 0;
-    const walkChildren = (el: any) => {
-      $(el).children().each((_: number, child: any) => {
-        const $child = $(child);
-        const tag = child.tagName?.toLowerCase();
-        const text = $child.text().trim();
-
-        // Check if this is a section header
-        if (text && text.length < 80 && !text.match(/^\d/) &&
-            /^(for\s+(the\s+)?|the\s+)/i.test(text)) {
-          sections.push({ name: text.replace(/:$/, '').trim(), beforeIndex: ingredientCount });
-        }
-        // Check if this looks like a header element with "for the" pattern
-        else if ((tag === 'p' || tag === 'strong' || tag === 'b' || tag === 'h3' || tag === 'h4' || tag === 'span') &&
-                 text && text.length < 80 && !text.match(/^\d/) &&
-                 /^(for\s+(the\s+)?)/i.test(text) && text.endsWith(':')) {
-          sections.push({ name: text.replace(/:$/, '').trim(), beforeIndex: ingredientCount });
-        }
-
-        // Count ingredient list items
-        if (tag === 'li' && $child.closest('[class*="ingredient"], [id*="ingredient"]').length) {
-          // This is an ingredient item — only count if it looks like an ingredient (has a number or is non-empty)
-          const liText = $child.text().trim();
-          if (liText.length > 2 && liText.length < 200) {
-            ingredientCount++;
-          }
-        }
-
-        // Recurse into sub-containers (but not into <li> items)
-        if (tag !== 'li') {
-          walkChildren(child);
-        }
-      });
-    };
-
-    walkChildren(container[0]);
-    if (sections.length > 0) break;
+  let container: any = null;
+  for (const sel of containerSelectors) {
+    const el = $(sel).first();
+    if (el.length && el.find('li').length > 0) {
+      container = el;
+      break;
+    }
   }
+  if (!container) return sections;
+
+  // Collect all <p>, <strong>, <h3>, <h4>, <li> elements in DOM order within the container
+  let ingredientCount = 0;
+  const allElements = container.find('p, strong, b, h3, h4, h5, li');
+
+  allElements.each((_: number, el: any) => {
+    const $el = $(el);
+    const tag = el.tagName?.toLowerCase();
+
+    if (tag === 'li') {
+      const text = $el.text().trim();
+      if (text.length > 2 && text.length < 200) {
+        ingredientCount++;
+      }
+      return;
+    }
+
+    // For non-li elements, check if they're section headers
+    // Use only the element's own text (not nested children text) to avoid false positives
+    const ownText = $el.clone().children().remove().end().text().trim();
+    const fullText = $el.text().trim();
+    // Use ownText if available (for <p> containing <strong>), else fullText (for <strong> directly)
+    const headerText = ownText || fullText;
+
+    if (!headerText || headerText.length > 80 || headerText.match(/^\d/)) return;
+
+    // Check if this looks like a section header
+    const sectionPattern = /^(for\s+(the\s+)?)/i;
+    if (sectionPattern.test(headerText)) {
+      // Avoid duplicates: a <p> containing <strong> would both match.
+      // Only add if this text isn't already the last section we added.
+      const cleanName = headerText.replace(/:$/, '').trim();
+      const last = sections[sections.length - 1];
+      if (!last || last.name !== cleanName || last.beforeIndex !== ingredientCount) {
+        sections.push({ name: cleanName, beforeIndex: ingredientCount });
+      }
+    }
+  });
 
   return sections;
 }
@@ -206,9 +210,13 @@ function parseJsonLd(html: string, $root?: any): Partial<ParsedRecipe> | null {
           if (/^(for\s+(the\s+)?|the\s+)/i.test(trimmed) && trimmed.length < 60 && !trimmed.match(/^\d/)) {
             ingredientGroups.push({ name: trimmed.replace(/:$/, ''), quantity: 0, unit: '', is_header: true });
           } else {
-            const parsed = parseIngredient(trimmed);
-            const orSplit = splitOrIngredient(parsed);
-            ingredientGroups.push(...orSplit);
+            // Split compound ingredients (e.g. "2 egg yolks + 1 tsp water + 1 tsp honey")
+            const compounds = splitCompoundIngredient(trimmed);
+            for (const compound of compounds) {
+              const parsed = parseIngredient(compound.trim());
+              const orSplit = splitOrIngredient(parsed);
+              ingredientGroups.push(...orSplit);
+            }
           }
         }
 
@@ -347,8 +355,8 @@ function parseIngredient(text: string): ParsedIngredient {
   }).replace(/\s+/g, ' ').trim();
 
   // 2) Extract temperature references → notes
-  // "approx. 110°F" or "warm" as descriptor
-  const tempMatch = cleaned.match(/,?\s*(?:approx\.?\s*)?(\d+\s*°[FCfc])\s*/);
+  // Handles: "approx. 110°F", "105-110°F", "350°F", "warm"
+  const tempMatch = cleaned.match(/,?\s*(?:approx\.?\s*)?(\d+(?:\s*-\s*\d+)?\s*°[FCfc])\s*/);
   if (tempMatch) {
     noteParts.push(tempMatch[0].replace(/^,?\s*/, '').trim());
     cleaned = cleaned.replace(tempMatch[0], ' ').replace(/\s+/g, ' ').trim();
@@ -471,6 +479,23 @@ function splitOrIngredient(parsed: ParsedIngredient): ParsedIngredient[] {
   ];
 }
 
+// Split compound ingredients joined by "+" into separate items
+// e.g. "2 egg yolks + 1 tsp water + 1 tsp honey" → 3 separate ingredients
+function splitCompoundIngredient(text: string): string[] {
+  // Only split on " + " when it's surrounded by what looks like separate ingredients
+  // i.e. a number follows the "+"
+  const parts = text.split(/\s*\+\s*/);
+  if (parts.length <= 1) return [text];
+
+  // Verify that at least the second part starts with a number or unicode fraction
+  const startsWithQty = /^[\d½⅓⅔¼¾⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞]/;
+  const validParts = parts.filter(p => p.trim().length > 0);
+  if (validParts.length > 1 && validParts.slice(1).some(p => startsWithQty.test(p.trim()))) {
+    return validParts;
+  }
+  return [text];
+}
+
 function normalizeUnit(unit: string): string {
   const u = unit.toLowerCase().replace(/\.$/, '');
   const map: Record<string, string> = {
@@ -545,7 +570,7 @@ function parseFallback(html: string): Partial<ParsedRecipe> {
     $(selector).each((_, el) => {
       const text = $(el).text().replace(/\s+/g, ' ').trim();
       if (text.length > 2 && text.length < 200) {
-        ingredients.push(...splitOrIngredient(parseIngredient(text)));
+        for (const c of splitCompoundIngredient(text)) { ingredients.push(...splitOrIngredient(parseIngredient(c.trim()))); }
       }
     });
     if (ingredients.length > 0) break;
@@ -569,7 +594,7 @@ function parseFallback(html: string): Partial<ParsedRecipe> {
             next.find('li').each((_, li) => {
               const text = $(li).text().replace(/\s+/g, ' ').trim();
               if (text.length > 2 && text.length < 200) {
-                ingredients.push(...splitOrIngredient(parseIngredient(text)));
+                for (const c of splitCompoundIngredient(text)) { ingredients.push(...splitOrIngredient(parseIngredient(c.trim()))); }
               }
             });
             break;
@@ -578,7 +603,7 @@ function parseFallback(html: string): Partial<ParsedRecipe> {
           if (next.is('p, div') && !next.find('h1, h2, h3, h4, h5, h6').length) {
             const text = next.text().replace(/\s+/g, ' ').trim();
             if (text.length > 2 && text.length < 200 && !text.toLowerCase().includes('instruction')) {
-              ingredients.push(...splitOrIngredient(parseIngredient(text)));
+              for (const c of splitCompoundIngredient(text)) { ingredients.push(...splitOrIngredient(parseIngredient(c.trim()))); }
             }
           }
           next = next.next();
