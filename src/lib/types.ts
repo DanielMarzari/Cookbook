@@ -34,6 +34,7 @@ export interface Ingredient {
   image_url?: string;
   barcode?: string;
   fdc_id?: string;
+  aliases?: string[];
   is_custom: boolean;
   created_at: string;
   updated_at: string;

@@ -46,6 +46,7 @@ export default function IngredientModal({
   const [category, setCategory] = useState(ingredient?.category || 'Other');
   const [isCustom, setIsCustom] = useState(ingredient?.is_custom || false);
   const [fdcId, setFdcId] = useState(ingredient?.fdc_id || '');
+  const [aliasesText, setAliasesText] = useState((ingredient?.aliases || []).join(', '));
 
   const [nutrition, setNutrition] = useState<NutritionInfo>(
     ingredient ? {
@@ -75,6 +76,7 @@ export default function IngredientModal({
       setCategory(ingredient.category);
       setIsCustom(ingredient.is_custom);
       setFdcId(ingredient.fdc_id || '');
+      setAliasesText((ingredient.aliases || []).join(', '));
       setNutrition({
         calories: ingredient.calories_per_100g,
         protein: ingredient.protein_per_100g,
@@ -91,6 +93,7 @@ export default function IngredientModal({
       setCategory('Other');
       setIsCustom(false);
       setFdcId('');
+      setAliasesText('');
       setNutrition({ calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0, sugar: 0, sodium: 0 });
     }
   }, [ingredient]);
@@ -228,6 +231,7 @@ export default function IngredientModal({
       sodium_per_100g: nutrition.sodium,
       custom_nutrition: customNutrition,
       fdc_id: fdcId || undefined,
+      aliases: aliasesText ? aliasesText.split(',').map(a => a.trim()).filter(Boolean) : [],
       is_custom: isCustom,
       created_at: ingredient?.created_at || new Date().toISOString(),
       updated_at: new Date().toISOString(),
@@ -333,6 +337,20 @@ export default function IngredientModal({
                     className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   />
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text mb-2">
+                  Also Known As
+                </label>
+                <input
+                  type="text"
+                  value={aliasesText}
+                  onChange={(e) => setAliasesText(e.target.value)}
+                  placeholder="e.g. confectioners sugar, powdered sugar"
+                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                />
+                <p className="text-xs text-text-secondary mt-1">Comma-separated alternate names for matching</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">

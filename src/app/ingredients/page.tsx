@@ -127,8 +127,16 @@ export default function IngredientsPage() {
 
       const recipeMap = new Map(recipes?.map(r => [r.id, r.title]) || []);
 
-      // Get all DB ingredient names (lowercase for comparison)
-      const dbNames = new Set(ingredients.map(i => i.name.toLowerCase()));
+      // Get all DB ingredient names + aliases (lowercase for comparison)
+      const dbNames = new Set<string>();
+      for (const i of ingredients) {
+        dbNames.add(i.name.toLowerCase());
+        if (i.aliases) {
+          for (const alias of i.aliases) {
+            dbNames.add(alias.toLowerCase());
+          }
+        }
+      }
 
       // Find recipe ingredients that don't match any DB ingredient
       const unmatchedMap = new Map<string, { count: number; recipeNames: Set<string> }>();
@@ -277,6 +285,25 @@ export default function IngredientsPage() {
         .ilike('name', unmatchedName);
 
       if (error) throw error;
+
+      // Save the unmatched name as an alias on the DB ingredient (if different)
+      const lowerName = unmatchedName.toLowerCase().trim();
+      const lowerDbName = dbIngredient.name.toLowerCase().trim();
+      if (lowerName !== lowerDbName) {
+        const currentAliases = dbIngredient.aliases || [];
+        if (!currentAliases.some(a => a.toLowerCase() === lowerName)) {
+          const newAliases = [...currentAliases, unmatchedName.trim()];
+          await supabase
+            .from('ingredients')
+            .update({ aliases: newAliases })
+            .eq('id', dbIngredient.id);
+
+          // Update local state
+          setIngredients(prev => prev.map(i =>
+            i.id === dbIngredient.id ? { ...i, aliases: newAliases } : i
+          ));
+        }
+      }
 
       // Remove from unmatched list
       setUnmatchedIngredients(prev => prev.filter(u => u.name.toLowerCase() !== unmatchedName.toLowerCase()));
