@@ -4,12 +4,13 @@ import { Technique } from '@/lib/types';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
+  const { slug } = await params;
   try {
     const db = getDb();
     const stmt = db.prepare('SELECT * FROM techniques WHERE slug = ? OR id = ?');
-    const technique = stmt.get(params.slug, params.slug) as Technique;
+    const technique = stmt.get(slug, slug) as Technique;
     if (!technique) return NextResponse.json({ error: 'Technique not found' }, { status: 404 });
     return NextResponse.json(technique);
   } catch (error) {
@@ -20,8 +21,9 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
+  const { slug } = await params;
   try {
     const db = getDb();
     const body = await request.json();
@@ -52,12 +54,12 @@ export async function PUT(
       body.video_url || null,
       body.tips ? JSON.stringify(body.tips) : null,
       body.related_techniques ? JSON.stringify(body.related_techniques) : null,
-      params.slug,
-      params.slug
+      slug,
+      slug
     );
 
     const getStmt = db.prepare('SELECT * FROM techniques WHERE slug = ? OR id = ?');
-    return NextResponse.json(getStmt.get(params.slug, params.slug));
+    return NextResponse.json(getStmt.get(slug, slug));
   } catch (error) {
     console.error('Error updating technique:', error);
     return NextResponse.json({ error: 'Failed to update technique' }, { status: 500 });
@@ -66,12 +68,13 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
+  const { slug } = await params;
   try {
     const db = getDb();
-    db.prepare('DELETE FROM user_technique_skills WHERE technique_id IN (SELECT id FROM techniques WHERE slug = ? OR id = ?)').run(params.slug, params.slug);
-    db.prepare('DELETE FROM techniques WHERE slug = ? OR id = ?').run(params.slug, params.slug);
+    db.prepare('DELETE FROM user_technique_skills WHERE technique_id IN (SELECT id FROM techniques WHERE slug = ? OR id = ?)').run(slug, slug);
+    db.prepare('DELETE FROM techniques WHERE slug = ? OR id = ?').run(slug, slug);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting technique:', error);

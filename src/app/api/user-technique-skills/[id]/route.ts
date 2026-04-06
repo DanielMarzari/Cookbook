@@ -4,12 +4,13 @@ import { UserTechniqueSkill } from '@/lib/types';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const db = getDb();
     const stmt = db.prepare('SELECT * FROM user_technique_skills WHERE id = ?');
-    const skill = stmt.get(params.id) as UserTechniqueSkill;
+    const skill = stmt.get(id) as UserTechniqueSkill;
     if (!skill) return NextResponse.json({ error: 'User technique skill not found' }, { status: 404 });
     return NextResponse.json(skill);
   } catch (error) {
@@ -20,8 +21,9 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const db = getDb();
     const body = await request.json();
@@ -39,11 +41,11 @@ export async function PUT(
       body.skill_level || null,
       body.notes || null,
       now,
-      params.id
+      id
     );
 
     const getStmt = db.prepare('SELECT * FROM user_technique_skills WHERE id = ?');
-    return NextResponse.json(getStmt.get(params.id));
+    return NextResponse.json(getStmt.get(id));
   } catch (error) {
     console.error('Error updating user technique skill:', error);
     return NextResponse.json({ error: 'Failed to update user technique skill' }, { status: 500 });
@@ -52,11 +54,12 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const db = getDb();
-    db.prepare('DELETE FROM user_technique_skills WHERE id = ?').run(params.id);
+    db.prepare('DELETE FROM user_technique_skills WHERE id = ?').run(id);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting user technique skill:', error);
