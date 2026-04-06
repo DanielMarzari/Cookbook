@@ -8,8 +8,12 @@ import { Recipe } from '@/lib/types';
 import { ArrowLeft, Plus, X, Loader, RotateCw, Trash2 } from 'lucide-react';
 
 const CUISINES = [
-  'Italian', 'Japanese', 'Mexican', 'French', 'Chinese',
-  'Indian', 'Thai', 'Mediterranean', 'American', 'Korean',
+  'American', 'Brazilian', 'Caribbean', 'Chinese', 'Ethiopian',
+  'Filipino', 'French', 'German', 'Greek', 'Indian',
+  'Italian', 'Japanese', 'Jewish', 'Korean', 'Lebanese',
+  'Mediterranean', 'Mexican', 'Moroccan', 'Persian', 'Polish',
+  'Southern', 'Spanish', 'Thai', 'Turkish', 'Vietnamese',
+  'Other',
 ];
 
 const UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'tbsp', 'tsp', 'oz', 'lb', 'piece', 'stick', 'clove', 'slice', 'can', 'pinch', 'dash', 'sprig', 'bunch', 'head', 'stalk', 'package', 'bag', 'large', 'medium', 'small'];

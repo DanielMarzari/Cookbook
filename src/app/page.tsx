@@ -37,6 +37,8 @@ export default function RecipesPage() {
           query = query.lte('total_time_minutes', filters.maxTime);
         }
 
+        query = query.order('created_at', { ascending: false });
+
         const { data, error: supabaseError } = await query;
 
         if (supabaseError) {
