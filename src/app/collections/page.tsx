@@ -19,6 +19,8 @@ export default function CollectionsPage() {
     subtitle: '',
     description: '',
     cover_image_url: '',
+    auto_filter_field: '',
+    auto_filter_value: '',
   });
 
   useEffect(() => {
@@ -78,6 +80,8 @@ export default function CollectionsPage() {
             subtitle: newCollection.subtitle || null,
             description: newCollection.description || null,
             cover_image_url: newCollection.cover_image_url || null,
+            auto_filter_field: newCollection.auto_filter_field || null,
+            auto_filter_value: newCollection.auto_filter_value || null,
             color: 'bg-amber-100',
           },
         ])
@@ -90,7 +94,7 @@ export default function CollectionsPage() {
 
       setCollections([data, ...collections]);
       setCollectionCounts({ ...collectionCounts, [data.id]: 0 });
-      setNewCollection({ name: '', subtitle: '', description: '', cover_image_url: '' });
+      setNewCollection({ name: '', subtitle: '', description: '', cover_image_url: '', auto_filter_field: '', auto_filter_value: '' });
       setShowNewCollectionModal(false);
     } catch (err) {
       console.error('Error creating collection:', err);
@@ -309,6 +313,37 @@ export default function CollectionsPage() {
                     />
                   </div>
                 )}
+              </div>
+
+              {/* Auto-add filter */}
+              <div className="bg-background rounded-lg p-4">
+                <label className="block text-sm font-medium text-text mb-2">
+                  Auto-add recipes (optional)
+                </label>
+                <p className="text-xs text-text-secondary mb-3">
+                  New recipes matching this filter will be added automatically.
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  <select
+                    value={newCollection.auto_filter_field}
+                    onChange={(e) => setNewCollection({ ...newCollection, auto_filter_field: e.target.value, auto_filter_value: '' })}
+                    className="px-3 py-2 rounded-lg border border-border bg-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">No filter</option>
+                    <option value="cuisine_type">Cuisine</option>
+                    <option value="source_name">Source</option>
+                    <option value="source_author">Author</option>
+                  </select>
+                  {newCollection.auto_filter_field && (
+                    <input
+                      type="text"
+                      placeholder={newCollection.auto_filter_field === 'cuisine_type' ? 'e.g. Italian' : 'e.g. The Nosher'}
+                      value={newCollection.auto_filter_value}
+                      onChange={(e) => setNewCollection({ ...newCollection, auto_filter_value: e.target.value })}
+                      className="px-3 py-2 rounded-lg border border-border bg-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  )}
+                </div>
               </div>
             </div>
 

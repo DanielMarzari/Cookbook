@@ -27,6 +27,8 @@ export default function CollectionDetailPage() {
   const [editSubtitle, setEditSubtitle] = useState('');
   const [editDescription, setEditDescription] = useState('');
   const [editCoverUrl, setEditCoverUrl] = useState('');
+  const [editFilterField, setEditFilterField] = useState('');
+  const [editFilterValue, setEditFilterValue] = useState('');
   const [editSaving, setEditSaving] = useState(false);
 
   useEffect(() => {
@@ -89,6 +91,8 @@ export default function CollectionDetailPage() {
     setEditSubtitle(collection.subtitle || '');
     setEditDescription(collection.description || '');
     setEditCoverUrl(collection.cover_image_url || '');
+    setEditFilterField(collection.auto_filter_field || '');
+    setEditFilterValue(collection.auto_filter_value || '');
     setEditing(true);
   };
 
@@ -103,6 +107,8 @@ export default function CollectionDetailPage() {
           subtitle: editSubtitle || null,
           description: editDescription || null,
           cover_image_url: editCoverUrl || null,
+          auto_filter_field: editFilterField || null,
+          auto_filter_value: editFilterValue || null,
         })
         .eq('id', collection.id);
 
@@ -113,6 +119,8 @@ export default function CollectionDetailPage() {
         subtitle: editSubtitle || undefined,
         description: editDescription || undefined,
         cover_image_url: editCoverUrl || undefined,
+        auto_filter_field: editFilterField || undefined,
+        auto_filter_value: editFilterValue || undefined,
       });
       setEditing(false);
     } catch (err) {
@@ -244,6 +252,11 @@ export default function CollectionDetailPage() {
                 )}
                 <p className="text-sm text-white/50 mt-4">
                   {collectionRecipes.length} {collectionRecipes.length === 1 ? 'recipe' : 'recipes'}
+                  {collection.auto_filter_field && collection.auto_filter_value && (
+                    <span className="ml-2 px-2 py-0.5 bg-white/20 rounded-full text-xs">
+                      Auto: {collection.auto_filter_field === 'cuisine_type' ? 'Cuisine' : collection.auto_filter_field === 'source_name' ? 'Source' : 'Author'} = {collection.auto_filter_value}
+                    </span>
+                  )}
                 </p>
               </div>
             </div>
@@ -280,6 +293,11 @@ export default function CollectionDetailPage() {
                 )}
                 <p className="text-sm text-text-secondary mt-4">
                   {collectionRecipes.length} {collectionRecipes.length === 1 ? 'recipe' : 'recipes'}
+                  {collection.auto_filter_field && collection.auto_filter_value && (
+                    <span className="ml-2 px-2 py-0.5 bg-primary/10 text-primary rounded-full text-xs">
+                      Auto: {collection.auto_filter_field === 'cuisine_type' ? 'Cuisine' : collection.auto_filter_field === 'source_name' ? 'Source' : 'Author'} = {collection.auto_filter_value}
+                    </span>
+                  )}
                 </p>
               </div>
             </div>
@@ -369,6 +387,26 @@ export default function CollectionDetailPage() {
                     <img src={editCoverUrl} alt="Cover preview" className="w-full h-full object-cover" />
                   </div>
                 )}
+              </div>
+
+              {/* Auto-add filter */}
+              <div className="bg-background rounded-lg p-4">
+                <label className="block text-sm font-medium text-text mb-2">Auto-add recipes</label>
+                <p className="text-xs text-text-secondary mb-3">New recipes matching this filter will be added automatically.</p>
+                <div className="grid grid-cols-2 gap-2">
+                  <select value={editFilterField} onChange={(e) => { setEditFilterField(e.target.value); setEditFilterValue(''); }}
+                    className="px-3 py-2 rounded-lg border border-border bg-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                    <option value="">No filter</option>
+                    <option value="cuisine_type">Cuisine</option>
+                    <option value="source_name">Source</option>
+                    <option value="source_author">Author</option>
+                  </select>
+                  {editFilterField && (
+                    <input type="text" placeholder={editFilterField === 'cuisine_type' ? 'e.g. Italian' : 'e.g. The Nosher'}
+                      value={editFilterValue} onChange={(e) => setEditFilterValue(e.target.value)}
+                      className="px-3 py-2 rounded-lg border border-border bg-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary" />
+                  )}
+                </div>
               </div>
             </div>
             <div className="flex gap-3 mt-6">
