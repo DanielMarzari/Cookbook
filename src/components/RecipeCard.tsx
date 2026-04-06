@@ -5,6 +5,7 @@ import { Heart, Clock, Flame, Sparkles, FlaskConical, CheckCircle, Award, Archiv
 import Link from 'next/link';
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
+import { formatTime } from '@/lib/utils';
 
 const cuisineColors: Record<string, string> = {
   italian: 'theme-italian',
@@ -200,7 +201,7 @@ export default function RecipeCard({
           <div className="flex items-center justify-between gap-3 pt-3 border-t border-border">
             <div className="flex items-center gap-1 text-sm text-text-secondary">
               <Clock size={16} />
-              <span>{recipe.total_time_minutes ? `${recipe.total_time_minutes} min` : 'N/A'}</span>
+              <span>{recipe.total_time_minutes ? formatTime(recipe.total_time_minutes) : 'N/A'}</span>
             </div>
             <div className="text-sm text-text-secondary">
               {recipe.servings} servings

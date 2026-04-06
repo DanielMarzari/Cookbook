@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Upload, Plus, X, Loader } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { Recipe, RecipeIngredient, Tag } from '@/lib/types';
+import { toFraction } from '@/lib/utils';
 
 interface FormRecipe {
   title: string;
@@ -42,36 +43,6 @@ const CUISINES = [
 
 const UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'tbsp', 'tsp', 'oz', 'lb', 'piece', 'stick', 'clove', 'slice', 'can', 'pinch', 'dash', 'sprig', 'bunch', 'head', 'stalk', 'package', 'bag', 'large', 'medium', 'small'];
 
-// Convert a decimal number to a display fraction string
-function toFraction(n: number): string {
-  if (n === 0) return '0';
-  const whole = Math.floor(n);
-  const frac = n - whole;
-
-  // Common fraction thresholds
-  const fractions: [number, string][] = [
-    [0, ''], [0.125, '⅛'], [0.2, '⅕'], [0.25, '¼'], [1/3, '⅓'],
-    [0.375, '⅜'], [0.4, '⅖'], [0.5, '½'], [0.6, '⅗'], [0.625, '⅝'],
-    [2/3, '⅔'], [0.75, '¾'], [0.8, '⅘'], [0.875, '⅞'],
-  ];
-
-  // Find closest fraction (within tolerance)
-  let bestFrac = '';
-  let bestDiff = 0.05;
-  for (const [val, symbol] of fractions) {
-    const diff = Math.abs(frac - val);
-    if (diff < bestDiff) {
-      bestDiff = diff;
-      bestFrac = symbol;
-    }
-  }
-
-  if (whole > 0 && bestFrac) return `${whole}${bestFrac}`;
-  if (whole > 0) return String(whole);
-  if (bestFrac) return bestFrac;
-  // Fallback: round to 2 decimals
-  return String(Math.round(n * 100) / 100);
-}
 
 export default function AddRecipePage() {
   const router = useRouter();

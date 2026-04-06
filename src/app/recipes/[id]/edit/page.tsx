@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { Recipe } from '@/lib/types';
 import { ArrowLeft, Plus, X, Loader, RotateCw, Trash2 } from 'lucide-react';
+import { toFraction } from '@/lib/utils';
 
 const CUISINES = [
   'American', 'Brazilian', 'Caribbean', 'Chinese', 'Ethiopian',
@@ -18,26 +19,6 @@ const CUISINES = [
 
 const UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'tbsp', 'tsp', 'oz', 'lb', 'piece', 'stick', 'clove', 'slice', 'can', 'pinch', 'dash', 'sprig', 'bunch', 'head', 'stalk', 'package', 'bag', 'large', 'medium', 'small'];
 
-function toFraction(n: number): string {
-  if (n === 0) return '0';
-  const whole = Math.floor(n);
-  const frac = n - whole;
-  const fractions: [number, string][] = [
-    [0, ''], [0.125, '⅛'], [0.2, '⅕'], [0.25, '¼'], [1/3, '⅓'],
-    [0.375, '⅜'], [0.4, '⅖'], [0.5, '½'], [0.6, '⅗'], [0.625, '⅝'],
-    [2/3, '⅔'], [0.75, '¾'], [0.8, '⅘'], [0.875, '⅞'],
-  ];
-  let bestFrac = '';
-  let bestDiff = 0.05;
-  for (const [val, symbol] of fractions) {
-    const diff = Math.abs(frac - val);
-    if (diff < bestDiff) { bestDiff = diff; bestFrac = symbol; }
-  }
-  if (whole > 0 && bestFrac) return `${whole}${bestFrac}`;
-  if (whole > 0) return String(whole);
-  if (bestFrac) return bestFrac;
-  return String(Math.round(n * 100) / 100);
-}
 
 interface FormIngredient {
   name: string;
