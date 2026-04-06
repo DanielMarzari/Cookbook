@@ -45,7 +45,7 @@ const CUISINES = [
   'Other',
 ];
 
-const UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'tbsp', 'tsp', 'oz', 'lb', 'piece', 'stick', 'clove', 'slice', 'can', 'pinch', 'dash', 'sprig', 'bunch', 'head', 'stalk', 'package', 'bag', 'large', 'medium', 'small'];
+const UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'tbsp', 'tsp', 'oz', 'lb', 'quart', 'pint', 'gallon', 'piece', 'part', 'dozen', 'drop', 'stick', 'clove', 'slice', 'can', 'bottle', 'jar', 'pinch', 'dash', 'handful', 'sprig', 'bunch', 'head', 'stalk', 'package', 'bag', 'whole', 'large', 'medium', 'small'];
 
 
 export default function AddRecipePage() {

@@ -332,9 +332,12 @@ const UNIT_PATTERNS = [
   'cups?', 'ounces?', 'oz', 'pounds?', 'lbs?',
   'grams?', 'kilograms?', 'kg', 'milliliters?', 'ml', 'liters?', 'l',
   'g',
+  'quarts?', 'qt', 'pints?', 'pt', 'gallons?', 'gal',
+  'dozen', 'drops?', 'parts?',
   'pinch(?:es)?', 'dash(?:es)?', 'cloves?', 'slices?',
   'pieces?', 'cans?', 'packages?', 'sticks?', 'bunches?',
-  'sprigs?', 'heads?', 'stalks?', 'bags?', 'large', 'medium', 'small',
+  'sprigs?', 'heads?', 'stalks?', 'bags?', 'bottles?', 'jars?',
+  'handfuls?', 'whole', 'large', 'medium', 'small',
 ];
 const UNIT_REGEX_STR = UNIT_PATTERNS.join('|');
 
@@ -543,6 +546,16 @@ function normalizeUnit(unit: string): string {
     stalk: 'stalk', stalks: 'stalk',
     package: 'package', packages: 'package',
     bag: 'bag', bags: 'bag',
+    bottle: 'bottle', bottles: 'bottle',
+    jar: 'jar', jars: 'jar',
+    handful: 'handful', handfuls: 'handful',
+    quart: 'quart', quarts: 'quart', qt: 'quart',
+    pint: 'pint', pints: 'pint', pt: 'pint',
+    gallon: 'gallon', gallons: 'gallon', gal: 'gallon',
+    dozen: 'dozen',
+    drop: 'drop', drops: 'drop',
+    part: 'part', parts: 'part',
+    whole: 'whole',
   };
   return map[u] || u;
 }
@@ -609,9 +622,19 @@ function parseFallback(html: string): Partial<ParsedRecipe> {
         if (!next.length || (!next.is('ul') && !next.is('ol'))) {
           next = $(heading).parent().next();
         }
+        // Squarespace/CMS: walk up to the block-level container if needed
+        if (!next.length || (!next.is('ul') && !next.is('ol') && !next.find('ul, ol').length)) {
+          // Try data-block-type first (Squarespace), then common block wrappers
+          let ancestor = $(heading).closest('[data-block-type]');
+          if (!ancestor.length) ancestor = $(heading).closest('.sqs-block, .block, .content-block');
+          if (ancestor.length) {
+            next = ancestor.next();
+          }
+        }
         // Keep walking siblings
         let attempts = 0;
-        while (next.length && attempts < 5) {
+        while (next.length && attempts < 8) {
+          // Check for ul/ol directly
           if (next.is('ul') || next.is('ol')) {
             next.find('li').each((_, li) => {
               const text = $(li).text().replace(/\s+/g, ' ').trim();
@@ -620,6 +643,17 @@ function parseFallback(html: string): Partial<ParsedRecipe> {
               }
             });
             break;
+          }
+          // Check for ul/ol nested inside block wrappers (Squarespace, etc.)
+          const nestedList = next.find('ul, ol');
+          if (nestedList.length) {
+            nestedList.first().find('li').each((_, li) => {
+              const text = $(li).text().replace(/\s+/g, ' ').trim();
+              if (text.length > 2 && text.length < 200) {
+                for (const c of splitCompoundIngredient(text)) { ingredients.push(...splitOrIngredient(parseIngredient(c.trim()))); }
+              }
+            });
+            if (ingredients.length > 0) break;
           }
           // Some sites put each ingredient in a <p> or <div>
           if (next.is('p, div') && !next.find('h1, h2, h3, h4, h5, h6').length) {
@@ -671,9 +705,16 @@ function parseFallback(html: string): Partial<ParsedRecipe> {
         if (!next.length) {
           next = $(heading).parent().next();
         }
+        // Squarespace: walk up to sqs-block level if needed
+        if (!next.length || (!next.is('ol') && !next.is('ul') && !next.find('ol, ul').length)) {
+          let ancestor = $(heading).closest('.sqs-block, [class*="block"], [data-block-type]');
+          if (ancestor.length) {
+            next = ancestor.next();
+          }
+        }
         let attempts = 0;
         while (next.length && attempts < 10) {
-          if (next.is('ol')) {
+          if (next.is('ol') || next.is('ul')) {
             next.find('li').each((_, li) => {
               const text = $(li).text().replace(/\s+/g, ' ').trim();
               if (text.length > 10 && text.length < 1000) {
@@ -682,14 +723,16 @@ function parseFallback(html: string): Partial<ParsedRecipe> {
             });
             break;
           }
-          if (next.is('ul')) {
-            next.find('li').each((_, li) => {
+          // Check for ol/ul nested inside block wrappers
+          const nestedList = next.find('ol, ul');
+          if (nestedList.length) {
+            nestedList.first().find('li').each((_, li) => {
               const text = $(li).text().replace(/\s+/g, ' ').trim();
               if (text.length > 10 && text.length < 1000) {
                 instructions.push({ text });
               }
             });
-            break;
+            if (instructions.length > 0) break;
           }
           if (next.is('p, div') && !next.find('h1, h2, h3, h4, h5, h6').length) {
             const text = next.text().replace(/\s+/g, ' ').trim();
