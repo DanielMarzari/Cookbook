@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { Upload, Plus, X, Loader } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { Recipe, RecipeIngredient, Tag } from '@/lib/types';
@@ -31,16 +32,12 @@ interface FormRecipe {
 }
 
 const CUISINES = [
-  'Italian',
-  'Japanese',
-  'Mexican',
-  'French',
-  'Chinese',
-  'Indian',
-  'Thai',
-  'Mediterranean',
-  'American',
-  'Korean',
+  'American', 'Brazilian', 'Caribbean', 'Chinese', 'Ethiopian',
+  'Filipino', 'French', 'German', 'Greek', 'Indian',
+  'Italian', 'Japanese', 'Jewish', 'Korean', 'Lebanese',
+  'Mediterranean', 'Mexican', 'Moroccan', 'Persian', 'Polish',
+  'Southern', 'Spanish', 'Thai', 'Turkish', 'Vietnamese',
+  'Other',
 ];
 
 const UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'tbsp', 'tsp', 'oz', 'lb', 'piece', 'stick', 'clove', 'slice', 'can', 'pinch', 'dash', 'sprig', 'bunch', 'head', 'stalk', 'package', 'bag', 'large', 'medium', 'small'];
@@ -77,6 +74,7 @@ function toFraction(n: number): string {
 }
 
 export default function AddRecipePage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState<'manual' | 'url' | 'image'>(
     'manual'
   );
@@ -361,23 +359,7 @@ export default function AddRecipePage() {
         if (tagError) console.error('Tag insertion error:', tagError);
       }
 
-      alert('Recipe saved successfully!');
-      setFormData({
-        title: '',
-        description: '',
-        cuisine_type: 'Italian',
-        difficulty: 'medium',
-        prep_time_minutes: 15,
-        cook_time_minutes: 30,
-        servings: 4,
-        image_url: '',
-        source_url: '',
-        source_name: '',
-        source_author: '',
-        ingredients: [{ name: '', quantity: 0, unit: 'g', notes: '' }],
-        instructions: [{ text: '', timer_minutes: undefined, timer_label: '' }],
-      });
-      setImportedData(null);
+      router.push('/');
     } catch (error) {
       console.error('Error saving recipe:', error);
       alert('Failed to save recipe: ' + (error instanceof Error ? error.message : 'Unknown error'));

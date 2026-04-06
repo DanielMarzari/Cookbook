@@ -124,6 +124,182 @@
   --color-border: #fecaca;
 }
 
+/* Jewish theme - warm blue/gold */
+.theme-jewish {
+  --color-primary: #1d4ed8;
+  --color-primary-dark: #1e3a8a;
+  --color-secondary: #ca8a04;
+  --color-accent: #f5f5f4;
+  --color-background: #eff6ff;
+  --color-text: #1e3a5f;
+  --color-border: #bfdbfe;
+}
+
+/* Greek theme - azure/white */
+.theme-greek {
+  --color-primary: #0369a1;
+  --color-primary-dark: #075985;
+  --color-secondary: #f8fafc;
+  --color-accent: #0ea5e9;
+  --color-background: #f0f9ff;
+  --color-text: #0c4a6e;
+  --color-border: #bae6fd;
+}
+
+/* Brazilian theme - green/yellow */
+.theme-brazilian {
+  --color-primary: #15803d;
+  --color-primary-dark: #166534;
+  --color-secondary: #eab308;
+  --color-accent: #2563eb;
+  --color-background: #f0fdf4;
+  --color-text: #14532d;
+  --color-border: #bbf7d0;
+}
+
+/* Caribbean theme - turquoise/coral */
+.theme-caribbean {
+  --color-primary: #0891b2;
+  --color-primary-dark: #0e7490;
+  --color-secondary: #f97316;
+  --color-accent: #fbbf24;
+  --color-background: #ecfeff;
+  --color-text: #164e63;
+  --color-border: #a5f3fc;
+}
+
+/* Ethiopian theme - warm gold/brown */
+.theme-ethiopian {
+  --color-primary: #92400e;
+  --color-primary-dark: #78350f;
+  --color-secondary: #d97706;
+  --color-accent: #15803d;
+  --color-background: #fffbeb;
+  --color-text: #451a03;
+  --color-border: #fde68a;
+}
+
+/* Filipino theme - bright red/yellow */
+.theme-filipino {
+  --color-primary: #dc2626;
+  --color-primary-dark: #b91c1c;
+  --color-secondary: #2563eb;
+  --color-accent: #fbbf24;
+  --color-background: #fef2f2;
+  --color-text: #450a0a;
+  --color-border: #fecaca;
+}
+
+/* German theme - dark amber/cream */
+.theme-german {
+  --color-primary: #92400e;
+  --color-primary-dark: #78350f;
+  --color-secondary: #1e293b;
+  --color-accent: #fbbf24;
+  --color-background: #fefce8;
+  --color-text: #422006;
+  --color-border: #fde68a;
+}
+
+/* Lebanese theme - cedar green/wine */
+.theme-lebanese {
+  --color-primary: #166534;
+  --color-primary-dark: #14532d;
+  --color-secondary: #9f1239;
+  --color-accent: #f5f5f4;
+  --color-background: #f0fdf4;
+  --color-text: #14532d;
+  --color-border: #bbf7d0;
+}
+
+/* Moroccan theme - warm terracotta */
+.theme-moroccan {
+  --color-primary: #c2410c;
+  --color-primary-dark: #9a3412;
+  --color-secondary: #854d0e;
+  --color-accent: #0f766e;
+  --color-background: #fff7ed;
+  --color-text: #431407;
+  --color-border: #fed7aa;
+}
+
+/* Persian theme - saffron/teal */
+.theme-persian {
+  --color-primary: #0f766e;
+  --color-primary-dark: #115e59;
+  --color-secondary: #b45309;
+  --color-accent: #d97706;
+  --color-background: #f0fdfa;
+  --color-text: #134e4a;
+  --color-border: #99f6e4;
+}
+
+/* Polish theme - red/white */
+.theme-polish {
+  --color-primary: #be123c;
+  --color-primary-dark: #9f1239;
+  --color-secondary: #f8fafc;
+  --color-accent: #fbbf24;
+  --color-background: #fff1f2;
+  --color-text: #4c0519;
+  --color-border: #fecdd3;
+}
+
+/* Southern theme - warm rustic */
+.theme-southern {
+  --color-primary: #a16207;
+  --color-primary-dark: #854d0e;
+  --color-secondary: #b91c1c;
+  --color-accent: #15803d;
+  --color-background: #fefce8;
+  --color-text: #422006;
+  --color-border: #fef08a;
+}
+
+/* Spanish theme - warm red/gold */
+.theme-spanish {
+  --color-primary: #b91c1c;
+  --color-primary-dark: #991b1b;
+  --color-secondary: #ca8a04;
+  --color-accent: #f97316;
+  --color-background: #fef2f2;
+  --color-text: #450a0a;
+  --color-border: #fecaca;
+}
+
+/* Turkish theme - ruby/copper */
+.theme-turkish {
+  --color-primary: #9f1239;
+  --color-primary-dark: #881337;
+  --color-secondary: #b45309;
+  --color-accent: #0ea5e9;
+  --color-background: #fff1f2;
+  --color-text: #4c0519;
+  --color-border: #fecdd3;
+}
+
+/* Vietnamese theme - fresh green/warm */
+.theme-vietnamese {
+  --color-primary: #15803d;
+  --color-primary-dark: #166534;
+  --color-secondary: #ea580c;
+  --color-accent: #fbbf24;
+  --color-background: #f0fdf4;
+  --color-text: #14532d;
+  --color-border: #bbf7d0;
+}
+
+/* Other - neutral */
+.theme-other {
+  --color-primary: #525252;
+  --color-primary-dark: #404040;
+  --color-secondary: #737373;
+  --color-accent: #a3a3a3;
+  --color-background: #fafafa;
+  --color-text: #262626;
+  --color-border: #d4d4d4;
+}
+
 * {
   border-color: var(--color-border);
 }

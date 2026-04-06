@@ -4,8 +4,12 @@ import { useCookbookStore } from '@/lib/store';
 import { Search, X } from 'lucide-react';
 
 const cuisines = [
-  'Italian', 'Japanese', 'Mexican', 'French', 'Chinese',
-  'Indian', 'Thai', 'Mediterranean', 'American', 'Korean',
+  'American', 'Brazilian', 'Caribbean', 'Chinese', 'Ethiopian',
+  'Filipino', 'French', 'German', 'Greek', 'Indian',
+  'Italian', 'Japanese', 'Jewish', 'Korean', 'Lebanese',
+  'Mediterranean', 'Mexican', 'Moroccan', 'Persian', 'Polish',
+  'Southern', 'Spanish', 'Thai', 'Turkish', 'Vietnamese',
+  'Other',
 ];
 
 const dietaryOptions = [
