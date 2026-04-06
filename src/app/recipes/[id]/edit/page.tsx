@@ -12,7 +12,28 @@ const CUISINES = [
   'Indian', 'Thai', 'Mediterranean', 'American', 'Korean',
 ];
 
-const UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'tbsp', 'tsp', 'oz', 'lb', 'piece'];
+const UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'tbsp', 'tsp', 'oz', 'lb', 'piece', 'stick', 'clove', 'slice', 'can', 'pinch', 'dash', 'sprig', 'bunch', 'head', 'stalk', 'package', 'bag', 'large', 'medium', 'small'];
+
+function toFraction(n: number): string {
+  if (n === 0) return '0';
+  const whole = Math.floor(n);
+  const frac = n - whole;
+  const fractions: [number, string][] = [
+    [0, ''], [0.125, '⅛'], [0.2, '⅕'], [0.25, '¼'], [1/3, '⅓'],
+    [0.375, '⅜'], [0.4, '⅖'], [0.5, '½'], [0.6, '⅗'], [0.625, '⅝'],
+    [2/3, '⅔'], [0.75, '¾'], [0.8, '⅘'], [0.875, '⅞'],
+  ];
+  let bestFrac = '';
+  let bestDiff = 0.05;
+  for (const [val, symbol] of fractions) {
+    const diff = Math.abs(frac - val);
+    if (diff < bestDiff) { bestDiff = diff; bestFrac = symbol; }
+  }
+  if (whole > 0 && bestFrac) return `${whole}${bestFrac}`;
+  if (whole > 0) return String(whole);
+  if (bestFrac) return bestFrac;
+  return String(Math.round(n * 100) / 100);
+}
 
 interface FormIngredient {
   name: string;
@@ -381,7 +402,7 @@ export default function EditRecipePage() {
 
             <div className="space-y-3">
               {ingredients.map((ing, idx) => (
-                <div key={idx} className="flex gap-2">
+                <div key={idx} className="flex gap-2 items-center">
                   <input
                     type="text"
                     placeholder="Ingredient name"
@@ -389,17 +410,25 @@ export default function EditRecipePage() {
                     onChange={(e) => updateIngredient(idx, 'name', e.target.value)}
                     className="flex-1 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   />
-                  <input
-                    type="number"
-                    placeholder="Qty"
-                    value={ing.quantity}
-                    onChange={(e) => updateIngredient(idx, 'quantity', parseFloat(e.target.value) || 0)}
-                    className="w-20 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+                  <div className="relative w-24">
+                    <input
+                      type="number"
+                      placeholder="Qty"
+                      step="0.01"
+                      value={ing.quantity}
+                      onChange={(e) => updateIngredient(idx, 'quantity', parseFloat(e.target.value) || 0)}
+                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                    {ing.quantity > 0 && ing.quantity % 1 !== 0 && (
+                      <span className="absolute -top-2 right-1 text-xs font-semibold text-primary bg-surface px-1 rounded">
+                        {toFraction(ing.quantity)}
+                      </span>
+                    )}
+                  </div>
                   <select
-                    value={ing.unit}
+                    value={UNITS.includes(ing.unit) ? ing.unit : 'piece'}
                     onChange={(e) => updateIngredient(idx, 'unit', e.target.value)}
-                    className="w-24 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-28 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   >
                     {UNITS.map((u) => (
                       <option key={u} value={u}>{u}</option>

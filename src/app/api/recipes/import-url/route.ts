@@ -5,6 +5,7 @@ interface ParsedIngredient {
   name: string;
   quantity: number;
   unit: string;
+  notes?: string;
 }
 
 interface ParsedRecipe {
@@ -141,77 +142,118 @@ const UNICODE_FRACTIONS: Record<string, number> = {
   '⅙': 1/6, '⅚': 5/6, '⅛': 0.125, '⅜': 0.375, '⅝': 0.625, '⅞': 0.875,
 };
 
-// Replace Unicode fractions with decimal equivalents in text
-function normalizeUnicodeFractions(text: string): string {
+// Convert Unicode fractions to decimal in a string
+function resolveUnicodeFractions(text: string): string {
   let result = text;
   for (const [frac, val] of Object.entries(UNICODE_FRACTIONS)) {
-    // "1½" → "1.5", "½" → "0.5"
-    result = result.replace(new RegExp(`(\\d)\\s*${frac}`, 'g'), (_, whole) => {
+    // "1½" or "1 ½" → combined decimal
+    result = result.replace(new RegExp(`(\\d+)\\s*${frac}`, 'g'), (_, whole) => {
       return String(parseFloat(whole) + val);
     });
+    // standalone "½" → "0.5"
     result = result.replace(new RegExp(frac, 'g'), String(val));
   }
   return result;
 }
 
-// Parse a single ingredient string like "1 1/2 cups all-purpose flour" or "¾ cup sugar"
+// Parse a raw quantity string (handles "1 1/2", "1/2", "0.75", "1.5", etc.)
+function parseQuantity(raw: string): number {
+  const s = raw.trim();
+  if (s.includes('/')) {
+    // Could be "1 1/2" or just "1/2"
+    const parts = s.split(/\s+/);
+    let total = 0;
+    for (const part of parts) {
+      if (part.includes('/')) {
+        const [num, den] = part.split('/');
+        total += parseInt(num) / parseInt(den);
+      } else {
+        total += parseFloat(part);
+      }
+    }
+    return total || 1;
+  }
+  return parseFloat(s) || 1;
+}
+
+// Known unit patterns (order matters: longer/more-specific first)
+const UNIT_PATTERNS = [
+  'tablespoons?', 'teaspoons?', 'tbsp', 'tsp',
+  'cups?', 'ounces?', 'oz', 'pounds?', 'lbs?',
+  'grams?', 'kilograms?', 'kg', 'milliliters?', 'ml', 'liters?',
+  'pinch(?:es)?', 'dash(?:es)?', 'cloves?', 'slices?',
+  'pieces?', 'cans?', 'packages?', 'sticks?', 'bunches?',
+  'sprigs?', 'heads?', 'stalks?', 'bags?', 'large', 'medium', 'small',
+];
+const UNIT_REGEX_STR = UNIT_PATTERNS.join('|');
+
+// Parse a single ingredient string like "1 stick (½ cup) unsalted butter" or "¾ cup sugar"
 function parseIngredient(text: string): ParsedIngredient {
   let cleaned = text.replace(/\s+/g, ' ').trim();
   if (!cleaned) return { quantity: 1, unit: 'piece', name: text };
 
-  // Normalize Unicode fractions first (½ → 0.5, ¾ → 0.75, etc.)
-  cleaned = normalizeUnicodeFractions(cleaned);
+  // Resolve Unicode fractions first (½ → 0.5, ¾ → 0.75, 1½ → 1.5, etc.)
+  cleaned = resolveUnicodeFractions(cleaned);
 
-  // Strip parenthetical notes like "(½ cup)" from beginning — keep them as part of name
-  // But first try to parse the main quantity/unit
+  // Extract trailing notes after comma (", at room temperature", ", divided", etc.)
+  let notes = '';
+  const commaMatch = cleaned.match(/^(.+?),\s*(.+)$/);
+  if (commaMatch) {
+    const afterComma = commaMatch[2];
+    // Only split on comma if what follows looks like a note, not part of the name
+    const noteKeywords = /^(at |room temp|softened|melted|divided|chopped|diced|minced|to taste|optional|packed|sifted|plus |for |or )/i;
+    if (noteKeywords.test(afterComma)) {
+      cleaned = commaMatch[1].trim();
+      notes = afterComma.trim();
+    }
+  }
 
-  // Common units to look for
-  const units = [
-    'cups?', 'tablespoons?', 'tbsp', 'teaspoons?', 'tsp',
-    'ounces?', 'oz', 'pounds?', 'lbs?', 'grams?', 'g',
-    'kilograms?', 'kg', 'milliliters?', 'ml', 'liters?', 'l',
-    'pinch(?:es)?', 'dash(?:es)?', 'cloves?', 'slices?',
-    'pieces?', 'cans?', 'packages?', 'sticks?', 'bunches?',
-    'sprigs?', 'heads?', 'stalks?', 'bags?',
-  ];
-  const unitPattern = units.join('|');
+  // Handle parenthetical alternate measurements: "1 stick (½ cup) butter"
+  // Extract and save the parenthetical as a note, parse the primary measurement
+  const parenMatch = cleaned.match(/^(.+?)\s*\(([^)]+)\)\s*(.*)$/);
+  let beforeParen = cleaned;
+  if (parenMatch) {
+    const parenContent = parenMatch[2].trim();
+    // Check if parenthetical contains a measurement (number + unit)
+    const hasMeasurement = /[\d.]+\s*(cup|tbsp|tsp|oz|g|ml|lb)/i.test(parenContent);
+    if (hasMeasurement) {
+      beforeParen = (parenMatch[1] + ' ' + parenMatch[3]).replace(/\s+/g, ' ').trim();
+      notes = notes ? `(${parenContent}), ${notes}` : `(${parenContent})`;
+    }
+  }
 
-  // Match: quantity (possibly fraction) + unit + name
-  // Examples: "1 1/2 cups flour", "2 tbsp olive oil", "3 large eggs", "0.75 cup sugar"
-  const fractionRegex = new RegExp(
-    `^([\\d]+(?:\\s+[\\d]+\\/[\\d]+)?|[\\d]+\\/[\\d]+|[\\d.]+)\\s*(?:(${unitPattern})\\.?\\s+)?(.+)$`,
+  // Main regex: number (decimal or fraction) + optional unit + name
+  // IMPORTANT: [\\d.]+ must come AFTER the mixed-number/fraction alternatives in the group,
+  // but the alternation order must allow decimals to match fully.
+  const mainRegex = new RegExp(
+    `^([\\d]+\\s+[\\d]+\\/[\\d]+|[\\d]+\\/[\\d]+|[\\d]+\\.\\d+|[\\d]+)\\s*(?:(${UNIT_REGEX_STR})\\.?\\s+)?(.+)$`,
     'i'
   );
 
-  const match = cleaned.match(fractionRegex);
+  const match = beforeParen.match(mainRegex);
   if (match) {
     const rawQty = match[1];
-    const unit = match[2] || 'piece';
-    const name = match[3] || cleaned;
+    const rawUnit = match[2] || '';
+    let name = (match[3] || beforeParen).trim();
 
-    // Parse fractions like "1 1/2" or "1/2"
-    let quantity = 0;
-    if (rawQty.includes('/')) {
-      const parts = rawQty.split(/\s+/);
-      for (const part of parts) {
-        if (part.includes('/')) {
-          const [num, den] = part.split('/');
-          quantity += parseInt(num) / parseInt(den);
-        } else {
-          quantity += parseFloat(part);
-        }
-      }
-    } else {
-      quantity = parseFloat(rawQty) || 1;
+    const quantity = parseQuantity(rawQty);
+
+    // If unit matched "large"/"medium"/"small", fold it into the name as a descriptor
+    let unit = rawUnit;
+    if (/^(large|medium|small)$/i.test(rawUnit)) {
+      name = rawUnit.toLowerCase() + ' ' + name;
+      unit = 'piece';
     }
 
-    // Normalize unit names
-    const normalizedUnit = normalizeUnit(unit);
+    const normalizedUnit = unit ? normalizeUnit(unit) : 'piece';
 
-    return { quantity, unit: normalizedUnit, name: name.trim() };
+    // Clean up name: remove trailing periods, extra whitespace
+    name = name.replace(/\.\s*$/, '').trim();
+
+    return { quantity, unit: normalizedUnit, name, notes: notes || undefined };
   }
 
-  return { quantity: 1, unit: 'piece', name: cleaned };
+  return { quantity: 1, unit: 'piece', name: cleaned, notes: notes || undefined };
 }
 
 function normalizeUnit(unit: string): string {
