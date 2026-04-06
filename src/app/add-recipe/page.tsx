@@ -6,6 +6,8 @@ import { Upload, Plus, X, Loader, GripVertical, ClipboardPaste } from 'lucide-re
 import { supabase } from '@/lib/supabase';
 import { Recipe, RecipeIngredient, Tag } from '@/lib/types';
 import { toFraction, titleCaseIngredient } from '@/lib/utils';
+import { UNITS } from '@/lib/constants';
+import { useCuisines } from '@/lib/useCuisines';
 
 interface FormIngredientItem {
   name: string;
@@ -36,20 +38,12 @@ interface FormRecipe {
   }>;
 }
 
-const CUISINES = [
-  'American', 'Brazilian', 'Caribbean', 'Chinese', 'Ethiopian',
-  'Filipino', 'French', 'German', 'Greek', 'Indian',
-  'Italian', 'Japanese', 'Jewish', 'Korean', 'Lebanese',
-  'Mediterranean', 'Mexican', 'Moroccan', 'Persian', 'Polish',
-  'Southern', 'Spanish', 'Thai', 'Turkish', 'Vietnamese',
-  'Other',
-];
-
-const UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'tbsp', 'tsp', 'oz', 'lb', 'quart', 'pint', 'gallon', 'piece', 'part', 'dozen', 'drop', 'stick', 'clove', 'slice', 'can', 'bottle', 'jar', 'pinch', 'dash', 'handful', 'sprig', 'bunch', 'head', 'stalk', 'package', 'bag', 'whole', 'large', 'medium', 'small'];
 
 
 export default function AddRecipePage() {
   const router = useRouter();
+  const { cuisines } = useCuisines();
+  const [customCuisine, setCustomCuisine] = useState('');
   const [activeTab, setActiveTab] = useState<'manual' | 'url' | 'paste' | 'image'>(
     'manual'
   );
@@ -553,18 +547,46 @@ export default function AddRecipePage() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  <select
-                    name="cuisine_type"
-                    value={formData.cuisine_type}
-                    onChange={handleInputChange}
-                    className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  >
-                    {CUISINES.map((c) => (
-                      <option key={c} value={c}>
-                        {c}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="flex flex-col gap-2">
+                    <select
+                      name="cuisine_type"
+                      value={formData.cuisine_type === 'Other' || (!cuisines.includes(formData.cuisine_type) && formData.cuisine_type !== '') ? 'Other' : formData.cuisine_type}
+                      onChange={(e) => {
+                        if (e.target.value === 'Other') {
+                          setFormData(prev => ({ ...prev, cuisine_type: 'Other' }));
+                          setCustomCuisine('');
+                        } else {
+                          setFormData(prev => ({ ...prev, cuisine_type: e.target.value }));
+                          setCustomCuisine('');
+                        }
+                      }}
+                      className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    >
+                      {cuisines.map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                    {(formData.cuisine_type === 'Other' || customCuisine) && (
+                      <input
+                        type="text"
+                        placeholder="Enter cuisine type..."
+                        value={customCuisine}
+                        onChange={(e) => {
+                          const val = e.target.value;
+                          setCustomCuisine(val);
+                          if (val.trim()) {
+                            setFormData(prev => ({ ...prev, cuisine_type: val.trim() }));
+                          } else {
+                            setFormData(prev => ({ ...prev, cuisine_type: 'Other' }));
+                          }
+                        }}
+                        className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                        autoFocus
+                      />
+                    )}
+                  </div>
 
                   <select
                     name="difficulty"

@@ -7,17 +7,8 @@ import { supabase } from '@/lib/supabase';
 import { Recipe } from '@/lib/types';
 import { ArrowLeft, Plus, X, Loader, RotateCw, Trash2, GripVertical, Check } from 'lucide-react';
 import { toFraction, titleCaseIngredient } from '@/lib/utils';
-
-const CUISINES = [
-  'American', 'Brazilian', 'Caribbean', 'Chinese', 'Ethiopian',
-  'Filipino', 'French', 'German', 'Greek', 'Indian',
-  'Italian', 'Japanese', 'Jewish', 'Korean', 'Lebanese',
-  'Mediterranean', 'Mexican', 'Moroccan', 'Persian', 'Polish',
-  'Southern', 'Spanish', 'Thai', 'Turkish', 'Vietnamese',
-  'Other',
-];
-
-const UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'tbsp', 'tsp', 'oz', 'lb', 'quart', 'pint', 'gallon', 'piece', 'part', 'dozen', 'drop', 'stick', 'clove', 'slice', 'can', 'bottle', 'jar', 'pinch', 'dash', 'handful', 'sprig', 'bunch', 'head', 'stalk', 'package', 'bag', 'whole', 'large', 'medium', 'small'];
+import { UNITS, DEFAULT_CUISINES } from '@/lib/constants';
+import { useCuisines } from '@/lib/useCuisines';
 
 
 interface FormIngredient {
@@ -39,6 +30,7 @@ export default function EditRecipePage() {
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
+  const { cuisines } = useCuisines();
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -50,6 +42,7 @@ export default function EditRecipePage() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [cuisineType, setCuisineType] = useState('Italian');
+  const [customCuisine, setCustomCuisine] = useState('');
   const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
   const [prepTime, setPrepTime] = useState(0);
   const [cookTime, setCookTime] = useState(0);
@@ -78,6 +71,10 @@ export default function EditRecipePage() {
         setTitle(recipe.title);
         setDescription(recipe.description || '');
         setCuisineType(recipe.cuisine_type);
+        // If the cuisine is custom (not in defaults), pre-populate the custom input
+        if (recipe.cuisine_type && !DEFAULT_CUISINES.includes(recipe.cuisine_type) && recipe.cuisine_type !== 'Other') {
+          setCustomCuisine(recipe.cuisine_type);
+        }
         setDifficulty(recipe.difficulty);
         setPrepTime(recipe.prep_time_minutes);
         setCookTime(recipe.cook_time_minutes);
@@ -312,15 +309,42 @@ export default function EditRecipePage() {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <select
-                  value={cuisineType}
-                  onChange={(e) => setCuisineType(e.target.value)}
-                  className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                >
-                  {CUISINES.map((c) => (
-                    <option key={c} value={c}>{c}</option>
-                  ))}
-                </select>
+                <div className="flex flex-col gap-2">
+                  <select
+                    value={cuisineType === 'Other' || (!cuisines.includes(cuisineType) && cuisineType !== '' && cuisineType !== 'Italian') ? 'Other' : cuisineType}
+                    onChange={(e) => {
+                      if (e.target.value === 'Other') {
+                        setCuisineType('Other');
+                        setCustomCuisine('');
+                      } else {
+                        setCuisineType(e.target.value);
+                        setCustomCuisine('');
+                      }
+                    }}
+                    className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    {cuisines.map((c) => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+                  {(cuisineType === 'Other' || customCuisine) && (
+                    <input
+                      type="text"
+                      placeholder="Enter cuisine type..."
+                      value={customCuisine}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        setCustomCuisine(val);
+                        if (val.trim()) {
+                          setCuisineType(val.trim());
+                        } else {
+                          setCuisineType('Other');
+                        }
+                      }}
+                      className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                    />
+                  )}
+                </div>
 
                 <select
                   value={difficulty}
