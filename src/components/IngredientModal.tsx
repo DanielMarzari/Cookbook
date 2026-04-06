@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { X, Search, Upload, Copy } from 'lucide-react';
 import { Ingredient, NutritionInfo } from '@/lib/types';
-import { supabase } from '@/lib/supabase';
 import Tesseract from 'tesseract.js';
 
 interface IngredientModalProps {

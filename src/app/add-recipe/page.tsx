@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Upload, Plus, X, Loader, GripVertical, ClipboardPaste } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+import { api } from '@/lib/api-client';
 import { Recipe, RecipeIngredient, Tag } from '@/lib/types';
 import { toFraction, titleCaseIngredient } from '@/lib/utils';
 import { UNITS } from '@/lib/constants';
@@ -374,35 +374,29 @@ export default function AddRecipePage() {
     try {
       const autoTags = await generateAutoTags();
 
-      const { data: recipeData, error: recipeError } = await supabase
-        .from('recipes')
-        .insert({
-          title: formData.title,
-          description: formData.description,
-          image_url: formData.image_url,
-          cuisine_type: formData.cuisine_type,
-          difficulty: formData.difficulty,
-          prep_time_minutes: formData.prep_time_minutes,
-          cook_time_minutes: formData.cook_time_minutes,
-          total_time_minutes:
-            formData.prep_time_minutes + formData.cook_time_minutes,
-          servings: formData.servings,
-          instructions: formData.instructions.map((inst, idx) => ({
-            step_number: idx + 1,
-            text: inst.text,
-            timer_minutes: inst.timer_minutes,
-            timer_label: inst.timer_label,
-          })),
-          source_url: formData.source_url,
-          source_name: formData.source_name,
-          source_author: formData.source_author,
-          source_type: importedData ? 'url' : 'manual',
-          is_favorite: false,
-        })
-        .select()
-        .single();
-
-      if (recipeError) throw recipeError;
+      const recipeData = await api.recipes.create({
+        title: formData.title,
+        description: formData.description,
+        image_url: formData.image_url,
+        cuisine_type: formData.cuisine_type,
+        difficulty: formData.difficulty,
+        prep_time_minutes: formData.prep_time_minutes,
+        cook_time_minutes: formData.cook_time_minutes,
+        total_time_minutes:
+          formData.prep_time_minutes + formData.cook_time_minutes,
+        servings: formData.servings,
+        instructions: formData.instructions.map((inst, idx) => ({
+          step_number: idx + 1,
+          text: inst.text,
+          timer_minutes: inst.timer_minutes,
+          timer_label: inst.timer_label,
+        })),
+        source_url: formData.source_url,
+        source_name: formData.source_name,
+        source_author: formData.source_author,
+        source_type: importedData ? 'url' : 'manual',
+        is_favorite: false,
+      });
 
       const ingredientsWithRecipeId = formData.ingredients
         .filter((ing) => ing.name.trim() || ing.is_header || ing.is_or)
@@ -417,11 +411,7 @@ export default function AddRecipePage() {
         }));
 
       if (ingredientsWithRecipeId.length > 0) {
-        const { error: ingredError } = await supabase
-          .from('recipe_ingredients')
-          .insert(ingredientsWithRecipeId);
-
-        if (ingredError) throw ingredError;
+        await api.recipeIngredients.create(ingredientsWithRecipeId);
       }
 
       if (autoTags.length > 0) {
@@ -431,20 +421,18 @@ export default function AddRecipePage() {
           auto_generated: true,
         }));
 
-        const { error: tagError } = await supabase
-          .from('recipe_tags')
-          .insert(tagsWithRecipeId);
-
-        if (tagError) console.error('Tag insertion error:', tagError);
+        try {
+          for (const tag of tagsWithRecipeId) {
+            await api.recipeTags.create(tag);
+          }
+        } catch (err) {
+          console.error('Tag insertion error:', err);
+        }
       }
 
       // Auto-add to collections with matching filters
       try {
-        const { data: autoCollections } = await supabase
-          .from('collections')
-          .select('id, auto_filter_field, auto_filter_value')
-          .not('auto_filter_field', 'is', null)
-          .not('auto_filter_value', 'is', null);
+        const autoCollections = await api.collections.list();
 
         if (autoCollections) {
           const recipeFields: Record<string, string> = {
@@ -457,10 +445,10 @@ export default function AddRecipePage() {
             const field = col.auto_filter_field;
             const value = col.auto_filter_value?.toLowerCase();
             if (field && value && recipeFields[field]?.toLowerCase() === value) {
-              await supabase
-                .from('collection_recipes')
-                .upsert([{ collection_id: col.id, recipe_id: recipeData.id }], { onConflict: 'collection_id,recipe_id' })
-                .select();
+              await api.collectionRecipes.create({
+                collection_id: col.id,
+                recipe_id: recipeData.id,
+              });
             }
           }
         }

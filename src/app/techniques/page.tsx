@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Search, Zap, BookOpen } from 'lucide-react';
 import { Technique } from '@/lib/types';
-import { supabase } from '@/lib/supabase';
+import { api } from '@/lib/api-client';
 
 const difficultyColors = {
   beginner: 'bg-green-100 text-green-800',
@@ -37,14 +37,7 @@ export default function TechniquesPage() {
     const fetchTechniques = async () => {
       try {
         setLoading(true);
-        const { data, error: supabaseError } = await supabase
-          .from('techniques')
-          .select('*')
-          .order('name', { ascending: true });
-
-        if (supabaseError) {
-          throw new Error(supabaseError.message);
-        }
+        const data = await api.techniques.list();
 
         setTechniques(data || []);
         setError(null);

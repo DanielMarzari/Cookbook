@@ -5,7 +5,7 @@ import FilterBar from '@/components/FilterBar';
 import RecipeCard from '@/components/RecipeCard';
 import { useCookbookStore } from '@/lib/store';
 import { Recipe } from '@/lib/types';
-import { supabase } from '@/lib/supabase';
+import { api } from '@/lib/api-client';
 import Link from 'next/link';
 
 export default function RecipesPage() {
@@ -14,36 +14,18 @@ export default function RecipesPage() {
   const [error, setError] = useState<string | null>(null);
   const filters = useCookbookStore((state) => state.filters);
 
-  // Fetch recipes from Supabase
+  // Fetch recipes
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
         setLoading(true);
-        let query = supabase.from('recipes').select('*');
 
-        // Apply filters
-        if (filters.search) {
-          query = query.or(
-            `title.ilike.%${filters.search}%,description.ilike.%${filters.search}%`
-          );
-        }
-        if (filters.cuisine) {
-          query = query.eq('cuisine_type', filters.cuisine);
-        }
-        if (filters.difficulty) {
-          query = query.eq('difficulty', filters.difficulty);
-        }
-        if (filters.maxTime) {
-          query = query.lte('total_time_minutes', filters.maxTime);
-        }
-
-        query = query.order('created_at', { ascending: false });
-
-        const { data, error: supabaseError } = await query;
-
-        if (supabaseError) {
-          throw new Error(supabaseError.message);
-        }
+        const data = await api.recipes.list({
+          search: filters.search || undefined,
+          cuisine: filters.cuisine || undefined,
+          difficulty: filters.difficulty || undefined,
+          maxTime: filters.maxTime || undefined,
+        });
 
         // Filter by dietary if needed (client-side for now)
         let filteredData = data || [];
@@ -68,10 +50,7 @@ export default function RecipesPage() {
 
   const handleToggleFavorite = async (id: string, isFavorite: boolean) => {
     try {
-      await supabase
-        .from('recipes')
-        .update({ is_favorite: isFavorite })
-        .eq('id', id);
+      await api.recipes.update(id, { is_favorite: isFavorite });
     } catch (err) {
       console.error('Error updating favorite:', err);
     }

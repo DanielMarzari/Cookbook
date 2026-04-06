@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Plus, X, Trash2, Search, Pencil, Check, Loader } from 'lucide-react';
 import { Collection, Recipe } from '@/lib/types';
-import { supabase } from '@/lib/supabase';
+import { api } from '@/lib/api-client';
 import RecipeCard from '@/components/RecipeCard';
 
 export default function CollectionDetailPage() {
@@ -39,42 +39,30 @@ export default function CollectionDetailPage() {
     try {
       setLoading(true);
 
-      const { data: collectionData, error: collectionError } = await supabase
-        .from('collections')
-        .select('*')
-        .eq('id', id)
-        .single();
+      const collectionData = await api.collections.get(id);
 
-      if (collectionError) throw new Error(collectionError.message);
       if (!collectionData) throw new Error('Collection not found');
 
       setCollection(collectionData);
 
-      const { data: recipesData, error: recipesError } = await supabase
-        .from('collection_recipes')
-        .select('recipe_id')
-        .eq('collection_id', id);
-
-      if (recipesError) throw new Error(recipesError.message);
-
-      const recipeIds = recipesData?.map((r) => r.recipe_id) || [];
+      const recipesData = await api.collectionRecipes.list(id);
+      const recipeIds = recipesData?.map((r: any) => r.recipe_id) || [];
 
       if (recipeIds.length > 0) {
-        const { data: recipes, error: recipeDetailsError } = await supabase
-          .from('recipes')
-          .select('*')
-          .in('id', recipeIds);
-
-        if (recipeDetailsError) throw new Error(recipeDetailsError.message);
-        setCollectionRecipes(recipes || []);
+        // Fetch each recipe individually
+        const recipes: Recipe[] = [];
+        for (const recipeId of recipeIds) {
+          try {
+            const recipe = await api.recipes.get(recipeId);
+            if (recipe) recipes.push(recipe);
+          } catch {
+            // Skip if recipe not found
+          }
+        }
+        setCollectionRecipes(recipes);
       }
 
-      const { data: allRecipesData, error: allRecipesError } = await supabase
-        .from('recipes')
-        .select('*')
-        .order('title');
-
-      if (allRecipesError) throw new Error(allRecipesError.message);
+      const allRecipesData = await api.recipes.list();
       setAllRecipes(allRecipesData || []);
       setError(null);
     } catch (err) {
@@ -100,21 +88,7 @@ export default function CollectionDetailPage() {
     if (!collection || !editName.trim()) return;
     setEditSaving(true);
     try {
-      const { error } = await supabase
-        .from('collections')
-        .update({
-          name: editName,
-          subtitle: editSubtitle || null,
-          description: editDescription || null,
-          cover_image_url: editCoverUrl || null,
-          auto_filter_field: editFilterField || null,
-          auto_filter_value: editFilterValue || null,
-        })
-        .eq('id', collection.id);
-
-      if (error) throw error;
-      setCollection({
-        ...collection,
+      const updated = await api.collections.update(collection.id, {
         name: editName,
         subtitle: editSubtitle || undefined,
         description: editDescription || undefined,
@@ -122,6 +96,8 @@ export default function CollectionDetailPage() {
         auto_filter_field: editFilterField || undefined,
         auto_filter_value: editFilterValue || undefined,
       });
+
+      setCollection(updated);
       setEditing(false);
     } catch (err) {
       console.error('Error saving collection:', err);
@@ -134,8 +110,7 @@ export default function CollectionDetailPage() {
     if (!collection) return;
     if (!confirm(`Delete "${collection.name}"? The recipes inside won't be deleted.`)) return;
     try {
-      await supabase.from('collection_recipes').delete().eq('collection_id', collection.id);
-      await supabase.from('collections').delete().eq('id', collection.id);
+      await api.collections.delete(collection.id);
       router.push('/collections');
     } catch (err) {
       console.error('Error deleting collection:', err);
@@ -144,20 +119,14 @@ export default function CollectionDetailPage() {
 
   const addRecipeToCollection = async (recipeId: string) => {
     try {
-      const { data: existing } = await supabase
-        .from('collection_recipes')
-        .select('*')
-        .eq('collection_id', id)
-        .eq('recipe_id', recipeId)
-        .single();
+      // Check if already exists
+      const existing = await api.collectionRecipes.list(id);
+      if (existing?.some((cr: any) => cr.recipe_id === recipeId)) return;
 
-      if (existing) return;
-
-      const { error: insertError } = await supabase
-        .from('collection_recipes')
-        .insert([{ collection_id: id, recipe_id: recipeId }]);
-
-      if (insertError) throw new Error(insertError.message);
+      await api.collectionRecipes.create({
+        collection_id: id,
+        recipe_id: recipeId,
+      });
       await fetchCollectionAndRecipes();
     } catch (err) {
       console.error('Error adding recipe:', err);
@@ -166,13 +135,7 @@ export default function CollectionDetailPage() {
 
   const removeRecipeFromCollection = async (recipeId: string) => {
     try {
-      const { error: deleteError } = await supabase
-        .from('collection_recipes')
-        .delete()
-        .eq('collection_id', id)
-        .eq('recipe_id', recipeId);
-
-      if (deleteError) throw new Error(deleteError.message);
+      await api.collectionRecipes.delete(id, recipeId);
       setCollectionRecipes(collectionRecipes.filter((recipe) => recipe.id !== recipeId));
     } catch (err) {
       console.error('Error removing recipe:', err);
@@ -336,7 +299,7 @@ export default function CollectionDetailPage() {
                 <RecipeCard
                   recipe={recipe}
                   onToggleFavorite={async (id, isFavorite) => {
-                    await supabase.from('recipes').update({ is_favorite: isFavorite }).eq('id', id);
+                    await api.recipes.update(id, { is_favorite: isFavorite });
                   }}
                 />
                 <button
