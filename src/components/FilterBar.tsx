@@ -2,15 +2,7 @@
 
 import { useCookbookStore } from '@/lib/store';
 import { Search, X } from 'lucide-react';
-
-const cuisines = [
-  'American', 'Brazilian', 'Caribbean', 'Chinese', 'Ethiopian',
-  'Filipino', 'French', 'German', 'Greek', 'Indian',
-  'Italian', 'Japanese', 'Jewish', 'Korean', 'Lebanese',
-  'Mediterranean', 'Mexican', 'Moroccan', 'Persian', 'Polish',
-  'Southern', 'Spanish', 'Thai', 'Turkish', 'Vietnamese',
-  'Other',
-];
+import { useCuisines } from '@/lib/useCuisines';
 
 const dietaryOptions = [
   'Vegetarian', 'Vegan', 'Gluten-Free', 'Dairy-Free', 'Low-Carb', 'Keto',
@@ -19,6 +11,7 @@ const dietaryOptions = [
 const difficulties = ['Easy', 'Medium', 'Hard'];
 
 export default function FilterBar() {
+  const { cuisines } = useCuisines();
   const filters = useCookbookStore((state) => state.filters);
   const setFilters = useCookbookStore((state) => state.setFilters);
   const resetFilters = useCookbookStore((state) => state.resetFilters);
