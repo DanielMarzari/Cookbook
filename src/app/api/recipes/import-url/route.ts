@@ -330,7 +330,8 @@ function parseQuantity(raw: string): number {
 const UNIT_PATTERNS = [
   'tablespoons?', 'teaspoons?', 'tbsp', 'tsp',
   'cups?', 'ounces?', 'oz', 'pounds?', 'lbs?',
-  'grams?', 'kilograms?', 'kg', 'milliliters?', 'ml', 'liters?',
+  'grams?', 'kilograms?', 'kg', 'milliliters?', 'ml', 'liters?', 'l',
+  'g',
   'pinch(?:es)?', 'dash(?:es)?', 'cloves?', 'slices?',
   'pieces?', 'cans?', 'packages?', 'sticks?', 'bunches?',
   'sprigs?', 'heads?', 'stalks?', 'bags?', 'large', 'medium', 'small',
@@ -349,10 +350,31 @@ function parseIngredient(text: string): ParsedIngredient {
 
   // 1) Extract ALL parentheticals and decide what to do with each
   // e.g. "(1.5 sticks)" → notes, "(2 bags)" → notes, "(optional)" → notes
-  cleaned = cleaned.replace(/\(([^)]+)\)/g, (_, content) => {
-    noteParts.push(`(${content.trim()})`);
-    return ' ';
-  }).replace(/\s+/g, ' ').trim();
+  // Handles nested parentheses like "(between 105°F (40°C) and 46°C)"
+  {
+    let parenResult = '';
+    let i = 0;
+    while (i < cleaned.length) {
+      if (cleaned[i] === '(') {
+        let depth = 1;
+        let j = i + 1;
+        while (j < cleaned.length && depth > 0) {
+          if (cleaned[j] === '(') depth++;
+          else if (cleaned[j] === ')') depth--;
+          j++;
+        }
+        // Extract the full parenthetical including nested parens
+        const content = cleaned.slice(i + 1, j - 1).trim();
+        if (content) noteParts.push(`(${content})`);
+        parenResult += ' ';
+        i = j;
+      } else {
+        parenResult += cleaned[i];
+        i++;
+      }
+    }
+    cleaned = parenResult.replace(/\s+/g, ' ').trim();
+  }
 
   // 2) Extract temperature references → notes
   // Handles: "approx. 110°F", "105-110°F", "350°F", "warm"
