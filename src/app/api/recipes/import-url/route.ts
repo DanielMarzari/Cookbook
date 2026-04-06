@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import * as cheerio from 'cheerio';
+import { titleCaseIngredient } from '@/lib/utils';
 
 interface ParsedIngredient {
   name: string;
@@ -68,8 +69,72 @@ function findRecipeInJsonLd(obj: any): any | null {
   return null;
 }
 
-function parseJsonLd(html: string): Partial<ParsedRecipe> | null {
-  const $ = cheerio.load(html);
+// Extract ingredient section headers from the HTML structure
+// Many recipes have headers like "For the Dough:", "For the Filling:" in the HTML
+// but NOT in the JSON-LD. This function finds them and maps them to ingredient indices.
+function extractIngredientSectionsFromHtml($: any): Array<{ name: string; beforeIndex: number }> {
+  const sections: Array<{ name: string; beforeIndex: number }> = [];
+
+  // Strategy: find ingredient list elements and look for section headers interspersed
+  const ingredientSelectors = [
+    '[class*="ingredient"]',
+    '[id*="ingredient"]',
+    '.wprm-recipe-ingredient',
+    '.tasty-recipe-ingredients',
+    '.recipe-ingredients',
+    '.ingredients-list',
+  ];
+
+  for (const selector of ingredientSelectors) {
+    const container = $(selector).first();
+    if (!container.length) continue;
+
+    // Walk through children looking for section headers (p, span, strong, h3, h4, etc.)
+    // that precede ingredient lists
+    let ingredientCount = 0;
+    const walkChildren = (el: any) => {
+      $(el).children().each((_: number, child: any) => {
+        const $child = $(child);
+        const tag = child.tagName?.toLowerCase();
+        const text = $child.text().trim();
+
+        // Check if this is a section header
+        if (text && text.length < 80 && !text.match(/^\d/) &&
+            /^(for\s+(the\s+)?|the\s+)/i.test(text)) {
+          sections.push({ name: text.replace(/:$/, '').trim(), beforeIndex: ingredientCount });
+        }
+        // Check if this looks like a header element with "for the" pattern
+        else if ((tag === 'p' || tag === 'strong' || tag === 'b' || tag === 'h3' || tag === 'h4' || tag === 'span') &&
+                 text && text.length < 80 && !text.match(/^\d/) &&
+                 /^(for\s+(the\s+)?)/i.test(text) && text.endsWith(':')) {
+          sections.push({ name: text.replace(/:$/, '').trim(), beforeIndex: ingredientCount });
+        }
+
+        // Count ingredient list items
+        if (tag === 'li' && $child.closest('[class*="ingredient"], [id*="ingredient"]').length) {
+          // This is an ingredient item — only count if it looks like an ingredient (has a number or is non-empty)
+          const liText = $child.text().trim();
+          if (liText.length > 2 && liText.length < 200) {
+            ingredientCount++;
+          }
+        }
+
+        // Recurse into sub-containers (but not into <li> items)
+        if (tag !== 'li') {
+          walkChildren(child);
+        }
+      });
+    };
+
+    walkChildren(container[0]);
+    if (sections.length > 0) break;
+  }
+
+  return sections;
+}
+
+function parseJsonLd(html: string, $root?: any): Partial<ParsedRecipe> | null {
+  const $ = $root || cheerio.load(html);
   const scripts = $('script[type="application/ld+json"]');
 
   for (let i = 0; i < scripts.length; i++) {
@@ -111,18 +176,37 @@ function parseJsonLd(html: string): Partial<ParsedRecipe> | null {
         }
 
         // Parse ingredient groups - some recipes have sections like "For the Dough", "For the Filling"
-        // recipeIngredient is usually a flat array, but ingredient text might contain group headers
+        // JSON-LD recipeIngredient is usually a flat array. Try to find section headers from:
+        // 1. The ingredient text itself (rare but possible)
+        // 2. The HTML structure (common — look for headings near ingredient lists)
         const ingredientGroups: ParsedIngredient[] = [];
         const rawIngredients = recipe.recipeIngredient || [];
-        for (const ing of rawIngredients) {
+
+        // Try to extract section headers from HTML ingredient structure
+        const sectionHeaders = extractIngredientSectionsFromHtml($);
+
+        // Build a map of ingredient index → section header
+        // Match each section header to the ingredient that follows it
+        let sectionIdx = 0;
+        for (let ingIdx = 0; ingIdx < rawIngredients.length; ingIdx++) {
+          const ing = rawIngredients[ingIdx];
           if (typeof ing !== 'string') continue;
           const trimmed = ing.trim();
-          // Detect group headers: "For the dough:", "Filling:", etc.
+
+          // Check if there's a section header that should appear before this ingredient
+          if (sectionIdx < sectionHeaders.length) {
+            const section = sectionHeaders[sectionIdx];
+            if (section.beforeIndex === ingIdx) {
+              ingredientGroups.push({ name: section.name, quantity: 0, unit: '', is_header: true });
+              sectionIdx++;
+            }
+          }
+
+          // Detect group headers from ingredient text: "For the dough:", "Filling:", etc.
           if (/^(for\s+(the\s+)?|the\s+)/i.test(trimmed) && trimmed.length < 60 && !trimmed.match(/^\d/)) {
             ingredientGroups.push({ name: trimmed.replace(/:$/, ''), quantity: 0, unit: '', is_header: true });
           } else {
             const parsed = parseIngredient(trimmed);
-            // Split "X or Y" in ingredient names into alternatives
             const orSplit = splitOrIngredient(parsed);
             ingredientGroups.push(...orSplit);
           }
@@ -325,13 +409,13 @@ function parseIngredient(text: string): ParsedIngredient {
     name = name.replace(/\.\s*$/, '').trim();
 
     const notes = noteParts.length > 0 ? noteParts.join(', ') : undefined;
-    return { quantity, unit: normalizedUnit, name, notes };
+    return { quantity, unit: normalizedUnit, name: titleCaseIngredient(name), notes };
   }
 
   // No quantity match — strip leading "of" anyway
   cleaned = cleaned.replace(/^of\s+/i, '').trim();
   const notes = noteParts.length > 0 ? noteParts.join(', ') : undefined;
-  return { quantity: 1, unit: 'piece', name: cleaned, notes };
+  return { quantity: 1, unit: 'piece', name: titleCaseIngredient(cleaned), notes };
 }
 
 // Split an ingredient with "or" in its name into alternatives
@@ -601,7 +685,7 @@ export async function POST(request: NextRequest) {
     const siteTitle = $('meta[property="og:site_name"]').attr('content') || new URL(url).hostname.replace('www.', '');
 
     // Try JSON-LD first (most reliable), then fall back to HTML parsing
-    let recipe = parseJsonLd(html);
+    let recipe = parseJsonLd(html, $);
     if (!recipe || !recipe.ingredients?.length) {
       const fallback = parseFallback(html);
       // Merge: prefer JSON-LD data but use fallback for missing fields
@@ -622,12 +706,23 @@ export async function POST(request: NextRequest) {
     let cookTime = recipe.cookTime || 0;
     let totalTime = recipe.totalTime || 0;
 
-    // Fallback: if structured times are missing/broken, extract from instruction text
-    if (!totalTime && !prepTime && !cookTime && recipe.instructions?.length) {
-      const extractedMinutes = extractTimesFromInstructions(recipe.instructions);
-      if (extractedMinutes > 0) {
-        totalTime = extractedMinutes;
-      }
+    // Always extract times from instructions as a reference
+    const extractedMinutes = recipe.instructions?.length
+      ? extractTimesFromInstructions(recipe.instructions)
+      : 0;
+
+    // Fill in missing times from instruction extraction
+    if (!totalTime && !prepTime && !cookTime && extractedMinutes > 0) {
+      totalTime = extractedMinutes;
+    } else if (totalTime && !prepTime && cookTime) {
+      // Have total and cook but not prep — derive prep
+      prepTime = Math.max(0, totalTime - cookTime);
+    } else if (!totalTime && prepTime && cookTime) {
+      totalTime = prepTime + cookTime;
+    } else if (totalTime && !prepTime && !cookTime && extractedMinutes > 0) {
+      // Have total from JSON-LD but no breakdown — use extracted as total reference
+      // and try to split: extracted likely covers active time
+      cookTime = totalTime > extractedMinutes ? extractedMinutes : totalTime;
     }
 
     if (!totalTime) {

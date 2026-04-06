@@ -186,90 +186,77 @@ export default function IngredientsPage() {
     setIsModalOpen(true);
   };
 
+  // Track which unmatched name triggered the USDA import so we can link after save
+  const [pendingUsdaLink, setPendingUsdaLink] = useState<string | null>(null);
+
+  const USDA_CATEGORY_MAP: Record<string, string> = {
+    'Dairy and Egg Products': 'Dairy',
+    'Spices and Herbs': 'Herbs & Spices',
+    'Fats and Oils': 'Oils & Fats',
+    'Poultry Products': 'Proteins',
+    'Beef Products': 'Proteins',
+    'Pork Products': 'Proteins',
+    'Sausages and Luncheon Meats': 'Proteins',
+    'Finfish and Shellfish Products': 'Proteins',
+    'Lamb, Veal, and Game Products': 'Proteins',
+    'Vegetables and Vegetable Products': 'Produce',
+    'Fruits and Fruit Juices': 'Fruits',
+    'Nut and Seed Products': 'Pantry',
+    'Legumes and Legume Products': 'Pantry',
+    'Grain Products': 'Grains & Carbs',
+    'Cereal Grains and Pasta': 'Grains & Carbs',
+    'Baked Products': 'Baking',
+    'Beverages': 'Beverages',
+    'Sweets': 'Baking',
+    'Soups, Sauces, and Gravies': 'Sauces',
+    'Snacks': 'Snacks',
+  };
+
+  const refineCategoryByName = (baseCategory: string, ingredientName: string): string => {
+    const lowerName = ingredientName.toLowerCase();
+    if (/\b(extract|vanilla|almond extract|peppermint|flavoring|syrup|molasses|maple syrup|honey|agave)\b/.test(lowerName)) {
+      return 'Extracts & Flavorings';
+    }
+    if (/\b(wine|beer|rum|bourbon|whiskey|vodka|brandy|liqueur|champagne|sake|mirin|sherry|port|marsala|amaretto|kahlua|cointreau|liquor)\b/.test(lowerName)) {
+      return 'Alcohol';
+    }
+    return baseCategory;
+  };
+
   const handleImportFromUsda = async (unmatchedName: string) => {
     setImportingUsda(unmatchedName);
     try {
-      // Search USDA for this ingredient
       const res = await fetch(`/api/nutrition/search?query=${encodeURIComponent(unmatchedName)}`);
       const results = await res.json();
 
       if (!results || results.length === 0 || results.error) {
-        // No USDA match — fall back to creating manually
         handleCreateFromUnmatched(unmatchedName);
         return;
       }
 
-      // Use the first (best) result
       const best = results[0];
       const nutrition = best.nutrition;
+      const baseCategory = USDA_CATEGORY_MAP[best.foodCategory] || 'Other';
+      const finalCategory = refineCategoryByName(baseCategory, unmatchedName);
 
-      // Guess a category based on USDA foodCategory
-      const categoryMap: Record<string, string> = {
-        'Dairy and Egg Products': 'Dairy',
-        'Spices and Herbs': 'Herbs & Spices',
-        'Fats and Oils': 'Oils & Fats',
-        'Poultry Products': 'Proteins',
-        'Beef Products': 'Proteins',
-        'Pork Products': 'Proteins',
-        'Sausages and Luncheon Meats': 'Proteins',
-        'Finfish and Shellfish Products': 'Proteins',
-        'Lamb, Veal, and Game Products': 'Proteins',
-        'Vegetables and Vegetable Products': 'Produce',
-        'Fruits and Fruit Juices': 'Fruits',
-        'Nut and Seed Products': 'Pantry',
-        'Legumes and Legume Products': 'Pantry',
-        'Grain Products': 'Grains & Carbs',
-        'Cereal Grains and Pasta': 'Grains & Carbs',
-        'Baked Products': 'Baking',
-        'Beverages': 'Beverages',
-        'Sweets': 'Baking',
-        'Soups, Sauces, and Gravies': 'Sauces',
-        'Snacks': 'Snacks',
-      };
-
-      // Refine: detect extracts, flavorings, and alcohol from the name
-      let finalCategory = categoryMap[best.foodCategory] || 'Other';
-      const lowerName = unmatchedName.toLowerCase();
-      if (/\b(extract|vanilla|almond extract|peppermint|flavoring|syrup|molasses|maple syrup|honey|agave)\b/.test(lowerName)) {
-        finalCategory = 'Extracts & Flavorings';
-      } else if (/\b(wine|beer|rum|bourbon|whiskey|vodka|brandy|liqueur|champagne|sake|mirin|sherry|port|marsala|amaretto|kahlua|cointreau|liquor)\b/.test(lowerName)) {
-        finalCategory = 'Alcohol';
-      }
-      // Insert into DB
-      const { data: newIng, error } = await supabase
-        .from('ingredients')
-        .insert({
-          name: unmatchedName,
-          category: finalCategory,
-          calories_per_100g: Math.round(nutrition.calories * 10) / 10,
-          protein_per_100g: Math.round(nutrition.protein * 10) / 10,
-          carbs_per_100g: Math.round(nutrition.carbs * 10) / 10,
-          fat_per_100g: Math.round(nutrition.fat * 10) / 10,
-          fiber_per_100g: Math.round(nutrition.fiber * 10) / 10,
-          sugar_per_100g: Math.round(nutrition.sugar * 10) / 10,
-          sodium_per_100g: Math.round(nutrition.sodium * 10) / 10,
-          fdc_id: String(best.fdcId),
-          is_custom: false,
-        })
-        .select()
-        .single();
-
-      if (error) throw error;
-
-      // Link recipe_ingredients to this new ingredient
-      if (newIng) {
-        await supabase
-          .from('recipe_ingredients')
-          .update({ ingredient_id: newIng.id })
-          .ilike('name', unmatchedName);
-
-        // Update local state
-        setIngredients(prev => [...prev, newIng]);
-        setUnmatchedIngredients(prev => prev.filter(u => u.name.toLowerCase() !== unmatchedName.toLowerCase()));
-      }
+      // Open modal with USDA data pre-filled so user can review & edit
+      setPendingUsdaLink(unmatchedName);
+      setEditingIngredient({
+        name: titleCaseIngredient(unmatchedName),
+        category: finalCategory,
+        calories_per_100g: Math.round(nutrition.calories * 10) / 10,
+        protein_per_100g: Math.round(nutrition.protein * 10) / 10,
+        carbs_per_100g: Math.round(nutrition.carbs * 10) / 10,
+        fat_per_100g: Math.round(nutrition.fat * 10) / 10,
+        fiber_per_100g: Math.round(nutrition.fiber * 10) / 10,
+        sugar_per_100g: Math.round(nutrition.sugar * 10) / 10,
+        sodium_per_100g: Math.round(nutrition.sodium * 10) / 10,
+        fdc_id: String(best.fdcId),
+        is_custom: false,
+      } as any);
+      setIsModalOpen(true);
     } catch (error) {
-      console.error('Error importing from USDA:', error);
-      // Fall back to manual creation
+      console.error('Error searching USDA:', error);
       handleCreateFromUnmatched(unmatchedName);
     } finally {
       setImportingUsda(null);
@@ -322,13 +309,42 @@ export default function IngredientsPage() {
     setIsModalOpen(true);
   };
 
-  const handleSaveIngredient = (ingredient: Ingredient) => {
+  const handleSaveIngredient = async (ingredient: Ingredient) => {
     const existing = ingredients.find(i => i.id === ingredient.id);
     if (existing) {
       setIngredients(ingredients.map(i => (i.id === ingredient.id ? ingredient : i)));
     } else {
       setIngredients([...ingredients, ingredient]);
     }
+
+    // If this was from a USDA import, auto-link the recipe_ingredients
+    if (pendingUsdaLink) {
+      try {
+        await supabase
+          .from('recipe_ingredients')
+          .update({ ingredient_id: ingredient.id })
+          .ilike('name', pendingUsdaLink);
+
+        // Also save alias if names differ
+        const lowerLink = pendingUsdaLink.toLowerCase().trim();
+        const lowerIng = ingredient.name.toLowerCase().trim();
+        if (lowerLink !== lowerIng) {
+          const currentAliases = ingredient.aliases || [];
+          if (!currentAliases.some(a => a.toLowerCase() === lowerLink)) {
+            await supabase
+              .from('ingredients')
+              .update({ aliases: [...currentAliases, pendingUsdaLink.trim()] })
+              .eq('id', ingredient.id);
+          }
+        }
+
+        setUnmatchedIngredients(prev => prev.filter(u => u.name.toLowerCase() !== pendingUsdaLink.toLowerCase()));
+      } catch (error) {
+        console.error('Error linking USDA ingredient:', error);
+      }
+      setPendingUsdaLink(null);
+    }
+
     // Refresh unmatched list if on matching tab
     if (activeTab === 'matching') {
       setTimeout(() => loadUnmatchedIngredients(), 500);

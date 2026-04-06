@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Upload, Plus, X, Loader } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { Recipe, RecipeIngredient, Tag } from '@/lib/types';
-import { toFraction } from '@/lib/utils';
+import { toFraction, titleCaseIngredient } from '@/lib/utils';
 
 interface FormIngredientItem {
   name: string;
@@ -324,7 +324,7 @@ export default function AddRecipePage() {
         .filter((ing) => ing.name.trim() || ing.is_header || ing.is_or)
         .map((ing, idx) => ({
           recipe_id: recipeData.id,
-          name: ing.is_header ? `--- ${ing.name} ---` : ing.is_or ? '---OR---' : ing.name,
+          name: ing.is_header ? `--- ${ing.name} ---` : ing.is_or ? '---OR---' : titleCaseIngredient(ing.name),
           quantity: ing.is_header || ing.is_or ? 0 : ing.quantity,
           unit: ing.is_header || ing.is_or ? '' : ing.unit,
           notes: ing.is_header || ing.is_or ? '' : ing.notes,
