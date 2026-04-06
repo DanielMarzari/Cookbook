@@ -705,9 +705,10 @@ function parseFallback(html: string): Partial<ParsedRecipe> {
         if (!next.length) {
           next = $(heading).parent().next();
         }
-        // Squarespace: walk up to sqs-block level if needed
+        // Squarespace/CMS: walk up to the block-level container if needed
         if (!next.length || (!next.is('ol') && !next.is('ul') && !next.find('ol, ul').length)) {
-          let ancestor = $(heading).closest('.sqs-block, [class*="block"], [data-block-type]');
+          let ancestor = $(heading).closest('[data-block-type]');
+          if (!ancestor.length) ancestor = $(heading).closest('.sqs-block, .block, .content-block');
           if (ancestor.length) {
             next = ancestor.next();
           }
