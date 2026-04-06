@@ -87,6 +87,7 @@ function parseJsonLd(html: string): Partial<ParsedRecipe> | null {
         }
 
         // Parse instructions - can be strings, objects, or sections
+        // Sections become header markers like "--- For the Dough ---"
         const instructions: Array<{ text: string }> = [];
         const rawInstructions = recipe.recipeInstructions || [];
         for (const inst of rawInstructions) {
@@ -94,10 +95,31 @@ function parseJsonLd(html: string): Partial<ParsedRecipe> | null {
             instructions.push({ text: inst });
           } else if (inst['@type'] === 'HowToStep') {
             instructions.push({ text: inst.text || '' });
-          } else if (inst['@type'] === 'HowToSection' && inst.itemListElement) {
-            for (const step of inst.itemListElement) {
-              instructions.push({ text: typeof step === 'string' ? step : step.text || '' });
+          } else if (inst['@type'] === 'HowToSection') {
+            // Add section name as a header step
+            if (inst.name) {
+              instructions.push({ text: `--- ${inst.name} ---` });
             }
+            if (inst.itemListElement) {
+              for (const step of inst.itemListElement) {
+                instructions.push({ text: typeof step === 'string' ? step : step.text || '' });
+              }
+            }
+          }
+        }
+
+        // Parse ingredient groups - some recipes have sections like "For the Dough", "For the Filling"
+        // recipeIngredient is usually a flat array, but ingredient text might contain group headers
+        const ingredientGroups: ParsedIngredient[] = [];
+        const rawIngredients = recipe.recipeIngredient || [];
+        for (const ing of rawIngredients) {
+          if (typeof ing !== 'string') continue;
+          const trimmed = ing.trim();
+          // Detect group headers: "For the dough:", "Filling:", etc.
+          if (/^(for\s+(the\s+)?|the\s+)/i.test(trimmed) && trimmed.length < 60 && !trimmed.match(/^\d/)) {
+            ingredientGroups.push({ name: `--- ${trimmed.replace(/:$/, '')} ---`, quantity: 0, unit: '', notes: undefined });
+          } else {
+            ingredientGroups.push(parseIngredient(trimmed));
           }
         }
 
@@ -110,9 +132,7 @@ function parseJsonLd(html: string): Partial<ParsedRecipe> | null {
           prepTime: parseDuration(recipe.prepTime),
           cookTime: parseDuration(recipe.cookTime),
           totalTime: parseDuration(recipe.totalTime),
-          ingredients: (recipe.recipeIngredient || []).map((ing: string) =>
-            parseIngredient(typeof ing === 'string' ? ing : '')
-          ),
+          ingredients: ingredientGroups,
           instructions,
         };
       }
@@ -124,14 +144,26 @@ function parseJsonLd(html: string): Partial<ParsedRecipe> | null {
   return null;
 }
 
-// Parse ISO 8601 duration (PT1H30M, PT45M, PT2H, etc.)
+// Parse ISO 8601 duration (PT1H30M, PT45M, PT2H, P1DT2H, etc.)
 function parseDuration(duration: string | undefined): number | undefined {
-  if (!duration) return undefined;
+  if (!duration || typeof duration !== 'string') return undefined;
+
+  // Must start with P to be valid ISO 8601
+  if (!duration.startsWith('P')) return undefined;
+
   let minutes = 0;
+  const days = duration.match(/(\d+)D/);
   const hours = duration.match(/(\d+)H/);
   const mins = duration.match(/(\d+)M/);
+  // Ignore seconds
+
+  if (days) minutes += parseInt(days[1]) * 24 * 60;
   if (hours) minutes += parseInt(hours[1]) * 60;
   if (mins) minutes += parseInt(mins[1]);
+
+  // Sanity check: cap at 7 days (10080 minutes). Anything beyond is likely a parsing error.
+  if (minutes > 10080) return undefined;
+
   return minutes || undefined;
 }
 
@@ -200,8 +232,8 @@ function parseIngredient(text: string): ParsedIngredient {
   const commaMatch = cleaned.match(/^(.+?),\s*(.+)$/);
   if (commaMatch) {
     const afterComma = commaMatch[2];
-    // Only split on comma if what follows looks like a note, not part of the name
-    const noteKeywords = /^(at |room temp|softened|melted|divided|chopped|diced|minced|to taste|optional|packed|sifted|plus |for |or )/i;
+    // Split on comma if what follows looks like a prep note
+    const noteKeywords = /^(at |room temp|softened|melted|divided|chopped|diced|minced|to taste|optional|packed|sifted|plus |for |or |thinly |finely |roughly |coarsely |freshly |lightly |well |cut |peeled|trimmed|seeded|deveined|thawed|drained|rinsed|warmed|cooled|chilled|beaten|whisked|sifted|grated|shredded|sliced|cubed|julienned|halved|quartered|crushed|crumbled|torn|toasted|roasted)/i;
     if (noteKeywords.test(afterComma)) {
       cleaned = commaMatch[1].trim();
       notes = afterComma.trim();

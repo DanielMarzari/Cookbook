@@ -7,6 +7,7 @@ import { supabase } from '@/lib/supabase';
 import { Recipe, RecipeIngredient, Ingredient, NutritionInfo } from '@/lib/types';
 import { Clock, Users, Flame, ArrowLeft, Heart, BookOpen, RotateCw, Pencil } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { formatTime, toFraction } from '@/lib/utils';
 
 interface NutritionCalculation {
   nutrition: NutritionInfo;
@@ -24,6 +25,7 @@ export default function RecipeDetailPage() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [nutrition, setNutrition] = useState<NutritionCalculation | null>(null);
   const [imageRotation, setImageRotation] = useState(0);
+  const [recipeIngredients, setRecipeIngredients] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -51,6 +53,15 @@ export default function RecipeDetailPage() {
           setRecipe(data);
           setIsFavorite(data.is_favorite);
           setImageRotation(data.image_rotation || 0);
+
+          // Fetch recipe ingredients
+          const { data: ingData } = await supabase
+            .from('recipe_ingredients')
+            .select('*')
+            .eq('recipe_id', data.id)
+            .order('order_index');
+          if (ingData) setRecipeIngredients(ingData);
+
           // Calculate nutrition for this recipe
           await calculateNutrition(data);
         } else {
@@ -320,7 +331,7 @@ export default function RecipeDetailPage() {
               Total Time
             </div>
             <p className="text-2xl font-bold text-primary">
-              {recipe.total_time_minutes}m
+              {formatTime(recipe.total_time_minutes)}
             </p>
           </div>
           <div className="bg-surface rounded-xl p-4 border border-border shadow-warm">
@@ -343,12 +354,51 @@ export default function RecipeDetailPage() {
             </p>
           </div>
           <div className="bg-surface rounded-xl p-4 border border-border shadow-warm">
-            <div className="text-sm text-text-secondary mb-1">Prep Time</div>
-            <p className="text-2xl font-bold text-primary">
-              {recipe.prep_time_minutes}m
+            <div className="text-sm text-text-secondary mb-1">Prep / Cook</div>
+            <p className="text-lg font-bold text-primary">
+              {formatTime(recipe.prep_time_minutes)} / {formatTime(recipe.cook_time_minutes)}
             </p>
           </div>
         </div>
+
+        {/* Ingredients */}
+        {recipeIngredients.length > 0 && (
+          <div className="bg-surface rounded-2xl p-6 border border-border shadow-warm mb-8">
+            <h2 className="text-2xl font-bold text-text mb-4">Ingredients</h2>
+            <ul className="space-y-2">
+              {recipeIngredients.map((ing, idx) => {
+                // Section headers start with "---"
+                if (ing.name?.startsWith('---')) {
+                  return (
+                    <li key={idx} className="pt-3 pb-1">
+                      <p className="text-sm font-bold text-primary uppercase tracking-wide">
+                        {ing.name.replace(/^-+\s*/, '').replace(/\s*-+$/, '')}
+                      </p>
+                    </li>
+                  );
+                }
+                const qtyDisplay = ing.quantity > 0
+                  ? (ing.quantity % 1 !== 0 ? toFraction(ing.quantity) : String(ing.quantity))
+                  : '';
+                const unitDisplay = ing.unit && ing.unit !== 'piece' ? ` ${ing.unit}` : '';
+                return (
+                  <li key={idx} className="flex items-start gap-3 py-1">
+                    <span className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
+                    <span className="text-text">
+                      {qtyDisplay && (
+                        <span className="font-semibold">{qtyDisplay}{unitDisplay}</span>
+                      )}
+                      {qtyDisplay ? ' ' : ''}{ing.name}
+                      {ing.notes && (
+                        <span className="text-text-secondary text-sm ml-1">({ing.notes})</span>
+                      )}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )}
 
         {/* Nutrition Facts */}
         {nutrition && (
