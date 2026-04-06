@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { Upload, Plus, X, Loader, GripVertical } from 'lucide-react';
+import { Upload, Plus, X, Loader, GripVertical, ClipboardPaste } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { Recipe, RecipeIngredient, Tag } from '@/lib/types';
 import { toFraction, titleCaseIngredient } from '@/lib/utils';
@@ -50,12 +50,14 @@ const UNITS = ['g', 'kg', 'ml', 'l', 'cup', 'tbsp', 'tsp', 'oz', 'lb', 'piece', 
 
 export default function AddRecipePage() {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState<'manual' | 'url' | 'image'>(
+  const [activeTab, setActiveTab] = useState<'manual' | 'url' | 'paste' | 'image'>(
     'manual'
   );
   const [loading, setLoading] = useState(false);
   const [importLoading, setImportLoading] = useState(false);
   const [importUrl, setImportUrl] = useState('');
+  const [pasteText, setPasteText] = useState('');
+  const [pasteLoading, setPasteLoading] = useState(false);
   const [importedData, setImportedData] = useState<Partial<FormRecipe> | null>(
     null
   );
@@ -242,6 +244,35 @@ export default function AddRecipePage() {
     }
   };
 
+  const handlePasteText = async () => {
+    if (!pasteText.trim()) return;
+
+    setPasteLoading(true);
+    try {
+      const response = await fetch('/api/recipes/parse-text', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: pasteText }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setImportedData(data);
+        setFormData((prev) => ({
+          ...prev,
+          ...data,
+        }));
+        setActiveTab('manual');
+      } else {
+        alert('Failed to parse text: ' + (data.error || 'Unknown error'));
+      }
+    } catch (error) {
+      alert('Failed to parse text: ' + (error instanceof Error ? error.message : 'Unknown error'));
+    } finally {
+      setPasteLoading(false);
+    }
+  };
+
   const handleImageUpload = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -403,7 +434,7 @@ export default function AddRecipePage() {
         <h1 className="text-4xl font-bold text-text mb-8">Add Recipe</h1>
 
         <div className="flex gap-2 mb-8 border-b border-border">
-          {(['manual', 'url', 'image'] as const).map((tab) => (
+          {(['manual', 'url', 'paste', 'image'] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -415,6 +446,7 @@ export default function AddRecipePage() {
             >
               {tab === 'manual' && 'Manual Entry'}
               {tab === 'url' && 'From URL'}
+              {tab === 'paste' && 'Paste Text'}
               {tab === 'image' && 'From Image'}
             </button>
           ))}
@@ -867,6 +899,52 @@ export default function AddRecipePage() {
                   </button>
                 </div>
               )}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'paste' && (
+          <div className="bg-surface border border-border rounded-lg p-6 shadow-warm">
+            <h2 className="text-2xl font-bold text-text mb-2">Paste Recipe Text</h2>
+            <p className="text-text-secondary text-sm mb-4">
+              Paste a recipe from Instagram, a message, email, or anywhere else. We'll auto-detect the title, ingredients, and instructions.
+            </p>
+
+            <div className="space-y-4">
+              <textarea
+                placeholder={"Paste your recipe here...\n\nExample:\nChocolate Chip Cookies\n\nIngredients:\n2 cups flour\n1 cup butter, softened\n1 cup sugar\n2 eggs\n1 tsp vanilla extract\n1 cup chocolate chips\n\nInstructions:\n1. Preheat oven to 375°F\n2. Cream butter and sugar together\n3. Add eggs and vanilla, mix well\n4. Stir in flour, then fold in chips\n5. Drop spoonfuls onto baking sheet\n6. Bake for 10 minutes"}
+                value={pasteText}
+                onChange={(e) => setPasteText(e.target.value)}
+                rows={16}
+                className="w-full px-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary font-mono text-sm leading-relaxed"
+              />
+
+              <div className="flex gap-3">
+                <button
+                  onClick={handlePasteText}
+                  disabled={pasteLoading || !pasteText.trim()}
+                  className="flex-1 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  {pasteLoading ? (
+                    <>
+                      <Loader size={20} className="animate-spin" />
+                      Parsing...
+                    </>
+                  ) : (
+                    <>
+                      <ClipboardPaste size={20} />
+                      Parse Recipe
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={() => setPasteText('')}
+                  disabled={!pasteText}
+                  className="px-6 py-3 border border-border rounded-lg font-medium text-text-secondary hover:bg-background transition-colors disabled:opacity-50"
+                >
+                  Clear
+                </button>
+              </div>
             </div>
           </div>
         )}
