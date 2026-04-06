@@ -4,12 +4,13 @@ import { GroceryListItem } from '@/lib/types';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const db = getDb();
     const stmt = db.prepare('SELECT * FROM grocery_list_items WHERE id = ?');
-    const item = stmt.get(params.id) as GroceryListItem;
+    const item = stmt.get(id) as GroceryListItem;
     if (!item) return NextResponse.json({ error: 'Grocery list item not found' }, { status: 404 });
     return NextResponse.json(item);
   } catch (error) {
@@ -20,8 +21,9 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const db = getDb();
     const body = await request.json();
@@ -41,11 +43,11 @@ export async function PUT(
       body.unit || null,
       body.checked !== undefined ? (body.checked ? 1 : 0) : null,
       body.category || null,
-      params.id
+      id
     );
 
     const getStmt = db.prepare('SELECT * FROM grocery_list_items WHERE id = ?');
-    return NextResponse.json(getStmt.get(params.id));
+    return NextResponse.json(getStmt.get(id));
   } catch (error) {
     console.error('Error updating grocery list item:', error);
     return NextResponse.json({ error: 'Failed to update grocery list item' }, { status: 500 });
@@ -54,11 +56,12 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const db = getDb();
-    db.prepare('DELETE FROM grocery_list_items WHERE id = ?').run(params.id);
+    db.prepare('DELETE FROM grocery_list_items WHERE id = ?').run(id);
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Error deleting grocery list item:', error);

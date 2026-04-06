@@ -4,11 +4,11 @@ import { Recipe } from '@/lib/types';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const db = getDb();
-    const id = params.id;
 
     const stmt = db.prepare('SELECT * FROM recipes WHERE id = ?');
     const recipe = stmt.get(id) as Recipe;
@@ -26,11 +26,11 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const db = getDb();
-    const id = params.id;
     const body = await request.json();
     const now = new Date().toISOString();
 
@@ -93,11 +93,11 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const db = getDb();
-    const id = params.id;
 
     // Delete related data first
     db.prepare('DELETE FROM recipe_ingredients WHERE recipe_id = ?').run(id);
