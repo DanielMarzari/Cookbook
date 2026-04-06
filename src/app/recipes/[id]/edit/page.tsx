@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { Recipe } from '@/lib/types';
-import { ArrowLeft, Plus, X, Loader, RotateCw, Trash2 } from 'lucide-react';
+import { ArrowLeft, Plus, X, Loader, RotateCw, Trash2, GripVertical } from 'lucide-react';
 import { toFraction, titleCaseIngredient } from '@/lib/utils';
 
 const CUISINES = [
@@ -137,6 +137,25 @@ export default function EditRecipePage() {
       .update({ image_rotation: newRotation })
       .eq('id', id);
   };
+
+  // Drag-to-reorder ingredients
+  const [dragIdx, setDragIdx] = useState<number | null>(null);
+  const [dragOverIdx, setDragOverIdx] = useState<number | null>(null);
+
+  const handleDragStart = (idx: number) => setDragIdx(idx);
+  const handleDragOver = (e: React.DragEvent, idx: number) => { e.preventDefault(); setDragOverIdx(idx); };
+  const handleDrop = (idx: number) => {
+    if (dragIdx === null || dragIdx === idx) { setDragIdx(null); setDragOverIdx(null); return; }
+    setIngredients((prev) => {
+      const items = [...prev];
+      const [dragged] = items.splice(dragIdx, 1);
+      items.splice(idx, 0, dragged);
+      return items;
+    });
+    setDragIdx(null);
+    setDragOverIdx(null);
+  };
+  const handleDragEnd = () => { setDragIdx(null); setDragOverIdx(null); };
 
   const addSectionHeader = () => {
     setIngredients(prev => [...prev, { name: '', quantity: 0, unit: '', notes: '', is_header: true }]);
@@ -406,9 +425,20 @@ export default function EditRecipePage() {
 
             <div className="space-y-3">
               {ingredients.map((ing, idx) => {
+                const dragProps = {
+                  draggable: true,
+                  onDragStart: () => handleDragStart(idx),
+                  onDragOver: (e: React.DragEvent) => handleDragOver(e, idx),
+                  onDrop: () => handleDrop(idx),
+                  onDragEnd: handleDragEnd,
+                };
+                const dropHighlight = dragOverIdx === idx && dragIdx !== idx ? 'border-t-2 border-primary' : '';
+                const dragging = dragIdx === idx ? 'opacity-40' : '';
+
                 if (ing.is_header) {
                   return (
-                    <div key={idx} className="flex items-center gap-2 pt-4 pb-1">
+                    <div key={idx} {...dragProps} className={`flex items-center gap-2 pt-4 pb-1 ${dropHighlight} ${dragging}`}>
+                      <GripVertical size={16} className="text-text-secondary cursor-grab flex-shrink-0" />
                       <div className="flex-1 border-t border-primary/30" />
                       <input
                         type="text"
@@ -424,7 +454,8 @@ export default function EditRecipePage() {
                 }
                 if (ing.is_or) {
                   return (
-                    <div key={idx} className="flex items-center gap-3 py-1">
+                    <div key={idx} {...dragProps} className={`flex items-center gap-3 py-1 ${dropHighlight} ${dragging}`}>
+                      <GripVertical size={16} className="text-text-secondary cursor-grab flex-shrink-0" />
                       <div className="flex-1 border-t border-orange-300" />
                       <span className="text-sm font-bold text-orange-500 tracking-wider">OR</span>
                       <div className="flex-1 border-t border-orange-300" />
@@ -433,7 +464,8 @@ export default function EditRecipePage() {
                   );
                 }
                 return (
-                  <div key={idx} className="flex gap-2 items-center">
+                  <div key={idx} {...dragProps} className={`flex gap-2 items-center ${dropHighlight} ${dragging}`}>
+                    <GripVertical size={16} className="text-text-secondary cursor-grab flex-shrink-0" />
                     <input
                       type="text"
                       placeholder="Ingredient name"

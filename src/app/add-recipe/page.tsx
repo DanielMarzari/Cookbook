@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { Upload, Plus, X, Loader } from 'lucide-react';
+import { Upload, Plus, X, Loader, GripVertical } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { Recipe, RecipeIngredient, Tag } from '@/lib/types';
 import { toFraction, titleCaseIngredient } from '@/lib/utils';
@@ -77,6 +77,40 @@ export default function AddRecipePage() {
     ingredients: [{ name: '', quantity: 0, unit: 'g', notes: '' }],
     instructions: [{ text: '', timer_minutes: undefined, timer_label: '' }],
   });
+
+  // Drag-to-reorder ingredients
+  const [dragIdx, setDragIdx] = useState<number | null>(null);
+  const [dragOverIdx, setDragOverIdx] = useState<number | null>(null);
+
+  const handleDragStart = (idx: number) => {
+    setDragIdx(idx);
+  };
+
+  const handleDragOver = (e: React.DragEvent, idx: number) => {
+    e.preventDefault();
+    setDragOverIdx(idx);
+  };
+
+  const handleDrop = (idx: number) => {
+    if (dragIdx === null || dragIdx === idx) {
+      setDragIdx(null);
+      setDragOverIdx(null);
+      return;
+    }
+    setFormData((prev) => {
+      const items = [...prev.ingredients];
+      const [dragged] = items.splice(dragIdx, 1);
+      items.splice(idx, 0, dragged);
+      return { ...prev, ingredients: items };
+    });
+    setDragIdx(null);
+    setDragOverIdx(null);
+  };
+
+  const handleDragEnd = () => {
+    setDragIdx(null);
+    setDragOverIdx(null);
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -518,10 +552,23 @@ export default function AddRecipePage() {
 
               <div className="space-y-3">
                 {formData.ingredients.map((ing, idx) => {
+                  const dragProps = {
+                    draggable: true,
+                    onDragStart: () => handleDragStart(idx),
+                    onDragOver: (e: React.DragEvent) => handleDragOver(e, idx),
+                    onDrop: () => handleDrop(idx),
+                    onDragEnd: handleDragEnd,
+                  };
+                  const dropHighlight = dragOverIdx === idx && dragIdx !== idx
+                    ? 'border-t-2 border-primary'
+                    : '';
+                  const dragging = dragIdx === idx ? 'opacity-40' : '';
+
                   // Section header
                   if (ing.is_header) {
                     return (
-                      <div key={idx} className="flex items-center gap-2 pt-4 pb-1">
+                      <div key={idx} {...dragProps} className={`flex items-center gap-2 pt-4 pb-1 ${dropHighlight} ${dragging}`}>
+                        <GripVertical size={16} className="text-text-secondary cursor-grab flex-shrink-0" />
                         <div className="flex-1 border-t border-primary/30" />
                         <input
                           type="text"
@@ -544,7 +591,8 @@ export default function AddRecipePage() {
                   // OR divider
                   if (ing.is_or) {
                     return (
-                      <div key={idx} className="flex items-center gap-3 py-1">
+                      <div key={idx} {...dragProps} className={`flex items-center gap-3 py-1 ${dropHighlight} ${dragging}`}>
+                        <GripVertical size={16} className="text-text-secondary cursor-grab flex-shrink-0" />
                         <div className="flex-1 border-t border-orange-300" />
                         <span className="text-sm font-bold text-orange-500 tracking-wider">OR</span>
                         <div className="flex-1 border-t border-orange-300" />
@@ -560,7 +608,8 @@ export default function AddRecipePage() {
 
                   // Normal ingredient row
                   return (
-                    <div key={idx} className="flex gap-2 items-center">
+                    <div key={idx} {...dragProps} className={`flex gap-2 items-center ${dropHighlight} ${dragging}`}>
+                      <GripVertical size={16} className="text-text-secondary cursor-grab flex-shrink-0" />
                       <input
                         type="text"
                         placeholder="Ingredient name"
