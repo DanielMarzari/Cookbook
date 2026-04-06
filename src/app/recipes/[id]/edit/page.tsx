@@ -24,6 +24,8 @@ interface FormIngredient {
   name: string;
   quantity: number;
   unit: string;
+  is_header?: boolean;
+  is_or?: boolean;
   notes: string;
 }
 
@@ -100,12 +102,21 @@ export default function EditRecipePage() {
           .order('order_index');
 
         if (recipeIngredients && recipeIngredients.length > 0) {
-          setIngredients(recipeIngredients.map((ing: any) => ({
-            name: ing.name,
-            quantity: ing.quantity,
-            unit: ing.unit,
-            notes: ing.notes || '',
-          })));
+          setIngredients(recipeIngredients.map((ing: any) => {
+            // Detect section headers and OR dividers from DB format
+            if (ing.name === '---OR---') {
+              return { name: 'OR', quantity: 0, unit: '', notes: '', is_or: true };
+            }
+            if (ing.name?.startsWith('---') && ing.name?.endsWith('---')) {
+              return { name: ing.name.replace(/^-+\s*/, '').replace(/\s*-+$/, ''), quantity: 0, unit: '', notes: '', is_header: true };
+            }
+            return {
+              name: ing.name,
+              quantity: ing.quantity,
+              unit: ing.unit,
+              notes: ing.notes || '',
+            };
+          }));
         }
       } catch (err) {
         console.error('Error loading recipe:', err);
@@ -125,6 +136,14 @@ export default function EditRecipePage() {
       .from('recipes')
       .update({ image_rotation: newRotation })
       .eq('id', id);
+  };
+
+  const addSectionHeader = () => {
+    setIngredients(prev => [...prev, { name: '', quantity: 0, unit: '', notes: '', is_header: true }]);
+  };
+
+  const addOrDivider = () => {
+    setIngredients(prev => [...prev, { name: 'OR', quantity: 0, unit: '', notes: '', is_or: true }]);
   };
 
   const addIngredient = () => {
@@ -195,13 +214,13 @@ export default function EditRecipePage() {
         .eq('recipe_id', id);
 
       const ingredientsWithRecipeId = ingredients
-        .filter(ing => ing.name.trim())
+        .filter(ing => ing.name.trim() || ing.is_header || ing.is_or)
         .map((ing, idx) => ({
           recipe_id: id,
-          name: ing.name,
-          quantity: ing.quantity,
-          unit: ing.unit,
-          notes: ing.notes,
+          name: ing.is_header ? `--- ${ing.name} ---` : ing.is_or ? '---OR---' : ing.name,
+          quantity: ing.is_header || ing.is_or ? 0 : ing.quantity,
+          unit: ing.is_header || ing.is_or ? '' : ing.unit,
+          notes: ing.is_header || ing.is_or ? '' : ing.notes,
           order_index: idx,
           ingredient_id: null,
         }));
@@ -386,63 +405,100 @@ export default function EditRecipePage() {
             <h2 className="text-2xl font-bold text-text mb-4">Ingredients</h2>
 
             <div className="space-y-3">
-              {ingredients.map((ing, idx) => (
-                <div key={idx} className="flex gap-2 items-center">
-                  <input
-                    type="text"
-                    placeholder="Ingredient name"
-                    value={ing.name}
-                    onChange={(e) => updateIngredient(idx, 'name', e.target.value)}
-                    className="flex-1 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                  <div className="relative w-24">
+              {ingredients.map((ing, idx) => {
+                if (ing.is_header) {
+                  return (
+                    <div key={idx} className="flex items-center gap-2 pt-4 pb-1">
+                      <div className="flex-1 border-t border-primary/30" />
+                      <input
+                        type="text"
+                        placeholder="Section name (e.g. For the Dough)"
+                        value={ing.name}
+                        onChange={(e) => updateIngredient(idx, 'name', e.target.value)}
+                        className="px-4 py-1.5 text-sm font-bold text-primary bg-primary/5 border border-primary/20 rounded-full text-center min-w-48 focus:outline-none focus:ring-2 focus:ring-primary"
+                      />
+                      <div className="flex-1 border-t border-primary/30" />
+                      <button onClick={() => removeIngredient(idx)} className="p-1 text-red-500 hover:bg-red-50 rounded transition-colors"><X size={16} /></button>
+                    </div>
+                  );
+                }
+                if (ing.is_or) {
+                  return (
+                    <div key={idx} className="flex items-center gap-3 py-1">
+                      <div className="flex-1 border-t border-orange-300" />
+                      <span className="text-sm font-bold text-orange-500 tracking-wider">OR</span>
+                      <div className="flex-1 border-t border-orange-300" />
+                      <button onClick={() => removeIngredient(idx)} className="p-1 text-red-500 hover:bg-red-50 rounded transition-colors"><X size={16} /></button>
+                    </div>
+                  );
+                }
+                return (
+                  <div key={idx} className="flex gap-2 items-center">
                     <input
-                      type="number"
-                      placeholder="Qty"
-                      step="0.01"
-                      value={ing.quantity}
-                      onChange={(e) => updateIngredient(idx, 'quantity', parseFloat(e.target.value) || 0)}
-                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      type="text"
+                      placeholder="Ingredient name"
+                      value={ing.name}
+                      onChange={(e) => updateIngredient(idx, 'name', e.target.value)}
+                      className="flex-1 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                     />
-                    {ing.quantity > 0 && ing.quantity % 1 !== 0 && (
-                      <span className="absolute -top-2 right-1 text-xs font-semibold text-primary bg-surface px-1 rounded">
-                        {toFraction(ing.quantity)}
-                      </span>
-                    )}
+                    <div className="relative w-24">
+                      <input
+                        type="number"
+                        placeholder="Qty"
+                        step="0.01"
+                        value={ing.quantity}
+                        onChange={(e) => updateIngredient(idx, 'quantity', parseFloat(e.target.value) || 0)}
+                        className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                      />
+                      {ing.quantity > 0 && ing.quantity % 1 !== 0 && (
+                        <span className="absolute -top-2 right-1 text-xs font-semibold text-primary bg-surface px-1 rounded">
+                          {toFraction(ing.quantity)}
+                        </span>
+                      )}
+                    </div>
+                    <select
+                      value={UNITS.includes(ing.unit) ? ing.unit : 'piece'}
+                      onChange={(e) => updateIngredient(idx, 'unit', e.target.value)}
+                      className="w-28 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    >
+                      {UNITS.map((u) => (
+                        <option key={u} value={u}>{u}</option>
+                      ))}
+                    </select>
+                    <input
+                      type="text"
+                      placeholder="Notes"
+                      value={ing.notes}
+                      onChange={(e) => updateIngredient(idx, 'notes', e.target.value)}
+                      className="flex-1 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                    <button onClick={() => removeIngredient(idx)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"><X size={20} /></button>
                   </div>
-                  <select
-                    value={UNITS.includes(ing.unit) ? ing.unit : 'piece'}
-                    onChange={(e) => updateIngredient(idx, 'unit', e.target.value)}
-                    className="w-28 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  >
-                    {UNITS.map((u) => (
-                      <option key={u} value={u}>{u}</option>
-                    ))}
-                  </select>
-                  <input
-                    type="text"
-                    placeholder="Notes"
-                    value={ing.notes}
-                    onChange={(e) => updateIngredient(idx, 'notes', e.target.value)}
-                    className="flex-1 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                  <button
-                    onClick={() => removeIngredient(idx)}
-                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                  >
-                    <X size={20} />
-                  </button>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            <button
-              onClick={addIngredient}
-              className="mt-4 flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/10 rounded-lg transition-colors"
-            >
-              <Plus size={20} />
-              Add Ingredient
-            </button>
+            <div className="mt-4 flex items-center gap-2">
+              <button
+                onClick={addIngredient}
+                className="flex items-center gap-2 px-4 py-2 text-primary hover:bg-primary/10 rounded-lg transition-colors"
+              >
+                <Plus size={20} />
+                Add Ingredient
+              </button>
+              <button
+                onClick={addSectionHeader}
+                className="flex items-center gap-2 px-4 py-2 text-text-secondary hover:bg-background rounded-lg transition-colors text-sm"
+              >
+                + Section
+              </button>
+              <button
+                onClick={addOrDivider}
+                className="flex items-center gap-2 px-4 py-2 text-orange-500 hover:bg-orange-50 rounded-lg transition-colors text-sm"
+              >
+                + OR
+              </button>
+            </div>
           </div>
 
           {/* Instructions */}
