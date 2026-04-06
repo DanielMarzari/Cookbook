@@ -88,7 +88,7 @@ export interface Recipe {
   source_url?: string;
   source_name?: string;
   source_author?: string;
-  source_type?: 'user' | 'imported';
+  source_type?: string;
   is_favorite: boolean;
   status?: 'new' | 'testing' | 'approved' | 'signature' | 'archived';
   image_rotation?: number;
