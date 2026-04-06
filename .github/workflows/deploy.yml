@@ -49,4 +49,4 @@ jobs:
           fi
 
           ssh -i ~/.ssh/deploy_key ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
-            'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && cd /var/www/apps/cookbook && PORT=3001 pm2 restart cookbook --update-env || PORT=3001 pm2 start server.js --name cookbook --update-env && pm2 save'
+            'export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && cd /var/www/apps/cookbook && PORT=3001 AUTH_PASSWORD=${{ secrets.AUTH_PASSWORD }} DATABASE_PATH=${{ secrets.DATABASE_PATH }} pm2 restart cookbook --update-env || PORT=3001 AUTH_PASSWORD=${{ secrets.AUTH_PASSWORD }} DATABASE_PATH=${{ secrets.DATABASE_PATH }} pm2 start server.js --name cookbook --update-env && pm2 save'
