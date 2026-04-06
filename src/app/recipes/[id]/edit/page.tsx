@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { Recipe } from '@/lib/types';
-import { ArrowLeft, Plus, X, Loader, RotateCw, Trash2, GripVertical } from 'lucide-react';
+import { ArrowLeft, Plus, X, Loader, RotateCw, Trash2, GripVertical, Check } from 'lucide-react';
 import { toFraction, titleCaseIngredient } from '@/lib/utils';
 
 const CUISINES = [
@@ -42,7 +42,10 @@ export default function EditRecipePage() {
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
   const [imageRotation, setImageRotation] = useState(0);
+  const initialLoadDone = useRef(false);
+  const autosaveTimer = useRef<NodeJS.Timeout | null>(null);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -122,11 +125,65 @@ export default function EditRecipePage() {
         console.error('Error loading recipe:', err);
       } finally {
         setLoading(false);
+        setTimeout(() => { initialLoadDone.current = true; }, 100);
       }
     };
 
     fetchRecipe();
   }, [id]);
+
+  // Autosave: debounce 1.5s after any change
+  const doAutosave = useCallback(async () => {
+    if (!initialLoadDone.current || !title.trim()) return;
+    setSaving(true);
+    try {
+      await supabase
+        .from('recipes')
+        .update({
+          title, description, cuisine_type: cuisineType, difficulty,
+          prep_time_minutes: prepTime, cook_time_minutes: cookTime,
+          total_time_minutes: prepTime + cookTime, servings,
+          image_url: imageUrl, image_rotation: imageRotation,
+          source_url: sourceUrl, source_name: sourceName, source_author: sourceAuthor,
+          instructions: instructions.map((inst, idx) => ({
+            step_number: idx + 1, text: inst.text,
+            timer_minutes: inst.timer_minutes, timer_label: inst.timer_label,
+          })),
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', id);
+
+      // Save ingredients
+      await supabase.from('recipe_ingredients').delete().eq('recipe_id', id);
+      const ingredientsWithRecipeId = ingredients
+        .filter(ing => ing.name.trim() || ing.is_header || ing.is_or)
+        .map((ing, idx) => ({
+          recipe_id: id,
+          name: ing.is_header ? `--- ${ing.name} ---` : ing.is_or ? '---OR---' : titleCaseIngredient(ing.name),
+          quantity: ing.is_header || ing.is_or ? 0 : ing.quantity,
+          unit: ing.is_header || ing.is_or ? '' : ing.unit,
+          notes: ing.is_header || ing.is_or ? '' : ing.notes,
+          order_index: idx,
+          ingredient_id: null,
+        }));
+      if (ingredientsWithRecipeId.length > 0) {
+        await supabase.from('recipe_ingredients').insert(ingredientsWithRecipeId);
+      }
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+    } catch (err) {
+      console.error('Autosave error:', err);
+    } finally {
+      setSaving(false);
+    }
+  }, [id, title, description, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, sourceUrl, sourceName, sourceAuthor, instructions, ingredients]);
+
+  useEffect(() => {
+    if (!initialLoadDone.current) return;
+    if (autosaveTimer.current) clearTimeout(autosaveTimer.current);
+    autosaveTimer.current = setTimeout(doAutosave, 1500);
+    return () => { if (autosaveTimer.current) clearTimeout(autosaveTimer.current); };
+  }, [title, description, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, sourceUrl, sourceName, sourceAuthor, instructions, ingredients, doAutosave]);
 
   const handleRotateImage = async () => {
     const newRotation = (imageRotation + 90) % 360;
@@ -187,78 +244,6 @@ export default function EditRecipePage() {
 
   const removeInstruction = (idx: number) => {
     setInstructions(prev => prev.filter((_, i) => i !== idx));
-  };
-
-  const handleSave = async () => {
-    if (!title.trim()) {
-      alert('Please enter a recipe title');
-      return;
-    }
-
-    setSaving(true);
-    try {
-      // Update recipe
-      const { error: recipeError } = await supabase
-        .from('recipes')
-        .update({
-          title,
-          description,
-          cuisine_type: cuisineType,
-          difficulty,
-          prep_time_minutes: prepTime,
-          cook_time_minutes: cookTime,
-          total_time_minutes: prepTime + cookTime,
-          servings,
-          image_url: imageUrl,
-          image_rotation: imageRotation,
-          source_url: sourceUrl,
-          source_name: sourceName,
-          source_author: sourceAuthor,
-          instructions: instructions.map((inst, idx) => ({
-            step_number: idx + 1,
-            text: inst.text,
-            timer_minutes: inst.timer_minutes,
-            timer_label: inst.timer_label,
-          })),
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', id);
-
-      if (recipeError) throw recipeError;
-
-      // Delete old ingredients and re-insert
-      await supabase
-        .from('recipe_ingredients')
-        .delete()
-        .eq('recipe_id', id);
-
-      const ingredientsWithRecipeId = ingredients
-        .filter(ing => ing.name.trim() || ing.is_header || ing.is_or)
-        .map((ing, idx) => ({
-          recipe_id: id,
-          name: ing.is_header ? `--- ${ing.name} ---` : ing.is_or ? '---OR---' : titleCaseIngredient(ing.name),
-          quantity: ing.is_header || ing.is_or ? 0 : ing.quantity,
-          unit: ing.is_header || ing.is_or ? '' : ing.unit,
-          notes: ing.is_header || ing.is_or ? '' : ing.notes,
-          order_index: idx,
-          ingredient_id: null,
-        }));
-
-      if (ingredientsWithRecipeId.length > 0) {
-        const { error: ingredError } = await supabase
-          .from('recipe_ingredients')
-          .insert(ingredientsWithRecipeId);
-
-        if (ingredError) throw ingredError;
-      }
-
-      router.push(`/recipes/${id}`);
-    } catch (error) {
-      console.error('Error saving recipe:', error);
-      alert('Failed to save: ' + (error instanceof Error ? error.message : 'Unknown error'));
-    } finally {
-      setSaving(false);
-    }
   };
 
   if (loading) {
@@ -587,21 +572,19 @@ export default function EditRecipePage() {
             </button>
           </div>
 
-          {/* Save Button */}
-          <button
-            onClick={handleSave}
-            disabled={saving}
-            className="w-full py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
-          >
-            {saving ? (
-              <>
-                <Loader size={20} className="animate-spin" />
-                Saving...
-              </>
-            ) : (
-              'Save Changes'
-            )}
-          </button>
+          {/* Autosave indicator + Done button */}
+          <div className="flex items-center justify-between">
+            <div className="text-sm text-text-secondary flex items-center gap-2">
+              {saving && <><Loader size={14} className="animate-spin" /> Saving...</>}
+              {saved && !saving && <><Check size={14} className="text-green-600" /> <span className="text-green-600">Saved</span></>}
+            </div>
+            <Link
+              href={`/recipes/${id}`}
+              className="px-8 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+            >
+              Done
+            </Link>
+          </div>
         </div>
       </div>
     </div>

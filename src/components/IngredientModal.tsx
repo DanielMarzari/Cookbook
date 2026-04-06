@@ -20,6 +20,7 @@ const CATEGORIES = [
   'Extracts & Flavorings',
   'Produce',
   'Fruits',
+  'Nuts',
   'Proteins',
   'Dairy',
   'Grains & Carbs',
@@ -50,13 +51,13 @@ export default function IngredientModal({
 
   const [nutrition, setNutrition] = useState<NutritionInfo>(
     ingredient ? {
-      calories: ingredient.calories_per_100g,
-      protein: ingredient.protein_per_100g,
-      carbs: ingredient.carbs_per_100g,
-      fat: ingredient.fat_per_100g,
-      fiber: ingredient.fiber_per_100g,
-      sugar: ingredient.sugar_per_100g,
-      sodium: ingredient.sodium_per_100g,
+      calories: ingredient.calories_per_100g ?? 0,
+      protein: ingredient.protein_per_100g ?? 0,
+      carbs: ingredient.carbs_per_100g ?? 0,
+      fat: ingredient.fat_per_100g ?? 0,
+      fiber: ingredient.fiber_per_100g ?? 0,
+      sugar: ingredient.sugar_per_100g ?? 0,
+      sodium: ingredient.sodium_per_100g ?? 0,
     } : {
       calories: 0,
       protein: 0,
@@ -78,13 +79,13 @@ export default function IngredientModal({
       setFdcId(ingredient.fdc_id || '');
       setAliasesText((ingredient.aliases || []).join(', '));
       setNutrition({
-        calories: ingredient.calories_per_100g,
-        protein: ingredient.protein_per_100g,
-        carbs: ingredient.carbs_per_100g,
-        fat: ingredient.fat_per_100g,
-        fiber: ingredient.fiber_per_100g,
-        sugar: ingredient.sugar_per_100g,
-        sodium: ingredient.sodium_per_100g,
+        calories: ingredient.calories_per_100g ?? 0,
+        protein: ingredient.protein_per_100g ?? 0,
+        carbs: ingredient.carbs_per_100g ?? 0,
+        fat: ingredient.fat_per_100g ?? 0,
+        fiber: ingredient.fiber_per_100g ?? 0,
+        sugar: ingredient.sugar_per_100g ?? 0,
+        sodium: ingredient.sodium_per_100g ?? 0,
       });
     } else {
       // Reset for new ingredient
@@ -140,7 +141,16 @@ export default function IngredientModal({
       if (detailedData) {
         setFdcId(detailedData.fdcId);
         setName(name || detailedData.description);
-        setNutrition(detailedData.nutrition);
+        const n = detailedData.nutrition || {};
+        setNutrition({
+          calories: n.calories ?? 0,
+          protein: n.protein ?? 0,
+          carbs: n.carbs ?? 0,
+          fat: n.fat ?? 0,
+          fiber: n.fiber ?? 0,
+          sugar: n.sugar ?? 0,
+          sodium: n.sodium ?? 0,
+        });
       }
       setTab('form');
     } catch (error) {
