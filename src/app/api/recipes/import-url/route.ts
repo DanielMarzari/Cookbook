@@ -153,23 +153,44 @@ function parseJsonLd(html: string): Partial<ParsedRecipe> | null {
 function parseDuration(duration: string | undefined): number | undefined {
   if (!duration || typeof duration !== 'string') return undefined;
 
-  // Must start with P to be valid ISO 8601
-  if (!duration.startsWith('P')) return undefined;
+  // Must start with P, reject negatives like PT-493177H
+  if (!duration.startsWith('P') || duration.includes('-')) return undefined;
 
   let minutes = 0;
   const days = duration.match(/(\d+)D/);
   const hours = duration.match(/(\d+)H/);
   const mins = duration.match(/(\d+)M/);
-  // Ignore seconds
 
   if (days) minutes += parseInt(days[1]) * 24 * 60;
   if (hours) minutes += parseInt(hours[1]) * 60;
   if (mins) minutes += parseInt(mins[1]);
 
-  // Sanity check: cap at 7 days (10080 minutes). Anything beyond is likely a parsing error.
-  if (minutes > 10080) return undefined;
+  // Sanity check: cap at 7 days (10080 minutes)
+  if (minutes > 10080 || minutes <= 0) return undefined;
 
-  return minutes || undefined;
+  return minutes;
+}
+
+// Extract time mentions from instruction text and sum them up
+// Looks for patterns like "1 hour", "30 minutes", "2-3 hours", "45 min", etc.
+function extractTimesFromInstructions(instructions: Array<{ text: string }>): number {
+  let totalMinutes = 0;
+  const timePattern = /(\d+(?:\.\d+)?)\s*(?:-\s*\d+(?:\.\d+)?\s*)?\s*(hours?|hrs?|minutes?|mins?)/gi;
+
+  for (const inst of instructions) {
+    let match;
+    while ((match = timePattern.exec(inst.text)) !== null) {
+      const value = parseFloat(match[1]);
+      const unit = match[2].toLowerCase();
+      if (unit.startsWith('hour') || unit.startsWith('hr')) {
+        totalMinutes += value * 60;
+      } else {
+        totalMinutes += value;
+      }
+    }
+  }
+
+  return Math.round(totalMinutes);
 }
 
 // Unicode fraction map
@@ -232,46 +253,59 @@ function parseIngredient(text: string): ParsedIngredient {
   // Resolve Unicode fractions first (½ → 0.5, ¾ → 0.75, 1½ → 1.5, etc.)
   cleaned = resolveUnicodeFractions(cleaned);
 
-  // Extract trailing notes after comma (", at room temperature", ", divided", etc.)
-  let notes = '';
-  const commaMatch = cleaned.match(/^(.+?),\s*(.+)$/);
-  if (commaMatch) {
-    const afterComma = commaMatch[2];
-    // Split on comma if what follows looks like a prep note
-    const noteKeywords = /^(at |room temp|softened|melted|divided|chopped|diced|minced|to taste|optional|packed|sifted|plus |for |or |thinly |finely |roughly |coarsely |freshly |lightly |well |cut |peeled|trimmed|seeded|deveined|thawed|drained|rinsed|warmed|cooled|chilled|beaten|whisked|sifted|grated|shredded|sliced|cubed|julienned|halved|quartered|crushed|crumbled|torn|toasted|roasted)/i;
-    if (noteKeywords.test(afterComma)) {
-      cleaned = commaMatch[1].trim();
-      notes = afterComma.trim();
-    }
+  const noteParts: string[] = [];
+
+  // 1) Extract ALL parentheticals and decide what to do with each
+  // e.g. "(1.5 sticks)" → notes, "(2 bags)" → notes, "(optional)" → notes
+  cleaned = cleaned.replace(/\(([^)]+)\)/g, (_, content) => {
+    noteParts.push(`(${content.trim()})`);
+    return ' ';
+  }).replace(/\s+/g, ' ').trim();
+
+  // 2) Extract temperature references → notes
+  // "approx. 110°F" or "warm" as descriptor
+  const tempMatch = cleaned.match(/,?\s*(?:approx\.?\s*)?(\d+\s*°[FCfc])\s*/);
+  if (tempMatch) {
+    noteParts.push(tempMatch[0].replace(/^,?\s*/, '').trim());
+    cleaned = cleaned.replace(tempMatch[0], ' ').replace(/\s+/g, ' ').trim();
+  }
+  // Move "warm", "hot", "cold", "room temperature", "lukewarm" to notes
+  const tempDescriptors = /\b(warm|hot|cold|lukewarm|room\s+temperature)\b/i;
+  const tempDescMatch = cleaned.match(tempDescriptors);
+  if (tempDescMatch) {
+    noteParts.push(tempDescMatch[1].trim());
+    cleaned = cleaned.replace(tempDescriptors, ' ').replace(/\s+/g, ' ').trim();
   }
 
-  // Handle parenthetical alternate measurements: "1 stick (½ cup) butter"
-  // Extract and save the parenthetical as a note, parse the primary measurement
-  const parenMatch = cleaned.match(/^(.+?)\s*\(([^)]+)\)\s*(.*)$/);
-  let beforeParen = cleaned;
-  if (parenMatch) {
-    const parenContent = parenMatch[2].trim();
-    // Check if parenthetical contains a measurement (number + unit)
-    const hasMeasurement = /[\d.]+\s*(cup|tbsp|tsp|oz|g|ml|lb)/i.test(parenContent);
-    if (hasMeasurement) {
-      beforeParen = (parenMatch[1] + ' ' + parenMatch[3]).replace(/\s+/g, ' ').trim();
-      notes = notes ? `(${parenContent}), ${notes}` : `(${parenContent})`;
+  // 3) Handle commas smarter: collect ALL comma-separated segments,
+  // then figure out which are notes vs. name parts
+  // "¾ cups, plus a pinch, white granulated sugar" → qty=0.75, unit=cup, name="white granulated sugar", notes="plus a pinch"
+  const commaParts = cleaned.split(/,\s*/);
+  if (commaParts.length > 1) {
+    const noteKeywords = /^(at |room temp|softened|melted|divided|chopped|diced|minced|to taste|optional|packed|sifted|plus |for |thinly |finely |roughly |coarsely |freshly |lightly |well |cut |peeled|trimmed|seeded|deveined|thawed|drained|rinsed|warmed|cooled|chilled|beaten|whisked|grated|shredded|sliced|cubed|julienned|halved|quartered|crushed|crumbled|torn|toasted|roasted|approx)/i;
+    const mainParts: string[] = [];
+    for (const part of commaParts) {
+      if (noteKeywords.test(part.trim())) {
+        noteParts.push(part.trim());
+      } else {
+        mainParts.push(part.trim());
+      }
     }
+    // Rejoin the non-note parts — the first part has qty+unit, last part(s) have the name
+    cleaned = mainParts.join(' ').replace(/\s+/g, ' ').trim();
   }
 
-  // Main regex: number (decimal or fraction) + optional unit + name
-  // IMPORTANT: [\\d.]+ must come AFTER the mixed-number/fraction alternatives in the group,
-  // but the alternation order must allow decimals to match fully.
+  // 4) Main regex: number (decimal or fraction) + optional unit + name
   const mainRegex = new RegExp(
     `^([\\d]+\\s+[\\d]+\\/[\\d]+|[\\d]+\\/[\\d]+|[\\d]+\\.\\d+|[\\d]+)\\s*(?:(${UNIT_REGEX_STR})\\.?\\s+)?(.+)$`,
     'i'
   );
 
-  const match = beforeParen.match(mainRegex);
+  const match = cleaned.match(mainRegex);
   if (match) {
     const rawQty = match[1];
     const rawUnit = match[2] || '';
-    let name = (match[3] || beforeParen).trim();
+    let name = (match[3] || cleaned).trim();
 
     const quantity = parseQuantity(rawQty);
 
@@ -284,18 +318,25 @@ function parseIngredient(text: string): ParsedIngredient {
 
     const normalizedUnit = unit ? normalizeUnit(unit) : 'piece';
 
+    // 5) Strip leading "of" from name: "of vanilla extract" → "vanilla extract"
+    name = name.replace(/^of\s+/i, '').trim();
+
     // Clean up name: remove trailing periods, extra whitespace
     name = name.replace(/\.\s*$/, '').trim();
 
-    return { quantity, unit: normalizedUnit, name, notes: notes || undefined };
+    const notes = noteParts.length > 0 ? noteParts.join(', ') : undefined;
+    return { quantity, unit: normalizedUnit, name, notes };
   }
 
-  return { quantity: 1, unit: 'piece', name: cleaned, notes: notes || undefined };
+  // No quantity match — strip leading "of" anyway
+  cleaned = cleaned.replace(/^of\s+/i, '').trim();
+  const notes = noteParts.length > 0 ? noteParts.join(', ') : undefined;
+  return { quantity: 1, unit: 'piece', name: cleaned, notes };
 }
 
 // Split an ingredient with "or" in its name into alternatives
 // e.g. "semisweet or dark chocolate chips" → [{name: "semisweet chocolate chips"}, {is_or: true}, {name: "dark chocolate chips"}]
-// Only splits when "or" separates two clear alternatives in the name (not in notes, not "oregano", etc.)
+// Carries shared noun suffix to both alternatives when the "before" part is just an adjective
 function splitOrIngredient(parsed: ParsedIngredient): ParsedIngredient[] {
   const name = parsed.name;
 
@@ -304,7 +345,7 @@ function splitOrIngredient(parsed: ParsedIngredient): ParsedIngredient[] {
   const orMatch = name.match(/^(.+?)\s+or\s+(.+)$/i);
   if (!orMatch) return [parsed];
 
-  const before = orMatch[1].trim();
+  let before = orMatch[1].trim();
   const after = orMatch[2].trim();
 
   // Don't split very short fragments or things that look like notes
@@ -312,6 +353,32 @@ function splitOrIngredient(parsed: ParsedIngredient): ParsedIngredient[] {
 
   // Don't split if "or" is inside parentheses or after a comma (it's a note)
   if (before.includes('(') && !before.includes(')')) return [parsed];
+
+  // Detect shared noun suffix: if "before" has fewer words than "after",
+  // the trailing words of "after" are likely the shared noun.
+  // e.g. "semisweet" or "dark chocolate chips" → before has 1 word, after has 3
+  // The last N words of "after" (where N = afterWords - beforeWords) are the shared suffix
+  const beforeWords = before.split(/\s+/);
+  const afterWords = after.split(/\s+/);
+
+  if (beforeWords.length < afterWords.length) {
+    // "before" is likely just adjective(s), "after" has adj + noun
+    // Figure out how many leading words in "after" are the alternative adjective(s)
+    // by assuming the "before" side has the same number of adjective words
+    const adjCount = beforeWords.length;
+    const sharedSuffix = afterWords.slice(adjCount).join(' ');
+    const afterAdj = afterWords.slice(0, adjCount).join(' ');
+
+    if (sharedSuffix) {
+      before = before + ' ' + sharedSuffix;
+      // "after" already has the full name, keep it as-is
+      return [
+        { ...parsed, name: before },
+        { name: 'OR', quantity: 0, unit: '', is_or: true },
+        { ...parsed, name: after },
+      ];
+    }
+  }
 
   return [
     { ...parsed, name: before },
@@ -551,9 +618,21 @@ export async function POST(request: NextRequest) {
       };
     }
 
-    const prepTime = recipe.prepTime || 0;
-    const cookTime = recipe.cookTime || 0;
-    const totalTime = recipe.totalTime || prepTime + cookTime;
+    let prepTime = recipe.prepTime || 0;
+    let cookTime = recipe.cookTime || 0;
+    let totalTime = recipe.totalTime || 0;
+
+    // Fallback: if structured times are missing/broken, extract from instruction text
+    if (!totalTime && !prepTime && !cookTime && recipe.instructions?.length) {
+      const extractedMinutes = extractTimesFromInstructions(recipe.instructions);
+      if (extractedMinutes > 0) {
+        totalTime = extractedMinutes;
+      }
+    }
+
+    if (!totalTime) {
+      totalTime = prepTime + cookTime;
+    }
 
     // Collect all meaningful images from the page for user selection
     const allImages: string[] = [];
