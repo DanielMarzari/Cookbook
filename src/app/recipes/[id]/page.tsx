@@ -5,7 +5,8 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { Recipe, RecipeIngredient, Ingredient, NutritionInfo } from '@/lib/types';
-import { Clock, Users, Flame, ArrowLeft, Heart, BookOpen, RotateCw } from 'lucide-react';
+import { Clock, Users, Flame, ArrowLeft, Heart, BookOpen, RotateCw, Pencil } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface NutritionCalculation {
   nutrition: NutritionInfo;
@@ -15,6 +16,7 @@ interface NutritionCalculation {
 
 export default function RecipeDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const id = params.id as string;
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);
@@ -257,19 +259,28 @@ export default function RecipeDetailPage() {
             <ArrowLeft size={20} />
             Back
           </Link>
-          <button
-            onClick={handleToggleFavorite}
-            className="p-2 hover:bg-background rounded-full transition-colors"
-          >
-            <Heart
-              size={24}
-              className={`transition-colors ${
-                isFavorite
-                  ? 'fill-red-500 text-red-500'
-                  : 'text-text-secondary hover:text-red-500'
-              }`}
-            />
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => router.push(`/recipes/${id}/edit`)}
+              className="p-2 hover:bg-background rounded-full transition-colors"
+              title="Edit recipe"
+            >
+              <Pencil size={22} className="text-text-secondary hover:text-primary" />
+            </button>
+            <button
+              onClick={handleToggleFavorite}
+              className="p-2 hover:bg-background rounded-full transition-colors"
+            >
+              <Heart
+                size={24}
+                className={`transition-colors ${
+                  isFavorite
+                    ? 'fill-red-500 text-red-500'
+                    : 'text-text-secondary hover:text-red-500'
+                }`}
+              />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -298,14 +309,6 @@ export default function RecipeDetailPage() {
               className="w-full h-full object-cover transition-transform duration-300"
               style={{ transform: `rotate(${imageRotation}deg)` }}
             />
-            <button
-              onClick={handleRotateImage}
-              className="absolute top-4 right-4 p-3 bg-surface rounded-full shadow-warm hover:shadow-warm-lg transition-all hover:scale-110"
-              aria-label="Rotate image"
-              title="Rotate image"
-            >
-              <RotateCw size={20} className="text-text" />
-            </button>
           </div>
         )}
 

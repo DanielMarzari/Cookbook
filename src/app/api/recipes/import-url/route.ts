@@ -134,10 +134,36 @@ function parseDuration(duration: string | undefined): number | undefined {
   return minutes || undefined;
 }
 
-// Parse a single ingredient string like "1 1/2 cups all-purpose flour"
+// Unicode fraction map
+const UNICODE_FRACTIONS: Record<string, number> = {
+  '½': 0.5, '⅓': 1/3, '⅔': 2/3, '¼': 0.25, '¾': 0.75,
+  '⅕': 0.2, '⅖': 0.4, '⅗': 0.6, '⅘': 0.8,
+  '⅙': 1/6, '⅚': 5/6, '⅛': 0.125, '⅜': 0.375, '⅝': 0.625, '⅞': 0.875,
+};
+
+// Replace Unicode fractions with decimal equivalents in text
+function normalizeUnicodeFractions(text: string): string {
+  let result = text;
+  for (const [frac, val] of Object.entries(UNICODE_FRACTIONS)) {
+    // "1½" → "1.5", "½" → "0.5"
+    result = result.replace(new RegExp(`(\\d)\\s*${frac}`, 'g'), (_, whole) => {
+      return String(parseFloat(whole) + val);
+    });
+    result = result.replace(new RegExp(frac, 'g'), String(val));
+  }
+  return result;
+}
+
+// Parse a single ingredient string like "1 1/2 cups all-purpose flour" or "¾ cup sugar"
 function parseIngredient(text: string): ParsedIngredient {
-  const cleaned = text.replace(/\s+/g, ' ').trim();
+  let cleaned = text.replace(/\s+/g, ' ').trim();
   if (!cleaned) return { quantity: 1, unit: 'piece', name: text };
+
+  // Normalize Unicode fractions first (½ → 0.5, ¾ → 0.75, etc.)
+  cleaned = normalizeUnicodeFractions(cleaned);
+
+  // Strip parenthetical notes like "(½ cup)" from beginning — keep them as part of name
+  // But first try to parse the main quantity/unit
 
   // Common units to look for
   const units = [
@@ -151,7 +177,7 @@ function parseIngredient(text: string): ParsedIngredient {
   const unitPattern = units.join('|');
 
   // Match: quantity (possibly fraction) + unit + name
-  // Examples: "1 1/2 cups flour", "2 tbsp olive oil", "3 large eggs"
+  // Examples: "1 1/2 cups flour", "2 tbsp olive oil", "3 large eggs", "0.75 cup sugar"
   const fractionRegex = new RegExp(
     `^([\\d]+(?:\\s+[\\d]+\\/[\\d]+)?|[\\d]+\\/[\\d]+|[\\d.]+)\\s*(?:(${unitPattern})\\.?\\s+)?(.+)$`,
     'i'
@@ -423,10 +449,51 @@ export async function POST(request: NextRequest) {
     const cookTime = recipe.cookTime || 0;
     const totalTime = recipe.totalTime || prepTime + cookTime;
 
+    // Collect all meaningful images from the page for user selection
+    const allImages: string[] = [];
+    const seenUrls = new Set<string>();
+
+    // Add the primary recipe image first
+    if (recipe.image) {
+      allImages.push(recipe.image);
+      seenUrls.add(recipe.image);
+    }
+
+    // Gather all images from the page
+    $('img').each((_, el) => {
+      const src = $(el).attr('src') || $(el).attr('data-src') || $(el).attr('data-lazy-src');
+      if (!src) return;
+
+      // Resolve relative URLs
+      let fullUrl = src;
+      try {
+        fullUrl = new URL(src, url).href;
+      } catch {}
+
+      // Skip tiny images (icons, tracking pixels), duplicates, and data URIs
+      const width = parseInt($(el).attr('width') || '0');
+      const height = parseInt($(el).attr('height') || '0');
+      if ((width > 0 && width < 100) || (height > 0 && height < 100)) return;
+      if (seenUrls.has(fullUrl)) return;
+      if (fullUrl.startsWith('data:')) return;
+      if (fullUrl.includes('pixel') || fullUrl.includes('tracking') || fullUrl.includes('badge') || fullUrl.includes('icon')) return;
+
+      seenUrls.add(fullUrl);
+      allImages.push(fullUrl);
+    });
+
+    // Also grab og:image and other meta images
+    const ogImage = $('meta[property="og:image"]').attr('content');
+    if (ogImage && !seenUrls.has(ogImage)) {
+      allImages.push(ogImage);
+      seenUrls.add(ogImage);
+    }
+
     return NextResponse.json({
       title: recipe.title || 'Imported Recipe',
       description: recipe.description || '',
       image_url: recipe.image || '',
+      all_images: allImages.slice(0, 20), // Cap at 20 images
       ingredients: recipe.ingredients || [],
       instructions:
         recipe.instructions?.map((inst, i) => ({
