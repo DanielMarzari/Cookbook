@@ -458,30 +458,39 @@ export default function AddRecipePage() {
                 </div>
 
                 <div className="grid grid-cols-3 gap-4">
-                  <input
-                    type="number"
-                    name="prep_time_minutes"
-                    placeholder="Prep Time (min)"
-                    value={formData.prep_time_minutes}
-                    onChange={handleInputChange}
-                    className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                  <input
-                    type="number"
-                    name="cook_time_minutes"
-                    placeholder="Cook Time (min)"
-                    value={formData.cook_time_minutes}
-                    onChange={handleInputChange}
-                    className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                  <input
-                    type="number"
-                    name="servings"
-                    placeholder="Servings"
-                    value={formData.servings}
-                    onChange={handleInputChange}
-                    className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">Prep Time (min)</label>
+                    <input
+                      type="number"
+                      name="prep_time_minutes"
+                      placeholder="15"
+                      value={formData.prep_time_minutes}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">Cook Time (min)</label>
+                    <input
+                      type="number"
+                      name="cook_time_minutes"
+                      placeholder="30"
+                      value={formData.cook_time_minutes}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-text-secondary mb-1">Servings</label>
+                    <input
+                      type="number"
+                      name="servings"
+                      placeholder="4"
+                      value={formData.servings}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                    />
+                  </div>
                 </div>
 
                 <input
