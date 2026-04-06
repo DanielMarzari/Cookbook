@@ -14,15 +14,17 @@ interface IngredientModalProps {
 }
 
 const CATEGORIES = [
+  'Pantry',
+  'Aromatics',
+  'Herbs & Spices',
   'Produce',
+  'Proteins',
   'Dairy',
-  'Meat/Poultry',
-  'Seafood',
-  'Grains/Pasta',
-  'Baking',
+  'Grains & Carbs',
   'Condiments',
-  'Spices',
-  'Oils/Fats',
+  'Sauces',
+  'Baking',
+  'Oils & Fats',
   'Canned Goods',
   'Frozen',
   'Beverages',
@@ -38,7 +40,7 @@ export default function IngredientModal({
 }: IngredientModalProps) {
   const [name, setName] = useState(ingredient?.name || '');
   const [brand, setBrand] = useState(ingredient?.brand || '');
-  const [category, setCategory] = useState(ingredient?.category || 'Produce');
+  const [category, setCategory] = useState(ingredient?.category || 'Other');
   const [isCustom, setIsCustom] = useState(ingredient?.is_custom || false);
   const [fdcId, setFdcId] = useState(ingredient?.fdc_id || '');
 
@@ -83,7 +85,7 @@ export default function IngredientModal({
       // Reset for new ingredient
       setName('');
       setBrand('');
-      setCategory('Produce');
+      setCategory('Other');
       setIsCustom(false);
       setFdcId('');
       setNutrition({ calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0, sugar: 0, sodium: 0 });

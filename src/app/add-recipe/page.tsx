@@ -55,6 +55,7 @@ export default function AddRecipePage() {
   const [importedData, setImportedData] = useState<Partial<FormRecipe> | null>(
     null
   );
+  const [importedImages, setImportedImages] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState<FormRecipe>({
@@ -164,11 +165,15 @@ export default function AddRecipePage() {
       const data = await response.json();
       if (response.ok) {
         setImportedData(data);
+        // Store all images from the page for user selection
+        if (data.all_images && data.all_images.length > 0) {
+          setImportedImages(data.all_images);
+        }
         setFormData((prev) => ({
           ...prev,
           ...data,
         }));
-        setActiveTab('manual');
+        // Don't auto-switch to manual — stay on URL tab to let user pick image
       } else {
         alert('Failed to import recipe: ' + (data.error || 'Unknown error'));
       }
@@ -673,10 +678,62 @@ export default function AddRecipePage() {
               </button>
 
               {importedData && (
-                <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <p className="text-green-800">
-                    Recipe imported! Click the Manual Entry tab to edit and save.
-                  </p>
+                <div className="mt-4 space-y-4">
+                  <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <p className="text-green-800 font-medium">
+                      Recipe imported: {importedData.title}
+                    </p>
+                    <p className="text-green-700 text-sm mt-1">
+                      {importedData.ingredients?.length || 0} ingredients, {importedData.instructions?.length || 0} steps found
+                    </p>
+                  </div>
+
+                  {/* Image Picker */}
+                  {importedImages.length > 0 && (
+                    <div>
+                      <h3 className="text-lg font-semibold text-text mb-3">Choose an image</h3>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-h-96 overflow-y-auto">
+                        {importedImages.map((imgUrl, idx) => (
+                          <div
+                            key={idx}
+                            onClick={() => setFormData(prev => ({ ...prev, image_url: imgUrl }))}
+                            className={`relative cursor-pointer rounded-lg overflow-hidden border-2 transition-all hover:scale-105 ${
+                              formData.image_url === imgUrl
+                                ? 'border-primary shadow-warm-lg ring-2 ring-primary/30'
+                                : 'border-border hover:border-primary/50'
+                            }`}
+                          >
+                            <img
+                              src={imgUrl}
+                              alt={`Option ${idx + 1}`}
+                              className="w-full h-32 object-cover"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).style.display = 'none';
+                              }}
+                            />
+                            {formData.image_url === imgUrl && (
+                              <div className="absolute top-2 right-2 w-6 h-6 bg-primary rounded-full flex items-center justify-center">
+                                <span className="text-white text-xs font-bold">✓</span>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                      <button
+                        onClick={() => setFormData(prev => ({ ...prev, image_url: '' }))}
+                        className="mt-2 text-sm text-text-secondary hover:text-text transition-colors"
+                      >
+                        No image
+                      </button>
+                    </div>
+                  )}
+
+                  <button
+                    onClick={() => setActiveTab('manual')}
+                    className="w-full py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+                  >
+                    Continue to Edit & Save
+                  </button>
                 </div>
               )}
             </div>

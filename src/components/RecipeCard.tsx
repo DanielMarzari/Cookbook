@@ -1,7 +1,7 @@
 'use client';
 
 import { Recipe } from '@/lib/types';
-import { Heart, Clock, Flame, Sparkles, Check, ThumbsUp, Wrench } from 'lucide-react';
+import { Heart, Clock, Flame, Sparkles, FlaskConical, CheckCircle, Award, Archive } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { supabase } from '@/lib/supabase';
@@ -28,7 +28,7 @@ const difficultyColors = {
 interface RecipeCardProps {
   recipe: Recipe;
   onToggleFavorite?: (id: string, isFavorite: boolean) => void;
-  onStatusChange?: (id: string, status: 'new' | 'tried' | 'approved' | 'wip') => void;
+  onStatusChange?: (id: string, status: 'new' | 'testing' | 'approved' | 'signature' | 'archived') => void;
 }
 
 export default function RecipeCard({
@@ -38,7 +38,7 @@ export default function RecipeCard({
 }: RecipeCardProps) {
   const [isFavorite, setIsFavorite] = useState(recipe.is_favorite);
   const [isImageLoading, setIsImageLoading] = useState(true);
-  const [status, setStatus] = useState<'new' | 'tried' | 'approved' | 'wip'>(recipe.status || 'new');
+  const [status, setStatus] = useState<'new' | 'testing' | 'approved' | 'signature' | 'archived'>(recipe.status || 'new');
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -49,7 +49,7 @@ export default function RecipeCard({
 
   const handleCycleStatus = async (e: React.MouseEvent) => {
     e.preventDefault();
-    const statuses: Array<'new' | 'tried' | 'approved' | 'wip'> = ['new', 'tried', 'approved', 'wip'];
+    const statuses: Array<'new' | 'testing' | 'approved' | 'signature' | 'archived'> = ['new', 'testing', 'approved', 'signature', 'archived'];
     const currentIndex = statuses.indexOf(status);
     const nextStatus = statuses[(currentIndex + 1) % statuses.length];
 
@@ -69,12 +69,14 @@ export default function RecipeCard({
     switch (status) {
       case 'new':
         return <Sparkles size={20} className="text-blue-500" />;
-      case 'tried':
-        return <Check size={20} className="text-yellow-500" />;
+      case 'testing':
+        return <FlaskConical size={20} className="text-orange-500" />;
       case 'approved':
-        return <ThumbsUp size={20} className="text-green-500" />;
-      case 'wip':
-        return <Wrench size={20} className="text-orange-500" />;
+        return <CheckCircle size={20} className="text-green-500" />;
+      case 'signature':
+        return <Award size={20} className="text-yellow-500" />;
+      case 'archived':
+        return <Archive size={20} className="text-gray-500" />;
       default:
         return null;
     }
@@ -84,12 +86,14 @@ export default function RecipeCard({
     switch (status) {
       case 'new':
         return 'New';
-      case 'tried':
-        return 'Tried';
+      case 'testing':
+        return 'Testing';
       case 'approved':
         return 'Approved';
-      case 'wip':
-        return 'WIP';
+      case 'signature':
+        return 'Signature';
+      case 'archived':
+        return "Tried, didn't like";
       default:
         return '';
     }
