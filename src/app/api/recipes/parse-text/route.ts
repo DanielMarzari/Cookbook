@@ -7,14 +7,20 @@ const UNIT_PATTERNS = [
   'cups?', 'ounces?', 'oz', 'pounds?', 'lbs?',
   'grams?', 'kilograms?', 'kg', 'milliliters?', 'ml', 'liters?', 'l',
   'g',
+  'quarts?', 'qt', 'pints?', 'pt', 'gallons?', 'gal',
+  'dozen', 'drops?',
   'pinch(?:es)?', 'dash(?:es)?', 'cloves?', 'slices?',
   'pieces?', 'cans?', 'packages?', 'sticks?', 'bunches?',
-  'sprigs?', 'heads?', 'stalks?', 'bags?', 'large', 'medium', 'small',
+  'sprigs?', 'heads?', 'stalks?', 'bags?', 'bottles?', 'jars?',
+  'handfuls?', 'whole', 'large', 'medium', 'small',
 ];
 const UNIT_REGEX_STR = UNIT_PATTERNS.join('|');
 
 // Common food/ingredient words to help identify real ingredient lines
-const FOOD_WORDS = /\b(salt|pepper|sugar|flour|butter|oil|olive|vinegar|garlic|onion|egg|eggs|milk|cream|water|stock|broth|cheese|bread|rice|pasta|chicken|beef|pork|fish|salmon|shrimp|lemon|lime|orange|tomato|tomatoes|potato|potatoes|carrot|carrots|celery|parsley|basil|thyme|rosemary|oregano|cilantro|mint|dill|cumin|cinnamon|paprika|fennel|rue|coriander|ginger|nutmeg|vanilla|chocolate|honey|maple|soy|sauce|wine|beer|yogurt|lettuce|spinach|kale|mushroom|mushrooms|bell|jalapeño|chili|chilli|avocado|cucumber|zucchini|squash|pumpkin|bean|beans|lentil|lentils|chickpea|chickpeas|tofu|tempeh|almond|almonds|walnut|walnuts|pecan|pecans|cashew|cashews|peanut|peanuts|pine\s+nuts|sesame|olives?|capers?|anchov|bacon|ham|sausage|corn|peas|asparagus|broccoli|cauliflower|cabbage|beet|beets|radish|turnip|yam|coconut|banana|apple|pear|berry|berries|strawberry|blueberry|raspberry|mango|peach|plum|cherry|grape|fig|date|raisin|cranberry|apricot|pomegranate|goat|feta|mozzarella|parmesan|cheddar|ricotta|mascarpone|brie|gruyere|provolone|manchego)\b/i;
+const FOOD_WORDS = /\b(salt|pepper|sugar|flour|butter|oil|olive|vinegar|garlic|onion|egg|eggs|milk|cream|water|stock|broth|cheese|bread|rice|pasta|chicken|beef|pork|fish|salmon|shrimp|lemon|lime|orange|tomato|tomatoes|potato|potatoes|carrot|carrots|celery|parsley|basil|thyme|rosemary|oregano|cilantro|mint|dill|cumin|cinnamon|paprika|fennel|rue|coriander|ginger|nutmeg|vanilla|chocolate|honey|maple|soy|sauce|wine|beer|yogurt|lettuce|spinach|kale|mushroom|mushrooms|bell|jalapeño|chili|chilli|avocado|cucumber|zucchini|squash|pumpkin|bean|beans|lentil|lentils|chickpea|chickpeas|tofu|tempeh|almond|almonds|walnut|walnuts|pecan|pecans|cashew|cashews|peanut|peanuts|pine\s+nuts|sesame|olives?|capers?|anchov|bacon|ham|sausage|corn|peas|asparagus|broccoli|cauliflower|cabbage|beet|beets|radish|turnip|yam|coconut|banana|apple|pear|berry|berries|strawberry|blueberry|raspberry|mango|peach|plum|cherry|grape|fig|date|raisin|cranberry|apricot|pomegranate|goat|feta|mozzarella|parmesan|cheddar|ricotta|mascarpone|brie|gruyere|provolone|manchego|poppy|seeds?|spelt|semolina|cornmeal|polenta|oats?|barley|rye|quinoa|couscous|noodles?|tortilla|flatbread|pita|panko|breadcrumbs?|cornstarch|arrowroot|tapioca|gelatin|yeast|baking\s+powder|baking\s+soda|cocoa|molasses|agave|stevia|jam|jelly|preserves|mustard|ketchup|mayo|mayonnaise|sriracha|worcestershire|tahini|miso|harissa|sambal|gochujang|hoisin|oyster\s+sauce|fish\s+sauce|saffron|turmeric|cardamom|cloves?|allspice|anise|star\s+anise|bay\s+leaf|bay\s+leaves|chives?|tarragon|sage|marjoram|lavender|lemongrass|galangal|scallion|shallot|leek|endive|arugula|watercress|chard|collard|radicchio|artichoke|eggplant|okra|plantain|taro|jicama|daikon|nori|seaweed|togarashi|sumac|za.atar|dukkah|ras\s+el\s+hanout|garam\s+masala|curry)\b/i;
+
+// Pattern for lines that are ingredient-like without a quantity
+const GARNISH_PATTERN = /\b(to\s+taste|for\s+garnish|as\s+needed|for\s+serving|for\s+topping|for\s+dipping|for\s+drizzling|for\s+dusting|optional|for\s+frying|for\s+greasing)\b/i;
 
 function normalizeUnit(unit: string): string {
   const u = unit.toLowerCase().replace(/\.$/, '');
@@ -28,6 +34,11 @@ function normalizeUnit(unit: string): string {
     kilogram: 'kg', kilograms: 'kg', kg: 'kg',
     milliliter: 'ml', milliliters: 'ml', ml: 'ml',
     liter: 'l', liters: 'l', l: 'l',
+    quart: 'quart', quarts: 'quart', qt: 'quart',
+    pint: 'pint', pints: 'pint', pt: 'pint',
+    gallon: 'gallon', gallons: 'gallon', gal: 'gallon',
+    dozen: 'dozen',
+    drop: 'drop', drops: 'drop',
     clove: 'clove', cloves: 'clove',
     slice: 'slice', slices: 'slice',
     piece: 'piece', pieces: 'piece',
@@ -41,6 +52,10 @@ function normalizeUnit(unit: string): string {
     stalk: 'stalk', stalks: 'stalk',
     package: 'package', packages: 'package',
     bag: 'bag', bags: 'bag',
+    bottle: 'bottle', bottles: 'bottle',
+    jar: 'jar', jars: 'jar',
+    handful: 'handful', handfuls: 'handful',
+    whole: 'whole',
   };
   return map[u] || u;
 }
@@ -266,6 +281,22 @@ function parseIngredientLine(text: string): ParsedIngredient {
   // Remove leading bullet, dash, dot
   cleaned = cleaned.replace(/^[\-–—•·*]\s*/, '').trim();
 
+  // Handle "X unit plus Y unit" compound quantities → keep primary, note secondary
+  // e.g., "1 cup plus 1 tablespoon (120 g) spelt flour" → "1 cup spelt flour" with note "plus 1 tbsp"
+  let compoundNote = '';
+  const compoundRegex = new RegExp(
+    `^(\\d+(?:\\.\\d+)?\\s*(?:${UNIT_REGEX_STR}))\\s+plus\\s+(\\d+(?:\\.\\d+)?\\s*(?:${UNIT_REGEX_STR}))\\b(.*)$`,
+    'i'
+  );
+  const compoundMatch = cleaned.match(compoundRegex);
+  if (compoundMatch) {
+    const primaryPart = compoundMatch[1].trim();
+    const secondaryPart = compoundMatch[2].trim();
+    const rest = compoundMatch[3].trim();
+    cleaned = (primaryPart + ' ' + rest).replace(/\s+/g, ' ').trim();
+    compoundNote = `plus ${secondaryPart}`;
+  }
+
   // Extract parentheticals as notes
   const noteParts: string[] = [];
   {
@@ -328,6 +359,7 @@ function parseIngredientLine(text: string): ParsedIngredient {
 
     const normalizedUnit = unit ? normalizeUnit(unit) : 'piece';
     name = name.replace(/^of\s+/i, '').replace(/\.\s*$/, '').trim();
+    if (compoundNote) noteParts.unshift(compoundNote);
     const notes = noteParts.length > 0 ? noteParts.join(', ') : undefined;
     return { quantity, unit: normalizedUnit, name: titleCaseIngredient(name), notes };
   }
@@ -447,9 +479,51 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'No content found in text' }, { status: 400 });
     }
 
-    // Phase 0: Pre-filter — remove garbage lines and narrative prose
+    // Phase 0a: Detect title and description from raw lines BEFORE filtering
+    // (because description lines may look like narrative prose and get filtered)
+    let title = '';
+    let description = '';
+    let rawStartIdx = 0;
+
+    for (let i = 0; i < Math.min(5, rawLines.length); i++) {
+      const line = rawLines[i];
+      if (isGarbageLine(line)) continue;
+      if (/^[#@]/.test(line) || line.length < 3) continue;
+      if (/^recipe:?\s*$/i.test(line)) continue;
+      if (isMetadataLine(line)) continue;
+
+      if (!looksLikeIngredient(line) && !looksLikeInstruction(line)) {
+        title = line.replace(/^(recipe:?\s*)/i, '').replace(/[🍕🍳🥘🍲🍝🍜🍛🍚🥗🥙🌮🌯🥪🫔🧆🍔🍟🍕🌭🥚🥓🥞🧇🥐🍞🥖🥨🧀🥩🍗🍖🍠🥟🥠🥡🍱🍣🍤🍙🍘🍥🥮🍡🍧🍦🧁🍩🍪🎂🍰🥧🍮🍭🍬🍫🍿🍩🧂🥫🍯]+/g, '').trim();
+        rawStartIdx = i + 1;
+        break;
+      }
+    }
+
+    if (!title && rawLines.length > 0) {
+      title = rawLines[0].replace(/[^\w\s\-']/g, '').trim();
+      rawStartIdx = 1;
+    }
+
+    // Look for description line right after title (before garbage/prose filter)
+    const ingHeaderRe = /^(ingredients?|what you.?ll need|you.?ll need|shopping list)\s*:?\s*$/i;
+    const insHeaderRe = /^(instructions?|directions?|method|steps?|how to make|preparation|procedure)\s*:?\s*$/i;
+    for (let i = rawStartIdx; i < Math.min(rawStartIdx + 3, rawLines.length); i++) {
+      const line = rawLines[i];
+      if (isGarbageLine(line)) continue;
+      if (line.length <= 20 || line.length >= 200) continue;
+      if (looksLikeIngredient(line) || isMetadataLine(line)) break;
+      if (ingHeaderRe.test(line) || insHeaderRe.test(line)) break;
+      if (!looksLikeInstruction(line)) {
+        description = line.trim();
+        rawStartIdx = i + 1;
+        break;
+      }
+    }
+
+    // Phase 0b: Pre-filter remaining lines — remove garbage and narrative prose
     const cleanedLines: string[] = [];
-    for (const line of rawLines) {
+    for (let i = rawStartIdx; i < rawLines.length; i++) {
+      const line = rawLines[i];
       if (isGarbageLine(line)) continue;
       if (isNarrativeProse(line)) continue;
       cleanedLines.push(line);
@@ -459,31 +533,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'No usable recipe content found in text' }, { status: 400 });
     }
 
-    // Phase 1: Detect title (first non-ingredient, non-instruction, non-metadata line)
-    let title = '';
-    let startIdx = 0;
-
-    for (let i = 0; i < Math.min(5, cleanedLines.length); i++) {
-      const line = cleanedLines[i];
-      // Skip hashtag-only lines, @mentions, or very short lines
-      if (/^[#@]/.test(line) || line.length < 3) continue;
-      // Skip "recipe" label
-      if (/^recipe:?\s*$/i.test(line)) continue;
-      // Skip metadata lines
-      if (isMetadataLine(line)) continue;
-
-      // This is likely the title
-      if (!looksLikeIngredient(line) && !looksLikeInstruction(line)) {
-        title = line.replace(/^(recipe:?\s*)/i, '').replace(/[🍕🍳🥘🍲🍝🍜🍛🍚🥗🥙🌮🌯🥪🫔🧆🍔🍟🍕🌭🥚🥓🥞🧇🥐🍞🥖🥨🧀🥩🍗🍖🍠🥟🥠🥡🍱🍣🍤🍙🍘🍥🥮🍡🍧🍦🧁🍩🍪🎂🍰🥧🍮🍭🍬🍫🍿🍩🧂🥫🍯]+/g, '').trim();
-        startIdx = i + 1;
-        break;
-      }
-    }
-
-    if (!title && cleanedLines.length > 0) {
-      title = cleanedLines[0].replace(/[^\w\s\-']/g, '').trim();
-      startIdx = 1;
-    }
+    const startIdx = 0; // cleanedLines is already offset past title/description
 
     // Phase 2: Parse metadata from all lines first (collect times, servings)
     const metadata: RecipeMetadata = {};
@@ -562,10 +612,18 @@ export async function POST(request: Request) {
         } else if (looksLikeIngredient(line)) {
           const parsed = parseIngredientLine(line);
           if (parsed.name) ingredients.push(parsed);
-        } else if (line.length < 50 && FOOD_WORDS.test(line)) {
-          // Short line with a food word but no quantity — could be "goat cheese and bread"
+        } else if (line.length < 60 && (FOOD_WORDS.test(line) || GARNISH_PATTERN.test(line))) {
+          // Short line with a food word or garnish keyword but no quantity
+          // e.g., "Poppy seeds, for garnish" or "Salt and pepper to taste"
           const parsed = parseIngredientLine(line);
-          if (parsed.name) ingredients.push(parsed);
+          if (parsed.name) {
+            // Extract garnish/taste notes
+            const garnishMatch = line.match(GARNISH_PATTERN);
+            if (garnishMatch && !parsed.notes) {
+              parsed.notes = garnishMatch[0];
+            }
+            ingredients.push(parsed);
+          }
         }
         // Otherwise skip — don't add random text as ingredients
       } else if (currentSection === 'instructions') {
@@ -626,7 +684,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       title: title || 'Untitled Recipe',
-      description: '',
+      description: description || '',
       cuisine_type: 'Other',
       difficulty: 'medium',
       prep_time_minutes: prepTime,
