@@ -367,10 +367,20 @@ export default function RecipeDetailPage() {
             <h2 className="text-2xl font-bold text-text mb-4">Ingredients</h2>
             <ul className="space-y-2">
               {recipeIngredients.map((ing, idx) => {
-                // Section headers start with "---"
-                if (ing.name?.startsWith('---')) {
+                // OR divider
+                if (ing.name === '---OR---') {
                   return (
-                    <li key={idx} className="pt-3 pb-1">
+                    <li key={idx} className="flex items-center gap-3 py-1">
+                      <div className="flex-1 border-t border-orange-300" />
+                      <span className="text-xs font-bold text-orange-500 tracking-wider">OR</span>
+                      <div className="flex-1 border-t border-orange-300" />
+                    </li>
+                  );
+                }
+                // Section headers start with "---"
+                if (ing.name?.startsWith('---') && ing.name?.endsWith('---')) {
+                  return (
+                    <li key={idx} className="pt-4 pb-1">
                       <p className="text-sm font-bold text-primary uppercase tracking-wide">
                         {ing.name.replace(/^-+\s*/, '').replace(/\s*-+$/, '')}
                       </p>

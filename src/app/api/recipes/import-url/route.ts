@@ -6,6 +6,8 @@ interface ParsedIngredient {
   quantity: number;
   unit: string;
   notes?: string;
+  is_header?: boolean;
+  is_or?: boolean;
 }
 
 interface ParsedRecipe {
@@ -117,9 +119,12 @@ function parseJsonLd(html: string): Partial<ParsedRecipe> | null {
           const trimmed = ing.trim();
           // Detect group headers: "For the dough:", "Filling:", etc.
           if (/^(for\s+(the\s+)?|the\s+)/i.test(trimmed) && trimmed.length < 60 && !trimmed.match(/^\d/)) {
-            ingredientGroups.push({ name: `--- ${trimmed.replace(/:$/, '')} ---`, quantity: 0, unit: '', notes: undefined });
+            ingredientGroups.push({ name: trimmed.replace(/:$/, ''), quantity: 0, unit: '', is_header: true });
           } else {
-            ingredientGroups.push(parseIngredient(trimmed));
+            const parsed = parseIngredient(trimmed);
+            // Split "X or Y" in ingredient names into alternatives
+            const orSplit = splitOrIngredient(parsed);
+            ingredientGroups.push(...orSplit);
           }
         }
 
@@ -288,6 +293,33 @@ function parseIngredient(text: string): ParsedIngredient {
   return { quantity: 1, unit: 'piece', name: cleaned, notes: notes || undefined };
 }
 
+// Split an ingredient with "or" in its name into alternatives
+// e.g. "semisweet or dark chocolate chips" → [{name: "semisweet chocolate chips"}, {is_or: true}, {name: "dark chocolate chips"}]
+// Only splits when "or" separates two clear alternatives in the name (not in notes, not "oregano", etc.)
+function splitOrIngredient(parsed: ParsedIngredient): ParsedIngredient[] {
+  const name = parsed.name;
+
+  // Don't split if "or" is part of a word (oregano, orange, orzo, etc.)
+  // Look for " or " as a standalone word in the name
+  const orMatch = name.match(/^(.+?)\s+or\s+(.+)$/i);
+  if (!orMatch) return [parsed];
+
+  const before = orMatch[1].trim();
+  const after = orMatch[2].trim();
+
+  // Don't split very short fragments or things that look like notes
+  if (before.length < 2 || after.length < 2) return [parsed];
+
+  // Don't split if "or" is inside parentheses or after a comma (it's a note)
+  if (before.includes('(') && !before.includes(')')) return [parsed];
+
+  return [
+    { ...parsed, name: before },
+    { name: 'OR', quantity: 0, unit: '', is_or: true },
+    { ...parsed, name: after },
+  ];
+}
+
 function normalizeUnit(unit: string): string {
   const u = unit.toLowerCase().replace(/\.$/, '');
   const map: Record<string, string> = {
@@ -362,7 +394,7 @@ function parseFallback(html: string): Partial<ParsedRecipe> {
     $(selector).each((_, el) => {
       const text = $(el).text().replace(/\s+/g, ' ').trim();
       if (text.length > 2 && text.length < 200) {
-        ingredients.push(parseIngredient(text));
+        ingredients.push(...splitOrIngredient(parseIngredient(text)));
       }
     });
     if (ingredients.length > 0) break;
@@ -386,7 +418,7 @@ function parseFallback(html: string): Partial<ParsedRecipe> {
             next.find('li').each((_, li) => {
               const text = $(li).text().replace(/\s+/g, ' ').trim();
               if (text.length > 2 && text.length < 200) {
-                ingredients.push(parseIngredient(text));
+                ingredients.push(...splitOrIngredient(parseIngredient(text)));
               }
             });
             break;
@@ -395,7 +427,7 @@ function parseFallback(html: string): Partial<ParsedRecipe> {
           if (next.is('p, div') && !next.find('h1, h2, h3, h4, h5, h6').length) {
             const text = next.text().replace(/\s+/g, ' ').trim();
             if (text.length > 2 && text.length < 200 && !text.toLowerCase().includes('instruction')) {
-              ingredients.push(parseIngredient(text));
+              ingredients.push(...splitOrIngredient(parseIngredient(text)));
             }
           }
           next = next.next();

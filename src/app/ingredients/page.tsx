@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Search, Filter, Leaf, Link2, AlertCircle, Check } from 'lucide-react';
+import { Plus, Search, Filter, Leaf, Link2, AlertCircle, Check, Download, Loader } from 'lucide-react';
 import { Ingredient } from '@/lib/types';
 import { supabase } from '@/lib/supabase';
 import IngredientModal from '@/components/IngredientModal';
@@ -163,10 +163,94 @@ export default function IngredientsPage() {
     }
   };
 
+  const [importingUsda, setImportingUsda] = useState<string | null>(null);
+
   const handleCreateFromUnmatched = (name: string) => {
     // Open modal with name pre-filled
     setEditingIngredient({ name, category: 'Other' } as any);
     setIsModalOpen(true);
+  };
+
+  const handleImportFromUsda = async (unmatchedName: string) => {
+    setImportingUsda(unmatchedName);
+    try {
+      // Search USDA for this ingredient
+      const res = await fetch(`/api/nutrition/search?query=${encodeURIComponent(unmatchedName)}`);
+      const results = await res.json();
+
+      if (!results || results.length === 0 || results.error) {
+        // No USDA match — fall back to creating manually
+        handleCreateFromUnmatched(unmatchedName);
+        return;
+      }
+
+      // Use the first (best) result
+      const best = results[0];
+      const nutrition = best.nutrition;
+
+      // Guess a category based on USDA foodCategory
+      const categoryMap: Record<string, string> = {
+        'Dairy and Egg Products': 'Dairy',
+        'Spices and Herbs': 'Herbs & Spices',
+        'Fats and Oils': 'Oils & Fats',
+        'Poultry Products': 'Proteins',
+        'Beef Products': 'Proteins',
+        'Pork Products': 'Proteins',
+        'Sausages and Luncheon Meats': 'Proteins',
+        'Finfish and Shellfish Products': 'Proteins',
+        'Vegetables and Vegetable Products': 'Produce',
+        'Fruits and Fruit Juices': 'Produce',
+        'Nut and Seed Products': 'Pantry',
+        'Legumes and Legume Products': 'Pantry',
+        'Grain Products': 'Grains & Carbs',
+        'Cereal Grains and Pasta': 'Grains & Carbs',
+        'Baked Products': 'Baking',
+        'Beverages': 'Beverages',
+        'Sweets': 'Baking',
+        'Soups, Sauces, and Gravies': 'Sauces',
+        'Snacks': 'Snacks',
+      };
+      const category = categoryMap[best.foodCategory] || 'Other';
+
+      // Insert into DB
+      const { data: newIng, error } = await supabase
+        .from('ingredients')
+        .insert({
+          name: unmatchedName,
+          category,
+          calories_per_100g: Math.round(nutrition.calories * 10) / 10,
+          protein_per_100g: Math.round(nutrition.protein * 10) / 10,
+          carbs_per_100g: Math.round(nutrition.carbs * 10) / 10,
+          fat_per_100g: Math.round(nutrition.fat * 10) / 10,
+          fiber_per_100g: Math.round(nutrition.fiber * 10) / 10,
+          sugar_per_100g: Math.round(nutrition.sugar * 10) / 10,
+          sodium_per_100g: Math.round(nutrition.sodium * 10) / 10,
+          fdc_id: String(best.fdcId),
+          is_custom: false,
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      // Link recipe_ingredients to this new ingredient
+      if (newIng) {
+        await supabase
+          .from('recipe_ingredients')
+          .update({ ingredient_id: newIng.id })
+          .ilike('name', unmatchedName);
+
+        // Update local state
+        setIngredients(prev => [...prev, newIng]);
+        setUnmatchedIngredients(prev => prev.filter(u => u.name.toLowerCase() !== unmatchedName.toLowerCase()));
+      }
+    } catch (error) {
+      console.error('Error importing from USDA:', error);
+      // Fall back to manual creation
+      handleCreateFromUnmatched(unmatchedName);
+    } finally {
+      setImportingUsda(null);
+    }
   };
 
   const handleLinkIngredient = async (unmatchedName: string, dbIngredient: Ingredient) => {
@@ -496,10 +580,23 @@ export default function IngredientsPage() {
                         ))}
                       </select>
                       <button
+                        onClick={() => handleImportFromUsda(item.name)}
+                        disabled={importingUsda === item.name}
+                        className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap disabled:opacity-50 flex items-center gap-1"
+                        title="Search USDA and auto-import with nutrition data"
+                      >
+                        {importingUsda === item.name ? (
+                          <Loader size={14} className="animate-spin" />
+                        ) : (
+                          <Download size={14} />
+                        )}
+                        USDA
+                      </button>
+                      <button
                         onClick={() => handleCreateFromUnmatched(item.name)}
                         className="px-3 py-1.5 text-sm bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors whitespace-nowrap"
                       >
-                        Create New
+                        Manual
                       </button>
                     </div>
                   </div>
