@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { Recipe } from '@/lib/types';
 import { ArrowLeft, Plus, X, Loader, RotateCw, Trash2 } from 'lucide-react';
-import { toFraction } from '@/lib/utils';
+import { toFraction, titleCaseIngredient } from '@/lib/utils';
 
 const CUISINES = [
   'American', 'Brazilian', 'Caribbean', 'Chinese', 'Ethiopian',
@@ -217,7 +217,7 @@ export default function EditRecipePage() {
         .filter(ing => ing.name.trim() || ing.is_header || ing.is_or)
         .map((ing, idx) => ({
           recipe_id: id,
-          name: ing.is_header ? `--- ${ing.name} ---` : ing.is_or ? '---OR---' : ing.name,
+          name: ing.is_header ? `--- ${ing.name} ---` : ing.is_or ? '---OR---' : titleCaseIngredient(ing.name),
           quantity: ing.is_header || ing.is_or ? 0 : ing.quantity,
           unit: ing.is_header || ing.is_or ? '' : ing.unit,
           notes: ing.is_header || ing.is_or ? '' : ing.notes,
