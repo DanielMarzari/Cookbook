@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { api } from '@/lib/api-client';
 import { Recipe } from '@/lib/types';
 import { ArrowLeft, Plus, X, Loader, RotateCw, Trash2, GripVertical, Check } from 'lucide-react';
 import { toFraction, titleCaseIngredient } from '@/lib/utils';
@@ -59,13 +59,7 @@ export default function EditRecipePage() {
       if (!id || id === 'undefined') return;
 
       try {
-        const { data: recipe, error } = await supabase
-          .from('recipes')
-          .select('*')
-          .eq('id', id)
-          .single();
-
-        if (error) throw error;
+        const recipe = await api.recipes.get(id);
         if (!recipe) return;
 
         setTitle(recipe.title);
@@ -95,11 +89,7 @@ export default function EditRecipePage() {
         }
 
         // Load ingredients
-        const { data: recipeIngredients } = await supabase
-          .from('recipe_ingredients')
-          .select('*')
-          .eq('recipe_id', id)
-          .order('order_index');
+        const recipeIngredients = await api.recipeIngredients.list(id);
 
         if (recipeIngredients && recipeIngredients.length > 0) {
           setIngredients(recipeIngredients.map((ing: any) => {
@@ -134,24 +124,20 @@ export default function EditRecipePage() {
     if (!initialLoadDone.current || !title.trim()) return;
     setSaving(true);
     try {
-      await supabase
-        .from('recipes')
-        .update({
-          title, description, cuisine_type: cuisineType, difficulty,
-          prep_time_minutes: prepTime, cook_time_minutes: cookTime,
-          total_time_minutes: prepTime + cookTime, servings,
-          image_url: imageUrl, image_rotation: imageRotation,
-          source_url: sourceUrl, source_name: sourceName, source_author: sourceAuthor,
-          instructions: instructions.map((inst, idx) => ({
-            step_number: idx + 1, text: inst.text,
-            timer_minutes: inst.timer_minutes, timer_label: inst.timer_label,
-          })),
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', id);
+      await api.recipes.update(id, {
+        title, description, cuisine_type: cuisineType, difficulty,
+        prep_time_minutes: prepTime, cook_time_minutes: cookTime,
+        total_time_minutes: prepTime + cookTime, servings,
+        image_url: imageUrl, image_rotation: imageRotation,
+        source_url: sourceUrl, source_name: sourceName, source_author: sourceAuthor,
+        instructions: instructions.map((inst, idx) => ({
+          step_number: idx + 1, text: inst.text,
+          timer_minutes: inst.timer_minutes, timer_label: inst.timer_label,
+        })),
+      });
 
       // Save ingredients
-      await supabase.from('recipe_ingredients').delete().eq('recipe_id', id);
+      await api.recipeIngredients.deleteByRecipeId(id);
       const ingredientsWithRecipeId = ingredients
         .filter(ing => ing.name.trim() || ing.is_header || ing.is_or)
         .map((ing, idx) => ({
@@ -164,7 +150,7 @@ export default function EditRecipePage() {
           ingredient_id: null,
         }));
       if (ingredientsWithRecipeId.length > 0) {
-        await supabase.from('recipe_ingredients').insert(ingredientsWithRecipeId);
+        await api.recipeIngredients.create(ingredientsWithRecipeId);
       }
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
@@ -186,10 +172,7 @@ export default function EditRecipePage() {
     const newRotation = (imageRotation + 90) % 360;
     setImageRotation(newRotation);
     // Save immediately
-    await supabase
-      .from('recipes')
-      .update({ image_rotation: newRotation })
-      .eq('id', id);
+    await api.recipes.update(id, { image_rotation: newRotation });
   };
 
   // Drag-to-reorder ingredients

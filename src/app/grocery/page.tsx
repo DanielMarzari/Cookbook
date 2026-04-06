@@ -11,7 +11,7 @@ import {
   Package,
 } from 'lucide-react';
 import { GroceryList, GroceryListItem, Recipe } from '@/lib/types';
-import { supabase } from '@/lib/supabase';
+import { api } from '@/lib/api-client';
 
 const categoryColors: Record<string, string> = {
   produce: 'bg-green-100 text-green-800',
@@ -60,16 +60,9 @@ export default function GroceryPage() {
 
   const fetchGroceryLists = async () => {
     try {
-      const { data, error: err } = await supabase
-        .from('grocery_lists')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (err) throw err;
-
-      const lists = data || [];
-      setGroceryLists(lists);
-      if (lists.length > 0 && !activeListId) {
+      const lists = await api.groceryLists.list();
+      setGroceryLists(lists || []);
+      if (lists && lists.length > 0 && !activeListId) {
         setActiveListId(lists[0].id);
       }
     } catch (err) {
@@ -82,14 +75,7 @@ export default function GroceryPage() {
 
   const fetchListItems = async (listId: string) => {
     try {
-      const { data, error: err } = await supabase
-        .from('grocery_list_items')
-        .select('*')
-        .eq('list_id', listId)
-        .order('checked', { ascending: true })
-        .order('created_at', { ascending: true });
-
-      if (err) throw err;
+      const data = await api.groceryListItems.list(listId);
       setListItems(data || []);
     } catch (err) {
       console.error('Error fetching items:', err);
@@ -98,13 +84,8 @@ export default function GroceryPage() {
 
   const fetchRecipes = async () => {
     try {
-      const { data, error: err } = await supabase
-        .from('recipes')
-        .select('id, title, instructions')
-        .order('title');
-
-      if (err) throw err;
-      setRecipes(data || []);
+      const data = await api.recipes.list();
+      setRecipes(data?.map(r => ({ id: r.id, title: r.title })) || []);
     } catch (err) {
       console.error('Error fetching recipes:', err);
     }
@@ -114,14 +95,7 @@ export default function GroceryPage() {
     if (!newListName.trim()) return;
 
     try {
-      const { data, error: err } = await supabase
-        .from('grocery_lists')
-        .insert([{ name: newListName }])
-        .select()
-        .single();
-
-      if (err) throw err;
-
+      const data = await api.groceryLists.create({ name: newListName });
       setGroceryLists([data, ...groceryLists]);
       setActiveListId(data.id);
       setNewListName('');
@@ -135,22 +109,14 @@ export default function GroceryPage() {
     if (!activeListId || !itemForm.name.trim()) return;
 
     try {
-      const { data, error: err } = await supabase
-        .from('grocery_list_items')
-        .insert([
-          {
-            list_id: activeListId,
-            name: itemForm.name,
-            quantity: itemForm.quantity,
-            unit: itemForm.unit,
-            category: itemForm.category,
-            checked: false,
-          },
-        ])
-        .select()
-        .single();
-
-      if (err) throw err;
+      const data = await api.groceryListItems.create({
+        list_id: activeListId,
+        name: itemForm.name,
+        quantity: itemForm.quantity,
+        unit: itemForm.unit,
+        category: itemForm.category,
+        checked: false,
+      });
 
       setListItems([...listItems, data]);
       setItemForm({
@@ -167,12 +133,7 @@ export default function GroceryPage() {
 
   const toggleItemChecked = async (itemId: string, checked: boolean) => {
     try {
-      const { error: err } = await supabase
-        .from('grocery_list_items')
-        .update({ checked: !checked })
-        .eq('id', itemId);
-
-      if (err) throw err;
+      await api.groceryListItems.update(itemId, { checked: !checked });
 
       setListItems(
         listItems.map((item) =>
@@ -186,13 +147,7 @@ export default function GroceryPage() {
 
   const deleteItem = async (itemId: string) => {
     try {
-      const { error: err } = await supabase
-        .from('grocery_list_items')
-        .delete()
-        .eq('id', itemId);
-
-      if (err) throw err;
-
+      await api.groceryListItems.delete(itemId);
       setListItems(listItems.filter((item) => item.id !== itemId));
     } catch (err) {
       console.error('Error deleting item:', err);
@@ -205,7 +160,7 @@ export default function GroceryPage() {
 
     try {
       for (const item of checkedItems) {
-        await supabase.from('grocery_list_items').delete().eq('id', item.id);
+        await api.groceryListItems.delete(item.id);
       }
       setListItems(listItems.filter((item) => !item.checked));
     } catch (err) {

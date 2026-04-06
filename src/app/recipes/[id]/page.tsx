@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
-import { supabase } from '@/lib/supabase';
+import { api } from '@/lib/api-client';
 import { Recipe, RecipeIngredient, Ingredient, NutritionInfo } from '@/lib/types';
 import { Clock, Users, Flame, ArrowLeft, Heart, BookOpen, RotateCw, Pencil, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -39,15 +39,7 @@ export default function RecipeDetailPage() {
           return;
         }
 
-        const { data, error: supabaseError } = await supabase
-          .from('recipes')
-          .select('*')
-          .eq('id', id)
-          .single();
-
-        if (supabaseError) {
-          throw new Error(supabaseError.message);
-        }
+        const data = await api.recipes.get(id);
 
         if (data) {
           setRecipe(data);
@@ -55,11 +47,7 @@ export default function RecipeDetailPage() {
           setImageRotation(data.image_rotation || 0);
 
           // Fetch recipe ingredients
-          const { data: ingData } = await supabase
-            .from('recipe_ingredients')
-            .select('*')
-            .eq('recipe_id', data.id)
-            .order('order_index');
+          const ingData = await api.recipeIngredients.list(id);
           if (ingData) setRecipeIngredients(ingData);
 
           // Calculate nutrition for this recipe
@@ -82,10 +70,7 @@ export default function RecipeDetailPage() {
     if (!recipe) return;
     try {
       const newFavorite = !isFavorite;
-      await supabase
-        .from('recipes')
-        .update({ is_favorite: newFavorite })
-        .eq('id', recipe.id);
+      await api.recipes.update(recipe.id, { is_favorite: newFavorite });
       setIsFavorite(newFavorite);
     } catch (err) {
       console.error('Error updating favorite:', err);
@@ -96,13 +81,7 @@ export default function RecipeDetailPage() {
     if (!recipe) return;
     if (!confirm(`Are you sure you want to delete "${recipe.title}"? This cannot be undone.`)) return;
     try {
-      // Delete recipe ingredients first
-      await supabase.from('recipe_ingredients').delete().eq('recipe_id', recipe.id);
-      // Delete from collection_recipes
-      await supabase.from('collection_recipes').delete().eq('recipe_id', recipe.id);
-      // Delete the recipe
-      const { error } = await supabase.from('recipes').delete().eq('id', recipe.id);
-      if (error) throw error;
+      await api.recipes.delete(recipe.id);
       router.push('/');
     } catch (err) {
       console.error('Error deleting recipe:', err);
@@ -114,10 +93,7 @@ export default function RecipeDetailPage() {
     if (!recipe) return;
     try {
       const newRotation = (imageRotation + 90) % 360;
-      await supabase
-        .from('recipes')
-        .update({ image_rotation: newRotation })
-        .eq('id', recipe.id);
+      await api.recipes.update(recipe.id, { image_rotation: newRotation });
       setImageRotation(newRotation);
     } catch (err) {
       console.error('Error updating image rotation:', err);
@@ -160,15 +136,7 @@ export default function RecipeDetailPage() {
   const calculateNutrition = async (recipeData: Recipe) => {
     try {
       // Fetch recipe ingredients
-      const { data: recipeIngredients, error: ingredientsError } = await supabase
-        .from('recipe_ingredients')
-        .select('*')
-        .eq('recipe_id', recipeData.id);
-
-      if (ingredientsError) {
-        console.error('Error fetching ingredients:', ingredientsError);
-        return;
-      }
+      const recipeIngredients = await api.recipeIngredients.list(recipeData.id);
 
       if (!recipeIngredients || recipeIngredients.length === 0) {
         setNutrition(null);
@@ -176,14 +144,7 @@ export default function RecipeDetailPage() {
       }
 
       // Fetch all ingredients from database
-      const { data: allIngredients, error: dbIngredientsError } = await supabase
-        .from('ingredients')
-        .select('*');
-
-      if (dbIngredientsError) {
-        console.error('Error fetching database ingredients:', dbIngredientsError);
-        return;
-      }
+      const allIngredients = await api.ingredients.list();
 
       // Calculate nutrition
       const totalNutrition: NutritionInfo = {

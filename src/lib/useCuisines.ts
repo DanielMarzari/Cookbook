@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { supabase } from './supabase';
+import { api } from './api-client';
 import { DEFAULT_CUISINES } from './constants';
 
 /**
@@ -13,21 +13,22 @@ export function useCuisines() {
 
   useEffect(() => {
     async function fetchCustom() {
-      const { data } = await supabase
-        .from('recipes')
-        .select('cuisine_type')
-        .not('cuisine_type', 'is', null);
+      try {
+        const recipes = await api.recipes.list();
 
-      if (data) {
-        const defaultSet = new Set(DEFAULT_CUISINES.map(c => c.toLowerCase()));
-        const customs = new Set<string>();
-        for (const row of data) {
-          const ct = row.cuisine_type;
-          if (ct && !defaultSet.has(ct.toLowerCase()) && ct.toLowerCase() !== 'other') {
-            customs.add(ct);
+        if (recipes) {
+          const defaultSet = new Set(DEFAULT_CUISINES.map(c => c.toLowerCase()));
+          const customs = new Set<string>();
+          for (const recipe of recipes) {
+            const ct = recipe.cuisine_type;
+            if (ct && !defaultSet.has(ct.toLowerCase()) && ct.toLowerCase() !== 'other') {
+              customs.add(ct);
+            }
           }
+          setCustomCuisines(Array.from(customs).sort());
         }
-        setCustomCuisines(Array.from(customs).sort());
+      } catch (err) {
+        console.error('Error fetching cuisines:', err);
       }
     }
     fetchCustom();

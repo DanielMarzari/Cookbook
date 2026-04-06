@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Plus, Search, Filter, Leaf, Link2, AlertCircle, Check, Download, Loader } from 'lucide-react';
 import { Ingredient } from '@/lib/types';
-import { supabase } from '@/lib/supabase';
+import { api } from '@/lib/api-client';
 import { titleCaseIngredient } from '@/lib/utils';
 import IngredientModal from '@/components/IngredientModal';
 
@@ -82,12 +82,7 @@ export default function IngredientsPage() {
   const loadIngredients = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('ingredients')
-        .select('*')
-        .order('name');
-
-      if (error) throw error;
+      const data = await api.ingredients.list();
       setIngredients(data || []);
     } catch (error) {
       console.error('Error loading ingredients:', error);
@@ -118,16 +113,12 @@ export default function IngredientsPage() {
     setMatchingLoading(true);
     try {
       // Get all recipe ingredients
-      const { data: recipeIngs } = await supabase
-        .from('recipe_ingredients')
-        .select('name, recipe_id');
+      const recipeIngs = await api.recipeIngredients.list();
 
       // Get all recipes for name lookup
-      const { data: recipes } = await supabase
-        .from('recipes')
-        .select('id, title');
+      const recipes = await api.recipes.list();
 
-      const recipeMap = new Map(recipes?.map(r => [r.id, r.title]) || []);
+      const recipeMap = new Map(recipes?.map((r: any) => [r.id, r.title]) || []);
 
       // Get all DB ingredient names + aliases (lowercase for comparison)
       const dbNames = new Set<string>();

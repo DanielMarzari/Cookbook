@@ -4,7 +4,7 @@ import { Recipe } from '@/lib/types';
 import { Heart, Clock, Flame, Sparkles, FlaskConical, CheckCircle, Award, Archive } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
-import { supabase } from '@/lib/supabase';
+import { api } from '@/lib/api-client';
 import { formatTime } from '@/lib/utils';
 
 const cuisineColors: Record<string, string> = {
@@ -55,10 +55,7 @@ export default function RecipeCard({
     const nextStatus = statuses[(currentIndex + 1) % statuses.length];
 
     try {
-      await supabase
-        .from('recipes')
-        .update({ status: nextStatus })
-        .eq('id', recipe.id);
+      await api.recipes.update(recipe.id, { status: nextStatus });
       setStatus(nextStatus);
       onStatusChange?.(recipe.id, nextStatus);
     } catch (error) {

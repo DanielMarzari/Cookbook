@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Technique, UserTechniqueSkill } from '@/lib/types';
-import { supabase } from '@/lib/supabase';
+import { api } from '@/lib/api-client';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import { ArrowLeft, Video, Lightbulb, AlertCircle, BookOpen, Check } from 'lucide-react';
 import Link from 'next/link';
@@ -31,15 +31,7 @@ export default function TechniqueDetailPage() {
       try {
         setLoading(true);
 
-        const { data, error: supabaseError } = await supabase
-          .from('techniques')
-          .select('*')
-          .eq('slug', slug)
-          .single();
-
-        if (supabaseError) {
-          throw new Error(supabaseError.message);
-        }
+        const data = await api.techniques.get(slug);
 
         if (!data) {
           throw new Error('Technique not found');
@@ -48,25 +40,33 @@ export default function TechniqueDetailPage() {
         setTechnique(data);
 
         // Fetch user skill for this technique
-        const { data: skillData } = await supabase
-          .from('user_technique_skills')
-          .select('*')
-          .eq('technique_id', data.id)
-          .single();
-
-        if (skillData) {
-          setUserSkill(skillData);
-          setIsKnown(true);
+        try {
+          const skillsData = await api.userTechniqueSkills.getByTechnique(data.id);
+          if (skillsData) {
+            setUserSkill(skillsData as UserTechniqueSkill);
+            setIsKnown(true);
+          }
+        } catch {
+          // No skill record found
         }
 
         // Fetch related techniques
         if (data.related_techniques && data.related_techniques.length > 0) {
-          const { data: relatedData } = await supabase
-            .from('techniques')
-            .select('*')
-            .in('id', data.related_techniques);
-
-          setRelatedTechniques(relatedData || []);
+          try {
+            // Try to fetch each related technique
+            const relatedData: Technique[] = [];
+            for (const techId of data.related_techniques) {
+              try {
+                const related = await api.techniques.get(techId);
+                if (related) relatedData.push(related);
+              } catch {
+                // Skip if technique not found
+              }
+            }
+            setRelatedTechniques(relatedData);
+          } catch {
+            // Skip related techniques if fetch fails
+          }
         }
 
         setError(null);
@@ -90,23 +90,15 @@ export default function TechniqueDetailPage() {
     try {
       if (isKnown && userSkill) {
         // Delete skill record
-        await supabase
-          .from('user_technique_skills')
-          .delete()
-          .eq('id', userSkill.id);
+        await api.userTechniqueSkills.delete(userSkill.id);
         setUserSkill(null);
         setIsKnown(false);
       } else {
         // Create skill record with 'mastered' level
-        const { data } = await supabase
-          .from('user_technique_skills')
-          .insert({
-            technique_id: technique.id,
-            skill_level: 'mastered',
-            updated_at: new Date().toISOString(),
-          })
-          .select()
-          .single();
+        const data = await api.userTechniqueSkills.create({
+          technique_id: technique.id,
+          skill_level: 'mastered',
+        });
 
         if (data) {
           setUserSkill(data);

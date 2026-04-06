@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Plus, X, Folder, Image } from 'lucide-react';
 import Link from 'next/link';
 import { Collection, Recipe } from '@/lib/types';
-import { supabase } from '@/lib/supabase';
+import { api } from '@/lib/api-client';
 
 export default function CollectionsPage() {
   const [collections, setCollections] = useState<Collection[]>([]);
@@ -30,14 +30,7 @@ export default function CollectionsPage() {
   const fetchCollections = async () => {
     try {
       setLoading(true);
-      const { data, error: supabaseError } = await supabase
-        .from('collections')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (supabaseError) {
-        throw new Error(supabaseError.message);
-      }
+      const data = await api.collections.list();
 
       setCollections(data || []);
 
@@ -45,13 +38,11 @@ export default function CollectionsPage() {
       if (data && data.length > 0) {
         const counts: Record<string, number> = {};
         for (const collection of data) {
-          const { count, error: countError } = await supabase
-            .from('collection_recipes')
-            .select('*', { count: 'exact', head: true })
-            .eq('collection_id', collection.id);
-
-          if (!countError) {
-            counts[collection.id] = count || 0;
+          try {
+            const collectionRecipes = await api.collectionRecipes.list(collection.id);
+            counts[collection.id] = collectionRecipes?.length || 0;
+          } catch (err) {
+            counts[collection.id] = 0;
           }
         }
         setCollectionCounts(counts);
@@ -72,25 +63,15 @@ export default function CollectionsPage() {
     if (!newCollection.name.trim()) return;
 
     try {
-      const { data, error: supabaseError } = await supabase
-        .from('collections')
-        .insert([
-          {
-            name: newCollection.name,
-            subtitle: newCollection.subtitle || null,
-            description: newCollection.description || null,
-            cover_image_url: newCollection.cover_image_url || null,
-            auto_filter_field: newCollection.auto_filter_field || null,
-            auto_filter_value: newCollection.auto_filter_value || null,
-            color: 'bg-amber-100',
-          },
-        ])
-        .select()
-        .single();
-
-      if (supabaseError) {
-        throw new Error(supabaseError.message);
-      }
+      const data = await api.collections.create({
+        name: newCollection.name,
+        subtitle: newCollection.subtitle || undefined,
+        description: newCollection.description || undefined,
+        cover_image_url: newCollection.cover_image_url || undefined,
+        auto_filter_field: newCollection.auto_filter_field || undefined,
+        auto_filter_value: newCollection.auto_filter_value || undefined,
+        color: 'bg-amber-100',
+      });
 
       setCollections([data, ...collections]);
       setCollectionCounts({ ...collectionCounts, [data.id]: 0 });
