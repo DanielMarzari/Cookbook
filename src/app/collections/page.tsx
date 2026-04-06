@@ -1,19 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Plus, X, Folder } from 'lucide-react';
+import { Plus, X, Folder, Image } from 'lucide-react';
 import Link from 'next/link';
 import { Collection, Recipe } from '@/lib/types';
 import { supabase } from '@/lib/supabase';
-
-const collectionColorOptions = [
-  { name: 'Amber', value: 'bg-amber-100' },
-  { name: 'Rose', value: 'bg-rose-100' },
-  { name: 'Green', value: 'bg-green-100' },
-  { name: 'Blue', value: 'bg-blue-100' },
-  { name: 'Purple', value: 'bg-purple-100' },
-  { name: 'Orange', value: 'bg-orange-100' },
-];
 
 export default function CollectionsPage() {
   const [collections, setCollections] = useState<Collection[]>([]);
@@ -25,8 +16,9 @@ export default function CollectionsPage() {
   const [showNewCollectionModal, setShowNewCollectionModal] = useState(false);
   const [newCollection, setNewCollection] = useState({
     name: '',
+    subtitle: '',
     description: '',
-    color: collectionColorOptions[0].value,
+    cover_image_url: '',
   });
 
   useEffect(() => {
@@ -83,8 +75,10 @@ export default function CollectionsPage() {
         .insert([
           {
             name: newCollection.name,
+            subtitle: newCollection.subtitle || null,
             description: newCollection.description || null,
-            color: newCollection.color,
+            cover_image_url: newCollection.cover_image_url || null,
+            color: 'bg-amber-100',
           },
         ])
         .select()
@@ -96,11 +90,7 @@ export default function CollectionsPage() {
 
       setCollections([data, ...collections]);
       setCollectionCounts({ ...collectionCounts, [data.id]: 0 });
-      setNewCollection({
-        name: '',
-        description: '',
-        color: collectionColorOptions[0].value,
-      });
+      setNewCollection({ name: '', subtitle: '', description: '', cover_image_url: '' });
       setShowNewCollectionModal(false);
     } catch (err) {
       console.error('Error creating collection:', err);
@@ -127,7 +117,7 @@ export default function CollectionsPage() {
             <div>
               <h1 className="text-4xl font-bold text-text mb-2">Collections</h1>
               <p className="text-text-secondary">
-                Organize recipes into curated collections
+                Your curated cookbooks
               </p>
             </div>
             <button
@@ -135,7 +125,7 @@ export default function CollectionsPage() {
               className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors"
             >
               <Plus size={20} />
-              New Collection
+              New Cookbook
             </button>
           </div>
         </div>
@@ -152,50 +142,82 @@ export default function CollectionsPage() {
           <div className="bg-surface rounded-2xl shadow-warm border border-border p-12 text-center">
             <Folder className="mx-auto text-text-secondary mb-4" size={48} />
             <h3 className="text-lg font-semibold text-text mb-2">
-              No collections yet
+              No cookbooks yet
             </h3>
             <p className="text-text-secondary mb-6">
-              Create your first collection to organize recipes by theme,
+              Create your first cookbook to organize recipes by theme,
               occasion, or cuisine
             </p>
             <button
               onClick={() => setShowNewCollectionModal(true)}
               className="px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors"
             >
-              Create Collection
+              Create Cookbook
             </button>
           </div>
         ) : (
-          <div className="grid grid-responsive gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {collections.map((collection) => (
               <Link key={collection.id} href={`/collections/${collection.id}`}>
-                <article className="h-full group overflow-hidden rounded-2xl shadow-warm hover:shadow-warm-lg transition-all duration-300 hover:scale-105 cursor-pointer bg-surface border border-border hover:border-primary">
-                  {/* Color Header */}
-                  <div className={`h-24 ${collection.color}`} />
+                <article className="group cursor-pointer">
+                  {/* Book Cover */}
+                  <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group-hover:scale-[1.02] bg-white border border-gray-200">
+                    {/* Spine shadow effect */}
+                    <div className="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-r from-black/15 to-transparent z-10" />
 
-                  {/* Content */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-text mb-2 group-hover:text-primary transition-colors line-clamp-1">
-                      {collection.name}
-                    </h3>
+                    {/* Inner border frame */}
+                    <div className="absolute inset-3 border border-primary/40 rounded-sm z-10 pointer-events-none" />
 
-                    {collection.description && (
-                      <p className="text-sm text-text-secondary mb-4 line-clamp-2">
-                        {collection.description}
-                      </p>
+                    {/* Cover image or fallback */}
+                    {collection.cover_image_url ? (
+                      <>
+                        <img
+                          src={collection.cover_image_url}
+                          alt={collection.name}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                        {/* Dark overlay for text readability */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+                        {/* Title overlay on image */}
+                        <div className="absolute inset-0 flex flex-col items-center justify-end p-6 z-20">
+                          <h3 className="text-xl md:text-2xl font-serif font-bold text-white text-center tracking-wide leading-tight mb-1">
+                            {collection.name.toUpperCase()}
+                          </h3>
+                          {collection.subtitle && (
+                            <>
+                              <div className="w-12 h-px bg-white/60 my-2" />
+                              <p className="text-sm text-white/80 italic text-center">
+                                {collection.subtitle}
+                              </p>
+                            </>
+                          )}
+                          <p className="text-xs text-white/60 mt-3">
+                            {collectionCounts[collection.id] || 0} {(collectionCounts[collection.id] || 0) === 1 ? 'recipe' : 'recipes'}
+                          </p>
+                        </div>
+                      </>
+                    ) : (
+                      /* No cover image — elegant typographic cover */
+                      <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-gray-100 flex flex-col items-center justify-center p-6">
+                        <div className="flex-1 flex flex-col items-center justify-center">
+                          <h3 className="text-xl md:text-2xl font-serif font-bold text-primary text-center tracking-wide leading-tight">
+                            {collection.name.toUpperCase()}
+                          </h3>
+                          {collection.subtitle && (
+                            <>
+                              <div className="w-12 h-px bg-primary/40 my-3" />
+                              <p className="text-sm text-text-secondary italic text-center">
+                                {collection.subtitle}
+                              </p>
+                            </>
+                          )}
+                        </div>
+                        <p className="text-xs text-text-secondary">
+                          {collectionCounts[collection.id] || 0} {(collectionCounts[collection.id] || 0) === 1 ? 'recipe' : 'recipes'}
+                        </p>
+                      </div>
                     )}
-
-                    <div className="flex items-center justify-between pt-4 border-t border-border">
-                      <span className="text-sm font-medium text-text">
-                        {collectionCounts[collection.id] || 0}{' '}
-                        {collectionCounts[collection.id] === 1
-                          ? 'recipe'
-                          : 'recipes'}
-                      </span>
-                      <span className="text-xs text-text-secondary">
-                        View collection
-                      </span>
-                    </div>
                   </div>
                 </article>
               </Link>
@@ -207,10 +229,10 @@ export default function CollectionsPage() {
       {/* New Collection Modal */}
       {showNewCollectionModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-surface rounded-2xl shadow-warm-lg p-6 max-w-sm w-full">
+          <div className="bg-surface rounded-2xl shadow-warm-lg p-6 max-w-md w-full">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-xl font-bold text-text">
-                Create New Collection
+                Create New Cookbook
               </h3>
               <button
                 onClick={() => setShowNewCollectionModal(false)}
@@ -223,17 +245,29 @@ export default function CollectionsPage() {
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-text-secondary mb-2">
-                  Collection Name
+                  Cookbook Title *
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g., Weekend Dinners"
+                  placeholder="e.g., Città del Tufo"
                   value={newCollection.name}
                   onChange={(e) =>
-                    setNewCollection({
-                      ...newCollection,
-                      name: e.target.value,
-                    })
+                    setNewCollection({ ...newCollection, name: e.target.value })
+                  }
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background text-text placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-text-secondary mb-2">
+                  Subtitle
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g., Mangiamo!"
+                  value={newCollection.subtitle}
+                  onChange={(e) =>
+                    setNewCollection({ ...newCollection, subtitle: e.target.value })
                   }
                   className="w-full px-4 py-3 rounded-lg border border-border bg-background text-text placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary"
                 />
@@ -244,41 +278,37 @@ export default function CollectionsPage() {
                   Description (Optional)
                 </label>
                 <textarea
-                  placeholder="Add a description..."
+                  placeholder="What's this cookbook about?"
                   value={newCollection.description}
                   onChange={(e) =>
-                    setNewCollection({
-                      ...newCollection,
-                      description: e.target.value,
-                    })
+                    setNewCollection({ ...newCollection, description: e.target.value })
                   }
                   className="w-full px-4 py-3 rounded-lg border border-border bg-background text-text placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary resize-none h-20"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-3">
-                  Color Theme
+                <label className="block text-sm font-medium text-text-secondary mb-2">
+                  Cover Image URL
                 </label>
-                <div className="grid grid-cols-3 gap-2">
-                  {collectionColorOptions.map((colorOption) => (
-                    <button
-                      key={colorOption.value}
-                      onClick={() =>
-                        setNewCollection({
-                          ...newCollection,
-                          color: colorOption.value,
-                        })
-                      }
-                      className={`h-12 rounded-lg border-2 transition-all ${
-                        newCollection.color === colorOption.value
-                          ? 'border-primary scale-105'
-                          : 'border-border'
-                      } ${colorOption.value}`}
-                      title={colorOption.name}
+                <input
+                  type="url"
+                  placeholder="https://..."
+                  value={newCollection.cover_image_url}
+                  onChange={(e) =>
+                    setNewCollection({ ...newCollection, cover_image_url: e.target.value })
+                  }
+                  className="w-full px-4 py-3 rounded-lg border border-border bg-background text-text placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                {newCollection.cover_image_url && (
+                  <div className="mt-2 aspect-[3/4] max-h-40 rounded-lg overflow-hidden bg-background">
+                    <img
+                      src={newCollection.cover_image_url}
+                      alt="Cover preview"
+                      className="w-full h-full object-cover"
                     />
-                  ))}
-                </div>
+                  </div>
+                )}
               </div>
             </div>
 

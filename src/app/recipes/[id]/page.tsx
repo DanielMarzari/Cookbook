@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { Recipe, RecipeIngredient, Ingredient, NutritionInfo } from '@/lib/types';
-import { Clock, Users, Flame, ArrowLeft, Heart, BookOpen, RotateCw, Pencil } from 'lucide-react';
+import { Clock, Users, Flame, ArrowLeft, Heart, BookOpen, RotateCw, Pencil, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { formatTime, toFraction, titleCaseIngredient } from '@/lib/utils';
 
@@ -89,6 +89,24 @@ export default function RecipeDetailPage() {
       setIsFavorite(newFavorite);
     } catch (err) {
       console.error('Error updating favorite:', err);
+    }
+  };
+
+  const handleDeleteRecipe = async () => {
+    if (!recipe) return;
+    if (!confirm(`Are you sure you want to delete "${recipe.title}"? This cannot be undone.`)) return;
+    try {
+      // Delete recipe ingredients first
+      await supabase.from('recipe_ingredients').delete().eq('recipe_id', recipe.id);
+      // Delete from collection_recipes
+      await supabase.from('collection_recipes').delete().eq('recipe_id', recipe.id);
+      // Delete the recipe
+      const { error } = await supabase.from('recipes').delete().eq('id', recipe.id);
+      if (error) throw error;
+      router.push('/');
+    } catch (err) {
+      console.error('Error deleting recipe:', err);
+      alert('Failed to delete recipe');
     }
   };
 
@@ -290,6 +308,13 @@ export default function RecipeDetailPage() {
                     : 'text-text-secondary hover:text-red-500'
                 }`}
               />
+            </button>
+            <button
+              onClick={handleDeleteRecipe}
+              className="p-2 hover:bg-red-50 rounded-full transition-colors"
+              title="Delete recipe"
+            >
+              <Trash2 size={22} className="text-text-secondary hover:text-red-500" />
             </button>
           </div>
         </div>

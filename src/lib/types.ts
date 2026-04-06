@@ -126,7 +126,9 @@ export interface Collection {
   id: string;
   name: string;
   description?: string;
+  subtitle?: string;
   image_url?: string;
+  cover_image_url?: string;
   color: string;
   created_at: string;
 }
