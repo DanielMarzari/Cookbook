@@ -130,6 +130,8 @@ export interface Collection {
   image_url?: string;
   cover_image_url?: string;
   color: string;
+  auto_filter_field?: string; // 'cuisine_type' | 'source_name' | 'source_author'
+  auto_filter_value?: string;
   created_at: string;
 }
 

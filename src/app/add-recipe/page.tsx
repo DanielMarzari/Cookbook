@@ -273,6 +273,8 @@ export default function AddRecipePage() {
     }
   };
 
+  const [ocrProgress, setOcrProgress] = useState('');
+
   const handleImageUpload = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -280,13 +282,34 @@ export default function AddRecipePage() {
     if (!file) return;
 
     setImportLoading(true);
+    setOcrProgress('Loading OCR engine...');
     try {
-      const formDataForImage = new FormData();
-      formDataForImage.append('image', file);
+      // Dynamic import Tesseract client-side
+      const Tesseract = (await import('tesseract.js')).default;
 
-      const response = await fetch('/api/recipes/import-image', {
+      // Read image as data URL
+      const dataUrl = await new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.readAsDataURL(file);
+      });
+
+      // Run OCR in browser
+      const { data: { text } } = await Tesseract.recognize(dataUrl, 'eng', {
+        logger: (m: any) => {
+          if (m.status === 'recognizing text') {
+            setOcrProgress(`Scanning... ${Math.round((m.progress || 0) * 100)}%`);
+          }
+        },
+      });
+
+      setOcrProgress('Parsing recipe...');
+
+      // Send OCR text to parse-text endpoint
+      const response = await fetch('/api/recipes/parse-text', {
         method: 'POST',
-        body: formDataForImage,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text }),
       });
 
       const data = await response.json();
@@ -298,12 +321,14 @@ export default function AddRecipePage() {
         }));
         setActiveTab('manual');
       } else {
-        alert('Failed to import image: ' + (data.error || 'Unknown error'));
+        alert('Failed to parse image text: ' + (data.error || 'Unknown error'));
       }
     } catch (error) {
+      console.error('Image import error:', error);
       alert('Failed to import image: ' + (error instanceof Error ? error.message : 'Unknown error'));
     } finally {
       setImportLoading(false);
+      setOcrProgress('');
     }
   };
 
@@ -417,6 +442,36 @@ export default function AddRecipePage() {
           .insert(tagsWithRecipeId);
 
         if (tagError) console.error('Tag insertion error:', tagError);
+      }
+
+      // Auto-add to collections with matching filters
+      try {
+        const { data: autoCollections } = await supabase
+          .from('collections')
+          .select('id, auto_filter_field, auto_filter_value')
+          .not('auto_filter_field', 'is', null)
+          .not('auto_filter_value', 'is', null);
+
+        if (autoCollections) {
+          const recipeFields: Record<string, string> = {
+            cuisine_type: formData.cuisine_type,
+            source_name: formData.source_name,
+            source_author: formData.source_author,
+          };
+
+          for (const col of autoCollections) {
+            const field = col.auto_filter_field;
+            const value = col.auto_filter_value?.toLowerCase();
+            if (field && value && recipeFields[field]?.toLowerCase() === value) {
+              await supabase
+                .from('collection_recipes')
+                .upsert([{ collection_id: col.id, recipe_id: recipeData.id }], { onConflict: 'collection_id,recipe_id' })
+                .select();
+            }
+          }
+        }
+      } catch (err) {
+        console.error('Auto-collection error:', err);
       }
 
       router.push('/');
@@ -951,35 +1006,40 @@ export default function AddRecipePage() {
 
         {activeTab === 'image' && (
           <div className="bg-surface border border-border rounded-lg p-6 shadow-warm">
-            <h2 className="text-2xl font-bold text-text mb-4">
+            <h2 className="text-2xl font-bold text-text mb-2">
               Import from Image
             </h2>
+            <p className="text-text-secondary text-sm mb-4">
+              Upload a photo of a recipe — handwritten, from a book, or a screenshot. OCR runs in your browser.
+            </p>
 
-            <div
-              onClick={() => fileInputRef.current?.click()}
-              className="border-2 border-dashed border-border rounded-lg p-8 text-center cursor-pointer hover:border-primary transition-colors"
-            >
-              <Upload size={40} className="mx-auto text-primary mb-2" />
-              <p className="text-text-secondary">
-                Click to upload or drag and drop
-              </p>
-              <p className="text-xs text-text-secondary mt-1">
-                PNG, JPG, GIF up to 10MB
-              </p>
+            {!importLoading ? (
+              <div
+                onClick={() => fileInputRef.current?.click()}
+                className="border-2 border-dashed border-border rounded-lg p-8 text-center cursor-pointer hover:border-primary transition-colors"
+              >
+                <Upload size={40} className="mx-auto text-primary mb-2" />
+                <p className="text-text-secondary">
+                  Click to upload or drag and drop
+                </p>
+                <p className="text-xs text-text-secondary mt-1">
+                  PNG, JPG, GIF up to 10MB
+                </p>
 
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="hidden"
-              />
-            </div>
-
-            {importedData && (
-              <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
-                <p className="text-green-800">
-                  Image processed! Click the Manual Entry tab to edit and save.
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
+              </div>
+            ) : (
+              <div className="border-2 border-dashed border-primary/30 rounded-lg p-8 text-center">
+                <Loader size={40} className="mx-auto text-primary mb-3 animate-spin" />
+                <p className="text-primary font-medium">{ocrProgress || 'Processing...'}</p>
+                <p className="text-xs text-text-secondary mt-2">
+                  This may take a moment for large images
                 </p>
               </div>
             )}
