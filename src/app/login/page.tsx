@@ -27,8 +27,8 @@ export default function LoginPage() {
         return;
       }
 
-      // Redirect to home on successful login
-      router.push('/');
+      // Full page reload ensures the new cookie is sent on the next request
+      window.location.href = '/';
     } catch (err) {
       setError('Login failed. Please try again.');
       console.error('Login error:', err);
