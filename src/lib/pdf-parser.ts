@@ -9,17 +9,11 @@
  * Pure functions — no Next/Node-specific imports other than pdf-parse.
  */
 
-// pdfjs-dist (pdf-parse's engine) references DOM globals (DOMMatrix, ImageData,
-// Path2D) that Node 24 doesn't ship. For text extraction we never touch canvas,
-// so stubbing them as empty no-ops is enough to stop the "DOMMatrix is not
-// defined" crash on the Oracle box. (Locally pdf-parse happened to work without
-// this — Turbopack dev mode differs from the standalone prod build.)
-const g = globalThis as unknown as Record<string, unknown>;
-if (typeof g.DOMMatrix === 'undefined') g.DOMMatrix = class { constructor() {} } as unknown;
-if (typeof g.ImageData === 'undefined') g.ImageData = class { constructor() {} } as unknown;
-if (typeof g.Path2D === 'undefined') g.Path2D = class { constructor() {} } as unknown;
-
-import { PDFParse } from 'pdf-parse';
+// pdf-parse is loaded lazily inside extractRecipeCandidates so we can install
+// DOM-global stubs BEFORE pdfjs-dist initializes. ES import hoisting means any
+// top-of-file stubs would run AFTER static imports; a function-scope
+// `await import()` dodges that. The stubs are empty no-ops — safe because we
+// only use text extraction, which never hits canvas.
 
 export interface ParsedIngredient {
   name: string;
@@ -54,6 +48,13 @@ export interface RecipeCandidate {
 
 /** Main entry point — buffer → candidates. */
 export async function extractRecipeCandidates(buffer: Buffer): Promise<RecipeCandidate[]> {
+  // Install DOM global stubs before pdf-parse evaluates pdfjs.
+  const g = globalThis as unknown as Record<string, unknown>;
+  if (typeof g.DOMMatrix === 'undefined') g.DOMMatrix = class { constructor() {} } as unknown;
+  if (typeof g.ImageData === 'undefined') g.ImageData = class { constructor() {} } as unknown;
+  if (typeof g.Path2D === 'undefined') g.Path2D = class { constructor() {} } as unknown;
+
+  const { PDFParse } = await import('pdf-parse');
   const parser = new PDFParse({ data: buffer });
   const result = await parser.getText();
   const pages: { num: number; text: string }[] = (result.pages || []).map((p: { num: number; text?: string }) => ({
