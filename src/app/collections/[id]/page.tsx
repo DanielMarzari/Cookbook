@@ -3,10 +3,11 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Plus, X, Trash2, Search, Pencil, Check, Loader } from 'lucide-react';
-import { Collection, Recipe } from '@/lib/types';
+import { ArrowLeft, Plus, X, Trash2, Search, Pencil, Check, Loader, BookOpen } from 'lucide-react';
+import { Collection, Recipe, RecipeIngredient } from '@/lib/types';
 import { api } from '@/lib/api-client';
 import RecipeCard from '@/components/RecipeCard';
+import CollectionBook from '@/components/CollectionBook';
 
 export default function CollectionDetailPage() {
   const params = useParams();
@@ -20,6 +21,10 @@ export default function CollectionDetailPage() {
   const [error, setError] = useState<string | null>(null);
   const [showAddRecipeModal, setShowAddRecipeModal] = useState(false);
   const [recipeSearch, setRecipeSearch] = useState('');
+
+  // Book reader state
+  const [reading, setReading] = useState(false);
+  const [ingredientsByRecipe, setIngredientsByRecipe] = useState<Record<string, RecipeIngredient[]>>({});
 
   // Editing state
   const [editing, setEditing] = useState(false);
@@ -49,17 +54,26 @@ export default function CollectionDetailPage() {
       const recipeIds = recipesData?.map((r: any) => r.recipe_id) || [];
 
       if (recipeIds.length > 0) {
-        // Fetch each recipe individually
+        // Fetch each recipe and its ingredients in parallel.
+        const settled = await Promise.allSettled(
+          recipeIds.map(async (recipeId: string) => {
+            const [recipe, ings] = await Promise.all([
+              api.recipes.get(recipeId),
+              api.recipeIngredients.list(recipeId).catch(() => []),
+            ]);
+            return { recipe, ings };
+          }),
+        );
         const recipes: Recipe[] = [];
-        for (const recipeId of recipeIds) {
-          try {
-            const recipe = await api.recipes.get(recipeId);
-            if (recipe) recipes.push(recipe);
-          } catch {
-            // Skip if recipe not found
+        const ingMap: Record<string, RecipeIngredient[]> = {};
+        for (const r of settled) {
+          if (r.status === 'fulfilled' && r.value.recipe) {
+            recipes.push(r.value.recipe);
+            ingMap[r.value.recipe.id] = r.value.ings || [];
           }
         }
         setCollectionRecipes(recipes);
+        setIngredientsByRecipe(ingMap);
       }
 
       const allRecipesData = await api.recipes.list();
@@ -271,13 +285,25 @@ export default function CollectionDetailPage() {
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-8">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-text">Recipes</h2>
-          <button
-            onClick={() => setShowAddRecipeModal(true)}
-            className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors"
-          >
-            <Plus size={18} />
-            Add Recipe
-          </button>
+          <div className="flex items-center gap-2">
+            {collectionRecipes.length > 0 && (
+              <button
+                onClick={() => setReading(true)}
+                className="flex items-center gap-2 px-5 py-2.5 border border-primary text-primary rounded-lg font-medium hover:bg-primary/5 transition-colors"
+                title="Read as a book"
+              >
+                <BookOpen size={18} />
+                Read
+              </button>
+            )}
+            <button
+              onClick={() => setShowAddRecipeModal(true)}
+              className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors"
+            >
+              <Plus size={18} />
+              Add Recipe
+            </button>
+          </div>
         </div>
 
         {collectionRecipes.length === 0 ? (
@@ -421,6 +447,15 @@ export default function CollectionDetailPage() {
             </div>
           </div>
         </div>
+      )}
+
+      {reading && collection && (
+        <CollectionBook
+          collection={collection}
+          recipes={collectionRecipes}
+          ingredientsByRecipe={ingredientsByRecipe}
+          onClose={() => setReading(false)}
+        />
       )}
     </div>
   );
