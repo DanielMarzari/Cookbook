@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/db';
+import { getDb, hydrateRecipe } from '@/lib/db';
 import { Recipe } from '@/lib/types';
 
 export async function GET(
@@ -11,13 +11,13 @@ export async function GET(
     const db = getDb();
 
     const stmt = db.prepare('SELECT * FROM recipes WHERE id = ?');
-    const recipe = stmt.get(id) as Recipe;
+    const recipe = stmt.get(id) as Recipe | undefined;
 
     if (!recipe) {
       return NextResponse.json({ error: 'Recipe not found' }, { status: 404 });
     }
 
-    return NextResponse.json(recipe);
+    return NextResponse.json(hydrateRecipe(recipe));
   } catch (error) {
     console.error('Error fetching recipe:', error);
     return NextResponse.json({ error: 'Failed to fetch recipe' }, { status: 500 });
@@ -82,9 +82,9 @@ export async function PUT(
     );
 
     const getStmt = db.prepare('SELECT * FROM recipes WHERE id = ?');
-    const updated = getStmt.get(id);
+    const updated = getStmt.get(id) as Recipe | undefined;
 
-    return NextResponse.json(updated);
+    return NextResponse.json(hydrateRecipe(updated));
   } catch (error) {
     console.error('Error updating recipe:', error);
     return NextResponse.json({ error: 'Failed to update recipe' }, { status: 500 });
