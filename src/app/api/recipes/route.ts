@@ -19,7 +19,8 @@ export async function GET(request: NextRequest) {
 
     const cuisine = searchParams.get('cuisine');
     if (cuisine) {
-      query += ' AND cuisine_type = ?';
+      // Case-insensitive: FilterBar sends lowercase but DB stores Title case.
+      query += ' AND LOWER(cuisine_type) = LOWER(?)';
       params.push(cuisine);
     }
 
