@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/db';
+import { getDb, hydrateRecipe } from '@/lib/db';
 import { Recipe } from '@/lib/types';
 
 export async function GET(request: NextRequest) {
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
     query += ' ORDER BY created_at DESC';
 
     const stmt = db.prepare(query);
-    const recipes = stmt.all(...params) as Recipe[];
+    const recipes = (stmt.all(...params) as Recipe[]).map(hydrateRecipe);
 
     return NextResponse.json(recipes);
   } catch (error) {

@@ -12,3 +12,23 @@ export function getDb(): Database.Database {
   }
   return db;
 }
+
+/**
+ * Hydrate a raw recipe row from SQLite: parse JSON-serialized columns into objects.
+ * `instructions` is stored as a JSON string (see POST/PUT in /api/recipes); callers
+ * expect an array. Defensive against null, empty, or already-parsed values.
+ */
+export function hydrateRecipe<T extends { instructions?: unknown } | null | undefined>(row: T): T {
+  if (!row) return row;
+  const r = row as { instructions?: unknown };
+  if (typeof r.instructions === 'string') {
+    try {
+      r.instructions = JSON.parse(r.instructions);
+    } catch {
+      r.instructions = [];
+    }
+  } else if (r.instructions == null) {
+    r.instructions = [];
+  }
+  return row;
+}
