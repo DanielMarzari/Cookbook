@@ -9,6 +9,16 @@
  * Pure functions — no Next/Node-specific imports other than pdf-parse.
  */
 
+// pdfjs-dist (pdf-parse's engine) references DOM globals (DOMMatrix, ImageData,
+// Path2D) that Node 24 doesn't ship. For text extraction we never touch canvas,
+// so stubbing them as empty no-ops is enough to stop the "DOMMatrix is not
+// defined" crash on the Oracle box. (Locally pdf-parse happened to work without
+// this — Turbopack dev mode differs from the standalone prod build.)
+const g = globalThis as unknown as Record<string, unknown>;
+if (typeof g.DOMMatrix === 'undefined') g.DOMMatrix = class { constructor() {} } as unknown;
+if (typeof g.ImageData === 'undefined') g.ImageData = class { constructor() {} } as unknown;
+if (typeof g.Path2D === 'undefined') g.Path2D = class { constructor() {} } as unknown;
+
 import { PDFParse } from 'pdf-parse';
 
 export interface ParsedIngredient {
