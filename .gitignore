@@ -43,3 +43,11 @@ next-env.d.ts
 # supabase
 /supabase/.temp/
 supabase/.temp/
+
+# local sqlite snapshots (production DB is pulled here via scripts/pull-db.sh)
+*.db
+*.db-shm
+*.db-wal
+
+# editor/agent session state
+.claude/
