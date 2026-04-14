@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { Upload, Plus, X, Loader, GripVertical, ClipboardPaste } from 'lucide-react';
+import { Upload, Plus, X, Loader, GripVertical, ClipboardPaste, FileText, Check } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { Recipe, RecipeIngredient, Tag } from '@/lib/types';
 import { toFraction, titleCaseIngredient } from '@/lib/utils';
@@ -44,9 +44,19 @@ export default function AddRecipePage() {
   const router = useRouter();
   const { cuisines } = useCuisines();
   const [customCuisine, setCustomCuisine] = useState('');
-  const [activeTab, setActiveTab] = useState<'manual' | 'url' | 'paste' | 'image'>(
+  const [activeTab, setActiveTab] = useState<'manual' | 'url' | 'paste' | 'image' | 'pdf'>(
     'manual'
   );
+
+  // PDF import state
+  const [pdfLoading, setPdfLoading] = useState(false);
+  const [pdfError, setPdfError] = useState<string | null>(null);
+  const [pdfFilename, setPdfFilename] = useState<string>('');
+  const [pdfCandidates, setPdfCandidates] = useState<any[]>([]);
+  const [pdfSelected, setPdfSelected] = useState<Set<string>>(new Set());
+  const [pdfImporting, setPdfImporting] = useState(false);
+  const [pdfImportProgress, setPdfImportProgress] = useState<{ done: number; total: number } | null>(null);
+  const pdfFileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [importLoading, setImportLoading] = useState(false);
   const [importUrl, setImportUrl] = useState('');
@@ -269,6 +279,105 @@ export default function AddRecipePage() {
 
   const [ocrProgress, setOcrProgress] = useState('');
 
+  // ---------- PDF import ----------
+
+  const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setPdfLoading(true);
+    setPdfError(null);
+    setPdfCandidates([]);
+    setPdfSelected(new Set());
+    setPdfFilename(file.name);
+
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch('/api/recipes/import-pdf', { method: 'POST', body: fd });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({ error: 'Upload failed' }));
+        throw new Error(err.error || 'Upload failed');
+      }
+      const data = await res.json();
+      const candidates = data.candidates || [];
+      if (candidates.length === 0) {
+        setPdfError("No recipes detected. This PDF's layout might not be supported — try the Paste Text tab instead.");
+      } else {
+        setPdfCandidates(candidates);
+        setPdfSelected(new Set(candidates.map((c: any) => c.id))); // default: all selected
+      }
+    } catch (err) {
+      setPdfError(err instanceof Error ? err.message : 'Failed to parse PDF');
+    } finally {
+      setPdfLoading(false);
+      // reset input so re-selecting the same file triggers onChange
+      if (pdfFileInputRef.current) pdfFileInputRef.current.value = '';
+    }
+  };
+
+  const handlePdfImportSelected = async () => {
+    const selected = pdfCandidates.filter((c) => pdfSelected.has(c.id));
+    if (selected.length === 0) return;
+
+    setPdfImporting(true);
+    setPdfImportProgress({ done: 0, total: selected.length });
+
+    try {
+      for (let i = 0; i < selected.length; i++) {
+        const c = selected[i];
+        const p = c.parsed;
+        // Create the recipe shell.
+        const created: any = await api.recipes.create({
+          title: c.title,
+          description: c.subtitle || '',
+          cuisine_type: p.cuisine_type || 'Other',
+          difficulty: p.difficulty || 'medium',
+          prep_time_minutes: p.prep_time_minutes || 0,
+          cook_time_minutes: p.cook_time_minutes || 0,
+          total_time_minutes: (p.prep_time_minutes || 0) + (p.cook_time_minutes || 0),
+          servings: p.servings || 1,
+          instructions: (p.instructions || []).map((inst: any) => ({
+            step_number: inst.step_number,
+            text: inst.text,
+            timer_label: inst.timer_label || '',
+          })),
+          source_type: 'pdf',
+          source_name: pdfFilename,
+          status: 'new',
+        });
+
+        // Batch-insert ingredients.
+        if (created?.id && Array.isArray(p.ingredients) && p.ingredients.length > 0) {
+          const ingPayload = p.ingredients.map((ing: any, idx: number) => ({
+            recipe_id: created.id,
+            name: ing.name,
+            quantity: ing.quantity || 0,
+            unit: ing.unit || '',
+            notes: ing.notes || '',
+            order_index: idx,
+            ingredient_id: null,
+          }));
+          await fetch('/api/recipe-ingredients', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(ingPayload),
+          });
+        }
+
+        setPdfImportProgress({ done: i + 1, total: selected.length });
+      }
+
+      // Success — redirect home to see the imports.
+      router.push('/');
+    } catch (err) {
+      console.error('PDF import error:', err);
+      setPdfError(err instanceof Error ? err.message : 'Import failed partway through');
+    } finally {
+      setPdfImporting(false);
+    }
+  };
+
   const handleImageUpload = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -470,8 +579,8 @@ export default function AddRecipePage() {
       <div className="max-w-4xl mx-auto px-4">
         <h1 className="text-4xl font-bold text-text mb-8">Add Recipe</h1>
 
-        <div className="flex gap-2 mb-8 border-b border-border">
-          {(['manual', 'url', 'paste', 'image'] as const).map((tab) => (
+        <div className="flex gap-2 mb-8 border-b border-border flex-wrap">
+          {(['manual', 'url', 'paste', 'image', 'pdf'] as const).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -485,6 +594,7 @@ export default function AddRecipePage() {
               {tab === 'url' && 'From URL'}
               {tab === 'paste' && 'Paste Text'}
               {tab === 'image' && 'From Image'}
+              {tab === 'pdf' && 'From PDF'}
             </button>
           ))}
         </div>
@@ -1051,6 +1161,156 @@ export default function AddRecipePage() {
                 <p className="text-xs text-text-secondary mt-2">
                   This may take a moment for large images
                 </p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {activeTab === 'pdf' && (
+          <div className="bg-surface border border-border rounded-lg p-6 shadow-warm">
+            <h2 className="text-2xl font-bold text-text mb-2">Import from PDF</h2>
+            <p className="text-text-secondary text-sm mb-4">
+              Upload a cookbook PDF. We&apos;ll detect each recipe and let you pick which ones to import.
+            </p>
+
+            {pdfCandidates.length === 0 && !pdfLoading && (
+              <div
+                onClick={() => pdfFileInputRef.current?.click()}
+                className="border-2 border-dashed border-border rounded-lg p-8 text-center cursor-pointer hover:border-primary transition-colors"
+              >
+                <FileText size={40} className="mx-auto text-primary mb-2" />
+                <p className="text-text-secondary">Click to upload a PDF</p>
+                <p className="text-xs text-text-secondary mt-1">Up to 20MB</p>
+                <input
+                  ref={pdfFileInputRef}
+                  type="file"
+                  accept="application/pdf,.pdf"
+                  onChange={handlePdfUpload}
+                  className="hidden"
+                />
+              </div>
+            )}
+
+            {pdfLoading && (
+              <div className="border-2 border-dashed border-primary/30 rounded-lg p-8 text-center">
+                <Loader size={40} className="mx-auto text-primary mb-3 animate-spin" />
+                <p className="text-primary font-medium">Parsing PDF…</p>
+              </div>
+            )}
+
+            {pdfError && (
+              <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                {pdfError}
+              </div>
+            )}
+
+            {pdfCandidates.length > 0 && (
+              <div className="mt-2">
+                <div className="flex items-center justify-between mb-4">
+                  <p className="text-sm text-text-secondary">
+                    Found <span className="font-semibold text-text">{pdfCandidates.length}</span>{' '}
+                    recipe{pdfCandidates.length === 1 ? '' : 's'} in{' '}
+                    <span className="font-mono text-xs">{pdfFilename}</span>
+                  </p>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() =>
+                        setPdfSelected(new Set(pdfCandidates.map((c) => c.id)))
+                      }
+                      className="text-sm text-primary hover:underline"
+                    >
+                      Select all
+                    </button>
+                    <span className="text-text-secondary">·</span>
+                    <button
+                      onClick={() => setPdfSelected(new Set())}
+                      className="text-sm text-text-secondary hover:text-text"
+                    >
+                      Clear
+                    </button>
+                  </div>
+                </div>
+
+                <ul className="space-y-2 mb-6">
+                  {pdfCandidates.map((c) => {
+                    const checked = pdfSelected.has(c.id);
+                    return (
+                      <li key={c.id}>
+                        <label
+                          className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${
+                            checked
+                              ? 'border-primary bg-primary/5'
+                              : 'border-border hover:border-primary/50'
+                          }`}
+                        >
+                          <input
+                            type="checkbox"
+                            className="mt-1"
+                            checked={checked}
+                            onChange={() => {
+                              setPdfSelected((prev) => {
+                                const next = new Set(prev);
+                                if (next.has(c.id)) next.delete(c.id);
+                                else next.add(c.id);
+                                return next;
+                              });
+                            }}
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="font-medium text-text">{c.title}</span>
+                              <span className="text-xs font-mono px-2 py-0.5 rounded bg-background text-text-secondary">
+                                p. {c.page}
+                              </span>
+                            </div>
+                            <p className="text-xs text-text-secondary mt-1">
+                              {c.parsed.ingredients.length} ingredient
+                              {c.parsed.ingredients.length === 1 ? '' : 's'}
+                              {' · '}
+                              {c.parsed.instructions.length} step
+                              {c.parsed.instructions.length === 1 ? '' : 's'}
+                              {c.parsed.servings ? ` · serves ${c.parsed.servings}` : ''}
+                              {c.parsed.difficulty ? ` · ${c.parsed.difficulty}` : ''}
+                            </p>
+                          </div>
+                        </label>
+                      </li>
+                    );
+                  })}
+                </ul>
+
+                <div className="flex gap-3">
+                  <button
+                    onClick={handlePdfImportSelected}
+                    disabled={pdfSelected.size === 0 || pdfImporting}
+                    className="flex-1 px-4 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {pdfImporting ? (
+                      <>
+                        <Loader size={18} className="animate-spin" />
+                        Importing {pdfImportProgress?.done ?? 0} of{' '}
+                        {pdfImportProgress?.total ?? 0}…
+                      </>
+                    ) : (
+                      <>
+                        <Check size={18} />
+                        Import Selected ({pdfSelected.size})
+                      </>
+                    )}
+                  </button>
+                  <button
+                    onClick={() => {
+                      setPdfCandidates([]);
+                      setPdfSelected(new Set());
+                      setPdfFilename('');
+                      setPdfError(null);
+                    }}
+                    disabled={pdfImporting}
+                    className="px-4 py-3 border border-border rounded-lg font-medium hover:bg-background transition-colors disabled:opacity-50"
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
             )}
           </div>
