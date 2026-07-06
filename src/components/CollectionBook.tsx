@@ -2,13 +2,17 @@
 
 import React, { forwardRef, useRef } from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { Collection, Recipe, RecipeIngredient } from '@/lib/types';
 import { formatTime, toFraction, titleCaseIngredient } from '@/lib/utils';
 import { X } from 'lucide-react';
 
 // react-pageflip uses CSS 3D transforms and has no server equivalent.
 // Load client-side only so SSR doesn't try to instantiate it.
-const HTMLFlipBook = dynamic(() => import('react-pageflip'), { ssr: false });
+// Cast to a permissive component type: the lib's props type marks every field
+// required, but nearly all have runtime defaults, so we pass only what we set.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const HTMLFlipBook = dynamic(() => import('react-pageflip'), { ssr: false }) as any;
 
 interface Props {
   collection: Collection;
@@ -58,7 +62,6 @@ export default function CollectionBook({
 
       <div className="w-full max-w-5xl h-full max-h-[90vh] flex items-center justify-center">
         <HTMLFlipBook
-          // @ts-expect-error — the lib's types want every field but most have defaults.
           ref={bookRef}
           width={500}
           height={700}
@@ -121,10 +124,12 @@ const CoverPage = forwardRef<
     return (
       <Page ref={ref} className="relative !p-0">
         <div className="relative h-full w-full">
-          <img
+          <Image
             src={collection.cover_image_url}
             alt={collection.name}
-            className="absolute inset-0 h-full w-full object-cover"
+            fill
+            sizes="500px"
+            className="object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
           <div className="absolute inset-0 flex flex-col items-center justify-end p-8 text-white">
@@ -231,11 +236,13 @@ const RecipePage = forwardRef<
       </header>
 
       {recipe.image_url && (
-        <div className="mb-4 h-32 -mx-2 rounded overflow-hidden">
-          <img
+        <div className="relative mb-4 h-32 -mx-2 rounded overflow-hidden">
+          <Image
             src={recipe.image_url}
             alt={recipe.title}
-            className="w-full h-full object-cover"
+            fill
+            sizes="500px"
+            className="object-cover"
             style={{ transform: `rotate(${recipe.image_rotation || 0}deg)` }}
           />
         </div>

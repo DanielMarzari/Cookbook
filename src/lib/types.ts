@@ -44,7 +44,7 @@ export interface Ingredient {
 export interface RecipeIngredient {
   id: string;
   recipe_id: string;
-  ingredient_id: string;
+  ingredient_id: string | null;
   name: string;
   quantity: number;
   unit: string;
@@ -153,6 +153,26 @@ export interface GroceryListItem {
   unit: string;
   checked: boolean;
   category: string;
+  created_at: string;
+}
+
+// A cooking journal entry for a recipe
+export interface CookLog {
+  id: string;
+  recipe_id: string;
+  cooked_at: string;
+  rating?: number;
+  notes?: string;
+  photo_url?: string;
+  created_at: string;
+}
+
+// A recipe assigned to a date + meal slot in the meal planner
+export interface MealPlanEntry {
+  id: string;
+  date: string; // YYYY-MM-DD
+  meal_type: 'breakfast' | 'lunch' | 'dinner' | 'snack';
+  recipe_id: string;
   created_at: string;
 }
 

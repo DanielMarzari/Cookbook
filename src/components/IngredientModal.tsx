@@ -3,6 +3,8 @@
 import { useState, useRef, useEffect } from 'react';
 import { X, Search, Upload, Copy } from 'lucide-react';
 import { Ingredient, NutritionInfo } from '@/lib/types';
+import { api } from '@/lib/api-client';
+import { toast } from '@/lib/toast';
 import Tesseract from 'tesseract.js';
 
 interface IngredientModalProps {
@@ -126,7 +128,7 @@ export default function IngredientModal({
       setUSDAResults(data || []);
     } catch (error) {
       console.error('USDA search error:', error);
-      alert('Failed to search USDA database');
+      toast.error('Failed to search USDA database');
     } finally {
       setLoading(false);
     }
@@ -154,7 +156,7 @@ export default function IngredientModal({
       setTab('form');
     } catch (error) {
       console.error('Failed to get USDA details:', error);
-      alert('Failed to load nutrition data');
+      toast.error('Failed to load nutrition data');
     }
   };
 
@@ -181,7 +183,7 @@ export default function IngredientModal({
       reader.readAsDataURL(file);
     } catch (error) {
       console.error('OCR error:', error);
-      alert('Failed to scan image');
+      toast.error('Failed to scan image');
     } finally {
       setScanning(false);
     }
@@ -222,7 +224,7 @@ export default function IngredientModal({
     e.preventDefault();
 
     if (!name.trim() || !category) {
-      alert('Please fill in name and category');
+      toast.error('Please fill in name and category');
       return;
     }
 
@@ -247,20 +249,22 @@ export default function IngredientModal({
     };
 
     try {
-      // Use Supabase to save/update ingredient
-      const { data, error } = await supabase
-        .from('ingredients')
-        .upsert([newIngredient], { onConflict: 'id' })
-        .select()
-        .single();
+      let saved: Ingredient;
+      if (ingredient?.id) {
+        // Editing an existing library ingredient.
+        saved = await api.ingredients.update(ingredient.id, newIngredient);
+      } else {
+        // Creating a new one — let the server assign the id.
+        const { id: _clientId, ...payload } = newIngredient;
+        saved = await api.ingredients.create(payload);
+      }
 
-      if (error) throw error;
-
-      onSave(data);
+      onSave(saved);
+      toast.success(`Saved ${saved.name}`);
       onClose();
     } catch (error) {
       console.error('Save error:', error);
-      alert('Failed to save ingredient');
+      toast.error('Failed to save ingredient');
     }
   };
 

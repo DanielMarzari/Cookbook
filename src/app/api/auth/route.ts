@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { randomUUID } from 'crypto';
-
-// In-memory session store - sessions persist across requests in the Node.js process
-const validSessions = new Set<string>();
+import { getAuthSecret, signSession, verifySession } from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,9 +24,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Create session token
-    const sessionToken = randomUUID();
-    validSessions.add(sessionToken);
+    // Create a signed, stateless session token (survives process restarts).
+    const sessionToken = await signSession(getAuthSecret()!);
 
     // Set httpOnly cookie with 30 day expiry
     const response = NextResponse.json({ success: true });
@@ -52,7 +48,7 @@ export async function GET(request: NextRequest) {
   try {
     const sessionToken = request.cookies.get('session_token')?.value;
 
-    if (!sessionToken || !validSessions.has(sessionToken)) {
+    if (!(await verifySession(getAuthSecret(), sessionToken))) {
       return NextResponse.json(
         { authenticated: false },
         { status: 401 }

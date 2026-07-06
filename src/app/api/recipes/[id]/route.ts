@@ -99,14 +99,20 @@ export async function DELETE(
   try {
     const db = getDb();
 
-    // Delete related data first
-    db.prepare('DELETE FROM recipe_ingredients WHERE recipe_id = ?').run(id);
-    db.prepare('DELETE FROM collection_recipes WHERE recipe_id = ?').run(id);
-    db.prepare('DELETE FROM recipe_tags WHERE recipe_id = ?').run(id);
-
-    // Delete the recipe
-    const stmt = db.prepare('DELETE FROM recipes WHERE id = ?');
-    stmt.run(id);
+    // Remove all related rows in one transaction so a mid-delete failure can't
+    // leave the recipe half-deleted. recipe_ingredients / recipe_tags /
+    // collection_recipes are owned by the recipe and get deleted; grocery list
+    // items are the user's shopping data, so we only null their recipe link.
+    const cascadeDelete = db.transaction((recipeId: string) => {
+      db.prepare('DELETE FROM recipe_ingredients WHERE recipe_id = ?').run(recipeId);
+      db.prepare('DELETE FROM collection_recipes WHERE recipe_id = ?').run(recipeId);
+      db.prepare('DELETE FROM recipe_tags WHERE recipe_id = ?').run(recipeId);
+      db.prepare('DELETE FROM cook_logs WHERE recipe_id = ?').run(recipeId);
+      db.prepare('DELETE FROM meal_plan WHERE recipe_id = ?').run(recipeId);
+      db.prepare('UPDATE grocery_list_items SET recipe_id = NULL WHERE recipe_id = ?').run(recipeId);
+      db.prepare('DELETE FROM recipes WHERE id = ?').run(recipeId);
+    });
+    cascadeDelete(id);
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Plus, Search, Filter, Leaf, Link2, AlertCircle, Check, Download, Loader } from 'lucide-react';
 import { Ingredient } from '@/lib/types';
 import { api } from '@/lib/api-client';
+import { toast } from '@/lib/toast';
 import { titleCaseIngredient } from '@/lib/utils';
 import IngredientModal from '@/components/IngredientModal';
 
@@ -259,12 +260,7 @@ export default function IngredientsPage() {
   const handleLinkIngredient = async (unmatchedName: string, dbIngredient: Ingredient) => {
     // Update all recipe_ingredients with this name to link to the DB ingredient
     try {
-      const { error } = await supabase
-        .from('recipe_ingredients')
-        .update({ ingredient_id: dbIngredient.id })
-        .ilike('name', unmatchedName);
-
-      if (error) throw error;
+      await api.recipeIngredients.linkByName(unmatchedName, dbIngredient.id);
 
       // Save the unmatched name as an alias on the DB ingredient (if different)
       const lowerName = unmatchedName.toLowerCase().trim();
@@ -273,10 +269,7 @@ export default function IngredientsPage() {
         const currentAliases = dbIngredient.aliases || [];
         if (!currentAliases.some(a => a.toLowerCase() === lowerName)) {
           const newAliases = [...currentAliases, unmatchedName.trim()];
-          await supabase
-            .from('ingredients')
-            .update({ aliases: newAliases })
-            .eq('id', dbIngredient.id);
+          await api.ingredients.update(dbIngredient.id, { aliases: newAliases });
 
           // Update local state
           setIngredients(prev => prev.map(i =>
@@ -313,10 +306,7 @@ export default function IngredientsPage() {
     // If this was from a USDA import, auto-link the recipe_ingredients
     if (pendingUsdaLink) {
       try {
-        await supabase
-          .from('recipe_ingredients')
-          .update({ ingredient_id: ingredient.id })
-          .ilike('name', pendingUsdaLink);
+        await api.recipeIngredients.linkByName(pendingUsdaLink, ingredient.id);
 
         // Also save alias if names differ
         const lowerLink = pendingUsdaLink.toLowerCase().trim();
@@ -324,10 +314,9 @@ export default function IngredientsPage() {
         if (lowerLink !== lowerIng) {
           const currentAliases = ingredient.aliases || [];
           if (!currentAliases.some(a => a.toLowerCase() === lowerLink)) {
-            await supabase
-              .from('ingredients')
-              .update({ aliases: [...currentAliases, pendingUsdaLink.trim()] })
-              .eq('id', ingredient.id);
+            await api.ingredients.update(ingredient.id, {
+              aliases: [...currentAliases, pendingUsdaLink.trim()],
+            });
           }
         }
 
@@ -348,16 +337,13 @@ export default function IngredientsPage() {
     if (!confirm('Are you sure you want to delete this ingredient?')) return;
 
     try {
-      const { error } = await supabase
-        .from('ingredients')
-        .delete()
-        .eq('id', id);
-
-      if (error) throw error;
+      const res = await api.ingredients.delete(id);
+      if (!res.ok) throw new Error(`Delete failed: ${res.status}`);
       setIngredients(ingredients.filter(i => i.id !== id));
+      toast.success('Ingredient deleted');
     } catch (error) {
       console.error('Error deleting ingredient:', error);
-      alert('Failed to delete ingredient');
+      toast.error('Failed to delete ingredient');
     }
   };
 

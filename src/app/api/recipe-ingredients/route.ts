@@ -97,6 +97,27 @@ export async function POST(request: NextRequest) {
   }
 }
 
+// Relink all recipe_ingredients rows whose name matches to a library ingredient.
+export async function PATCH(request: NextRequest) {
+  try {
+    const db = getDb();
+    const { name, ingredient_id } = await request.json();
+
+    if (!name || !ingredient_id) {
+      return NextResponse.json({ error: 'name and ingredient_id required' }, { status: 400 });
+    }
+
+    const result = db
+      .prepare('UPDATE recipe_ingredients SET ingredient_id = ? WHERE LOWER(TRIM(name)) = LOWER(TRIM(?))')
+      .run(ingredient_id, name);
+
+    return NextResponse.json({ success: true, updated: result.changes });
+  } catch (error) {
+    console.error('Error linking recipe ingredients:', error);
+    return NextResponse.json({ error: 'Failed to link recipe ingredients' }, { status: 500 });
+  }
+}
+
 export async function DELETE(request: NextRequest) {
   try {
     const db = getDb();

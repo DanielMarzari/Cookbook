@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/db';
+import { getDb, hydrateIngredient } from '@/lib/db';
 import { Ingredient } from '@/lib/types';
 
 export async function GET(request: NextRequest) {
@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
     const db = getDb();
 
     const stmt = db.prepare('SELECT * FROM ingredients ORDER BY name ASC');
-    const ingredients = stmt.all() as Ingredient[];
+    const ingredients = (stmt.all() as Ingredient[]).map(hydrateIngredient);
 
     return NextResponse.json(ingredients);
   } catch (error) {

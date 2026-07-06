@@ -24,20 +24,81 @@ interface ParsedRecipe {
   yield?: string;
 }
 
-async function fetchRecipe(url: string): Promise<string> {
-  const response = await fetch(url, {
-    headers: {
-      'User-Agent':
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-      Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch URL: ${response.statusText}`);
+// Reject non-http(s) URLs and obvious internal/private targets before fetching.
+// Best-effort SSRF guard: validates the literal hostname (no DNS resolution),
+// which is sufficient to stop the common cloud-metadata / localhost attacks on
+// a personal deployment. Returns the parsed URL for reuse.
+function assertSafeUrl(raw: string): URL {
+  let u: URL;
+  try {
+    u = new URL(raw);
+  } catch {
+    throw new Error('Invalid URL');
   }
 
-  return response.text();
+  if (u.protocol !== 'http:' && u.protocol !== 'https:') {
+    throw new Error('Only http(s) URLs are allowed');
+  }
+
+  const host = u.hostname.toLowerCase().replace(/^\[|\]$/g, '');
+
+  if (host === 'localhost' || host.endsWith('.localhost') || host === '0.0.0.0') {
+    throw new Error('Blocked host');
+  }
+
+  const ipv4 = host.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
+  if (ipv4) {
+    const a = parseInt(ipv4[1], 10);
+    const b = parseInt(ipv4[2], 10);
+    // loopback, private, link-local (incl. cloud metadata 169.254.169.254), "this host"
+    if (
+      a === 0 ||
+      a === 10 ||
+      a === 127 ||
+      (a === 169 && b === 254) ||
+      (a === 172 && b >= 16 && b <= 31) ||
+      (a === 192 && b === 168)
+    ) {
+      throw new Error('Blocked private address');
+    }
+  }
+
+  // IPv6 loopback / unique-local / link-local
+  if (host === '::1' || host.startsWith('fc') || host.startsWith('fd') || host.startsWith('fe80')) {
+    throw new Error('Blocked private address');
+  }
+
+  return u;
+}
+
+const MAX_HTML_BYTES = 5_000_000;
+const FETCH_TIMEOUT_MS = 10_000;
+
+async function fetchRecipe(url: string): Promise<string> {
+  assertSafeUrl(url);
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+      },
+      signal: controller.signal,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch URL: ${response.statusText}`);
+    }
+
+    const text = await response.text();
+    return text.length > MAX_HTML_BYTES ? text.slice(0, MAX_HTML_BYTES) : text;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 // Find Recipe object in JSON-LD, handling @graph arrays and nested structures
