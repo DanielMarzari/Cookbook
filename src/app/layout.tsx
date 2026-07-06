@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
+import Toaster from "@/components/Toaster";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -43,6 +44,8 @@ export default function RootLayout({
         <div className="md:hidden">
           <Navigation />
         </div>
+
+        <Toaster />
       </body>
     </html>
   );

@@ -1,5 +1,6 @@
 import Database from 'better-sqlite3';
 import path from 'path';
+import { SCHEMA_SQL } from './schema';
 
 const DB_PATH = process.env.DATABASE_PATH || path.join(process.cwd(), 'cookbook.db');
 let db: Database.Database | null = null;
@@ -9,8 +10,61 @@ export function getDb(): Database.Database {
     db = new Database(DB_PATH);
     db.pragma('journal_mode = WAL');
     db.pragma('foreign_keys = ON');
+    // Idempotent: creates tables/indexes on a fresh DB, no-ops on an existing one.
+    db.exec(SCHEMA_SQL);
+    // Backfill the FTS index the first time it's created against an existing DB
+    // (the triggers only cover rows written after the virtual table exists).
+    const ftsCount = (db.prepare('SELECT count(*) AS c FROM recipes_fts').get() as { c: number }).c;
+    const recipeCount = (db.prepare('SELECT count(*) AS c FROM recipes').get() as { c: number }).c;
+    if (ftsCount === 0 && recipeCount > 0) {
+      db.exec('INSERT INTO recipes_fts(recipe_id, title, description) SELECT id, title, description FROM recipes');
+    }
   }
   return db;
+}
+
+/**
+ * Turn a free-text search box value into a safe FTS5 MATCH expression.
+ * Strips punctuation that FTS5 treats as operators, makes each token a prefix
+ * match, and ANDs them together. Returns null when nothing searchable remains
+ * (caller should then skip the FTS filter).
+ */
+export function toFtsQuery(search: string): string | null {
+  const tokens = search
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s]/gu, ' ')
+    .split(/\s+/)
+    .filter(Boolean);
+  if (tokens.length === 0) return null;
+  return tokens.map((t) => `${t}*`).join(' ');
+}
+
+/**
+ * Hydrate a raw ingredient row: parse JSON-serialized `aliases` (string[]) and
+ * `custom_nutrition` (object) columns. The write side stores these as JSON
+ * strings, so reads must parse them back or clients receive strings instead of
+ * arrays/objects. Defensive against null, empty, or already-parsed values.
+ */
+export function hydrateIngredient<T extends object | null | undefined>(row: T): T {
+  if (!row) return row;
+  const r = row as Record<string, unknown>;
+  if (typeof r.aliases === 'string') {
+    try {
+      r.aliases = JSON.parse(r.aliases);
+    } catch {
+      r.aliases = [];
+    }
+  } else if (r.aliases == null) {
+    r.aliases = [];
+  }
+  if (typeof r.custom_nutrition === 'string') {
+    try {
+      r.custom_nutrition = JSON.parse(r.custom_nutrition);
+    } catch {
+      r.custom_nutrition = null;
+    }
+  }
+  return row;
 }
 
 /**

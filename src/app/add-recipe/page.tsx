@@ -2,8 +2,10 @@
 
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { Upload, Plus, X, Loader, GripVertical, ClipboardPaste, FileText, Check } from 'lucide-react';
 import { api } from '@/lib/api-client';
+import { toast } from '@/lib/toast';
 import { Recipe, RecipeIngredient, Tag } from '@/lib/types';
 import { toFraction, titleCaseIngredient } from '@/lib/utils';
 import { UNITS } from '@/lib/constants';
@@ -239,10 +241,10 @@ export default function AddRecipePage() {
         }));
         // Don't auto-switch to manual — stay on URL tab to let user pick image
       } else {
-        alert('Failed to import recipe: ' + (data.error || 'Unknown error'));
+        toast.error('Failed to import recipe: ' + (data.error || 'Unknown error'));
       }
     } catch (error) {
-      alert('Failed to import URL: ' + (error instanceof Error ? error.message : 'Unknown error'));
+      toast.error('Failed to import URL: ' + (error instanceof Error ? error.message : 'Unknown error'));
     } finally {
       setImportLoading(false);
     }
@@ -268,10 +270,10 @@ export default function AddRecipePage() {
         }));
         setActiveTab('manual');
       } else {
-        alert('Failed to parse text: ' + (data.error || 'Unknown error'));
+        toast.error('Failed to parse text: ' + (data.error || 'Unknown error'));
       }
     } catch (error) {
-      alert('Failed to parse text: ' + (error instanceof Error ? error.message : 'Unknown error'));
+      toast.error('Failed to parse text: ' + (error instanceof Error ? error.message : 'Unknown error'));
     } finally {
       setPasteLoading(false);
     }
@@ -424,11 +426,11 @@ export default function AddRecipePage() {
         }));
         setActiveTab('manual');
       } else {
-        alert('Failed to parse image text: ' + (data.error || 'Unknown error'));
+        toast.error('Failed to parse image text: ' + (data.error || 'Unknown error'));
       }
     } catch (error) {
       console.error('Image import error:', error);
-      alert('Failed to import image: ' + (error instanceof Error ? error.message : 'Unknown error'));
+      toast.error('Failed to import image: ' + (error instanceof Error ? error.message : 'Unknown error'));
     } finally {
       setImportLoading(false);
       setOcrProgress('');
@@ -475,7 +477,7 @@ export default function AddRecipePage() {
 
   const handleSave = async () => {
     if (!formData.title.trim()) {
-      alert('Please enter a recipe title');
+      toast.error('Please enter a recipe title');
       return;
     }
 
@@ -565,10 +567,11 @@ export default function AddRecipePage() {
         console.error('Auto-collection error:', err);
       }
 
+      toast.success(`Saved "${recipeData.title || formData.title}"`);
       router.push('/');
     } catch (error) {
       console.error('Error saving recipe:', error);
-      alert('Failed to save recipe: ' + (error instanceof Error ? error.message : 'Unknown error'));
+      toast.error('Failed to save recipe: ' + (error instanceof Error ? error.message : 'Unknown error'));
     } finally {
       setLoading(false);
     }
@@ -1035,16 +1038,18 @@ export default function AddRecipePage() {
                           <div
                             key={idx}
                             onClick={() => setFormData(prev => ({ ...prev, image_url: imgUrl }))}
-                            className={`relative cursor-pointer rounded-lg overflow-hidden border-2 transition-all hover:scale-105 ${
+                            className={`relative h-32 cursor-pointer rounded-lg overflow-hidden border-2 transition-all hover:scale-105 ${
                               formData.image_url === imgUrl
                                 ? 'border-primary shadow-warm-lg ring-2 ring-primary/30'
                                 : 'border-border hover:border-primary/50'
                             }`}
                           >
-                            <img
+                            <Image
                               src={imgUrl}
                               alt={`Option ${idx + 1}`}
-                              className="w-full h-32 object-cover"
+                              fill
+                              sizes="(max-width: 768px) 50vw, 33vw"
+                              className="object-cover"
                               onError={(e) => {
                                 (e.target as HTMLImageElement).style.display = 'none';
                               }}

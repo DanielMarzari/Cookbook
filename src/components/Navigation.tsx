@@ -8,6 +8,7 @@ import {
   Leaf,
   ShoppingCart,
   Heart,
+  CalendarDays,
   Menu,
   X,
 } from 'lucide-react';
@@ -22,6 +23,7 @@ export default function Navigation() {
   const navItems = [
     { icon: BookOpen, label: 'Recipes', href: '/' },
     { icon: Plus, label: 'Add Recipe', href: '/add-recipe' },
+    { icon: CalendarDays, label: 'Planner', href: '/planner' },
     { icon: ChefHat, label: 'Techniques', href: '/techniques' },
     { icon: Leaf, label: 'Ingredients', href: '/ingredients' },
     { icon: ShoppingCart, label: 'Grocery', href: '/grocery' },
@@ -98,7 +100,7 @@ export default function Navigation() {
       {/* Mobile Bottom Navigation */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-border shadow-warm-lg z-50">
         <div className="flex items-center justify-around">
-          {navItems.slice(0, 5).map((item) => {
+          {navItems.slice(0, 6).map((item) => {
             const Icon = item.icon;
             const active = isActive(item.href);
             return (

@@ -3,6 +3,7 @@
 import { Recipe } from '@/lib/types';
 import { Heart, Clock, Flame, Sparkles, FlaskConical, CheckCircle, Award, Archive } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { api } from '@/lib/api-client';
 import { formatTime } from '@/lib/utils';
@@ -116,10 +117,12 @@ export default function RecipeCard({
               {isImageLoading && (
                 <div className="absolute inset-0 bg-gradient-to-br from-background to-border animate-pulse" />
               )}
-              <img
+              <Image
                 src={recipe.image_url}
                 alt={recipe.title}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover group-hover:scale-110 transition-transform duration-300"
                 onLoad={() => setIsImageLoading(false)}
                 onError={() => setIsImageLoading(false)}
               />

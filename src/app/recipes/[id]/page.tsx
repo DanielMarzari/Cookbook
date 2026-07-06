@@ -3,16 +3,83 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { api } from '@/lib/api-client';
+import { toast } from '@/lib/toast';
 import { Recipe, RecipeIngredient, Ingredient, NutritionInfo } from '@/lib/types';
-import { Clock, Users, Flame, ArrowLeft, Heart, BookOpen, RotateCw, Pencil, Trash2 } from 'lucide-react';
+import { Clock, Users, Flame, ArrowLeft, Heart, BookOpen, Pencil, Trash2, ShoppingCart, Check } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { formatTime, toFraction, titleCaseIngredient } from '@/lib/utils';
+import { formatTime, titleCaseIngredient } from '@/lib/utils';
+import { convertUnitToGrams, convertMeasure, formatQuantity, type UnitSystem } from '@/lib/units';
+import CookLogSection from '@/components/CookLogSection';
 
 interface NutritionCalculation {
   nutrition: NutritionInfo;
   matchedCount: number;
   totalCount: number;
+}
+
+// Match a recipe ingredient to a library ingredient: prefer the explicit
+// ingredient_id link, then fall back to a case-insensitive name/alias match.
+function matchIngredient(
+  recipeIng: RecipeIngredient,
+  allIngredients: Ingredient[]
+): Ingredient | undefined {
+  if (recipeIng.ingredient_id) {
+    const byId = allIngredients.find((ing) => ing.id === recipeIng.ingredient_id);
+    if (byId) return byId;
+  }
+  const name = recipeIng.name.toLowerCase().trim();
+  return allIngredients.find(
+    (ing) =>
+      ing.name.toLowerCase().trim() === name ||
+      (ing.aliases || []).some((a) => a.toLowerCase().trim() === name)
+  );
+}
+
+// Estimate per-serving nutrition by summing matched ingredients' macros.
+function computeNutrition(
+  recipe: Recipe,
+  recipeIngredients: RecipeIngredient[],
+  allIngredients: Ingredient[]
+): NutritionCalculation | null {
+  const real = recipeIngredients.filter((ing) => ing.name && !ing.name.startsWith('---'));
+  if (real.length === 0) return null;
+
+  const total: NutritionInfo = { calories: 0, protein: 0, carbs: 0, fat: 0, fiber: 0, sugar: 0, sodium: 0 };
+  let matchedCount = 0;
+
+  for (const recipeIng of real) {
+    const matched = matchIngredient(recipeIng, allIngredients);
+    if (!matched) continue;
+    matchedCount++;
+    const grams = convertUnitToGrams(recipeIng.quantity, recipeIng.unit);
+    if (grams === null) continue;
+    const factor = grams / 100;
+    total.calories += matched.calories_per_100g * factor;
+    total.protein += matched.protein_per_100g * factor;
+    total.carbs += matched.carbs_per_100g * factor;
+    total.fat += matched.fat_per_100g * factor;
+    total.fiber += matched.fiber_per_100g * factor;
+    total.sugar += matched.sugar_per_100g * factor;
+    total.sodium += matched.sodium_per_100g * factor;
+  }
+
+  const servings = recipe.servings || 1;
+  const round = (n: number) => Math.round((n / servings) * 10) / 10;
+  return {
+    nutrition: {
+      calories: Math.round(total.calories / servings),
+      protein: round(total.protein),
+      carbs: round(total.carbs),
+      fat: round(total.fat),
+      fiber: round(total.fiber),
+      sugar: round(total.sugar),
+      sodium: round(total.sodium),
+    },
+    matchedCount,
+    totalCount: real.length,
+  };
 }
 
 export default function RecipeDetailPage() {
@@ -25,7 +92,12 @@ export default function RecipeDetailPage() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [nutrition, setNutrition] = useState<NutritionCalculation | null>(null);
   const [imageRotation, setImageRotation] = useState(0);
-  const [recipeIngredients, setRecipeIngredients] = useState<any[]>([]);
+  const [recipeIngredients, setRecipeIngredients] = useState<RecipeIngredient[]>([]);
+  const [unitSystem, setUnitSystem] = useState<UnitSystem>('original');
+  const [checkedIngredients, setCheckedIngredients] = useState<Set<number>>(new Set());
+  const [checkedSteps, setCheckedSteps] = useState<Set<number>>(new Set());
+  const [addingToGrocery, setAddingToGrocery] = useState(false);
+  const [allIngredients, setAllIngredients] = useState<Ingredient[]>([]);
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -46,12 +118,15 @@ export default function RecipeDetailPage() {
           setIsFavorite(data.is_favorite);
           setImageRotation(data.image_rotation || 0);
 
-          // Fetch recipe ingredients
-          const ingData = await api.recipeIngredients.list(id);
-          if (ingData) setRecipeIngredients(ingData);
-
-          // Calculate nutrition for this recipe
-          await calculateNutrition(data);
+          // Fetch recipe ingredients and the ingredient library together so we
+          // can both render and compute nutrition from linked ingredients.
+          const [ingData, allIngs] = await Promise.all([
+            api.recipeIngredients.list(id),
+            api.ingredients.list(),
+          ]);
+          setRecipeIngredients(ingData || []);
+          setAllIngredients(allIngs || []);
+          setNutrition(computeNutrition(data, ingData || [], allIngs || []));
         } else {
           setError('Recipe not found');
         }
@@ -65,6 +140,94 @@ export default function RecipeDetailPage() {
 
     fetchRecipe();
   }, [id]);
+
+  // Load persisted unit system + checked-off state for this recipe.
+  useEffect(() => {
+    try {
+      const savedSystem = localStorage.getItem('cookbook:unitSystem') as UnitSystem | null;
+      if (savedSystem) setUnitSystem(savedSystem);
+      const raw = localStorage.getItem(`cookbook:checked:${id}`);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        setCheckedIngredients(new Set<number>(parsed.ingredients || []));
+        setCheckedSteps(new Set<number>(parsed.steps || []));
+      }
+    } catch { /* ignore corrupt storage */ }
+  }, [id]);
+
+  const persistChecked = (ingredients: Set<number>, steps: Set<number>) => {
+    try {
+      localStorage.setItem(
+        `cookbook:checked:${id}`,
+        JSON.stringify({ ingredients: [...ingredients], steps: [...steps] })
+      );
+    } catch { /* ignore */ }
+  };
+
+  const toggleIngredient = (idx: number) => {
+    setCheckedIngredients((prev) => {
+      const next = new Set(prev);
+      next.has(idx) ? next.delete(idx) : next.add(idx);
+      persistChecked(next, checkedSteps);
+      return next;
+    });
+  };
+
+  const toggleStep = (stepNumber: number) => {
+    setCheckedSteps((prev) => {
+      const next = new Set(prev);
+      next.has(stepNumber) ? next.delete(stepNumber) : next.add(stepNumber);
+      persistChecked(checkedIngredients, next);
+      return next;
+    });
+  };
+
+  const changeUnitSystem = (system: UnitSystem) => {
+    setUnitSystem(system);
+    try { localStorage.setItem('cookbook:unitSystem', system); } catch { /* ignore */ }
+  };
+
+  const handleAddToGrocery = async () => {
+    if (!recipe) return;
+    setAddingToGrocery(true);
+    try {
+      // Use the most recent grocery list, or create one if none exist.
+      const lists = await api.groceryLists.list();
+      let list = lists && lists.length > 0 ? lists[0] : null;
+      if (!list) {
+        list = await api.groceryLists.create({ name: 'Shopping List' });
+      }
+
+      // Skip section headers and OR dividers; carry category from a matched
+      // library ingredient so the grocery list stays aisle-grouped.
+      const realIngredients = recipeIngredients.filter(
+        (ing) => ing.name && !ing.name.startsWith('---')
+      );
+
+      await Promise.all(
+        realIngredients.map((ing) => {
+          const match = matchIngredient(ing, allIngredients);
+          return api.groceryListItems.create({
+            list_id: list!.id,
+            recipe_id: recipe.id,
+            ingredient_id: match?.id || undefined,
+            name: titleCaseIngredient(ing.name),
+            quantity: ing.quantity || 1,
+            unit: ing.unit || '',
+            category: match?.category || 'Other',
+            checked: false,
+          });
+        })
+      );
+
+      toast.success(`Added ${realIngredients.length} items to ${list.name}`);
+    } catch (err) {
+      console.error('Error adding to grocery list:', err);
+      toast.error('Failed to add to grocery list');
+    } finally {
+      setAddingToGrocery(false);
+    }
+  };
 
   const handleToggleFavorite = async () => {
     if (!recipe) return;
@@ -82,125 +245,11 @@ export default function RecipeDetailPage() {
     if (!confirm(`Are you sure you want to delete "${recipe.title}"? This cannot be undone.`)) return;
     try {
       await api.recipes.delete(recipe.id);
+      toast.success(`Deleted "${recipe.title}"`);
       router.push('/');
     } catch (err) {
       console.error('Error deleting recipe:', err);
-      alert('Failed to delete recipe');
-    }
-  };
-
-  const handleRotateImage = async () => {
-    if (!recipe) return;
-    try {
-      const newRotation = (imageRotation + 90) % 360;
-      await api.recipes.update(recipe.id, { image_rotation: newRotation });
-      setImageRotation(newRotation);
-    } catch (err) {
-      console.error('Error updating image rotation:', err);
-    }
-  };
-
-  const convertUnitToGrams = (quantity: number, unit: string): number | null => {
-    const lowerUnit = unit.toLowerCase().trim();
-
-    const conversions: Record<string, number> = {
-      'g': 1,
-      'gram': 1,
-      'grams': 1,
-      'oz': 28,
-      'ounce': 28,
-      'ounces': 28,
-      'lb': 454,
-      'lbs': 454,
-      'pound': 454,
-      'pounds': 454,
-      'cup': 240,
-      'cups': 240,
-      'tbsp': 15,
-      'tablespoon': 15,
-      'tablespoons': 15,
-      'tsp': 5,
-      'teaspoon': 5,
-      'teaspoons': 5,
-      'ml': 1,
-      'milliliter': 1,
-      'milliliters': 1,
-    };
-
-    if (conversions[lowerUnit]) {
-      return quantity * conversions[lowerUnit];
-    }
-    return null;
-  };
-
-  const calculateNutrition = async (recipeData: Recipe) => {
-    try {
-      // Fetch recipe ingredients
-      const recipeIngredients = await api.recipeIngredients.list(recipeData.id);
-
-      if (!recipeIngredients || recipeIngredients.length === 0) {
-        setNutrition(null);
-        return;
-      }
-
-      // Fetch all ingredients from database
-      const allIngredients = await api.ingredients.list();
-
-      // Calculate nutrition
-      const totalNutrition: NutritionInfo = {
-        calories: 0,
-        protein: 0,
-        carbs: 0,
-        fat: 0,
-        fiber: 0,
-        sugar: 0,
-        sodium: 0,
-      };
-
-      let matchedCount = 0;
-
-      for (const recipeIng of recipeIngredients) {
-        // Try to find matching ingredient (case-insensitive)
-        const matchedIngredient = allIngredients?.find(
-          (ing) => ing.name.toLowerCase() === recipeIng.name.toLowerCase()
-        );
-
-        if (matchedIngredient) {
-          matchedCount++;
-          // Convert quantity to grams
-          const gramsPerServing = convertUnitToGrams(recipeIng.quantity, recipeIng.unit);
-
-          if (gramsPerServing !== null) {
-            const gramsPerGram = gramsPerServing / 100;
-            totalNutrition.calories += matchedIngredient.calories_per_100g * gramsPerGram;
-            totalNutrition.protein += matchedIngredient.protein_per_100g * gramsPerGram;
-            totalNutrition.carbs += matchedIngredient.carbs_per_100g * gramsPerGram;
-            totalNutrition.fat += matchedIngredient.fat_per_100g * gramsPerGram;
-            totalNutrition.fiber += matchedIngredient.fiber_per_100g * gramsPerGram;
-            totalNutrition.sugar += matchedIngredient.sugar_per_100g * gramsPerGram;
-            totalNutrition.sodium += matchedIngredient.sodium_per_100g * gramsPerGram;
-          }
-        }
-      }
-
-      // Calculate per serving
-      const perServing: NutritionInfo = {
-        calories: Math.round(totalNutrition.calories / recipeData.servings),
-        protein: Math.round((totalNutrition.protein / recipeData.servings) * 10) / 10,
-        carbs: Math.round((totalNutrition.carbs / recipeData.servings) * 10) / 10,
-        fat: Math.round((totalNutrition.fat / recipeData.servings) * 10) / 10,
-        fiber: Math.round((totalNutrition.fiber / recipeData.servings) * 10) / 10,
-        sugar: Math.round((totalNutrition.sugar / recipeData.servings) * 10) / 10,
-        sodium: Math.round((totalNutrition.sodium / recipeData.servings) * 10) / 10,
-      };
-
-      setNutrition({
-        nutrition: perServing,
-        matchedCount,
-        totalCount: recipeIngredients.length,
-      });
-    } catch (err) {
-      console.error('Error calculating nutrition:', err);
+      toast.error('Failed to delete recipe');
     }
   };
 
@@ -300,10 +349,12 @@ export default function RecipeDetailPage() {
         {/* Image */}
         {recipe.image_url && (
           <div className="relative w-full h-80 md:h-96 rounded-2xl overflow-hidden shadow-warm-lg mb-8">
-            <img
+            <Image
               src={recipe.image_url}
               alt={recipe.title}
-              className="w-full h-full object-cover transition-transform duration-300"
+              fill
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover transition-transform duration-300"
               style={{ transform: `rotate(${imageRotation}deg)` }}
             />
           </div>
@@ -350,8 +401,34 @@ export default function RecipeDetailPage() {
         {/* Ingredients */}
         {recipeIngredients.length > 0 && (
           <div className="bg-surface rounded-2xl p-6 border border-border shadow-warm mb-8">
-            <h2 className="text-2xl font-bold text-text mb-4">Ingredients</h2>
-            <ul className="space-y-2">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
+              <h2 className="text-2xl font-bold text-text">Ingredients</h2>
+              <div className="flex items-center gap-2">
+                {/* Unit system toggle */}
+                <div className="flex rounded-lg border border-border overflow-hidden text-xs font-medium">
+                  {(['original', 'metric', 'imperial'] as UnitSystem[]).map((sys) => (
+                    <button
+                      key={sys}
+                      onClick={() => changeUnitSystem(sys)}
+                      className={`px-2.5 py-1.5 capitalize transition-colors ${
+                        unitSystem === sys ? 'bg-primary text-white' : 'text-text-secondary hover:bg-background'
+                      }`}
+                    >
+                      {sys === 'original' ? 'Orig' : sys}
+                    </button>
+                  ))}
+                </div>
+                <button
+                  onClick={handleAddToGrocery}
+                  disabled={addingToGrocery}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary-dark transition-colors disabled:opacity-50"
+                  title="Add all ingredients to a grocery list"
+                >
+                  <ShoppingCart size={16} /> Add to list
+                </button>
+              </div>
+            </div>
+            <ul className="space-y-1">
               {recipeIngredients.map((ing, idx) => {
                 // OR divider
                 if (ing.name === '---OR---') {
@@ -373,22 +450,30 @@ export default function RecipeDetailPage() {
                     </li>
                   );
                 }
-                const qtyDisplay = ing.quantity > 0
-                  ? (ing.quantity % 1 !== 0 ? toFraction(ing.quantity) : String(ing.quantity))
-                  : '';
-                const unitDisplay = ing.unit && ing.unit !== 'piece' ? ` ${ing.unit}` : '';
+                const converted = convertMeasure(ing.quantity, ing.unit, unitSystem);
+                const measure = ing.quantity > 0 ? formatQuantity(converted.quantity, converted.unit) : '';
+                const checked = checkedIngredients.has(idx);
                 return (
-                  <li key={idx} className="flex items-start gap-3 py-1">
-                    <span className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
-                    <span className="text-text">
-                      {qtyDisplay && (
-                        <span className="font-semibold">{qtyDisplay}{unitDisplay}</span>
-                      )}
-                      {qtyDisplay ? ' ' : ''}{titleCaseIngredient(ing.name)}
-                      {ing.notes && (
-                        <span className="text-text-secondary text-sm ml-1">({ing.notes})</span>
-                      )}
-                    </span>
+                  <li key={idx}>
+                    <button
+                      onClick={() => toggleIngredient(idx)}
+                      className="flex items-start gap-3 py-1.5 w-full text-left group"
+                    >
+                      <span
+                        className={`mt-0.5 flex-shrink-0 w-5 h-5 rounded border flex items-center justify-center transition-colors ${
+                          checked ? 'bg-primary border-primary' : 'border-border group-hover:border-primary'
+                        }`}
+                      >
+                        {checked && <Check size={14} className="text-white" />}
+                      </span>
+                      <span className={`transition-colors ${checked ? 'text-text-secondary line-through' : 'text-text'}`}>
+                        {measure && <span className="font-semibold">{measure}</span>}
+                        {measure ? ' ' : ''}{titleCaseIngredient(ing.name)}
+                        {ing.notes && (
+                          <span className="text-text-secondary text-sm ml-1 no-underline">({ing.notes})</span>
+                        )}
+                      </span>
+                    </button>
                   </li>
                 );
               })}
@@ -433,28 +518,37 @@ export default function RecipeDetailPage() {
         {recipe.instructions && recipe.instructions.length > 0 && (
           <div className="bg-surface rounded-2xl p-6 border border-border shadow-warm mb-8">
             <h2 className="text-2xl font-bold text-text mb-6">Instructions</h2>
-            <ol className="space-y-4">
-              {recipe.instructions.map((instruction) => (
-                <li
-                  key={instruction.step_number}
-                  className="flex gap-4"
-                >
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold">
-                    {instruction.step_number}
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-text leading-relaxed">
-                      {instruction.text}
-                    </p>
-                    {instruction.timer_minutes && (
-                      <p className="text-sm text-text-secondary mt-2 flex items-center gap-1">
-                        <Clock size={14} />
-                        {instruction.timer_label || `Timer: ${instruction.timer_minutes} minutes`}
-                      </p>
-                    )}
-                  </div>
-                </li>
-              ))}
+            <ol className="space-y-2">
+              {recipe.instructions.map((instruction) => {
+                const done = checkedSteps.has(instruction.step_number);
+                return (
+                  <li key={instruction.step_number}>
+                    <button
+                      onClick={() => toggleStep(instruction.step_number)}
+                      className="flex gap-4 w-full text-left py-2 rounded-lg hover:bg-background/60 transition-colors"
+                    >
+                      <div
+                        className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold transition-colors ${
+                          done ? 'bg-primary/30 text-primary' : 'bg-primary text-white'
+                        }`}
+                      >
+                        {done ? <Check size={18} /> : instruction.step_number}
+                      </div>
+                      <div className="flex-1">
+                        <p className={`leading-relaxed transition-colors ${done ? 'text-text-secondary line-through' : 'text-text'}`}>
+                          {instruction.text}
+                        </p>
+                        {instruction.timer_minutes && (
+                          <p className="text-sm text-text-secondary mt-2 flex items-center gap-1 no-underline">
+                            <Clock size={14} />
+                            {instruction.timer_label || `Timer: ${instruction.timer_minutes} minutes`}
+                          </p>
+                        )}
+                      </div>
+                    </button>
+                  </li>
+                );
+              })}
             </ol>
           </div>
         )}
@@ -479,7 +573,7 @@ export default function RecipeDetailPage() {
 
         {/* Source Information */}
         {recipe.source_url && (
-          <div className="bg-surface rounded-2xl p-6 border border-border shadow-warm">
+          <div className="bg-surface rounded-2xl p-6 border border-border shadow-warm mb-8">
             <p className="text-sm text-text-secondary mb-2">Recipe Source</p>
             <a
               href={recipe.source_url}
@@ -491,6 +585,9 @@ export default function RecipeDetailPage() {
             </a>
           </div>
         )}
+
+        {/* Cooking Journal */}
+        <CookLogSection recipeId={recipe.id} />
       </div>
     </div>
   );

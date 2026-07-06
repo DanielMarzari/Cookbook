@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/db';
+import { getDb, hydrateIngredient } from '@/lib/db';
 import { Ingredient } from '@/lib/types';
 
 export async function GET(
@@ -17,7 +17,7 @@ export async function GET(
       return NextResponse.json({ error: 'Ingredient not found' }, { status: 404 });
     }
 
-    return NextResponse.json(ingredient);
+    return NextResponse.json(hydrateIngredient(ingredient));
   } catch (error) {
     console.error('Error fetching ingredient:', error);
     return NextResponse.json({ error: 'Failed to fetch ingredient' }, { status: 500 });
@@ -78,9 +78,9 @@ export async function PUT(
     );
 
     const getStmt = db.prepare('SELECT * FROM ingredients WHERE id = ?');
-    const updated = getStmt.get(id);
+    const updated = getStmt.get(id) as Ingredient;
 
-    return NextResponse.json(updated);
+    return NextResponse.json(hydrateIngredient(updated));
   } catch (error) {
     console.error('Error updating ingredient:', error);
     return NextResponse.json({ error: 'Failed to update ingredient' }, { status: 500 });
@@ -95,8 +95,14 @@ export async function DELETE(
   try {
     const db = getDb();
 
-    const stmt = db.prepare('DELETE FROM ingredients WHERE id = ?');
-    stmt.run(id);
+    // Unlink any recipe_ingredients pointing here first — otherwise the
+    // foreign key constraint (PRAGMA foreign_keys = ON) rejects the delete.
+    // The rows keep their free-text name; they just become "unmatched" again.
+    const unlinkAndDelete = db.transaction((ingredientId: string) => {
+      db.prepare('UPDATE recipe_ingredients SET ingredient_id = NULL WHERE ingredient_id = ?').run(ingredientId);
+      db.prepare('DELETE FROM ingredients WHERE id = ?').run(ingredientId);
+    });
+    unlinkAndDelete(id);
 
     return NextResponse.json({ success: true });
   } catch (error) {

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb, hydrateRecipe } from '@/lib/db';
+import { getDb, hydrateRecipe, toFtsQuery } from '@/lib/db';
 import { Recipe } from '@/lib/types';
 
 export async function GET(request: NextRequest) {
@@ -12,9 +12,15 @@ export async function GET(request: NextRequest) {
 
     const search = searchParams.get('search');
     if (search) {
-      query += ' AND (title LIKE ? OR description LIKE ?)';
-      const searchPattern = `%${search}%`;
-      params.push(searchPattern, searchPattern);
+      const ftsQuery = toFtsQuery(search);
+      if (ftsQuery) {
+        // Full-text match against title + description via the FTS5 index.
+        query += ' AND id IN (SELECT recipe_id FROM recipes_fts WHERE recipes_fts MATCH ?)';
+        params.push(ftsQuery);
+      } else {
+        // Search was all punctuation/symbols — match nothing rather than everything.
+        query += ' AND 0';
+      }
     }
 
     const cuisine = searchParams.get('cuisine');

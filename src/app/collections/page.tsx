@@ -1,8 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Plus, X, Folder, Image } from 'lucide-react';
+import { Plus, X, Folder } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Collection, Recipe } from '@/lib/types';
 import { api } from '@/lib/api-client';
 
@@ -156,10 +157,12 @@ export default function CollectionsPage() {
                     {/* Cover image or fallback */}
                     {collection.cover_image_url ? (
                       <>
-                        <img
+                        <Image
                           src={collection.cover_image_url}
                           alt={collection.name}
-                          className="absolute inset-0 w-full h-full object-cover"
+                          fill
+                          sizes="(max-width: 768px) 50vw, 240px"
+                          className="object-cover"
                         />
                         {/* Dark overlay for text readability */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -286,11 +289,13 @@ export default function CollectionsPage() {
                   className="w-full px-4 py-3 rounded-lg border border-border bg-background text-text placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary"
                 />
                 {newCollection.cover_image_url && (
-                  <div className="mt-2 aspect-[3/4] max-h-40 rounded-lg overflow-hidden bg-background">
-                    <img
+                  <div className="relative mt-2 aspect-[3/4] max-h-40 rounded-lg overflow-hidden bg-background">
+                    <Image
                       src={newCollection.cover_image_url}
                       alt="Cover preview"
-                      className="w-full h-full object-cover"
+                      fill
+                      sizes="160px"
+                      className="object-cover"
                     />
                   </div>
                 )}

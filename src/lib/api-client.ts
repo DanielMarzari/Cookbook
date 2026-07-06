@@ -8,8 +8,16 @@ import {
   GroceryListItem,
   Technique,
   UserTechniqueSkill,
-  RecipeTag
+  RecipeTag,
+  CookLog,
+  MealPlanEntry
 } from './types';
+
+// Meal plan entry joined with its recipe's title/image (as returned by GET /api/meal-plan).
+export type MealPlanEntryWithRecipe = MealPlanEntry & {
+  recipe_title: string | null;
+  recipe_image_url: string | null;
+};
 
 interface FetchOptions {
   method?: string;
@@ -54,10 +62,18 @@ export const api = {
       return fetchJson<RecipeIngredient[]>(`/api/recipe-ingredients${params}`);
     },
     get: (id: string) => fetchJson<RecipeIngredient>(`/api/recipe-ingredients/${id}`),
-    create: (data: Partial<RecipeIngredient>) => fetchJson<RecipeIngredient>('/api/recipe-ingredients', { method: 'POST', body: data }),
+    // Accepts a single ingredient or a batch; the route handles both shapes.
+    create: (data: Partial<RecipeIngredient> | Partial<RecipeIngredient>[]) =>
+      fetchJson<RecipeIngredient | RecipeIngredient[]>('/api/recipe-ingredients', { method: 'POST', body: data }),
     update: (id: string, data: Partial<RecipeIngredient>) => fetchJson<RecipeIngredient>(`/api/recipe-ingredients/${id}`, { method: 'PUT', body: data }),
     delete: (id: string) => fetch(`/api/recipe-ingredients/${id}`, { method: 'DELETE' }),
     deleteByRecipeId: (recipeId: string) => fetch(`/api/recipe-ingredients?recipe_id=${recipeId}`, { method: 'DELETE' }),
+    // Point every recipe_ingredients row with a matching name at a library ingredient.
+    linkByName: (name: string, ingredientId: string) =>
+      fetchJson<{ success: boolean; updated: number }>('/api/recipe-ingredients', {
+        method: 'PATCH',
+        body: { name, ingredient_id: ingredientId },
+      }),
   },
 
   ingredients: {
@@ -127,6 +143,24 @@ export const api = {
     create: (data: Partial<Technique>) => fetchJson<Technique>('/api/techniques', { method: 'POST', body: data }),
     update: (id: string, data: Partial<Technique>) => fetchJson<Technique>(`/api/techniques/${id}`, { method: 'PUT', body: data }),
     delete: (id: string) => fetch(`/api/techniques/${id}`, { method: 'DELETE' }),
+  },
+
+  cookLogs: {
+    list: (recipeId?: string) => {
+      const params = recipeId ? `?recipe_id=${recipeId}` : '';
+      return fetchJson<CookLog[]>(`/api/cook-logs${params}`);
+    },
+    create: (data: Partial<CookLog>) => fetchJson<CookLog>('/api/cook-logs', { method: 'POST', body: data }),
+    delete: (id: string) => fetch(`/api/cook-logs?id=${id}`, { method: 'DELETE' }),
+  },
+
+  mealPlan: {
+    list: (start?: string, end?: string) => {
+      const params = start && end ? `?start=${start}&end=${end}` : '';
+      return fetchJson<MealPlanEntryWithRecipe[]>(`/api/meal-plan${params}`);
+    },
+    create: (data: Partial<MealPlanEntry>) => fetchJson<MealPlanEntry>('/api/meal-plan', { method: 'POST', body: data }),
+    delete: (id: string) => fetch(`/api/meal-plan?id=${id}`, { method: 'DELETE' }),
   },
 
   userTechniqueSkills: {

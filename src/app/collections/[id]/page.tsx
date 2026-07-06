@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, Plus, X, Trash2, Search, Pencil, Check, Loader, BookOpen } from 'lucide-react';
 import { Collection, Recipe, RecipeIngredient } from '@/lib/types';
 import { api } from '@/lib/api-client';
@@ -196,7 +197,7 @@ export default function CollectionDetailPage() {
         {collection.cover_image_url ? (
           <>
             <div className="absolute inset-0">
-              <img src={collection.cover_image_url} alt="" className="w-full h-full object-cover" />
+              <Image src={collection.cover_image_url} alt="" fill sizes="100vw" className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
             </div>
             <div className="relative max-w-7xl mx-auto px-4 md:px-6 py-8">
@@ -372,8 +373,8 @@ export default function CollectionDetailPage() {
                 <input type="url" value={editCoverUrl} onChange={(e) => setEditCoverUrl(e.target.value)} placeholder="https://..."
                   className="w-full px-4 py-3 rounded-lg border border-border bg-background text-text placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary" />
                 {editCoverUrl && (
-                  <div className="mt-2 h-32 rounded-lg overflow-hidden bg-background">
-                    <img src={editCoverUrl} alt="Cover preview" className="w-full h-full object-cover" />
+                  <div className="relative mt-2 h-32 rounded-lg overflow-hidden bg-background">
+                    <Image src={editCoverUrl} alt="Cover preview" fill sizes="100vw" className="object-cover" />
                   </div>
                 )}
               </div>

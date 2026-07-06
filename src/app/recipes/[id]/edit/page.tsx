@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { api } from '@/lib/api-client';
 import { Recipe } from '@/lib/types';
 import { ArrowLeft, Plus, X, Loader, RotateCw, Trash2, GripVertical, Check } from 'lucide-react';
@@ -384,10 +385,12 @@ export default function EditRecipePage() {
 
               {imageUrl && (
                 <div className="relative w-full h-64 rounded-xl overflow-hidden bg-background">
-                  <img
+                  <Image
                     src={imageUrl}
                     alt="Preview"
-                    className="w-full h-full object-cover transition-transform duration-300"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 768px"
+                    className="object-cover transition-transform duration-300"
                     style={{ transform: `rotate(${imageRotation}deg)` }}
                   />
                   <button

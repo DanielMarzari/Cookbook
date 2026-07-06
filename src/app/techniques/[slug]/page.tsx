@@ -1,8 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Technique, UserTechniqueSkill } from '@/lib/types';
 import { api } from '@/lib/api-client';
+import { toast } from '@/lib/toast';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 import { ArrowLeft, Video, Lightbulb, AlertCircle, BookOpen, Check } from 'lucide-react';
 import Link from 'next/link';
@@ -107,7 +109,7 @@ export default function TechniqueDetailPage() {
       }
     } catch (err) {
       console.error('Error toggling skill:', err);
-      alert('Failed to update technique');
+      toast.error('Failed to update technique');
     } finally {
       setIsSaving(false);
     }
@@ -208,12 +210,14 @@ export default function TechniqueDetailPage() {
                   {technique.image_urls.slice(0, 4).map((url, idx) => (
                     <div
                       key={idx}
-                      className="rounded-xl overflow-hidden shadow-warm"
+                      className="relative h-48 rounded-xl overflow-hidden shadow-warm"
                     >
-                      <img
+                      <Image
                         src={url}
                         alt={`${technique.name} - Step ${idx + 1}`}
-                        className="w-full h-48 object-cover"
+                        fill
+                        sizes="(max-width: 768px) 50vw, 33vw"
+                        className="object-cover"
                       />
                     </div>
                   ))}

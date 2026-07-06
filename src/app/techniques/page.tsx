@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Search, Zap, BookOpen } from 'lucide-react';
 import { Technique } from '@/lib/types';
 import { api } from '@/lib/api-client';
@@ -234,10 +235,12 @@ export default function TechniquesPage() {
                           {/* Image */}
                           {technique.image_urls && technique.image_urls.length > 0 ? (
                             <div className="relative w-full h-40 overflow-hidden bg-gradient-to-br from-background to-border">
-                              <img
+                              <Image
                                 src={technique.image_urls[0]}
                                 alt={technique.name}
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                                fill
+                                sizes="(max-width: 768px) 100vw, 33vw"
+                                className="object-cover group-hover:scale-110 transition-transform duration-300"
                               />
                             </div>
                           ) : (

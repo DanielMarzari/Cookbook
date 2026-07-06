@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
+import { getAuthSecret, verifySession } from '@/lib/auth';
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Allow login page and auth API
@@ -23,11 +24,15 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Check for session cookie
+  // Verify the session cookie's signature — presence alone is not enough.
   const sessionToken = request.cookies.get('session_token')?.value;
+  const valid = await verifySession(getAuthSecret(), sessionToken);
 
-  if (!sessionToken) {
-    // Redirect to login
+  if (!valid) {
+    // API callers get a clean 401; page navigations get redirected to login.
+    if (pathname.startsWith('/api/')) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
