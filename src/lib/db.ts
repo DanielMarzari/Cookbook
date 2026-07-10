@@ -36,6 +36,28 @@ export function getDb(): Database.Database {
 }
 
 /**
+ * Hydrate a raw technique row: parse the JSON-serialized `image_urls`, `tips`,
+ * and `related_techniques` columns into arrays. Without this the API returns
+ * them as strings and clients see characters instead of array items.
+ */
+export function hydrateTechnique<T extends object | null | undefined>(row: T): T {
+  if (!row) return row;
+  const r = row as Record<string, unknown>;
+  for (const key of ['image_urls', 'tips', 'related_techniques']) {
+    if (typeof r[key] === 'string') {
+      try {
+        r[key] = JSON.parse(r[key] as string);
+      } catch {
+        r[key] = [];
+      }
+    } else if (r[key] == null) {
+      r[key] = [];
+    }
+  }
+  return row;
+}
+
+/**
  * Turn a free-text search box value into a safe FTS5 MATCH expression.
  * Strips punctuation that FTS5 treats as operators, makes each token a prefix
  * match, and ANDs them together. Returns null when nothing searchable remains
