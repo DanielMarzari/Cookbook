@@ -5,9 +5,12 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { api } from '@/lib/api-client';
-import { Recipe } from '@/lib/types';
-import { ArrowLeft, Plus, X, Loader, RotateCw, Trash2, GripVertical, Check } from 'lucide-react';
+import { RecipePhoto } from '@/lib/types';
+import { ArrowLeft, Plus, X, Loader, RotateCw, Trash2, GripVertical, Check, Upload, Star } from 'lucide-react';
 import { toFraction, titleCaseIngredient } from '@/lib/utils';
+import { framingStyle, parsePosition, buildPosition } from '@/lib/image';
+import { fileToResizedDataUrl } from '@/lib/photo';
+import { toast } from '@/lib/toast';
 import { UNITS, DEFAULT_CUISINES } from '@/lib/constants';
 import { useCuisines } from '@/lib/useCuisines';
 
@@ -49,6 +52,14 @@ export default function EditRecipePage() {
   const [cookTime, setCookTime] = useState(0);
   const [servings, setServings] = useState(4);
   const [imageUrl, setImageUrl] = useState('');
+  const [imagePosition, setImagePosition] = useState('50% 50%');
+  const [imageZoom, setImageZoom] = useState(1);
+  const [photos, setPhotos] = useState<RecipePhoto[]>([]);
+  const [uploadingMain, setUploadingMain] = useState(false);
+  const [uploadingGallery, setUploadingGallery] = useState(false);
+  const [galleryUrl, setGalleryUrl] = useState('');
+  const mainFileRef = useRef<HTMLInputElement>(null);
+  const galleryFileRef = useRef<HTMLInputElement>(null);
   const [sourceUrl, setSourceUrl] = useState('');
   const [sourceName, setSourceName] = useState('');
   const [sourceAuthor, setSourceAuthor] = useState('');
@@ -79,6 +90,11 @@ export default function EditRecipePage() {
         setSourceName(recipe.source_name || '');
         setSourceAuthor(recipe.source_author || '');
         setImageRotation(recipe.image_rotation || 0);
+        setImagePosition(recipe.image_position || '50% 50%');
+        setImageZoom(recipe.image_zoom || 1);
+
+        // Load gallery photos
+        api.recipePhotos.list(id).then(setPhotos).catch(() => {});
 
         // Load instructions
         if (recipe.instructions && recipe.instructions.length > 0) {
@@ -130,6 +146,7 @@ export default function EditRecipePage() {
         prep_time_minutes: prepTime, cook_time_minutes: cookTime,
         total_time_minutes: prepTime + cookTime, servings,
         image_url: imageUrl, image_rotation: imageRotation,
+        image_position: imagePosition, image_zoom: imageZoom,
         source_url: sourceUrl, source_name: sourceName, source_author: sourceAuthor,
         instructions: instructions.map((inst, idx) => ({
           step_number: idx + 1, text: inst.text,
@@ -160,14 +177,14 @@ export default function EditRecipePage() {
     } finally {
       setSaving(false);
     }
-  }, [id, title, description, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, sourceUrl, sourceName, sourceAuthor, instructions, ingredients]);
+  }, [id, title, description, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients]);
 
   useEffect(() => {
     if (!initialLoadDone.current) return;
     if (autosaveTimer.current) clearTimeout(autosaveTimer.current);
     autosaveTimer.current = setTimeout(doAutosave, 1500);
     return () => { if (autosaveTimer.current) clearTimeout(autosaveTimer.current); };
-  }, [title, description, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, sourceUrl, sourceName, sourceAuthor, instructions, ingredients, doAutosave]);
+  }, [title, description, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients, doAutosave]);
 
   const handleRotateImage = async () => {
     const newRotation = (imageRotation + 90) % 360;
@@ -175,6 +192,80 @@ export default function EditRecipePage() {
     // Save immediately
     await api.recipes.update(id, { image_rotation: newRotation });
   };
+
+  const handleMainUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingMain(true);
+    try {
+      const dataUrl = await fileToResizedDataUrl(file, 1200);
+      setImageUrl(dataUrl); // autosave persists it
+    } catch (err) {
+      console.error('Main photo upload error:', err);
+      toast.error('Could not process that image');
+    } finally {
+      setUploadingMain(false);
+      if (mainFileRef.current) mainFileRef.current.value = '';
+    }
+  };
+
+  const handleGalleryUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+    setUploadingGallery(true);
+    try {
+      for (const file of files) {
+        const dataUrl = await fileToResizedDataUrl(file, 1200);
+        const created = await api.recipePhotos.create({ recipe_id: id, url: dataUrl });
+        setPhotos((prev) => [...prev, created]);
+      }
+      toast.success(files.length > 1 ? `Added ${files.length} photos` : 'Photo added');
+    } catch (err) {
+      console.error('Gallery upload error:', err);
+      toast.error('Could not add photo(s)');
+    } finally {
+      setUploadingGallery(false);
+      if (galleryFileRef.current) galleryFileRef.current.value = '';
+    }
+  };
+
+  const handleAddGalleryUrl = async () => {
+    const url = galleryUrl.trim();
+    if (!url) return;
+    try {
+      const created = await api.recipePhotos.create({ recipe_id: id, url });
+      setPhotos((prev) => [...prev, created]);
+      setGalleryUrl('');
+    } catch (err) {
+      console.error('Add gallery URL error:', err);
+      toast.error('Could not add photo');
+    }
+  };
+
+  const handleDeletePhoto = async (photoId: string) => {
+    try {
+      const res = await api.recipePhotos.delete(photoId);
+      if (!res.ok) throw new Error(`Delete failed: ${res.status}`);
+      setPhotos((prev) => prev.filter((p) => p.id !== photoId));
+    } catch (err) {
+      console.error('Delete photo error:', err);
+      toast.error('Could not delete photo');
+    }
+  };
+
+  const handleSetMain = (url: string) => {
+    setImageUrl(url); // autosave persists; framing resets to defaults for the new cover
+    setImagePosition('50% 50%');
+    setImageZoom(1);
+    setImageRotation(0);
+    toast.success('Set as cover photo');
+  };
+
+  // Framing sliders operate on the "X% Y%" object-position string.
+  const framePos = parsePosition(imagePosition);
+  const setFrameX = (x: number) => setImagePosition(buildPosition(x, framePos.y));
+  const setFrameY = (y: number) => setImagePosition(buildPosition(framePos.x, y));
+  const resetFraming = () => { setImagePosition('50% 50%'); setImageZoom(1); setImageRotation(0); };
 
   // Drag-to-reorder ingredients
   const [dragIdx, setDragIdx] = useState<number | null>(null);
@@ -371,36 +462,77 @@ export default function EditRecipePage() {
                 </div>
               </div>
 
-              {/* Image URL + rotation */}
+              {/* Main / cover photo */}
               <div>
-                <label className="block text-xs text-text-secondary mb-1">Image URL</label>
-                <input
-                  type="url"
-                  placeholder="Image URL"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                  className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                />
+                <label className="block text-xs text-text-secondary mb-1">Main / cover photo</label>
+                <div className="flex gap-2">
+                  <input
+                    type="url"
+                    placeholder="Image URL"
+                    value={imageUrl.startsWith('data:') ? '' : imageUrl}
+                    onChange={(e) => setImageUrl(e.target.value)}
+                    className="flex-1 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                  <input ref={mainFileRef} type="file" accept="image/*" onChange={handleMainUpload} className="hidden" />
+                  <button
+                    type="button"
+                    onClick={() => mainFileRef.current?.click()}
+                    disabled={uploadingMain}
+                    className="flex items-center gap-1.5 px-4 py-2 rounded-lg border border-border text-text hover:bg-background transition-colors disabled:opacity-50 whitespace-nowrap"
+                  >
+                    {uploadingMain ? <Loader size={16} className="animate-spin" /> : <Upload size={16} />} Upload
+                  </button>
+                </div>
+                {imageUrl.startsWith('data:') && (
+                  <p className="text-xs text-text-secondary mt-1">Using an uploaded photo. Paste a URL above to replace it.</p>
+                )}
               </div>
 
               {imageUrl && (
-                <div className="relative w-full h-64 rounded-xl overflow-hidden bg-background">
-                  <Image
-                    src={imageUrl}
-                    alt="Preview"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 768px"
-                    className="object-cover transition-transform duration-300"
-                    style={{ transform: `rotate(${imageRotation}deg)` }}
-                  />
-                  <button
-                    type="button"
-                    onClick={handleRotateImage}
-                    className="absolute top-3 right-3 p-3 bg-surface rounded-full shadow-warm hover:shadow-warm-lg transition-all hover:scale-110"
-                    title="Rotate image"
-                  >
-                    <RotateCw size={20} className="text-text" />
-                  </button>
+                <div className="space-y-3">
+                  <div className="relative w-full h-64 rounded-xl overflow-hidden bg-background">
+                    <Image
+                      src={imageUrl}
+                      alt="Preview"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 768px"
+                      className="object-cover"
+                      style={framingStyle({ image_position: imagePosition, image_zoom: imageZoom, image_rotation: imageRotation })}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleRotateImage}
+                      className="absolute top-3 right-3 p-3 bg-surface rounded-full shadow-warm hover:shadow-warm-lg transition-all hover:scale-110"
+                      title="Rotate image"
+                    >
+                      <RotateCw size={20} className="text-text" />
+                    </button>
+                  </div>
+
+                  {/* Framing controls */}
+                  <div className="rounded-xl border border-border p-4 bg-background/40">
+                    <div className="flex items-center justify-between mb-2">
+                      <p className="text-sm font-medium text-text">
+                        Adjust framing{' '}
+                        <span className="text-text-secondary font-normal">— used on the recipe &amp; in the cookbook</span>
+                      </p>
+                      <button type="button" onClick={resetFraming} className="text-xs text-primary hover:underline">Reset</button>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                      <label className="text-xs text-text-secondary">
+                        Horizontal
+                        <input type="range" min={0} max={100} value={framePos.x} onChange={(e) => setFrameX(parseInt(e.target.value))} className="w-full accent-[var(--color-primary)]" />
+                      </label>
+                      <label className="text-xs text-text-secondary">
+                        Vertical
+                        <input type="range" min={0} max={100} value={framePos.y} onChange={(e) => setFrameY(parseInt(e.target.value))} className="w-full accent-[var(--color-primary)]" />
+                      </label>
+                      <label className="text-xs text-text-secondary">
+                        Zoom
+                        <input type="range" min={1} max={3} step={0.05} value={imageZoom} onChange={(e) => setImageZoom(parseFloat(e.target.value))} className="w-full accent-[var(--color-primary)]" />
+                      </label>
+                    </div>
+                  </div>
                 </div>
               )}
 
@@ -412,6 +544,57 @@ export default function EditRecipePage() {
                 className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
+          </div>
+
+          {/* Photo Gallery */}
+          <div className="bg-surface border border-border rounded-lg p-6 shadow-warm">
+            <h2 className="text-2xl font-bold text-text mb-1">Photo Gallery</h2>
+            <p className="text-sm text-text-secondary mb-4">Add extra photos of the dish — any size. They show in a gallery on the recipe.</p>
+            <div className="flex flex-wrap gap-2 mb-4">
+              <input
+                type="url"
+                placeholder="Paste image URL"
+                value={galleryUrl}
+                onChange={(e) => setGalleryUrl(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAddGalleryUrl(); } }}
+                className="flex-1 min-w-[12rem] px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+              <button
+                type="button"
+                onClick={handleAddGalleryUrl}
+                className="px-4 py-2 rounded-lg border border-border text-text hover:bg-background transition-colors"
+              >
+                Add URL
+              </button>
+              <input ref={galleryFileRef} type="file" accept="image/*" multiple onChange={handleGalleryUpload} className="hidden" />
+              <button
+                type="button"
+                onClick={() => galleryFileRef.current?.click()}
+                disabled={uploadingGallery}
+                className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors disabled:opacity-50"
+              >
+                {uploadingGallery ? <Loader size={16} className="animate-spin" /> : <Upload size={16} />} Upload
+              </button>
+            </div>
+            {photos.length > 0 ? (
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                {photos.map((p) => (
+                  <div key={p.id} className="relative aspect-square rounded-lg overflow-hidden border border-border group">
+                    <Image src={p.url} alt="Gallery photo" fill sizes="(max-width: 640px) 33vw, 160px" className="object-cover" />
+                    <div className="absolute inset-0 flex items-center justify-center gap-2 bg-black/0 group-hover:bg-black/50 opacity-0 group-hover:opacity-100 transition-all">
+                      <button type="button" onClick={() => handleSetMain(p.url)} title="Set as cover photo" className="p-1.5 rounded-full bg-white/90 hover:bg-white text-text">
+                        <Star size={16} />
+                      </button>
+                      <button type="button" onClick={() => handleDeletePhoto(p.id)} title="Delete photo" className="p-1.5 rounded-full bg-white/90 hover:bg-white text-red-600">
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-text-secondary">No gallery photos yet.</p>
+            )}
           </div>
 
           {/* Ingredients */}

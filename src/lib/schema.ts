@@ -30,7 +30,9 @@ CREATE TABLE IF NOT EXISTS recipes (
   source_name TEXT,
   source_author TEXT,
   status TEXT,
-  image_rotation REAL
+  image_rotation REAL,
+  image_position TEXT,
+  image_zoom REAL
 );
 
 CREATE TABLE IF NOT EXISTS ingredients (
@@ -180,6 +182,18 @@ CREATE TABLE IF NOT EXISTS meal_plan (
   FOREIGN KEY (recipe_id) REFERENCES recipes(id)
 );
 
+-- Extra photos for a recipe's gallery (the main/cover image stays on recipes).
+-- Kept in a separate table so the recipes list payload isn't bloated by
+-- inline data-URL photos.
+CREATE TABLE IF NOT EXISTS recipe_photos (
+  id TEXT PRIMARY KEY,
+  recipe_id TEXT,
+  url TEXT,
+  sort_order INTEGER,
+  created_at TEXT,
+  FOREIGN KEY (recipe_id) REFERENCES recipes(id)
+);
+
 -- Indexes for foreign keys and common filter/sort columns. SQLite only
 -- auto-indexes primary keys, so joins and lookups below would otherwise scan.
 CREATE INDEX IF NOT EXISTS idx_recipe_ingredients_recipe ON recipe_ingredients(recipe_id);
@@ -196,6 +210,7 @@ CREATE INDEX IF NOT EXISTS idx_recipes_created ON recipes(created_at);
 CREATE INDEX IF NOT EXISTS idx_techniques_slug ON techniques(slug);
 CREATE INDEX IF NOT EXISTS idx_cook_logs_recipe ON cook_logs(recipe_id);
 CREATE INDEX IF NOT EXISTS idx_meal_plan_date ON meal_plan(date);
+CREATE INDEX IF NOT EXISTS idx_recipe_photos_recipe ON recipe_photos(recipe_id);
 
 -- Full-text search over recipe title + description. Self-contained FTS5 table
 -- (stores its own copy) keyed by the recipe's TEXT id, kept in sync by triggers.

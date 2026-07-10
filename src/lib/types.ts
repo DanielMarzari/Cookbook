@@ -92,8 +92,19 @@ export interface Recipe {
   is_favorite: boolean;
   status?: 'new' | 'testing' | 'approved' | 'signature' | 'archived';
   image_rotation?: number;
+  image_position?: string; // CSS object-position for the main photo, e.g. "50% 30%"
+  image_zoom?: number; // scale factor for the main photo, default 1
   created_at: string;
   updated_at: string;
+}
+
+// An extra photo in a recipe's gallery (the cover stays on Recipe.image_url)
+export interface RecipePhoto {
+  id: string;
+  recipe_id: string;
+  url: string;
+  sort_order: number;
+  created_at: string;
 }
 
 // Cooking technique

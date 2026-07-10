@@ -54,6 +54,8 @@ export async function PUT(
         is_favorite = COALESCE(?, is_favorite),
         status = COALESCE(?, status),
         image_rotation = COALESCE(?, image_rotation),
+        image_position = COALESCE(?, image_position),
+        image_zoom = COALESCE(?, image_zoom),
         updated_at = ?
       WHERE id = ?
     `);
@@ -77,6 +79,8 @@ export async function PUT(
       body.is_favorite !== undefined ? (body.is_favorite ? 1 : 0) : null,
       body.status || null,
       body.image_rotation !== undefined ? body.image_rotation : null,
+      body.image_position !== undefined ? body.image_position : null,
+      body.image_zoom !== undefined ? body.image_zoom : null,
       now,
       id
     );
@@ -109,6 +113,7 @@ export async function DELETE(
       db.prepare('DELETE FROM recipe_tags WHERE recipe_id = ?').run(recipeId);
       db.prepare('DELETE FROM cook_logs WHERE recipe_id = ?').run(recipeId);
       db.prepare('DELETE FROM meal_plan WHERE recipe_id = ?').run(recipeId);
+      db.prepare('DELETE FROM recipe_photos WHERE recipe_id = ?').run(recipeId);
       db.prepare('UPDATE grocery_list_items SET recipe_id = NULL WHERE recipe_id = ?').run(recipeId);
       db.prepare('DELETE FROM recipes WHERE id = ?').run(recipeId);
     });

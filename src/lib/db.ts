@@ -5,6 +5,14 @@ import { SCHEMA_SQL } from './schema';
 const DB_PATH = process.env.DATABASE_PATH || path.join(process.cwd(), 'cookbook.db');
 let db: Database.Database | null = null;
 
+/** Add a column to an existing table if it isn't already present. */
+function ensureColumn(db: Database.Database, table: string, column: string, type: string): void {
+  const cols = db.prepare(`PRAGMA table_info(${table})`).all() as { name: string }[];
+  if (!cols.some((c) => c.name === column)) {
+    db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${type}`);
+  }
+}
+
 export function getDb(): Database.Database {
   if (!db) {
     db = new Database(DB_PATH);
@@ -12,6 +20,10 @@ export function getDb(): Database.Database {
     db.pragma('foreign_keys = ON');
     // Idempotent: creates tables/indexes on a fresh DB, no-ops on an existing one.
     db.exec(SCHEMA_SQL);
+    // Add columns introduced after a table already existed. CREATE TABLE
+    // IF NOT EXISTS won't alter an existing table, so migrate explicitly.
+    ensureColumn(db, 'recipes', 'image_position', 'TEXT');
+    ensureColumn(db, 'recipes', 'image_zoom', 'REAL');
     // Backfill the FTS index the first time it's created against an existing DB
     // (the triggers only cover rows written after the virtual table exists).
     const ftsCount = (db.prepare('SELECT count(*) AS c FROM recipes_fts').get() as { c: number }).c;
