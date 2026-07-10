@@ -10,7 +10,8 @@ import {
   UserTechniqueSkill,
   RecipeTag,
   CookLog,
-  MealPlanEntry
+  MealPlanEntry,
+  RecipePhoto
 } from './types';
 
 // Meal plan entry joined with its recipe's title/image (as returned by GET /api/meal-plan).
@@ -143,6 +144,13 @@ export const api = {
     create: (data: Partial<Technique>) => fetchJson<Technique>('/api/techniques', { method: 'POST', body: data }),
     update: (id: string, data: Partial<Technique>) => fetchJson<Technique>(`/api/techniques/${id}`, { method: 'PUT', body: data }),
     delete: (id: string) => fetch(`/api/techniques/${id}`, { method: 'DELETE' }),
+  },
+
+  recipePhotos: {
+    list: (recipeId: string) => fetchJson<RecipePhoto[]>(`/api/recipe-photos?recipe_id=${recipeId}`),
+    create: (data: { recipe_id: string; url: string; sort_order?: number }) =>
+      fetchJson<RecipePhoto>('/api/recipe-photos', { method: 'POST', body: data }),
+    delete: (id: string) => fetch(`/api/recipe-photos?id=${id}`, { method: 'DELETE' }),
   },
 
   cookLogs: {

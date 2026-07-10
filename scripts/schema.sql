@@ -27,7 +27,9 @@ CREATE TABLE IF NOT EXISTS recipes (
   source_name TEXT,
   source_author TEXT,
   status TEXT,
-  image_rotation REAL
+  image_rotation REAL,
+  image_position TEXT,
+  image_zoom REAL
 );
 
 CREATE TABLE IF NOT EXISTS ingredients (
@@ -174,6 +176,15 @@ CREATE TABLE IF NOT EXISTS meal_plan (
   FOREIGN KEY (recipe_id) REFERENCES recipes(id)
 );
 
+CREATE TABLE IF NOT EXISTS recipe_photos (
+  id TEXT PRIMARY KEY,
+  recipe_id TEXT,
+  url TEXT,
+  sort_order INTEGER,
+  created_at TEXT,
+  FOREIGN KEY (recipe_id) REFERENCES recipes(id)
+);
+
 CREATE INDEX IF NOT EXISTS idx_recipe_ingredients_recipe ON recipe_ingredients(recipe_id);
 CREATE INDEX IF NOT EXISTS idx_recipe_ingredients_ingredient ON recipe_ingredients(ingredient_id);
 CREATE INDEX IF NOT EXISTS idx_recipe_ingredients_name ON recipe_ingredients(name);
@@ -188,6 +199,7 @@ CREATE INDEX IF NOT EXISTS idx_recipes_created ON recipes(created_at);
 CREATE INDEX IF NOT EXISTS idx_techniques_slug ON techniques(slug);
 CREATE INDEX IF NOT EXISTS idx_cook_logs_recipe ON cook_logs(recipe_id);
 CREATE INDEX IF NOT EXISTS idx_meal_plan_date ON meal_plan(date);
+CREATE INDEX IF NOT EXISTS idx_recipe_photos_recipe ON recipe_photos(recipe_id);
 
 -- Full-text search over recipe title + description (self-contained FTS5,
 -- kept in sync by triggers; see src/lib/schema.ts for details).

@@ -11,7 +11,10 @@ import { Clock, Users, Flame, ArrowLeft, Heart, BookOpen, Pencil, Trash2, Shoppi
 import { useRouter } from 'next/navigation';
 import { formatTime, titleCaseIngredient } from '@/lib/utils';
 import { convertUnitToGrams, convertMeasure, formatQuantity, type UnitSystem } from '@/lib/units';
+import { framingStyle } from '@/lib/image';
 import CookLogSection from '@/components/CookLogSection';
+import PhotoGallery from '@/components/PhotoGallery';
+import { RecipePhoto } from '@/lib/types';
 
 interface NutritionCalculation {
   nutrition: NutritionInfo;
@@ -98,6 +101,7 @@ export default function RecipeDetailPage() {
   const [checkedSteps, setCheckedSteps] = useState<Set<number>>(new Set());
   const [addingToGrocery, setAddingToGrocery] = useState(false);
   const [allIngredients, setAllIngredients] = useState<Ingredient[]>([]);
+  const [photos, setPhotos] = useState<RecipePhoto[]>([]);
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -120,12 +124,14 @@ export default function RecipeDetailPage() {
 
           // Fetch recipe ingredients and the ingredient library together so we
           // can both render and compute nutrition from linked ingredients.
-          const [ingData, allIngs] = await Promise.all([
+          const [ingData, allIngs, photoData] = await Promise.all([
             api.recipeIngredients.list(id),
             api.ingredients.list(),
+            api.recipePhotos.list(id),
           ]);
           setRecipeIngredients(ingData || []);
           setAllIngredients(allIngs || []);
+          setPhotos(photoData || []);
           setNutrition(computeNutrition(data, ingData || [], allIngs || []));
         } else {
           setError('Recipe not found');
@@ -355,7 +361,22 @@ export default function RecipeDetailPage() {
               fill
               sizes="(max-width: 768px) 100vw, 768px"
               className="object-cover transition-transform duration-300"
-              style={{ transform: `rotate(${imageRotation}deg)` }}
+              style={framingStyle({
+                image_position: recipe.image_position,
+                image_zoom: recipe.image_zoom,
+                image_rotation: imageRotation,
+              })}
+            />
+          </div>
+        )}
+
+        {/* Photo gallery */}
+        {photos.length > 0 && (
+          <div className="bg-surface rounded-2xl p-6 border border-border shadow-warm mb-8">
+            <h2 className="text-2xl font-bold text-text mb-4">Photos</h2>
+            <PhotoGallery
+              images={[recipe.image_url, ...photos.map((p) => p.url)].filter((u): u is string => !!u)}
+              title={recipe.title}
             />
           </div>
         )}

@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { Collection, Recipe, RecipeIngredient } from '@/lib/types';
 import { formatTime, toFraction, titleCaseIngredient } from '@/lib/utils';
+import { framingStyle } from '@/lib/image';
 import { X } from 'lucide-react';
 
 // react-pageflip uses CSS 3D transforms and has no server equivalent.
@@ -243,7 +244,11 @@ const RecipePage = forwardRef<
             fill
             sizes="500px"
             className="object-cover"
-            style={{ transform: `rotate(${recipe.image_rotation || 0}deg)` }}
+            style={framingStyle({
+              image_position: recipe.image_position,
+              image_zoom: recipe.image_zoom,
+              image_rotation: recipe.image_rotation,
+            })}
           />
         </div>
       )}

@@ -64,8 +64,9 @@ export async function POST(request: NextRequest) {
         id, title, description, image_url, cuisine_type, origin,
         difficulty, prep_time_minutes, cook_time_minutes, total_time_minutes,
         servings, instructions, source_url, source_name, source_author,
-        source_type, is_favorite, status, image_rotation, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        source_type, is_favorite, status, image_rotation, image_position, image_zoom,
+        created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const id = `recipe_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -91,6 +92,8 @@ export async function POST(request: NextRequest) {
       body.is_favorite ? 1 : 0,
       body.status || 'new',
       body.image_rotation || 0,
+      body.image_position || null,
+      body.image_zoom || null,
       now,
       now
     );
