@@ -1,303 +1,19 @@
 @import "tailwindcss";
 
-/* Root theme variables */
+/* Design system — "Noma cut": gallery-white minimalism.
+   One humanist sans at regular weight, monochrome palette, hairline rules,
+   underlined text as the interactive affordance. Photography carries color. */
 :root {
-  --color-primary: #d97706;
-  --color-primary-dark: #b45309;
-  --color-secondary: #f59e0b;
-  --color-accent: #ec4899;
-  --color-background: #faf9f7;
+  --color-primary: #111111;
+  --color-primary-dark: #000000;
+  --color-secondary: #767676;
+  --color-accent: #111111;
+  --color-background: #ffffff;
   --color-surface: #ffffff;
-  --color-text: #2d1e0f;
-  --color-text-secondary: #78553f;
-  --color-border: #e7dcd0;
-  --color-shadow: rgba(0, 0, 0, 0.08);
-}
-
-/* Italian theme - warm reds and terracotta */
-.theme-italian {
-  --color-primary: #c1440e;
-  --color-primary-dark: #991c1c;
-  --color-secondary: #dc2626;
-  --color-accent: #ea580c;
-  --color-background: #fffbf5;
-  --color-text: #3c2415;
-  --color-border: #fed7aa;
-}
-
-/* Japanese theme - zen and minimal */
-.theme-japanese {
-  --color-primary: #4a4a4a;
-  --color-primary-dark: #2d2d2d;
-  --color-secondary: #8b7355;
-  --color-accent: #c4a882;
-  --color-background: #f7f5f0;
-  --color-text: #2d2d2d;
-  --color-border: #d4cfc7;
-}
-
-/* Mexican theme - vibrant warm */
-.theme-mexican {
-  --color-primary: #dc2626;
-  --color-primary-dark: #b91c1c;
-  --color-secondary: #f59e0b;
-  --color-accent: #16a34a;
-  --color-background: #fffdf5;
-  --color-text: #3b1a0a;
-  --color-border: #fcd34d;
-}
-
-/* French theme - elegant cream/gold */
-.theme-french {
-  --color-primary: #1e3a5f;
-  --color-primary-dark: #0f2744;
-  --color-secondary: #c4a35a;
-  --color-accent: #8b2252;
-  --color-background: #fdfcf8;
-  --color-text: #1e293b;
-  --color-border: #e2d9c8;
-}
-
-/* Chinese theme - red/gold */
-.theme-chinese {
-  --color-primary: #be123c;
-  --color-primary-dark: #9f1239;
-  --color-secondary: #d4a017;
-  --color-accent: #dc2626;
-  --color-background: #fef9f2;
-  --color-text: #3b0a0a;
-  --color-border: #fecdd3;
-}
-
-/* Indian theme - saffron/turmeric */
-.theme-indian {
-  --color-primary: #ea580c;
-  --color-primary-dark: #c2410c;
-  --color-secondary: #d97706;
-  --color-accent: #65a30d;
-  --color-background: #fffbeb;
-  --color-text: #431407;
-  --color-border: #fed7aa;
-}
-
-/* Thai theme - green/gold */
-.theme-thai {
-  --color-primary: #15803d;
-  --color-primary-dark: #166534;
-  --color-secondary: #d97706;
-  --color-accent: #dc2626;
-  --color-background: #f0fdf4;
-  --color-text: #14532d;
-  --color-border: #bbf7d0;
-}
-
-/* Mediterranean theme - blue/olive */
-.theme-mediterranean {
-  --color-primary: #2563eb;
-  --color-primary-dark: #1d4ed8;
-  --color-secondary: #84cc16;
-  --color-accent: #f97316;
-  --color-background: #f0f9ff;
-  --color-text: #1e3a5f;
-  --color-border: #bfdbfe;
-}
-
-/* American theme - classic blue/red */
-.theme-american {
-  --color-primary: #2563eb;
-  --color-primary-dark: #1e40af;
-  --color-secondary: #dc2626;
-  --color-accent: #f59e0b;
-  --color-background: #f8fafc;
-  --color-text: #1e293b;
-  --color-border: #cbd5e1;
-}
-
-/* Korean theme - deep red/earth */
-.theme-korean {
-  --color-primary: #991b1b;
-  --color-primary-dark: #7f1d1d;
-  --color-secondary: #b45309;
-  --color-accent: #15803d;
-  --color-background: #fef2f2;
-  --color-text: #4c1d1d;
-  --color-border: #fecaca;
-}
-
-/* Jewish theme - warm blue/gold */
-.theme-jewish {
-  --color-primary: #1d4ed8;
-  --color-primary-dark: #1e3a8a;
-  --color-secondary: #ca8a04;
-  --color-accent: #f5f5f4;
-  --color-background: #eff6ff;
-  --color-text: #1e3a5f;
-  --color-border: #bfdbfe;
-}
-
-/* Greek theme - azure/white */
-.theme-greek {
-  --color-primary: #0369a1;
-  --color-primary-dark: #075985;
-  --color-secondary: #f8fafc;
-  --color-accent: #0ea5e9;
-  --color-background: #f0f9ff;
-  --color-text: #0c4a6e;
-  --color-border: #bae6fd;
-}
-
-/* Brazilian theme - green/yellow */
-.theme-brazilian {
-  --color-primary: #15803d;
-  --color-primary-dark: #166534;
-  --color-secondary: #eab308;
-  --color-accent: #2563eb;
-  --color-background: #f0fdf4;
-  --color-text: #14532d;
-  --color-border: #bbf7d0;
-}
-
-/* Caribbean theme - turquoise/coral */
-.theme-caribbean {
-  --color-primary: #0891b2;
-  --color-primary-dark: #0e7490;
-  --color-secondary: #f97316;
-  --color-accent: #fbbf24;
-  --color-background: #ecfeff;
-  --color-text: #164e63;
-  --color-border: #a5f3fc;
-}
-
-/* Ethiopian theme - warm gold/brown */
-.theme-ethiopian {
-  --color-primary: #92400e;
-  --color-primary-dark: #78350f;
-  --color-secondary: #d97706;
-  --color-accent: #15803d;
-  --color-background: #fffbeb;
-  --color-text: #451a03;
-  --color-border: #fde68a;
-}
-
-/* Filipino theme - bright red/yellow */
-.theme-filipino {
-  --color-primary: #dc2626;
-  --color-primary-dark: #b91c1c;
-  --color-secondary: #2563eb;
-  --color-accent: #fbbf24;
-  --color-background: #fef2f2;
-  --color-text: #450a0a;
-  --color-border: #fecaca;
-}
-
-/* German theme - dark amber/cream */
-.theme-german {
-  --color-primary: #92400e;
-  --color-primary-dark: #78350f;
-  --color-secondary: #1e293b;
-  --color-accent: #fbbf24;
-  --color-background: #fefce8;
-  --color-text: #422006;
-  --color-border: #fde68a;
-}
-
-/* Lebanese theme - cedar green/wine */
-.theme-lebanese {
-  --color-primary: #166534;
-  --color-primary-dark: #14532d;
-  --color-secondary: #9f1239;
-  --color-accent: #f5f5f4;
-  --color-background: #f0fdf4;
-  --color-text: #14532d;
-  --color-border: #bbf7d0;
-}
-
-/* Moroccan theme - warm terracotta */
-.theme-moroccan {
-  --color-primary: #c2410c;
-  --color-primary-dark: #9a3412;
-  --color-secondary: #854d0e;
-  --color-accent: #0f766e;
-  --color-background: #fff7ed;
-  --color-text: #431407;
-  --color-border: #fed7aa;
-}
-
-/* Persian theme - saffron/teal */
-.theme-persian {
-  --color-primary: #0f766e;
-  --color-primary-dark: #115e59;
-  --color-secondary: #b45309;
-  --color-accent: #d97706;
-  --color-background: #f0fdfa;
-  --color-text: #134e4a;
-  --color-border: #99f6e4;
-}
-
-/* Polish theme - red/white */
-.theme-polish {
-  --color-primary: #be123c;
-  --color-primary-dark: #9f1239;
-  --color-secondary: #f8fafc;
-  --color-accent: #fbbf24;
-  --color-background: #fff1f2;
-  --color-text: #4c0519;
-  --color-border: #fecdd3;
-}
-
-/* Southern theme - warm rustic */
-.theme-southern {
-  --color-primary: #a16207;
-  --color-primary-dark: #854d0e;
-  --color-secondary: #b91c1c;
-  --color-accent: #15803d;
-  --color-background: #fefce8;
-  --color-text: #422006;
-  --color-border: #fef08a;
-}
-
-/* Spanish theme - warm red/gold */
-.theme-spanish {
-  --color-primary: #b91c1c;
-  --color-primary-dark: #991b1b;
-  --color-secondary: #ca8a04;
-  --color-accent: #f97316;
-  --color-background: #fef2f2;
-  --color-text: #450a0a;
-  --color-border: #fecaca;
-}
-
-/* Turkish theme - ruby/copper */
-.theme-turkish {
-  --color-primary: #9f1239;
-  --color-primary-dark: #881337;
-  --color-secondary: #b45309;
-  --color-accent: #0ea5e9;
-  --color-background: #fff1f2;
-  --color-text: #4c0519;
-  --color-border: #fecdd3;
-}
-
-/* Vietnamese theme - fresh green/warm */
-.theme-vietnamese {
-  --color-primary: #15803d;
-  --color-primary-dark: #166534;
-  --color-secondary: #ea580c;
-  --color-accent: #fbbf24;
-  --color-background: #f0fdf4;
-  --color-text: #14532d;
-  --color-border: #bbf7d0;
-}
-
-/* Other - neutral */
-.theme-other {
-  --color-primary: #525252;
-  --color-primary-dark: #404040;
-  --color-secondary: #737373;
-  --color-accent: #a3a3a3;
-  --color-background: #fafafa;
-  --color-text: #262626;
-  --color-border: #d4d4d4;
+  --color-text: #111111;
+  --color-text-secondary: #767676;
+  --color-border: #e8e8e8;
+  --color-shadow: rgba(0, 0, 0, 0.05);
 }
 
 * {
@@ -311,9 +27,10 @@ html {
 body {
   background-color: var(--color-background);
   color: var(--color-text);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Neue Haas Grotesk Text', 'Helvetica Neue', Helvetica, Arial,
+    -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.005em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -329,20 +46,22 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--color-primary);
+  background-color: #d8d8d8;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-primary-dark);
+  background-color: #b8b8b8;
 }
 
 /* Focus styles */
 button:focus-visible,
 a:focus-visible,
-input:focus-visible {
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 4px var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 3.5px var(--color-text);
 }
 
 /* Utility classes */
@@ -356,8 +75,27 @@ input:focus-visible {
 .text-text { color: var(--color-text); }
 .text-text-secondary { color: var(--color-text-secondary); }
 .border-border { border-color: var(--color-border); }
-.shadow-warm { box-shadow: 0 4px 6px -1px var(--color-shadow); }
-.shadow-warm-lg { box-shadow: 0 10px 15px -3px var(--color-shadow); }
+.shadow-warm { box-shadow: 0 1px 2px var(--color-shadow); }
+.shadow-warm-lg { box-shadow: 0 4px 14px -4px var(--color-shadow); }
+
+/* Underlined text link — the primary interactive affordance of this design */
+.tlink {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
+}
+.tlink:hover { color: var(--color-text-secondary); }
+
+/* Muted underlined tag (cuisine / category labels) */
+.tag-link {
+  font-size: 12.5px;
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: #cfcfcf;
+}
 
 /* Responsive grid utilities */
 @media (max-width: 640px) {
@@ -373,4 +111,11 @@ input:focus-visible {
 @keyframes toastIn {
   from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

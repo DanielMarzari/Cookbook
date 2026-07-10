@@ -25,12 +25,12 @@ const config: Config = {
       },
       fontFamily: {
         sans: [
+          '"Neue Haas Grotesk Text"',
+          '"Helvetica Neue"',
+          'Helvetica',
+          'Arial',
           '-apple-system',
           'BlinkMacSystemFont',
-          '"Segoe UI"',
-          'Roboto',
-          '"Helvetica Neue"',
-          'Arial',
           'sans-serif',
         ],
       },
