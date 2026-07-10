@@ -10,9 +10,18 @@ import Link from 'next/link';
 
 export default function RecipesPage() {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [totalCount, setTotalCount] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const filters = useCookbookStore((state) => state.filters);
+
+  // Total collection size, for the "Showing X of Y" line
+  useEffect(() => {
+    api.recipes
+      .list()
+      .then((all) => setTotalCount(all?.length ?? null))
+      .catch(() => {});
+  }, []);
 
   // Fetch recipes
   useEffect(() => {
@@ -27,14 +36,7 @@ export default function RecipesPage() {
           maxTime: filters.maxTime || undefined,
         });
 
-        // Filter by dietary if needed (client-side for now)
-        let filteredData = data || [];
-        if (filters.dietary.length > 0) {
-          // This would need dietary tags in the database to filter properly
-          // For now, we'll keep all results
-        }
-
-        setRecipes(filteredData);
+        setRecipes(data || []);
         setError(null);
       } catch (err) {
         console.error('Error fetching recipes:', err);
@@ -56,72 +58,66 @@ export default function RecipesPage() {
     }
   };
 
-  return (
-    <div className="w-full">
-      <FilterBar />
+  const hasActiveFilters =
+    filters.search || filters.cuisine || filters.difficulty || filters.maxTime;
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-8">
-        {loading ? (
-          <div className="flex items-center justify-center h-96">
-            <div className="text-center">
-              <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4" />
-              <p className="text-text-secondary">Loading recipes...</p>
-            </div>
-          </div>
-        ) : error ? (
-          <div className="flex items-center justify-center h-96">
-            <div className="text-center">
-              <p className="text-red-600 mb-4">{error}</p>
-              <p className="text-text-secondary text-sm">
-                Make sure your Supabase connection is configured correctly
-              </p>
-            </div>
-          </div>
-        ) : recipes.length === 0 ? (
-          <div className="flex items-center justify-center h-96">
-            <div className="text-center">
-              <div className="text-6xl mb-4">🍴</div>
-              <h2 className="text-2xl font-bold text-text mb-2">
-                No recipes found
-              </h2>
-              <p className="text-text-secondary mb-6">
-                {filters.search || filters.cuisine || filters.difficulty
-                  ? 'Try adjusting your filters'
-                  : 'Start by adding your first recipe'}
-              </p>
-              {!filters.search &&
-                !filters.cuisine &&
-                !filters.difficulty &&
-                !filters.maxTime &&
-                filters.dietary.length === 0 && (
-                  <Link
-                    href="/add-recipe"
-                    className="inline-block px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors"
-                  >
-                    Add Your First Recipe
-                  </Link>
-                )}
-            </div>
-          </div>
-        ) : (
-          <>
-            <div className="mb-6">
-              <h2 className="text-sm font-medium text-text-secondary">
-                {recipes.length} recipe{recipes.length !== 1 ? 's' : ''} found
-              </h2>
-            </div>
-            <div className="grid grid-responsive gap-6">
-              {recipes.map((recipe) => (
-                <RecipeCard
-                  key={recipe.id}
-                  recipe={recipe}
-                  onToggleFavorite={handleToggleFavorite}
-                />
-              ))}
-            </div>
-          </>
-        )}
+  const countLine = (() => {
+    if (loading || error) return ' ';
+    if (totalCount !== null && recipes.length !== totalCount) {
+      return `Showing ${recipes.length} of ${totalCount}`;
+    }
+    return `${recipes.length} recipe${recipes.length !== 1 ? 's' : ''}`;
+  })();
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 md:px-8">
+      {/* Page heading */}
+      <div className="pt-10 md:pt-16 pb-7">
+        <h1 className="text-[34px] md:text-[52px] leading-[1.05] tracking-[-0.02em] font-normal text-text mb-8">
+          Recipes
+        </h1>
+        <FilterBar />
+        <p className="text-[12.5px] text-text-secondary pt-5">{countLine}</p>
       </div>
+
+      {loading ? (
+        <div className="flex items-center justify-center h-96">
+          <p className="text-text-secondary text-sm">Loading recipes…</p>
+        </div>
+      ) : error ? (
+        <div className="flex items-center justify-center h-96">
+          <div className="text-center">
+            <p className="text-text mb-2">Couldn&apos;t load recipes</p>
+            <p className="text-text-secondary text-sm">{error}</p>
+          </div>
+        </div>
+      ) : recipes.length === 0 ? (
+        <div className="flex items-center justify-center h-96">
+          <div className="text-center">
+            <h2 className="text-xl text-text mb-2">No recipes found</h2>
+            <p className="text-text-secondary text-sm mb-6">
+              {hasActiveFilters
+                ? 'Try adjusting your filters'
+                : 'Start by adding your first recipe'}
+            </p>
+            {!hasActiveFilters && (
+              <Link href="/add-recipe" className="tlink text-text text-sm">
+                Add your first recipe
+              </Link>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 md:gap-y-14 pb-24">
+          {recipes.map((recipe) => (
+            <RecipeCard
+              key={recipe.id}
+              recipe={recipe}
+              onToggleFavorite={handleToggleFavorite}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

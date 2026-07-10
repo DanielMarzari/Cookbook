@@ -1,12 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import { useCookbookStore } from '@/lib/store';
-import { Search, X } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { useCuisines } from '@/lib/useCuisines';
-
-const dietaryOptions = [
-  'Vegetarian', 'Vegan', 'Gluten-Free', 'Dairy-Free', 'Low-Carb', 'Keto',
-];
 
 const difficulties = ['Easy', 'Medium', 'Hard'];
 
@@ -15,106 +12,120 @@ export default function FilterBar() {
   const filters = useCookbookStore((state) => state.filters);
   const setFilters = useCookbookStore((state) => state.setFilters);
   const resetFilters = useCookbookStore((state) => state.resetFilters);
+  const [moreOpen, setMoreOpen] = useState(false);
 
   const hasActiveFilters =
-    filters.search ||
-    filters.cuisine ||
-    filters.dietary.length > 0 ||
-    filters.difficulty ||
-    filters.maxTime;
+    filters.search || filters.cuisine || filters.difficulty || filters.maxTime;
 
   return (
-    <div className="bg-surface border-b border-border shadow-warm sticky top-0 z-40">
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 space-y-4">
-        {/* Search Input */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-text-secondary" size={20} />
-          <input
-            type="text"
-            placeholder="Search recipes..."
-            value={filters.search}
-            onChange={(e) => setFilters({ search: e.target.value })}
-            className="w-full pl-10 pr-4 py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-          />
-        </div>
+    <div className="space-y-5">
+      {/* Search — a single hairline-underlined field */}
+      <div className="relative max-w-md">
+        <Search
+          className="absolute left-0 top-1/2 -translate-y-1/2 text-text-secondary"
+          size={16}
+          strokeWidth={1.8}
+        />
+        <input
+          id="recipe-search"
+          type="text"
+          placeholder="Search recipes…"
+          value={filters.search}
+          onChange={(e) => setFilters({ search: e.target.value })}
+          className="w-full pl-7 pr-2 py-2 bg-transparent border-0 border-b border-border focus:border-text text-[15px] placeholder:text-text-secondary transition-colors"
+        />
+      </div>
 
-        {/* Filter Row */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-          <select
-            value={filters.cuisine || ''}
-            onChange={(e) => setFilters({ cuisine: e.target.value || null })}
-            className="px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary text-text"
-          >
-            <option value="">All Cuisines</option>
-            {cuisines.map((cuisine) => (
-              <option key={cuisine} value={cuisine.toLowerCase()}>
-                {cuisine}
-              </option>
-            ))}
-          </select>
-
-          <select
-            value={filters.difficulty || ''}
-            onChange={(e) => setFilters({ difficulty: e.target.value || null })}
-            className="px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary text-text"
-          >
-            <option value="">All Levels</option>
-            {difficulties.map((difficulty) => (
-              <option key={difficulty} value={difficulty.toLowerCase()}>
-                {difficulty}
-              </option>
-            ))}
-          </select>
-
-          <input
-            type="number"
-            placeholder="Max time (minutes)"
-            value={filters.maxTime || ''}
-            onChange={(e) =>
-              setFilters({ maxTime: e.target.value ? parseInt(e.target.value) : null })
+      {/* Cuisine filters as underlined text links */}
+      <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2 text-sm">
+        <button
+          onClick={() => setFilters({ cuisine: null })}
+          className={`lowercase transition-colors underline-offset-4 decoration-1 cursor-pointer ${
+            !filters.cuisine
+              ? 'text-text underline'
+              : 'text-text-secondary hover:text-text hover:underline'
+          }`}
+        >
+          All
+        </button>
+        {cuisines.map((cuisine) => (
+          <button
+            key={cuisine}
+            onClick={() =>
+              setFilters({
+                cuisine:
+                  filters.cuisine === cuisine.toLowerCase()
+                    ? null
+                    : cuisine.toLowerCase(),
+              })
             }
-            className="px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary text-text"
-          />
+            className={`lowercase transition-colors underline-offset-4 decoration-1 cursor-pointer ${
+              filters.cuisine === cuisine.toLowerCase()
+                ? 'text-text underline'
+                : 'text-text-secondary hover:text-text hover:underline'
+            }`}
+          >
+            {cuisine}
+          </button>
+        ))}
+        <button
+          onClick={() => setMoreOpen(!moreOpen)}
+          className="text-text-secondary hover:text-text underline underline-offset-4 decoration-1 cursor-pointer ml-auto text-[12.5px]"
+        >
+          {moreOpen ? 'fewer filters' : 'more filters'}
+        </button>
+        {hasActiveFilters && (
+          <button
+            onClick={() => resetFilters()}
+            className="text-text-secondary hover:text-text underline underline-offset-4 decoration-1 cursor-pointer text-[12.5px]"
+          >
+            reset
+          </button>
+        )}
+      </div>
 
-          {hasActiveFilters && (
-            <button
-              onClick={() => resetFilters()}
-              className="px-4 py-2 rounded-lg bg-primary text-white font-medium hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
-            >
-              <X size={18} />
-              Reset
-            </button>
-          )}
-        </div>
-
-        {/* Dietary Chips */}
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-text-secondary">
-            Dietary Preferences
-          </label>
-          <div className="flex flex-wrap gap-2">
-            {dietaryOptions.map((option) => (
+      {/* Secondary filters, tucked away */}
+      {moreOpen && (
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-3 text-sm border-t border-border pt-4">
+          <div className="flex items-baseline gap-4">
+            <span className="text-[12.5px] text-text-secondary">difficulty —</span>
+            {difficulties.map((difficulty) => (
               <button
-                key={option}
-                onClick={() => {
-                  const val = option.toLowerCase();
-                  const newDietary = filters.dietary.includes(val)
-                    ? filters.dietary.filter((d) => d !== val)
-                    : [...filters.dietary, val];
-                  setFilters({ dietary: newDietary });
-                }}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  filters.dietary.includes(option.toLowerCase())
-                    ? 'bg-primary text-white'
-                    : 'bg-background border border-border text-text hover:border-primary'
+                key={difficulty}
+                onClick={() =>
+                  setFilters({
+                    difficulty:
+                      filters.difficulty === difficulty.toLowerCase()
+                        ? null
+                        : difficulty.toLowerCase(),
+                  })
+                }
+                className={`lowercase transition-colors underline-offset-4 decoration-1 cursor-pointer ${
+                  filters.difficulty === difficulty.toLowerCase()
+                    ? 'text-text underline'
+                    : 'text-text-secondary hover:text-text hover:underline'
                 }`}
               >
-                {option}
+                {difficulty}
               </button>
             ))}
           </div>
+          <label className="flex items-baseline gap-3">
+            <span className="text-[12.5px] text-text-secondary">max time —</span>
+            <input
+              type="number"
+              placeholder="minutes"
+              value={filters.maxTime || ''}
+              onChange={(e) =>
+                setFilters({
+                  maxTime: e.target.value ? parseInt(e.target.value) : null,
+                })
+              }
+              className="w-24 bg-transparent border-0 border-b border-border focus:border-text py-1 text-sm placeholder:text-text-secondary transition-colors"
+            />
+          </label>
         </div>
-      </div>
+      )}
     </div>
   );
 }

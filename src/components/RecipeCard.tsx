@@ -1,36 +1,36 @@
 'use client';
 
 import { Recipe } from '@/lib/types';
-import { Heart, Clock, Flame, Sparkles, FlaskConical, CheckCircle, Award, Archive } from 'lucide-react';
+import { Heart, Sparkles, FlaskConical, CheckCircle, Award, Archive } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { api } from '@/lib/api-client';
 import { formatTime } from '@/lib/utils';
+import { framingStyle } from '@/lib/image';
 
-const cuisineColors: Record<string, string> = {
-  italian: 'theme-italian',
-  japanese: 'theme-japanese',
-  mexican: 'theme-mexican',
-  french: 'theme-french',
-  chinese: 'theme-chinese',
-  indian: 'theme-indian',
-  thai: 'theme-thai',
-  mediterranean: 'theme-mediterranean',
-  american: 'theme-american',
-  korean: 'theme-korean',
+type RecipeStatus = 'new' | 'testing' | 'approved' | 'signature' | 'archived';
+
+const STATUS_ICONS: Record<RecipeStatus, typeof Sparkles> = {
+  new: Sparkles,
+  testing: FlaskConical,
+  approved: CheckCircle,
+  signature: Award,
+  archived: Archive,
 };
 
-const difficultyColors = {
-  easy: 'bg-green-100 text-green-800',
-  medium: 'bg-yellow-100 text-yellow-800',
-  hard: 'bg-red-100 text-red-800',
+const STATUS_LABELS: Record<RecipeStatus, string> = {
+  new: 'New',
+  testing: 'Testing',
+  approved: 'Approved',
+  signature: 'Signature',
+  archived: "Tried, didn't like",
 };
 
 interface RecipeCardProps {
   recipe: Recipe;
   onToggleFavorite?: (id: string, isFavorite: boolean) => void;
-  onStatusChange?: (id: string, status: 'new' | 'testing' | 'approved' | 'signature' | 'archived') => void;
+  onStatusChange?: (id: string, status: RecipeStatus) => void;
 }
 
 export default function RecipeCard({
@@ -39,8 +39,7 @@ export default function RecipeCard({
   onStatusChange,
 }: RecipeCardProps) {
   const [isFavorite, setIsFavorite] = useState(recipe.is_favorite);
-  const [isImageLoading, setIsImageLoading] = useState(true);
-  const [status, setStatus] = useState<'new' | 'testing' | 'approved' | 'signature' | 'archived'>(recipe.status || 'new');
+  const [status, setStatus] = useState<RecipeStatus>(recipe.status || 'new');
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -51,10 +50,8 @@ export default function RecipeCard({
 
   const handleCycleStatus = async (e: React.MouseEvent) => {
     e.preventDefault();
-    const statuses: Array<'new' | 'testing' | 'approved' | 'signature' | 'archived'> = ['new', 'testing', 'approved', 'signature', 'archived'];
-    const currentIndex = statuses.indexOf(status);
-    const nextStatus = statuses[(currentIndex + 1) % statuses.length];
-
+    const statuses: RecipeStatus[] = ['new', 'testing', 'approved', 'signature', 'archived'];
+    const nextStatus = statuses[(statuses.indexOf(status) + 1) % statuses.length];
     try {
       await api.recipes.update(recipe.id, { status: nextStatus });
       setStatus(nextStatus);
@@ -64,159 +61,74 @@ export default function RecipeCard({
     }
   };
 
-  const getStatusIcon = () => {
-    switch (status) {
-      case 'new':
-        return <Sparkles size={20} className="text-blue-500" />;
-      case 'testing':
-        return <FlaskConical size={20} className="text-orange-500" />;
-      case 'approved':
-        return <CheckCircle size={20} className="text-green-500" />;
-      case 'signature':
-        return <Award size={20} className="text-yellow-500" />;
-      case 'archived':
-        return <Archive size={20} className="text-gray-500" />;
-      default:
-        return null;
-    }
-  };
+  if (!recipe.id) return null;
 
-  const getStatusLabel = () => {
-    switch (status) {
-      case 'new':
-        return 'New';
-      case 'testing':
-        return 'Testing';
-      case 'approved':
-        return 'Approved';
-      case 'signature':
-        return 'Signature';
-      case 'archived':
-        return "Tried, didn't like";
-      default:
-        return '';
-    }
-  };
-
-  const themeClass = cuisineColors[(recipe.cuisine_type || '').toLowerCase()] || '';
-
-  // Safety check: don't render link if recipe.id is missing
-  if (!recipe.id) {
-    return null;
-  }
+  const StatusIcon = STATUS_ICONS[status];
+  const tagParts = [
+    (recipe.cuisine_type || 'other').toLowerCase(),
+    ...(status === 'signature' ? ['signature'] : []),
+  ];
+  const metaParts = [
+    recipe.total_time_minutes ? formatTime(recipe.total_time_minutes) : null,
+    recipe.servings ? `serves ${recipe.servings}` : null,
+  ].filter(Boolean);
 
   return (
     <Link href={`/recipes/${recipe.id}`}>
-      <article
-        className={`group h-full overflow-hidden rounded-2xl shadow-warm hover:shadow-warm-lg transition-all duration-300 hover:scale-105 cursor-pointer bg-surface ${themeClass}`}
-      >
-        {/* Image Container */}
-        <div className="relative w-full h-48 overflow-hidden bg-gradient-to-br from-background to-border">
+      <article className="group cursor-pointer">
+        {/* Tall image, honoring the recipe's framing (pan / zoom / rotate) */}
+        <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#F4F4F4]">
           {recipe.image_url ? (
-            <>
-              {isImageLoading && (
-                <div className="absolute inset-0 bg-gradient-to-br from-background to-border animate-pulse" />
-              )}
-              <Image
-                src={recipe.image_url}
-                alt={recipe.title}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="object-cover group-hover:scale-110 transition-transform duration-300"
-                onLoad={() => setIsImageLoading(false)}
-                onError={() => setIsImageLoading(false)}
-              />
-            </>
+            <Image
+              src={recipe.image_url}
+              alt={recipe.title}
+              fill
+              sizes="(max-width: 560px) 100vw, (max-width: 900px) 50vw, 33vw"
+              className="object-cover transition-opacity duration-300 group-hover:opacity-90"
+              style={framingStyle({
+                image_position: recipe.image_position,
+                image_zoom: recipe.image_zoom,
+                image_rotation: recipe.image_rotation,
+              })}
+            />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-4xl mb-2">🍳</div>
-                <p className="text-sm text-text-secondary">No image</p>
-              </div>
+              <p className="text-[12.5px] text-text-secondary">no photo yet</p>
             </div>
           )}
 
-          {/* Status and Favorite Buttons */}
-          <div className="absolute top-3 right-3 flex items-center gap-2">
+          {/* Quiet controls — surface on hover / focus */}
+          <div className="absolute top-3 right-3 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity">
             <button
               onClick={handleCycleStatus}
-              className="p-2 bg-surface rounded-full shadow-warm hover:shadow-warm-lg transition-all hover:scale-110"
+              className="p-2 bg-white/95 border border-border cursor-pointer hover:bg-white"
               aria-label="Cycle recipe status"
-              title={getStatusLabel()}
+              title={STATUS_LABELS[status]}
             >
-              {getStatusIcon()}
+              <StatusIcon size={15} strokeWidth={1.8} className="text-text" />
             </button>
             <button
               onClick={handleToggleFavorite}
-              className="p-2 bg-surface rounded-full shadow-warm hover:shadow-warm-lg transition-all hover:scale-110"
+              className="p-2 bg-white/95 border border-border cursor-pointer hover:bg-white"
               aria-label="Toggle favorite"
             >
               <Heart
-                size={20}
-                className={`transition-colors ${
-                  isFavorite
-                    ? 'fill-red-500 text-red-500'
-                    : 'text-text-secondary hover:text-red-500'
-                }`}
+                size={15}
+                strokeWidth={1.8}
+                className={isFavorite ? 'fill-text text-text' : 'text-text'}
               />
             </button>
           </div>
-
-          {/* Difficulty Badge */}
-          <div className="absolute top-3 left-3">
-            <span
-              className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold ${
-                difficultyColors[recipe.difficulty]
-              }`}
-            >
-              <Flame size={14} />
-              {recipe.difficulty.charAt(0).toUpperCase() +
-                recipe.difficulty.slice(1)}
-            </span>
-          </div>
         </div>
 
-        {/* Content */}
-        <div className="p-4 flex flex-col min-h-[10rem]">
-          {/* Title */}
-          <h3 className="text-lg font-bold text-text mb-2 line-clamp-2 group-hover:text-primary transition-colors">
-            {recipe.title}
-          </h3>
-
-          {/* Cuisine Badge */}
-          <div className="mb-3">
-            <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-primary text-white">
-              {recipe.cuisine_type || 'Other'}
-            </span>
-          </div>
-
-          {/* Description */}
-          {recipe.description && (
-            <p className="text-sm text-text-secondary line-clamp-2 mb-3 flex-1">
-              {recipe.description}
-            </p>
-          )}
-
-          {/* Metadata Footer */}
-          <div className="flex items-center justify-between gap-3 pt-3 border-t border-border">
-            <div className="flex items-center gap-1 text-sm text-text-secondary">
-              <Clock size={16} />
-              <span>{recipe.total_time_minutes ? formatTime(recipe.total_time_minutes) : 'N/A'}</span>
-            </div>
-            <div className="text-sm text-text-secondary">
-              {recipe.servings} servings
-            </div>
-          </div>
-
-          {/* Source Badge */}
-          {recipe.source_name && (
-            <div className="mt-3 pt-3 border-t border-border">
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-text-secondary/10 text-text-secondary">
-                {recipe.source_name}
-              </span>
-            </div>
-          )}
-        </div>
+        {/* Tag, title, meta */}
+        <p className="tag-link mt-3.5 mb-1.5 lowercase">{tagParts.join(' · ')}</p>
+        <h3 className="text-[16.5px] leading-[1.4] text-text max-w-[34ch] group-hover:underline underline-offset-4 decoration-1">
+          {recipe.title}
+        </h3>
+        {metaParts.length > 0 && (
+          <p className="text-[12.5px] text-text-secondary mt-1.5">{metaParts.join(' · ')}</p>
+        )}
       </article>
     </Link>
   );

@@ -1,6 +1,5 @@
 'use client';
 
-import { useCookbookStore } from '@/lib/store';
 import {
   BookOpen,
   Plus,
@@ -9,54 +8,93 @@ import {
   ShoppingCart,
   Heart,
   CalendarDays,
-  Menu,
-  X,
+  Search,
 } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useCookbookStore } from '@/lib/store';
+
+const navItems = [
+  { icon: BookOpen, label: 'Recipes', href: '/' },
+  { icon: CalendarDays, label: 'Planner', href: '/planner' },
+  { icon: ChefHat, label: 'Techniques', href: '/techniques' },
+  { icon: Leaf, label: 'Ingredients', href: '/ingredients' },
+  { icon: ShoppingCart, label: 'Grocery', href: '/grocery' },
+  { icon: Heart, label: 'Collections', href: '/collections' },
+];
 
 export default function Navigation() {
-  const sidebarOpen = useCookbookStore((state) => state.sidebarOpen);
-  const setSidebarOpen = useCookbookStore((state) => state.setSidebarOpen);
   const pathname = usePathname();
-
-  const navItems = [
-    { icon: BookOpen, label: 'Recipes', href: '/' },
-    { icon: Plus, label: 'Add Recipe', href: '/add-recipe' },
-    { icon: CalendarDays, label: 'Planner', href: '/planner' },
-    { icon: ChefHat, label: 'Techniques', href: '/techniques' },
-    { icon: Leaf, label: 'Ingredients', href: '/ingredients' },
-    { icon: ShoppingCart, label: 'Grocery', href: '/grocery' },
-    { icon: Heart, label: 'Collections', href: '/collections' },
-  ];
+  const router = useRouter();
+  const setFilters = useCookbookStore((state) => state.setFilters);
 
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/';
     return pathname.startsWith(href);
   };
 
+  const focusSearch = () => {
+    // Jump to the recipes page and focus its search field.
+    if (pathname !== '/') {
+      router.push('/');
+      setFilters({ search: '' });
+    }
+    setTimeout(() => {
+      document.getElementById('recipe-search')?.focus();
+    }, 60);
+  };
+
   return (
     <>
-      {/* Desktop Sidebar */}
-      <nav
-        className={`hidden md:flex flex-col bg-surface border-r border-border shadow-warm transition-all duration-300 h-screen sticky top-0 ${
-          sidebarOpen ? 'w-64' : 'w-20'
-        }`}
-      >
-        <div className="p-4 border-b border-border flex items-center justify-between">
-          {sidebarOpen && (
-            <h1 className="text-2xl font-bold text-primary">Cookbook</h1>
-          )}
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 hover:bg-background rounded-lg transition-colors"
-            aria-label="Toggle sidebar"
-          >
-            {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
+      {/* Top header — all viewports; links hidden on small screens */}
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-border">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center gap-8 h-[60px]">
+          <Link href="/" className="flex items-center gap-2 text-[17px] tracking-tight text-text">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+              <path d="M4 11l8-7 8 7" />
+              <path d="M6 9.5V20h12V9.5" />
+            </svg>
+            cookbook
+          </Link>
 
-        <div className="flex-1 py-4 px-2 space-y-2">
+          <nav className="hidden md:flex items-center gap-6 text-sm">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`pb-0.5 border-b transition-colors ${
+                  isActive(item.href)
+                    ? 'border-text text-text'
+                    : 'border-transparent text-text hover:border-text'
+                }`}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div className="ml-auto flex items-center gap-4">
+            <button
+              onClick={focusSearch}
+              aria-label="Search recipes"
+              className="p-1.5 text-text hover:text-text-secondary transition-colors"
+            >
+              <Search size={17} strokeWidth={1.8} />
+            </button>
+            <Link
+              href="/add-recipe"
+              aria-label="Add recipe"
+              className="p-1.5 text-text hover:text-text-secondary transition-colors"
+            >
+              <Plus size={18} strokeWidth={1.8} />
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile bottom navigation */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-border z-50">
+        <div className="flex items-center justify-around">
           {navItems.map((item) => {
             const Icon = item.icon;
             const active = isActive(item.href);
@@ -64,55 +102,12 @@ export default function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-3 py-3 rounded-lg transition-colors group ${
-                  active
-                    ? 'bg-primary/10 text-primary'
-                    : 'hover:bg-background'
-                }`}
-                title={!sidebarOpen ? item.label : undefined}
-              >
-                <Icon
-                  size={24}
-                  className={`flex-shrink-0 ${
-                    active ? 'text-primary' : 'text-text-secondary group-hover:text-primary'
-                  }`}
-                />
-                {sidebarOpen && (
-                  <span className={`font-medium truncate ${active ? 'text-primary' : 'text-text'}`}>
-                    {item.label}
-                  </span>
-                )}
-              </Link>
-            );
-          })}
-        </div>
-
-        {sidebarOpen && (
-          <div className="p-4 border-t border-border text-sm text-text-secondary">
-            <p className="text-xs uppercase tracking-wider font-semibold mb-1">
-              Cooking Awaits
-            </p>
-            <p className="text-xs">Discover and create delicious recipes</p>
-          </div>
-        )}
-      </nav>
-
-      {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-border shadow-warm-lg z-50">
-        <div className="flex items-center justify-around">
-          {navItems.slice(0, 6).map((item) => {
-            const Icon = item.icon;
-            const active = isActive(item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`flex-1 flex flex-col items-center justify-center py-3 px-2 transition-colors ${
-                  active ? 'text-primary' : 'text-text-secondary'
+                className={`flex-1 flex flex-col items-center justify-center py-2.5 px-1 transition-colors ${
+                  active ? 'text-text' : 'text-text-secondary'
                 }`}
               >
-                <Icon size={22} className="mb-1" />
-                <span className="text-[10px] font-medium truncate max-w-full px-1">
+                <Icon size={20} strokeWidth={active ? 2 : 1.6} className="mb-0.5" />
+                <span className={`text-[10px] truncate max-w-full px-1 ${active ? 'underline underline-offset-2' : ''}`}>
                   {item.label.split(' ')[0]}
                 </span>
               </Link>
