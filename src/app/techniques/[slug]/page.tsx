@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Image from 'next/image';
 import { Technique, UserTechniqueSkill } from '@/lib/types';
 import { api } from '@/lib/api-client';
 import { toast } from '@/lib/toast';
@@ -9,12 +8,6 @@ import MarkdownRenderer from '@/components/MarkdownRenderer';
 import { ArrowLeft, Video, Lightbulb, AlertCircle, BookOpen, Check } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-
-const difficultyColors = {
-  beginner: 'bg-green-100 text-green-800',
-  intermediate: 'bg-yellow-100 text-yellow-800',
-  advanced: 'bg-red-100 text-red-800',
-};
 
 export default function TechniqueDetailPage() {
   const params = useParams();
@@ -150,49 +143,40 @@ export default function TechniqueDetailPage() {
   return (
     <div className="w-full bg-background">
       {/* Header */}
-      <div className="bg-gradient-to-br from-primary/5 to-secondary/5 border-b border-border">
-        <div className="max-w-4xl mx-auto px-4 md:px-6 py-8">
+      <div className="border-b border-border">
+        <div className="max-w-4xl mx-auto px-4 md:px-8 py-8">
           <Link
             href="/techniques"
-            className="inline-flex items-center gap-2 text-primary hover:text-primary-dark mb-4 font-medium transition-colors"
+            className="inline-flex items-center gap-1.5 text-text-secondary hover:text-text mb-6 text-sm transition-colors"
           >
-            <ArrowLeft size={18} />
-            Back to Techniques
+            <ArrowLeft size={15} strokeWidth={1.8} />
+            Techniques
           </Link>
-          <div className="flex items-start justify-between gap-4">
+          <div className="flex items-start justify-between gap-6">
             <div className="flex-1">
-              <h1 className="text-4xl font-bold text-text mb-3">{technique.name}</h1>
-              <p className="text-lg text-text-secondary mb-4">
+              <p className="text-[12.5px] text-text-secondary lowercase mb-2">
+                {technique.category} · {technique.difficulty}
+              </p>
+              <h1 className="text-[32px] md:text-[44px] leading-[1.06] tracking-[-0.02em] font-normal text-text mb-3">
+                {technique.name}
+              </h1>
+              <p className="text-[16.5px] leading-[1.6] text-[#3A3A3A] max-w-[60ch]">
                 {technique.description}
               </p>
-              <div className="flex flex-wrap items-center gap-4">
-                <span
-                  className={`px-4 py-2 rounded-lg text-sm font-semibold ${
-                    difficultyColors[technique.difficulty]
-                  }`}
-                >
-                  {technique.difficulty.charAt(0).toUpperCase() +
-                    technique.difficulty.slice(1)}{' '}
-                  Level
-                </span>
-                <span className="text-sm text-text-secondary">
-                  {technique.category}
-                </span>
-              </div>
             </div>
 
-            {/* Skill Tracking Section */}
+            {/* Skill tracking */}
             <button
               onClick={handleToggleKnown}
               disabled={isSaving}
-              className={`mt-6 px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2 ${
+              className={`mt-1 flex-shrink-0 px-4 py-2 text-sm border transition-colors flex items-center gap-2 ${
                 isKnown
-                  ? 'bg-green-100 text-green-800 hover:bg-green-200'
-                  : 'bg-surface border border-border text-text hover:bg-primary hover:text-white hover:border-primary'
+                  ? 'bg-text text-white border-text'
+                  : 'bg-white border-border text-text hover:border-text'
               } disabled:opacity-50`}
             >
-              {isKnown && <Check size={18} />}
-              {isSaving ? 'Saving...' : isKnown ? 'Technique Mastered' : 'I Know This Technique'}
+              {isKnown && <Check size={16} strokeWidth={2} />}
+              {isSaving ? 'Saving…' : isKnown ? 'Mastered' : 'I know this'}
             </button>
           </div>
         </div>
@@ -203,25 +187,23 @@ export default function TechniqueDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2">
-            {/* Images Gallery */}
+            {/* Diagrams / images */}
             {technique.image_urls && technique.image_urls.length > 0 && (
-              <div className="mb-10">
-                <div className="grid grid-cols-2 gap-4">
-                  {technique.image_urls.slice(0, 4).map((url, idx) => (
-                    <div
-                      key={idx}
-                      className="relative h-48 rounded-xl overflow-hidden shadow-warm"
-                    >
-                      <Image
-                        src={url}
-                        alt={`${technique.name} - Step ${idx + 1}`}
-                        fill
-                        sizes="(max-width: 768px) 50vw, 33vw"
-                        className="object-cover"
-                      />
-                    </div>
-                  ))}
-                </div>
+              <div className="mb-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {technique.image_urls.slice(0, 4).map((url, idx) => (
+                  <div
+                    key={idx}
+                    className="relative aspect-[3/2] overflow-hidden border border-border bg-white"
+                  >
+                    {/* Inline SVG diagram data URIs — plain img renders these reliably. */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={url}
+                      alt={`${technique.name} — diagram ${idx + 1}`}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                ))}
               </div>
             )}
 

@@ -221,3 +221,22 @@ CREATE TRIGGER IF NOT EXISTS recipes_fts_au AFTER UPDATE ON recipes BEGIN
   DELETE FROM recipes_fts WHERE recipe_id = old.id;
   INSERT INTO recipes_fts(recipe_id, title, description) VALUES (new.id, new.title, new.description);
 END;
+
+-- Local mirror of USDA SR Legacy foods (bulk-loaded by scripts/load-usda.mjs).
+CREATE TABLE IF NOT EXISTS usda_foods (
+  fdc_id INTEGER PRIMARY KEY,
+  description TEXT,
+  food_category TEXT,
+  calories REAL,
+  protein REAL,
+  carbs REAL,
+  fat REAL,
+  fiber REAL,
+  sugar REAL,
+  sodium REAL
+);
+
+CREATE VIRTUAL TABLE IF NOT EXISTS usda_fts USING fts5(
+  fdc_id UNINDEXED,
+  description
+);

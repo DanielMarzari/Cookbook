@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/db';
+import { getDb, hydrateTechnique } from '@/lib/db';
 import { Technique } from '@/lib/types';
 
 export async function GET(
@@ -12,7 +12,7 @@ export async function GET(
     const stmt = db.prepare('SELECT * FROM techniques WHERE slug = ? OR id = ?');
     const technique = stmt.get(slug, slug) as Technique;
     if (!technique) return NextResponse.json({ error: 'Technique not found' }, { status: 404 });
-    return NextResponse.json(technique);
+    return NextResponse.json(hydrateTechnique(technique));
   } catch (error) {
     console.error('Error fetching technique:', error);
     return NextResponse.json({ error: 'Failed to fetch technique' }, { status: 500 });

@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getDb } from '@/lib/db';
+import { getDb, hydrateTechnique } from '@/lib/db';
 import { Technique } from '@/lib/types';
 
 export async function GET(request: NextRequest) {
   try {
     const db = getDb();
     const stmt = db.prepare('SELECT * FROM techniques ORDER BY name ASC');
-    const techniques = stmt.all() as Technique[];
+    const techniques = (stmt.all() as Technique[]).map(hydrateTechnique);
     return NextResponse.json(techniques);
   } catch (error) {
     console.error('Error fetching techniques:', error);

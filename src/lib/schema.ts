@@ -234,4 +234,25 @@ CREATE TRIGGER IF NOT EXISTS recipes_fts_au AFTER UPDATE ON recipes BEGIN
   DELETE FROM recipes_fts WHERE recipe_id = old.id;
   INSERT INTO recipes_fts(recipe_id, title, description) VALUES (new.id, new.title, new.description);
 END;
+
+-- Local mirror of the USDA FoodData Central "SR Legacy" dataset (~7,800 generic
+-- ingredients with per-100g nutrition). Bulk-loaded from data/usda-foods.json by
+-- scripts/load-usda.mjs; the app only reads it, so no sync triggers are needed.
+CREATE TABLE IF NOT EXISTS usda_foods (
+  fdc_id INTEGER PRIMARY KEY,
+  description TEXT,
+  food_category TEXT,
+  calories REAL,
+  protein REAL,
+  carbs REAL,
+  fat REAL,
+  fiber REAL,
+  sugar REAL,
+  sodium REAL
+);
+
+CREATE VIRTUAL TABLE IF NOT EXISTS usda_fts USING fts5(
+  fdc_id UNINDEXED,
+  description
+);
 `;

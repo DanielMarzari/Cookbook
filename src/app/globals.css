@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@config "../../tailwind.config.ts";
 
 /* Design system — "Noma cut": gallery-white minimalism.
    One humanist sans at regular weight, monochrome palette, hairline rules,
@@ -16,8 +17,12 @@
   --color-shadow: rgba(0, 0, 0, 0.05);
 }
 
-* {
-  border-color: var(--color-border);
+/* Default border color as a base-layer rule so `border-{color}` utilities
+   (border-text, border-primary, …) still override it. */
+@layer base {
+  *, ::before, ::after {
+    border-color: var(--color-border);
+  }
 }
 
 html {
