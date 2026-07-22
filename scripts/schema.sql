@@ -268,3 +268,13 @@ CREATE TABLE IF NOT EXISTS flavor_recipe_links (
 );
 CREATE INDEX IF NOT EXISTS idx_frl_name ON flavor_recipe_links(match_name);
 CREATE INDEX IF NOT EXISTS idx_frl_note ON flavor_recipe_links(note_ingredient_id);
+
+-- Note-to-note association matrix (lift/PMI over ingredient co-occurrence).
+-- Populated by scripts/load-note-associations.mjs.
+CREATE TABLE IF NOT EXISTS note_associations (
+  note_a TEXT NOT NULL, note_b TEXT NOT NULL,
+  family_a TEXT, family_b TEXT,
+  cooccur INTEGER NOT NULL, lift REAL NOT NULL,
+  PRIMARY KEY (note_a, note_b)
+);
+CREATE INDEX IF NOT EXISTS idx_na_a ON note_associations(note_a);

@@ -7,7 +7,6 @@ import { FAMILY_COLORS, cap } from '@/lib/flavor';
 import { FAMILIES_LEGEND, SEASONAL, MONTHS } from '@/data/flavor-content';
 import FlavorWheel from '@/components/FlavorWheel';
 import FlavorOverlayWheel from '@/components/FlavorOverlayWheel';
-import FlavorChord from '@/components/FlavorChord';
 import IngredientPicker, { PickIng } from '@/components/flavor/IngredientPicker';
 
 type Families = { name: string; notes: { note: string; intensity: number }[] }[];
@@ -24,7 +23,8 @@ export default function FlavorLabPage() {
   const [tab, setTab] = useState(0);
 
   // shared selections
-  const [ing, setIng] = useState<PickIng | null>(null);           // Wheel + Harmonies
+  const [ing, setIng] = useState<PickIng | null>(null);           // Wheel + Harmonies A
+  const [harmB, setHarmB] = useState<PickIng | null>(null);        // Harmonies B
   const [pairA, setPairA] = useState<PickIng | null>(null);        // Compare + Recipes
   const [pairB, setPairB] = useState<PickIng | null>(null);
   const [build, setBuild] = useState<PickIng[]>([]);               // Lab
@@ -33,7 +33,7 @@ export default function FlavorLabPage() {
   // fetched data
   const [profile, setProfile] = useState<Awaited<ReturnType<typeof api.flavor.profile>> | null>(null);
   const [pairings, setPairings] = useState<Awaited<ReturnType<typeof api.flavor.pairingsByName>>['pairings']>([]);
-  const [harm, setHarm] = useState<Awaited<ReturnType<typeof api.flavor.harmonies>> | null>(null);
+  const [rel, setRel] = useState<Awaited<ReturnType<typeof api.flavor.relationship>> | null>(null);
   const [lab, setLab] = useState<Awaited<ReturnType<typeof api.flavor.lab>> | null>(null);
   const [cmp, setCmp] = useState<Awaited<ReturnType<typeof api.flavor.compare>> | null>(null);
   const [pairRecipes, setPairRecipes] = useState<Awaited<ReturnType<typeof api.flavor.recipesForPair>> | null>(null);
@@ -56,13 +56,20 @@ export default function FlavorLabPage() {
     api.flavor.recipeHarmonyList().then((d) => setRecipeList(d.recipes || [])).catch(() => {});
   }, []);
 
-  // Wheel + Harmonies both key off the shared ingredient — fetch both so tab flips are instant.
+  // Wheel keys off the shared primary ingredient. Selecting one also seeds an
+  // empty Lab build, so a Wheel pick carries over to Harmonies (A) and the Lab.
   useEffect(() => {
     if (!ing) return;
     api.flavor.profile(ing.id).then(setProfile).catch(() => setProfile(null));
     api.flavor.pairingsByName(ing.name).then((d) => setPairings(d.pairings || [])).catch(() => setPairings([]));
-    api.flavor.harmonies(ing.id).then(setHarm).catch(() => setHarm(null));
+    setBuild((b) => (b.length === 0 ? [ing] : b));
   }, [ing]);
+
+  // Harmonies is the two-input relationship view (primary A + B).
+  useEffect(() => {
+    if (!ing || !harmB) { setRel(null); return; }
+    api.flavor.relationship(ing.name, harmB.name).then(setRel).catch(() => setRel(null));
+  }, [ing, harmB]);
 
   useEffect(() => {
     if (build.length === 0) { setLab(null); return; }
@@ -112,8 +119,8 @@ export default function FlavorLabPage() {
       ) : (
         <>
           {tab === 0 && <WheelTab {...{ ingredients, families, vocabulary, ing, setIng, profile, pairings, wheelMode, setWheelMode }} />}
-          {tab === 1 && <HarmoniesTab {...{ ingredients, ing, setIng, harm }} />}
-          {tab === 2 && <LabTab {...{ ingredients, families, build, setBuild, lab, openWheel }} />}
+          {tab === 1 && <HarmoniesTab {...{ ingredients, families, ing, setIng, harmB, setHarmB, rel }} />}
+          {tab === 2 && <LabTab {...{ ingredients, families, build, setBuild, lab }} />}
           {tab === 3 && <CompareTab {...{ ingredients, families, pairA, pairB, setPairA, setPairB, cmp }} />}
           {tab === 4 && <RecipesTab {...{ ingredients, pairA, pairB, setPairA, setPairB, pairRecipes, setTab }} />}
           {tab === 5 && <RecipeTab {...{ recipeList, recipeSel, setRecipeSel, recipeH, families }} />}
@@ -207,43 +214,81 @@ function WheelTab({ ingredients, families, vocabulary, ing, setIng, profile, pai
   );
 }
 
-/* ── 02 Harmonies ────────────────────────────────────────────── */
-function HarmoniesTab({ ingredients, ing, setIng, harm }: any) {
+/* ── 02 Harmonies (A + B relationship) ───────────────────────── */
+function HarmoniesTab({ ingredients, families, ing, setIng, harmB, setHarmB, rel }: any) {
   return (
     <div>
-      <div className="max-w-md mb-8"><IngredientPicker ingredients={ingredients} onSelect={setIng} placeholder="Search an ingredient to see its harmonies…" /></div>
-      {!ing || !harm ? (
-        <Empty>Pick an ingredient to see its harmonious connections — the partners it shares aromas with, and the flavour families that bridge them.</Empty>
-      ) : (
+      <TabHead label="Discover flavour relationships" title="Harmonies" sub="Pick two ingredients to see how they relate: their aroma affinity, their harmony, and the notes that bridge them." />
+      <div className="grid sm:grid-cols-[1fr_auto_1fr] gap-4 items-end max-w-2xl mb-9">
+        <div><div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-1">{ing ? cap(ing.name) : 'first ingredient'}</div><IngredientPicker ingredients={ingredients} onSelect={setIng} placeholder="Search…" /></div>
+        <div className="text-[20px] text-text-secondary pb-2 text-center hidden sm:block">+</div>
+        <div><div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-1">{harmB ? cap(harmB.name) : 'second ingredient'}</div><IngredientPicker ingredients={ingredients} onSelect={setHarmB} placeholder="Search…" /></div>
+      </div>
+
+      {!ing || !harmB ? (
+        <Empty>Choose two ingredients to reveal their flavour relationship — how much aroma they share, how well they harmonise, and the notes behind it.</Empty>
+      ) : !rel ? <p className="text-text-secondary text-sm">Reading the relationship…</p> : (
         <div>
-          <TabHead label="Harmonies" title={`Harmonious connections — ${cap(harm.base.name)}`} sub={`${cap(harm.base.name)}’s strongest note-to-partner harmonies, from the aroma-compound network.`} />
-          <div className="grid lg:grid-cols-[1fr_300px] gap-8 items-center">
-            {harm.partners.length === 0 ? <Empty>No harmony data for {cap(harm.base.name)} in the flavour network yet.</Empty> : (
-              <FlavorChord baseNotes={harm.baseNotes} partners={harm.partners} />
-            )}
+          <div className="flex items-baseline gap-3 border-b border-text pb-2.5 mb-6">
+            <span className="text-[26px] tracking-[-0.01em]">{cap(rel.a.name)}</span>
+            <span className="text-text-secondary text-[20px]">+</span>
+            <span className="text-[26px] tracking-[-0.01em]">{cap(rel.b.name)}</span>
+          </div>
+
+          {/* two metrics */}
+          <div className="grid sm:grid-cols-2 gap-8 mb-10 max-w-2xl">
             <div>
-              <div className="border-b border-text pb-2.5 mb-1"><span className="text-[12.5px] text-text-secondary">Strongest harmonies</span></div>
-              {harm.partners.slice(0, 8).map((p: any, i: number) => (
-                <div key={p.name + i} className="flex items-center justify-between py-2.5 border-b border-border text-[14px]">
-                  <span className="flex items-center gap-2">
-                    <span className="inline-block w-2 h-2 rounded-full" style={{ background: FAMILY_COLORS[p.bridgeFamily || p.dominantFamily] || '#b8b3a8' }} />
-                    {cap(p.name)}
+              <SynergyRead score={rel.harmony} label="harmony · how well they work together" />
+              <p className="text-[12px] text-text-secondary mt-2">From note co-occurrence across ingredients — credits complementary pairs, not just shared aromas.</p>
+            </div>
+            <div>
+              <SynergyRead score={rel.affinity} label="aroma affinity · shared compounds" />
+              <p className="text-[12px] text-text-secondary mt-2">{rel.sharedCompounds} shared aroma compounds{rel.compoundNotes.length ? `: ${rel.compoundNotes.slice(0, 4).map(cap).join(', ')}` : ''}.</p>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-[1fr_340px] gap-8 items-start">
+            <div>
+              <div className="flex items-center gap-3 text-[12px] text-text-secondary mb-2 justify-end">
+                <span className="flex items-center gap-1.5"><span className="inline-block w-3 h-3 bg-text" />{cap(rel.a.name)}</span>
+                <span className="flex items-center gap-1.5"><span className="inline-block w-3 h-3 border border-text" />{cap(rel.b.name)}</span>
+              </div>
+              <FlavorOverlayWheel families={families} aByFamily={abf(rel.a.families)} bByFamily={abf(rel.b.families)} />
+            </div>
+            <div>
+              <div className="border-b border-text pb-2.5 mb-1"><span className="text-[12.5px] text-text-secondary">The bridge · strongest note associations</span></div>
+              {rel.bridges.length === 0 ? <p className="text-text-secondary text-[13.5px] py-3">No strong note associations between these two.</p> : rel.bridges.map((br: any, i: number) => (
+                <div key={i} className="flex items-center justify-between py-2 border-b border-border text-[13.5px]">
+                  <span className="flex items-center gap-1.5">
+                    <span style={{ color: FAMILY_COLORS[br.familyA] || '#141310', fontWeight: 600 }}>{cap(br.noteA)}</span>
+                    <span className="text-text-secondary">~</span>
+                    <span style={{ color: FAMILY_COLORS[br.familyB] || '#141310', fontWeight: 600 }}>{cap(br.noteB)}</span>
                   </span>
-                  <span className="tabular-nums text-text-secondary">{p.synergy}</span>
+                  <span className="tabular-nums text-text-secondary">{br.strength}×</span>
                 </div>
               ))}
-              {harm.insightFamilies.length > 0 && (
-                <div className="border border-border bg-[#f6f6f4] p-4 mt-4">
-                  <div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-1.5">◇ Insight</div>
-                  <p className="text-[12.5px] leading-[1.6] text-[#3A3A3A] m-0">
-                    {cap(harm.base.name)} connects mostly through its{' '}
-                    {harm.insightFamilies.map((f: string, i: number) => (
-                      <span key={f}><b style={{ color: FAMILY_COLORS[f] }}>{f.toLowerCase()}</b>{i < harm.insightFamilies.length - 1 ? ' and ' : ''}</span>
-                    ))}{' '}notes — the families it most often shares with its partners.
-                  </p>
-                </div>
-              )}
+              <p className="text-[11.5px] text-text-secondary mt-3">“×” = how much more these two notes co-occur than chance.</p>
             </div>
+          </div>
+
+          {/* the evidence */}
+          <div className="mt-12">
+            <div className="flex items-baseline justify-between border-b border-text pb-2 mb-5">
+              <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">The evidence · your recipes using both</span>
+              <span className="text-text-secondary text-[12.5px]">{rel.recipes.length}</span>
+            </div>
+            {rel.recipes.length === 0 ? (
+              <p className="text-text-secondary text-[14px]">No recipe in your cookbook uses both {cap(rel.a.name)} and {cap(rel.b.name)} yet.</p>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {rel.recipes.slice(0, 8).map((r: any) => (
+                  <Link key={r.id} href={`/recipes/${r.id}`} className="group">
+                    <div className="aspect-[4/3] bg-[#f0efec] overflow-hidden">{r.image_url && <img src={r.image_url} alt={r.title} className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform" />}</div>
+                    <div className="text-[14px] mt-1.5 group-hover:underline underline-offset-2">{r.title}</div>
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -252,13 +297,13 @@ function HarmoniesTab({ ingredients, ing, setIng, harm }: any) {
 }
 
 /* ── 03 Lab ──────────────────────────────────────────────────── */
-function LabTab({ ingredients, families, build, setBuild, lab, openWheel }: any) {
+function LabTab({ ingredients, families, build, setBuild, lab }: any) {
   const add = (i: PickIng) => setBuild((b: PickIng[]) => (b.find((x) => x.id === i.id) ? b : [...b, i]));
   const remove = (id: number) => setBuild((b: PickIng[]) => b.filter((x) => x.id !== id));
   const addById = (id: number, name: string) => add({ id, name, category: '' });
   return (
     <div>
-      <TabHead label="Flavor Lab · The Bench" title="Invent a dish" sub="Add ingredients; the lab merges their wheels, scores the plate, and ranks what to add next." />
+      <TabHead label="Flavor Lab · The Bench" title="Invent a dish" sub="Add ingredients; the lab merges their wheels, scores the plate’s harmony, and ranks what to add next." />
       <div className="grid lg:grid-cols-[0.9fr_1fr] gap-10 items-start">
         <div>
           <div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-2.5">your build</div>
@@ -277,16 +322,22 @@ function LabTab({ ingredients, families, build, setBuild, lab, openWheel }: any)
         <div>
           {build.length === 0 ? <Empty>Add a couple of ingredients to build a plate.</Empty> : lab && (
             <>
-              <SynergyRead score={lab.synergy} label="plate synergy" />
-              <div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mt-8 mb-2">add next — by lift</div>
+              <div className="grid grid-cols-2 gap-6 mb-2">
+                <SynergyRead score={lab.harmony} label="plate harmony" />
+                <SynergyRead score={lab.affinity} label="aroma affinity" />
+              </div>
+              {lab.tightestPairs.length > 0 && (
+                <p className="text-[12px] text-text-secondary mb-6">Tightest pair: <b className="text-text">{cap(lab.tightestPairs[0].a)} · {cap(lab.tightestPairs[0].b)}</b> ({lab.tightestPairs[0].harmony}).</p>
+              )}
+              <div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mt-6 mb-2">add next — best harmony fit</div>
               {lab.nextAdds.length === 0 ? <p className="text-text-secondary text-[13.5px]">No strong additions found.</p> : lab.nextAdds.map((a: any) => (
                 <div key={a.name} className="flex items-center gap-3 py-2 border-b border-[#f0f0f0]">
                   <button onClick={() => a.noteId && addById(a.noteId, a.name)} className="min-w-[8rem] text-[14.5px] text-left hover:underline underline-offset-2">{cap(a.name)}</button>
-                  <div className="flex-1 h-[6px] bg-[#eee] max-w-[200px]"><div className="h-full" style={{ width: `${Math.min(100, a.lift)}%`, background: FAMILY_COLORS[a.family] || '#141310' }} /></div>
-                  <span className="text-[12px] text-text-secondary tabular-nums w-10 text-right">+{a.lift}</span>
+                  <div className="flex-1 h-[6px] bg-[#eee] max-w-[200px]"><div className="h-full" style={{ width: `${Math.min(100, a.fit)}%`, background: FAMILY_COLORS[a.family] || '#141310' }} /></div>
+                  <span className="text-[12px] text-text-secondary tabular-nums w-10 text-right">{a.fit}</span>
                 </div>
               ))}
-              <p className="text-[11.5px] text-text-secondary mt-4">{lab.inNetwork} of {build.length} in the aroma network · click a suggestion to add it.</p>
+              <p className="text-[11.5px] text-text-secondary mt-4">Harmony = note-association cohesion. Click a suggestion to add it.</p>
             </>
           )}
         </div>

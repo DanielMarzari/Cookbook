@@ -25,6 +25,46 @@ export function ahnByName(db: DB, name: string): AhnRef | undefined {
   return db.prepare('SELECT id, name, category FROM flavor_ingredients WHERE name = ? COLLATE NOCASE').get(name) as AhnRef | undefined;
 }
 
+/** Resolve a name to a note-ingredient (the wheel/profile id space). */
+export function noteIngByName(db: DB, name: string): { id: number; name: string; category: string } | undefined {
+  return db.prepare('SELECT id, name, category FROM note_ingredients WHERE name = ? COLLATE NOCASE').get(name) as { id: number; name: string; category: string } | undefined;
+}
+
+// ── Harmony: evidence-based cohesion from note↔note co-occurrence ─────────────
+// Distinct from aroma affinity (shared compounds). Two ingredients are "harmonious"
+// when the notes one carries associate with the notes the other carries — measured
+// by how much more those notes co-occur across ingredients than chance (note_associations).
+// This credits complementary pairs (lamb+mint) that share almost no compounds.
+
+export interface Bridge { noteA: string; noteB: string; familyA: string; familyB: string; strength: number }
+
+/** Compute harmony (0-100) between two note-ingredients + the strongest note bridges. */
+export function harmonyByName(db: DB, aName: string, bName: string): { harmony: number; bridges: Bridge[] } | null {
+  const a = noteIngByName(db, aName), b = noteIngByName(db, bName);
+  if (!a || !b || a.id === b.id) return null;
+  const A = noteRows(db, a.id).slice(0, 12);
+  const B = noteRows(db, b.id).slice(0, 12);
+  const assoc = db.prepare('SELECT lift, cooccur FROM note_associations WHERE note_a = ? AND note_b = ?');
+  const terms: { noteA: string; noteB: string; familyA: string; familyB: string; strength: number; contrib: number }[] = [];
+  for (const na of A)
+    for (const nb of B) {
+      let w = 0;
+      if (na.note === nb.note) w = 2.5; // both literally carry the note
+      else {
+        const r = assoc.get(na.note, nb.note) as { lift: number; cooccur: number } | undefined;
+        if (r) w = Math.min(r.lift, 8) * (r.cooccur / (r.cooccur + 2)); // cap + confidence shrink
+      }
+      if (w > 0) terms.push({ noteA: na.note, noteB: nb.note, familyA: na.family, familyB: nb.family, strength: w, contrib: w * (na.intensity / 10) * (nb.intensity / 10) });
+    }
+  terms.sort((x, y) => y.contrib - x.contrib);
+  const bridge = terms.slice(0, 12).reduce((s, t) => s + t.contrib, 0);
+  const harmony = Math.round(100 * Math.tanh(bridge / 20));
+  return {
+    harmony,
+    bridges: terms.slice(0, 8).map((t) => ({ noteA: t.noteA, noteB: t.noteB, familyA: t.familyA, familyB: t.familyB, strength: Math.round(t.strength * 10) / 10 })),
+  };
+}
+
 /** A note-ingredient's profile rows (the wheel id space), strongest first. */
 export function noteRows(db: DB, noteId: number): NoteRow[] {
   return db.prepare('SELECT family, note, intensity FROM note_profiles WHERE ingredient_id = ? ORDER BY intensity DESC').all(noteId) as NoteRow[];
@@ -79,6 +119,66 @@ export function synergyByName(db: DB, aName: string, bName: string, cache: Map<n
   if (!a || !b || a.id === b.id) return null;
   const { raw, shared, notes } = pairRaw(db, a.id, b.id);
   return { synergy: synergyFromRaw(raw, maxPartnerRaw(db, a.id, cache), maxPartnerRaw(db, b.id, cache)), shared, notes };
+}
+
+/** Mean pairwise harmony (0-100) across a set of note-ingredients + the tightest pairs. */
+export function plateHarmony(db: DB, members: { id: number; name: string }[]): { harmony: number; pairs: { a: string; b: string; harmony: number }[] } {
+  const pairs: { a: string; b: string; harmony: number }[] = [];
+  for (let i = 0; i < members.length; i++)
+    for (let j = i + 1; j < members.length; j++) {
+      const h = harmonyByName(db, members[i].name, members[j].name);
+      if (h) pairs.push({ a: members[i].name, b: members[j].name, harmony: h.harmony });
+    }
+  pairs.sort((x, y) => y.harmony - x.harmony);
+  const harmony = pairs.length ? Math.round(pairs.reduce((s, p) => s + p.harmony, 0) / pairs.length) : 0;
+  return { harmony, pairs };
+}
+
+// Suggest ingredients that would harmonise with a plate — using note associations,
+// not shared compounds. We build a target note-profile (the plate's notes plus the
+// notes those associate with) and rank ingredients whose profile matches it best.
+export function harmonyNextAdds(db: DB, memberIds: number[], limit = 6): { name: string; noteId: number; fit: number; family: string | null }[] {
+  const plate = new Map<string, number>();
+  for (const id of memberIds)
+    for (const r of noteRows(db, id)) plate.set(r.note, Math.max(plate.get(r.note) || 0, r.intensity));
+  const plateTop = [...plate.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12);
+  if (plateTop.length === 0) return [];
+
+  const target = new Map<string, number>();
+  const assocTop = db.prepare('SELECT note_b, lift, cooccur FROM note_associations WHERE note_a = ? ORDER BY lift DESC LIMIT 10');
+  for (const [note, intensity] of plateTop) {
+    target.set(note, (target.get(note) || 0) + (intensity / 10) * 2.5); // sharing a plate note is cohesive
+    for (const r of assocTop.all(note) as { note_b: string; lift: number; cooccur: number }[]) {
+      const w = Math.min(r.lift, 8) * (r.cooccur / (r.cooccur + 2));
+      target.set(r.note_b, (target.get(r.note_b) || 0) + (intensity / 10) * w);
+    }
+  }
+
+  const targetNotes = [...target.keys()];
+  const placeholders = targetNotes.map(() => '?').join(',');
+  const rows = db.prepare(`SELECT ingredient_id, note, intensity FROM note_profiles WHERE note IN (${placeholders})`).all(...targetNotes) as { ingredient_id: number; note: string; intensity: number }[];
+  const memberSet = new Set(memberIds);
+  const score = new Map<number, number>();
+  for (const r of rows) {
+    if (memberSet.has(r.ingredient_id)) continue;
+    score.set(r.ingredient_id, (score.get(r.ingredient_id) || 0) + (r.intensity / 10) * (target.get(r.note) || 0));
+  }
+  const ranked = [...score.entries()].sort((a, b) => b[1] - a[1]).slice(0, limit * 6);
+  const out: { name: string; noteId: number; fit: number; family: string | null }[] = [];
+  const seenHead = new Set<string>(); // collapse near-duplicates (Romano/Parmesan Cheese, Canadian/Finnish Whisky)
+  for (const [id, s] of ranked) {
+    const ing = db.prepare('SELECT name, category FROM note_ingredients WHERE id = ?').get(id) as { name: string; category: string } | undefined;
+    if (!ing) continue;
+    const head = ing.name.toLowerCase().trim().split(/\s+/).pop()!;
+    if (seenHead.has(head)) continue;
+    seenHead.add(head);
+    const fam = familyTotals(noteRows(db, id));
+    const family = FAMILY_ORDER.filter((f) => fam[f] > 0).sort((x, y) => fam[y] - fam[x])[0] || null;
+    out.push({ name: ing.name, noteId: id, fit: s, family });
+    if (out.length >= limit) break;
+  }
+  const max = out[0]?.fit || 1;
+  return out.map((o) => ({ ...o, fit: Math.round((o.fit / max) * 100) }));
 }
 
 /** Merge several note-ingredients' profiles into one combined wheel (max intensity per note). */

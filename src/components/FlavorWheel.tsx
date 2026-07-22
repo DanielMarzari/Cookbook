@@ -46,12 +46,19 @@ export default function FlavorWheel({ families, vocabulary = {}, activeByFamily,
       return { fam, color: FAMILY_COLORS[fam] || '#999', notes: names.map((n) => ({ note: n, v: act.get(n) || 0 })) };
     });
 
-    const M = perFam.reduce((s, f) => s + Math.max(f.notes.length, 1), 0);
+    // In key/mini mode only draw families that actually have notes — otherwise the
+    // empty families collapse to slivers and their band labels pile up on top of
+    // each other. A base slot count per family guarantees each band is wide enough
+    // to hold its label legibly.
+    const showAll = !mini && mode === 'all';
+    const drawFams = showAll ? perFam : perFam.filter((f) => f.notes.length > 0);
+    const BASE = 3;
+    const M = drawFams.reduce((s, f) => s + f.notes.length + BASE, 0) || 1;
     const gap = 1.1;
     let cursor = 0, k = 0;
 
-    for (const f of perFam) {
-      const slots = Math.max(f.notes.length, 1);
+    for (const f of drawFams) {
+      const slots = f.notes.length + BASE;
       const span = (slots / M) * 360;
       const a0 = cursor + gap / 2, a1 = cursor + span - gap / 2;
       cursor += span;
