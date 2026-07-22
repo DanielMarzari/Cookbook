@@ -243,7 +243,14 @@ function HarmoniesTab({ ingredients, families, ing, setIng, harmB, setHarmB, rel
           <div className="grid sm:grid-cols-2 gap-8 mb-10 max-w-2xl">
             <div>
               <SynergyRead score={rel.harmony} label="harmony · how well they work together" />
-              <p className="text-[12px] text-text-secondary mt-2">From note co-occurrence across ingredients — credits complementary pairs, not just shared aromas.</p>
+              {rel.proven ? (
+                <p className="text-[12px] text-text-secondary mt-2 flex items-center gap-1.5">
+                  <span className="text-[10px] uppercase tracking-[0.1em] text-text border border-text px-1.5 py-0.5">✓ proven</span>
+                  they actually appear together in real recipes.
+                </p>
+              ) : (
+                <p className="text-[12px] text-text-secondary mt-2">A structural estimate from note co-occurrence — no direct recipe data for this exact pair yet.</p>
+              )}
             </div>
             <div>
               <SynergyRead score={rel.affinity} label="aroma affinity · shared compounds" />

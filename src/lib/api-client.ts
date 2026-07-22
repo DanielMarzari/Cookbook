@@ -127,6 +127,8 @@ export const api = {
         sharedCompounds: number;
         compoundNotes: string[];
         harmony: number;
+        proven: boolean;
+        cooccur: number | null;
         bridges: { noteA: string; noteB: string; familyA: string; familyB: string; strength: number }[];
         recipes: { id: string; title: string; image_url: string | null; cuisine: string | null }[];
       }>(`/api/flavor/relationship?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`),

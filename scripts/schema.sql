@@ -288,6 +288,13 @@ CREATE TABLE IF NOT EXISTS pa_farms (
 );
 CREATE INDEX IF NOT EXISTS idx_pa_farms_cat ON pa_farms(category);
 
+-- Real recipe co-occurrence (FlavorGraph/Recipe1M NPMI). Populated by scripts/load-cooccur.mjs.
+CREATE TABLE IF NOT EXISTS ingredient_cooccur (
+  name_a TEXT NOT NULL, name_b TEXT NOT NULL, score REAL NOT NULL,
+  PRIMARY KEY (name_a, name_b)
+);
+CREATE INDEX IF NOT EXISTS idx_cooccur_a ON ingredient_cooccur(name_a);
+
 -- Imported cookbook files (PDF/EPUB). Bytes on disk in BOOKS_DIR; row is metadata.
 CREATE TABLE IF NOT EXISTS books (
   id TEXT PRIMARY KEY,
