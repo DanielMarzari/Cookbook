@@ -149,6 +149,14 @@ export const api = {
       }>(`/api/flavor/recipe-harmony?recipe_id=${encodeURIComponent(recipeId)}`),
   },
 
+  farms: {
+    list: () =>
+      fetchJson<{
+        farms: { id: number; name: string; category: string; city: string | null; street: string | null; zip: string | null; phone: string | null; website: string | null; lat: number; lng: number }[];
+        categories: { category: string; count: number }[];
+      }>('/api/farms'),
+  },
+
   recipeIngredients: {
     list: (recipeId?: string) => {
       const params = recipeId ? `?recipe_id=${recipeId}` : '';

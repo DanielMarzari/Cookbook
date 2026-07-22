@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api-client';
 import { FAMILY_COLORS, cap } from '@/lib/flavor';
-import { FAMILIES_LEGEND, SEASONAL, MONTHS } from '@/data/flavor-content';
+import { FAMILIES_LEGEND } from '@/data/flavor-content';
 import FlavorWheel from '@/components/FlavorWheel';
 import FlavorOverlayWheel from '@/components/FlavorOverlayWheel';
 import IngredientPicker, { PickIng } from '@/components/flavor/IngredientPicker';
@@ -13,7 +13,7 @@ type Families = { name: string; notes: { note: string; intensity: number }[] }[]
 const abf = (families: Families) => Object.fromEntries((families || []).map((f) => [f.name, f.notes]));
 const synWord = (n: number) => (n >= 70 ? 'High' : n >= 45 ? 'Moderate' : n >= 20 ? 'Low' : 'Faint');
 
-const TABS = ['Wheel', 'Harmonies', 'Lab', 'Compare', 'Recipes', 'Recipe', 'Learn', 'Seasonal'];
+const TABS = ['Wheel', 'Harmonies', 'Lab', 'Compare', 'Recipes', 'Recipe', 'Learn'];
 
 export default function FlavorLabPage() {
   const [families, setFamilies] = useState<string[]>([]);
@@ -28,7 +28,6 @@ export default function FlavorLabPage() {
   const [pairA, setPairA] = useState<PickIng | null>(null);        // Compare + Recipes
   const [pairB, setPairB] = useState<PickIng | null>(null);
   const [build, setBuild] = useState<PickIng[]>([]);               // Lab
-  const [month, setMonth] = useState(new Date().getMonth());       // Seasonal
 
   // fetched data
   const [profile, setProfile] = useState<Awaited<ReturnType<typeof api.flavor.profile>> | null>(null);
@@ -87,7 +86,13 @@ export default function FlavorLabPage() {
     api.flavor.recipeHarmony(recipeSel).then(setRecipeH).catch(() => setRecipeH(null));
   }, [recipeSel]);
 
-  const openWheel = (i: PickIng) => { setIng(i); setTab(0); };
+  // Deep-link: /flavor?ingredient=Tomato (e.g. from the Seasonal page) preselects the wheel.
+  useEffect(() => {
+    if (ingredients.length === 0 || ing) return;
+    const q = new URLSearchParams(window.location.search).get('ingredient');
+    if (q) { const found = ingByName.get(q.toLowerCase()); if (found) { setIng(found); setTab(0); } }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ingredients]);
 
   return (
     <div className="max-w-6xl mx-auto px-4 md:px-8 pb-24">
@@ -125,7 +130,6 @@ export default function FlavorLabPage() {
           {tab === 4 && <RecipesTab {...{ ingredients, pairA, pairB, setPairA, setPairB, pairRecipes, setTab }} />}
           {tab === 5 && <RecipeTab {...{ recipeList, recipeSel, setRecipeSel, recipeH, families }} />}
           {tab === 6 && <LearnTab />}
-          {tab === 7 && <SeasonalTab {...{ month, setMonth, ingByName, openWheel }} />}
         </>
       )}
 
@@ -497,40 +501,6 @@ function LearnTab() {
             </div>
           </div>
         ))}
-      </div>
-    </div>
-  );
-}
-
-/* ── 08 Seasonal ─────────────────────────────────────────────── */
-function SeasonalTab({ month, setMonth, ingByName, openWheel }: any) {
-  const items = SEASONAL[month] || [];
-  return (
-    <div>
-      <div className="flex items-baseline justify-between flex-wrap gap-2 mb-4">
-        <h2 className="text-[24px] tracking-[-0.01em]">In season</h2>
-        <span className="text-text-secondary text-[13px]">temperate calendar · Northern Hemisphere</span>
-      </div>
-      <div className="flex gap-3 md:gap-4 text-[13px] border-b border-border pb-2.5 mb-7 overflow-x-auto">
-        {MONTHS.map((m, i) => (
-          <button key={m} onClick={() => setMonth(i)} className={`whitespace-nowrap ${i === month ? 'text-text border-b-2 border-text pb-2' : 'text-text-secondary hover:text-text'}`}>{m}</button>
-        ))}
-      </div>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {items.map((it) => {
-          const found = ingByName.get(it.name.toLowerCase());
-          const color = FAMILY_COLORS[it.family] || '#999';
-          return (
-            <button key={it.name} disabled={!found} onClick={() => found && openWheel(found)}
-              className={`border border-border text-left ${found ? 'hover:border-text cursor-pointer' : 'opacity-70 cursor-default'}`}>
-              <div className="h-[78px]" style={{ background: `linear-gradient(150deg, ${color}, ${color}bb)` }} />
-              <div className="p-3">
-                <div className="text-[15px]">{it.name}</div>
-                <div className="text-[11.5px] text-text-secondary mt-0.5">{found ? 'peak · open wheel →' : 'peak'}</div>
-              </div>
-            </button>
-          );
-        })}
       </div>
     </div>
   );

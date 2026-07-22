@@ -278,3 +278,12 @@ CREATE TABLE IF NOT EXISTS note_associations (
   PRIMARY KEY (note_a, note_b)
 );
 CREATE INDEX IF NOT EXISTS idx_na_a ON note_associations(note_a);
+
+-- Pennsylvania local-food listings from the USDA Local Food Portal, ZIP-geocoded.
+-- Populated by scripts/load-pa-farms.mjs.
+CREATE TABLE IF NOT EXISTS pa_farms (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT, category TEXT, city TEXT, street TEXT, zip TEXT,
+  phone TEXT, website TEXT, lat REAL, lng REAL
+);
+CREATE INDEX IF NOT EXISTS idx_pa_farms_cat ON pa_farms(category);
