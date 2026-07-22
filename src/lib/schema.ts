@@ -300,4 +300,17 @@ CREATE TABLE IF NOT EXISTS note_profiles (
 
 CREATE INDEX IF NOT EXISTS idx_note_profiles_ing ON note_profiles(ingredient_id);
 CREATE INDEX IF NOT EXISTS idx_note_ingredients_name ON note_ingredients(name);
+
+-- Bridge between the (separate) flavor research domain and the recipe/nutrition
+-- domain. The two keep their own tables and id spaces; this is the ONLY place
+-- they touch. One row per (flavor note-ingredient, matched recipe-ingredient
+-- name). Populated by scripts/load-flavor-links.mjs via normalized-name matching.
+CREATE TABLE IF NOT EXISTS flavor_recipe_links (
+  note_ingredient_id INTEGER NOT NULL,   -- flavor domain: note_ingredients.id
+  match_name TEXT NOT NULL,              -- recipe domain: lower(trim(recipe_ingredients.name))
+  ingredient_id TEXT,                    -- optional: ingredients.id if the recipe row was library-linked
+  PRIMARY KEY (note_ingredient_id, match_name)
+);
+CREATE INDEX IF NOT EXISTS idx_frl_name ON flavor_recipe_links(match_name);
+CREATE INDEX IF NOT EXISTS idx_frl_note ON flavor_recipe_links(note_ingredient_id);
 `;

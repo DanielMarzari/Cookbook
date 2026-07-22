@@ -92,6 +92,48 @@ export const api = {
         families: { name: string; notes: { note: string; intensity: number }[] }[];
         strongest: { note: string; family: string; intensity: number }[];
       }>(`/api/flavor/notes?id=${id}`),
+    harmonies: (id: number) =>
+      fetchJson<{
+        base: { id: number; name: string; category: string };
+        baseNotes: { note: string; family: string; intensity: number }[];
+        partners: { name: string; category: string; synergy: number; shared: number; dominantFamily: string | null; bridgeFamily: string | null }[];
+        insightFamilies: string[];
+      }>(`/api/flavor/harmonies?id=${id}`),
+    compare: (a: string, b: string) =>
+      fetchJson<{
+        a: { id: number; name: string; category: string; activeNotes: number; families: { name: string; notes: { note: string; intensity: number }[] }[] };
+        b: { id: number; name: string; category: string; activeNotes: number; families: { name: string; notes: { note: string; intensity: number }[] }[] };
+        facets: { family: string; a: number; b: number }[];
+        synergy: number;
+        sharedCompounds: number;
+        compoundNotes: string[];
+        bridging: { note: string; family: string; intensity: number }[];
+      }>(`/api/flavor/compare?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`),
+    lab: (ids: number[]) =>
+      fetchJson<{
+        members: { id: number; name: string }[];
+        inNetwork: number;
+        merged: { families: { name: string; notes: { note: string; intensity: number }[] }[]; activeNotes: number; strongest: { note: string; family: string; intensity: number }[] };
+        synergy: number;
+        nextAdds: { name: string; noteId: number | null; lift: number; family: string | null }[];
+      }>('/api/flavor/lab', { method: 'POST', body: { ids } }),
+    recipesForPair: (a: number, b: number) =>
+      fetchJson<{
+        a: { id: number; name: string };
+        b: { id: number; name: string };
+        recipes: { id: string; title: string; image_url: string | null; cuisine: string | null }[];
+      }>(`/api/flavor/recipes-for-pair?a=${a}&b=${b}`),
+    recipeHarmonyList: () =>
+      fetchJson<{ recipes: { id: string; title: string; image_url: string | null; mapped: number }[] }>('/api/flavor/recipe-harmony'),
+    recipeHarmony: (recipeId: string) =>
+      fetchJson<{
+        recipe: { id: string; title: string; cuisine: string | null; image_url: string | null };
+        ingredients: string[];
+        merged: { families: { name: string; notes: { note: string; intensity: number }[] }[]; activeNotes: number; strongest: { note: string; family: string; intensity: number }[] };
+        harmony: number;
+        tightestPairs: { a: string; b: string; synergy: number }[];
+        boost: { name: string; lift: number } | null;
+      }>(`/api/flavor/recipe-harmony?recipe_id=${encodeURIComponent(recipeId)}`),
   },
 
   recipeIngredients: {

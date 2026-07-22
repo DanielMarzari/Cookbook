@@ -257,3 +257,14 @@ CREATE TABLE IF NOT EXISTS note_ingredients (id INTEGER PRIMARY KEY, name TEXT, 
 CREATE TABLE IF NOT EXISTS note_profiles (ingredient_id INTEGER, family TEXT, note TEXT, intensity REAL);
 CREATE INDEX IF NOT EXISTS idx_note_profiles_ing ON note_profiles(ingredient_id);
 CREATE INDEX IF NOT EXISTS idx_note_ingredients_name ON note_ingredients(name);
+
+-- Bridge between the separate flavor and recipe domains (the only place they
+-- touch). Populated by scripts/load-flavor-links.mjs.
+CREATE TABLE IF NOT EXISTS flavor_recipe_links (
+  note_ingredient_id INTEGER NOT NULL,
+  match_name TEXT NOT NULL,
+  ingredient_id TEXT,
+  PRIMARY KEY (note_ingredient_id, match_name)
+);
+CREATE INDEX IF NOT EXISTS idx_frl_name ON flavor_recipe_links(match_name);
+CREATE INDEX IF NOT EXISTS idx_frl_note ON flavor_recipe_links(note_ingredient_id);
