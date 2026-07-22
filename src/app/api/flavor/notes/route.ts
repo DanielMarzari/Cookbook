@@ -17,7 +17,26 @@ export async function GET(request: Request) {
       const ingredients = db
         .prepare('SELECT id, name, category FROM note_ingredients ORDER BY name ASC')
         .all() as { id: number; name: string; category: string }[];
-      return Response.json({ families: FAMILY_ORDER, ingredients });
+      // Note vocabulary per family (the most common notes) — the faint "all notes"
+      // ring the wheel draws behind an ingredient's active notes.
+      const vocabRows = db
+        .prepare(
+          `SELECT family, note, COUNT(DISTINCT ingredient_id) AS freq
+           FROM note_profiles GROUP BY family, note`
+        )
+        .all() as { family: string; note: string; freq: number }[];
+      const vocabulary: Record<string, string[]> = {};
+      for (const f of FAMILY_ORDER) vocabulary[f] = [];
+      for (const r of vocabRows) if (vocabulary[r.family]) vocabulary[r.family].push(r.note);
+      // keep the ~16 most common notes per family for a legible ring
+      const byFreq = new Map(vocabRows.map((r) => [r.family + '|' + r.note, r.freq]));
+      for (const f of FAMILY_ORDER) {
+        vocabulary[f] = vocabulary[f]
+          .sort((a, b) => (byFreq.get(f + '|' + b)! - byFreq.get(f + '|' + a)!))
+          .slice(0, 16)
+          .sort((a, b) => a.localeCompare(b));
+      }
+      return Response.json({ families: FAMILY_ORDER, vocabulary, ingredients });
     }
 
     const ing = db

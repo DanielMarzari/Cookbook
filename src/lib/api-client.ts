@@ -70,6 +70,28 @@ export const api = {
         category: string;
         pairings: { id: number; name: string; category: string; shared: number; strength: number; notes: string[] }[];
       }>(`/api/flavor/pairings?id=${id}`),
+    pairingsByName: (name: string) =>
+      fetchJson<{
+        id: number;
+        name: string;
+        category: string;
+        pairings: { id: number; name: string; category: string; shared: number; strength: number; notes: string[] }[];
+      }>(`/api/flavor/pairings?name=${encodeURIComponent(name)}`),
+    notesList: () =>
+      fetchJson<{
+        families: string[];
+        vocabulary: Record<string, string[]>;
+        ingredients: { id: number; name: string; category: string }[];
+      }>('/api/flavor/notes'),
+    profile: (id: number) =>
+      fetchJson<{
+        id: number;
+        name: string;
+        category: string;
+        activeNotes: number;
+        families: { name: string; notes: { note: string; intensity: number }[] }[];
+        strongest: { note: string; family: string; intensity: number }[];
+      }>(`/api/flavor/notes?id=${id}`),
   },
 
   recipeIngredients: {
