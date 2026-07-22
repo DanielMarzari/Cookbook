@@ -250,3 +250,10 @@ CREATE TABLE IF NOT EXISTS flavor_ingredient_compounds (ingredient_id INTEGER, c
 CREATE INDEX IF NOT EXISTS idx_fic_ingredient ON flavor_ingredient_compounds(ingredient_id);
 CREATE INDEX IF NOT EXISTS idx_fic_compound ON flavor_ingredient_compounds(compound_id);
 CREATE INDEX IF NOT EXISTS idx_flavor_ingredients_category ON flavor_ingredients(category);
+
+-- Flavour note profiles from FlavorDB2 (loaded by scripts/load-notes.mjs).
+-- Separate research domain; not linked to recipe/nutrition ingredients.
+CREATE TABLE IF NOT EXISTS note_ingredients (id INTEGER PRIMARY KEY, name TEXT, category TEXT);
+CREATE TABLE IF NOT EXISTS note_profiles (ingredient_id INTEGER, family TEXT, note TEXT, intensity REAL);
+CREATE INDEX IF NOT EXISTS idx_note_profiles_ing ON note_profiles(ingredient_id);
+CREATE INDEX IF NOT EXISTS idx_note_ingredients_name ON note_ingredients(name);
