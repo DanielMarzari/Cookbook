@@ -57,7 +57,6 @@ export default function CookbooksPage() {
 
   const onFile = async (file: File) => {
     if (!/\.(pdf|epub)$/i.test(file.name)) { toast.error('Please choose a PDF or EPUB file'); return; }
-    if (file.size > 60 * 1024 * 1024) { toast.error('File is larger than 60MB'); return; }
     setUploading(true);
     try {
       const fd = new FormData();

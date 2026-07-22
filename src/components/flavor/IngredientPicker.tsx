@@ -6,6 +6,15 @@ import { cap } from '@/lib/flavor';
 
 export type PickIng = { id: number; name: string; category: string };
 
+// Common cooking names → the term FlavorDB2 actually uses, so a search for
+// "cilantro" still surfaces "Coriander". Maps a synonym to a substring that
+// matches the canonical entry.
+const SYNONYMS: Record<string, string> = {
+  cilantro: 'coriander', scallion: 'welsh onion', 'green onion': 'welsh onion', 'spring onion': 'welsh onion',
+  arugula: 'rocket', 'bell pepper': 'capsicum', 'sweet pepper': 'capsicum', chile: 'chili', chilli: 'chili',
+  aubergine: 'eggplant', courgette: 'zucchini', garbanzo: 'chickpea', prawn: 'shrimp', groundnut: 'peanut',
+};
+
 // Small typeahead over the note-ingredient list, reused by every Flavor Lab tab
 // that needs the user to choose an ingredient.
 export default function IngredientPicker({
@@ -20,14 +29,17 @@ export default function IngredientPicker({
   const suggestions = useMemo(() => {
     const s = q.toLowerCase().trim();
     if (s.length < 2) return [];
-    const starts: PickIng[] = [], has: PickIng[] = [];
+    // if the query is a known synonym, also match the canonical DB term
+    const alias = SYNONYMS[s] || Object.entries(SYNONYMS).find(([k]) => k.startsWith(s) && s.length >= 3)?.[1];
+    const starts: PickIng[] = [], has: PickIng[] = [], aliased: PickIng[] = [];
     for (const i of ingredients) {
       const n = i.name.toLowerCase();
       if (n.startsWith(s)) starts.push(i);
       else if (n.includes(s)) has.push(i);
-      if (starts.length >= 8) break;
+      else if (alias && n.includes(alias)) aliased.push(i);
     }
-    return [...starts, ...has].slice(0, 8);
+    const seen = new Set<number>();
+    return [...starts, ...has, ...aliased].filter((i) => !seen.has(i.id) && seen.add(i.id)).slice(0, 8);
   }, [q, ingredients]);
 
   return (
