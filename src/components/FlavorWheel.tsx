@@ -1,16 +1,8 @@
 'use client';
 
 import { useMemo } from 'react';
+import { FAMILY_COLORS, cap } from '@/lib/flavor';
 
-// One hue per flavour family (the spectrum around the wheel). The colour IS the
-// data here, so this is the one place the flavour section leaves monochrome.
-const FAMILY_COLORS: Record<string, string> = {
-  Sweet: '#4E7FA6', Acidic: '#6E6FA8', Floral: '#9166A6', Herbal: '#A85C82',
-  Vegetal: '#C2546A', Spice: '#CE6A4A', Woody: '#D2954C', Earthy: '#C6A24A',
-  Maillard: '#7FA968', Carnal: '#5DA48D',
-};
-
-const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 function pol(cx: number, cy: number, r: number, deg: number): [number, number] {
   const a = ((deg - 90) * Math.PI) / 180;
   return [cx + r * Math.cos(a), cy + r * Math.sin(a)];
@@ -26,25 +18,30 @@ function wedge(cx: number, cy: number, r0: number, r1: number, a0: number, a1: n
 
 interface Props {
   families: string[];
-  vocabulary: Record<string, string[]>;
+  vocabulary?: Record<string, string[]>;
   activeByFamily: Record<string, { note: string; intensity: number }[]>;
   activeCount: number;
-  mode: 'key' | 'all';
+  mode?: 'key' | 'all';
+  variant?: 'full' | 'mini';
   size?: number;
 }
 
-export default function FlavorWheel({ families, vocabulary, activeByFamily, activeCount, mode, size = 820 }: Props) {
+// The colored ten-family flavour wheel. `full` draws every note label (faint when
+// dormant, bold + colored when active) around the ring; `mini` is a compact,
+// label-free version for combined/plate wheels.
+export default function FlavorWheel({ families, vocabulary = {}, activeByFamily, activeCount, mode = 'all', variant = 'full', size = 820 }: Props) {
   const { paths, texts } = useMemo(() => {
     const S = size, cx = S / 2, cy = S / 2;
-    const ri = S * 0.115, ro = S * 0.175, barMax = S * 0.135, pad = S * 0.006;
+    const mini = variant === 'mini';
+    const ri = S * (mini ? 0.14 : 0.115), ro = S * (mini ? 0.22 : 0.175);
+    const barMax = S * (mini ? 0.15 : 0.135), pad = S * 0.006;
     const paths: React.ReactNode[] = [];
     const texts: React.ReactNode[] = [];
 
-    // notes to draw per family
     const perFam = families.map((fam) => {
       const act = new Map((activeByFamily[fam] || []).map((n) => [n.note, n.intensity]));
       let names: string[];
-      if (mode === 'all') names = Array.from(new Set([...(vocabulary[fam] || []), ...act.keys()]));
+      if (!mini && mode === 'all') names = Array.from(new Set([...(vocabulary[fam] || []), ...act.keys()]));
       else names = Array.from(act.keys());
       return { fam, color: FAMILY_COLORS[fam] || '#999', notes: names.map((n) => ({ note: n, v: act.get(n) || 0 })) };
     });
@@ -64,7 +61,7 @@ export default function FlavorWheel({ families, vocabulary, activeByFamily, acti
       const [lx, ly] = pol(cx, cy, (ri + ro) / 2, mid);
       let rot = mid; if (mid > 90 && mid < 270) rot -= 180;
       texts.push(
-        <text key={`fl${k}`} x={lx} y={ly} fill="#fff" fontSize={S * 0.0135} fontWeight={600}
+        <text key={`fl${k}`} x={lx} y={ly} fill="#fff" fontSize={S * (mini ? 0.02 : 0.0135)} fontWeight={600}
           textAnchor="middle" dominantBaseline="middle" transform={`rotate(${rot} ${lx} ${ly})`}>
           {f.fam.toUpperCase()}
         </text>
@@ -77,30 +74,34 @@ export default function FlavorWheel({ families, vocabulary, activeByFamily, acti
           const rr = ro + (n.v / 10) * barMax;
           paths.push(<path key={`n${k}_${i}`} d={wedge(cx, cy, ro + 1, rr, na0 + nStep * 0.12, na1 - nStep * 0.12)} fill={f.color} />);
         }
-        const [tx, ty] = pol(cx, cy, ro + barMax + pad + 2, nmid);
-        let lr = nmid - 90, anchor: 'start' | 'end' = 'start';
-        if (nmid > 180) { lr = nmid + 90; anchor = 'end'; }
-        texts.push(
-          <text key={`nl${k}_${i}`} x={tx} y={ty} fontSize={S * 0.0125}
-            fill={n.v > 0 ? f.color : '#c3bdb0'} fontWeight={n.v > 0 ? 700 : 400}
-            textAnchor={anchor} dominantBaseline="middle" transform={`rotate(${lr} ${tx} ${ty})`}>
-            {cap(n.note)}
-          </text>
-        );
+        if (!mini) {
+          const [tx, ty] = pol(cx, cy, ro + barMax + pad + 2, nmid);
+          let lr = nmid - 90, anchor: 'start' | 'end' = 'start';
+          if (nmid > 180) { lr = nmid + 90; anchor = 'end'; }
+          texts.push(
+            <text key={`nl${k}_${i}`} x={tx} y={ty} fontSize={S * 0.0125}
+              fill={n.v > 0 ? f.color : '#c3bdb0'} fontWeight={n.v > 0 ? 700 : 400}
+              textAnchor={anchor} dominantBaseline="middle" transform={`rotate(${lr} ${tx} ${ty})`}>
+              {cap(n.note)}
+            </text>
+          );
+        }
       });
       k++;
     }
     return { paths, texts };
-  }, [families, vocabulary, activeByFamily, mode, size]);
+  }, [families, vocabulary, activeByFamily, mode, variant, size]);
 
   const S = size, c = S / 2;
+  const mini = variant === 'mini';
+  const ri = S * (mini ? 0.14 : 0.115);
   return (
     <svg viewBox={`0 0 ${S} ${S}`} className="w-full" role="img" aria-label="Flavour wheel">
       {paths}
       {texts}
-      <circle cx={c} cy={c} r={S * 0.115 - 3} fill="#fff" stroke="#e8e8e8" strokeWidth={1} />
-      <text x={c} y={c - 4} textAnchor="middle" fontSize={S * 0.05} fontWeight={400} fill="#141310" style={{ fontFamily: 'Georgia, serif' }}>{activeCount}</text>
-      <text x={c} y={c + S * 0.03} textAnchor="middle" fontSize={S * 0.016} fill="#767676" letterSpacing="1">ACTIVE NOTES</text>
+      <circle cx={c} cy={c} r={ri - 3} fill="#fff" stroke="#e8e8e8" strokeWidth={1} />
+      <text x={c} y={mini ? c + S * 0.02 : c - 4} textAnchor="middle" fontSize={S * (mini ? 0.06 : 0.05)} fontWeight={400} fill="#141310" style={{ fontFamily: 'Georgia, serif' }}>{activeCount}</text>
+      {!mini && <text x={c} y={c + S * 0.03} textAnchor="middle" fontSize={S * 0.016} fill="#767676" letterSpacing="1">ACTIVE NOTES</text>}
     </svg>
   );
 }
