@@ -1,11 +1,11 @@
 import { getDb } from '@/lib/db';
-import { ahnByName, pairRaw, maxPartnerRaw, synergyFromRaw, mergedProfile, plateHarmony, harmonyNextAdds } from '@/lib/flavor';
+import { ahnByName, mergedProfile, plateHarmony, nextAddOptions } from '@/lib/flavor';
 
 interface Ing { id: number; name: string }
 
-// The Bench: merge a build into one combined wheel, score the plate's cohesion
-// (HARMONY — note-association, the headline) and its aroma AFFINITY (shared
-// compounds), and rank the next ingredient to add by note-harmony fit.
+// The Bench: merge a build into one combined wheel, score its cohesion (HARMONY)
+// and aroma AFFINITY, and suggest what to add next by EITHER metric — listing only
+// ingredients that would actually improve the chosen score.
 // POST { ids: number[] }  (note_ingredients ids)
 export async function POST(request: Request) {
   try {
@@ -20,32 +20,19 @@ export async function POST(request: Request) {
     if (members.length === 0) return Response.json({ error: 'No valid ingredients' }, { status: 400 });
 
     const merged = mergedProfile(db, members.map((m) => m.id));
-
-    // Cohesion = mean pairwise HARMONY (note co-occurrence); the headline score.
     const { harmony, pairs } = plateHarmony(db, members);
-
-    // Aroma affinity = mean pairwise shared-compound synergy (secondary read).
-    const cache = new Map<number, number>();
-    const ahn = members.map((m) => ({ m, a: ahnByName(db, m.name) })).filter((x) => x.a) as { m: Ing; a: { id: number; name: string } }[];
-    let affSum = 0, affN = 0;
-    for (let i = 0; i < ahn.length; i++)
-      for (let j = i + 1; j < ahn.length; j++) {
-        const { raw } = pairRaw(db, ahn[i].a.id, ahn[j].a.id);
-        affSum += synergyFromRaw(raw, maxPartnerRaw(db, ahn[i].a.id, cache), maxPartnerRaw(db, ahn[j].a.id, cache));
-        affN++;
-      }
-    const affinity = affN ? Math.round(affSum / affN) : 0;
-
-    const nextAdds = harmonyNextAdds(db, members.map((m) => m.id), 6);
+    const inNetwork = members.filter((m) => ahnByName(db, m.name)).length;
+    const opts = nextAddOptions(db, members);
 
     return Response.json({
       members: members.map((m) => ({ id: m.id, name: m.name })),
-      inNetwork: ahn.length,
+      inNetwork,
       merged,
       harmony,
-      affinity,
+      affinity: opts.affinityCurrent,
       tightestPairs: pairs.slice(0, 3),
-      nextAdds,
+      harmonyAdds: opts.harmonyAdds,
+      affinityAdds: opts.affinityAdds,
     });
   } catch (error) {
     console.error('Lab error:', error);
