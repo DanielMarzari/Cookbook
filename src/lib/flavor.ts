@@ -201,6 +201,85 @@ export function harmonyNextAdds(db: DB, memberIds: number[], limit = 6): { name:
   return out.map((o) => ({ ...o, fit: Math.round((o.fit / max) * 100) }));
 }
 
+/** Mean pairwise aroma affinity (0-100) across a set of ingredients. */
+export function plateAffinity(db: DB, members: { id: number; name: string }[], cache: Map<number, number>): number {
+  const ahn = members.map((m) => ahnByName(db, m.name)).filter(Boolean) as { id: number }[];
+  let sum = 0, n = 0;
+  for (let i = 0; i < ahn.length; i++)
+    for (let j = i + 1; j < ahn.length; j++) {
+      const { raw } = pairRaw(db, ahn[i].id, ahn[j].id);
+      sum += synergyFromRaw(raw, maxPartnerRaw(db, ahn[i].id, cache), maxPartnerRaw(db, ahn[j].id, cache));
+      n++;
+    }
+  return n ? Math.round(sum / n) : 0;
+}
+
+// Suggest ingredients to add to a plate, ranked by BOTH metrics. Returns only
+// candidates that would IMPROVE the chosen score (mean with the plate above the
+// current plate score + 5) — nothing that leaves it flat or worse.
+export function nextAddOptions(db: DB, members: { id: number; name: string }[]): {
+  harmonyCurrent: number; affinityCurrent: number;
+  harmonyAdds: { name: string; noteId: number; fit: number; family: string | null }[];
+  affinityAdds: { name: string; noteId: number; fit: number; family: string | null }[];
+} {
+  const cache = new Map<number, number>();
+  const harmonyCurrent = plateHarmony(db, members).harmony;
+  const affinityCurrent = plateAffinity(db, members, cache);
+
+  // candidate pool from several sources so both metrics have room to improve
+  const pool = new Set<string>();
+  for (const m of members) {
+    const a = ahnByName(db, m.name);
+    if (a) {
+      const rows = db.prepare(
+        `SELECT i.name FROM flavor_ingredient_compounds x
+         JOIN flavor_ingredient_compounds y ON x.compound_id = y.compound_id
+         JOIN flavor_ingredients i ON i.id = y.ingredient_id
+         JOIN flavor_compounds c ON c.id = x.compound_id
+         WHERE x.ingredient_id = ? AND y.ingredient_id != ?
+         GROUP BY y.ingredient_id ORDER BY SUM(c.idf) DESC LIMIT 15`
+      ).all(a.id, a.id) as { name: string }[];
+      for (const r of rows) pool.add(r.name);
+    }
+    for (const r of db.prepare('SELECT name_b FROM ingredient_cooccur WHERE name_a = ? ORDER BY score DESC LIMIT 15').all(normName(m.name)) as { name_b: string }[]) pool.add(r.name_b);
+  }
+  for (const na of harmonyNextAdds(db, members.map((m) => m.id), 25)) pool.add(na.name);
+
+  const memberIds = new Set(members.map((m) => m.id));
+  const memberNames = new Set(members.map((m) => m.name.toLowerCase()));
+  const scored: { name: string; noteId: number; family: string | null; meanH: number; meanA: number }[] = [];
+  const seenNote = new Set<number>();
+  for (const raw of pool) {
+    const note = noteIngByName(db, raw);
+    if (!note || memberIds.has(note.id) || memberNames.has(note.name.toLowerCase()) || seenNote.has(note.id)) continue;
+    seenNote.add(note.id);
+    let hSum = 0, hN = 0, aSum = 0, aN = 0;
+    for (const m of members) {
+      const h = harmonyByName(db, note.name, m.name); if (h) { hSum += h.harmony; hN++; }
+      const af = synergyByName(db, note.name, m.name, cache); if (af) { aSum += af.synergy; aN++; }
+    }
+    const fam = familyTotals(noteRows(db, note.id));
+    const family = FAMILY_ORDER.filter((f) => fam[f] > 0).sort((x, y) => fam[y] - fam[x])[0] || null;
+    scored.push({ name: note.name, noteId: note.id, family, meanH: hN ? hSum / hN : 0, meanA: aN ? aSum / aN : 0 });
+  }
+
+  const rank = (score: (r: typeof scored[number]) => number, current: number) => {
+    const seenHead = new Set<string>();
+    return scored
+      .filter((r) => score(r) > current + 5)              // only genuine improvements
+      .sort((a, b) => score(b) - score(a))
+      .filter((r) => { const h = r.name.toLowerCase().split(/\s+/).pop()!; return seenHead.has(h) ? false : (seenHead.add(h), true); })
+      .slice(0, 6)
+      .map((r) => ({ name: r.name, noteId: r.noteId, fit: Math.round(score(r)), family: r.family }));
+  };
+
+  return {
+    harmonyCurrent, affinityCurrent,
+    harmonyAdds: rank((r) => r.meanH, harmonyCurrent),
+    affinityAdds: rank((r) => r.meanA, affinityCurrent),
+  };
+}
+
 /** Merge several note-ingredients' profiles into one combined wheel (max intensity per note). */
 export function mergedProfile(db: DB, noteIds: number[]): { families: { name: string; notes: { note: string; intensity: number }[] }[]; activeNotes: number; strongest: { note: string; family: string; intensity: number }[] } {
   const best = new Map<string, { note: string; family: string; intensity: number }>();

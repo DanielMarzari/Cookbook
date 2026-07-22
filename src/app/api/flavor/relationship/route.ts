@@ -1,5 +1,5 @@
 import { getDb } from '@/lib/db';
-import { noteRows, synergyByName, harmonyByName, FAMILY_ORDER } from '@/lib/flavor';
+import { noteRows, familyTotals, synergyByName, harmonyByName, FAMILY_ORDER } from '@/lib/flavor';
 
 interface Ing { id: number; name: string; category: string }
 
@@ -29,6 +29,15 @@ export async function GET(request: Request) {
     const affinity = synergyByName(db, a.name, b.name, cache);
     const harm = harmonyByName(db, a.name, b.name);
 
+    // Facet comparison — each family's intensity for A vs B, 0-100 (from the merged Compare view).
+    const aFam = familyTotals(aRows), bFam = familyTotals(bRows);
+    const maxFam = Math.max(1, ...FAMILY_ORDER.map((f) => Math.max(aFam[f], bFam[f])));
+    const facets = FAMILY_ORDER.map((f) => ({
+      family: f,
+      a: Math.round((aFam[f] / maxFam) * 100),
+      b: Math.round((bFam[f] / maxFam) * 100),
+    })).filter((r) => r.a > 0 || r.b > 0);
+
     // "The evidence": the user's own recipes that use both, via the bridge.
     const recipes = db.prepare(
       `SELECT DISTINCT r.id, r.title, r.image_url, r.cuisine_type AS cuisine
@@ -50,6 +59,7 @@ export async function GET(request: Request) {
       proven: harm?.proven ?? false,
       cooccur: harm?.cooccur ?? null,
       bridges: harm?.bridges ?? [],
+      facets,
       recipes,
     });
   } catch (error) {

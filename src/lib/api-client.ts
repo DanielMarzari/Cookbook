@@ -117,8 +117,11 @@ export const api = {
         harmony: number;
         affinity: number;
         tightestPairs: { a: string; b: string; harmony: number }[];
-        nextAdds: { name: string; noteId: number | null; fit: number; family: string | null }[];
+        harmonyAdds: { name: string; noteId: number | null; fit: number; family: string | null }[];
+        affinityAdds: { name: string; noteId: number | null; fit: number; family: string | null }[];
       }>('/api/flavor/lab', { method: 'POST', body: { ids } }),
+    recipesForIngredient: (id: number) =>
+      fetchJson<{ recipes: { id: string; title: string; image_url: string | null; cuisine: string | null }[] }>(`/api/flavor/recipes-for-ingredient?id=${id}`),
     relationship: (a: string, b: string) =>
       fetchJson<{
         a: { id: number; name: string; category: string; activeNotes: number; families: { name: string; notes: { note: string; intensity: number }[] }[] };
@@ -130,6 +133,7 @@ export const api = {
         proven: boolean;
         cooccur: number | null;
         bridges: { noteA: string; noteB: string; familyA: string; familyB: string; strength: number }[];
+        facets: { family: string; a: number; b: number }[];
         recipes: { id: string; title: string; image_url: string | null; cuisine: string | null }[];
       }>(`/api/flavor/relationship?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`),
     recipesForPair: (a: number, b: number) =>
