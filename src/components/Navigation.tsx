@@ -9,6 +9,7 @@ import {
   Heart,
   CalendarDays,
   Sparkles,
+  Sprout,
   Search,
 } from 'lucide-react';
 import Link from 'next/link';
@@ -19,6 +20,7 @@ const navItems = [
   { icon: BookOpen, label: 'Recipes', href: '/' },
   { icon: CalendarDays, label: 'Planner', href: '/planner' },
   { icon: Sparkles, label: 'Flavors', href: '/flavor' },
+  { icon: Sprout, label: 'Seasonal', href: '/seasonal' },
   { icon: ChefHat, label: 'Techniques', href: '/techniques' },
   { icon: Leaf, label: 'Ingredients', href: '/ingredients' },
   { icon: ShoppingCart, label: 'Grocery', href: '/grocery' },
