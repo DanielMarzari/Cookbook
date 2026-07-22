@@ -57,6 +57,21 @@ export const api = {
     delete: (id: string) => fetch(`/api/recipes/${id}`, { method: 'DELETE' }),
   },
 
+  flavor: {
+    wheel: () =>
+      fetchJson<{
+        categories: { name: string; count: number }[];
+        ingredients: { id: number; name: string; category: string }[];
+      }>('/api/flavor/wheel'),
+    pairings: (id: number) =>
+      fetchJson<{
+        id: number;
+        name: string;
+        category: string;
+        pairings: { id: number; name: string; category: string; shared: number; strength: number; notes: string[] }[];
+      }>(`/api/flavor/pairings?id=${id}`),
+  },
+
   recipeIngredients: {
     list: (recipeId?: string) => {
       const params = recipeId ? `?recipe_id=${recipeId}` : '';
