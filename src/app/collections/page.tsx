@@ -1,366 +1,200 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { Plus, X, Folder, BookOpen } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Plus, X, Upload, Loader } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Collection, Recipe } from '@/lib/types';
+import { Collection } from '@/lib/types';
 import { api } from '@/lib/api-client';
+import { toast } from '@/lib/toast';
 
-export default function CollectionsPage() {
+type Book = Awaited<ReturnType<typeof api.books.list>>[number];
+
+// muted spine colours so the shelf reads like a shelf of books
+const SPINES = ['#3f4a3a', '#4a3f3a', '#3a444a', '#463a4a', '#4a463a', '#3a4a45', '#42423a'];
+const spineOf = (id: string) => SPINES[[...id].reduce((h, c) => (h + c.charCodeAt(0)) % SPINES.length, 0)];
+
+export default function CookbooksPage() {
   const [collections, setCollections] = useState<Collection[]>([]);
-  const [collectionCounts, setCollectionCounts] = useState<
-    Record<string, number>
-  >({});
+  const [counts, setCounts] = useState<Record<string, number>>({});
+  const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [showNewCollectionModal, setShowNewCollectionModal] = useState(false);
-  const [newCollection, setNewCollection] = useState({
-    name: '',
-    subtitle: '',
-    description: '',
-    cover_image_url: '',
-    auto_filter_field: '',
-    auto_filter_value: '',
-  });
+  const [uploading, setUploading] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [nc, setNc] = useState({ name: '', subtitle: '', description: '', cover_image_url: '', auto_filter_field: '', auto_filter_value: '' });
 
-  useEffect(() => {
-    fetchCollections();
-  }, []);
+  useEffect(() => { load(); }, []);
 
-  const fetchCollections = async () => {
+  const load = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
-      const data = await api.collections.list();
-
-      setCollections(data || []);
-
-      // Fetch recipe counts for each collection
-      if (data && data.length > 0) {
-        const counts: Record<string, number> = {};
-        for (const collection of data) {
-          try {
-            const collectionRecipes = await api.collectionRecipes.list(collection.id);
-            counts[collection.id] = collectionRecipes?.length || 0;
-          } catch (err) {
-            counts[collection.id] = 0;
-          }
-        }
-        setCollectionCounts(counts);
+      const [cols, bks] = await Promise.all([api.collections.list().catch(() => []), api.books.list().catch(() => [])]);
+      setCollections(cols || []);
+      setBooks(bks || []);
+      const c: Record<string, number> = {};
+      for (const col of cols || []) {
+        try { c[col.id] = (await api.collectionRecipes.list(col.id))?.length || 0; } catch { c[col.id] = 0; }
       }
-
-      setError(null);
-    } catch (err) {
-      console.error('Error fetching collections:', err);
-      setError(
-        err instanceof Error ? err.message : 'Failed to load collections'
-      );
-    } finally {
-      setLoading(false);
-    }
+      setCounts(c);
+    } finally { setLoading(false); }
   };
 
   const createCollection = async () => {
-    if (!newCollection.name.trim()) return;
-
+    if (!nc.name.trim()) return;
     try {
       const data = await api.collections.create({
-        name: newCollection.name,
-        subtitle: newCollection.subtitle || undefined,
-        description: newCollection.description || undefined,
-        cover_image_url: newCollection.cover_image_url || undefined,
-        auto_filter_field: newCollection.auto_filter_field || undefined,
-        auto_filter_value: newCollection.auto_filter_value || undefined,
-        color: 'bg-amber-100',
+        name: nc.name, subtitle: nc.subtitle || undefined, description: nc.description || undefined,
+        cover_image_url: nc.cover_image_url || undefined, auto_filter_field: nc.auto_filter_field || undefined,
+        auto_filter_value: nc.auto_filter_value || undefined, color: 'bg-amber-100',
       });
-
       setCollections([data, ...collections]);
-      setCollectionCounts({ ...collectionCounts, [data.id]: 0 });
-      setNewCollection({ name: '', subtitle: '', description: '', cover_image_url: '', auto_filter_field: '', auto_filter_value: '' });
-      setShowNewCollectionModal(false);
-    } catch (err) {
-      console.error('Error creating collection:', err);
+      setCounts({ ...counts, [data.id]: 0 });
+      setNc({ name: '', subtitle: '', description: '', cover_image_url: '', auto_filter_field: '', auto_filter_value: '' });
+      setShowNew(false);
+    } catch { toast.error('Could not create cookbook'); }
+  };
+
+  const onFile = async (file: File) => {
+    if (!/\.(pdf|epub)$/i.test(file.name)) { toast.error('Please choose a PDF or EPUB file'); return; }
+    if (file.size > 60 * 1024 * 1024) { toast.error('File is larger than 60MB'); return; }
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      fd.append('title', file.name.replace(/\.(pdf|epub)$/i, ''));
+      const res = await fetch('/api/books', { method: 'POST', body: fd });
+      if (!res.ok) throw new Error((await res.json()).error || 'Upload failed');
+      toast.success('Book added to your shelf');
+      load();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : 'Upload failed');
+    } finally {
+      setUploading(false);
+      if (fileRef.current) fileRef.current.value = '';
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary mb-4" />
-          <p className="text-text-secondary">Loading collections...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="w-full bg-background">
-      {/* Header */}
-      <div className="bg-gradient-to-br from-primary/5 to-secondary/5 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold text-text mb-2">Collections</h1>
-              <p className="text-text-secondary">
-                Your curated cookbooks
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Link
-                href="/books"
-                className="flex items-center gap-2 px-5 py-3 border border-border text-text rounded-lg font-medium hover:border-text transition-colors"
-                title="Import & read PDF/EPUB cookbooks you own"
-              >
-                <BookOpen size={19} />
-                Bookshelf
-              </Link>
-              <button
-                onClick={() => setShowNewCollectionModal(true)}
-                className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors"
-              >
-                <Plus size={20} />
-                New Cookbook
-              </button>
-            </div>
-          </div>
-        </div>
+    <div className="max-w-6xl mx-auto px-4 md:px-8 pb-24">
+      <input ref={fileRef} type="file" accept=".pdf,.epub,application/pdf,application/epub+zip" className="hidden"
+        onChange={(e) => e.target.files?.[0] && onFile(e.target.files[0])} />
+
+      <div className="pt-10 md:pt-16 pb-8">
+        <p className="text-[11px] uppercase tracking-[0.16em] text-text-secondary mb-3">Your shelf</p>
+        <h1 className="text-[34px] md:text-[52px] leading-[1.02] tracking-[-0.02em] font-normal text-text mb-4">Cookbooks</h1>
+        <p className="text-[16px] leading-[1.6] text-[#3A3A3A] max-w-[64ch]">
+          Your own collections of recipes and the PDF/EPUB cookbooks you&rsquo;ve imported — all on one shelf. Open a blank
+          book to start a new one, or import a book you own.
+        </p>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-6 py-8">
-        {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600">
-            {error}
-          </div>
-        )}
-
-        {collections.length === 0 ? (
-          <div className="bg-surface rounded-2xl shadow-warm border border-border p-12 text-center">
-            <Folder className="mx-auto text-text-secondary mb-4" size={48} />
-            <h3 className="text-lg font-semibold text-text mb-2">
-              No cookbooks yet
-            </h3>
-            <p className="text-text-secondary mb-6">
-              Create your first cookbook to organize recipes by theme,
-              occasion, or cuisine
-            </p>
-            <button
-              onClick={() => setShowNewCollectionModal(true)}
-              className="px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors"
-            >
-              Create Cookbook
-            </button>
-          </div>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {collections.map((collection) => (
-              <Link key={collection.id} href={`/collections/${collection.id}`}>
-                <article className="group cursor-pointer">
-                  {/* Book Cover */}
-                  <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 group-hover:scale-[1.02] bg-white border border-gray-200">
-                    {/* Spine shadow effect */}
-                    <div className="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-r from-black/15 to-transparent z-10" />
-
-                    {/* Inner border frame */}
-                    <div className="absolute inset-3 border border-primary/40 rounded-sm z-10 pointer-events-none" />
-
-                    {/* Cover image or fallback */}
-                    {collection.cover_image_url ? (
-                      <>
-                        <Image
-                          src={collection.cover_image_url}
-                          alt={collection.name}
-                          fill
-                          sizes="(max-width: 768px) 50vw, 240px"
-                          className="object-cover"
-                        />
-                        {/* Dark overlay for text readability */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-                        {/* Title overlay on image */}
-                        <div className="absolute inset-0 flex flex-col items-center justify-end p-6 z-20">
-                          <h3 className="text-xl md:text-2xl font-serif font-bold text-white text-center tracking-wide leading-tight mb-1">
-                            {collection.name.toUpperCase()}
-                          </h3>
-                          {collection.subtitle && (
-                            <>
-                              <div className="w-12 h-px bg-white/60 my-2" />
-                              <p className="text-sm text-white/80 italic text-center">
-                                {collection.subtitle}
-                              </p>
-                            </>
-                          )}
-                          <p className="text-xs text-white/60 mt-3">
-                            {collectionCounts[collection.id] || 0} {(collectionCounts[collection.id] || 0) === 1 ? 'recipe' : 'recipes'}
-                          </p>
-                        </div>
-                      </>
-                    ) : (
-                      /* No cover image — elegant typographic cover */
-                      <div className="absolute inset-0 bg-gradient-to-b from-white via-gray-50 to-gray-100 flex flex-col items-center justify-center p-6">
-                        <div className="flex-1 flex flex-col items-center justify-center">
-                          <h3 className="text-xl md:text-2xl font-serif font-bold text-primary text-center tracking-wide leading-tight">
-                            {collection.name.toUpperCase()}
-                          </h3>
-                          {collection.subtitle && (
-                            <>
-                              <div className="w-12 h-px bg-primary/40 my-3" />
-                              <p className="text-sm text-text-secondary italic text-center">
-                                {collection.subtitle}
-                              </p>
-                            </>
-                          )}
-                        </div>
-                        <p className="text-xs text-text-secondary">
-                          {collectionCounts[collection.id] || 0} {(collectionCounts[collection.id] || 0) === 1 ? 'recipe' : 'recipes'}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                </article>
-              </Link>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* New Collection Modal */}
-      {showNewCollectionModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-surface rounded-2xl shadow-warm-lg p-6 max-w-md w-full">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-xl font-bold text-text">
-                Create New Cookbook
-              </h3>
-              <button
-                onClick={() => setShowNewCollectionModal(false)}
-                className="p-2 hover:bg-background rounded-lg transition-colors"
-              >
-                <X size={20} />
-              </button>
+      {loading ? (
+        <p className="text-text-secondary text-sm">Loading…</p>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-6 gap-y-8">
+          {/* add-new blank books first */}
+          <button onClick={() => setShowNew(true)} className="group text-left">
+            <div className="aspect-[3/4] border border-dashed border-border grid place-items-center hover:border-text transition-colors">
+              <div className="text-center text-text-secondary group-hover:text-text">
+                <Plus size={26} className="mx-auto mb-2" strokeWidth={1.5} />
+                <span className="text-[13px]">New cookbook</span>
+              </div>
             </div>
+            <p className="text-[12px] text-text-secondary mt-2">a collection of your recipes</p>
+          </button>
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">
-                  Cookbook Title *
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g., Città del Tufo"
-                  value={newCollection.name}
-                  onChange={(e) =>
-                    setNewCollection({ ...newCollection, name: e.target.value })
-                  }
-                  className="w-full px-4 py-3 rounded-lg border border-border bg-background text-text placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary"
-                />
+          <button onClick={() => fileRef.current?.click()} disabled={uploading} className="group text-left">
+            <div className="aspect-[3/4] border border-dashed border-border grid place-items-center hover:border-text transition-colors">
+              <div className="text-center text-text-secondary group-hover:text-text">
+                {uploading ? <Loader size={24} className="mx-auto mb-2 animate-spin" /> : <Upload size={24} className="mx-auto mb-2" strokeWidth={1.5} />}
+                <span className="text-[13px]">{uploading ? 'Uploading…' : 'Import a book'}</span>
               </div>
+            </div>
+            <p className="text-[12px] text-text-secondary mt-2">a PDF or EPUB you own</p>
+          </button>
 
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">
-                  Subtitle
-                </label>
-                <input
-                  type="text"
-                  placeholder="e.g., Mangiamo!"
-                  value={newCollection.subtitle}
-                  onChange={(e) =>
-                    setNewCollection({ ...newCollection, subtitle: e.target.value })
-                  }
-                  className="w-full px-4 py-3 rounded-lg border border-border bg-background text-text placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">
-                  Description (Optional)
-                </label>
-                <textarea
-                  placeholder="What's this cookbook about?"
-                  value={newCollection.description}
-                  onChange={(e) =>
-                    setNewCollection({ ...newCollection, description: e.target.value })
-                  }
-                  className="w-full px-4 py-3 rounded-lg border border-border bg-background text-text placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary resize-none h-20"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-text-secondary mb-2">
-                  Cover Image URL
-                </label>
-                <input
-                  type="url"
-                  placeholder="https://..."
-                  value={newCollection.cover_image_url}
-                  onChange={(e) =>
-                    setNewCollection({ ...newCollection, cover_image_url: e.target.value })
-                  }
-                  className="w-full px-4 py-3 rounded-lg border border-border bg-background text-text placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-                {newCollection.cover_image_url && (
-                  <div className="relative mt-2 aspect-[3/4] max-h-40 rounded-lg overflow-hidden bg-background">
-                    <Image
-                      src={newCollection.cover_image_url}
-                      alt="Cover preview"
-                      fill
-                      sizes="160px"
-                      className="object-cover"
-                    />
+          {/* imported books */}
+          {books.map((b) => (
+            <Link key={b.id} href={`/books/${b.id}`} className="group">
+              <div className="aspect-[3/4] relative overflow-hidden shadow-warm-lg" style={{ background: spineOf(b.id) }}>
+                <div className="absolute inset-y-0 left-0 w-[6px] bg-black/25" />
+                <div className="absolute inset-0 flex flex-col justify-between p-3.5 text-white">
+                  <span className="text-[10px] uppercase tracking-[0.15em] opacity-70">{b.format}</span>
+                  <div>
+                    <div className="text-[15px] leading-tight font-medium line-clamp-4">{b.title}</div>
+                    {b.author && <div className="text-[11.5px] opacity-75 mt-1">{b.author}</div>}
                   </div>
+                </div>
+              </div>
+              <p className="text-[12px] text-text-secondary mt-2 group-hover:text-text">Read →</p>
+            </Link>
+          ))}
+
+          {/* recipe collections */}
+          {collections.map((c) => (
+            <Link key={c.id} href={`/collections/${c.id}`} className="group">
+              <div className="aspect-[3/4] relative overflow-hidden shadow-warm-lg" style={{ background: c.cover_image_url ? '#222' : spineOf(c.id) }}>
+                <div className="absolute inset-y-0 left-0 w-[6px] bg-black/25 z-10" />
+                {c.cover_image_url && (
+                  <>
+                    <Image src={c.cover_image_url} alt={c.name} fill sizes="240px" className="object-cover" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent" />
+                  </>
                 )}
+                <div className="absolute inset-0 flex flex-col justify-end p-3.5 text-white z-10">
+                  <div className="text-[15px] leading-tight font-medium line-clamp-4">{c.name}</div>
+                  {c.subtitle && <div className="text-[11.5px] opacity-80 italic mt-1">{c.subtitle}</div>}
+                  <div className="text-[11px] opacity-70 mt-1">{counts[c.id] || 0} {(counts[c.id] || 0) === 1 ? 'recipe' : 'recipes'}</div>
+                </div>
               </div>
+              <p className="text-[12px] text-text-secondary mt-2 group-hover:text-text">Open →</p>
+            </Link>
+          ))}
+        </div>
+      )}
 
-              {/* Auto-add filter */}
-              <div className="bg-background rounded-lg p-4">
-                <label className="block text-sm font-medium text-text mb-2">
-                  Auto-add recipes (optional)
-                </label>
-                <p className="text-xs text-text-secondary mb-3">
-                  New recipes matching this filter will be added automatically.
-                </p>
+      {/* New cookbook modal */}
+      {showNew && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={() => setShowNew(false)}>
+          <div className="bg-white shadow-warm-lg p-6 max-w-md w-full max-h-[90vh] overflow-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-medium text-text">New cookbook</h3>
+              <button onClick={() => setShowNew(false)} className="p-2 hover:bg-[#f6f6f4]"><X size={20} /></button>
+            </div>
+            <div className="space-y-4">
+              <Field label="Title *"><input type="text" placeholder="e.g. Weeknight Dinners" value={nc.name} onChange={(e) => setNc({ ...nc, name: e.target.value })} className={inputCls} autoFocus /></Field>
+              <Field label="Subtitle"><input type="text" placeholder="e.g. Fast & good" value={nc.subtitle} onChange={(e) => setNc({ ...nc, subtitle: e.target.value })} className={inputCls} /></Field>
+              <Field label="Description"><textarea placeholder="What's this cookbook about?" value={nc.description} onChange={(e) => setNc({ ...nc, description: e.target.value })} className={`${inputCls} resize-none h-20`} /></Field>
+              <Field label="Cover image URL"><input type="url" placeholder="https://…" value={nc.cover_image_url} onChange={(e) => setNc({ ...nc, cover_image_url: e.target.value })} className={inputCls} /></Field>
+              <div className="bg-[#f6f6f4] p-4">
+                <label className="block text-[13px] font-medium text-text mb-1">Auto-add recipes (optional)</label>
+                <p className="text-[12px] text-text-secondary mb-3">New recipes matching this filter get added automatically.</p>
                 <div className="grid grid-cols-2 gap-2">
-                  <select
-                    value={newCollection.auto_filter_field}
-                    onChange={(e) => setNewCollection({ ...newCollection, auto_filter_field: e.target.value, auto_filter_value: '' })}
-                    className="px-3 py-2 rounded-lg border border-border bg-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                  >
+                  <select value={nc.auto_filter_field} onChange={(e) => setNc({ ...nc, auto_filter_field: e.target.value, auto_filter_value: '' })} className="px-3 py-2 border border-border bg-white text-sm">
                     <option value="">No filter</option>
                     <option value="cuisine_type">Cuisine</option>
                     <option value="source_name">Source</option>
                     <option value="source_author">Author</option>
                   </select>
-                  {newCollection.auto_filter_field && (
-                    <input
-                      type="text"
-                      placeholder={newCollection.auto_filter_field === 'cuisine_type' ? 'e.g. Italian' : 'e.g. The Nosher'}
-                      value={newCollection.auto_filter_value}
-                      onChange={(e) => setNewCollection({ ...newCollection, auto_filter_value: e.target.value })}
-                      className="px-3 py-2 rounded-lg border border-border bg-surface text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
+                  {nc.auto_filter_field && (
+                    <input type="text" placeholder={nc.auto_filter_field === 'cuisine_type' ? 'e.g. Italian' : 'e.g. The Nosher'} value={nc.auto_filter_value} onChange={(e) => setNc({ ...nc, auto_filter_value: e.target.value })} className="px-3 py-2 border border-border bg-white text-sm" />
                   )}
                 </div>
               </div>
             </div>
-
             <div className="flex gap-3 mt-6">
-              <button
-                onClick={() => setShowNewCollectionModal(false)}
-                className="flex-1 px-4 py-3 rounded-lg border border-border text-text hover:bg-background transition-colors font-medium"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={createCollection}
-                disabled={!newCollection.name.trim()}
-                className="flex-1 px-4 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Create
-              </button>
+              <button onClick={() => setShowNew(false)} className="flex-1 px-4 py-2.5 border border-border text-text hover:bg-[#f6f6f4]">Cancel</button>
+              <button onClick={createCollection} disabled={!nc.name.trim()} className="flex-1 px-4 py-2.5 bg-text text-white disabled:opacity-50">Create</button>
             </div>
           </div>
         </div>
       )}
     </div>
   );
+}
+
+const inputCls = 'w-full px-3 py-2.5 border border-border bg-white text-text placeholder-text-secondary focus:outline-none focus:border-text';
+function Field({ label, children }: { label: string; children: React.ReactNode }) {
+  return <div><label className="block text-[13px] font-medium text-text-secondary mb-1.5">{label}</label>{children}</div>;
 }

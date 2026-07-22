@@ -7,6 +7,7 @@ import {
   Leaf,
   ShoppingCart,
   Heart,
+  Library,
   CalendarDays,
   Sparkles,
   Sprout,
@@ -24,7 +25,7 @@ const navItems = [
   { icon: ChefHat, label: 'Techniques', href: '/techniques' },
   { icon: Leaf, label: 'Ingredients', href: '/ingredients' },
   { icon: ShoppingCart, label: 'Grocery', href: '/grocery' },
-  { icon: Heart, label: 'Collections', href: '/collections' },
+  { icon: Library, label: 'Cookbooks', href: '/collections' },
 ];
 
 export default function Navigation() {
