@@ -4,11 +4,10 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Plus, X, Trash2, Search, Pencil, Check, Loader, BookOpen } from 'lucide-react';
+import { ArrowLeft, Plus, X, Trash2, Search, Pencil, Check, Loader } from 'lucide-react';
 import { Collection, Recipe, RecipeIngredient } from '@/lib/types';
 import { api } from '@/lib/api-client';
 import RecipeCard from '@/components/RecipeCard';
-import CollectionBook from '@/components/CollectionBook';
 
 export default function CollectionDetailPage() {
   const params = useParams();
@@ -24,7 +23,6 @@ export default function CollectionDetailPage() {
   const [recipeSearch, setRecipeSearch] = useState('');
 
   // Book reader state
-  const [reading, setReading] = useState(false);
   const [ingredientsByRecipe, setIngredientsByRecipe] = useState<Record<string, RecipeIngredient[]>>({});
 
   // Editing state
@@ -287,16 +285,6 @@ export default function CollectionDetailPage() {
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-text">Recipes</h2>
           <div className="flex items-center gap-2">
-            {collectionRecipes.length > 0 && (
-              <button
-                onClick={() => setReading(true)}
-                className="flex items-center gap-2 px-5 py-2.5 border border-primary text-primary rounded-lg font-medium hover:bg-primary/5 transition-colors"
-                title="Read as a book"
-              >
-                <BookOpen size={18} />
-                Read
-              </button>
-            )}
             <button
               onClick={() => setShowAddRecipeModal(true)}
               className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors"
@@ -450,14 +438,6 @@ export default function CollectionDetailPage() {
         </div>
       )}
 
-      {reading && collection && (
-        <CollectionBook
-          collection={collection}
-          recipes={collectionRecipes}
-          ingredientsByRecipe={ingredientsByRecipe}
-          onClose={() => setReading(false)}
-        />
-      )}
     </div>
   );
 }

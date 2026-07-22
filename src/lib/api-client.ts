@@ -149,6 +149,15 @@ export const api = {
       }>(`/api/flavor/recipe-harmony?recipe_id=${encodeURIComponent(recipeId)}`),
   },
 
+  books: {
+    list: () =>
+      fetchJson<{ id: string; title: string; author: string | null; format: string; filename: string; size_bytes: number; page_count: number | null; created_at: string }[]>('/api/books'),
+    get: (id: string) =>
+      fetchJson<{ id: string; title: string; author: string | null; format: string; filename: string; size_bytes: number; page_count: number | null; created_at: string }>(`/api/books/${id}`),
+    delete: (id: string) => fetch(`/api/books/${id}`, { method: 'DELETE' }),
+    fileUrl: (id: string) => `/api/books/${id}/file`,
+  },
+
   farms: {
     list: () =>
       fetchJson<{

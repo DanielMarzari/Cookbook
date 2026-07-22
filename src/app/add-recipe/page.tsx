@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { Upload, Plus, X, Loader, GripVertical, ClipboardPaste, FileText, Check } from 'lucide-react';
@@ -250,15 +250,16 @@ export default function AddRecipePage() {
     }
   };
 
-  const handlePasteText = async () => {
-    if (!pasteText.trim()) return;
+  const handlePasteText = async (textArg?: string) => {
+    const text = (textArg ?? pasteText).trim();
+    if (!text) return;
 
     setPasteLoading(true);
     try {
       const response = await fetch('/api/recipes/parse-text', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: pasteText }),
+        body: JSON.stringify({ text }),
       });
 
       const data = await response.json();
@@ -280,6 +281,23 @@ export default function AddRecipePage() {
   };
 
   const [ocrProgress, setOcrProgress] = useState('');
+
+  // Scanned a page in the book reader? It stashed the text here — parse it in.
+  useEffect(() => {
+    const raw = sessionStorage.getItem('cookbookScan');
+    if (!raw) return;
+    sessionStorage.removeItem('cookbookScan');
+    try {
+      const { text, book } = JSON.parse(raw);
+      if (text) {
+        setPasteText(text);
+        setActiveTab('paste');
+        toast.success(`Scanned from ${book || 'the book'} — extracting the recipe…`);
+        handlePasteText(text);
+      }
+    } catch { /* ignore */ }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // ---------- PDF import ----------
 
@@ -1101,7 +1119,7 @@ export default function AddRecipePage() {
 
               <div className="flex gap-3">
                 <button
-                  onClick={handlePasteText}
+                  onClick={() => handlePasteText()}
                   disabled={pasteLoading || !pasteText.trim()}
                   className="flex-1 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
                 >
