@@ -200,8 +200,8 @@ function WheelTab({ ingredients, families, vocabulary, ing, setIng, profile, pai
             </div>
           </div>
           <div>
-            <div className="flex items-baseline justify-between border-b border-text pb-2.5 mb-1"><h3 className="text-[12.5px] text-text-secondary">Pairs well with</h3><span className="text-[11.5px] text-text-secondary">by shared aroma compounds</span></div>
-            {pairings.length === 0 ? <p className="text-text-secondary text-[14px] py-4">No pairing data for {cap(profile.name)} yet.</p> : (
+            <div className="flex items-baseline justify-between border-b border-text pb-2.5 mb-1"><h3 className="text-[12.5px] text-text-secondary">Most similar to</h3><span className="text-[11.5px] text-text-secondary">by shared aroma compounds</span></div>
+            {pairings.length === 0 ? <p className="text-text-secondary text-[14px] py-4">No aroma-similar ingredients for {cap(profile.name)} yet.</p> : (
               <ul>{pairings.slice(0, 14).map((p: any) => (
                 <li key={p.id} className="border-b border-border py-3 flex items-center gap-4">
                   <span className="text-[15px] min-w-[9rem]">{cap(p.name)}</span>

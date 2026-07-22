@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto';
 import { getDb } from '@/lib/db';
 import { saveBookFile } from '@/lib/books-storage';
 
-const MAX_BYTES = 60 * 1024 * 1024; // 60MB
+const MAX_LIBRARY_BYTES = 3 * 1024 * 1024 * 1024; // 3GB total across the shelf
 
 // GET  /api/books        -> the shelf (metadata only)
 // POST /api/books        -> upload a PDF/EPUB the user owns; stores the file on
@@ -24,7 +24,13 @@ export async function POST(request: NextRequest) {
     const form = await request.formData();
     const file = form.get('file');
     if (!file || !(file instanceof Blob)) return NextResponse.json({ error: 'No file provided' }, { status: 400 });
-    if (file.size > MAX_BYTES) return NextResponse.json({ error: 'File is larger than 60MB' }, { status: 413 });
+
+    // No per-file cap — but keep the whole shelf under 3GB.
+    const used = (getDb().prepare('SELECT COALESCE(SUM(size_bytes), 0) AS n FROM books').get() as { n: number }).n;
+    if (used + file.size > MAX_LIBRARY_BYTES) {
+      const freeGb = Math.max(0, (MAX_LIBRARY_BYTES - used) / 1e9).toFixed(2);
+      return NextResponse.json({ error: `Your bookshelf is full (3GB limit). About ${freeGb}GB free — remove a book to make room.` }, { status: 413 });
+    }
 
     const filename = ('name' in file && typeof (file as File).name === 'string') ? (file as File).name : 'book';
     const ext = filename.toLowerCase().endsWith('.epub') ? 'epub' : filename.toLowerCase().endsWith('.pdf') ? 'pdf' : '';
