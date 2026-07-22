@@ -47,6 +47,8 @@ export async function GET(request: Request) {
       sharedCompounds: affinity?.shared ?? 0,
       compoundNotes: affinity?.notes?.slice(0, 6) ?? [],
       harmony: harm?.harmony ?? 0,
+      proven: harm?.proven ?? false,
+      cooccur: harm?.cooccur ?? null,
       bridges: harm?.bridges ?? [],
       recipes,
     });

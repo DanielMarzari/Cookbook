@@ -339,6 +339,18 @@ CREATE TABLE IF NOT EXISTS pa_farms (
 );
 CREATE INDEX IF NOT EXISTS idx_pa_farms_cat ON pa_farms(category);
 
+-- Real recipe co-occurrence between ingredients (FlavorGraph, derived from the
+-- 1M-recipe Recipe1M corpus via NPMI). Empirical "actually cooked together"
+-- signal — distinct from both aroma affinity and note-association harmony.
+-- Names normalized (lowercase, spaces). Populated by scripts/load-cooccur.mjs.
+CREATE TABLE IF NOT EXISTS ingredient_cooccur (
+  name_a TEXT NOT NULL,
+  name_b TEXT NOT NULL,
+  score REAL NOT NULL,
+  PRIMARY KEY (name_a, name_b)
+);
+CREATE INDEX IF NOT EXISTS idx_cooccur_a ON ingredient_cooccur(name_a);
+
 -- Imported cookbook files (PDF / EPUB the user owns). The file bytes live on
 -- disk in BOOKS_DIR (a sibling dir that survives deploys); this row is metadata.
 CREATE TABLE IF NOT EXISTS books (

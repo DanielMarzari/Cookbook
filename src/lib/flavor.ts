@@ -38,8 +38,21 @@ export function noteIngByName(db: DB, name: string): { id: number; name: string;
 
 export interface Bridge { noteA: string; noteB: string; familyA: string; familyB: string; strength: number }
 
-/** Compute harmony (0-100) between two note-ingredients + the strongest note bridges. */
-export function harmonyByName(db: DB, aName: string, bName: string): { harmony: number; bridges: Bridge[] } | null {
+const normName = (s: string) => (s || '').toLowerCase().replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim();
+
+/** Real recipe co-occurrence score (FlavorGraph/Recipe1M NPMI) for a pair, or null. */
+export function realCooccur(db: DB, aName: string, bName: string): number | null {
+  const r = db.prepare('SELECT score FROM ingredient_cooccur WHERE name_a = ? AND name_b = ?').get(normName(aName), normName(bName)) as { score: number } | undefined;
+  return r ? r.score : null;
+}
+
+/**
+ * Harmony (0-100) between two ingredients + the note bridges behind it.
+ * Prefers REAL recipe co-occurrence (empirical "cooked together") when we have
+ * it — that's the strongest evidence — and falls back to the note-association
+ * cohesion model otherwise. `proven` marks pairs backed by real recipe data.
+ */
+export function harmonyByName(db: DB, aName: string, bName: string): { harmony: number; bridges: Bridge[]; proven: boolean; cooccur: number | null } | null {
   const a = noteIngByName(db, aName), b = noteIngByName(db, bName);
   if (!a || !b || a.id === b.id) return null;
   const A = noteRows(db, a.id).slice(0, 12);
@@ -58,9 +71,16 @@ export function harmonyByName(db: DB, aName: string, bName: string): { harmony: 
     }
   terms.sort((x, y) => y.contrib - x.contrib);
   const bridge = terms.slice(0, 12).reduce((s, t) => s + t.contrib, 0);
-  const harmony = Math.round(100 * Math.tanh(bridge / 20));
+  const structural = Math.round(100 * Math.tanh(bridge / 20));
+
+  // Real recipe co-occurrence overrides the structural estimate when available.
+  const cooccur = realCooccur(db, aName, bName);
+  const harmony = cooccur != null ? Math.round(100 * Math.tanh(cooccur * 4)) : structural;
+
   return {
     harmony,
+    proven: cooccur != null,
+    cooccur,
     bridges: terms.slice(0, 8).map((t) => ({ noteA: t.noteA, noteB: t.noteB, familyA: t.familyA, familyB: t.familyB, strength: Math.round(t.strength * 10) / 10 })),
   };
 }
