@@ -30,6 +30,20 @@ function familyOf(desc) {
   return null; // unmapped -> excluded from the wheel
 }
 
+// Light general-knowledge normalization: rename a few technical class-words to
+// their common tasting-note equivalent (same flavour family). Standard flavour
+// vocabulary, not a copy of any proprietary taxonomy.
+const ALIAS = { camphoraceous: 'camphor', diterpene: 'terpene' };
+function normalizeDesc(desc) {
+  const out = {};
+  for (const d in desc) {
+    const key = ALIAS[d] || d;
+    out[key] = (out[key] || 0) + desc[d];
+  }
+  return out;
+}
+for (const e of data) e.desc = normalizeDesc(e.desc);
+
 const N = data.length;
 const df = {};
 for (const e of data) for (const d in e.desc) if (!STOP.has(d)) df[d] = (df[d] || 0) + 1;
