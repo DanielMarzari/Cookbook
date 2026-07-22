@@ -240,3 +240,13 @@ CREATE VIRTUAL TABLE IF NOT EXISTS usda_fts USING fts5(
   fdc_id UNINDEXED,
   description
 );
+
+-- Flavor network (Ahn et al. 2011, CC-BY-4.0), loaded by scripts/load-flavor.mjs.
+CREATE TABLE IF NOT EXISTS flavor_ingredients (
+  id INTEGER PRIMARY KEY, name TEXT, category TEXT, n_compounds INTEGER
+);
+CREATE TABLE IF NOT EXISTS flavor_compounds (id INTEGER PRIMARY KEY, name TEXT, idf REAL);
+CREATE TABLE IF NOT EXISTS flavor_ingredient_compounds (ingredient_id INTEGER, compound_id INTEGER);
+CREATE INDEX IF NOT EXISTS idx_fic_ingredient ON flavor_ingredient_compounds(ingredient_id);
+CREATE INDEX IF NOT EXISTS idx_fic_compound ON flavor_ingredient_compounds(compound_id);
+CREATE INDEX IF NOT EXISTS idx_flavor_ingredients_category ON flavor_ingredients(category);
