@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Plus, X, Folder } from 'lucide-react';
+import { Plus, X, Folder, BookOpen } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Collection, Recipe } from '@/lib/types';
@@ -106,13 +106,23 @@ export default function CollectionsPage() {
                 Your curated cookbooks
               </p>
             </div>
-            <button
-              onClick={() => setShowNewCollectionModal(true)}
-              className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors"
-            >
-              <Plus size={20} />
-              New Cookbook
-            </button>
+            <div className="flex items-center gap-2">
+              <Link
+                href="/books"
+                className="flex items-center gap-2 px-5 py-3 border border-border text-text rounded-lg font-medium hover:border-text transition-colors"
+                title="Import & read PDF/EPUB cookbooks you own"
+              >
+                <BookOpen size={19} />
+                Bookshelf
+              </Link>
+              <button
+                onClick={() => setShowNewCollectionModal(true)}
+                className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors"
+              >
+                <Plus size={20} />
+                New Cookbook
+              </button>
+            </div>
           </div>
         </div>
       </div>

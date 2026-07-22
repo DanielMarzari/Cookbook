@@ -338,4 +338,13 @@ CREATE TABLE IF NOT EXISTS pa_farms (
   phone TEXT, website TEXT, lat REAL, lng REAL
 );
 CREATE INDEX IF NOT EXISTS idx_pa_farms_cat ON pa_farms(category);
+
+-- Imported cookbook files (PDF / EPUB the user owns). The file bytes live on
+-- disk in BOOKS_DIR (a sibling dir that survives deploys); this row is metadata.
+CREATE TABLE IF NOT EXISTS books (
+  id TEXT PRIMARY KEY,
+  title TEXT, author TEXT, format TEXT, filename TEXT,
+  file_path TEXT, size_bytes INTEGER, page_count INTEGER,
+  created_at TEXT
+);
 `;
