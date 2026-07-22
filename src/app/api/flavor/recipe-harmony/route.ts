@@ -1,5 +1,5 @@
 import { getDb } from '@/lib/db';
-import { ahnByName, pairRaw, maxPartnerRaw, synergyFromRaw, mergedProfile } from '@/lib/flavor';
+import { mergedProfile, plateHarmony, harmonyNextAdds } from '@/lib/flavor';
 
 interface Mapped { id: number; name: string }
 
@@ -38,52 +38,20 @@ export async function GET(request: Request) {
 
     const merged = mergedProfile(db, mapped.map((m) => m.id));
 
-    // pairwise synergy among the recipe's mapped ingredients
-    const cache = new Map<number, number>();
-    const ahn = mapped.map((m) => ({ m, a: ahnByName(db, m.name) })).filter((x) => x.a) as { m: Mapped; a: { id: number; name: string } }[];
-    const pairs: { a: string; b: string; synergy: number }[] = [];
-    for (let i = 0; i < ahn.length; i++)
-      for (let j = i + 1; j < ahn.length; j++) {
-        const { raw } = pairRaw(db, ahn[i].a.id, ahn[j].a.id);
-        pairs.push({
-          a: ahn[i].m.name, b: ahn[j].m.name,
-          synergy: synergyFromRaw(raw, maxPartnerRaw(db, ahn[i].a.id, cache), maxPartnerRaw(db, ahn[j].a.id, cache)),
-        });
-      }
-    pairs.sort((x, y) => y.synergy - x.synergy);
-    const harmony = pairs.length ? Math.round(pairs.reduce((s, p) => s + p.synergy, 0) / pairs.length) : 0;
+    // Overall harmony = mean pairwise note-association harmony among mapped ingredients.
+    const { harmony, pairs } = plateHarmony(db, mapped);
 
-    // one boost: the partner (outside the recipe) with the highest mean synergy to the plate
-    const memberIds = new Set(ahn.map((x) => x.a.id));
-    const memberNames = new Set(mapped.map((m) => m.name.toLowerCase()));
-    const cand = new Map<string, { name: string; sum: number }>();
-    for (const { a } of ahn) {
-      const rows = db.prepare(
-        `SELECT i.id, i.name FROM flavor_ingredient_compounds x
-         JOIN flavor_ingredient_compounds y ON x.compound_id = y.compound_id
-         JOIN flavor_ingredients i ON i.id = y.ingredient_id
-         JOIN flavor_compounds c ON c.id = x.compound_id
-         WHERE x.ingredient_id = ? AND y.ingredient_id != ?
-         GROUP BY y.ingredient_id ORDER BY SUM(c.idf) DESC LIMIT 15`
-      ).all(a.id, a.id) as { id: number; name: string }[];
-      for (const r of rows) {
-        if (memberIds.has(r.id) || memberNames.has(r.name.toLowerCase())) continue;
-        const { raw } = pairRaw(db, r.id, a.id);
-        const s = synergyFromRaw(raw, maxPartnerRaw(db, r.id, cache), maxPartnerRaw(db, a.id, cache));
-        const c0 = cand.get(r.name) || { name: r.name, sum: 0 };
-        c0.sum += s; cand.set(r.name, c0);
-      }
-    }
-    const boostTop = [...cand.values()].map((c) => ({ name: c.name, lift: Math.round(c.sum / Math.max(1, ahn.length)) }))
-      .sort((a, b) => b.lift - a.lift)[0] || null;
+    // one boost: the ingredient (outside the recipe) that best harmonises with the plate
+    const add = harmonyNextAdds(db, mapped.map((m) => m.id), 1)[0];
+    const boost = add ? { name: add.name, lift: add.fit } : null;
 
     return Response.json({
       recipe,
       ingredients: mapped.map((m) => m.name),
       merged,
       harmony,
-      tightestPairs: pairs.slice(0, 3),
-      boost: boostTop,
+      tightestPairs: pairs.slice(0, 3).map((p) => ({ a: p.a, b: p.b, synergy: p.harmony })),
+      boost,
     });
   } catch (error) {
     console.error('recipe-harmony error:', error);

@@ -1,10 +1,11 @@
 import { getDb } from '@/lib/db';
-import { ahnByName, noteRows, familyTotals, pairRaw, maxPartnerRaw, synergyFromRaw, mergedProfile, FAMILY_ORDER } from '@/lib/flavor';
+import { ahnByName, pairRaw, maxPartnerRaw, synergyFromRaw, mergedProfile, plateHarmony, harmonyNextAdds } from '@/lib/flavor';
 
 interface Ing { id: number; name: string }
 
-// The Bench: merge a build of ingredients into one combined wheel, score the
-// plate's synergy, and rank the next ingredient that lifts it most.
+// The Bench: merge a build into one combined wheel, score the plate's cohesion
+// (HARMONY — note-association, the headline) and its aroma AFFINITY (shared
+// compounds), and rank the next ingredient to add by note-harmony fit.
 // POST { ids: number[] }  (note_ingredients ids)
 export async function POST(request: Request) {
   try {
@@ -20,64 +21,30 @@ export async function POST(request: Request) {
 
     const merged = mergedProfile(db, members.map((m) => m.id));
 
-    // Resolve each member to the Ahn network for pairwise synergy.
+    // Cohesion = mean pairwise HARMONY (note co-occurrence); the headline score.
+    const { harmony, pairs } = plateHarmony(db, members);
+
+    // Aroma affinity = mean pairwise shared-compound synergy (secondary read).
     const cache = new Map<number, number>();
     const ahn = members.map((m) => ({ m, a: ahnByName(db, m.name) })).filter((x) => x.a) as { m: Ing; a: { id: number; name: string } }[];
-
-    // Plate synergy = mean pairwise synergy across members present in the network.
-    let synSum = 0, synN = 0;
+    let affSum = 0, affN = 0;
     for (let i = 0; i < ahn.length; i++)
       for (let j = i + 1; j < ahn.length; j++) {
         const { raw } = pairRaw(db, ahn[i].a.id, ahn[j].a.id);
-        synSum += synergyFromRaw(raw, maxPartnerRaw(db, ahn[i].a.id, cache), maxPartnerRaw(db, ahn[j].a.id, cache));
-        synN++;
+        affSum += synergyFromRaw(raw, maxPartnerRaw(db, ahn[i].a.id, cache), maxPartnerRaw(db, ahn[j].a.id, cache));
+        affN++;
       }
-    const synergy = synN ? Math.round(synSum / synN) : 0;
+    const affinity = affN ? Math.round(affSum / affN) : 0;
 
-    // Candidate next-adds: union of each member's top Ahn partners, minus members.
-    const memberAhnIds = new Set(ahn.map((x) => x.a.id));
-    const memberNames = new Set(members.map((m) => m.name.toLowerCase()));
-    const candidateScore = new Map<string, { name: string; sum: number; n: number }>();
-    for (const { a } of ahn) {
-      const rows = db.prepare(
-        `SELECT i.id, i.name FROM flavor_ingredient_compounds x
-         JOIN flavor_ingredient_compounds y ON x.compound_id = y.compound_id
-         JOIN flavor_ingredients i ON i.id = y.ingredient_id
-         JOIN flavor_compounds c ON c.id = x.compound_id
-         WHERE x.ingredient_id = ? AND y.ingredient_id != ?
-         GROUP BY y.ingredient_id ORDER BY SUM(c.idf) DESC LIMIT 25`
-      ).all(a.id, a.id) as { id: number; name: string }[];
-      for (const r of rows) {
-        if (memberAhnIds.has(r.id) || memberNames.has(r.name.toLowerCase())) continue;
-        // mean synergy of this candidate with the whole plate
-        const { raw } = pairRaw(db, r.id, a.id);
-        const s = synergyFromRaw(raw, maxPartnerRaw(db, r.id, cache), maxPartnerRaw(db, a.id, cache));
-        const cur = candidateScore.get(r.name) || { name: r.name, sum: 0, n: 0 };
-        cur.sum += s; cur.n++;
-        candidateScore.set(r.name, cur);
-      }
-    }
-    const nextAdds = [...candidateScore.values()]
-      .map((c) => {
-        // only count candidates that connect to most of the plate
-        const lift = Math.round(c.sum / ahn.length);
-        const note = db.prepare('SELECT id, category FROM note_ingredients WHERE name = ? COLLATE NOCASE').get(c.name) as { id: number; category: string } | undefined;
-        let family: string | null = null;
-        if (note) {
-          const fam = familyTotals(noteRows(db, note.id));
-          family = FAMILY_ORDER.filter((f) => fam[f] > 0).sort((x, y) => fam[y] - fam[x])[0] || null;
-        }
-        return { name: c.name, noteId: note?.id ?? null, lift, family };
-      })
-      .filter((c) => c.noteId != null && c.lift > 0)
-      .sort((a, b) => b.lift - a.lift)
-      .slice(0, 6);
+    const nextAdds = harmonyNextAdds(db, members.map((m) => m.id), 6);
 
     return Response.json({
       members: members.map((m) => ({ id: m.id, name: m.name })),
       inNetwork: ahn.length,
       merged,
-      synergy,
+      harmony,
+      affinity,
+      tightestPairs: pairs.slice(0, 3),
       nextAdds,
     });
   } catch (error) {

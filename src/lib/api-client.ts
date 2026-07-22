@@ -114,9 +114,22 @@ export const api = {
         members: { id: number; name: string }[];
         inNetwork: number;
         merged: { families: { name: string; notes: { note: string; intensity: number }[] }[]; activeNotes: number; strongest: { note: string; family: string; intensity: number }[] };
-        synergy: number;
-        nextAdds: { name: string; noteId: number | null; lift: number; family: string | null }[];
+        harmony: number;
+        affinity: number;
+        tightestPairs: { a: string; b: string; harmony: number }[];
+        nextAdds: { name: string; noteId: number | null; fit: number; family: string | null }[];
       }>('/api/flavor/lab', { method: 'POST', body: { ids } }),
+    relationship: (a: string, b: string) =>
+      fetchJson<{
+        a: { id: number; name: string; category: string; activeNotes: number; families: { name: string; notes: { note: string; intensity: number }[] }[] };
+        b: { id: number; name: string; category: string; activeNotes: number; families: { name: string; notes: { note: string; intensity: number }[] }[] };
+        affinity: number;
+        sharedCompounds: number;
+        compoundNotes: string[];
+        harmony: number;
+        bridges: { noteA: string; noteB: string; familyA: string; familyB: string; strength: number }[];
+        recipes: { id: string; title: string; image_url: string | null; cuisine: string | null }[];
+      }>(`/api/flavor/relationship?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`),
     recipesForPair: (a: number, b: number) =>
       fetchJson<{
         a: { id: number; name: string };
