@@ -107,7 +107,7 @@ export default function FlavorLabPage() {
   const openPair = (b: PickIng) => { setPairB(b); setView('pair'); };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 md:px-8 pb-24">
+    <div className="max-w-[1680px] mx-auto px-4 md:px-8 xl:px-12 pb-24">
       <div className="pt-10 md:pt-16 pb-6">
         <p className="text-[11px] uppercase tracking-[0.16em] text-text-secondary mb-3">Flavor Lab · flavour science for the kitchen</p>
         <h1 className="text-[34px] md:text-[52px] leading-[1.02] tracking-[-0.02em] font-normal text-text mb-4">Invent a dish</h1>
@@ -269,19 +269,21 @@ function InventPlate({ ingredients, families, vocabulary, build, lab, labMetric,
   return (
     <div>
       <CuisineBadge cuisine={lab.cuisine} ingredients={ingredients} addByName={addByName} />
-      <div className="grid lg:grid-cols-[1fr_340px] gap-8 items-start mt-8">
-        <div>
-          <div className="flex items-center justify-between mb-2">
+      <div className="grid gap-8 items-start mt-8 lg:grid-cols-[minmax(0,1fr)_340px] 2xl:grid-cols-[minmax(0,1fr)_330px_370px]">
+        <div className="min-w-0">
+          <div className="flex items-center justify-between gap-3 flex-wrap mb-2">
             <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">the plate&rsquo;s combined wheel</span>
             <ModeToggle mode={labMode} set={setLabMode} />
           </div>
-          <FlavorWheel families={families} vocabulary={vocabulary} activeByFamily={abf(lab.merged.families)} activeCount={lab.merged.activeNotes} mode={labMode} />
+          <div className="max-w-[640px] mx-auto">
+            <FlavorWheel families={families} vocabulary={vocabulary} activeByFamily={abf(lab.merged.families)} activeCount={lab.merged.activeNotes} mode={labMode} />
+          </div>
         </div>
         <div>
           <div className="mb-6">
             <div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-1">dish score</div>
             <div className="flex items-baseline gap-2 mb-2"><b className="text-[22px] font-normal">{scoreWord(lab.score)}</b><span className="text-text-secondary text-[12px]">its share of a great dish</span></div>
-            <FlavorTriangle h={lab.harmony} c={lab.complement} a={lab.affinity} score={lab.score} className="max-w-[280px] mx-auto" />
+            <FlavorTriangle h={lab.harmony} c={lab.complement} a={lab.affinity} score={lab.score} className="max-w-[300px] mx-auto" />
             <div className="grid grid-cols-3 gap-3 mt-3">
               <AxisRead label="Harmony" value={lab.harmony} active={labMetric === 'harmony'} onClick={() => setLabMetric('harmony')} />
               <AxisRead label="Complement" value={lab.complement} active={labMetric === 'complement'} onClick={() => setLabMetric('complement')} />
@@ -290,9 +292,11 @@ function InventPlate({ ingredients, families, vocabulary, build, lab, labMetric,
             <p className="text-[11px] text-text-secondary mt-2 text-center">Tap an axis to find ingredients that lift it.</p>
           </div>
           <Link href={`/add-recipe?ingredients=${encodeURIComponent(build.map((b: PickIng) => cap(b.name)).join(', '))}`}
-            className="flex items-center justify-between px-3.5 py-2.5 bg-text text-white text-[14px] hover:bg-[#2a2a2a] transition-colors mb-6">
+            className="flex items-center justify-between px-3.5 py-2.5 bg-text text-white text-[14px] hover:bg-[#2a2a2a] transition-colors">
             <span>Draft a recipe with these</span><span aria-hidden>→</span>
           </Link>
+        </div>
+        <div className="lg:col-start-2 2xl:col-start-3 2xl:row-start-1">
           <div className="flex items-baseline justify-between mb-2.5 flex-wrap gap-2">
             <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">add next — lift <b className="text-text font-medium">{labMetric}</b> <span className="text-text-secondary normal-case tracking-normal">· fit &amp; score gain</span></span>
             {adds.length > 0 && <span className="text-[11px] text-text-secondary tabular-nums">{adds.length}</span>}
@@ -374,7 +378,7 @@ function WebRecipeGallery({ recipes, loading, build }: any) {
       ) : recipes.length === 0 ? (
         <p className="text-text-secondary text-[13.5px] py-3">No online recipes found for this exact combo yet — try removing one ingredient, or <Link className="underline underline-offset-2" href={`/add-recipe?ingredients=${encodeURIComponent(build.map((b: PickIng) => cap(b.name)).join(', '))}`}>draft your own</Link>.</p>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-5">
           {recipes.map((r: any) => (
             <a key={r.link} href={r.link} target="_blank" rel="noopener noreferrer" className="group border border-border overflow-hidden hover:border-text transition-colors">
               <div className="aspect-[4/3] bg-[#f0efec] overflow-hidden relative">
@@ -402,8 +406,10 @@ function InventSolo({ families, vocabulary, solo, soloPairings, soloRecipes, lab
         <div><p className="text-[12px] text-text-secondary lowercase">{solo.category} · flavour profile</p><h2 className="text-[26px] tracking-[-0.01em]">{cap(solo.name)}</h2></div>
         <ModeToggle mode={labMode} set={setLabMode} />
       </div>
-      <div className="grid lg:grid-cols-[1fr_300px] gap-8 items-center mb-12">
-        <FlavorWheel families={families} vocabulary={vocabulary} activeByFamily={abf(solo.families)} activeCount={solo.activeNotes} mode={labMode} />
+      <div className="grid gap-8 items-start mb-12 lg:grid-cols-[minmax(0,1fr)_320px] 2xl:grid-cols-[minmax(0,1fr)_310px_390px]">
+        <div className="min-w-0 max-w-[640px] mx-auto w-full">
+          <FlavorWheel families={families} vocabulary={vocabulary} activeByFamily={abf(solo.families)} activeCount={solo.activeNotes} mode={labMode} />
+        </div>
         <div>
           <div className="border-b border-text pb-2.5 mb-1"><span className="text-[12.5px] text-text-secondary">Strongest notes</span></div>
           {solo.strongest.map((s: any, i: number) => (
@@ -414,19 +420,18 @@ function InventSolo({ families, vocabulary, solo, soloPairings, soloRecipes, lab
           ))}
           <p className="text-[11.5px] text-text-secondary mt-3">{solo.activeNotes} active notes · profile from FlavorDB2</p>
         </div>
-      </div>
-      <div>
-        <div className="flex items-baseline justify-between border-b border-text pb-2.5 mb-1"><h3 className="text-[12.5px] text-text-secondary">Add one to build a plate · most aroma-similar</h3><span className="text-[11.5px] text-text-secondary">shared compounds</span></div>
-        {soloPairings.length === 0 ? <p className="text-text-secondary text-[14px] py-4">No aroma-similar ingredients yet.</p> : (
-          <ul>{soloPairings.slice(0, 12).map((p: any) => (
-            <li key={p.id} className="border-b border-border py-3 flex items-center gap-4">
-              <button onClick={() => addByName(p.name)} className="text-[15px] min-w-[9rem] text-left hover:underline underline-offset-2" title={`Add ${cap(p.name)} to the plate`}>+ {cap(p.name)}</button>
-              <span className="text-[12px] text-text-secondary lowercase w-28 hidden sm:block">{p.category}</span>
-              <div className="flex-1 h-[6px] bg-[#eee] overflow-hidden max-w-[220px]"><div className="h-full bg-text" style={{ width: `${p.strength}%` }} /></div>
-              <span className="text-[12px] text-text-secondary tabular-nums w-16 text-right">{p.shared} shared</span>
-            </li>
-          ))}</ul>
-        )}
+        <div className="lg:col-span-2 2xl:col-span-1 2xl:col-start-3 2xl:row-start-1">
+          <div className="flex items-baseline justify-between border-b border-text pb-2.5 mb-1"><h3 className="text-[12.5px] text-text-secondary">Add one to build a plate</h3><span className="text-[11.5px] text-text-secondary">most aroma-similar</span></div>
+          {soloPairings.length === 0 ? <p className="text-text-secondary text-[14px] py-4">No aroma-similar ingredients yet.</p> : (
+            <ul>{soloPairings.slice(0, 12).map((p: any) => (
+              <li key={p.id} className="border-b border-border py-2.5 flex items-center gap-3">
+                <button onClick={() => addByName(p.name)} className="text-[14.5px] min-w-[7.5rem] text-left hover:underline underline-offset-2" title={`Add ${cap(p.name)} to the plate`}>+ {cap(p.name)}</button>
+                <div className="flex-1 h-[6px] bg-[#eee] overflow-hidden max-w-[150px]"><div className="h-full bg-text" style={{ width: `${p.strength}%` }} /></div>
+                <span className="text-[12px] text-text-secondary tabular-nums w-14 text-right">{p.shared} shared</span>
+              </li>
+            ))}</ul>
+          )}
+        </div>
       </div>
       <RecipeStrip recipes={soloRecipes} label={`your recipes with ${cap(solo.name)}`} />
     </div>
@@ -473,7 +478,7 @@ function WheelTab({ ingredients, families, vocabulary, ing, setIng, profile, pai
             <ModeToggle mode={wheelMode} set={setWheelMode} />
           </div>
           <div className="grid lg:grid-cols-[1fr_300px] gap-8 items-center mb-14">
-            <FlavorWheel families={families} vocabulary={vocabulary} activeByFamily={abf(profile.families)} activeCount={profile.activeNotes} mode={wheelMode} />
+            <div className="max-w-[640px] mx-auto w-full"><FlavorWheel families={families} vocabulary={vocabulary} activeByFamily={abf(profile.families)} activeCount={profile.activeNotes} mode={wheelMode} /></div>
             <div>
               <div className="border-b border-text pb-2.5 mb-1"><span className="text-[12.5px] text-text-secondary">Strongest notes</span></div>
               {profile.strongest.map((s: any, i: number) => (
@@ -555,7 +560,7 @@ function PairTab({ ingredients, families, vocabulary, ing, setIng, pairB, setPai
                 </div>
                 <ModeToggle mode={pairMode} set={setPairMode} />
               </div>
-              <FlavorOverlayWheel families={families} vocabulary={vocabulary} aByFamily={abf(rel.a.families)} bByFamily={abf(rel.b.families)} mode={pairMode} />
+              <div className="max-w-[640px] mx-auto w-full"><FlavorOverlayWheel families={families} vocabulary={vocabulary} aByFamily={abf(rel.a.families)} bByFamily={abf(rel.b.families)} mode={pairMode} /></div>
             </div>
             <div>
               <div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-2.5">where they meet · by family</div>
