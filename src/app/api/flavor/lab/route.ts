@@ -25,7 +25,9 @@ export async function POST(request: Request) {
     const affinity = plateAffinity(db, members, new Map());
     const inNetwork = members.filter((m) => ahnByName(db, m.name)).length;
     const opts = nextAddOptions(db, members);
-    const score = dishScore(harmony, complement, affinity);
+    // The score also reads the plate's WEAKEST pair, so one bad pairing can't be
+    // averaged away by a few agreeable ones.
+    const score = dishScore({ harmony, complement, affinity, minHarmony: opts.minHarmony, minComplement: opts.minComplement, provenPct: opts.provenPct });
     // Fusion nudges may only propose ingredients the add-next engine already
     // vetted for this plate, so we never suggest something that doesn't work.
     const addable = new Map<string, { name: string; delta: number }>();
@@ -42,6 +44,9 @@ export async function POST(request: Request) {
       complement,
       affinity,
       score,
+      minHarmony: opts.minHarmony,
+      minComplement: opts.minComplement,
+      provenPct: opts.provenPct,
       cuisine,
       tightestPairs: pairs.slice(0, 3),
       harmonyAdds: opts.harmonyAdds,

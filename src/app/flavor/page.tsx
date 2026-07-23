@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api-client';
-import { FAMILY_COLORS, cap, dishScore } from '@/lib/flavor';
+import { FAMILY_COLORS, cap } from '@/lib/flavor';
 import { FAMILIES_LEGEND } from '@/data/flavor-content';
 import { DISH_EXEMPLARS } from '@/data/dish-exemplars';
 import FlavorWheel from '@/components/FlavorWheel';
@@ -458,7 +458,7 @@ function WebRecipeGallery({ recipes, loading, build }: any) {
 function CompareShelf({ plate }: { plate: { h: number; c: number; a: number; score: number } | null }) {
   const tiles = [
     ...(plate ? [{ dish: 'Your plate', ...plate, you: true }] : []),
-    ...DISH_EXEMPLARS.map((e) => ({ dish: e.dish, h: e.h, c: e.c, a: e.a, score: dishScore(e.h, e.c, e.a), you: false })),
+    ...DISH_EXEMPLARS.map((e) => ({ dish: e.dish, h: e.h, c: e.c, a: e.a, score: e.score, you: false })),
   ].sort((x, y) => y.score - x.score);
   return (
     <div className="mt-14">

@@ -272,6 +272,7 @@ const COMPLEMENT_SEEDS = ['Lemon', 'Lime', 'Vinegar', 'Orange', 'Grapefruit', 'T
 // plate above the current plate score + 5) — nothing that leaves it flat or worse.
 export function nextAddOptions(db: DB, members: { id: number; name: string }[]): {
   harmonyCurrent: number; affinityCurrent: number; complementCurrent: number;
+  minHarmony: number; minComplement: number; provenPct: number;
   harmonyAdds: AddOpt[];
   affinityAdds: AddOpt[];
   complementAdds: AddOpt[];
@@ -286,15 +287,23 @@ export function nextAddOptions(db: DB, members: { id: number; name: string }[]):
   // combined count), so we can keep only adds that actually raise the score. Some
   // pairs lack data for a given axis, so each axis keeps its own count.
   let pHs = 0, pHn = 0, pCs = 0, pCn = 0, pAs = 0, pAn = 0;
+  let pHmin = Infinity, pCmin = Infinity; // the plate's weakest pair on each axis
+  let pProven = 0;                        // pairs people demonstrably cook together
   for (let i = 0; i < members.length; i++)
     for (let j = i + 1; j < members.length; j++) {
-      const h = harmonyByName(db, members[i].name, members[j].name); if (h) { pHs += h.harmony; pHn++; }
-      const cp = complementByName(db, members[i].name, members[j].name); if (cp) { pCs += cp.complement; pCn++; }
+      const h = harmonyByName(db, members[i].name, members[j].name); if (h) { pHs += h.harmony; pHn++; pHmin = Math.min(pHmin, h.harmony); if (h.proven) pProven++; }
+      const cp = complementByName(db, members[i].name, members[j].name); if (cp) { pCs += cp.complement; pCn++; pCmin = Math.min(pCmin, cp.complement); }
       const af = synergyByName(db, members[i].name, members[j].name, cache); if (af) { pAs += af.synergy; pAn++; }
     }
+  const minHarmony = pHn ? pHmin : 0;
+  const minComplement = pCn ? pCmin : 0;
+  // Share of pairings backed by REAL recipe co-occurrence rather than a structural
+  // note-similarity guess. Fish+chocolate looks plausible on shared notes; nobody
+  // actually cooks it. Expressed 0-100 to match the other axes.
+  const provenPct = pHn ? Math.round((pProven / pHn) * 100) : 0;
   // Use the same rounded axis values the UI shows, so a suggestion's quoted delta
   // matches exactly what the score does when you actually add it.
-  const currentScore = dishScore(harmonyCurrent, complementCurrent, affinityCurrent);
+  const currentScore = dishScore({ harmony: harmonyCurrent, complement: complementCurrent, affinity: affinityCurrent, minHarmony, minComplement, provenPct });
 
   // candidate pool from several sources so every metric has room to improve
   const pool = new Set<string>();
@@ -327,19 +336,25 @@ export function nextAddOptions(db: DB, members: { id: number; name: string }[]):
     if (!note || memberIds.has(note.id) || memberNames.has(note.name.toLowerCase()) || seenNote.has(note.id)) continue;
     seenNote.add(note.id);
     let hSum = 0, hN = 0, aSum = 0, aN = 0, cSum = 0, cN = 0;
+    let hMinC = Infinity, cMinC = Infinity; // candidate's worst pair with the plate
+    let provenC = 0;
     for (const m of members) {
-      const h = harmonyByName(db, note.name, m.name); if (h) { hSum += h.harmony; hN++; }
+      const h = harmonyByName(db, note.name, m.name); if (h) { hSum += h.harmony; hN++; hMinC = Math.min(hMinC, h.harmony); if (h.proven) provenC++; }
       const af = synergyByName(db, note.name, m.name, cache); if (af) { aSum += af.synergy; aN++; }
-      const cp = complementByName(db, note.name, m.name); if (cp) { cSum += cp.complement; cN++; }
+      const cp = complementByName(db, note.name, m.name); if (cp) { cSum += cp.complement; cN++; cMinC = Math.min(cMinC, cp.complement); }
     }
     const fam = familyTotals(noteRows(db, note.id));
     const family = FAMILY_ORDER.filter((f) => fam[f] > 0).sort((x, y) => fam[y] - fam[x])[0] || null;
-    // exact dish score if this candidate joined the plate (combined pair means)
-    const projScore = dishScore(
-      Math.round((pHn + hN) ? (pHs + hSum) / (pHn + hN) : 0),
-      Math.round((pCn + cN) ? (pCs + cSum) / (pCn + cN) : 0),
-      Math.round((pAn + aN) ? (pAs + aSum) / (pAn + aN) : 0),
-    );
+    // exact dish score if this candidate joined: combined pair means, and the
+    // weakest pair becomes the worse of the plate's and the candidate's.
+    const projScore = dishScore({
+      harmony: Math.round((pHn + hN) ? (pHs + hSum) / (pHn + hN) : 0),
+      complement: Math.round((pCn + cN) ? (pCs + cSum) / (pCn + cN) : 0),
+      affinity: Math.round((pAn + aN) ? (pAs + aSum) / (pAn + aN) : 0),
+      minHarmony: hN ? Math.min(minHarmony || Infinity, hMinC) : minHarmony,
+      minComplement: cN ? Math.min(minComplement || Infinity, cMinC) : minComplement,
+      provenPct: (pHn + hN) ? Math.round(((pProven + provenC) / (pHn + hN)) * 100) : 0,
+    });
     scored.push({ name: note.name, noteId: note.id, family, meanH: hN ? hSum / hN : 0, meanA: aN ? aSum / aN : 0, meanC: cN ? cSum / cN : 0, projScore });
   }
 
@@ -358,7 +373,7 @@ export function nextAddOptions(db: DB, members: { id: number; name: string }[]):
   };
 
   return {
-    harmonyCurrent, affinityCurrent, complementCurrent,
+    harmonyCurrent, affinityCurrent, complementCurrent, minHarmony, minComplement, provenPct,
     harmonyAdds: rank((r) => r.meanH),
     affinityAdds: rank((r) => r.meanA),
     complementAdds: rank((r) => r.meanC),
@@ -366,17 +381,46 @@ export function nextAddOptions(db: DB, members: { id: number; name: string }[]):
 }
 
 // ── Dish score: how good is a whole plate? ───────────────────────────────────
-// Data-driven, not hand-tuned: both the axis weights and the "excellence" ceiling
-// are derived from 38 celebrated dishes (Noma + classics), each measured by this
-// Lab — see scripts/derive-dish-score.mjs. Great dishes averaged H62 C57 A23, so
-// harmony & complement dominate the weights and aroma affinity is minor; the
-// ceiling is their 80th-percentile composite, which maps to ~100. A plate then
-// reads as its share of "as good as a great dish." Refresh via the script.
-export const DISH_WEIGHTS = { harmony: 0.438, complement: 0.402, affinity: 0.16 };
-export const DISH_CEILING = 60; // weighted composite that maps to 100
-export function dishScore(harmony: number, complement: number, affinity: number): number {
-  const composite = DISH_WEIGHTS.harmony * harmony + DISH_WEIGHTS.complement * complement + DISH_WEIGHTS.affinity * affinity;
-  return Math.max(0, Math.min(100, Math.round((composite / DISH_CEILING) * 100)));
+// LEARNED, not hand-tuned. Earlier versions averaged the axis levels of celebrated
+// dishes and weighted by those means — wrong, because a mean says how high an axis
+// runs, not whether it separates good food from bad. Measured against random
+// plates, complement was slightly LOWER in celebrated dishes and affinity slightly
+// HIGHER (scripts/affinity-trend.mjs), so the means gave 40% of the score to an
+// axis with almost no discriminative power.
+//
+// Instead this is a logistic regression fitted to separate celebrated dishes from
+// random plates AND deliberately clashing combos (scripts/derive-dish-score.mjs).
+// It also takes the plate's WEAKEST pair, not just its averages: a dish with one
+// awful pairing is bad however pleasant the rest are, and pairwise means hide
+// exactly that (egg + strawberry + garlic averages fine).
+export type DishFeatures = {
+  harmony: number; complement: number; affinity: number;
+  minHarmony: number;    // worst pair on the plate
+  minComplement: number;
+  provenPct: number;     // % of pairs backed by real recipe co-occurrence
+};
+// Fitted 2026-07-23 by logistic regression separating 38 celebrated dishes from
+// 18 deliberate clashes + 90 random plates. Weights are constrained non-negative
+// (unconstrained, minHarmony went negative — the fit was rewarding plates for
+// HAVING a weak pair, using mean-minus-min as a proxy for ingredient count, and
+// dropped Cacio e pepe to 27).
+//
+// provenPct is capped at 2.5: it's the single most discriminative feature, but
+// ingredient_cooccur is a 1,595-pair sample covering 316 ingredients, so "not
+// proven" often means "not in our small sample" rather than "nobody cooks this"
+// (parmesan+pepper is absent). Uncapped it took 73% of the model and sank real
+// classics. The min-pair terms fit to 0 and are kept for when the corpus improves.
+// Refresh with scripts/derive-dish-score.mjs.
+export const DISH_MODEL = { harmony: 2.1865, complement: 0.5732, affinity: 1.4429, minHarmony: 0, minComplement: 0, provenPct: 2.5, intercept: -2.0826 };
+export function dishScore(f: DishFeatures): number {
+  const z = DISH_MODEL.intercept
+    + DISH_MODEL.harmony * (f.harmony / 100)
+    + DISH_MODEL.complement * (f.complement / 100)
+    + DISH_MODEL.affinity * (f.affinity / 100)
+    + DISH_MODEL.minHarmony * (f.minHarmony / 100)
+    + DISH_MODEL.minComplement * (f.minComplement / 100)
+    + DISH_MODEL.provenPct * (f.provenPct / 100);
+  return Math.max(0, Math.min(100, Math.round(100 / (1 + Math.exp(-z)))));
 }
 
 // ── Cuisine "genre": what tradition is this plate speaking? ───────────────────
