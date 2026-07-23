@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import 'leaflet/dist/leaflet.css';
 
 export interface Farm {
-  id: number; name: string; category: string; city: string | null; street: string | null;
+  id: number; name: string; category: string; state?: string; city: string | null; street: string | null;
   zip: string | null; phone: string | null; website: string | null; lat: number; lng: number;
 }
 
@@ -42,7 +42,7 @@ export default function FarmsMap({ farms, active, selectedId, onSelect, height =
       const L = (await import('leaflet')).default;
       if (cancelled || !elRef.current || mapRef.current) return;
       LRef.current = L;
-      const map = L.map(elRef.current, { scrollWheelZoom: false, attributionControl: true }).setView([40.9, -77.6], 7);
+      const map = L.map(elRef.current, { scrollWheelZoom: false, attributionControl: true }).setView([39.5, -98.35], 4);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap',
         maxZoom: 18,
@@ -61,6 +61,15 @@ export default function FarmsMap({ farms, active, selectedId, onSelect, height =
 
   // redraw markers on data / filter change
   useEffect(() => { draw(); /* eslint-disable-next-line react-hooks/exhaustive-deps */ }, [farms, active]);
+
+  // when the set of farms changes (e.g. a new state), fit the map to them
+  useEffect(() => {
+    const L = LRef.current, map = mapRef.current;
+    if (!L || !map || farms.length === 0) return;
+    const b = L.latLngBounds(farms.map((f) => [f.lat, f.lng] as [number, number]));
+    if (b.isValid()) map.fitBounds(b, { padding: [24, 24], maxZoom: 9 });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [farms]);
 
   function draw() {
     const L = LRef.current, layer = layerRef.current;
