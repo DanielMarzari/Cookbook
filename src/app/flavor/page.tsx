@@ -251,6 +251,22 @@ function LabTab({ ingredients, families, vocabulary, build, setBuild, lab, labMe
                   <p className="text-[11px] text-text-secondary mt-2 text-center">Tap an axis to find ingredients that lift it.</p>
                 </div>
               )}
+              {build.length >= 2 && (
+                <div className="mb-6">
+                  <div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-2.5">take it further</div>
+                  <div className="flex flex-col gap-2">
+                    <Link href={`/add-recipe?ingredients=${encodeURIComponent(build.map((b: PickIng) => cap(b.name)).join(', '))}`}
+                      className="flex items-center justify-between px-3.5 py-2.5 bg-text text-white text-[14px] hover:bg-[#2a2a2a] transition-colors">
+                      <span>Draft a recipe with these</span><span aria-hidden>→</span>
+                    </Link>
+                    <a href={`https://www.google.com/search?q=${encodeURIComponent(build.map((b: PickIng) => b.name).join(' ') + ' recipe')}`}
+                      target="_blank" rel="noopener noreferrer"
+                      className="flex items-center justify-between px-3.5 py-2.5 border border-text text-[14px] hover:bg-[#f6f5f2] transition-colors">
+                      <span>Find recipes online</span><span aria-hidden>↗</span>
+                    </a>
+                  </div>
+                </div>
+              )}
               {lab.tightestPairs.length > 0 && (
                 <p className="text-[12px] text-text-secondary mb-6">Tightest pair: <b className="text-text">{cap(lab.tightestPairs[0].a)} · {cap(lab.tightestPairs[0].b)}</b> ({lab.tightestPairs[0].harmony}).</p>
               )}

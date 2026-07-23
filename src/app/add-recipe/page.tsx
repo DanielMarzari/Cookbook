@@ -299,6 +299,21 @@ export default function AddRecipePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Pre-fill ingredients handed over from the Flavor Lab ("Draft a recipe").
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get('ingredients');
+    if (!q) return;
+    const names = q.split(',').map((s) => titleCaseIngredient(s.trim())).filter(Boolean);
+    if (names.length === 0) return;
+    setActiveTab('manual');
+    setFormData((prev) => ({
+      ...prev,
+      ingredients: names.map((name) => ({ name, quantity: 0, unit: 'g', notes: '' })),
+    }));
+    toast.success(`Imported ${names.length} ingredient${names.length > 1 ? 's' : ''} from the Flavor Lab.`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // ---------- PDF import ----------
 
   const handlePdfUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
