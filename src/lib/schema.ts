@@ -357,6 +357,7 @@ CREATE TABLE IF NOT EXISTS books (
   id TEXT PRIMARY KEY,
   title TEXT, author TEXT, format TEXT, filename TEXT,
   file_path TEXT, size_bytes INTEGER, page_count INTEGER,
+  cover TEXT,            -- data-URI thumbnail (EPUB cover / PDF first page)
   created_at TEXT
 );
 `;

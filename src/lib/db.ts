@@ -24,6 +24,7 @@ export function getDb(): Database.Database {
     // IF NOT EXISTS won't alter an existing table, so migrate explicitly.
     ensureColumn(db, 'recipes', 'image_position', 'TEXT');
     ensureColumn(db, 'recipes', 'image_zoom', 'REAL');
+    ensureColumn(db, 'books', 'cover', 'TEXT');
     // Backfill the FTS index the first time it's created against an existing DB
     // (the triggers only cover rows written after the virtual table exists).
     const ftsCount = (db.prepare('SELECT count(*) AS c FROM recipes_fts').get() as { c: number }).c;

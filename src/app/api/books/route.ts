@@ -11,7 +11,7 @@ const MAX_LIBRARY_BYTES = 3 * 1024 * 1024 * 1024; // 3GB total across the shelf
 export async function GET() {
   try {
     const db = getDb();
-    const books = db.prepare('SELECT id, title, author, format, filename, size_bytes, page_count, created_at FROM books ORDER BY created_at DESC').all();
+    const books = db.prepare('SELECT id, title, author, format, filename, size_bytes, page_count, cover, created_at FROM books ORDER BY created_at DESC').all();
     return NextResponse.json(books);
   } catch (e) {
     console.error('books list error', e);

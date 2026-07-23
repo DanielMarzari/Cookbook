@@ -157,10 +157,11 @@ export const api = {
 
   books: {
     list: () =>
-      fetchJson<{ id: string; title: string; author: string | null; format: string; filename: string; size_bytes: number; page_count: number | null; created_at: string }[]>('/api/books'),
+      fetchJson<{ id: string; title: string; author: string | null; format: string; filename: string; size_bytes: number; page_count: number | null; cover: string | null; created_at: string }[]>('/api/books'),
     get: (id: string) =>
-      fetchJson<{ id: string; title: string; author: string | null; format: string; filename: string; size_bytes: number; page_count: number | null; created_at: string }>(`/api/books/${id}`),
+      fetchJson<{ id: string; title: string; author: string | null; format: string; filename: string; size_bytes: number; page_count: number | null; cover: string | null; created_at: string }>(`/api/books/${id}`),
     delete: (id: string) => fetch(`/api/books/${id}`, { method: 'DELETE' }),
+    setCover: (id: string, cover: string) => fetch(`/api/books/${id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ cover }) }),
     fileUrl: (id: string) => `/api/books/${id}/file`,
   },
 
