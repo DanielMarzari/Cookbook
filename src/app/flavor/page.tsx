@@ -43,6 +43,11 @@ export default function FlavorLabPage() {
   const [pairMode, setPairMode] = useState<'key' | 'all'>('all');
   const [labMode, setLabMode] = useState<'key' | 'all'>('all');
   const [labMetric, setLabMetric] = useState<'harmony' | 'complement' | 'affinity'>('harmony');
+  const [solo, setSolo] = useState<Awaited<ReturnType<typeof api.flavor.profile>> | null>(null);          // Invent w/ 1 ingredient
+  const [soloPairings, setSoloPairings] = useState<Awaited<ReturnType<typeof api.flavor.pairingsByName>>['pairings']>([]);
+  const [soloRecipes, setSoloRecipes] = useState<{ id: string; title: string; image_url: string | null; cuisine: string | null }[]>([]);
+  const [webRecipes, setWebRecipes] = useState<Awaited<ReturnType<typeof api.flavor.recipesWeb>>['recipes']>([]);
+  const [webLoading, setWebLoading] = useState(false);
 
   const ingByName = useMemo(() => {
     const m = new Map<string, PickIng>();
@@ -73,6 +78,22 @@ export default function FlavorLabPage() {
   useEffect(() => {
     if (build.length === 0) { setLab(null); return; }
     api.flavor.lab(build.map((b) => b.id)).then(setLab).catch(() => setLab(null));
+  }, [build]);
+
+  // Invent view with exactly one ingredient behaves like the wheel tab for it.
+  useEffect(() => {
+    if (build.length !== 1) { setSolo(null); return; }
+    const only = build[0];
+    api.flavor.profile(only.id).then(setSolo).catch(() => setSolo(null));
+    api.flavor.pairingsByName(only.name).then((d) => setSoloPairings(d.pairings || [])).catch(() => setSoloPairings([]));
+    api.flavor.recipesForIngredient(only.id).then((d) => setSoloRecipes(d.recipes || [])).catch(() => setSoloRecipes([]));
+  }, [build]);
+
+  // With a real plate (2+), pull online recipes that use the combo.
+  useEffect(() => {
+    if (build.length < 2) { setWebRecipes([]); return; }
+    setWebLoading(true);
+    api.flavor.recipesWeb(build.map((b) => b.name)).then((d) => setWebRecipes(d.recipes || [])).catch(() => setWebRecipes([])).finally(() => setWebLoading(false));
   }, [build]);
 
   // Deep-link: /flavor?ingredient=Tomato (from Seasonal) opens the wheel.
@@ -110,7 +131,7 @@ export default function FlavorLabPage() {
           </nav>
 
           <div className="min-w-0">
-            {view === 'invent' && <LabTab {...{ ingredients, families, vocabulary, build, setBuild, lab, labMetric, setLabMetric, labMode, setLabMode }} />}
+            {view === 'invent' && <LabTab {...{ ingredients, families, vocabulary, build, setBuild, lab, labMetric, setLabMetric, labMode, setLabMode, solo, soloPairings, soloRecipes, webRecipes, webLoading }} />}
             {view === 'wheel' && <WheelTab {...{ ingredients, families, vocabulary, ing, setIng, profile, pairings, wheelRecipes, wheelMode, setWheelMode, openPair }} />}
             {view === 'pair' && <PairTab {...{ ingredients, families, vocabulary, ing, setIng, pairB, setPairB, rel, pairMode, setPairMode }} />}
             {view === 'learn' && <LearnTab />}
@@ -203,21 +224,25 @@ function RecipeStrip({ recipes, label }: { recipes: { id: string; title: string;
   );
 }
 
-/* ── Invent a dish (the main view) ───────────────────────────── */
-function LabTab({ ingredients, families, vocabulary, build, setBuild, lab, labMetric, setLabMetric, labMode, setLabMode }: any) {
+/* ── Invent a dish (the main view) — progressive: 0 → learn, 1 → wheel, 2+ → plate */
+function LabTab({ ingredients, families, vocabulary, build, setBuild, lab, labMetric, setLabMetric, labMode, setLabMode, solo, soloPairings, soloRecipes, webRecipes, webLoading }: any) {
   const add = (i: PickIng) => setBuild((b: PickIng[]) => (b.find((x) => x.id === i.id) ? b : [...b, i]));
   const remove = (id: number) => setBuild((b: PickIng[]) => b.filter((x) => x.id !== id));
   const addById = (id: number, name: string) => add({ id, name, category: '' });
-  const adds = lab ? (labMetric === 'harmony' ? lab.harmonyAdds : labMetric === 'complement' ? lab.complementAdds : lab.affinityAdds) : [];
+  const addByName = (name: string) => { const m = ingredients.find((x: PickIng) => x.name.toLowerCase() === name.toLowerCase()); if (m) add(m); };
+  const sub = build.length === 0 ? 'Start with an ingredient to explore its wheel — add a second and the lab scores the plate, names its cuisine, and finds recipes to try.'
+    : build.length === 1 ? 'One ingredient — here is its flavour wheel. Add another to start scoring a plate.'
+      : 'The lab scores the plate, tells you what to add and by how much, reads its cuisine, and pulls real recipes to try.';
   return (
     <div>
-      <TabHead label="The Bench" title="Invent a dish" sub="Add ingredients; the lab merges their wheels, scores the plate, and suggests only what would actually improve it." />
-      <div className="grid lg:grid-cols-[1fr_320px] gap-10 items-start">
-        <div>
-          <div className="flex items-center justify-between mb-2.5">
-            <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">your build</span>
-            {build.length > 0 && <button onClick={() => setBuild([])} className="text-[12px] text-text-secondary hover:text-text underline underline-offset-2">Clear</button>}
-          </div>
+      <TabHead label="The Bench" title="Invent a dish" sub={sub} />
+      {/* builder — always present */}
+      <div className="mb-9">
+        <div className="flex items-center justify-between mb-2.5">
+          <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">your build</span>
+          {build.length > 0 && <button onClick={() => setBuild([])} className="text-[12px] text-text-secondary hover:text-text underline underline-offset-2">Clear</button>}
+        </div>
+        {build.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
             {build.map((b: PickIng) => (
               <span key={b.id} className="inline-flex items-center gap-2 border border-border px-2.5 py-1 text-[13px]">{cap(b.name)}
@@ -225,74 +250,185 @@ function LabTab({ ingredients, families, vocabulary, build, setBuild, lab, labMe
               </span>
             ))}
           </div>
-          <div className="max-w-md mb-6"><IngredientPicker ingredients={ingredients} onSelect={add} placeholder="+ add an ingredient…" /></div>
-          {lab && build.length > 0 && (
-            <div>
-              <div className="flex justify-end mb-2"><ModeToggle mode={labMode} set={setLabMode} /></div>
-              <FlavorWheel families={families} vocabulary={vocabulary} activeByFamily={abf(lab.merged.families)} activeCount={lab.merged.activeNotes} mode={labMode} />
-            </div>
-          )}
+        )}
+        <div className="max-w-md"><IngredientPicker ingredients={ingredients} onSelect={add} placeholder="+ add an ingredient…" /></div>
+      </div>
+
+      {build.length === 0 && <LearnTab />}
+      {build.length === 1 && <InventSolo {...{ families, vocabulary, solo, soloPairings, soloRecipes, labMode, setLabMode, addByName }} />}
+      {build.length >= 2 && lab && (
+        <InventPlate {...{ ingredients, families, vocabulary, build, lab, labMetric, setLabMetric, labMode, setLabMode, addById, addByName, webRecipes, webLoading }} />
+      )}
+    </div>
+  );
+}
+
+/* the plate (2+ ingredients): v3 — wheel + score/suggestions, cuisine, recipe gallery */
+function InventPlate({ ingredients, families, vocabulary, build, lab, labMetric, setLabMetric, labMode, setLabMode, addById, addByName, webRecipes, webLoading }: any) {
+  const adds = labMetric === 'harmony' ? lab.harmonyAdds : labMetric === 'complement' ? lab.complementAdds : lab.affinityAdds;
+  return (
+    <div>
+      <CuisineBadge cuisine={lab.cuisine} ingredients={ingredients} addByName={addByName} />
+      <div className="grid lg:grid-cols-[1fr_340px] gap-8 items-start mt-8">
+        <div>
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">the plate&rsquo;s combined wheel</span>
+            <ModeToggle mode={labMode} set={setLabMode} />
+          </div>
+          <FlavorWheel families={families} vocabulary={vocabulary} activeByFamily={abf(lab.merged.families)} activeCount={lab.merged.activeNotes} mode={labMode} />
         </div>
         <div>
-          {build.length === 0 ? <Empty>Add a couple of ingredients to build a plate.</Empty> : lab && (
-            <>
-              {build.length < 2 ? (
-                <div className="border border-dashed border-border p-6 text-center mb-6"><p className="text-text-secondary text-[13.5px]">Add one more ingredient to score the plate.</p></div>
-              ) : (
-                <div className="mb-6">
-                  <div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-1">dish score</div>
-                  <div className="flex items-baseline gap-2 mb-3"><b className="text-[22px] font-normal">{scoreWord(lab.score)}</b><span className="text-text-secondary text-[12px]">its share of a great dish</span></div>
-                  <FlavorTriangle h={lab.harmony} c={lab.complement} a={lab.affinity} score={lab.score} className="max-w-[280px] mx-auto" />
-                  <div className="grid grid-cols-3 gap-3 mt-3">
-                    <AxisRead label="Harmony" value={lab.harmony} active={labMetric === 'harmony'} onClick={() => setLabMetric('harmony')} />
-                    <AxisRead label="Complement" value={lab.complement} active={labMetric === 'complement'} onClick={() => setLabMetric('complement')} />
-                    <AxisRead label="Affinity" value={lab.affinity} active={labMetric === 'affinity'} onClick={() => setLabMetric('affinity')} />
-                  </div>
-                  <p className="text-[11px] text-text-secondary mt-2 text-center">Tap an axis to find ingredients that lift it.</p>
+          <div className="mb-6">
+            <div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-1">dish score</div>
+            <div className="flex items-baseline gap-2 mb-2"><b className="text-[22px] font-normal">{scoreWord(lab.score)}</b><span className="text-text-secondary text-[12px]">its share of a great dish</span></div>
+            <FlavorTriangle h={lab.harmony} c={lab.complement} a={lab.affinity} score={lab.score} className="max-w-[280px] mx-auto" />
+            <div className="grid grid-cols-3 gap-3 mt-3">
+              <AxisRead label="Harmony" value={lab.harmony} active={labMetric === 'harmony'} onClick={() => setLabMetric('harmony')} />
+              <AxisRead label="Complement" value={lab.complement} active={labMetric === 'complement'} onClick={() => setLabMetric('complement')} />
+              <AxisRead label="Affinity" value={lab.affinity} active={labMetric === 'affinity'} onClick={() => setLabMetric('affinity')} />
+            </div>
+            <p className="text-[11px] text-text-secondary mt-2 text-center">Tap an axis to find ingredients that lift it.</p>
+          </div>
+          <Link href={`/add-recipe?ingredients=${encodeURIComponent(build.map((b: PickIng) => cap(b.name)).join(', '))}`}
+            className="flex items-center justify-between px-3.5 py-2.5 bg-text text-white text-[14px] hover:bg-[#2a2a2a] transition-colors mb-6">
+            <span>Draft a recipe with these</span><span aria-hidden>→</span>
+          </Link>
+          <div className="flex items-baseline justify-between mb-2.5 flex-wrap gap-2">
+            <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">add next — lift <b className="text-text font-medium">{labMetric}</b> <span className="text-text-secondary normal-case tracking-normal">· fit &amp; score gain</span></span>
+            {adds.length > 0 && <span className="text-[11px] text-text-secondary tabular-nums">{adds.length}</span>}
+          </div>
+          {adds.length === 0 ? (
+            <p className="text-text-secondary text-[13.5px]">Nothing would lift the {labMetric} without lowering the dish score — balanced on that axis.</p>
+          ) : (
+            <div className="max-h-[360px] overflow-y-auto pr-1 -mr-1">
+              {adds.map((a: any) => (
+                <div key={a.name} className="flex items-center gap-2.5 py-2 border-b border-[#f0f0f0]">
+                  <button onClick={() => a.noteId && addById(a.noteId, a.name)} className="min-w-[6.8rem] text-[14px] text-left hover:underline underline-offset-2">{cap(a.name)}</button>
+                  <div className="flex-1 h-[5px] bg-[#eee] max-w-[150px] overflow-hidden"><div className="h-full transition-[width] duration-500 ease-out" style={{ width: `${Math.min(100, a.fit)}%`, background: FAMILY_COLORS[a.family] || '#141310' }} /></div>
+                  <span className="text-[12px] text-text-secondary tabular-nums w-6 text-right">{a.fit}</span>
+                  <span className="text-[11.5px] font-semibold tabular-nums w-8 text-right" style={{ color: a.delta >= 0 ? '#4a7a52' : '#a0522d' }}>{a.delta >= 0 ? '+' : ''}{a.delta}</span>
                 </div>
-              )}
-              {build.length >= 2 && (
-                <div className="mb-6">
-                  <div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-2.5">take it further</div>
-                  <div className="flex flex-col gap-2">
-                    <Link href={`/add-recipe?ingredients=${encodeURIComponent(build.map((b: PickIng) => cap(b.name)).join(', '))}`}
-                      className="flex items-center justify-between px-3.5 py-2.5 bg-text text-white text-[14px] hover:bg-[#2a2a2a] transition-colors">
-                      <span>Draft a recipe with these</span><span aria-hidden>→</span>
-                    </Link>
-                    <a href={`https://www.google.com/search?q=${encodeURIComponent(build.map((b: PickIng) => b.name).join(' ') + ' recipe')}`}
-                      target="_blank" rel="noopener noreferrer"
-                      className="flex items-center justify-between px-3.5 py-2.5 border border-text text-[14px] hover:bg-[#f6f5f2] transition-colors">
-                      <span>Find recipes online</span><span aria-hidden>↗</span>
-                    </a>
-                  </div>
-                </div>
-              )}
-              {lab.tightestPairs.length > 0 && (
-                <p className="text-[12px] text-text-secondary mb-6">Tightest pair: <b className="text-text">{cap(lab.tightestPairs[0].a)} · {cap(lab.tightestPairs[0].b)}</b> ({lab.tightestPairs[0].harmony}).</p>
-              )}
-              <div className="flex items-baseline justify-between mt-6 mb-2.5 flex-wrap gap-2">
-                <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">add next — to lift <b className="text-text font-medium">{labMetric}</b></span>
-                {adds.length > 0 && <span className="text-[11px] text-text-secondary tabular-nums">{adds.length}</span>}
-              </div>
-              {adds.length === 0 ? (
-                <p className="text-text-secondary text-[13.5px]">Nothing found that would lift the {labMetric} without lowering the dish score. Your plate is already balanced on that axis.</p>
-              ) : (
-                <div className="max-h-[360px] overflow-y-auto pr-1 -mr-1">
-                  {adds.map((a: any) => (
-                    <div key={a.name} className="flex items-center gap-3 py-2 border-b border-[#f0f0f0]">
-                      <button onClick={() => a.noteId && addById(a.noteId, a.name)} className="min-w-[8rem] text-[14.5px] text-left hover:underline underline-offset-2">{cap(a.name)}</button>
-                      <div className="flex-1 h-[6px] bg-[#eee] max-w-[200px]"><div className="h-full transition-[width] duration-500 ease-out" style={{ width: `${Math.min(100, a.fit)}%`, background: FAMILY_COLORS[a.family] || '#141310' }} /></div>
-                      <span className="text-[12px] text-text-secondary tabular-nums w-10 text-right">{a.fit}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-              <p className="text-[11.5px] text-text-secondary mt-4">Every ingredient here lifts {labMetric} <em>and</em> raises the dish score. Click one to add it.</p>
-            </>
+              ))}
+            </div>
           )}
+          <p className="text-[11.5px] text-text-secondary mt-3">Green shows how much each raises the whole dish. Click to add.</p>
         </div>
       </div>
-      <CompareShelf plate={lab && build.length >= 2 ? { h: lab.harmony, c: lab.complement, a: lab.affinity, score: lab.score } : null} />
+      <WebRecipeGallery recipes={webRecipes} loading={webLoading} build={build} />
+      <CompareShelf plate={{ h: lab.harmony, c: lab.complement, a: lab.affinity, score: lab.score }} />
+    </div>
+  );
+}
+
+/* cuisine "genre" read + fusion nudges */
+function CuisineBadge({ cuisine, ingredients, addByName }: any) {
+  const CUCOL = ['#2a2820', '#7a5c3e', '#b08d5f', '#cdb389'];
+  const mix: { name: string; pct: number }[] = cuisine?.mix || [];
+  const nudges: { name: string; add: string }[] = cuisine?.nudges || [];
+  if (mix.length === 0) return null;
+  const primary = mix[0].name;
+  const has = (n: string) => ingredients.some((i: PickIng) => i.name.toLowerCase() === n.toLowerCase());
+  return (
+    <div className="border border-border p-4 md:p-5">
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">what are you cooking?</span>
+          <div className="text-[22px] tracking-[-0.01em] mt-1">Leans <b className="font-semibold">{primary}</b>{mix[1] ? <>, with a {mix[1].name} accent</> : null}</div>
+        </div>
+        {nudges.length > 0 && (
+          <div className="max-w-[300px]">
+            <div className="text-[10.5px] uppercase tracking-[0.12em] text-text-secondary mb-1.5">push it into fusion</div>
+            <div className="flex flex-wrap gap-1.5">
+              {nudges.map((n) => (
+                <button key={n.name} disabled={!has(n.add)} onClick={() => addByName(n.add)} title={has(n.add) ? `Add ${n.add}` : `${n.add} not in the library`}
+                  className={`text-[11.5px] border border-dashed border-border rounded-full px-2.5 py-1 ${has(n.add) ? 'hover:border-text hover:bg-[#f6f5f2]' : 'opacity-60 cursor-default'}`}>
+                  {n.name} <b className="text-text">+ {n.add}</b>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="flex h-[9px] rounded-full overflow-hidden mt-3.5 mb-2">
+        {mix.map((m, i) => <div key={m.name} style={{ width: `${m.pct}%`, background: CUCOL[i] || '#ddd' }} />)}
+      </div>
+      <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11.5px] text-text-secondary">
+        {mix.map((m, i) => (
+          <span key={m.name} className="inline-flex items-center gap-1.5"><span className="w-2 h-2 rounded-[2px]" style={{ background: CUCOL[i] || '#ddd' }} />{m.name} <b className="text-text tabular-nums">{m.pct}%</b></span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* scraped online recipes for the combo */
+function WebRecipeGallery({ recipes, loading, build }: any) {
+  return (
+    <div className="mt-14">
+      <div className="flex items-baseline justify-between border-b border-text pb-2 mb-5">
+        <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">cook this base · recipes from the web</span>
+        <span className="text-text-secondary text-[12px] lowercase">{build.map((b: PickIng) => b.name).join(' · ')}</span>
+      </div>
+      {loading ? (
+        <p className="text-text-secondary text-[14px] py-3">Searching the web for recipes with this combo…</p>
+      ) : recipes.length === 0 ? (
+        <p className="text-text-secondary text-[13.5px] py-3">No online recipes found for this exact combo yet — try removing one ingredient, or <Link className="underline underline-offset-2" href={`/add-recipe?ingredients=${encodeURIComponent(build.map((b: PickIng) => cap(b.name)).join(', '))}`}>draft your own</Link>.</p>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+          {recipes.map((r: any) => (
+            <a key={r.link} href={r.link} target="_blank" rel="noopener noreferrer" className="group border border-border overflow-hidden hover:border-text transition-colors">
+              <div className="aspect-[4/3] bg-[#f0efec] overflow-hidden relative">
+                <img src={r.image} alt={r.title} loading="lazy" className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform" />
+                <span className="absolute top-2 right-2 bg-white/85 rounded w-6 h-6 flex items-center justify-center text-[12px]" aria-hidden>↗</span>
+              </div>
+              <div className="p-3">
+                <div className="text-[14.5px] leading-snug group-hover:underline underline-offset-2">{r.title}</div>
+                <div className="text-[12px] text-text-secondary mt-1">{r.source} ↗</div>
+              </div>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* the plate with exactly one ingredient — its wheel, like the Ingredient wheel tab */
+function InventSolo({ families, vocabulary, solo, soloPairings, soloRecipes, labMode, setLabMode, addByName }: any) {
+  if (!solo) return <p className="text-text-secondary text-sm">Reading the wheel…</p>;
+  return (
+    <div>
+      <div className="flex items-baseline justify-between border-b border-text pb-2.5 mb-6 flex-wrap gap-3">
+        <div><p className="text-[12px] text-text-secondary lowercase">{solo.category} · flavour profile</p><h2 className="text-[26px] tracking-[-0.01em]">{cap(solo.name)}</h2></div>
+        <ModeToggle mode={labMode} set={setLabMode} />
+      </div>
+      <div className="grid lg:grid-cols-[1fr_300px] gap-8 items-center mb-12">
+        <FlavorWheel families={families} vocabulary={vocabulary} activeByFamily={abf(solo.families)} activeCount={solo.activeNotes} mode={labMode} />
+        <div>
+          <div className="border-b border-text pb-2.5 mb-1"><span className="text-[12.5px] text-text-secondary">Strongest notes</span></div>
+          {solo.strongest.map((s: any, i: number) => (
+            <div key={s.note + i} className="flex items-center justify-between py-2.5 border-b border-border text-[14.5px]">
+              <span><span className="text-text-secondary mr-2.5">{i + 1}</span><span style={{ color: FAMILY_COLORS[s.family] || '#141310', fontWeight: 600 }}>{cap(s.note)}</span></span>
+              <span className="tabular-nums text-text-secondary">{s.intensity.toFixed(1)}</span>
+            </div>
+          ))}
+          <p className="text-[11.5px] text-text-secondary mt-3">{solo.activeNotes} active notes · profile from FlavorDB2</p>
+        </div>
+      </div>
+      <div>
+        <div className="flex items-baseline justify-between border-b border-text pb-2.5 mb-1"><h3 className="text-[12.5px] text-text-secondary">Add one to build a plate · most aroma-similar</h3><span className="text-[11.5px] text-text-secondary">shared compounds</span></div>
+        {soloPairings.length === 0 ? <p className="text-text-secondary text-[14px] py-4">No aroma-similar ingredients yet.</p> : (
+          <ul>{soloPairings.slice(0, 12).map((p: any) => (
+            <li key={p.id} className="border-b border-border py-3 flex items-center gap-4">
+              <button onClick={() => addByName(p.name)} className="text-[15px] min-w-[9rem] text-left hover:underline underline-offset-2" title={`Add ${cap(p.name)} to the plate`}>+ {cap(p.name)}</button>
+              <span className="text-[12px] text-text-secondary lowercase w-28 hidden sm:block">{p.category}</span>
+              <div className="flex-1 h-[6px] bg-[#eee] overflow-hidden max-w-[220px]"><div className="h-full bg-text" style={{ width: `${p.strength}%` }} /></div>
+              <span className="text-[12px] text-text-secondary tabular-nums w-16 text-right">{p.shared} shared</span>
+            </li>
+          ))}</ul>
+        )}
+      </div>
+      <RecipeStrip recipes={soloRecipes} label={`your recipes with ${cap(solo.name)}`} />
     </div>
   );
 }

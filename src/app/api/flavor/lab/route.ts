@@ -1,5 +1,5 @@
 import { getDb } from '@/lib/db';
-import { ahnByName, mergedProfile, plateHarmony, plateComplement, plateAffinity, dishScore, nextAddOptions } from '@/lib/flavor';
+import { ahnByName, mergedProfile, plateHarmony, plateComplement, plateAffinity, dishScore, nextAddOptions, classifyCuisine } from '@/lib/flavor';
 
 interface Ing { id: number; name: string }
 
@@ -26,6 +26,7 @@ export async function POST(request: Request) {
     const inNetwork = members.filter((m) => ahnByName(db, m.name)).length;
     const opts = nextAddOptions(db, members);
     const score = dishScore(harmony, complement, affinity);
+    const cuisine = classifyCuisine(members.map((m) => m.name));
 
     return Response.json({
       members: members.map((m) => ({ id: m.id, name: m.name })),
@@ -35,6 +36,7 @@ export async function POST(request: Request) {
       complement,
       affinity,
       score,
+      cuisine,
       tightestPairs: pairs.slice(0, 3),
       harmonyAdds: opts.harmonyAdds,
       complementAdds: opts.complementAdds,

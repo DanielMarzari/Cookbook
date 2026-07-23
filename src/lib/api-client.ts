@@ -118,13 +118,16 @@ export const api = {
         complement: number;
         affinity: number;
         score: number;
+        cuisine: { mix: { name: string; pct: number }[]; nudges: { name: string; add: string }[] };
         tightestPairs: { a: string; b: string; harmony: number }[];
-        harmonyAdds: { name: string; noteId: number | null; fit: number; family: string | null }[];
-        complementAdds: { name: string; noteId: number | null; fit: number; family: string | null }[];
-        affinityAdds: { name: string; noteId: number | null; fit: number; family: string | null }[];
+        harmonyAdds: { name: string; noteId: number | null; fit: number; family: string | null; delta: number }[];
+        complementAdds: { name: string; noteId: number | null; fit: number; family: string | null; delta: number }[];
+        affinityAdds: { name: string; noteId: number | null; fit: number; family: string | null; delta: number }[];
       }>('/api/flavor/lab', { method: 'POST', body: { ids } }),
     recipesForIngredient: (id: number) =>
       fetchJson<{ recipes: { id: string; title: string; image_url: string | null; cuisine: string | null }[] }>(`/api/flavor/recipes-for-ingredient?id=${id}`),
+    recipesWeb: (names: string[]) =>
+      fetchJson<{ recipes: { title: string; image: string; link: string; source: string }[] }>(`/api/flavor/recipes-web?ingredients=${encodeURIComponent(names.join(','))}`),
     relationship: (a: string, b: string) =>
       fetchJson<{
         a: { id: number; name: string; category: string; activeNotes: number; families: { name: string; notes: { note: string; intensity: number }[] }[] };

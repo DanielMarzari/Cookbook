@@ -2,6 +2,7 @@
 // `import type`), so components can import FAMILY_ORDER / FAMILY_COLORS from here.
 // The scoring functions take a better-sqlite3 handle passed in by API routes.
 import type Database from 'better-sqlite3';
+import { CUISINES } from '@/data/cuisines';
 
 // Canonical family order around the wheel + one hue each (the colour IS the data
 // in the flavour section — the one place it leaves the monochrome system).
@@ -261,7 +262,7 @@ export function plateAffinity(db: DB, members: { id: number; name: string }[], c
   return n ? Math.round(sum / n) : 0;
 }
 
-type AddOpt = { name: string; noteId: number; fit: number; family: string | null };
+type AddOpt = { name: string; noteId: number; fit: number; family: string | null; delta: number };
 // Classic balancers seeded into the candidate pool so the Complement axis always
 // has contrast to offer (acids, bright/fresh notes, sweet/heat balancers).
 const COMPLEMENT_SEEDS = ['Lemon', 'Lime', 'Vinegar', 'Orange', 'Grapefruit', 'Tomato', 'Chili', 'Ginger', 'Honey', 'Mint', 'Basil', 'Coriander', 'Parsley', 'Dill', 'Fennel', 'Garlic', 'Mustard', 'Pomegranate', 'Tamarind', 'Caramel', 'Pepper', 'Rosemary', 'Thyme', 'Yogurt', 'Lemongrass'];
@@ -350,7 +351,7 @@ export function nextAddOptions(db: DB, members: { id: number; name: string }[]):
       .sort((a, b) => score(b) - score(a))
       .filter((r) => { const h = r.name.toLowerCase().split(/\s+/).pop()!; return seenHead.has(h) ? false : (seenHead.add(h), true); })
       .slice(0, 30)
-      .map((r) => ({ name: r.name, noteId: r.noteId, fit: Math.round(score(r)), family: r.family }));
+      .map((r) => ({ name: r.name, noteId: r.noteId, fit: Math.round(score(r)), family: r.family, delta: r.projScore - currentScore }));
   };
 
   return {
@@ -373,6 +374,38 @@ export const DISH_CEILING = 60; // weighted composite that maps to 100
 export function dishScore(harmony: number, complement: number, affinity: number): number {
   const composite = DISH_WEIGHTS.harmony * harmony + DISH_WEIGHTS.complement * complement + DISH_WEIGHTS.affinity * affinity;
   return Math.max(0, Math.min(100, Math.round((composite / DISH_CEILING) * 100)));
+}
+
+// ── Cuisine "genre": what tradition is this plate speaking? ───────────────────
+// Score the plate against each cuisine's signature ingredients, weighting each by
+// exclusivity (tomato is in many cuisines and says little; gochujang says Korea).
+// Returns the leading blend + a few "fusion nudges": one ingredient that would tip
+// the plate toward a neighbouring tradition. Pure (no db) — see data/cuisines.ts.
+export function classifyCuisine(memberNames: string[]): { mix: { name: string; pct: number }[]; nudges: { name: string; add: string }[] } {
+  const names = memberNames.map((n) => n.toLowerCase());
+  const has = (sig: string[], n: string) => sig.some((s) => s.toLowerCase() === n);
+  const excl = (n: string) => CUISINES.filter((c) => has(c.signature, n)).length; // how many cuisines share it
+  const weight = new Map<string, number>();
+  for (const n of names) { const e = excl(n); weight.set(n, e ? 1 / e : 0); }
+  const scored = CUISINES
+    .map((c) => ({ name: c.name, s: names.reduce((acc, n) => acc + (has(c.signature, n) ? (weight.get(n) || 0) : 0), 0) }))
+    .filter((r) => r.s > 0)
+    .sort((a, b) => b.s - a.s);
+  const top = scored.slice(0, 4);
+  const topTotal = top.reduce((a, b) => a + b.s, 0) || 1; // normalise the shown blend to ~100%
+  const mix = top.map((r) => ({ name: r.name, pct: Math.round((r.s / topTotal) * 100) }));
+  const inPlate = new Set(names);
+  const primary = scored[0]?.name;
+  const nudges = CUISINES
+    .filter((c) => c.name !== primary)
+    .map((c) => {
+      const cand = c.signature.filter((s) => !inPlate.has(s.toLowerCase())).map((s) => ({ s, e: excl(s.toLowerCase()) })).sort((a, b) => a.e - b.e)[0];
+      const overlap = scored.find((r) => r.name === c.name)?.s || 0;
+      return cand ? { name: c.name, add: cand.s, overlap } : null;
+    })
+    .filter(Boolean) as { name: string; add: string; overlap: number }[];
+  nudges.sort((a, b) => b.overlap - a.overlap);
+  return { mix, nudges: nudges.slice(0, 3).map(({ name, add }) => ({ name, add })) };
 }
 
 /** Mean pairwise complement / balance (0-100) across a set of ingredients. */
