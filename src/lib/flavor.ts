@@ -201,6 +201,53 @@ export function harmonyNextAdds(db: DB, memberIds: number[], limit = 6): { name:
   return out.map((o) => ({ ...o, fit: Math.round((o.fit / max) * 100) }));
 }
 
+// ── Complement / balance: do two ingredients draw each other out? ────────────
+// The third axis (distinct from aroma affinity and recipe harmony): classic
+// culinary balance — acid cuts fat, sweet balances sour, sweetness calms heat,
+// fresh notes lift heavy ones. High when the two occupy complementary balancing
+// roles; a "muddy" risk when both pile onto the same heavy register with nothing
+// bright to lift them. Grounded in Nosrat-style salt/fat/acid balance + the
+// flavour-matching literature (similarity vs contrast).
+interface BalanceAxes { acid: number; sweet: number; heat: number; rich: number; bright: number; heavy: number }
+function balanceAxes(fam: Record<string, number>): BalanceAxes {
+  const tot = FAMILY_ORDER.reduce((s, f) => s + fam[f], 0) || 1;
+  const p = (f: string) => fam[f] / tot;
+  return {
+    acid: p('Acidic'), sweet: p('Sweet'), heat: p('Spice'),
+    rich: p('Carnal') + 0.8 * p('Maillard'),
+    bright: p('Acidic') + 0.7 * p('Herbal') + 0.6 * p('Floral') + 0.35 * p('Vegetal'),
+    heavy: 0.8 * p('Earthy') + 0.7 * p('Woody') + 0.7 * p('Maillard') + 0.5 * p('Carnal'),
+  };
+}
+const BALANCE_RELATIONS: [keyof BalanceAxes, keyof BalanceAxes, string][] = [
+  ['acid', 'rich', 'the acid cuts through the richness'],
+  ['sweet', 'acid', 'sweetness rounds off the acidity'],
+  ['sweet', 'heat', 'sweetness calms the heat'],
+  ['bright', 'heavy', 'the fresh, bright notes lift the heavy ones'],
+  ['rich', 'heat', 'the fat mellows the heat'],
+];
+
+/** Complement / balance (0-100) between two ingredients + a plain-language read. */
+export function complementByName(db: DB, aName: string, bName: string): { complement: number; muddyRisk: boolean; why: string } | null {
+  const a = noteIngByName(db, aName), b = noteIngByName(db, bName);
+  if (!a || !b || a.id === b.id) return null;
+  const A = balanceAxes(familyTotals(noteRows(db, a.id)));
+  const B = balanceAxes(familyTotals(noteRows(db, b.id)));
+  const cross = (x: keyof BalanceAxes, y: keyof BalanceAxes) => A[x] * B[y] + B[x] * A[y];
+  let balance = 0; let best = { c: -1, desc: '' };
+  for (const [x, y, desc] of BALANCE_RELATIONS) { const c = cross(x, y); balance += c; if (c > best.c) best = { c, desc }; }
+  const combinedBright = Math.max(A.bright, B.bright);
+  const muddiness = A.heavy * B.heavy * (1 - combinedBright);
+  const complement = Math.max(0, Math.round(100 * Math.tanh(balance * 3.4 - muddiness * 2.6)));
+  const muddyRisk = muddiness > 0.09 && complement < 55;
+  const why = muddyRisk
+    ? 'Both lean heavy — together they can turn muddy. A bright, acidic, or fresh element would lift them.'
+    : complement >= 55
+      ? `They draw each other out — ${best.desc}.`
+      : 'A modest balance — they mostly sit alongside each other rather than transforming one another.';
+  return { complement, muddyRisk, why };
+}
+
 /** Mean pairwise aroma affinity (0-100) across a set of ingredients. */
 export function plateAffinity(db: DB, members: { id: number; name: string }[], cache: Map<number, number>): number {
   const ahn = members.map((m) => ahnByName(db, m.name)).filter(Boolean) as { id: number }[];

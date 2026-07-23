@@ -133,6 +133,9 @@ export const api = {
         proven: boolean;
         cooccur: number | null;
         bridges: { noteA: string; noteB: string; familyA: string; familyB: string; strength: number }[];
+        complement: number;
+        muddyRisk: boolean;
+        complementWhy: string;
         facets: { family: string; a: number; b: number }[];
         recipes: { id: string; title: string; image_url: string | null; cuisine: string | null }[];
       }>(`/api/flavor/relationship?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`),
