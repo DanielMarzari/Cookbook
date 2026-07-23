@@ -380,10 +380,9 @@ function InventPlate({ families, vocabulary, build, lab, labMetric, setLabMetric
 function CuisineBadge({ cuisine, ingredients, addByName }: any) {
   const CUCOL = ['#2a2820', '#7a5c3e', '#b08d5f', '#cdb389'];
   const mix: { name: string; pct: number }[] = cuisine?.mix || [];
-  const nudges: { name: string; add: string }[] = cuisine?.nudges || [];
+  const nudges: { name: string; add: string; delta: number }[] = cuisine?.nudges || [];
   if (mix.length === 0) return null;
   const primary = mix[0].name;
-  const has = (n: string) => ingredients.some((i: PickIng) => i.name.toLowerCase() === n.toLowerCase());
   return (
     <div className="border border-border p-4 md:p-5">
       <div className="flex items-start justify-between gap-4 flex-wrap">
@@ -396,9 +395,10 @@ function CuisineBadge({ cuisine, ingredients, addByName }: any) {
             <div className="text-[10.5px] uppercase tracking-[0.12em] text-text-secondary mb-1.5">push it into fusion</div>
             <div className="flex flex-wrap gap-1.5">
               {nudges.map((n) => (
-                <button key={n.name} disabled={!has(n.add)} onClick={() => addByName(n.add)} title={has(n.add) ? `Add ${n.add}` : `${n.add} not in the library`}
-                  className={`text-[11.5px] border border-dashed border-border rounded-full px-2.5 py-1 ${has(n.add) ? 'hover:border-text hover:bg-[#f6f5f2]' : 'opacity-60 cursor-default'}`}>
+                <button key={n.name} onClick={() => addByName(n.add)} title={`Add ${n.add} — ${n.delta >= 0 ? '+' : ''}${n.delta} to the dish score`}
+                  className="text-[11.5px] border border-dashed border-border rounded-full px-2.5 py-1 hover:border-text hover:bg-[#f6f5f2] transition-colors">
                   {n.name} <b className="text-text">+ {n.add}</b>
+                  <span className="ml-1 font-semibold tabular-nums" style={{ color: n.delta >= 0 ? '#4a7a52' : '#a0522d' }}>{n.delta >= 0 ? '+' : ''}{n.delta}</span>
                 </button>
               ))}
             </div>

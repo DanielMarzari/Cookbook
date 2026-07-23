@@ -384,7 +384,10 @@ export function dishScore(harmony: number, complement: number, affinity: number)
 // exclusivity (tomato is in many cuisines and says little; gochujang says Korea).
 // Returns the leading blend + a few "fusion nudges": one ingredient that would tip
 // the plate toward a neighbouring tradition. Pure (no db) — see data/cuisines.ts.
-export function classifyCuisine(memberNames: string[]): { mix: { name: string; pct: number }[]; nudges: { name: string; add: string }[] } {
+export function classifyCuisine(
+  memberNames: string[],
+  addable?: Map<string, { name: string; delta: number }>,
+): { mix: { name: string; pct: number }[]; nudges: { name: string; add: string; delta: number }[] } {
   const names = memberNames.map((n) => n.toLowerCase());
   const has = (sig: string[], n: string) => sig.some((s) => s.toLowerCase() === n);
   const excl = (n: string) => CUISINES.filter((c) => has(c.signature, n)).length; // how many cuisines share it
@@ -399,16 +402,23 @@ export function classifyCuisine(memberNames: string[]): { mix: { name: string; p
   const mix = top.map((r) => ({ name: r.name, pct: Math.round((r.s / topTotal) * 100) }));
   const inPlate = new Set(names);
   const primary = scored[0]?.name;
+  // A nudge is only honest if the ingredient actually works on THIS plate, so we
+  // only ever suggest something the "add next" engine already vetted (`addable`).
+  // A cuisine with no viable signature ingredient is dropped rather than fudged.
   const nudges = CUISINES
     .filter((c) => c.name !== primary)
     .map((c) => {
-      const cand = c.signature.filter((s) => !inPlate.has(s.toLowerCase())).map((s) => ({ s, e: excl(s.toLowerCase()) })).sort((a, b) => a.e - b.e)[0];
+      const cand = c.signature
+        .filter((s) => !inPlate.has(s.toLowerCase()) && (!addable || addable.has(s.toLowerCase())))
+        .map((s) => ({ s, e: excl(s.toLowerCase()), delta: addable?.get(s.toLowerCase())?.delta ?? 0 }))
+        // prefer one that doesn't cost score, then the most distinctive, then the best
+        .sort((a, b) => (a.delta >= 0 ? 0 : 1) - (b.delta >= 0 ? 0 : 1) || a.e - b.e || b.delta - a.delta)[0];
       const overlap = scored.find((r) => r.name === c.name)?.s || 0;
-      return cand ? { name: c.name, add: cand.s, overlap } : null;
+      return cand ? { name: c.name, add: addable?.get(cand.s.toLowerCase())?.name ?? cand.s, delta: cand.delta, overlap } : null;
     })
-    .filter(Boolean) as { name: string; add: string; overlap: number }[];
+    .filter(Boolean) as { name: string; add: string; delta: number; overlap: number }[];
   nudges.sort((a, b) => b.overlap - a.overlap);
-  return { mix, nudges: nudges.slice(0, 3).map(({ name, add }) => ({ name, add })) };
+  return { mix, nudges: nudges.slice(0, 3).map(({ name, add, delta }) => ({ name, add, delta })) };
 }
 
 /** Mean pairwise complement / balance (0-100) across a set of ingredients. */

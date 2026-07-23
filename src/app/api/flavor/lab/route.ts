@@ -26,7 +26,13 @@ export async function POST(request: Request) {
     const inNetwork = members.filter((m) => ahnByName(db, m.name)).length;
     const opts = nextAddOptions(db, members);
     const score = dishScore(harmony, complement, affinity);
-    const cuisine = classifyCuisine(members.map((m) => m.name));
+    // Fusion nudges may only propose ingredients the add-next engine already
+    // vetted for this plate, so we never suggest something that doesn't work.
+    const addable = new Map<string, { name: string; delta: number }>();
+    for (const a of [...opts.harmonyAdds, ...opts.complementAdds, ...opts.affinityAdds]) {
+      if (!addable.has(a.name.toLowerCase())) addable.set(a.name.toLowerCase(), { name: a.name, delta: a.delta });
+    }
+    const cuisine = classifyCuisine(members.map((m) => m.name), addable);
 
     return Response.json({
       members: members.map((m) => ({ id: m.id, name: m.name })),
