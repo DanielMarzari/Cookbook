@@ -3,10 +3,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api-client';
-import { FAMILY_COLORS, cap } from '@/lib/flavor';
+import { FAMILY_COLORS, cap, dishScore } from '@/lib/flavor';
 import { FAMILIES_LEGEND } from '@/data/flavor-content';
+import { DISH_EXEMPLARS } from '@/data/dish-exemplars';
 import FlavorWheel from '@/components/FlavorWheel';
 import FlavorOverlayWheel from '@/components/FlavorOverlayWheel';
+import FlavorTriangle from '@/components/flavor/FlavorTriangle';
 import IngredientPicker, { PickIng } from '@/components/flavor/IngredientPicker';
 
 type Families = { name: string; notes: { note: string; intensity: number }[] }[];
@@ -149,6 +151,15 @@ function ModeToggle({ mode, set }: { mode: 'key' | 'all'; set: (m: 'key' | 'all'
     </div>
   );
 }
+const scoreWord = (n: number) => (n >= 90 ? 'Exceptional' : n >= 75 ? 'Excellent' : n >= 60 ? 'Very good' : n >= 45 ? 'Promising' : n >= 30 ? 'Rough' : 'Clashing');
+function AxisRead({ label, value, color = '#141310' }: { label: string; value: number; color?: string }) {
+  return (
+    <div>
+      <div className="flex items-baseline justify-between mb-1"><span className="text-[11px] uppercase tracking-[0.11em] text-text-secondary">{label}</span><span className="text-[13px] tabular-nums text-text">{value}</span></div>
+      <div className="relative h-[5px] bg-[#eee]"><div className="h-full" style={{ width: `${value}%`, background: color }} /></div>
+    </div>
+  );
+}
 function MetricRead({ score, label, children }: { score: number; label: string; children?: React.ReactNode }) {
   return (
     <div>
@@ -213,10 +224,20 @@ function LabTab({ ingredients, families, vocabulary, build, setBuild, lab, labMe
         <div>
           {build.length === 0 ? <Empty>Add a couple of ingredients to build a plate.</Empty> : lab && (
             <>
-              <div className="grid grid-cols-2 gap-6 mb-2">
-                <MetricRead score={lab.harmony} label="plate harmony" />
-                <MetricRead score={lab.affinity} label="aroma affinity" />
-              </div>
+              {build.length < 2 ? (
+                <div className="border border-dashed border-border p-6 text-center mb-6"><p className="text-text-secondary text-[13.5px]">Add one more ingredient to score the plate.</p></div>
+              ) : (
+                <div className="mb-6">
+                  <div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-1">dish score</div>
+                  <div className="flex items-baseline gap-2 mb-3"><b className="text-[22px] font-normal">{scoreWord(lab.score)}</b><span className="text-text-secondary text-[12px]">its share of a great dish</span></div>
+                  <FlavorTriangle h={lab.harmony} c={lab.complement} a={lab.affinity} score={lab.score} className="max-w-[280px] mx-auto" />
+                  <div className="grid grid-cols-3 gap-3 mt-3">
+                    <AxisRead label="Harmony" value={lab.harmony} />
+                    <AxisRead label="Complement" value={lab.complement} />
+                    <AxisRead label="Affinity" value={lab.affinity} />
+                  </div>
+                </div>
+              )}
               {lab.tightestPairs.length > 0 && (
                 <p className="text-[12px] text-text-secondary mb-6">Tightest pair: <b className="text-text">{cap(lab.tightestPairs[0].a)} · {cap(lab.tightestPairs[0].b)}</b> ({lab.tightestPairs[0].harmony}).</p>
               )}
@@ -240,6 +261,33 @@ function LabTab({ ingredients, families, vocabulary, build, setBuild, lab, labMe
             </>
           )}
         </div>
+      </div>
+      <CompareShelf plate={lab && build.length >= 2 ? { h: lab.harmony, c: lab.complement, a: lab.affinity, score: lab.score } : null} />
+    </div>
+  );
+}
+
+/* ── Compare shelf: your plate against real celebrated dishes ──── */
+function CompareShelf({ plate }: { plate: { h: number; c: number; a: number; score: number } | null }) {
+  const tiles: { dish: string; h: number; c: number; a: number; score: number; you?: boolean }[] = [
+    ...(plate ? [{ dish: 'Your plate', ...plate, you: true }] : []),
+    ...DISH_EXEMPLARS.map((e) => ({ ...e, score: dishScore(e.h, e.c, e.a) })),
+  ];
+  return (
+    <div className="mt-14">
+      <div className="flex items-baseline justify-between border-b border-text pb-2 mb-1">
+        <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">measured against great dishes</span>
+        <span className="text-text-secondary text-[12px]">Noma + classics</span>
+      </div>
+      <p className="text-[12.5px] text-text-secondary mb-5 max-w-[64ch]">The score is calibrated on these — each measured by the Lab itself. Notice they reach excellence by different routes: Coq&nbsp;au&nbsp;vin leans on harmony, Guacamole on complement.</p>
+      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-x-3 gap-y-5">
+        {tiles.map((t) => (
+          <div key={t.dish} className={`text-center ${t.you ? 'ring-1 ring-text rounded-sm pt-1' : ''}`}>
+            <FlavorTriangle h={t.h} c={t.c} a={t.a} variant="compact" className="max-w-[92px] mx-auto" />
+            <div className="text-[15px] tabular-nums text-text mt-0.5">{t.score}</div>
+            <div className={`text-[11px] leading-tight mt-0.5 ${t.you ? 'text-text font-medium' : 'text-text-secondary'}`}>{t.dish}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -313,20 +361,23 @@ function PairTab({ ingredients, families, vocabulary, ing, setIng, pairB, setPai
             <span className="text-[26px] tracking-[-0.01em]">{cap(rel.b.name)}</span>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-7 mb-4">
-            <MetricRead score={rel.harmony} label="harmony · do they belong">
-              {rel.proven ? (
-                <p className="text-[12px] text-text-secondary mt-2 flex items-center gap-1.5">
-                  <span className="text-[10px] uppercase tracking-[0.1em] text-text border border-text px-1.5 py-0.5">✓ proven</span> in real recipes.
-                </p>
-              ) : <p className="text-[12px] text-text-secondary mt-2">structural estimate.</p>}
-            </MetricRead>
-            <MetricRead score={rel.complement} label="complement · do they balance">
-              <p className={`text-[12px] mt-2 ${rel.muddyRisk ? 'text-[#a0522d]' : 'text-text-secondary'}`}>{rel.complementWhy}</p>
-            </MetricRead>
-            <MetricRead score={rel.affinity} label="aroma affinity · alike">
-              <p className="text-[12px] text-text-secondary mt-2">{rel.sharedCompounds} shared compounds{rel.compoundNotes.length ? `: ${rel.compoundNotes.slice(0, 3).map(cap).join(', ')}` : ''}.</p>
-            </MetricRead>
+          <div className="grid lg:grid-cols-[230px_1fr] gap-8 items-center mb-4">
+            <FlavorTriangle h={rel.harmony} c={rel.complement} a={rel.affinity} className="max-w-[230px] mx-auto" />
+            <div className="grid sm:grid-cols-3 gap-7">
+              <MetricRead score={rel.harmony} label="harmony · do they belong">
+                {rel.proven ? (
+                  <p className="text-[12px] text-text-secondary mt-2 flex items-center gap-1.5">
+                    <span className="text-[10px] uppercase tracking-[0.1em] text-text border border-text px-1.5 py-0.5">✓ proven</span> in real recipes.
+                  </p>
+                ) : <p className="text-[12px] text-text-secondary mt-2">structural estimate.</p>}
+              </MetricRead>
+              <MetricRead score={rel.complement} label="complement · do they balance">
+                <p className={`text-[12px] mt-2 ${rel.muddyRisk ? 'text-[#a0522d]' : 'text-text-secondary'}`}>{rel.complementWhy}</p>
+              </MetricRead>
+              <MetricRead score={rel.affinity} label="aroma affinity · alike">
+                <p className="text-[12px] text-text-secondary mt-2">{rel.sharedCompounds} shared compounds{rel.compoundNotes.length ? `: ${rel.compoundNotes.slice(0, 3).map(cap).join(', ')}` : ''}.</p>
+              </MetricRead>
+            </div>
           </div>
 
           <div className="grid lg:grid-cols-[1fr_320px] gap-8 items-start mt-8">
