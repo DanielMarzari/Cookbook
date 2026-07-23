@@ -15,6 +15,14 @@ type Families = { name: string; notes: { note: string; intensity: number }[] }[]
 const abf = (families: Families) => Object.fromEntries((families || []).map((f) => [f.name, f.notes]));
 const synWord = (n: number) => (n >= 70 ? 'High' : n >= 45 ? 'Moderate' : n >= 20 ? 'Low' : 'Faint');
 
+// Recognisable ingredients the bench opens with (a random two) so the Lab never
+// loads empty. Curated rather than truly random — "Bilberry Wine + Lupine" is a
+// bad first impression.
+const STARTERS = ['Tomato', 'Basil', 'Olive oil', 'Garlic', 'Lemon', 'Butter', 'Mushroom', 'Chicken', 'Beef', 'Onion',
+  'Ginger', 'Chili', 'Honey', 'Almond', 'Parmesan Cheese', 'Mint', 'Coriander', 'Coconut', 'Orange', 'Rosemary',
+  'Thyme', 'Bacon', 'Egg', 'Chocolate', 'Strawberry', 'Pepper', 'Vanilla', 'Carrot', 'Potato', 'Lime',
+  'Cinnamon', 'Walnut', 'Feta', 'Soy sauce', 'Sesame oil', 'Apple', 'Pine nuts', 'Maple syrup'];
+
 const VIEWS = [
   { id: 'invent', label: 'Invent a dish' },
   { id: 'wheel', label: 'Ingredient wheel' },
@@ -43,9 +51,6 @@ export default function FlavorLabPage() {
   const [pairMode, setPairMode] = useState<'key' | 'all'>('all');
   const [labMode, setLabMode] = useState<'key' | 'all'>('all');
   const [labMetric, setLabMetric] = useState<'harmony' | 'complement' | 'affinity'>('harmony');
-  const [solo, setSolo] = useState<Awaited<ReturnType<typeof api.flavor.profile>> | null>(null);          // Invent w/ 1 ingredient
-  const [soloPairings, setSoloPairings] = useState<Awaited<ReturnType<typeof api.flavor.pairingsByName>>['pairings']>([]);
-  const [soloRecipes, setSoloRecipes] = useState<{ id: string; title: string; image_url: string | null; cuisine: string | null }[]>([]);
   const [webRecipes, setWebRecipes] = useState<Awaited<ReturnType<typeof api.flavor.recipesWeb>>['recipes']>([]);
   const [webLoading, setWebLoading] = useState(false);
 
@@ -80,14 +85,18 @@ export default function FlavorLabPage() {
     api.flavor.lab(build.map((b) => b.id)).then(setLab).catch(() => setLab(null));
   }, [build]);
 
-  // Invent view with exactly one ingredient behaves like the wheel tab for it.
+  // Seed the bench with a random pair so the Lab opens with something on it.
   useEffect(() => {
-    if (build.length !== 1) { setSolo(null); return; }
-    const only = build[0];
-    api.flavor.profile(only.id).then(setSolo).catch(() => setSolo(null));
-    api.flavor.pairingsByName(only.name).then((d) => setSoloPairings(d.pairings || [])).catch(() => setSoloPairings([]));
-    api.flavor.recipesForIngredient(only.id).then((d) => setSoloRecipes(d.recipes || [])).catch(() => setSoloRecipes([]));
-  }, [build]);
+    if (ingredients.length === 0 || build.length > 0) return;
+    if (new URLSearchParams(window.location.search).get('ingredient')) return; // respect deep-links
+    const pool = STARTERS.map((n) => ingByName.get(n.toLowerCase())).filter(Boolean) as PickIng[];
+    if (pool.length < 2) return;
+    const i = Math.floor(Math.random() * pool.length);
+    let j = Math.floor(Math.random() * pool.length);
+    while (j === i) j = Math.floor(Math.random() * pool.length);
+    setBuild([pool[i], pool[j]]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ingredients]);
 
   // With a real plate (2+), pull online recipes that use the combo.
   useEffect(() => {
@@ -131,7 +140,7 @@ export default function FlavorLabPage() {
           </nav>
 
           <div className="min-w-0">
-            {view === 'invent' && <LabTab {...{ ingredients, families, vocabulary, build, setBuild, lab, labMetric, setLabMetric, labMode, setLabMode, solo, soloPairings, soloRecipes, webRecipes, webLoading }} />}
+            {view === 'invent' && <LabTab {...{ ingredients, families, vocabulary, build, setBuild, lab, labMetric, setLabMetric, labMode, setLabMode, webRecipes, webLoading }} />}
             {view === 'wheel' && <WheelTab {...{ ingredients, families, vocabulary, ing, setIng, profile, pairings, wheelRecipes, wheelMode, setWheelMode, openPair }} />}
             {view === 'pair' && <PairTab {...{ ingredients, families, vocabulary, ing, setIng, pairB, setPairB, rel, pairMode, setPairMode }} />}
             {view === 'learn' && <LearnTab />}
@@ -224,52 +233,94 @@ function RecipeStrip({ recipes, label }: { recipes: { id: string; title: string;
   );
 }
 
-/* ── Invent a dish (the main view) — progressive: 0 → learn, 1 → wheel, 2+ → plate */
-function LabTab({ ingredients, families, vocabulary, build, setBuild, lab, labMetric, setLabMetric, labMode, setLabMode, solo, soloPairings, soloRecipes, webRecipes, webLoading }: any) {
+/* ── Invent a dish (the main view) ───────────────────────────── */
+function LabTab({ ingredients, families, vocabulary, build, setBuild, lab, labMetric, setLabMetric, labMode, setLabMode, webRecipes, webLoading }: any) {
   const add = (i: PickIng) => setBuild((b: PickIng[]) => (b.find((x) => x.id === i.id) ? b : [...b, i]));
   const remove = (id: number) => setBuild((b: PickIng[]) => b.filter((x) => x.id !== id));
   const addById = (id: number, name: string) => add({ id, name, category: '' });
   const addByName = (name: string) => { const m = ingredients.find((x: PickIng) => x.name.toLowerCase() === name.toLowerCase()); if (m) add(m); };
-  const sub = build.length === 0 ? 'Start with an ingredient to explore its wheel — add a second and the lab scores the plate, names its cuisine, and finds recipes to try.'
-    : build.length === 1 ? 'One ingredient — here is its flavour wheel. Add another to start scoring a plate.'
-      : 'The lab scores the plate, tells you what to add and by how much, reads its cuisine, and pulls real recipes to try.';
+  // Only trust `lab` once it describes the plate on screen — otherwise the stale
+  // result briefly renders a 0 / "Clashing" score while the new one computes.
+  const ready = !!lab && lab.members.length === build.length && lab.members.every((m: any, i: number) => m.id === build[i].id);
   return (
     <div>
-      <TabHead label="The Bench" title="Invent a dish" sub={sub} />
-      {/* builder — always present */}
-      <div className="mb-9">
-        <div className="flex items-center justify-between mb-2.5">
-          <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">your build</span>
-          {build.length > 0 && <button onClick={() => setBuild([])} className="text-[12px] text-text-secondary hover:text-text underline underline-offset-2">Clear</button>}
-        </div>
-        {build.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-4">
-            {build.map((b: PickIng) => (
-              <span key={b.id} className="inline-flex items-center gap-2 border border-border px-2.5 py-1 text-[13px]">{cap(b.name)}
-                <button onClick={() => remove(b.id)} className="text-text-secondary hover:text-text">×</button>
-              </span>
-            ))}
+      <TabHead label="The Bench" title="Invent a dish" sub="The lab scores the plate, tells you what to add and by how much, reads its cuisine, and pulls real recipes to try." />
+      <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(320px,440px)] gap-6 lg:gap-10 items-start mb-9">
+        <div>
+          <div className="flex items-center justify-between mb-2.5">
+            <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">your build</span>
+            {build.length > 0 && <button onClick={() => setBuild([])} className="text-[12px] text-text-secondary hover:text-text underline underline-offset-2">Clear</button>}
           </div>
-        )}
-        <div className="max-w-md"><IngredientPicker ingredients={ingredients} onSelect={add} placeholder="+ add an ingredient…" /></div>
+          {build.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {build.map((b: PickIng) => (
+                <span key={b.id} className="inline-flex items-center gap-2 border border-border px-2.5 py-1 text-[13px]">{cap(b.name)}
+                  <button onClick={() => remove(b.id)} className="text-text-secondary hover:text-text">×</button>
+                </span>
+              ))}
+            </div>
+          )}
+          <div className="max-w-md"><IngredientPicker ingredients={ingredients} onSelect={add} placeholder="+ add an ingredient…" /></div>
+        </div>
+        {build.length >= 2 && ready && <CuisineBadge cuisine={lab.cuisine} ingredients={ingredients} addByName={addByName} />}
       </div>
 
-      {build.length === 0 && <LearnTab />}
-      {build.length === 1 && <InventSolo {...{ families, vocabulary, solo, soloPairings, soloRecipes, labMode, setLabMode, addByName }} />}
-      {build.length >= 2 && lab && (
-        <InventPlate {...{ ingredients, families, vocabulary, build, lab, labMetric, setLabMetric, labMode, setLabMode, addById, addByName, webRecipes, webLoading }} />
+      {build.length < 2 ? (
+        <Empty>Add {build.length === 0 ? 'two ingredients' : 'one more ingredient'} to score a plate.</Empty>
+      ) : !ready ? (
+        <PlateSkeleton />
+      ) : (
+        <InventPlate {...{ families, vocabulary, build, lab, labMetric, setLabMetric, labMode, setLabMode, addById, webRecipes, webLoading }} />
       )}
     </div>
   );
 }
 
+/* shown while the lab recomputes, instead of a stale 0 / "Clashing" */
+function PlateSkeleton() {
+  return (
+    <div className="animate-pulse">
+      <div className="grid gap-8 items-start lg:grid-cols-[minmax(0,1fr)_340px] 2xl:grid-cols-[minmax(0,1fr)_330px_370px]">
+        <div>
+          <div className="h-3 w-40 bg-[#eee] mb-4" />
+          <div className="aspect-square max-w-[640px] mx-auto rounded-full border-[28px] border-[#f2f1ed]" />
+        </div>
+        <div>
+          <div className="h-3 w-24 bg-[#eee] mb-3" />
+          <div className="h-6 w-40 bg-[#eee] mb-4" />
+          <div className="h-[150px] w-[260px] mx-auto bg-[#f4f3f0] mb-4" />
+          <div className="grid grid-cols-3 gap-3">{[0, 1, 2].map((i) => <div key={i} className="h-8 bg-[#f4f3f0]" />)}</div>
+        </div>
+        <div className="lg:col-start-2 2xl:col-start-3 2xl:row-start-1">
+          <div className="h-3 w-28 bg-[#eee] mb-3" />
+          {[0, 1, 2, 3, 4, 5].map((i) => <div key={i} className="h-6 bg-[#f4f3f0] mb-2" />)}
+        </div>
+      </div>
+      <p className="text-[12.5px] text-text-secondary mt-6">Scoring the plate…</p>
+    </div>
+  );
+}
+
+/* the three axes double as the sort for "add next" */
+function SortTabs({ value, set }: { value: string; set: (v: any) => void }) {
+  return (
+    <div className="flex border border-border text-[12px]">
+      {(['harmony', 'complement', 'affinity'] as const).map((m) => (
+        <button key={m} onClick={() => set(m)}
+          className={`flex-1 px-2 py-1.5 capitalize transition-colors ${value === m ? 'bg-text text-white' : 'text-text-secondary hover:text-text'}`}>
+          {m}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 /* the plate (2+ ingredients): v3 — wheel + score/suggestions, cuisine, recipe gallery */
-function InventPlate({ ingredients, families, vocabulary, build, lab, labMetric, setLabMetric, labMode, setLabMode, addById, addByName, webRecipes, webLoading }: any) {
+function InventPlate({ families, vocabulary, build, lab, labMetric, setLabMetric, labMode, setLabMode, addById, webRecipes, webLoading }: any) {
   const adds = labMetric === 'harmony' ? lab.harmonyAdds : labMetric === 'complement' ? lab.complementAdds : lab.affinityAdds;
   return (
     <div>
-      <CuisineBadge cuisine={lab.cuisine} ingredients={ingredients} addByName={addByName} />
-      <div className="grid gap-8 items-start mt-8 lg:grid-cols-[minmax(0,1fr)_340px] 2xl:grid-cols-[minmax(0,1fr)_330px_370px]">
+      <div className="grid gap-8 items-start lg:grid-cols-[minmax(0,1fr)_340px] 2xl:grid-cols-[minmax(0,1fr)_330px_370px]">
         <div className="min-w-0">
           <div className="flex items-center justify-between gap-3 flex-wrap mb-2">
             <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">the plate&rsquo;s combined wheel</span>
@@ -285,11 +336,10 @@ function InventPlate({ ingredients, families, vocabulary, build, lab, labMetric,
             <div className="flex items-baseline gap-2 mb-2"><b className="text-[22px] font-normal">{scoreWord(lab.score)}</b><span className="text-text-secondary text-[12px]">its share of a great dish</span></div>
             <FlavorTriangle h={lab.harmony} c={lab.complement} a={lab.affinity} score={lab.score} className="max-w-[300px] mx-auto" />
             <div className="grid grid-cols-3 gap-3 mt-3">
-              <AxisRead label="Harmony" value={lab.harmony} active={labMetric === 'harmony'} onClick={() => setLabMetric('harmony')} />
-              <AxisRead label="Complement" value={lab.complement} active={labMetric === 'complement'} onClick={() => setLabMetric('complement')} />
-              <AxisRead label="Affinity" value={lab.affinity} active={labMetric === 'affinity'} onClick={() => setLabMetric('affinity')} />
+              <AxisRead label="Harmony" value={lab.harmony} />
+              <AxisRead label="Complement" value={lab.complement} />
+              <AxisRead label="Affinity" value={lab.affinity} />
             </div>
-            <p className="text-[11px] text-text-secondary mt-2 text-center">Tap an axis to find ingredients that lift it.</p>
           </div>
           <Link href={`/add-recipe?ingredients=${encodeURIComponent(build.map((b: PickIng) => cap(b.name)).join(', '))}`}
             className="flex items-center justify-between px-3.5 py-2.5 bg-text text-white text-[14px] hover:bg-[#2a2a2a] transition-colors">
@@ -297,12 +347,14 @@ function InventPlate({ ingredients, families, vocabulary, build, lab, labMetric,
           </Link>
         </div>
         <div className="lg:col-start-2 2xl:col-start-3 2xl:row-start-1">
-          <div className="flex items-baseline justify-between mb-2.5 flex-wrap gap-2">
-            <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">add next — lift <b className="text-text font-medium">{labMetric}</b> <span className="text-text-secondary normal-case tracking-normal">· fit &amp; score gain</span></span>
+          <div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-1.5">sort by</div>
+          <SortTabs value={labMetric} set={setLabMetric} />
+          <div className="flex items-baseline justify-between mt-4 mb-2.5 flex-wrap gap-2">
+            <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">add next <span className="text-text-secondary normal-case tracking-normal">· {labMetric} fit &amp; score change</span></span>
             {adds.length > 0 && <span className="text-[11px] text-text-secondary tabular-nums">{adds.length}</span>}
           </div>
           {adds.length === 0 ? (
-            <p className="text-text-secondary text-[13.5px]">Nothing would lift the {labMetric} without lowering the dish score — balanced on that axis.</p>
+            <p className="text-text-secondary text-[13.5px]">Nothing found that wouldn&rsquo;t drop the dish score by more than 5.</p>
           ) : (
             <div className="max-h-[360px] overflow-y-auto pr-1 -mr-1">
               {adds.map((a: any) => (
@@ -315,7 +367,7 @@ function InventPlate({ ingredients, families, vocabulary, build, lab, labMetric,
               ))}
             </div>
           )}
-          <p className="text-[11.5px] text-text-secondary mt-3">Green shows how much each raises the whole dish. Click to add.</p>
+          <p className="text-[11.5px] text-text-secondary mt-3">The last column is what it does to the dish score — green lifts, brown costs a little. Click to add.</p>
         </div>
       </div>
       <WebRecipeGallery recipes={webRecipes} loading={webLoading} build={build} />
@@ -387,53 +439,17 @@ function WebRecipeGallery({ recipes, loading, build }: any) {
               </div>
               <div className="p-3">
                 <div className="text-[14.5px] leading-snug group-hover:underline underline-offset-2">{r.title}</div>
-                <div className="text-[12px] text-text-secondary mt-1">{r.source} ↗</div>
+                {r.missing?.length > 0 ? (
+                  <div className="text-[11.5px] text-[#a0522d] mt-1">no {r.missing.map((m: string) => m.toLowerCase()).join(', ')}</div>
+                ) : (
+                  <div className="text-[11.5px] text-[#4a7a52] mt-1">has all {r.matched?.length ?? ''}</div>
+                )}
+                <div className="text-[12px] text-text-secondary mt-0.5">{r.source} ↗</div>
               </div>
             </a>
           ))}
         </div>
       )}
-    </div>
-  );
-}
-
-/* the plate with exactly one ingredient — its wheel, like the Ingredient wheel tab */
-function InventSolo({ families, vocabulary, solo, soloPairings, soloRecipes, labMode, setLabMode, addByName }: any) {
-  if (!solo) return <p className="text-text-secondary text-sm">Reading the wheel…</p>;
-  return (
-    <div>
-      <div className="flex items-baseline justify-between border-b border-text pb-2.5 mb-6 flex-wrap gap-3">
-        <div><p className="text-[12px] text-text-secondary lowercase">{solo.category} · flavour profile</p><h2 className="text-[26px] tracking-[-0.01em]">{cap(solo.name)}</h2></div>
-        <ModeToggle mode={labMode} set={setLabMode} />
-      </div>
-      <div className="grid gap-8 items-start mb-12 lg:grid-cols-[minmax(0,1fr)_320px] 2xl:grid-cols-[minmax(0,1fr)_310px_390px]">
-        <div className="min-w-0 max-w-[640px] mx-auto w-full">
-          <FlavorWheel families={families} vocabulary={vocabulary} activeByFamily={abf(solo.families)} activeCount={solo.activeNotes} mode={labMode} />
-        </div>
-        <div>
-          <div className="border-b border-text pb-2.5 mb-1"><span className="text-[12.5px] text-text-secondary">Strongest notes</span></div>
-          {solo.strongest.map((s: any, i: number) => (
-            <div key={s.note + i} className="flex items-center justify-between py-2.5 border-b border-border text-[14.5px]">
-              <span><span className="text-text-secondary mr-2.5">{i + 1}</span><span style={{ color: FAMILY_COLORS[s.family] || '#141310', fontWeight: 600 }}>{cap(s.note)}</span></span>
-              <span className="tabular-nums text-text-secondary">{s.intensity.toFixed(1)}</span>
-            </div>
-          ))}
-          <p className="text-[11.5px] text-text-secondary mt-3">{solo.activeNotes} active notes · profile from FlavorDB2</p>
-        </div>
-        <div className="lg:col-span-2 2xl:col-span-1 2xl:col-start-3 2xl:row-start-1">
-          <div className="flex items-baseline justify-between border-b border-text pb-2.5 mb-1"><h3 className="text-[12.5px] text-text-secondary">Add one to build a plate</h3><span className="text-[11.5px] text-text-secondary">most aroma-similar</span></div>
-          {soloPairings.length === 0 ? <p className="text-text-secondary text-[14px] py-4">No aroma-similar ingredients yet.</p> : (
-            <ul>{soloPairings.slice(0, 12).map((p: any) => (
-              <li key={p.id} className="border-b border-border py-2.5 flex items-center gap-3">
-                <button onClick={() => addByName(p.name)} className="text-[14.5px] min-w-[7.5rem] text-left hover:underline underline-offset-2" title={`Add ${cap(p.name)} to the plate`}>+ {cap(p.name)}</button>
-                <div className="flex-1 h-[6px] bg-[#eee] overflow-hidden max-w-[150px]"><div className="h-full bg-text" style={{ width: `${p.strength}%` }} /></div>
-                <span className="text-[12px] text-text-secondary tabular-nums w-14 text-right">{p.shared} shared</span>
-              </li>
-            ))}</ul>
-          )}
-        </div>
-      </div>
-      <RecipeStrip recipes={soloRecipes} label={`your recipes with ${cap(solo.name)}`} />
     </div>
   );
 }

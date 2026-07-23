@@ -292,7 +292,9 @@ export function nextAddOptions(db: DB, members: { id: number; name: string }[]):
       const cp = complementByName(db, members[i].name, members[j].name); if (cp) { pCs += cp.complement; pCn++; }
       const af = synergyByName(db, members[i].name, members[j].name, cache); if (af) { pAs += af.synergy; pAn++; }
     }
-  const currentScore = dishScore(pHn ? pHs / pHn : 0, pCn ? pCs / pCn : 0, pAn ? pAs / pAn : 0);
+  // Use the same rounded axis values the UI shows, so a suggestion's quoted delta
+  // matches exactly what the score does when you actually add it.
+  const currentScore = dishScore(harmonyCurrent, complementCurrent, affinityCurrent);
 
   // candidate pool from several sources so every metric has room to improve
   const pool = new Set<string>();
@@ -334,20 +336,21 @@ export function nextAddOptions(db: DB, members: { id: number; name: string }[]):
     const family = FAMILY_ORDER.filter((f) => fam[f] > 0).sort((x, y) => fam[y] - fam[x])[0] || null;
     // exact dish score if this candidate joined the plate (combined pair means)
     const projScore = dishScore(
-      (pHn + hN) ? (pHs + hSum) / (pHn + hN) : 0,
-      (pCn + cN) ? (pCs + cSum) / (pCn + cN) : 0,
-      (pAn + aN) ? (pAs + aSum) / (pAn + aN) : 0,
+      Math.round((pHn + hN) ? (pHs + hSum) / (pHn + hN) : 0),
+      Math.round((pCn + cN) ? (pCs + cSum) / (pCn + cN) : 0),
+      Math.round((pAn + aN) ? (pAs + aSum) / (pAn + aN) : 0),
     );
     scored.push({ name: note.name, noteId: note.id, family, meanH: hN ? hSum / hN : 0, meanA: aN ? aSum / aN : 0, meanC: cN ? cSum / cN : 0, projScore });
   }
 
-  // For a given axis: keep only candidates that BOTH lift that axis and raise the
-  // overall dish score, ordered by how much they lift the axis. A longer list —
-  // the UI scrolls it — but every entry genuinely improves the dish.
-  const rank = (score: (r: typeof scored[number]) => number, current: number) => {
+  // Candidates worth showing: anything that doesn't meaningfully hurt the dish
+  // (down to -5, so there's still a list once a plate is near 100). The axis is a
+  // SORT, not a filter — the three tabs re-rank the same pool by harmony /
+  // complement / affinity, and each row carries its exact score delta.
+  const rank = (score: (r: typeof scored[number]) => number) => {
     const seenHead = new Set<string>();
     return scored
-      .filter((r) => score(r) > current && r.projScore > currentScore)
+      .filter((r) => r.projScore >= currentScore - 5)
       .sort((a, b) => score(b) - score(a))
       .filter((r) => { const h = r.name.toLowerCase().split(/\s+/).pop()!; return seenHead.has(h) ? false : (seenHead.add(h), true); })
       .slice(0, 30)
@@ -356,9 +359,9 @@ export function nextAddOptions(db: DB, members: { id: number; name: string }[]):
 
   return {
     harmonyCurrent, affinityCurrent, complementCurrent,
-    harmonyAdds: rank((r) => r.meanH, harmonyCurrent),
-    affinityAdds: rank((r) => r.meanA, affinityCurrent),
-    complementAdds: rank((r) => r.meanC, complementCurrent),
+    harmonyAdds: rank((r) => r.meanH),
+    affinityAdds: rank((r) => r.meanA),
+    complementAdds: rank((r) => r.meanC),
   };
 }
 

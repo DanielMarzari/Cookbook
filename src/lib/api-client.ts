@@ -127,7 +127,7 @@ export const api = {
     recipesForIngredient: (id: number) =>
       fetchJson<{ recipes: { id: string; title: string; image_url: string | null; cuisine: string | null }[] }>(`/api/flavor/recipes-for-ingredient?id=${id}`),
     recipesWeb: (names: string[]) =>
-      fetchJson<{ recipes: { title: string; image: string; link: string; source: string }[] }>(`/api/flavor/recipes-web?ingredients=${encodeURIComponent(names.join(','))}`),
+      fetchJson<{ recipes: { title: string; image: string; link: string; source: string; matched: string[]; missing: string[] }[] }>(`/api/flavor/recipes-web?ingredients=${encodeURIComponent(names.join(','))}`),
     relationship: (a: string, b: string) =>
       fetchJson<{
         a: { id: number; name: string; category: string; activeNotes: number; families: { name: string; notes: { note: string; intensity: number }[] }[] };
