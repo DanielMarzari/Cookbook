@@ -14,6 +14,7 @@ import { convertUnitToGrams, convertMeasure, formatQuantity, type UnitSystem } f
 import { framingStyle } from '@/lib/image';
 import CookLogSection from '@/components/CookLogSection';
 import PhotoGallery from '@/components/PhotoGallery';
+import RecipeFlavorCard from '@/components/RecipeFlavorCard';
 import { RecipePhoto } from '@/lib/types';
 
 interface NutritionCalculation {
@@ -489,6 +490,9 @@ export default function RecipeDetailPage() {
           </div>
         )}
       </div>
+
+      {/* Flavour profile & cohesion (from the Flavor Lab) */}
+      <RecipeFlavorCard recipeId={recipe.id} />
 
       {/* Photo gallery */}
       {photos.length > 0 && (

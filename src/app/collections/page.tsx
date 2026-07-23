@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { Collection } from '@/lib/types';
 import { api } from '@/lib/api-client';
 import { toast } from '@/lib/toast';
+import { extractCover } from '@/lib/book-cover';
 
 type Book = Awaited<ReturnType<typeof api.books.list>>[number];
 
@@ -64,8 +65,11 @@ export default function CookbooksPage() {
       fd.append('title', file.name.replace(/\.(pdf|epub)$/i, ''));
       const res = await fetch('/api/books', { method: 'POST', body: fd });
       if (!res.ok) throw new Error((await res.json()).error || 'Upload failed');
+      const created = await res.json();
       toast.success('Book added to your shelf');
       load();
+      // Pull the book's own cover (EPUB cover / PDF first page) in the background.
+      extractCover(file).then((cover) => { if (cover) api.books.setCover(created.id, cover).then(() => load()); }).catch(() => {});
     } catch (e) {
       toast.error(e instanceof Error ? e.message : 'Upload failed');
     } finally {
@@ -117,16 +121,21 @@ export default function CookbooksPage() {
           {books.map((b) => (
             <Link key={b.id} href={`/books/${b.id}`} className="group">
               <div className="aspect-[3/4] relative overflow-hidden shadow-warm-lg" style={{ background: spineOf(b.id) }}>
-                <div className="absolute inset-y-0 left-0 w-[6px] bg-black/25" />
-                <div className="absolute inset-0 flex flex-col justify-between p-3.5 text-white">
-                  <span className="text-[10px] uppercase tracking-[0.15em] opacity-70">{b.format}</span>
-                  <div>
-                    <div className="text-[15px] leading-tight font-medium line-clamp-4">{b.title}</div>
-                    {b.author && <div className="text-[11.5px] opacity-75 mt-1">{b.author}</div>}
-                  </div>
-                </div>
+                {b.cover && <img src={b.cover} alt={b.title} className="absolute inset-0 w-full h-full object-cover" />}
+                <div className="absolute inset-y-0 left-0 w-[6px] bg-black/25 z-10" />
+                {b.cover
+                  ? <span className="absolute top-2.5 left-3.5 z-10 text-[10px] uppercase tracking-[0.15em] text-white/80 drop-shadow">{b.format}</span>
+                  : (
+                    <div className="absolute inset-0 flex flex-col justify-between p-3.5 text-white">
+                      <span className="text-[10px] uppercase tracking-[0.15em] opacity-70">{b.format}</span>
+                      <div>
+                        <div className="text-[15px] leading-tight font-medium line-clamp-4">{b.title}</div>
+                        {b.author && <div className="text-[11.5px] opacity-75 mt-1">{b.author}</div>}
+                      </div>
+                    </div>
+                  )}
               </div>
-              <p className="text-[12px] text-text-secondary mt-2 group-hover:text-text">Read →</p>
+              <p className="text-[12px] text-text-secondary mt-2 group-hover:text-text truncate">{b.cover ? b.title : 'Read →'}</p>
             </Link>
           ))}
 
