@@ -166,11 +166,19 @@ export const api = {
   },
 
   farms: {
-    list: () =>
+    states: () => fetchJson<{ states: { state: string; count: number }[] }>('/api/farms'),
+    byState: (state: string) =>
       fetchJson<{
-        farms: { id: number; name: string; category: string; city: string | null; street: string | null; zip: string | null; phone: string | null; website: string | null; lat: number; lng: number }[];
+        state: string; detected: boolean;
+        farms: { id: number; name: string; category: string; state: string; city: string | null; street: string | null; zip: string | null; phone: string | null; website: string | null; lat: number; lng: number }[];
         categories: { category: string; count: number }[];
-      }>('/api/farms'),
+      }>(`/api/farms?state=${encodeURIComponent(state)}`),
+    near: (lat: number, lng: number) =>
+      fetchJson<{
+        state: string; detected: boolean;
+        farms: { id: number; name: string; category: string; state: string; city: string | null; street: string | null; zip: string | null; phone: string | null; website: string | null; lat: number; lng: number }[];
+        categories: { category: string; count: number }[];
+      }>(`/api/farms?lat=${lat}&lng=${lng}`),
   },
 
   recipeIngredients: {

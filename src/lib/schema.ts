@@ -329,15 +329,15 @@ CREATE TABLE IF NOT EXISTS note_associations (
 );
 CREATE INDEX IF NOT EXISTS idx_na_a ON note_associations(note_a);
 
--- Pennsylvania local-food listings (farmers markets, CSAs, on-farm markets, food
--- hubs, agritourism) from the USDA Local Food Portal, geocoded to ZIP centroids.
--- Populated by scripts/load-pa-farms.mjs.
-CREATE TABLE IF NOT EXISTS pa_farms (
+-- US local-food listings (farmers markets, CSAs, on-farm markets, food hubs,
+-- agritourism) from the USDA Local Food Portal, geocoded to ZIP centroids.
+-- Nationwide, filterable by state. Populated by scripts/load-farms.mjs.
+CREATE TABLE IF NOT EXISTS local_farms (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT, category TEXT, city TEXT, street TEXT, zip TEXT,
+  name TEXT, category TEXT, state TEXT, city TEXT, street TEXT, zip TEXT,
   phone TEXT, website TEXT, lat REAL, lng REAL
 );
-CREATE INDEX IF NOT EXISTS idx_pa_farms_cat ON pa_farms(category);
+CREATE INDEX IF NOT EXISTS idx_local_farms_state ON local_farms(state);
 
 -- Real recipe co-occurrence between ingredients (FlavorGraph, derived from the
 -- 1M-recipe Recipe1M corpus via NPMI). Empirical "actually cooked together"
