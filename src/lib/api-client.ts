@@ -115,9 +115,12 @@ export const api = {
         inNetwork: number;
         merged: { families: { name: string; notes: { note: string; intensity: number }[] }[]; activeNotes: number; strongest: { note: string; family: string; intensity: number }[] };
         harmony: number;
+        complement: number;
         affinity: number;
+        score: number;
         tightestPairs: { a: string; b: string; harmony: number }[];
         harmonyAdds: { name: string; noteId: number | null; fit: number; family: string | null }[];
+        complementAdds: { name: string; noteId: number | null; fit: number; family: string | null }[];
         affinityAdds: { name: string; noteId: number | null; fit: number; family: string | null }[];
       }>('/api/flavor/lab', { method: 'POST', body: { ids } }),
     recipesForIngredient: (id: number) =>

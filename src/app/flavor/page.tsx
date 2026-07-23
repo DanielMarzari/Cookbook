@@ -42,7 +42,7 @@ export default function FlavorLabPage() {
   const [wheelMode, setWheelMode] = useState<'key' | 'all'>('all');
   const [pairMode, setPairMode] = useState<'key' | 'all'>('all');
   const [labMode, setLabMode] = useState<'key' | 'all'>('all');
-  const [labMetric, setLabMetric] = useState<'harmony' | 'affinity'>('harmony');
+  const [labMetric, setLabMetric] = useState<'harmony' | 'complement' | 'affinity'>('harmony');
 
   const ingByName = useMemo(() => {
     const m = new Map<string, PickIng>();
@@ -152,12 +152,24 @@ function ModeToggle({ mode, set }: { mode: 'key' | 'all'; set: (m: 'key' | 'all'
   );
 }
 const scoreWord = (n: number) => (n >= 90 ? 'Exceptional' : n >= 75 ? 'Excellent' : n >= 60 ? 'Very good' : n >= 45 ? 'Promising' : n >= 30 ? 'Rough' : 'Clashing');
-function AxisRead({ label, value, color = '#141310' }: { label: string; value: number; color?: string }) {
+// One axis of the plate. When `onClick` is given it becomes a selector — pick the
+// axis you want to lift and the "add next" list re-ranks for it.
+function AxisRead({ label, value, active, onClick }: { label: string; value: number; active?: boolean; onClick?: () => void }) {
+  const inner = (
+    <>
+      <div className="flex items-baseline justify-between mb-1">
+        <span className={`text-[11px] uppercase tracking-[0.11em] ${active ? 'text-text' : 'text-text-secondary'}`}>{label}</span>
+        <span className="text-[13px] tabular-nums text-text">{value}</span>
+      </div>
+      <div className="relative h-[5px] bg-[#eee]"><div className="h-full bg-text transition-[width] duration-500 ease-out" style={{ width: `${value}%` }} /></div>
+    </>
+  );
+  if (!onClick) return <div>{inner}</div>;
   return (
-    <div>
-      <div className="flex items-baseline justify-between mb-1"><span className="text-[11px] uppercase tracking-[0.11em] text-text-secondary">{label}</span><span className="text-[13px] tabular-nums text-text">{value}</span></div>
-      <div className="relative h-[5px] bg-[#eee]"><div className="h-full" style={{ width: `${value}%`, background: color }} /></div>
-    </div>
+    <button onClick={onClick} title={`Lift ${label.toLowerCase()}`}
+      className={`text-left w-full pb-1.5 border-b-2 transition-colors ${active ? 'border-text' : 'border-transparent hover:border-border'}`}>
+      {inner}
+    </button>
   );
 }
 function MetricRead({ score, label, children }: { score: number; label: string; children?: React.ReactNode }) {
@@ -165,7 +177,7 @@ function MetricRead({ score, label, children }: { score: number; label: string; 
     <div>
       <div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-1.5">{label}</div>
       <div className="flex items-baseline gap-2 mb-2"><b className="text-[26px] font-normal">{synWord(score)}</b><span className="text-text-secondary text-[12px] tabular-nums">{score} / 100</span></div>
-      <div className="relative h-[6px] bg-[#eee]"><div className="h-full bg-text" style={{ width: `${score}%` }} /></div>
+      <div className="relative h-[6px] bg-[#eee]"><div className="h-full bg-text transition-[width] duration-500 ease-out" style={{ width: `${score}%` }} /></div>
       {children}
     </div>
   );
@@ -196,7 +208,7 @@ function LabTab({ ingredients, families, vocabulary, build, setBuild, lab, labMe
   const add = (i: PickIng) => setBuild((b: PickIng[]) => (b.find((x) => x.id === i.id) ? b : [...b, i]));
   const remove = (id: number) => setBuild((b: PickIng[]) => b.filter((x) => x.id !== id));
   const addById = (id: number, name: string) => add({ id, name, category: '' });
-  const adds = lab ? (labMetric === 'harmony' ? lab.harmonyAdds : lab.affinityAdds) : [];
+  const adds = lab ? (labMetric === 'harmony' ? lab.harmonyAdds : labMetric === 'complement' ? lab.complementAdds : lab.affinityAdds) : [];
   return (
     <div>
       <TabHead label="The Bench" title="Invent a dish" sub="Add ingredients; the lab merges their wheels, scores the plate, and suggests only what would actually improve it." />
@@ -232,21 +244,18 @@ function LabTab({ ingredients, families, vocabulary, build, setBuild, lab, labMe
                   <div className="flex items-baseline gap-2 mb-3"><b className="text-[22px] font-normal">{scoreWord(lab.score)}</b><span className="text-text-secondary text-[12px]">its share of a great dish</span></div>
                   <FlavorTriangle h={lab.harmony} c={lab.complement} a={lab.affinity} score={lab.score} className="max-w-[280px] mx-auto" />
                   <div className="grid grid-cols-3 gap-3 mt-3">
-                    <AxisRead label="Harmony" value={lab.harmony} />
-                    <AxisRead label="Complement" value={lab.complement} />
-                    <AxisRead label="Affinity" value={lab.affinity} />
+                    <AxisRead label="Harmony" value={lab.harmony} active={labMetric === 'harmony'} onClick={() => setLabMetric('harmony')} />
+                    <AxisRead label="Complement" value={lab.complement} active={labMetric === 'complement'} onClick={() => setLabMetric('complement')} />
+                    <AxisRead label="Affinity" value={lab.affinity} active={labMetric === 'affinity'} onClick={() => setLabMetric('affinity')} />
                   </div>
+                  <p className="text-[11px] text-text-secondary mt-2 text-center">Tap an axis to find ingredients that lift it.</p>
                 </div>
               )}
               {lab.tightestPairs.length > 0 && (
                 <p className="text-[12px] text-text-secondary mb-6">Tightest pair: <b className="text-text">{cap(lab.tightestPairs[0].a)} · {cap(lab.tightestPairs[0].b)}</b> ({lab.tightestPairs[0].harmony}).</p>
               )}
-              <div className="flex items-center justify-between mt-6 mb-2.5 flex-wrap gap-2">
-                <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">add next — best fit</span>
-                <div className="flex border border-border text-[12px]">
-                  <button onClick={() => setLabMetric('harmony')} className={`px-3 py-1 ${labMetric === 'harmony' ? 'bg-text text-white' : 'text-text-secondary'}`}>Harmony</button>
-                  <button onClick={() => setLabMetric('affinity')} className={`px-3 py-1 ${labMetric === 'affinity' ? 'bg-text text-white' : 'text-text-secondary'}`}>Affinity</button>
-                </div>
+              <div className="flex items-baseline justify-between mt-6 mb-2.5 flex-wrap gap-2">
+                <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">add next — to lift <b className="text-text font-medium">{labMetric}</b></span>
               </div>
               {adds.length === 0 ? (
                 <p className="text-text-secondary text-[13.5px]">Nothing found that would meaningfully raise the {labMetric}. Your plate is already balanced on that axis.</p>
@@ -267,25 +276,25 @@ function LabTab({ ingredients, families, vocabulary, build, setBuild, lab, labMe
   );
 }
 
-/* ── Compare shelf: your plate against real celebrated dishes ──── */
+/* ── Compare shelf: your plate ranked against real celebrated dishes ──── */
 function CompareShelf({ plate }: { plate: { h: number; c: number; a: number; score: number } | null }) {
-  const tiles: { dish: string; h: number; c: number; a: number; score: number; you?: boolean }[] = [
+  const tiles = [
     ...(plate ? [{ dish: 'Your plate', ...plate, you: true }] : []),
-    ...DISH_EXEMPLARS.map((e) => ({ ...e, score: dishScore(e.h, e.c, e.a) })),
-  ];
+    ...DISH_EXEMPLARS.map((e) => ({ dish: e.dish, h: e.h, c: e.c, a: e.a, score: dishScore(e.h, e.c, e.a), you: false })),
+  ].sort((x, y) => y.score - x.score);
   return (
     <div className="mt-14">
       <div className="flex items-baseline justify-between border-b border-text pb-2 mb-1">
         <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">measured against great dishes</span>
-        <span className="text-text-secondary text-[12px]">Noma + classics</span>
+        <span className="text-text-secondary text-[12px]">Noma + classics · high → low</span>
       </div>
-      <p className="text-[12.5px] text-text-secondary mb-5 max-w-[64ch]">The score is calibrated on these — each measured by the Lab itself. Notice they reach excellence by different routes: Coq&nbsp;au&nbsp;vin leans on harmony, Guacamole on complement.</p>
-      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-7 gap-x-3 gap-y-5">
+      <p className="text-[12.5px] text-text-secondary mb-5 max-w-[64ch]">Baselines the score is calibrated on — each measured by the Lab itself. They reach excellence by different routes: Coq&nbsp;au&nbsp;vin leans on harmony, Guacamole on complement.{plate ? ' Your plate is ranked in among them.' : ''}</p>
+      <div className="flex gap-3 overflow-x-auto pb-3 -mx-1 px-1 snap-x">
         {tiles.map((t) => (
-          <div key={t.dish} className={`text-center ${t.you ? 'ring-1 ring-text rounded-sm pt-1' : ''}`}>
-            <FlavorTriangle h={t.h} c={t.c} a={t.a} variant="compact" className="max-w-[92px] mx-auto" />
-            <div className="text-[15px] tabular-nums text-text mt-0.5">{t.score}</div>
-            <div className={`text-[11px] leading-tight mt-0.5 ${t.you ? 'text-text font-medium' : 'text-text-secondary'}`}>{t.dish}</div>
+          <div key={t.dish} className={`flex-none w-[104px] text-center snap-start pt-1.5 ${t.you ? 'ring-1 ring-text rounded-sm bg-[#faf9f6]' : ''}`}>
+            <FlavorTriangle h={t.h} c={t.c} a={t.a} variant="compact" className="max-w-[88px] mx-auto" />
+            <div className="text-[16px] tabular-nums text-text mt-0.5">{t.score}</div>
+            <div className={`text-[11px] leading-tight mt-0.5 px-1 pb-1.5 ${t.you ? 'text-text font-medium' : 'text-text-secondary'}`}>{t.dish}</div>
           </div>
         ))}
       </div>
