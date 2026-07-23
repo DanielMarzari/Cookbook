@@ -327,6 +327,31 @@ export function nextAddOptions(db: DB, members: { id: number; name: string }[]):
   };
 }
 
+// ── Dish score: how good is a whole plate? ───────────────────────────────────
+// Data-driven, not hand-tuned: both the axis weights and the "excellence" ceiling
+// are derived from 38 celebrated dishes (Noma + classics), each measured by this
+// Lab — see scripts/derive-dish-score.mjs. Great dishes averaged H62 C57 A23, so
+// harmony & complement dominate the weights and aroma affinity is minor; the
+// ceiling is their 80th-percentile composite, which maps to ~100. A plate then
+// reads as its share of "as good as a great dish." Refresh via the script.
+export const DISH_WEIGHTS = { harmony: 0.438, complement: 0.402, affinity: 0.16 };
+export const DISH_CEILING = 60; // weighted composite that maps to 100
+export function dishScore(harmony: number, complement: number, affinity: number): number {
+  const composite = DISH_WEIGHTS.harmony * harmony + DISH_WEIGHTS.complement * complement + DISH_WEIGHTS.affinity * affinity;
+  return Math.max(0, Math.min(100, Math.round((composite / DISH_CEILING) * 100)));
+}
+
+/** Mean pairwise complement / balance (0-100) across a set of ingredients. */
+export function plateComplement(db: DB, members: { id: number; name: string }[]): number {
+  let sum = 0, n = 0;
+  for (let i = 0; i < members.length; i++)
+    for (let j = i + 1; j < members.length; j++) {
+      const c = complementByName(db, members[i].name, members[j].name);
+      if (c) { sum += c.complement; n++; }
+    }
+  return n ? Math.round(sum / n) : 0;
+}
+
 /** Merge several note-ingredients' profiles into one combined wheel (max intensity per note). */
 export function mergedProfile(db: DB, noteIds: number[]): { families: { name: string; notes: { note: string; intensity: number }[] }[]; activeNotes: number; strongest: { note: string; family: string; intensity: number }[] } {
   const best = new Map<string, { note: string; family: string; intensity: number }>();
