@@ -280,6 +280,19 @@ export function nextAddOptions(db: DB, members: { id: number; name: string }[]):
   const affinityCurrent = plateAffinity(db, members, cache);
   const complementCurrent = plateComplement(db, members);
 
+  // Per-axis pair sums + counts for the current plate. We reuse these to project
+  // the EXACT dish score after adding each candidate (new mean = combined sum /
+  // combined count), so we can keep only adds that actually raise the score. Some
+  // pairs lack data for a given axis, so each axis keeps its own count.
+  let pHs = 0, pHn = 0, pCs = 0, pCn = 0, pAs = 0, pAn = 0;
+  for (let i = 0; i < members.length; i++)
+    for (let j = i + 1; j < members.length; j++) {
+      const h = harmonyByName(db, members[i].name, members[j].name); if (h) { pHs += h.harmony; pHn++; }
+      const cp = complementByName(db, members[i].name, members[j].name); if (cp) { pCs += cp.complement; pCn++; }
+      const af = synergyByName(db, members[i].name, members[j].name, cache); if (af) { pAs += af.synergy; pAn++; }
+    }
+  const currentScore = dishScore(pHn ? pHs / pHn : 0, pCn ? pCs / pCn : 0, pAn ? pAs / pAn : 0);
+
   // candidate pool from several sources so every metric has room to improve
   const pool = new Set<string>();
   // Complement often wants a contrast the plate doesn't already resemble (an acid
@@ -294,17 +307,17 @@ export function nextAddOptions(db: DB, members: { id: number; name: string }[]):
          JOIN flavor_ingredients i ON i.id = y.ingredient_id
          JOIN flavor_compounds c ON c.id = x.compound_id
          WHERE x.ingredient_id = ? AND y.ingredient_id != ?
-         GROUP BY y.ingredient_id ORDER BY SUM(c.idf) DESC LIMIT 15`
+         GROUP BY y.ingredient_id ORDER BY SUM(c.idf) DESC LIMIT 30`
       ).all(a.id, a.id) as { name: string }[];
       for (const r of rows) pool.add(r.name);
     }
-    for (const r of db.prepare('SELECT name_b FROM ingredient_cooccur WHERE name_a = ? ORDER BY score DESC LIMIT 15').all(normName(m.name)) as { name_b: string }[]) pool.add(r.name_b);
+    for (const r of db.prepare('SELECT name_b FROM ingredient_cooccur WHERE name_a = ? ORDER BY score DESC LIMIT 30').all(normName(m.name)) as { name_b: string }[]) pool.add(r.name_b);
   }
-  for (const na of harmonyNextAdds(db, members.map((m) => m.id), 25)) pool.add(na.name);
+  for (const na of harmonyNextAdds(db, members.map((m) => m.id), 40)) pool.add(na.name);
 
   const memberIds = new Set(members.map((m) => m.id));
   const memberNames = new Set(members.map((m) => m.name.toLowerCase()));
-  const scored: { name: string; noteId: number; family: string | null; meanH: number; meanA: number; meanC: number }[] = [];
+  const scored: { name: string; noteId: number; family: string | null; meanH: number; meanA: number; meanC: number; projScore: number }[] = [];
   const seenNote = new Set<number>();
   for (const raw of pool) {
     const note = noteIngByName(db, raw);
@@ -318,16 +331,25 @@ export function nextAddOptions(db: DB, members: { id: number; name: string }[]):
     }
     const fam = familyTotals(noteRows(db, note.id));
     const family = FAMILY_ORDER.filter((f) => fam[f] > 0).sort((x, y) => fam[y] - fam[x])[0] || null;
-    scored.push({ name: note.name, noteId: note.id, family, meanH: hN ? hSum / hN : 0, meanA: aN ? aSum / aN : 0, meanC: cN ? cSum / cN : 0 });
+    // exact dish score if this candidate joined the plate (combined pair means)
+    const projScore = dishScore(
+      (pHn + hN) ? (pHs + hSum) / (pHn + hN) : 0,
+      (pCn + cN) ? (pCs + cSum) / (pCn + cN) : 0,
+      (pAn + aN) ? (pAs + aSum) / (pAn + aN) : 0,
+    );
+    scored.push({ name: note.name, noteId: note.id, family, meanH: hN ? hSum / hN : 0, meanA: aN ? aSum / aN : 0, meanC: cN ? cSum / cN : 0, projScore });
   }
 
+  // For a given axis: keep only candidates that BOTH lift that axis and raise the
+  // overall dish score, ordered by how much they lift the axis. A longer list —
+  // the UI scrolls it — but every entry genuinely improves the dish.
   const rank = (score: (r: typeof scored[number]) => number, current: number) => {
     const seenHead = new Set<string>();
     return scored
-      .filter((r) => score(r) > current + 5)              // only genuine improvements
+      .filter((r) => score(r) > current && r.projScore > currentScore)
       .sort((a, b) => score(b) - score(a))
       .filter((r) => { const h = r.name.toLowerCase().split(/\s+/).pop()!; return seenHead.has(h) ? false : (seenHead.add(h), true); })
-      .slice(0, 6)
+      .slice(0, 30)
       .map((r) => ({ name: r.name, noteId: r.noteId, fit: Math.round(score(r)), family: r.family }));
   };
 
