@@ -35,14 +35,6 @@ async function filterBy(ing: string): Promise<Map<string, Meal>> {
   }
 }
 
-function intersect(sets: Map<string, Meal>[]): Meal[] {
-  if (sets.length === 0) return [];
-  const [first, ...rest] = sets;
-  const out: Meal[] = [];
-  for (const [id, meal] of first) if (rest.every((s) => s.has(id))) out.push(meal);
-  return out;
-}
-
 export async function GET(request: Request) {
   try {
     const raw = new URL(request.url).searchParams.get('ingredients') || '';
@@ -54,24 +46,33 @@ export async function GET(request: Request) {
     if (hit && Date.now() - hit.at < TTL) return Response.json({ recipes: hit.cards });
 
     const sets = await Promise.all(ings.map(filterBy));
-    const nonEmpty = sets.filter((s) => s.size > 0);
-    const bySize = [...nonEmpty].sort((a, b) => a.size - b.size); // rarest ingredient first
 
-    // Exact combo first (all ingredients); if thin, relax to the two rarest
-    // ingredients so cards still share most of the base. No single-ingredient
-    // fallback — a recipe with only one of them isn't "this combo".
-    const seen = new Set<string>();
-    const meals: Meal[] = [];
-    const push = (list: Meal[]) => { for (const m of list) if (!seen.has(m.idMeal)) { seen.add(m.idMeal); meals.push(m); } };
-    push(intersect(nonEmpty));
-    if (meals.length < 6 && bySize.length > 2) push(intersect(bySize.slice(0, 2)));
-
-    const cards = meals.slice(0, 6).map((m) => ({
-      title: m.strMeal,
-      image: m.strMealThumb,
-      link: `https://www.themealdb.com/meal/${m.idMeal}`,
-      source: 'themealdb.com',
-    }));
+    // Tally which of the plate's ingredients each meal actually contains, then
+    // rank by completeness. We keep full matches and near-misses (at most one
+    // ingredient short, never fewer than two matched) and report `missing` on
+    // every card, so a partial match is labelled rather than passed off as the
+    // combo — that mislabelling was the bug.
+    const byId = new Map<string, { meal: Meal; matched: number[] }>();
+    sets.forEach((s, idx) => {
+      for (const [id, meal] of s) {
+        const e = byId.get(id) || { meal, matched: [] };
+        e.matched.push(idx);
+        byId.set(id, e);
+      }
+    });
+    const need = Math.max(2, ings.length - 1);
+    const cards = [...byId.values()]
+      .filter((e) => e.matched.length >= Math.min(need, ings.length))
+      .sort((a, b) => b.matched.length - a.matched.length)
+      .slice(0, 6)
+      .map((e) => ({
+        title: e.meal.strMeal,
+        image: e.meal.strMealThumb,
+        link: `https://www.themealdb.com/meal/${e.meal.idMeal}`,
+        source: 'themealdb.com',
+        matched: e.matched.map((i) => ings[i]),
+        missing: ings.filter((_, i) => !e.matched.includes(i)),
+      }));
     cache.set(key, { at: Date.now(), cards });
     return Response.json({ recipes: cards });
   } catch (error) {
