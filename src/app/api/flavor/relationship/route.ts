@@ -1,5 +1,5 @@
 import { getDb } from '@/lib/db';
-import { noteRows, familyTotals, synergyByName, harmonyByName, FAMILY_ORDER } from '@/lib/flavor';
+import { noteRows, familyTotals, synergyByName, harmonyByName, complementByName, FAMILY_ORDER } from '@/lib/flavor';
 
 interface Ing { id: number; name: string; category: string }
 
@@ -28,6 +28,7 @@ export async function GET(request: Request) {
     const cache = new Map<number, number>();
     const affinity = synergyByName(db, a.name, b.name, cache);
     const harm = harmonyByName(db, a.name, b.name);
+    const comp = complementByName(db, a.name, b.name);
 
     // Facet comparison — each family's intensity for A vs B, 0-100 (from the merged Compare view).
     const aFam = familyTotals(aRows), bFam = familyTotals(bRows);
@@ -59,6 +60,9 @@ export async function GET(request: Request) {
       proven: harm?.proven ?? false,
       cooccur: harm?.cooccur ?? null,
       bridges: harm?.bridges ?? [],
+      complement: comp?.complement ?? 0,
+      muddyRisk: comp?.muddyRisk ?? false,
+      complementWhy: comp?.why ?? '',
       facets,
       recipes,
     });
