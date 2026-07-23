@@ -118,7 +118,7 @@ export const api = {
         complement: number;
         affinity: number;
         score: number;
-        cuisine: { mix: { name: string; pct: number }[]; nudges: { name: string; add: string }[] };
+        cuisine: { mix: { name: string; pct: number }[]; nudges: { name: string; add: string; delta: number }[] };
         tightestPairs: { a: string; b: string; harmony: number }[];
         harmonyAdds: { name: string; noteId: number | null; fit: number; family: string | null; delta: number }[];
         complementAdds: { name: string; noteId: number | null; fit: number; family: string | null; delta: number }[];
