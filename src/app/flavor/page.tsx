@@ -256,17 +256,22 @@ function LabTab({ ingredients, families, vocabulary, build, setBuild, lab, labMe
               )}
               <div className="flex items-baseline justify-between mt-6 mb-2.5 flex-wrap gap-2">
                 <span className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">add next — to lift <b className="text-text font-medium">{labMetric}</b></span>
+                {adds.length > 0 && <span className="text-[11px] text-text-secondary tabular-nums">{adds.length}</span>}
               </div>
               {adds.length === 0 ? (
-                <p className="text-text-secondary text-[13.5px]">Nothing found that would meaningfully raise the {labMetric}. Your plate is already balanced on that axis.</p>
-              ) : adds.map((a: any) => (
-                <div key={a.name} className="flex items-center gap-3 py-2 border-b border-[#f0f0f0]">
-                  <button onClick={() => a.noteId && addById(a.noteId, a.name)} className="min-w-[8rem] text-[14.5px] text-left hover:underline underline-offset-2">{cap(a.name)}</button>
-                  <div className="flex-1 h-[6px] bg-[#eee] max-w-[200px]"><div className="h-full" style={{ width: `${Math.min(100, a.fit)}%`, background: FAMILY_COLORS[a.family] || '#141310' }} /></div>
-                  <span className="text-[12px] text-text-secondary tabular-nums w-10 text-right">{a.fit}</span>
+                <p className="text-text-secondary text-[13.5px]">Nothing found that would lift the {labMetric} without lowering the dish score. Your plate is already balanced on that axis.</p>
+              ) : (
+                <div className="max-h-[360px] overflow-y-auto pr-1 -mr-1">
+                  {adds.map((a: any) => (
+                    <div key={a.name} className="flex items-center gap-3 py-2 border-b border-[#f0f0f0]">
+                      <button onClick={() => a.noteId && addById(a.noteId, a.name)} className="min-w-[8rem] text-[14.5px] text-left hover:underline underline-offset-2">{cap(a.name)}</button>
+                      <div className="flex-1 h-[6px] bg-[#eee] max-w-[200px]"><div className="h-full transition-[width] duration-500 ease-out" style={{ width: `${Math.min(100, a.fit)}%`, background: FAMILY_COLORS[a.family] || '#141310' }} /></div>
+                      <span className="text-[12px] text-text-secondary tabular-nums w-10 text-right">{a.fit}</span>
+                    </div>
+                  ))}
                 </div>
-              ))}
-              <p className="text-[11.5px] text-text-secondary mt-4">Only ingredients that would raise the {labMetric} are listed. Click one to add it.</p>
+              )}
+              <p className="text-[11.5px] text-text-secondary mt-4">Every ingredient here lifts {labMetric} <em>and</em> raises the dish score. Click one to add it.</p>
             </>
           )}
         </div>
