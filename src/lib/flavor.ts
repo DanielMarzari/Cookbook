@@ -261,20 +261,30 @@ export function plateAffinity(db: DB, members: { id: number; name: string }[], c
   return n ? Math.round(sum / n) : 0;
 }
 
-// Suggest ingredients to add to a plate, ranked by BOTH metrics. Returns only
-// candidates that would IMPROVE the chosen score (mean with the plate above the
-// current plate score + 5) — nothing that leaves it flat or worse.
+type AddOpt = { name: string; noteId: number; fit: number; family: string | null };
+// Classic balancers seeded into the candidate pool so the Complement axis always
+// has contrast to offer (acids, bright/fresh notes, sweet/heat balancers).
+const COMPLEMENT_SEEDS = ['Lemon', 'Lime', 'Vinegar', 'Orange', 'Grapefruit', 'Tomato', 'Chili', 'Ginger', 'Honey', 'Mint', 'Basil', 'Coriander', 'Parsley', 'Dill', 'Fennel', 'Garlic', 'Mustard', 'Pomegranate', 'Tamarind', 'Caramel', 'Pepper', 'Rosemary', 'Thyme', 'Yogurt', 'Lemongrass'];
+
+// Suggest ingredients to add to a plate, ranked by any of the three metrics.
+// Returns only candidates that would IMPROVE the chosen score (mean with the
+// plate above the current plate score + 5) — nothing that leaves it flat or worse.
 export function nextAddOptions(db: DB, members: { id: number; name: string }[]): {
-  harmonyCurrent: number; affinityCurrent: number;
-  harmonyAdds: { name: string; noteId: number; fit: number; family: string | null }[];
-  affinityAdds: { name: string; noteId: number; fit: number; family: string | null }[];
+  harmonyCurrent: number; affinityCurrent: number; complementCurrent: number;
+  harmonyAdds: AddOpt[];
+  affinityAdds: AddOpt[];
+  complementAdds: AddOpt[];
 } {
   const cache = new Map<number, number>();
   const harmonyCurrent = plateHarmony(db, members).harmony;
   const affinityCurrent = plateAffinity(db, members, cache);
+  const complementCurrent = plateComplement(db, members);
 
-  // candidate pool from several sources so both metrics have room to improve
+  // candidate pool from several sources so every metric has room to improve
   const pool = new Set<string>();
+  // Complement often wants a contrast the plate doesn't already resemble (an acid
+  // to cut fat, a bright note to lift heavy), so seed classic balancers too.
+  for (const b of COMPLEMENT_SEEDS) pool.add(b);
   for (const m of members) {
     const a = ahnByName(db, m.name);
     if (a) {
@@ -294,20 +304,21 @@ export function nextAddOptions(db: DB, members: { id: number; name: string }[]):
 
   const memberIds = new Set(members.map((m) => m.id));
   const memberNames = new Set(members.map((m) => m.name.toLowerCase()));
-  const scored: { name: string; noteId: number; family: string | null; meanH: number; meanA: number }[] = [];
+  const scored: { name: string; noteId: number; family: string | null; meanH: number; meanA: number; meanC: number }[] = [];
   const seenNote = new Set<number>();
   for (const raw of pool) {
     const note = noteIngByName(db, raw);
     if (!note || memberIds.has(note.id) || memberNames.has(note.name.toLowerCase()) || seenNote.has(note.id)) continue;
     seenNote.add(note.id);
-    let hSum = 0, hN = 0, aSum = 0, aN = 0;
+    let hSum = 0, hN = 0, aSum = 0, aN = 0, cSum = 0, cN = 0;
     for (const m of members) {
       const h = harmonyByName(db, note.name, m.name); if (h) { hSum += h.harmony; hN++; }
       const af = synergyByName(db, note.name, m.name, cache); if (af) { aSum += af.synergy; aN++; }
+      const cp = complementByName(db, note.name, m.name); if (cp) { cSum += cp.complement; cN++; }
     }
     const fam = familyTotals(noteRows(db, note.id));
     const family = FAMILY_ORDER.filter((f) => fam[f] > 0).sort((x, y) => fam[y] - fam[x])[0] || null;
-    scored.push({ name: note.name, noteId: note.id, family, meanH: hN ? hSum / hN : 0, meanA: aN ? aSum / aN : 0 });
+    scored.push({ name: note.name, noteId: note.id, family, meanH: hN ? hSum / hN : 0, meanA: aN ? aSum / aN : 0, meanC: cN ? cSum / cN : 0 });
   }
 
   const rank = (score: (r: typeof scored[number]) => number, current: number) => {
@@ -321,9 +332,10 @@ export function nextAddOptions(db: DB, members: { id: number; name: string }[]):
   };
 
   return {
-    harmonyCurrent, affinityCurrent,
+    harmonyCurrent, affinityCurrent, complementCurrent,
     harmonyAdds: rank((r) => r.meanH, harmonyCurrent),
     affinityAdds: rank((r) => r.meanA, affinityCurrent),
+    complementAdds: rank((r) => r.meanC, complementCurrent),
   };
 }
 

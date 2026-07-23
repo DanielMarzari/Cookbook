@@ -37,6 +37,7 @@ export async function POST(request: Request) {
       score,
       tightestPairs: pairs.slice(0, 3),
       harmonyAdds: opts.harmonyAdds,
+      complementAdds: opts.complementAdds,
       affinityAdds: opts.affinityAdds,
     });
   } catch (error) {
