@@ -59,6 +59,22 @@ const GOOD = {
   'Guacamole': ['Avocado', 'Lime', 'Coriander', 'Onion', 'Chili', 'Tomato'],
   'Pesto': ['Basil', 'Parmesan Cheese', 'Garlic', 'Olive'],
   'Chimichurri': ['Parsley', 'Garlic', 'Vinegar', 'Chili', 'Oregano', 'Olive'],
+  // ── DARING but genuinely good: uncommon pairings that work when executed well.
+  // Without these the model equates "rarely cooked together" with "bad" and tanks
+  // corn+white chocolate to ~4. They teach it that a novel pair with real balance
+  // is good, so novelty lands in a respectable middle instead of near zero.
+  'Corn & white chocolate': ['Corn', 'White chocolate', 'Butter'],
+  'Watermelon feta salad': ['Watermelon', 'Feta', 'Mint', 'Olive'],
+  'Strawberry balsamic': ['Strawberry', 'Balsamic vinegar', 'Pepper'],
+  'Dark chocolate chili': ['Dark chocolate', 'Chili', 'Cinnamon'],
+  'Blue cheese, pear & honey': ['Cheese', 'Pear', 'Honey', 'Walnut'],
+  'Miso caramel': ['Miso', 'Caramel', 'Butter'],
+  'Bacon & maple': ['Bacon', 'Maple syrup', 'Egg'],
+  'Prosciutto & melon': ['Prosciutto', 'Peach'],
+  'Apple & cheddar': ['Apple', 'Cheddar Cheese', 'Thyme'],
+  'Olive oil & vanilla ice cream': ['Olive oil', 'Vanilla', 'Cream'],
+  'Coffee & cardamom': ['Coffee', 'Cardamom', 'Milk'],
+  'Goat cheese & beet': ['Cheese', 'Beetroot', 'Walnut', 'Olive'],
 };
 
 // ── BAD: deliberately clashing plates. These are the cases the score has to punish.
@@ -120,87 +136,36 @@ for (let i = 0; i < 90; i++) {
   if (!d.error) random.push({ name: `random#${i}`, h: d.harmony, c: d.complement, a: d.affinity, mh: d.minHarmony ?? 0, mc: d.minComplement ?? 0, pv: d.provenPct ?? 0 });
 }
 
-// ── fit: logistic regression on [h, c, a, minH, minC] scaled to 0-1, balanced.
-// The two min terms are the weakest-link signal: they let one terrible pairing
-// sink a plate that looks fine on averages.
-const FEATS = ['harmony', 'complement', 'affinity', 'minHarmony', 'minComplement', 'provenPct'];
-const vec = (r) => [r.h / 100, r.c / 100, r.a / 100, r.mh / 100, r.mc / 100, r.pv / 100];
-const bad = [...clash, ...random];
-const X = [...good, ...bad].map(vec);
-const y = [...good.map(() => 1), ...bad.map(() => 0)];
-// Class weights: positives get half the mass, and the negative half is split
-// evenly between deliberate clashes and random plates — otherwise the 90 random
-// plates drown out the 18 clashes, which are the cases we most need punished.
-const sw = [
-  ...good.map(() => 0.5 / good.length),
-  ...clash.map(() => 0.25 / clash.length),
-  ...random.map(() => 0.25 / random.length),
-];
-
-// Weights are constrained NON-NEGATIVE. Every axis should indicate quality
-// positively; left unconstrained the fit gave minHarmony a negative weight,
-// effectively rewarding plates for HAVING a weak pair (it was using mean-minus-min
-// as a proxy for ingredient count) and dropping Cacio e pepe to 27.
-const D = FEATS.length;
-let w = new Array(D).fill(0.5), b = 0;
-const lr = 2.0, iters = 60000, l2 = 1e-4, CAP_PROVEN = 20;
-const sig = (z) => 1 / (1 + Math.exp(-z));
-for (let it = 0; it < iters; it++) {
-  const g = new Array(D).fill(0); let gb = 0;
-  for (let i = 0; i < X.length; i++) {
-    let z = b; for (let k = 0; k < D; k++) z += w[k] * X[i][k];
-    const e = (sig(z) - y[i]) * sw[i];
-    for (let k = 0; k < D; k++) g[k] += e * X[i][k];
-    gb += e;
-  }
-  for (let k = 0; k < D; k++) w[k] = Math.max(0, w[k] - lr * (g[k] + l2 * w[k]));
-  // ingredient_cooccur is a truncated top-N partner list (3.2k rows / 370
-  // ingredients), so provenPct is sparse: cacio e pepe reads 0% simply because
-  // pepper isn't in parmesan's top partners. Informative, but capped so a data
-  // artifact can't dominate the score.
-  w[5] = Math.min(w[5], CAP_PROVEN);
-  b -= lr * gb;
-}
-
-const scoreOf = (r) => { const v = vec(r); let z = b; for (let k = 0; k < D; k++) z += w[k] * v[k]; return 100 * sig(z); };
+// ── The score is a transparent BALANCE + DOCUMENTATION blend, not a fitted
+// classifier (DISH_MODEL in src/lib/flavor.ts). We proved our metrics can't tell
+// a daring-good pairing from a clash — corn+white chocolate C58 vs fish+chocolate
+// C59; honey+anchovy (a clash) even scores HIGHER complement than corn+white
+// chocolate — so any classifier that scores clashes low also tanks good-but-novel
+// combos. This script now just MEASURES the tiers so we can see the blend behave.
+const MODEL = { base: 30, complement: 0.34, provenPct: 0.26, harmony: 0.20, minComplement: 0.10 };
+const scoreOf = (r) => Math.max(0, Math.min(100, MODEL.base + MODEL.complement * r.c + MODEL.provenPct * r.pv + MODEL.harmony * r.h + MODEL.minComplement * r.mc));
 const mean = (xs) => xs.reduce((a, x) => a + x, 0) / xs.length;
-const gs = good.map(scoreOf), cs = clash.map(scoreOf), rs = random.map(scoreOf);
 
-// AUC (good vs all bad) — probability a random good dish outranks a random bad one
-const bs = [...cs, ...rs];
-let wins = 0;
-for (const a of gs) for (const bb of bs) wins += a > bb ? 1 : a === bb ? 0.5 : 0;
-const auc = wins / (gs.length * bs.length);
-
-const fmean = (rows, k) => (rows.reduce((a, r) => a + r[k], 0) / rows.length).toFixed(1);
-console.log('\n=== raw feature means (before fitting) ===');
-console.log('               h     c     a    minH  minC  proven%');
-for (const [lbl, rows] of [['celebrated', good], ['clash', clash], ['random', random]])
-  console.log(`  ${lbl.padEnd(11)} ${fmean(rows,'h').padStart(5)} ${fmean(rows,'c').padStart(5)} ${fmean(rows,'a').padStart(5)} ${fmean(rows,'mh').padStart(5)} ${fmean(rows,'mc').padStart(5)} ${fmean(rows,'pv').padStart(6)}`);
-console.log(`\n=== fit (n good ${good.length}, clash ${clash.length}, random ${random.length}) ===`);
-FEATS.forEach((f, k) => console.log(`  ${f.padEnd(14)} ${w[k] >= 0 ? ' ' : ''}${w[k].toFixed(3)}`));
-console.log(`  intercept      ${b.toFixed(3)}`);
-const relSum = w.reduce((a, x) => a + Math.abs(x), 0);
-console.log(`relative pull: ${FEATS.map((f, k) => `${f} ${(Math.abs(w[k]) / relSum * 100).toFixed(0)}%`).join('  ')}`);
-console.log(`\nmean score — celebrated ${mean(gs).toFixed(1)} | random ${mean(rs).toFixed(1)} | deliberate clashes ${mean(cs).toFixed(1)}`);
-console.log(`separation: celebrated - clashes = ${(mean(gs) - mean(cs)).toFixed(1)} points`);
-console.log(`AUC (good vs bad): ${auc.toFixed(3)}   [0.5 = coin flip, 1.0 = perfect]`);
-
-console.log('\nlowest-scoring clashes:');
-clash.map((r, i) => ({ n: r.name, s: cs[i] })).sort((a, b) => a.s - b.s).slice(0, 6).forEach((r) => console.log(`   ${r.n.padEnd(32)} ${r.s.toFixed(0)}`));
-console.log('highest-scoring celebrated:');
-good.map((r, i) => ({ n: r.name, s: gs[i] })).sort((a, b) => b.s - a.s).slice(0, 6).forEach((r) => console.log(`   ${r.n.padEnd(32)} ${r.s.toFixed(0)}`));
-console.log('lowest-scoring celebrated (should still be respectable):');
-good.map((r, i) => ({ n: r.name, s: gs[i] })).sort((a, b) => a.s - b.s).slice(0, 4).forEach((r) => console.log(`   ${r.n.padEnd(32)} ${r.s.toFixed(0)}`));
-
-console.log(`\n>>> paste into src/lib/flavor.ts:`);
-console.log(`export const DISH_MODEL = { harmony: ${w[0].toFixed(4)}, complement: ${w[1].toFixed(4)}, affinity: ${w[2].toFixed(4)}, minHarmony: ${w[3].toFixed(4)}, minComplement: ${w[4].toFixed(4)}, provenPct: ${w[5].toFixed(4)}, intercept: ${b.toFixed(4)} };`);
+// split good into classics vs the daring examples so we can watch both
+const daringNames = new Set(['Corn & white chocolate', 'Watermelon feta salad', 'Strawberry balsamic', 'Dark chocolate chili', 'Blue cheese, pear & honey', 'Miso caramel', 'Bacon & maple', 'Prosciutto & melon', 'Apple & cheddar', 'Olive oil & vanilla ice cream', 'Coffee & cardamom', 'Goat cheese & beet']);
+const classics = good.filter((r) => !daringNames.has(r.name));
+const daring = good.filter((r) => daringNames.has(r.name));
+const report = (label, rows) => {
+  const s = rows.map(scoreOf);
+  console.log(`\n${label} (n ${rows.length}) — mean ${mean(s).toFixed(0)}, range ${Math.min(...s).toFixed(0)}-${Math.max(...s).toFixed(0)}`);
+  rows.map((r, i) => ({ n: r.name, s: s[i] })).sort((a, b) => a.s - b.s).slice(0, 6).forEach((r) => console.log(`   ${r.n.padEnd(30)} ${r.s.toFixed(0)}`));
+};
+console.log('\n=== dish score tiers under the balance+documentation blend ===');
+report('CLASSICS  (proven, want high)', classics);
+report('DARING    (uncommon-good, want respectable)', daring);
+report('RANDOM    (piles, want middling)', random);
+report('CLASH     (want low-ish; some we cannot detect)', clash);
 
 // Compare-shelf exemplars carry their score precomputed, since the client only
 // keeps h/c/a for the fingerprint and can't recompute the min-pair terms.
 const { writeFileSync } = await import('node:fs');
 const shelf = good
-  .map((r, i) => ({ dish: r.name, h: r.h, c: r.c, a: r.a, score: Math.round(gs[i]) }))
+  .map((r) => ({ dish: r.name, h: r.h, c: r.c, a: r.a, score: Math.round(scoreOf(r)) }))
   .sort((x, y) => y.score - x.score);
 writeFileSync('/tmp/dish-exemplars.json', JSON.stringify(shelf, null, 2));
 console.log(`\nwrote ${shelf.length} scored exemplars -> /tmp/dish-exemplars.json`);
