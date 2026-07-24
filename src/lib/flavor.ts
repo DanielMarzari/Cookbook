@@ -416,7 +416,7 @@ export type DishFeatures = {
 // falling back to a note-similarity guess. provenPct no longer needs capping.
 // The min-pair terms still fit to 0 and are kept for future corpora.
 // Refresh with scripts/derive-dish-score.mjs.
-export const DISH_MODEL = { harmony: 18.9812, complement: 0.6916, affinity: 3.3919, minHarmony: 0, minComplement: 0, provenPct: 12.4521, intercept: -16.5592 };
+export const DISH_MODEL = { harmony: 19.1307, complement: 0.8385, affinity: 0.8750, minHarmony: 0, minComplement: 0, provenPct: 13.5262, intercept: -17.1014 };
 export function dishScore(f: DishFeatures): number {
   const z = DISH_MODEL.intercept
     + DISH_MODEL.harmony * (f.harmony / 100)
