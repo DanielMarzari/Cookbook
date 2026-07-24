@@ -122,11 +122,17 @@ console.log(`\nrecipes parsed: ${recipes}`);
 console.log(`ingredient mentions: ${rawSeen}, mapped to vocabulary: ${mapped} (${(mapped / rawSeen * 100).toFixed(1)}%)`);
 console.log(`distinct vocabulary ingredients seen: ${count.size}`);
 
-// ── NPMI. Only ingredients with enough support are trustworthy.
+// ── NPMI, POSITIVE evidence only. Earlier versions also wrote negative scores —
+// a "never cooked together" floor AND real negative NPMI. Both were a mistake:
+// NPMI goes negative whenever one ingredient is very common and the pair is merely
+// rare (corn + white chocolate = -0.13), which is a statistical artifact, not a
+// clash. It tanked good-but-uncommon pairings (corn+white chocolate, olive
+// oil+miso, chili+chocolate) to ~0. So we now emit ONLY positive association: a
+// pair the corpus shows people genuinely cook together more than chance. Absence
+// means "unknown, judge by the flavour science", never "clash".
 const MIN_ING = 50;                            // ingredient must appear in >=50 recipes
-const MIN_PAIR = 5;                            // pair needs >=5 co-occurrences to be positive evidence
-const NEVER = -0.85;                           // floor for "common, but never seen together"
-const COMMON = 400;                            // both must be this frequent to assert a negative
+const MIN_PAIR = 5;                            // pair needs >=5 co-occurrences
+const MIN_NPMI = 0.03;                          // and a positive association above chance
 const N = recipes;
 const keep = [...count.entries()].filter(([, c]) => c >= MIN_ING).map(([k]) => k);
 const keepSet = new Set(keep);
@@ -138,23 +144,10 @@ for (const [k, c] of pair) {
   if (!keepSet.has(a) || !keepSet.has(b) || c < MIN_PAIR) continue;
   const pa = count.get(a) / N, pb = count.get(b) / N, pab = c / N;
   const npmi = Math.log(pab / (pa * pb)) / -Math.log(pab);
+  if (npmi < MIN_NPMI) continue;                // drop negatives / non-associations
   out.push([a, b, +npmi.toFixed(4)]);
 }
-const positives = out.length;
-
-// negative evidence: frequent pairs of frequent ingredients that never co-occur
-const common = keep.filter((k) => count.get(k) >= COMMON);
-let negatives = 0;
-for (let i = 0; i < common.length; i++)
-  for (let j = i + 1; j < common.length; j++) {
-    const a = common[i] < common[j] ? common[i] : common[j];
-    const b = common[i] < common[j] ? common[j] : common[i];
-    if (pair.has(`${a}|${b}`)) continue;
-    out.push([a, b, NEVER]);
-    negatives++;
-  }
 
 fs.writeFileSync(OUT, 'name_a,name_b,score\n' + out.map((r) => `${r[0]},${r[1]},${r[2]}`).join('\n') + '\n');
-console.log(`\nwrote ${out.length} pairs -> ${OUT}`);
-console.log(`  ${positives} measured co-occurrences, ${negatives} "never together" (from ${common.length} common ingredients)`);
+console.log(`\nwrote ${out.length} positive-association pairs -> ${OUT}`);
 console.log(`  file size: ${(fs.statSync(OUT).size / 1048576).toFixed(1)} MB`);

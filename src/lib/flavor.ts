@@ -404,30 +404,30 @@ export type DishFeatures = {
   minComplement: number;
   provenPct: number;     // % of pairs backed by real recipe co-occurrence
 };
-// Fitted 2026-07-23 by logistic regression separating 38 celebrated dishes from
-// 18 deliberate clashes + 90 random plates. Weights are constrained non-negative
-// (unconstrained, minHarmony went negative — the fit was rewarding plates for
-// HAVING a weak pair, using mean-minus-min as a proxy for ingredient count, and
-// dropped Cacio e pepe to 27).
-//
-// Refitted after replacing the co-occurrence corpus: harmony now dominates,
-// because with 20k real pairs (including negative "never cooked together"
-// evidence) harmony is finally grounded in what people actually cook rather than
-// falling back to a note-similarity guess. provenPct no longer needs capping.
-// The min-pair terms still fit to 0 and are kept for future corpora.
-// Refresh with scripts/derive-dish-score.mjs.
-export const DISH_MODEL = { harmony: 19.1307, complement: 0.8385, affinity: 0.8750, minHarmony: 0, minComplement: 0, provenPct: 13.5262, intercept: -17.1014 };
-export function dishScore(f: DishFeatures): number {
-  const z = DISH_MODEL.intercept
-    + DISH_MODEL.harmony * (f.harmony / 100)
-    + DISH_MODEL.complement * (f.complement / 100)
-    + DISH_MODEL.affinity * (f.affinity / 100)
-    + DISH_MODEL.minHarmony * (f.minHarmony / 100)
-    + DISH_MODEL.minComplement * (f.minComplement / 100)
-    + DISH_MODEL.provenPct * (f.provenPct / 100);
-  return Math.max(0, Math.min(100, Math.round(100 / (1 + Math.exp(-z)))));
-}
 
+// A transparent BALANCE-AND-DOCUMENTATION blend, deliberately NOT a good-vs-bad
+// classifier. We established (with data) that our flavour metrics cannot separate
+// a daring-but-good pairing from a genuine clash — corn+white chocolate and
+// fish+chocolate have near-identical complement (58 vs 59), and honey+anchovy
+// (a clash) actually scores HIGHER complement than corn+white chocolate. Any model
+// trained to score clashes low therefore also tanked good-but-uncommon pairings to
+// ~4, which is the opposite of what a cook exploring ideas wants.
+//
+// So the score answers two answerable questions instead: "is this balanced?"
+// (complement gives every plausible plate a respectable floor) and "do people
+// actually cook it?" (provenPct + harmony lift documented classics toward 100).
+// Only a genuinely imbalanced plate (low complement) scores low. The honest cost:
+// a non-obvious clash our metrics can't detect (fish+chocolate) lands in the
+// middle, not the basement — we'd rather miss those than punish creativity.
+export const DISH_MODEL = { base: 30, complement: 0.34, provenPct: 0.26, harmony: 0.20, minComplement: 0.10 };
+export function dishScore(f: DishFeatures): number {
+  const s = DISH_MODEL.base
+    + DISH_MODEL.complement * f.complement
+    + DISH_MODEL.provenPct * f.provenPct
+    + DISH_MODEL.harmony * f.harmony
+    + DISH_MODEL.minComplement * f.minComplement;
+  return Math.max(0, Math.min(100, Math.round(s)));
+}
 // ── Cuisine "genre": what tradition is this plate speaking? ───────────────────
 // Score the plate against each cuisine's signature ingredients, weighting each by
 // exclusivity (tomato is in many cuisines and says little; gochujang says Korea).
