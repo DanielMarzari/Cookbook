@@ -75,8 +75,13 @@ export function harmonyByName(db: DB, aName: string, bName: string): { harmony: 
   const structural = Math.round(100 * Math.tanh(bridge / 20));
 
   // Real recipe co-occurrence overrides the structural estimate when available.
+  // Scores can be negative — the corpus now records pairs of common ingredients
+  // that NEVER appear together, which is the strongest evidence they don't belong
+  // — so clamp into 0-100 rather than letting harmony go below zero.
   const cooccur = realCooccur(db, aName, bName);
-  const harmony = cooccur != null ? Math.round(100 * Math.tanh(cooccur * 4)) : structural;
+  const harmony = cooccur != null
+    ? Math.max(0, Math.min(100, Math.round(100 * Math.tanh(cooccur * 4))))
+    : structural;
 
   return {
     harmony,
@@ -405,13 +410,13 @@ export type DishFeatures = {
 // HAVING a weak pair, using mean-minus-min as a proxy for ingredient count, and
 // dropped Cacio e pepe to 27).
 //
-// provenPct is capped at 2.5: it's the single most discriminative feature, but
-// ingredient_cooccur is a 1,595-pair sample covering 316 ingredients, so "not
-// proven" often means "not in our small sample" rather than "nobody cooks this"
-// (parmesan+pepper is absent). Uncapped it took 73% of the model and sank real
-// classics. The min-pair terms fit to 0 and are kept for when the corpus improves.
+// Refitted after replacing the co-occurrence corpus: harmony now dominates,
+// because with 20k real pairs (including negative "never cooked together"
+// evidence) harmony is finally grounded in what people actually cook rather than
+// falling back to a note-similarity guess. provenPct no longer needs capping.
+// The min-pair terms still fit to 0 and are kept for future corpora.
 // Refresh with scripts/derive-dish-score.mjs.
-export const DISH_MODEL = { harmony: 2.1865, complement: 0.5732, affinity: 1.4429, minHarmony: 0, minComplement: 0, provenPct: 2.5, intercept: -2.0826 };
+export const DISH_MODEL = { harmony: 18.9812, complement: 0.6916, affinity: 3.3919, minHarmony: 0, minComplement: 0, provenPct: 12.4521, intercept: -16.5592 };
 export function dishScore(f: DishFeatures): number {
   const z = DISH_MODEL.intercept
     + DISH_MODEL.harmony * (f.harmony / 100)
