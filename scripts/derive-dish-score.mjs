@@ -143,7 +143,7 @@ const sw = [
 // as a proxy for ingredient count) and dropping Cacio e pepe to 27.
 const D = FEATS.length;
 let w = new Array(D).fill(0.5), b = 0;
-const lr = 2.0, iters = 60000, l2 = 1e-4, CAP_PROVEN = 2.5;
+const lr = 2.0, iters = 60000, l2 = 1e-4, CAP_PROVEN = 20;
 const sig = (z) => 1 / (1 + Math.exp(-z));
 for (let it = 0; it < iters; it++) {
   const g = new Array(D).fill(0); let gb = 0;
