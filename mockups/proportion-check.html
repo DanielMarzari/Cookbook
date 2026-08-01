@@ -1,0 +1,41 @@
+<meta charset="utf-8">
+<title>Proportion bar check</title>
+<style>
+  :root { --color-text:#111; --color-text-secondary:#767676; --color-border:#e8e8e8; }
+  body { font-family: Helvetica, Arial, sans-serif; background:#fff; color:var(--color-text); margin:0; padding:28px; }
+  .card { border:1px solid var(--color-border); padding:24px; max-width:560px; }
+  .label { font-size:11px; text-transform:uppercase; letter-spacing:0.13em; color:var(--color-text-secondary); margin-bottom:6px; }
+  .bar { display:flex; height:7px; width:100%; }
+  .bar > div { height:100%; border-right:1px solid #fff; }
+  .bar > div:last-child { border-right:0; }
+  .cap { font-size:11.5px; color:var(--color-text-secondary); margin-top:6px; }
+  h3 { font-weight:400; font-size:13px; margin:26px 0 8px; color:var(--color-text-secondary); }
+</style>
+
+<div class="card">
+  <div class="label">by proportion</div>
+  <div class="bar" id="a"></div>
+  <p class="cap" id="ac"></p>
+
+  <h3>Za'atar — accent vs bulk</h3>
+  <div class="bar" id="b"></div>
+  <p class="cap" id="bc"></p>
+
+  <h3>Chocolate Babka — 10 ingredients (does the ramp still read?)</h3>
+  <div class="bar" id="c"></div>
+  <p class="cap" id="cc"></p>
+</div>
+
+<script>
+const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+const sets = {
+  a: [['Flour',34],['Sugar',32],['Butter',29],['Lemon',5]],
+  b: [['Sesame',46],['Thyme',46],['Salt',7]],
+  c: [['Flour',26],['Sugar',18],['Butter',15],['Milk',12],['Egg',9],['Chocolate',7],['Cocoa',5],['Yeast',4],['Cinnamon',3],['Salt',1]],
+};
+for (const [id, rows] of Object.entries(sets)) {
+  document.getElementById(id).innerHTML = rows.map(([n,p],i) =>
+    `<div style="width:${p}%;background:rgba(20,19,16,${1 - (i/Math.max(1,rows.length-1))*0.6})"></div>`).join('');
+  document.getElementById(id+'c').textContent = rows.map(([n,p]) => `${cap(n)} ${p}%`).join(' · ');
+}
+</script>

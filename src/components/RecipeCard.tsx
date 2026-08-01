@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { api } from '@/lib/api-client';
 import { formatTime } from '@/lib/utils';
 import { framingStyle } from '@/lib/image';
+import BranchCollage, { BranchTicks, type VariationThumb } from '@/components/BranchCollage';
 
 type RecipeStatus = 'new' | 'testing' | 'approved' | 'signature' | 'archived';
 
@@ -68,6 +69,8 @@ export default function RecipeCard({
     (recipe.cuisine_type || 'other').toLowerCase(),
     ...(status === 'signature' ? ['signature'] : []),
   ];
+  const variations: VariationThumb[] =
+    ((recipe as unknown as { variations?: VariationThumb[] }).variations) || [];
   const metaParts = [
     recipe.total_time_minutes ? formatTime(recipe.total_time_minutes) : null,
     recipe.servings ? `serves ${recipe.servings}` : null,
@@ -78,7 +81,14 @@ export default function RecipeCard({
       <article className="group cursor-pointer">
         {/* Tall image, honoring the recipe's framing (pan / zoom / rotate) */}
         <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#F4F4F4]">
-          {recipe.image_url ? (
+          {variations.length > 0 ? (
+            <>
+              <BranchCollage base={recipe} variations={variations} />
+              <span className="absolute left-3 bottom-3 bg-white/95 border border-border px-2 py-[3px] text-[9px] uppercase tracking-[0.1em] text-text-secondary">
+                base + {variations.length} variation{variations.length > 1 ? 's' : ''}
+              </span>
+            </>
+          ) : recipe.image_url ? (
             <Image
               src={recipe.image_url}
               alt={recipe.title}
@@ -122,6 +132,7 @@ export default function RecipeCard({
         </div>
 
         {/* Tag, title, meta */}
+        {variations.length > 0 && <BranchTicks count={variations.length} />}
         <p className="tag-link mt-3.5 mb-1.5 lowercase">{tagParts.join(' · ')}</p>
         <h3 className="text-[16.5px] leading-[1.4] text-text max-w-[34ch] group-hover:underline underline-offset-4 decoration-1">
           {recipe.title}

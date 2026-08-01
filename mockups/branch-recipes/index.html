@@ -1,0 +1,41 @@
+<meta charset="utf-8">
+<title>Branched recipes &mdash; eight concepts</title>
+<style>
+  :root { --text:#111; --sec:#767676; --border:#e8e8e8; }
+  * { box-sizing: border-box; }
+  body { font-family: Helvetica, Arial, sans-serif; color: var(--text); background:#fff;
+         margin:0; padding:48px 32px 80px; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width: 980px; margin: 0 auto; }
+  h1 { font-size:30px; font-weight:400; letter-spacing:-0.02em; margin:0 0 10px; }
+  .lede { color:var(--sec); font-size:14px; max-width:62ch; line-height:1.55; margin:0 0 6px; }
+  .rule { border:0; border-top:1px solid var(--text); margin:26px 0 0; }
+  ol { list-style:none; margin:0; padding:0; }
+  li { border-bottom:1px solid var(--border); }
+  a { display:grid; grid-template-columns:44px 1fr auto; gap:20px; align-items:baseline;
+      padding:18px 4px; text-decoration:none; color:inherit; }
+  a:hover { background:#fafafa; }
+  a:focus-visible { outline:2px solid var(--text); outline-offset:-2px; }
+  .num { font-size:11px; letter-spacing:0.13em; color:var(--sec); }
+  .name { font-size:17px; }
+  .desc { display:block; font-size:13px; color:var(--sec); margin-top:3px; line-height:1.45; }
+  .go { font-size:12px; color:var(--sec); }
+  a:hover .go { color:var(--text); }
+</style>
+<div class="wrap">
+  <h1>Branched recipes</h1>
+  <p class="lede">Eight ways a base recipe could carry variations &mdash; Spiced Nuts with
+  Cinnamon-Maple, Lavender-Coconut, Rosemary-Black Pepper, Chili-Lime branches. Each concept
+  shows both halves of the problem: how branching reads on the recipe page, and how the
+  variations collage into one tile on the home grid with a clear branch indicator.</p>
+  <hr class="rule">
+  <ol>
+    <li><a href="01-tabs.html"><span class="num">01</span><span><span class="name">Tabs</span><span class="desc">Variations as a segmented control under the title; switching swaps only what differs.</span></span><span class="go">view &rarr;</span></a></li>
+    <li><a href="02-diff.html"><span class="num">02</span><span><span class="name">Diff view</span><span class="desc">One document, variation deltas marked inline &mdash; a readable version-diff for cooks.</span></span><span class="go">view &rarr;</span></a></li>
+    <li><a href="03-tree.html"><span class="num">03</span><span><span class="name">Branch tree</span><span class="desc">A hairline SVG tree from base to each variation, labelled by its defining ingredient.</span></span><span class="go">view &rarr;</span></a></li>
+    <li><a href="04-compare.html"><span class="num">04</span><span><span class="name">Side-by-side</span><span class="desc">Parallel columns with aligned ingredient rows so differences line up visually.</span></span><span class="go">view &rarr;</span></a></li>
+    <li><a href="05-swap.html"><span class="num">05</span><span><span class="name">Inline swap chips</span><span class="desc">Selectable chips inside the recipe text; picking one rewrites that line in place.</span></span><span class="go">view &rarr;</span></a></li>
+    <li><a href="06-shelf.html"><span class="num">06</span><span><span class="name">Variation shelf</span><span class="desc">Base reads normally, with a horizontal shelf of variation cards beneath it.</span></span><span class="go">view &rarr;</span></a></li>
+    <li><a href="07-accordion.html"><span class="num">07</span><span><span class="name">Accordion ladder</span><span class="desc">Collapsed rows that expand to show only that variation's delta. Scales to many.</span></span><span class="go">view &rarr;</span></a></li>
+    <li><a href="08-split.html"><span class="num">08</span><span><span class="name">Split master-detail</span><span class="desc">Left rail of branches, full recipe on the right. Built for a deep variation set.</span></span><span class="go">view &rarr;</span></a></li>
+  </ol>
+</div>

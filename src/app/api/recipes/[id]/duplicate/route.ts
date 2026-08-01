@@ -24,12 +24,18 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
   const { id } = await params;
   try {
     const db = getDb();
-    const source = db.prepare('SELECT * FROM recipes WHERE id = ?').get(id) as Recipe | undefined;
+    // { asVariation: true } makes the copy a branch of the original rather than
+    // a standalone recipe. Same copy, different relationship.
+    const body = await request.json().catch(() => ({}));
+    const asVariation = body?.asVariation === true;
+    const source = db.prepare('SELECT * FROM recipes WHERE id = ?').get(id) as (Recipe & { parent_recipe_id?: string }) | undefined;
     if (!source) return NextResponse.json({ error: 'Recipe not found' }, { status: 404 });
 
     const newId = `recipe_${Date.now()}_${Math.random().toString(36).slice(2, 11)}`;
     const now = new Date().toISOString();
-    const title = copyTitle(db, source.title || 'Untitled');
+    const title = asVariation
+      ? (body?.title || `${source.title} variation`).trim()
+      : copyTitle(db, source.title || 'Untitled');
 
     // One transaction so a partial copy can never be left behind.
     const duplicate = db.transaction(() => {
@@ -39,28 +45,31 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
            difficulty, prep_time_minutes, cook_time_minutes, total_time_minutes,
            servings, instructions, source_url, source_name, source_author,
            source_type, is_favorite, status, image_rotation, image_position, image_zoom,
+           notes, yield_quantity, yield_unit, parent_recipe_id, variation_of_label,
            created_at, updated_at
          )
          SELECT ?, ?, description, image_url, cuisine_type, origin,
                 difficulty, prep_time_minutes, cook_time_minutes, total_time_minutes,
                 servings, instructions, source_url, source_name, source_author,
                 source_type, 0, 'new', image_rotation, image_position, image_zoom,
-                ?, ?
+                notes, yield_quantity, yield_unit, ?, ?, ?, ?
          FROM recipes WHERE id = ?`
-      ).run(newId, title, now, now, id);
+      ).run(newId, title, asVariation ? (source.parent_recipe_id || id) : null, asVariation ? (body?.label || null) : null, now, now, id);
 
       const ingredients = db.prepare('SELECT * FROM recipe_ingredients WHERE recipe_id = ? ORDER BY order_index').all(id) as
         Record<string, unknown>[];
       const insertIng = db.prepare(
         `INSERT INTO recipe_ingredients (
            id, recipe_id, ingredient_id, name, quantity, unit, notes, order_index,
-           custom_calories, custom_protein, custom_carbs, custom_fat
-         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
+           section, child_recipe_id, custom_calories, custom_protein, custom_carbs, custom_fat
+         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
       );
       ingredients.forEach((ing, i) => {
         insertIng.run(
           `ri_${newId}_${i}`, newId, ing.ingredient_id ?? null, ing.name ?? null,
           ing.quantity ?? null, ing.unit ?? null, ing.notes ?? null, ing.order_index ?? i,
+          // sections and sub-recipe links describe the dish, so the copy keeps both
+          ing.section ?? null, ing.child_recipe_id ?? null,
           ing.custom_calories ?? null, ing.custom_protein ?? null, ing.custom_carbs ?? null, ing.custom_fat ?? null
         );
       });

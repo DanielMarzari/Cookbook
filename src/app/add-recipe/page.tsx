@@ -37,6 +37,7 @@ interface FormRecipe {
     text: string;
     timer_minutes?: number;
     timer_label?: string;
+    section?: string;
   }>;
 }
 
@@ -376,23 +377,35 @@ export default function AddRecipePage() {
             step_number: inst.step_number,
             text: inst.text,
             timer_label: inst.timer_label || '',
+            section: inst.section || undefined,
           })),
           source_type: 'pdf',
           source_name: pdfFilename,
           status: 'new',
         });
 
-        // Batch-insert ingredients.
+        // Batch-insert ingredients. The PDF parser marks sections as rows named
+        // "--- Levain ---"; fold those into the `section` of the rows they head.
         if (created?.id && Array.isArray(p.ingredients) && p.ingredients.length > 0) {
-          const ingPayload = p.ingredients.map((ing: any, idx: number) => ({
-            recipe_id: created.id,
-            name: ing.name,
-            quantity: ing.quantity || 0,
-            unit: ing.unit || '',
-            notes: ing.notes || '',
-            order_index: idx,
-            ingredient_id: null,
-          }));
+          let pdfSection: string | null = null;
+          const ingPayload: Record<string, unknown>[] = [];
+          for (const ing of p.ingredients as any[]) {
+            const isHeader = ing.name?.startsWith('---') && ing.name?.endsWith('---') && ing.name !== '---OR---';
+            if (isHeader) {
+              pdfSection = ing.name.replace(/^-+\s*/, '').replace(/\s*-+$/, '').trim() || null;
+              continue;
+            }
+            ingPayload.push({
+              recipe_id: created.id,
+              name: ing.name,
+              quantity: ing.quantity || 0,
+              unit: ing.unit || '',
+              notes: ing.notes || '',
+              section: pdfSection,
+              order_index: ingPayload.length,
+              ingredient_id: null,
+            });
+          }
           await fetch('/api/recipe-ingredients', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -534,6 +547,7 @@ export default function AddRecipePage() {
           text: inst.text,
           timer_minutes: inst.timer_minutes,
           timer_label: inst.timer_label,
+          section: inst.section?.trim() || undefined,
         })),
         source_url: formData.source_url,
         source_name: formData.source_name,
@@ -542,17 +556,27 @@ export default function AddRecipePage() {
         is_favorite: false,
       });
 
-      const ingredientsWithRecipeId = formData.ingredients
-        .filter((ing) => ing.name.trim() || ing.is_header || ing.is_or)
-        .map((ing, idx) => ({
+      // Header rows are an editing convenience: they collapse into the `section`
+      // of the rows beneath them rather than being stored as fake ingredients.
+      let currentSection: string | null = null;
+      const ingredientsWithRecipeId: Record<string, unknown>[] = [];
+      for (const ing of formData.ingredients) {
+        if (ing.is_header) {
+          currentSection = ing.name.trim() || null;
+          continue;
+        }
+        if (!ing.is_or && !ing.name.trim()) continue;
+        ingredientsWithRecipeId.push({
           recipe_id: recipeData.id,
-          name: ing.is_header ? `--- ${ing.name} ---` : ing.is_or ? '---OR---' : titleCaseIngredient(ing.name),
-          quantity: ing.is_header || ing.is_or ? 0 : ing.quantity,
-          unit: ing.is_header || ing.is_or ? '' : ing.unit,
-          notes: ing.is_header || ing.is_or ? '' : ing.notes,
-          order_index: idx,
+          name: ing.is_or ? '---OR---' : titleCaseIngredient(ing.name),
+          quantity: ing.is_or ? 0 : ing.quantity,
+          unit: ing.is_or ? '' : ing.unit,
+          notes: ing.is_or ? '' : ing.notes,
+          section: currentSection,
+          order_index: ingredientsWithRecipeId.length,
           ingredient_id: null,
-        }));
+        });
+      }
 
       if (ingredientsWithRecipeId.length > 0) {
         await api.recipeIngredients.create(ingredientsWithRecipeId);

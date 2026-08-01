@@ -1,6 +1,7 @@
 import Database from 'better-sqlite3';
 import path from 'path';
 import { SCHEMA_SQL } from './schema';
+import { purgeExpiredArchives } from './archive';
 
 const DB_PATH = process.env.DATABASE_PATH || path.join(process.cwd(), 'cookbook.db');
 let db: Database.Database | null = null;
@@ -11,6 +12,46 @@ function ensureColumn(db: Database.Database, table: string, column: string, type
   if (!cols.some((c) => c.name === column)) {
     db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} ${type}`);
   }
+}
+
+/**
+ * Sections used to be faked as ingredient rows literally named "--- Filling ---",
+ * which meant every consumer had to recognise and skip them. Promote them to a
+ * real `section` column: each sentinel names the section its following rows
+ * belong to, then the sentinel row itself goes away.
+ *
+ * Runs once — a recipe with any section already set is left alone — so it's safe
+ * to call on every boot. "---OR---" is a different marker (alternative
+ * ingredients) and is deliberately left untouched.
+ */
+function migrateSectionSentinels(db: Database.Database): void {
+  const recipeIds = db.prepare(
+    `SELECT DISTINCT recipe_id FROM recipe_ingredients
+     WHERE name LIKE '---%---' AND name <> '---OR---'`
+  ).all() as { recipe_id: string }[];
+  if (recipeIds.length === 0) return;
+
+  const rowsFor = db.prepare('SELECT id, name, section FROM recipe_ingredients WHERE recipe_id = ? ORDER BY order_index');
+  const setSection = db.prepare('UPDATE recipe_ingredients SET section = ? WHERE id = ?');
+  const dropRow = db.prepare('DELETE FROM recipe_ingredients WHERE id = ?');
+
+  const migrate = db.transaction(() => {
+    for (const { recipe_id } of recipeIds) {
+      const rows = rowsFor.all(recipe_id) as { id: string; name: string; section: string | null }[];
+      if (rows.some((r) => r.section)) continue; // already migrated
+      let current: string | null = null;
+      for (const row of rows) {
+        const isSentinel = row.name?.startsWith('---') && row.name?.endsWith('---') && row.name !== '---OR---';
+        if (isSentinel) {
+          current = row.name.replace(/^-+\s*/, '').replace(/\s*-+$/, '').trim() || null;
+          dropRow.run(row.id);
+        } else if (current) {
+          setSection.run(current, row.id);
+        }
+      }
+    }
+  });
+  migrate();
 }
 
 export function getDb(): Database.Database {
@@ -24,6 +65,16 @@ export function getDb(): Database.Database {
     // IF NOT EXISTS won't alter an existing table, so migrate explicitly.
     ensureColumn(db, 'recipes', 'image_position', 'TEXT');
     ensureColumn(db, 'recipes', 'image_zoom', 'REAL');
+    ensureColumn(db, 'recipes', 'notes', 'TEXT');
+    ensureColumn(db, 'recipe_ingredients', 'section', 'TEXT');
+    ensureColumn(db, 'recipe_ingredients', 'child_recipe_id', 'TEXT');
+    ensureColumn(db, 'recipes', 'yield_quantity', 'REAL');
+    ensureColumn(db, 'recipes', 'yield_unit', 'TEXT');
+    ensureColumn(db, 'recipes', 'parent_recipe_id', 'TEXT');
+    ensureColumn(db, 'recipes', 'variation_of_label', 'TEXT');
+    migrateSectionSentinels(db);
+    // Let yesterday's undo buffer go, so the table can't grow unbounded.
+    purgeExpiredArchives(db);
     ensureColumn(db, 'books', 'cover', 'TEXT');
     // Backfill the FTS index the first time it's created against an existing DB
     // (the triggers only cover rows written after the virtual table exists).

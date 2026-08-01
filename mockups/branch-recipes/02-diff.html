@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 02 &mdash; Diff view | Branched recipes</title>
+<style>
+:root{
+  --color-primary:#111111;
+  --color-primary-dark:#000000;
+  --color-secondary:#767676;
+  --color-accent:#111111;
+  --color-background:#ffffff;
+  --color-surface:#ffffff;
+  --color-text:#111111;
+  --color-text-secondary:#767676;
+  --color-border:#e8e8e8;
+  --color-shadow:rgba(0,0,0,0.05);
+  --ink:#141310;
+}
+*,::before,::after{box-sizing:border-box;border:0 solid var(--color-border);margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--color-background);
+  color:var(--color-text);
+  font-family:'Neue Haas Grotesk Text','Helvetica Neue',Helvetica,Arial,-apple-system,BlinkMacSystemFont,sans-serif;
+  font-weight:400;
+  letter-spacing:-0.005em;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+button{font:inherit;letter-spacing:inherit;color:inherit;background:none;cursor:pointer}
+a{color:inherit;text-decoration:none}
+h1,h2,h3{font-weight:400}
+button:focus-visible,a:focus-visible,input:focus-visible{
+  outline:none;box-shadow:0 0 0 2px var(--color-background),0 0 0 3.5px var(--color-text);
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+
+/* ---- shared idioms lifted from the app ---- */
+.tlink{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;cursor:pointer}
+.tlink:hover{color:var(--color-text-secondary)}
+.tag-link{font-size:12.5px;color:var(--color-text-secondary);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;text-decoration-color:#cfcfcf}
+.sec{color:var(--color-text-secondary)}
+.low{text-transform:lowercase}
+.tab{font-variant-numeric:tabular-nums}
+.micro{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--color-text-secondary)}
+.micro-s{font-size:9.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--color-text-secondary)}
+.t115{font-size:11.5px}
+.t125{font-size:12.5px}
+.t13{font-size:13px}
+.t135{font-size:13.5px}
+.t14{font-size:14px}
+.t145{font-size:14.5px}
+.t15{font-size:15px}
+.t165{font-size:16.5px}
+.wrap4{max-width:56rem;margin:0 auto;padding:0 16px}
+.wrap7{max-width:80rem;margin:0 auto;padding:0 16px}
+@media(min-width:768px){.wrap4,.wrap7{padding:0 32px}}
+.sechead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--color-text);padding-bottom:10px}
+.sechead h2{font-size:12.5px;color:var(--color-text-secondary)}
+.sechead .gloss{font-size:11.5px;color:var(--color-text-secondary)}
+
+/* ---- mockup chrome (not part of the app) ---- */
+.doc-head{padding:56px 0 0}
+.doc-h1{font-size:34px;line-height:1.05;letter-spacing:-0.02em;margin:14px 0 14px}
+@media(min-width:768px){.doc-h1{font-size:52px}}
+.lede-doc{font-size:16.5px;line-height:1.65;color:#3A3A3A;max-width:62ch}
+.factrow{display:flex;flex-wrap:wrap;gap:0 28px;border-top:1px solid var(--color-border);margin-top:28px;padding-top:14px}
+.fact{font-size:12.5px;color:var(--color-text-secondary)}
+.fact b{font-weight:400;color:var(--color-text);font-variant-numeric:tabular-nums}
+.sectionbar{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--color-text);padding-bottom:10px;margin:72px 0 0}
+.sectionbar .lab{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--color-text-secondary)}
+.sectionbar .ttl{font-size:20px;letter-spacing:-0.01em;color:var(--color-text)}
+.notes{display:grid;grid-template-columns:1fr;gap:18px 40px;padding:16px 0 22px}
+@media(min-width:768px){.notes{grid-template-columns:repeat(3,1fr)}}
+.note p{font-size:12.5px;line-height:1.6;color:var(--color-text-secondary);margin-top:6px;max-width:44ch}
+.mock{border:1px solid var(--color-border);background:#fff;overflow:hidden}
+.mockcap{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--color-text-secondary);padding:0 0 8px}
+
+/* ---- app nav ---- */
+.nav{border-bottom:1px solid var(--color-border);background:rgba(255,255,255,.95)}
+.nav .inner{display:flex;align-items:center;gap:32px;height:60px}
+.wordmark{display:flex;align-items:center;gap:7px;font-size:17px;letter-spacing:-0.02em;text-transform:lowercase}
+.navlinks{display:flex;align-items:center;gap:24px;font-size:14px}
+.navlinks span{padding-bottom:2px;border-bottom:1px solid transparent;color:var(--color-text)}
+.navlinks span.on{border-bottom-color:var(--color-text)}
+.navlinks span:not(.on){color:var(--color-text)}
+.navright{margin-left:auto;display:flex;align-items:center;gap:6px;color:var(--color-text)}
+@media(max-width:700px){.navlinks{display:none}}
+
+/* ---- recipe page ---- */
+.util{display:flex;align-items:center;justify-content:space-between;padding:20px 0;font-size:14px}
+.util .back{display:inline-flex;align-items:center;gap:6px;color:var(--color-text-secondary)}
+.util .back:hover{color:var(--color-text)}
+.util .acts{display:flex;align-items:center;gap:20px}
+.rhead{text-align:center;padding:24px 0 28px}
+@media(min-width:768px){.rhead{padding:40px 0 28px}}
+.rh1{font-size:30px;line-height:1.08;letter-spacing:-0.02em;margin:14px auto;max-width:22ch;text-wrap:balance}
+@media(min-width:768px){.rh1{font-size:48px}}
+.rmeta{font-size:13.5px;color:var(--color-text-secondary);text-transform:lowercase}
+.switch{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:6px 20px;padding-top:20px;font-size:14px}
+.switch .lab{font-size:12.5px;color:var(--color-text-secondary)}
+.switch button{text-transform:lowercase;color:var(--color-text-secondary);text-underline-offset:4px;text-decoration-thickness:1px;transition:color .15s}
+.switch button:hover{color:var(--color-text);text-decoration:underline}
+.switch button.on{color:var(--color-text);text-decoration:underline}
+.hero{position:relative;width:100%;aspect-ratio:3/2;overflow:hidden;background:#F4F4F4}
+.lede{text-align:center;font-size:16.5px;line-height:1.65;color:#3A3A3A;max-width:62ch;margin:32px auto 0}
+.actions{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;padding:28px 0 8px;font-size:14px}
+
+/* photo placeholders */
+.ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.ph::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(0,0,0,.022) 0 1px,transparent 1px 7px)}
+.ph .cap{position:relative;z-index:1;font-size:10px;text-transform:uppercase;letter-spacing:.15em;color:var(--color-text-secondary);text-align:center;padding:0 8px;line-height:1.7}
+.ph-base{background:linear-gradient(135deg,#efefef 0%,#e0e0e0 48%,#f3f3f3 100%)}
+.ph-cin{background:linear-gradient(115deg,#eaeaea 0%,#dadada 55%,#f0f0f0 100%)}
+.ph-lav{background:linear-gradient(205deg,#f2f2f2 0%,#dedede 60%,#ebebeb 100%)}
+.ph-ros{background:linear-gradient(65deg,#e4e4e4 0%,#f1f1f1 50%,#dcdcdc 100%)}
+.ph-chi{background:linear-gradient(160deg,#e6e6e6 0%,#f2f2f2 45%,#d9d9d9 100%)}
+.herofour{position:absolute;inset:0;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:#fff}
+.herofour>div{position:relative;overflow:hidden}
+
+/* ---- the diff read-out panel (the one boxed surface) ---- */
+.panel{border:1px solid var(--color-border);padding:20px;margin-top:28px;display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:768px){.panel{padding:24px;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px}}
+.num{font-size:30px;font-weight:400;font-variant-numeric:tabular-nums;letter-spacing:-0.01em}
+.numline{display:flex;align-items:baseline;gap:10px;margin-top:10px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font-size:11.5px;color:var(--color-text-secondary)}
+.legend i{font-style:normal;color:var(--color-text);font-variant-numeric:tabular-nums;display:inline-block;width:9px}
+.ticks{display:flex;align-items:flex-end;gap:3px;margin-top:12px;height:26px}
+.tick{width:3px;height:26px;background:#eee}
+.tick.on{background:var(--ink)}
+.tick.add{background:var(--ink)}
+.tickgap{width:15px}
+.readrow{display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding-top:14px;font-size:12.5px}
+
+/* ---- two column body ---- */
+.cols{display:grid;grid-template-columns:1fr;gap:40px;padding-top:56px}
+@media(min-width:768px){.cols{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:64px}}
+.row{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:10px 0;border-bottom:1px solid var(--color-border);text-align:left}
+.iname{font-size:14.5px}
+.inote{color:var(--color-text-secondary);font-size:13px;margin-left:4px}
+.imeas{font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--color-text-secondary)}
+.step{display:grid;grid-template-columns:26px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--color-border);text-align:left}
+.snum{font-size:13px;color:var(--color-text-secondary);font-variant-numeric:tabular-nums;padding-top:2px}
+.stext{font-size:15px;line-height:1.65}
+.struck .iname,.struck .imeas,.struck .stext{text-decoration:line-through;color:var(--color-text-secondary)}
+.struck .inote{text-decoration:line-through}
+
+/* ---- the diff grammar ---- */
+.delta{border-left:1px solid var(--color-text);padding-left:13px;margin:2px 0 6px}
+.delta.instep{margin-left:42px}
+.dlabel{display:flex;align-items:baseline;gap:8px;padding:6px 0 3px}
+.dsign{font-size:12px;line-height:1;color:var(--color-text);font-variant-numeric:tabular-nums;width:9px;display:inline-block;text-align:center}
+.dname{font-size:9.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--color-text-secondary)}
+.dkind{font-size:9.5px;text-transform:uppercase;letter-spacing:.14em;color:var(--color-text-secondary)}
+.drow{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:2px 0 8px}
+.dtext{font-size:15px;line-height:1.65;padding:2px 0 8px}
+.dgloss{font-size:13px;line-height:1.6;color:var(--color-text-secondary);padding:2px 0 8px}
+.fold{display:flex;align-items:center;gap:12px;padding:10px 0;font-size:12.5px;color:var(--color-text-secondary)}
+.fold .hr{flex:1;border-top:1px solid var(--color-border)}
+.subhead{font-size:12.5px;font-style:italic;color:var(--color-text-secondary);padding:20px 0 4px}
+
+/* ---- home grid ---- */
+.homehead{padding:40px 0 28px}
+.homeh1{font-size:34px;line-height:1.05;letter-spacing:-0.02em;margin-bottom:32px}
+@media(min-width:768px){.homehead{padding:64px 0 28px}.homeh1{font-size:52px}}
+.filters{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 24px;font-size:14px}
+.filters button{text-transform:lowercase;color:var(--color-text-secondary);text-underline-offset:4px;text-decoration-thickness:1px}
+.filters button.on{color:var(--color-text);text-decoration:underline}
+.filters button:hover{color:var(--color-text);text-decoration:underline}
+.searchline{position:relative;max-width:28rem;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--color-border);padding:8px 0;color:var(--color-text-secondary);font-size:15px;margin-bottom:20px}
+.grid{display:grid;grid-template-columns:1fr;column-gap:24px;row-gap:48px;padding-bottom:40px}
+@media(min-width:560px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:56px}}
+.card{cursor:pointer}
+.cardimg{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;background:#F4F4F4}
+.card .ctag{font-size:12.5px;color:var(--color-text-secondary);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;text-decoration-color:#cfcfcf;text-transform:lowercase;margin:14px 0 6px}
+.ctitle{font-size:16.5px;line-height:1.4;max-width:34ch}
+.card:hover .ctitle{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.cmeta{font-size:12.5px;color:var(--color-text-secondary);margin-top:6px}
+.hoverctl{position:absolute;top:12px;right:12px;display:flex;gap:6px;opacity:0;transition:opacity .2s}
+.card:hover .hoverctl{opacity:1}
+.hoverctl span{padding:8px;background:rgba(255,255,255,.95);border:1px solid var(--color-border);display:flex}
+.collage{position:absolute;inset:0;display:grid;grid-template-rows:1.5fr 1fr;gap:2px;background:#fff}
+.collage .strip{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.pane{position:relative;overflow:hidden;transition:opacity .3s}
+.collage.dim .pane{opacity:.45}
+.collage.dim .pane.live{opacity:1}
+.chip{position:absolute;top:12px;left:12px;z-index:3;background:rgba(255,255,255,.95);border:1px solid var(--color-border);padding:5px 8px;font-size:9px;text-transform:uppercase;letter-spacing:.13em;color:var(--color-text);font-variant-numeric:tabular-nums}
+.pane .cap{font-size:8px;letter-spacing:.1em}
+.pane.big .cap{font-size:10px;letter-spacing:.15em}
+.branchbars{display:flex;gap:4px;margin-top:10px;width:72px}
+.bbar{height:1px;flex:1;background:var(--color-text);transition:background-color .3s}
+.bbar.mut{background:var(--color-border)}
+.footer{border-top:1px solid var(--color-border);margin-top:72px;padding:20px 0 80px;font-size:11.5px;color:var(--color-text-secondary)}
+</style>
+</head>
+<body>
+
+<!-- ============ DOC HEADER ============ -->
+<div class="wrap4 doc-head">
+  <p class="micro">branched recipes &middot; concept 02 of 08</p>
+  <h1 class="doc-h1">Diff view</h1>
+  <p class="lede-doc">A branched recipe is not five recipes. It is one recipe plus a short list of overrides. This concept prints the base in full and sets each variation's overrides in place &mdash; shared lines stay in normal ink, changed lines get a thin left rule and the variation's name in small caps. Pick a variation and you still read the base; what you see marked is only the delta.</p>
+  <div class="factrow">
+    <p class="fact"><b>16</b> lines in the base recipe</p>
+    <p class="fact"><b>3</b> lines change per variation</p>
+    <p class="fact"><b>12</b> override lines across all four</p>
+    <p class="fact"><b>0</b> duplicated recipes</p>
+  </div>
+</div>
+
+<!-- ============ SECTION A ============ -->
+<div class="wrap4">
+  <div class="sectionbar">
+    <div>
+      <p class="lab">Section A</p>
+      <p class="ttl" style="margin-top:6px">On the recipe page</p>
+    </div>
+    <p class="t115 sec" style="text-align:right;max-width:34ch">Switch variations in the head. The page never reloads into a different recipe &mdash; the same lines stay put and the deltas slot in.</p>
+  </div>
+  <div class="notes">
+    <div class="note">
+      <p class="micro-s">the switch</p>
+      <p>Variations sit under the meta line as plain underlined text, the same affordance as a filter. "all four" stacks every branch at once.</p>
+    </div>
+    <div class="note">
+      <p class="micro-s">the read-out</p>
+      <p>One hairline panel counts the delta and ticks it against the 16 lines of the base. Three ink ticks out of sixteen is the whole argument.</p>
+    </div>
+    <div class="note">
+      <p class="micro-s">collapse</p>
+      <p>"collapse unchanged lines" folds everything a variation leaves alone, keeping the original step numbers. The recipe shrinks to its diff.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap7"><p class="mockcap">recipes / spiced-nuts &mdash; 896px reading column</p></div>
+<div class="wrap7"><div class="mock">
+
+  <!-- app nav -->
+  <div class="nav"><div class="wrap7 inner">
+    <div class="wordmark">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.6 12 3l9 6.6"/><path d="M5.5 10.4V20h13v-9.6"/></svg>
+      cookbook
+    </div>
+    <div class="navlinks">
+      <span class="on">Recipes</span><span>Flavor</span><span>Collections</span><span>Seasonal</span>
+    </div>
+    <div class="navright">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+    </div>
+  </div></div>
+
+  <div class="wrap4" style="padding-bottom:64px">
+
+    <!-- 1. utility row -->
+    <div class="util">
+      <span class="back">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+        <span id="backlabel">Recipes</span>
+      </span>
+      <span class="acts">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2.5-3.2 2.5-5A4.5 4.5 0 0 0 12 6.5 4.5 4.5 0 0 0 2.5 9c0 1.8 1 3.5 2.5 5l7 7z"/></svg>
+        <button class="tlink sec">Edit</button>
+        <button class="tlink sec">Delete</button>
+      </span>
+    </div>
+
+    <!-- 2. centered head -->
+    <div class="rhead">
+      <p class="tag-link low" id="rtag">american</p>
+      <h1 class="rh1" id="rtitle">Spiced Nuts</h1>
+      <p class="rmeta" id="rmeta">55m&nbsp; &middot; &nbsp;serves 8&nbsp; &middot; &nbsp;easy&nbsp; &middot; &nbsp;approved&nbsp; &middot; &nbsp;via Family Cookbook</p>
+      <div class="switch" id="switch">
+        <span class="lab">variation &mdash;</span>
+        <button data-b="base" class="on">base</button>
+        <button data-b="cin">cinnamon-maple</button>
+        <button data-b="lav">lavender-coconut</button>
+        <button data-b="ros">rosemary-black pepper</button>
+        <button data-b="chi">chili-lime</button>
+        <button data-b="all">all four</button>
+      </div>
+    </div>
+
+    <!-- 3. hero -->
+    <div class="hero" id="hero"></div>
+
+    <!-- 4. lede -->
+    <p class="lede" id="rlede">Egg-white glazed pecans, almonds and cashews baked low so the coating sets glassy rather than sticky. The base is deliberately plain &mdash; it is the trunk the other four grow off.</p>
+
+    <!-- 5. actions -->
+    <div class="actions">
+      <button class="tlink">Add to grocery list</button>
+      <button class="tlink">Print this variation</button>
+      <button class="tlink">Save as a new branch</button>
+    </div>
+
+    <!-- diff read-out -->
+    <div class="panel">
+      <div>
+        <p class="micro" id="panelkicker">variations of this recipe</p>
+        <p class="numline"><b class="num" id="panelnum">4</b><span class="t165" id="panelnumlab">variations branch from this base</span></p>
+        <p class="t125 sec" style="margin-top:8px" id="panelsub">12 override lines in total &mdash; 7 added, 4 changed, 1 removed</p>
+        <div class="legend">
+          <span><i>+</i> added line</span>
+          <span><i>~</i> changed line</span>
+          <span><i>&minus;</i> removed line</span>
+        </div>
+      </div>
+      <div>
+        <p class="micro">16 lines in the base recipe</p>
+        <div class="ticks" id="ticks"></div>
+        <p class="t115 sec" style="margin-top:10px" id="tickcap">ink = a base line at least one variation touches. Ticks after the gap are lines the variations add.</p>
+      </div>
+    </div>
+    <div class="readrow">
+      <span class="sec" id="readnote">reading &mdash; the base recipe, no overrides applied</span>
+      <button class="tlink" id="collapse">collapse unchanged lines</button>
+    </div>
+
+    <!-- 6. two column body -->
+    <div class="cols">
+
+      <!-- ingredients -->
+      <div>
+        <div class="sechead">
+          <h2>Ingredients</h2>
+          <div class="t125" style="display:flex;align-items:baseline;gap:12px">
+            <span style="text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px">orig</span>
+            <span class="sec">metric</span>
+            <span class="sec">imperial</span>
+          </div>
+        </div>
+
+        <div id="ings">
+          <div class="row" data-line="1"><span class="iname">Raw Pecan Halves</span><span class="imeas">2 cups</span></div>
+          <div class="row" data-line="2"><span class="iname">Raw Almonds</span><span class="imeas">1 cup</span></div>
+          <div class="row" data-line="3"><span class="iname">Raw Cashews</span><span class="imeas">1 cup</span></div>
+
+          <div class="delta" data-b="chi" data-kind="rem" data-target="3">
+            <div class="dlabel"><span class="dsign">&minus;</span><span class="dname">chili-lime</span><span class="dkind">&middot; removed</span></div>
+            <p class="dgloss">Pecans and almonds only. Cashews go soft under the lime.</p>
+          </div>
+
+          <div class="row" data-line="4"><span class="iname">Egg White</span><span class="imeas">1 large</span></div>
+          <div class="row" data-line="5"><span class="iname">Water</span><span class="imeas">1 tbsp</span></div>
+          <div class="row" data-line="6"><span class="iname">Granulated Sugar</span><span class="imeas">1/3 cup</span></div>
+
+          <div class="delta" data-b="cin" data-kind="chg" data-target="6">
+            <div class="dlabel"><span class="dsign">~</span><span class="dname">cinnamon-maple</span><span class="dkind">&middot; instead</span></div>
+            <div class="drow"><span class="iname">Maple Sugar</span><span class="imeas">1/3 cup</span></div>
+          </div>
+          <div class="delta" data-b="ros" data-kind="chg" data-target="6">
+            <div class="dlabel"><span class="dsign">~</span><span class="dname">rosemary-black pepper</span><span class="dkind">&middot; less of it</span></div>
+            <div class="drow"><span class="iname">Granulated Sugar</span><span class="imeas">2 tbsp</span></div>
+          </div>
+
+          <div class="row" data-line="7"><span class="iname">Kosher Salt</span><span class="imeas">1 1/4 tsp</span></div>
+
+          <div class="delta" data-b="cin" data-kind="add">
+            <div class="dlabel"><span class="dsign">+</span><span class="dname">cinnamon-maple</span><span class="dkind">&middot; added</span></div>
+            <div class="drow"><span class="iname">Ground Cinnamon<span class="inote">(with the sugar)</span></span><span class="imeas">1 1/2 tsp</span></div>
+          </div>
+          <div class="delta" data-b="lav" data-kind="add">
+            <div class="dlabel"><span class="dsign">+</span><span class="dname">lavender-coconut</span><span class="dkind">&middot; added</span></div>
+            <div class="drow"><span class="iname">Culinary Lavender, Ground Fine<span class="inote">(with the sugar)</span></span><span class="imeas">2 tsp</span></div>
+          </div>
+          <div class="delta" data-b="lav" data-kind="add">
+            <div class="dlabel"><span class="dsign">+</span><span class="dname">lavender-coconut</span><span class="dkind">&middot; added</span></div>
+            <div class="drow"><span class="iname">Unsweetened Coconut Flakes<span class="inote">(scattered on late)</span></span><span class="imeas">3/4 cup</span></div>
+          </div>
+          <div class="delta" data-b="ros" data-kind="add">
+            <div class="dlabel"><span class="dsign">+</span><span class="dname">rosemary-black pepper</span><span class="dkind">&middot; added</span></div>
+            <div class="drow"><span class="iname">Rosemary, Chopped Very Fine<span class="inote">(with the sugar)</span></span><span class="imeas">2 tbsp</span></div>
+          </div>
+          <div class="delta" data-b="ros" data-kind="add">
+            <div class="dlabel"><span class="dsign">+</span><span class="dname">rosemary-black pepper</span><span class="dkind">&middot; added</span></div>
+            <div class="drow"><span class="iname">Black Pepper, Coarse<span class="inote">(with the sugar)</span></span><span class="imeas">1 1/2 tsp</span></div>
+          </div>
+          <div class="delta" data-b="chi" data-kind="add">
+            <div class="dlabel"><span class="dsign">+</span><span class="dname">chili-lime</span><span class="dkind">&middot; added</span></div>
+            <div class="drow"><span class="iname">Ancho Chili Powder<span class="inote">(with the sugar)</span></span><span class="imeas">1 tbsp</span></div>
+          </div>
+
+          <div class="row" data-line="8"><span class="iname">Unsalted Butter</span><span class="imeas">2 tbsp</span></div>
+          <div class="row" data-line="9"><span class="iname">Flaky Salt, To Finish</span><span class="imeas">1/2 tsp</span></div>
+
+          <div class="delta" data-b="chi" data-kind="add">
+            <div class="dlabel"><span class="dsign">+</span><span class="dname">chili-lime</span><span class="dkind">&middot; added</span></div>
+            <div class="drow"><span class="iname">Lime Zest<span class="inote">(tossed in at the end)</span></span><span class="imeas">from 2 limes</span></div>
+          </div>
+        </div>
+
+        <!-- nutrition -->
+        <div style="margin-top:32px">
+          <div class="sechead">
+            <h2>Nutrition &mdash; per serving</h2>
+            <span class="gloss">estimated</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px 24px;padding-top:16px">
+            <div><p class="t115 sec low">calories</p><p class="tab" style="font-size:24px;letter-spacing:-0.02em">312</p></div>
+            <div><p class="t115 sec low">protein</p><p class="tab" style="font-size:24px;letter-spacing:-0.02em">7 g</p></div>
+            <div><p class="t115 sec low">carbs</p><p class="tab" style="font-size:24px;letter-spacing:-0.02em">14 g</p></div>
+            <div><p class="t115 sec low">fat</p><p class="tab" style="font-size:24px;letter-spacing:-0.02em">27 g</p></div>
+          </div>
+          <p class="t115 sec" style="margin-top:12px" id="nutnote">8 of 9 ingredients matched to the library &middot; figures are for the base</p>
+        </div>
+      </div>
+
+      <!-- method -->
+      <div>
+        <div class="sechead">
+          <h2>Method <span style="color:rgba(118,118,118,.7)">&mdash; tap a step to check it off</span></h2>
+          <span class="gloss" id="methodgloss">7 steps</span>
+        </div>
+
+        <div id="steps">
+          <div class="step" data-line="10"><span class="snum tab">01</span><p class="stext">Heat the oven to 300&deg;F and line a sheet pan with parchment.</p></div>
+          <div class="step" data-line="11"><span class="snum tab">02</span><p class="stext">Whisk the egg white with the water until loose and foamy, about 30 seconds &mdash; you want it slack, not meringue.</p></div>
+          <div class="step" data-line="12"><span class="snum tab">03</span><p class="stext">Toss the nuts in the egg white until every surface is wet, then tip off whatever pools in the bottom of the bowl.</p></div>
+          <div class="step" data-line="13"><span class="snum tab">04</span><p class="stext">Combine the sugar and the kosher salt, add to the nuts, and toss until the coating is even and matte.</p></div>
+
+          <div class="delta instep" data-b="cin" data-kind="chg" data-target="13">
+            <div class="dlabel"><span class="dsign">~</span><span class="dname">cinnamon-maple</span><span class="dkind">&middot; step 04 instead</span></div>
+            <p class="dtext">Combine the maple sugar, the cinnamon and the kosher salt, add to the nuts, and toss until the coating is even and matte.</p>
+          </div>
+
+          <div class="step" data-line="14"><span class="snum tab">05</span><p class="stext">Spread in a single layer, dot with the butter, and bake 40 minutes, stirring every 15.</p></div>
+
+          <div class="delta instep" data-b="lav" data-kind="chg" data-target="14">
+            <div class="dlabel"><span class="dsign">~</span><span class="dname">lavender-coconut</span><span class="dkind">&middot; step 05 instead</span></div>
+            <p class="dtext">Spread in a single layer, dot with the butter, and bake 30 minutes; scatter the coconut over the top for the last 10 so it toasts rather than burns.</p>
+          </div>
+
+          <div class="step" data-line="15"><span class="snum tab">06</span><p class="stext">Cool completely on the pan &mdash; the coating only sets on the way down to room temperature.</p></div>
+          <div class="step" data-line="16"><span class="snum tab">07</span><p class="stext">Break apart and finish with the flaky salt.</p></div>
+        </div>
+
+        <p class="t125 sec" style="padding-top:24px;line-height:1.6" id="tail">Four variations branch off this method. Each one rewrites at most one step; the other six are shared, so a fix to step 03 fixes it everywhere at once.</p>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<!-- ============ SECTION B ============ -->
+<div class="wrap4">
+  <div class="sectionbar">
+    <div>
+      <p class="lab">Section B</p>
+      <p class="ttl" style="margin-top:6px">On the home grid</p>
+    </div>
+    <p class="t115 sec" style="text-align:right;max-width:34ch">One tile, five photos. Hover a sliver to preview that branch; click it to open the recipe page on that variation.</p>
+  </div>
+  <div class="notes">
+    <div class="note">
+      <p class="micro-s">the collage</p>
+      <p>The base photo keeps the top three-fifths of the 4:5 frame. The four variations run as equal slivers underneath, split by 2px paper gutters so they read as separate photographs, not one crop.</p>
+    </div>
+    <div class="note">
+      <p class="micro-s">the indicator</p>
+      <p>Three signals, no colour: the split frame itself, a hairline chip reading "base + 4", and four short rules under the title &mdash; one per branch, the diff mark carried onto the grid.</p>
+    </div>
+    <div class="note">
+      <p class="micro-s">in context</p>
+      <p>Ordinary tiles keep one uninterrupted photo and no chip, so the branched tile is legible at a glance without shouting.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap7"><p class="mockcap">recipes index &mdash; 1280px grid</p></div>
+<div class="wrap7"><div class="mock">
+  <div class="nav"><div class="wrap7 inner">
+    <div class="wordmark">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.6 12 3l9 6.6"/><path d="M5.5 10.4V20h13v-9.6"/></svg>
+      cookbook
+    </div>
+    <div class="navlinks"><span class="on">Recipes</span><span>Flavor</span><span>Collections</span><span>Seasonal</span></div>
+    <div class="navright">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+    </div>
+  </div></div>
+
+  <div class="wrap7 homehead">
+    <h1 class="homeh1">Recipes</h1>
+    <div class="searchline">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <span>Search recipes&hellip;</span>
+    </div>
+    <div class="filters">
+      <button class="on">all</button><button>american</button><button>italian</button><button>jewish</button>
+      <button>roman</button><button>argentine</button><button>filipino</button><button>viking</button>
+      <span style="margin-left:auto"><button class="t125" style="text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px">more filters</button></span>
+    </div>
+    <p class="t125 sec" style="padding-top:20px">29 recipes &middot; 1 branched</p>
+  </div>
+
+  <div class="wrap7">
+    <div class="grid">
+
+      <!-- BRANCHED TILE -->
+      <div class="card" id="branchcard">
+        <div class="cardimg">
+          <div class="collage" id="collage">
+            <div class="pane big ph ph-base" data-name="" data-meta="55m &middot; serves 8 &middot; 4 variations">
+              <span class="cap">SPICED NUTS &mdash; BASE</span>
+            </div>
+            <div class="strip">
+              <div class="pane ph ph-cin" data-b="cin" data-name=" &mdash; Cinnamon-Maple" data-meta="3 lines differ from the base"><span class="cap">CINNAMON</span></div>
+              <div class="pane ph ph-lav" data-b="lav" data-name=" &mdash; Lavender-Coconut" data-meta="3 lines differ from the base"><span class="cap">LAVENDER</span></div>
+              <div class="pane ph ph-ros" data-b="ros" data-name=" &mdash; Rosemary-Pepper" data-meta="3 lines differ from the base"><span class="cap">ROSEMARY</span></div>
+              <div class="pane ph ph-chi" data-b="chi" data-name=" &mdash; Chili-Lime" data-meta="3 lines differ from the base"><span class="cap">CHILI-LIME</span></div>
+            </div>
+          </div>
+          <span class="chip">base + 4</span>
+          <div class="hoverctl">
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.1V12a10 10 0 1 1-5.9-9.1"/><path d="m9 11 3 3 9-9"/></svg></span>
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2.5-3.2 2.5-5A4.5 4.5 0 0 0 12 6.5 4.5 4.5 0 0 0 2.5 9c0 1.8 1 3.5 2.5 5l7 7z"/></svg></span>
+          </div>
+        </div>
+        <p class="ctag">american</p>
+        <h3 class="ctitle">Spiced Nuts<span id="cardsuffix" class="sec"></span></h3>
+        <div class="branchbars" id="bars" title="four variations">
+          <span class="bbar"></span><span class="bbar"></span><span class="bbar"></span><span class="bbar"></span>
+        </div>
+        <p class="cmeta" id="cardmeta">55m &middot; serves 8 &middot; 4 variations</p>
+      </div>
+
+      <!-- ORDINARY TILE -->
+      <div class="card">
+        <div class="cardimg">
+          <div class="ph ph-ros"><span class="cap">RAINBOW COOKIES</span></div>
+          <div class="hoverctl">
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.1V12a10 10 0 1 1-5.9-9.1"/><path d="m9 11 3 3 9-9"/></svg></span>
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2.5-3.2 2.5-5A4.5 4.5 0 0 0 12 6.5 4.5 4.5 0 0 0 2.5 9c0 1.8 1 3.5 2.5 5l7 7z"/></svg></span>
+          </div>
+        </div>
+        <p class="ctag">italian</p>
+        <h3 class="ctitle">Rainbow Cookies</h3>
+        <p class="cmeta">1d 5m &middot; serves 48</p>
+      </div>
+
+      <!-- ORDINARY TILE -->
+      <div class="card">
+        <div class="cardimg">
+          <div class="ph ph-base"><span class="cap">JERUSALEM BAGEL</span></div>
+          <div class="hoverctl">
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></svg></span>
+            <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2.5-3.2 2.5-5A4.5 4.5 0 0 0 12 6.5 4.5 4.5 0 0 0 2.5 9c0 1.8 1 3.5 2.5 5l7 7z"/></svg></span>
+          </div>
+        </div>
+        <p class="ctag">jewish</p>
+        <h3 class="ctitle">Jerusalem Bagel Recipe</h3>
+        <p class="cmeta">3h 30m &middot; serves 6</p>
+      </div>
+
+      <!-- second row -->
+      <div class="card">
+        <div class="cardimg"><div class="ph ph-chi"><span class="cap">CHIMICHURRI</span></div></div>
+        <p class="ctag">argentine</p>
+        <h3 class="ctitle">Chimichurri</h3>
+        <p class="cmeta">5m &middot; serves 2</p>
+      </div>
+      <div class="card">
+        <div class="cardimg"><div class="ph ph-lav"><span class="cap">BRACIOLE</span></div></div>
+        <p class="ctag">italian</p>
+        <h3 class="ctitle">Braciole</h3>
+        <p class="cmeta">1h 20m &middot; serves 5</p>
+      </div>
+      <div class="card">
+        <div class="cardimg"><div class="ph ph-cin"><span class="cap">ROMAN STUFFED DATES</span></div></div>
+        <p class="ctag">roman</p>
+        <h3 class="ctitle">Roman Stuffed Dates</h3>
+        <p class="cmeta">serves 4</p>
+      </div>
+
+    </div>
+  </div>
+</div></div>
+
+<div class="wrap4">
+  <div class="footer">
+    <p>Concept 02 &mdash; Diff view. Monochrome, hairline rules, one weight. Photography is stood in for by grey placeholders; the collage composition is the part to judge.</p>
+  </div>
+</div>
+
+<script>
+(function(){
+  var BR = {
+    base:{
+      title:'', tag:'american',
+      meta:'55m&nbsp; &middot; &nbsp;serves 8&nbsp; &middot; &nbsp;easy&nbsp; &middot; &nbsp;approved&nbsp; &middot; &nbsp;via Family Cookbook',
+      lede:'Egg-white glazed pecans, almonds and cashews baked low so the coating sets glassy rather than sticky. The base is deliberately plain &mdash; it is the trunk the other four grow off.',
+      hero:'ph-base', cap:'SPICED NUTS &mdash; BASE',
+      kicker:'variations of this recipe', num:'4', numlab:'variations branch from this base',
+      sub:'12 override lines in total &mdash; 7 added, 4 changed, 1 removed',
+      touched:[3,6,13,14], adds:7,
+      tickcap:'ink = a base line at least one variation touches. Ticks after the gap are lines the variations add.',
+      read:'reading &mdash; the base recipe, no overrides applied',
+      back:'Recipes',
+      tail:'Four variations branch off this method. Each one rewrites at most one step; the other six are shared, so a fix to step 03 fixes it everywhere at once.'
+    },
+    cin:{
+      title:' &mdash; Cinnamon-Maple', tag:'american &middot; variation of spiced nuts',
+      meta:'55m&nbsp; &middot; &nbsp;serves 8&nbsp; &middot; &nbsp;easy&nbsp; &middot; &nbsp;approved&nbsp; &middot; &nbsp;branched from spiced nuts',
+      lede:'The christmas-market one. Maple sugar instead of granulated, cinnamon in with it, and that is the whole recipe &mdash; everything else is the base, unchanged.',
+      hero:'ph-cin', cap:'SPICED NUTS &mdash; CINNAMON-MAPLE',
+      kicker:'diff from base', num:'3', numlab:'lines change',
+      sub:'1 added &middot; 2 changed &middot; 0 removed &middot; 13 lines untouched',
+      touched:[6,13], adds:1,
+      tickcap:'ink = a base line this variation touches. The tick after the gap is the line it adds.',
+      read:'reading &mdash; the base recipe with the Cinnamon-Maple overrides in place',
+      back:'Spiced Nuts',
+      tail:'Only step 04 is rewritten. Steps 01, 02, 03, 05, 06 and 07 are the base method, shared verbatim.'
+    },
+    lav:{
+      title:' &mdash; Lavender-Coconut', tag:'american &middot; variation of spiced nuts',
+      meta:'55m&nbsp; &middot; &nbsp;serves 8&nbsp; &middot; &nbsp;easy&nbsp; &middot; &nbsp;testing&nbsp; &middot; &nbsp;branched from spiced nuts',
+      lede:'Floral and a little strange. Two teaspoons of ground lavender go in with the sugar; the coconut is scattered late so it toasts instead of scorching.',
+      hero:'ph-lav', cap:'SPICED NUTS &mdash; LAVENDER-COCONUT',
+      kicker:'diff from base', num:'3', numlab:'lines change',
+      sub:'2 added &middot; 1 changed &middot; 0 removed &middot; 15 lines untouched',
+      touched:[14], adds:2,
+      tickcap:'ink = a base line this variation touches. Ticks after the gap are the lines it adds.',
+      read:'reading &mdash; the base recipe with the Lavender-Coconut overrides in place',
+      back:'Spiced Nuts',
+      tail:'Only step 05 is rewritten, and only because the coconut needs to go on later than everything else.'
+    },
+    ros:{
+      title:' &mdash; Rosemary-Black Pepper', tag:'american &middot; variation of spiced nuts',
+      meta:'55m&nbsp; &middot; &nbsp;serves 8&nbsp; &middot; &nbsp;easy&nbsp; &middot; &nbsp;signature&nbsp; &middot; &nbsp;branched from spiced nuts',
+      lede:'The drinks one. Sugar drops to two tablespoons so the coating goes savoury and brittle, and the rosemary has to be chopped almost to dust or it burns.',
+      hero:'ph-ros', cap:'SPICED NUTS &mdash; ROSEMARY-BLACK PEPPER',
+      kicker:'diff from base', num:'3', numlab:'lines change',
+      sub:'2 added &middot; 1 changed &middot; 0 removed &middot; 15 lines untouched',
+      touched:[6], adds:2,
+      tickcap:'ink = a base line this variation touches. Ticks after the gap are the lines it adds.',
+      read:'reading &mdash; the base recipe with the Rosemary-Black Pepper overrides in place',
+      back:'Spiced Nuts',
+      tail:'The method is the base method, all seven steps, word for word. Only the ingredient list moves.'
+    },
+    chi:{
+      title:' &mdash; Chili-Lime', tag:'american &middot; variation of spiced nuts',
+      meta:'55m&nbsp; &middot; &nbsp;serves 8&nbsp; &middot; &nbsp;easy&nbsp; &middot; &nbsp;new&nbsp; &middot; &nbsp;branched from spiced nuts',
+      lede:'Ancho in the coating, zest at the very end so it stays bright. The cashews come out &mdash; they lose their snap once the lime is on them.',
+      hero:'ph-chi', cap:'SPICED NUTS &mdash; CHILI-LIME',
+      kicker:'diff from base', num:'3', numlab:'lines change',
+      sub:'2 added &middot; 0 changed &middot; 1 removed &middot; 15 lines untouched',
+      touched:[3], adds:2,
+      tickcap:'ink = a base line this variation touches. Ticks after the gap are the lines it adds.',
+      read:'reading &mdash; the base recipe with the Chili-Lime overrides in place',
+      back:'Spiced Nuts',
+      tail:'Nothing in the method changes. The two additions carry their own timing in the ingredient note, which is why this branch costs three lines and not five.'
+    },
+    all:{
+      title:' &mdash; all four variations', tag:'american &middot; 4 variations',
+      meta:'55m&nbsp; &middot; &nbsp;serves 8&nbsp; &middot; &nbsp;easy&nbsp; &middot; &nbsp;4 branches',
+      lede:'Every override stacked in place at once. Four variations, twelve marked lines, one shared body of text &mdash; this is the entire cost of the branch.',
+      hero:'four', cap:'',
+      kicker:'all four variations', num:'12', numlab:'lines change in total',
+      sub:'7 added &middot; 4 changed &middot; 1 removed &middot; 12 of the base 16 lines untouched by anyone',
+      touched:[3,6,13,14], adds:7,
+      tickcap:'ink = a base line at least one variation touches. Ticks after the gap are lines the variations add.',
+      read:'reading &mdash; the base recipe with all four sets of overrides stacked',
+      back:'Recipes',
+      tail:'Four variations touch four of the sixteen base lines between them. The other twelve are written once and cooked five ways.'
+    }
+  };
+
+  var HERO = {
+    cin:['ph-cin','CINNAMON-MAPLE'], lav:['ph-lav','LAVENDER-COCONUT'],
+    ros:['ph-ros','ROSEMARY-PEPPER'], chi:['ph-chi','CHILI-LIME']
+  };
+
+  var cur = 'base', collapsed = false;
+  var $ = function(id){ return document.getElementById(id); };
+  var deltas = [].slice.call(document.querySelectorAll('.delta'));
+  var rows = [].slice.call(document.querySelectorAll('#ings .row, #steps .step'));
+
+  function heroHtml(b){
+    if(b.hero === 'four'){
+      var out = '<div class="herofour">';
+      ['cin','lav','ros','chi'].forEach(function(k){
+        out += '<div class="ph ' + HERO[k][0] + '"><span class="cap">' + HERO[k][1] + '</span></div>';
+      });
+      return out + '</div>';
+    }
+    return '<div class="ph ' + b.hero + '"><span class="cap">' + b.cap + '</span></div>';
+  }
+
+  function ticksHtml(b){
+    var out = '';
+    for(var i=1;i<=16;i++){
+      out += '<span class="tick' + (b.touched.indexOf(i) > -1 ? ' on' : '') + '"></span>';
+    }
+    if(b.adds > 0){
+      out += '<span class="tickgap"></span>';
+      for(var j=0;j<b.adds;j++) out += '<span class="tick add"></span>';
+    }
+    return out;
+  }
+
+  function clearFolds(){
+    [].slice.call(document.querySelectorAll('.fold')).forEach(function(f){ f.remove(); });
+  }
+
+  function foldEl(n, host){
+    var d = document.createElement('div');
+    d.className = 'fold';
+    d.innerHTML = '<span class="hr"></span><button class="tlink">' + n + ' unchanged line' + (n===1?'':'s') +
+                  '</button><span class="hr"></span>';
+    d.querySelector('button').addEventListener('click', function(){ collapsed = false; render(); });
+    host.appendChild(d);
+    return d;
+  }
+
+  function applyFolds(containerId){
+    var host = $(containerId);
+    var kids = [].slice.call(host.children);
+    var run = [], runStart = null;
+    function flush(){
+      if(!run.length) return;
+      var f = foldEl(run.length, host);
+      runStart.parentNode.insertBefore(f, runStart);
+      run.forEach(function(el){ el.style.display = 'none'; });
+      run = []; runStart = null;
+    }
+    kids.forEach(function(el){
+      if(el.classList.contains('fold')) return;
+      var isRow = el.classList.contains('row') || el.classList.contains('step');
+      if(isRow && el.dataset.keep !== '1'){
+        if(!run.length) runStart = el;
+        run.push(el);
+      } else {
+        flush();
+      }
+    });
+    flush();
+  }
+
+  function render(){
+    var b = BR[cur];
+
+    $('rtitle').innerHTML = 'Spiced Nuts' + (b.title ? '<span class="sec">' + b.title + '</span>' : '');
+    $('rtag').innerHTML = b.tag;
+    $('rmeta').innerHTML = b.meta;
+    $('rlede').innerHTML = b.lede;
+    $('hero').innerHTML = heroHtml(b);
+    $('panelkicker').innerHTML = b.kicker;
+    $('panelnum').innerHTML = b.num;
+    $('panelnumlab').innerHTML = b.numlab;
+    $('panelsub').innerHTML = b.sub;
+    $('ticks').innerHTML = ticksHtml(b);
+    $('tickcap').innerHTML = b.tickcap;
+    $('readnote').innerHTML = b.read;
+    $('backlabel').innerHTML = b.back;
+    $('tail').innerHTML = b.tail;
+    $('nutnote').innerHTML = (cur === 'base' || cur === 'all')
+      ? '8 of 9 ingredients matched to the library &middot; figures are for the base'
+      : '8 of 9 ingredients matched to the library &middot; recalculated for this variation';
+    $('methodgloss').innerHTML = (cur === 'base') ? '7 steps'
+      : (cur === 'all' ? '7 steps &middot; 2 rewritten' : (b.touched.filter(function(n){return n>9;}).length ? '7 steps &middot; 1 rewritten' : '7 steps &middot; none rewritten'));
+
+    [].slice.call(document.querySelectorAll('#switch button')).forEach(function(btn){
+      btn.classList.toggle('on', btn.dataset.b === cur);
+    });
+
+    // deltas + struck rows. A base line is only struck out when a single
+    // variation is being read; under "all four" it still stands for the
+    // branches that leave it alone, so it stays in normal ink.
+    var struck = {}, touchedByDelta = {};
+    var doStrike = (cur !== 'base' && cur !== 'all');
+    deltas.forEach(function(d){
+      var vis = (cur === 'all') ? true : (d.dataset.b === cur);
+      if(cur === 'base') vis = false;
+      d.style.display = vis ? '' : 'none';
+      if(vis && d.dataset.target){
+        touchedByDelta[d.dataset.target] = true;
+        if(doStrike) struck[d.dataset.target] = true;
+      }
+    });
+
+    rows.forEach(function(r){
+      var line = r.dataset.line;
+      r.classList.toggle('struck', !!struck[line]);
+      var keep = !!touchedByDelta[line] ||
+                 ((cur === 'base' || cur === 'all') && b.touched.indexOf(parseInt(line,10)) > -1);
+      r.dataset.keep = keep ? '1' : '0';
+      r.style.display = '';
+    });
+
+    clearFolds();
+    $('collapse').textContent = collapsed ? 'show every line' : 'collapse unchanged lines';
+    if(collapsed){ applyFolds('ings'); applyFolds('steps'); }
+  }
+
+  [].slice.call(document.querySelectorAll('#switch button')).forEach(function(btn){
+    btn.addEventListener('click', function(){ cur = btn.dataset.b; render(); });
+  });
+  $('collapse').addEventListener('click', function(){ collapsed = !collapsed; render(); });
+
+  // ---- home tile ----
+  var collage = $('collage');
+  var panes = [].slice.call(collage.querySelectorAll('.pane[data-b]'));
+  var baseMeta = '55m &middot; serves 8 &middot; 4 variations';
+  panes.forEach(function(p){
+    p.addEventListener('mouseenter', function(){
+      collage.classList.add('dim');
+      panes.forEach(function(q){ q.classList.toggle('live', q === p); });
+      $('cardsuffix').innerHTML = p.dataset.name;
+      $('cardmeta').innerHTML = p.dataset.meta;
+      [].slice.call($('bars').children).forEach(function(bar,i){
+        bar.classList.toggle('mut', panes[i] !== p);
+      });
+    });
+    p.addEventListener('click', function(){
+      cur = p.dataset.b; collapsed = true; render();
+      document.getElementById('hero').scrollIntoView({block:'center'});
+    });
+  });
+  collage.addEventListener('mouseleave', function(){
+    collage.classList.remove('dim');
+    panes.forEach(function(q){ q.classList.remove('live'); });
+    $('cardsuffix').innerHTML = '';
+    $('cardmeta').innerHTML = baseMeta;
+    [].slice.call($('bars').children).forEach(function(bar){ bar.classList.remove('mut'); });
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

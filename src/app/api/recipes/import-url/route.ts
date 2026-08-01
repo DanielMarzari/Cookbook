@@ -16,7 +16,7 @@ interface ParsedRecipe {
   description?: string;
   image?: string;
   ingredients: ParsedIngredient[];
-  instructions: Array<{ text: string }>;
+  instructions: Array<{ text: string; section?: string }>;
   prepTime?: number;
   cookTime?: number;
   totalTime?: number;
@@ -220,7 +220,7 @@ function parseJsonLd(html: string, $root?: any): Partial<ParsedRecipe> | null {
 
         // Parse instructions - can be strings, objects, or sections
         // Sections become header markers like "--- For the Dough ---"
-        const instructions: Array<{ text: string }> = [];
+        const instructions: Array<{ text: string; section?: string }> = [];
         const rawInstructions = recipe.recipeInstructions || [];
         for (const inst of rawInstructions) {
           if (typeof inst === 'string') {
@@ -228,13 +228,12 @@ function parseJsonLd(html: string, $root?: any): Partial<ParsedRecipe> | null {
           } else if (inst['@type'] === 'HowToStep') {
             instructions.push({ text: inst.text || '' });
           } else if (inst['@type'] === 'HowToSection') {
-            // Add section name as a header step
-            if (inst.name) {
-              instructions.push({ text: `--- ${inst.name} ---` });
-            }
+            // A schema.org section maps straight onto our step sections — tag the
+            // steps with it rather than inventing a header step.
+            const section = inst.name || undefined;
             if (inst.itemListElement) {
               for (const step of inst.itemListElement) {
-                instructions.push({ text: typeof step === 'string' ? step : step.text || '' });
+                instructions.push({ text: typeof step === 'string' ? step : step.text || '', section });
               }
             }
           }

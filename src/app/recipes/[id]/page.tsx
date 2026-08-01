@@ -15,6 +15,7 @@ import { framingStyle } from '@/lib/image';
 import CookLogSection from '@/components/CookLogSection';
 import PhotoGallery from '@/components/PhotoGallery';
 import RecipeFlavorCard from '@/components/RecipeFlavorCard';
+import VariationChips, { type ActiveVersion } from '@/components/VariationChips';
 import { RecipePhoto } from '@/lib/types';
 
 interface NutritionCalculation {
@@ -95,6 +96,8 @@ export default function RecipeDetailPage() {
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [duplicating, setDuplicating] = useState(false);
+  // Which version of a branched recipe is being read. null = the base, as served.
+  const [version, setVersion] = useState<ActiveVersion | null>(null);
   const [nutrition, setNutrition] = useState<NutritionCalculation | null>(null);
   const [imageRotation, setImageRotation] = useState(0);
   const [recipeIngredients, setRecipeIngredients] = useState<RecipeIngredient[]>([]);
@@ -264,6 +267,39 @@ export default function RecipeDetailPage() {
     }
   };
 
+  // Branch: an immediate variation of this recipe, ready to diverge.
+  const handleBranch = async () => {
+    if (!recipe || duplicating) return;
+    const name = prompt('Name this variation', `${recipe.title} — `);
+    if (!name || !name.trim()) return;
+    setDuplicating(true);
+    try {
+      const v = await api.recipes.branch(recipe.id, name.trim(), name.split('—').pop()?.trim().toLowerCase());
+      toast.success(`Branched "${v.title}"`);
+      router.push(`/recipes/${v.id}/edit`);
+    } catch (err) {
+      console.error('Error branching recipe:', err);
+      toast.error('Failed to branch recipe');
+      setDuplicating(false);
+    }
+  };
+
+  // Draft: stage this recipe's current state so edits stay uncommitted.
+  const handleDraft = async () => {
+    if (!recipe || duplicating) return;
+    setDuplicating(true);
+    try {
+      const { current } = await api.recipes.getDraft(recipe.id);
+      await api.recipes.saveDraft(recipe.id, current);
+      toast.success('Started a draft — edits stay staged until you commit');
+      router.push(`/recipes/${recipe.id}/edit`);
+    } catch (err) {
+      console.error('Error starting draft:', err);
+      toast.error('Failed to start a draft');
+      setDuplicating(false);
+    }
+  };
+
   const handleDeleteRecipe = async () => {
     if (!recipe) return;
     if (!confirm(`Are you sure you want to delete "${recipe.title}"? This cannot be undone.`)) return;
@@ -304,9 +340,19 @@ export default function RecipeDetailPage() {
     );
   }
 
+  // A branched recipe renders whichever version is selected; the base is what the
+  // page loaded with, so `version === null` costs nothing and changes nothing.
+  const shownIngredients = (version?.ingredients ?? recipeIngredients) as typeof recipeIngredients;
+  const shownSteps = version?.instructions ?? recipe.instructions ?? [];
+  const changedKeys = new Set(version?.changedKeys ?? []);
+  const lineKey = (i: { name: string; section?: string | null }) =>
+    `${(i.section || '').toLowerCase()}|${i.name.toLowerCase()}`;
+
   const metaParts = [
     recipe.total_time_minutes ? formatTime(recipe.total_time_minutes) : null,
     recipe.servings ? `serves ${recipe.servings}` : null,
+    // what a batch makes — the number other recipes scale against
+    recipe.yield_quantity ? `makes ${formatQuantity(recipe.yield_quantity, recipe.yield_unit || '')}` : null,
     recipe.difficulty,
     recipe.status && recipe.status !== 'new' ? recipe.status : null,
     recipe.source_name ? `via ${recipe.source_name}` : null,
@@ -331,6 +377,8 @@ export default function RecipeDetailPage() {
           <button onClick={handleDuplicateRecipe} disabled={duplicating} className="tlink text-text-secondary hover:text-text disabled:opacity-50">
             {duplicating ? 'Duplicating…' : 'Duplicate'}
           </button>
+          <button onClick={handleBranch} disabled={duplicating} className="tlink text-text-secondary hover:text-text disabled:opacity-50">Branch</button>
+          <button onClick={handleDraft} disabled={duplicating} className="tlink text-text-secondary hover:text-text disabled:opacity-50">Draft</button>
           <button onClick={handleDeleteRecipe} className="tlink text-text-secondary hover:text-text">Delete</button>
         </div>
       </div>
@@ -408,8 +456,9 @@ export default function RecipeDetailPage() {
                 ))}
               </div>
             </div>
+            <VariationChips recipeId={id} onChange={setVersion} />
             <div>
-              {recipeIngredients.map((ing, idx) => {
+              {shownIngredients.map((ing, idx) => {
                 if (ing.name === '---OR---') {
                   return (
                     <div key={idx} className="flex items-center gap-3 py-2.5 text-[12.5px] text-text-secondary">
@@ -417,21 +466,47 @@ export default function RecipeDetailPage() {
                     </div>
                   );
                 }
-                if (ing.name?.startsWith('---') && ing.name?.endsWith('---')) {
-                  return (
-                    <p key={idx} className="text-[12.5px] italic text-text-secondary pt-5 pb-1">
-                      {ing.name.replace(/^-+\s*/, '').replace(/\s*-+$/, '')}
-                    </p>
-                  );
-                }
+                // A section heading is printed the first time its section appears.
+                const section = ing.section || null;
+                const startsSection = section && section !== (shownIngredients[idx - 1]?.section || null);
                 const converted = convertMeasure(ing.quantity, ing.unit, unitSystem);
                 const measure = ing.quantity > 0 ? formatQuantity(converted.quantity, converted.unit) : '';
                 const checked = checkedIngredients.has(idx);
+                // An ingredient that is itself a recipe links through to it rather
+                // than being something you tick off a shopping list.
+                if (ing.child_recipe_id) {
+                  return (
+                    <div key={idx}>
+                      {startsSection && (
+                        <p className="text-[12.5px] italic text-text-secondary pt-5 pb-1">{section}</p>
+                      )}
+                      <Link
+                        href={`/recipes/${ing.child_recipe_id}`}
+                        className="w-full flex items-baseline justify-between gap-5 py-2.5 border-b border-border text-left"
+                      >
+                        <span className="text-[14.5px] text-text underline underline-offset-4 decoration-1">
+                          {titleCaseIngredient(ing.name)}
+                          <span className="text-text-secondary text-[12px] no-underline ml-2">recipe</span>
+                        </span>
+                        {ing.quantity > 0 && (
+                          <span className="text-[14px] tabular-nums whitespace-nowrap text-text-secondary">
+                            {formatQuantity(ing.quantity, ing.unit)}
+                          </span>
+                        )}
+                      </Link>
+                    </div>
+                  );
+                }
                 return (
+                  <div key={idx}>
+                  {startsSection && (
+                    <p className="text-[12.5px] italic text-text-secondary pt-5 pb-1">{section}</p>
+                  )}
                   <button
-                    key={idx}
                     onClick={() => toggleIngredient(idx)}
-                    className="w-full flex items-baseline justify-between gap-5 py-2.5 border-b border-border text-left group"
+                    className={`w-full flex items-baseline justify-between gap-5 py-2.5 border-b border-border text-left group ${
+                      changedKeys.has(lineKey(ing)) ? 'border-l border-l-text pl-2.5 -ml-2.5' : ''
+                    }`}
                   >
                     <span className={`text-[14.5px] transition-colors ${checked ? 'line-through text-text-secondary' : 'text-text'}`}>
                       {titleCaseIngredient(ing.name)}
@@ -443,6 +518,7 @@ export default function RecipeDetailPage() {
                       </span>
                     )}
                   </button>
+                  </div>
                 );
               })}
             </div>
@@ -476,17 +552,23 @@ export default function RecipeDetailPage() {
         )}
 
         {/* Method */}
-        {recipe.instructions && recipe.instructions.length > 0 && (
+        {shownSteps.length > 0 && (
           <div>
             <h2 className="text-[12.5px] text-text-secondary border-b border-text pb-2.5">
               Method <span className="text-text-secondary/70">— tap a step to check it off</span>
             </h2>
             <div>
-              {recipe.instructions.map((instruction) => {
+              {shownSteps.map((instruction, sIdx) => {
                 const done = checkedSteps.has(instruction.step_number);
+                // Same rule as the ingredients: name the section when it changes.
+                const section = instruction.section || null;
+                const startsSection = section && section !== (shownSteps[sIdx - 1]?.section || null);
                 return (
+                  <div key={instruction.step_number}>
+                  {startsSection && (
+                    <p className="text-[12.5px] italic text-text-secondary pt-6 pb-1">{section}</p>
+                  )}
                   <button
-                    key={instruction.step_number}
                     onClick={() => toggleStep(instruction.step_number)}
                     className="w-full grid grid-cols-[26px_1fr] gap-4 py-4 border-b border-border text-left last:border-0"
                   >
@@ -504,9 +586,20 @@ export default function RecipeDetailPage() {
                       )}
                     </div>
                   </button>
+                  </div>
                 );
               })}
             </div>
+          </div>
+        )}
+
+        {/* Notes — kept after the method, since they're about the making, not the doing */}
+        {recipe.notes && recipe.notes.trim() && (
+          <div className="pt-12">
+            <h2 className="text-[12.5px] text-text-secondary border-b border-text pb-2.5">Notes</h2>
+            <p className="text-[15px] leading-[1.7] text-text whitespace-pre-wrap pt-4">
+              {recipe.notes}
+            </p>
           </div>
         )}
       </div>

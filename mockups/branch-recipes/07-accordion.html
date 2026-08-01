@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 07 &mdash; Accordion Ladder &middot; Cookbook branched recipes</title>
+<style>
+/* ============================================================
+   Cookbook design system ("Noma cut") -- tokens copied verbatim
+   from src/app/globals.css
+   ============================================================ */
+:root{
+  --color-primary:#111111;
+  --color-primary-dark:#000000;
+  --color-secondary:#767676;
+  --color-accent:#111111;
+  --color-background:#ffffff;
+  --color-surface:#ffffff;
+  --color-text:#111111;
+  --color-text-secondary:#767676;
+  --color-border:#e8e8e8;
+  --color-shadow:rgba(0,0,0,0.05);
+}
+*,::before,::after{box-sizing:border-box;border:0 solid var(--color-border);margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:#f6f6f4;
+  color:var(--color-text);
+  font-family:'Neue Haas Grotesk Text','Helvetica Neue',Helvetica,Arial,-apple-system,BlinkMacSystemFont,sans-serif;
+  font-weight:400;
+  letter-spacing:-0.005em;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+button{font:inherit;letter-spacing:inherit;color:inherit;background:none;cursor:pointer;text-align:left}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+h1,h2,h3{font-weight:400;font-size:inherit}
+p{margin:0}
+ol,ul{list-style:none}
+s{text-decoration-thickness:1px}
+::-webkit-scrollbar{width:.5rem;height:.5rem}
+::-webkit-scrollbar-track{background:var(--color-background)}
+::-webkit-scrollbar-thumb{background:#d8d8d8;border-radius:9999px}
+::-webkit-scrollbar-thumb:hover{background:#b8b8b8}
+button:focus-visible,a:focus-visible,input:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 2px var(--color-background),0 0 0 3.5px var(--color-text);
+}
+.tlink{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;cursor:pointer;transition:color .15s}
+.tlink:hover{color:var(--color-text-secondary)}
+.tag-link{font-size:12.5px;color:var(--color-text-secondary);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;text-decoration-color:#cfcfcf}
+.lc{text-transform:lowercase}
+.tn{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+/* ---- shared type ladder ---- */
+.ulabel{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--color-text-secondary)}
+.slabel{font-size:12.5px;color:var(--color-text-secondary)}
+.gloss{font-size:11.5px;color:var(--color-text-secondary)}
+.rule{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--color-text);padding-bottom:10px}
+.rule-soft{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--color-border);padding-bottom:10px}
+
+/* ============================================================
+   Mockup chrome (NOT app UI -- deliberately quiet, sits on grey)
+   ============================================================ */
+.doc{max-width:1120px;margin:0 auto;padding:0 24px 96px}
+.mhead{padding:48px 0 30px}
+.mhead h1{font-size:34px;line-height:1.05;letter-spacing:-0.02em;margin:12px 0 14px}
+.mhead .lede{font-size:16.5px;line-height:1.65;color:#3A3A3A;max-width:62ch}
+.mjump{display:flex;flex-wrap:wrap;gap:0 24px;font-size:12.5px;padding-top:18px;border-top:1px solid #dcdcd8;margin-top:26px}
+.mjump span{color:var(--color-text-secondary)}
+.sectionhead{padding:52px 0 14px}
+.sectionhead h2{font-size:20px;letter-spacing:-0.01em;color:var(--color-text)}
+.note{border-left:1px solid var(--color-text);padding-left:12px;margin:16px 0 0;font-size:11.5px;line-height:1.7;color:var(--color-text-secondary);max-width:74ch}
+.note b{font-weight:400;color:var(--color-text)}
+.screen{background:#fff;border:1px solid var(--color-border);margin-top:20px}
+.screen-cap{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:10px}
+
+/* ---- app navigation (Navigation.tsx) ---- */
+.nav{border-bottom:1px solid var(--color-border);background:rgba(255,255,255,.95)}
+.nav-in{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;gap:32px;height:60px}
+.wordmark{display:flex;align-items:center;gap:8px;font-size:17px;letter-spacing:-0.02em}
+.navlinks{display:flex;align-items:center;gap:22px;font-size:14px}
+.navlinks a{padding-bottom:2px;border-bottom:1px solid transparent;color:var(--color-text-secondary)}
+.navlinks a.on{border-bottom-color:var(--color-text);color:var(--color-text)}
+.navlinks a:hover{border-bottom-color:var(--color-text);color:var(--color-text)}
+.navright{margin-left:auto;display:flex;align-items:center;gap:6px}
+.navright button{padding:6px;color:var(--color-text)}
+.navright button:hover{color:var(--color-text-secondary)}
+
+/* ---- photo placeholders (no image files exist -- CSS only) ---- */
+.ph{position:relative;overflow:hidden;background:#F4F4F4;width:100%;height:100%}
+.ph::after{
+  content:attr(data-cap);
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:8px;
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-secondary);
+  line-height:1.5;
+}
+.ph-base{background:
+  radial-gradient(122% 94% at 30% 24%,#ffffff 0%,#eeeeee 46%,#dcdcdc 100%),
+  repeating-linear-gradient(22deg,#e8e8e8 0 3px,#f1f1f1 3px 8px)}
+.ph-cin{background:
+  radial-gradient(80% 72% at 70% 32%,#f8f8f8 0%,#e5e5e5 60%,#d7d7d7 100%),
+  repeating-linear-gradient(-40deg,#e3e3e3 0 4px,#efefef 4px 10px)}
+.ph-lav{background:
+  conic-gradient(from 200deg at 56% 44%,#f6f6f6,#e1e1e1 36%,#f3f3f3 64%,#e7e7e7 100%)}
+.ph-ros{background:
+  linear-gradient(160deg,#f3f3f3 0 44%,#e0e0e0 44% 100%),
+  repeating-linear-gradient(90deg,#e7e7e7 0 5px,#f1f1f1 5px 12px)}
+.ph-chi{background:
+  radial-gradient(62% 62% at 66% 66%,#dcdcdc 0%,#eaeaea 54%,#f6f6f6 100%),
+  repeating-linear-gradient(66deg,#e5e5e5 0 2px,#efefef 2px 7px)}
+.ph-zat{background:
+  linear-gradient(28deg,#ededed 0 38%,#dedede 38% 62%,#f2f2f2 62% 100%)}
+.ph-mis{background:
+  radial-gradient(90% 74% at 44% 28%,#fafafa,#e2e2e2 68%,#d5d5d5 100%)}
+.ph-r1{background:
+  radial-gradient(96% 82% at 38% 30%,#fbfbfb,#e3e3e3 62%,#d4d4d4 100%),
+  repeating-linear-gradient(14deg,#e6e6e6 0 3px,#f0f0f0 3px 9px)}
+.ph-r2{background:
+  conic-gradient(from 320deg at 44% 56%,#f2f2f2,#dedede 32%,#f5f5f5 70%,#e4e4e4 100%)}
+.ph-r3{background:
+  linear-gradient(196deg,#f4f4f4 0 36%,#dfdfdf 36% 74%,#eeeeee 74% 100%)}
+.ph-r4{background:
+  radial-gradient(70% 68% at 30% 70%,#ffffff,#e6e6e6 58%,#d8d8d8 100%),
+  repeating-linear-gradient(-16deg,#e4e4e4 0 4px,#eeeeee 4px 11px)}
+.ph-r5{background:
+  repeating-linear-gradient(48deg,#e2e2e2 0 6px,#f2f2f2 6px 15px),
+  linear-gradient(#efefef,#e0e0e0)}
+
+/* ============================================================
+   SECTION A -- recipe page (src/app/recipes/[id]/page.tsx)
+   ============================================================ */
+.rpage{max-width:896px;margin:0 auto;padding:0 32px 64px}
+.util{display:flex;align-items:center;justify-content:space-between;padding:20px 0;font-size:14px}
+.util .back{display:inline-flex;align-items:center;gap:6px;color:var(--color-text-secondary)}
+.util .back:hover{color:var(--color-text)}
+.util .acts{display:flex;align-items:center;gap:20px;color:var(--color-text-secondary)}
+.rhead{text-align:center;padding:40px 0 28px}
+.rhead h1{font-size:48px;line-height:1.08;letter-spacing:-0.02em;max-width:22ch;margin:14px auto;text-wrap:balance}
+.rhead .meta{font-size:13.5px;color:var(--color-text-secondary);text-transform:lowercase}
+.rhead .basenote{font-size:12.5px;color:var(--color-text-secondary);margin-top:10px}
+.hero{position:relative;width:100%;aspect-ratio:3/2;background:#F4F4F4;overflow:hidden}
+.lede{text-align:center;font-size:16.5px;line-height:1.65;color:#3A3A3A;max-width:62ch;margin:32px auto 0}
+.pacts{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;padding:28px 0 8px;font-size:14px}
+.rbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:64px;padding-top:56px}
+.ingrow{display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:10px 0;border-bottom:1px solid var(--color-border);font-size:14.5px}
+.ingrow:last-child{border-bottom:0}
+.ingrow .m{font-size:14px;color:var(--color-text-secondary);white-space:nowrap}
+.ingsub{font-size:12.5px;font-style:italic;color:var(--color-text-secondary);padding:20px 0 4px}
+.mstep{display:grid;grid-template-columns:26px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--color-border)}
+.mstep:last-child{border-bottom:0}
+.mstep .n{font-size:13px;color:var(--color-text-secondary);padding-top:2px}
+.mstep p{font-size:15px;line-height:1.65}
+.nutr{margin-top:32px}
+.nutrgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px 24px;padding-top:16px}
+.nutrgrid .k{font-size:11.5px;color:var(--color-text-secondary);text-transform:lowercase}
+.nutrgrid .v{font-size:24px;letter-spacing:-0.01em}
+
+/* ------------------------------------------------------------
+   THE ACCORDION LADDER -- the concept
+   ------------------------------------------------------------ */
+.ladderwrap{padding-top:56px}
+.lctl{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 20px;padding:16px 0 4px;font-size:14px}
+.lctl button{color:var(--color-text-secondary);text-transform:lowercase}
+.lctl button:hover{color:var(--color-text)}
+.lctl button.on{color:var(--color-text);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.lctl .push{margin-left:auto;font-size:12.5px;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.lctl .push+.push{margin-left:0}
+
+.ladder{position:relative;margin-top:6px}
+/* the rail: one continuous hairline down the rung numbers */
+.ladder::before{
+  content:'';position:absolute;left:12px;top:14px;bottom:16px;width:1px;background:var(--color-border);
+}
+.rung{position:relative;border-bottom:1px solid var(--color-border)}
+.rung:last-child{border-bottom:0}
+
+.rhead-btn{
+  display:grid;width:100%;align-items:baseline;
+  grid-template-columns:34px minmax(0,1.15fr) minmax(0,1.35fr) auto 76px 18px;
+  gap:0 16px;padding:14px 0;
+}
+.rhead-btn:hover .rname{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.rnum{position:relative;z-index:1;font-size:13px;color:var(--color-text-secondary);background:#fff;padding:2px 0 3px}
+.rname{font-size:14.5px}
+.rgloss{font-size:12.5px;color:var(--color-text-secondary)}
+.rdelta{font-size:12.5px;color:var(--color-text-secondary);white-space:nowrap}
+.rdelta .plus{color:var(--color-text)}
+.rmeter{display:flex;align-items:baseline;gap:8px;justify-content:flex-end}
+.rtrack{position:relative;width:40px;height:3px;background:#eee;top:-3px}
+.rtrack i{position:absolute;left:0;top:0;bottom:0;background:#141310}
+.rpct{font-size:11.5px;color:var(--color-text-secondary)}
+.rsign{color:var(--color-text-secondary);justify-self:end;position:relative;top:2px}
+.rhead-btn:hover .rsign{color:var(--color-text)}
+.rung.open .rsign{color:var(--color-text)}
+.rung.open .rname{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.rsign .minus{display:none}
+.rung.open .rsign .plus{display:none}
+.rung.open .rsign .minus{display:block}
+
+/* base rung -- the recipe above, never expandable */
+.rung.base .rhead-btn{cursor:default;padding-top:0}
+.rung.base .rnum{color:var(--color-text)}
+.rung.base .rname{color:var(--color-text)}
+.rung.base .rhead-btn:hover .rname{text-decoration:none}
+.rung.base .youare{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--color-text-secondary);white-space:nowrap}
+
+/* archived rung reads back a notch */
+.rung.arch .rname,.rung.arch .rnum{color:var(--color-text-secondary)}
+
+/* ---- the delta body: ONLY what changes ---- */
+.rbodypanel{padding:2px 0 26px 50px}
+.dmeta{font-size:12.5px;color:var(--color-text-secondary);text-transform:lowercase;padding-bottom:20px}
+.dgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:44px}
+.dcol .rule-soft{padding-bottom:8px}
+
+.ing{display:grid;grid-template-columns:16px minmax(0,1fr) auto;gap:0 10px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--color-border);font-size:14.5px}
+.ing:last-child{border-bottom:0}
+.ing .mark{font-size:13px;color:var(--color-text-secondary);text-align:center}
+.ing .imeas{font-size:14px;color:var(--color-text-secondary);white-space:nowrap}
+.ing.cut .iname,.ing.cut .imeas{text-decoration:line-through;color:var(--color-text-secondary)}
+.ing.chg .imeas s{color:var(--color-text-secondary)}
+.ing.chg .imeas b{font-weight:400;color:var(--color-text)}
+
+.dstep{display:grid;grid-template-columns:26px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--color-border)}
+.dstep:last-child{border-bottom:0}
+.dstep .num{font-size:13px;color:var(--color-text-secondary);padding-top:3px}
+.dstep .kick{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--color-text-secondary);margin-bottom:7px}
+.dstep .was{font-size:15px;line-height:1.65;color:var(--color-text-secondary);text-decoration:line-through;text-decoration-color:#cfcfcf}
+.dstep .now{font-size:15px;line-height:1.65;color:var(--color-text)}
+.dstep .was+.now{margin-top:6px}
+
+.dfoot{font-size:11.5px;color:var(--color-text-secondary);padding-top:22px;border-top:1px solid var(--color-border);margin-top:26px}
+.dacts{display:flex;flex-wrap:wrap;gap:8px 22px;padding-top:16px;font-size:14px}
+
+/* photos strip, grouped by rung */
+.photos{padding-top:56px}
+.pstrip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding-top:16px}
+.pthumb{aspect-ratio:1/1;background:#F4F4F4}
+.pcap{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding-top:8px}
+.pcap span{font-size:11.5px;color:var(--color-text-secondary)}
+
+/* ============================================================
+   SECTION B -- home grid
+   ============================================================ */
+.hpage{max-width:1280px;margin:0 auto;padding:0 32px 56px}
+.htop{padding:40px 0 28px}
+.htop h1{font-size:52px;line-height:1.05;letter-spacing:-0.02em;margin-bottom:32px}
+.fbar{display:flex;flex-direction:column;gap:20px}
+.fsearch{position:relative;max-width:28rem;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--color-border);padding:8px 0}
+.fsearch span{font-size:15px;color:var(--color-text-secondary)}
+.frow{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 24px;font-size:14px}
+.frow button{text-transform:lowercase;color:var(--color-text-secondary)}
+.frow button.on{color:var(--color-text);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.frow button:hover{color:var(--color-text);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.frow .push{margin-left:auto;font-size:12.5px;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.frow .push+.push{margin-left:0}
+.countline{font-size:12.5px;color:var(--color-text-secondary);padding-top:20px}
+.modes{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 24px;font-size:14px;padding:0 0 26px}
+.modes button{color:var(--color-text-secondary);text-transform:lowercase}
+.modes button.on{color:var(--color-text);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.modes button:hover{color:var(--color-text)}
+.hgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:56px 24px;padding-bottom:24px}
+.card{display:block;width:100%}
+.frame{position:relative;width:100%;aspect-ratio:4/5;background:#F4F4F4;overflow:hidden}
+.frame .ph{transition:opacity .3s}
+.card:hover .frame>.ph{opacity:.9}
+.card .tagline{margin:14px 0 6px}
+.ctitle{font-size:16.5px;line-height:1.4;max-width:34ch}
+.card:hover .ctitle{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.cmeta{font-size:12.5px;color:var(--color-text-secondary);margin-top:6px}
+.hovercontrols{position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:6px;opacity:0;transition:opacity .3s;z-index:3}
+.card:hover .hovercontrols,.card:focus-within .hovercontrols{opacity:1}
+.hovercontrols button{padding:8px;background:rgba(255,255,255,.95);border:1px solid var(--color-border)}
+.hovercontrols button:hover{background:#fff}
+
+/* ---- the collage: the ladder, seen edge-on ----
+   base photo on top, variations stacked beneath as rungs.
+   The stack IS the branch indicator; the rung counter names it. */
+.collage{display:grid;grid-template-rows:1fr 34px 34px 34px 34px;gap:2px;background:#fff}
+.cband{position:relative;overflow:hidden;min-height:0}
+.cband .ph::after{font-size:9px;letter-spacing:.12em}
+.cband.thin .ph::after{justify-content:flex-start;padding-left:10px;font-size:9px}
+.cband:hover .ph{opacity:.84}
+.cband.on .ph::after{color:var(--color-text)}
+/* the overflow rung -- proof that the ladder keeps going */
+.cmore{position:relative;background:#F4F4F4;display:flex;align-items:center;padding-left:10px;min-height:0}
+.cmore span{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text-secondary)}
+/* rung counter: hairline box, card-control idiom, always on */
+.rungmark{position:absolute;left:12px;top:12px;z-index:2;display:flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.95);border:1px solid var(--color-border);padding:5px 8px 5px 7px}
+.rungmark .n{font-size:11.5px;line-height:1;color:var(--color-text)}
+/* judging modes */
+.hgrid.nomark .rungmark{display:none}
+.hgrid.plain .collage{display:block}
+.hgrid.plain .collage .cband:not(.lead),.hgrid.plain .collage .cmore{display:none}
+.hgrid.plain .collage .cband.lead{width:100%;height:100%}
+.hgrid.plain .rungmark{display:none}
+.branchtag{white-space:nowrap}
+
+@media (max-width:900px){
+  .rbody,.dgrid{grid-template-columns:minmax(0,1fr);gap:36px}
+  .rhead-btn{grid-template-columns:34px minmax(0,1fr) auto 18px;row-gap:6px}
+  .rgloss{grid-column:2/4;font-size:12px}
+  .rmeter{display:none}
+  .rbodypanel{padding-left:34px}
+  .hgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rhead h1{font-size:30px}
+  .htop h1{font-size:34px}
+  .mhead h1{font-size:30px}
+  .rpage,.hpage{padding-left:16px;padding-right:16px}
+}
+@media (max-width:620px){
+  .hgrid{grid-template-columns:minmax(0,1fr)}
+  .nav-in{padding:0 16px}
+  .pstrip,.pcap{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <!-- ===================== MOCKUP HEADER ===================== -->
+  <header class="mhead">
+    <p class="ulabel">Cookbook &middot; branched recipes &middot; concept 07 of 08</p>
+    <h1>Accordion Ladder</h1>
+    <p class="lede">The base recipe is read once, in full. Underneath it the variations hang as a stacked list of collapsed rungs &mdash; name, one-line gloss, and a delta digest you can scan. Open a rung and you get <em>only</em> the delta: what is added, what is dropped, what is re-measured, and the two or three steps that actually change. The base never repeats itself. Built for the case where a recipe has grown eleven children.</p>
+    <nav class="mjump">
+      <span>jump &mdash;</span>
+      <a class="tlink" href="#sec-a">A &middot; recipe page</a>
+      <a class="tlink" href="#sec-b">B &middot; home grid</a>
+      <a class="tlink" href="#sec-c">notes &amp; trade-offs</a>
+    </nav>
+  </header>
+
+  <!-- ===================== SECTION A ===================== -->
+  <section id="sec-a">
+    <div class="sectionhead">
+      <div class="rule">
+        <h2>A &mdash; On the recipe page</h2>
+        <span class="gloss">/recipes/spiced-nuts</span>
+      </div>
+      <p class="note"><b>One recipe, then a ladder of deltas.</b> The page reads exactly as it does today &mdash; head, hero, lede, ingredients, method &mdash; and the branching arrives afterwards as a section, not as a mode. Every rung is one line high when shut, so eleven variations still fit on one screen. Opening a rung never re-prints the recipe: you see the ingredient rows that differ (added / dropped / re-measured) and the numbered steps that differ, keyed to the step numbers you just read. <b>Try it:</b> open a rung; switch <span style="color:#111">opening</span> between <em>one at a time</em> and <em>many at once</em>; hit <em>expand all</em> to feel how a long ladder behaves.</p>
+    </div>
+
+    <div class="screen">
+      <div class="nav"><div class="nav-in">
+        <span class="wordmark">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/></svg>
+          cookbook
+        </span>
+        <nav class="navlinks">
+          <a class="on" href="#sec-a">Recipes</a><a href="#sec-a">Collections</a><a href="#sec-a">Seasonal</a><a href="#sec-a">Flavor</a>
+        </nav>
+        <span class="navright">
+          <button aria-label="Search"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+          <button aria-label="Add recipe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+        </span>
+      </div></div>
+
+      <div class="rpage">
+
+        <!-- 1. utility row -->
+        <div class="util">
+          <a class="back" href="#sec-a">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            Recipes
+          </a>
+          <span class="acts">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2-3.4 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.6.5 3.5 2 5l7 7z"/></svg>
+            <button class="tlink">Edit</button>
+            <button class="tlink">Delete</button>
+          </span>
+        </div>
+
+        <!-- 2. centered head -->
+        <div class="rhead">
+          <p class="tag-link lc">other</p>
+          <h1>Spiced Nuts</h1>
+          <p class="meta tn">35 min &nbsp;&middot;&nbsp; serves 8 &nbsp;&middot;&nbsp; easy &nbsp;&middot;&nbsp; approved &nbsp;&middot;&nbsp; via Family Cookbook</p>
+          <p class="basenote lc">base of a ladder &middot; <span class="tn">7</span> variations <a class="tlink" href="#ladder">below</a></p>
+        </div>
+
+        <!-- 3. hero -->
+        <div class="hero"><div class="ph ph-base" data-cap="Spiced Nuts &mdash; base"></div></div>
+
+        <!-- 4. lede -->
+        <p class="lede">Egg-white glazed nuts baked low and slow until the coating sets to a dry, brittle shell. The base is deliberately plain &mdash; sugar, salt, a little cayenne &mdash; because it is the trunk everything else grows off.</p>
+
+        <!-- 5. primary actions -->
+        <div class="pacts">
+          <button class="tlink">Add to grocery list</button>
+          <a class="tlink" href="#sec-a">View original</a>
+        </div>
+
+        <!-- 6. two-column body -->
+        <div class="rbody">
+          <div>
+            <div class="rule">
+              <h2 class="slabel">Ingredients</h2>
+              <span class="slabel" style="display:flex;gap:12px">
+                <span style="color:#111;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px">orig</span>
+                <span>metric</span><span>imperial</span>
+              </span>
+            </div>
+            <div class="ingrow"><span>Mixed Nuts <span style="color:#767676;font-size:13px">(raw, unsalted)</span></span><span class="m tn">4 cups</span></div>
+            <div class="ingrow"><span>Egg White</span><span class="m tn">1 large</span></div>
+            <div class="ingrow"><span>Water</span><span class="m tn">1 tbsp</span></div>
+            <div class="ingrow"><span>Granulated Sugar</span><span class="m tn">1/2 cup</span></div>
+            <div class="ingrow"><span>Kosher Salt</span><span class="m tn">1 1/2 tsp</span></div>
+            <div class="ingrow"><span>Cayenne Pepper</span><span class="m tn">1/4 tsp</span></div>
+            <div class="ingrow"><span>Unsalted Butter <span style="color:#767676;font-size:13px">(melted)</span></span><span class="m tn">2 tbsp</span></div>
+            <div class="ingrow"><span>Vanilla Extract</span><span class="m tn">1 tsp</span></div>
+
+            <div class="nutr">
+              <div class="rule">
+                <h2 class="slabel">Nutrition &mdash; per serving</h2>
+                <span class="gloss">estimated</span>
+              </div>
+              <div class="nutrgrid">
+                <div><p class="k">calories</p><p class="v tn">312</p></div>
+                <div><p class="k">protein</p><p class="v tn">9g</p></div>
+                <div><p class="k">carbs</p><p class="v tn">18g</p></div>
+                <div><p class="k">fat</p><p class="v tn">24g</p></div>
+              </div>
+              <p class="gloss" style="margin-top:12px"><span class="tn">7</span> of <span class="tn">8</span> ingredients matched to the library</p>
+            </div>
+          </div>
+
+          <div>
+            <div class="rule">
+              <h2 class="slabel">Method <span style="color:rgba(118,118,118,.7)">&mdash; tap a step to check it off</span></h2>
+            </div>
+            <div class="mstep"><span class="n tn">01</span><p>Heat the oven to 300F and line a sheet pan with parchment.</p></div>
+            <div class="mstep"><span class="n tn">02</span><p>Whisk the egg white with the water to a loose foam &mdash; slack, not peaked.</p></div>
+            <div class="mstep"><span class="n tn">03</span><p>Tip in the nuts and turn them through the foam until every surface is wet.</p></div>
+            <div class="mstep"><span class="n tn">04</span><p>Stir the sugar, salt and cayenne together, then fold through the nuts with the melted butter and vanilla.</p></div>
+            <div class="mstep"><span class="n tn">05</span><p>Spread in a single layer. Bake 30 minutes, stirring once at the halfway mark.</p></div>
+            <div class="mstep"><span class="n tn">06</span><p>Break the sheet apart while still warm. Cool completely before it goes in a jar.</p></div>
+          </div>
+        </div>
+
+        <!-- ============ THE LADDER ============ -->
+        <div class="ladderwrap" id="ladder">
+          <div class="rule">
+            <h2 class="slabel">Variations</h2>
+            <span class="gloss"><span class="tn">7</span> &middot; open a rung for its delta only</span>
+          </div>
+
+          <div class="lctl" id="lctl">
+            <span class="slabel">opening &mdash;</span>
+            <button class="on" data-open="single">one at a time</button>
+            <button data-open="many">many at once</button>
+            <button class="push tlink" id="expandall">expand all</button>
+            <button class="push tlink" id="collapseall">collapse all</button>
+          </div>
+
+          <ol class="ladder" id="ladderlist">
+
+            <!-- rung 00 : the base itself -->
+            <li class="rung base">
+              <div class="rhead-btn">
+                <span class="rnum tn">00</span>
+                <span class="rname">Base</span>
+                <span class="rgloss">plain, salty, faintly hot &mdash; the recipe above</span>
+                <span class="rdelta"></span>
+                <span class="rmeter"><span class="youare">you are here</span></span>
+                <span></span>
+              </div>
+            </li>
+
+            <!-- rung 01 -->
+            <li class="rung" data-i="1">
+              <button class="rhead-btn" aria-expanded="false" aria-controls="d1">
+                <span class="rnum tn">01</span>
+                <span class="rname">Cinnamon-Maple</span>
+                <span class="rgloss">breakfast-sweet, sticky, eaten warm</span>
+                <span class="rdelta tn"><span class="plus">+2</span> &minus;1 &middot; 2 steps</span>
+                <span class="rmeter"><span class="rtrack"><i style="width:16%"></i></span><span class="rpct tn">16%</span></span>
+                <span class="rsign">
+                  <svg class="plus" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  <svg class="minus" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14"/></svg>
+                </span>
+              </button>
+              <div class="rbodypanel" id="d1" hidden>
+                <p class="dmeta tn">35 min &middot; serves 8 &middot; approved &middot; cooked 6 times &middot; branched Nov 2024</p>
+                <div class="dgrid">
+                  <div class="dcol">
+                    <div class="rule-soft"><span class="ulabel">ingredients &mdash; delta</span><span class="gloss tn">+2 &minus;1 ~1</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Maple Syrup <span class="gloss">(grade B)</span></span><span class="imeas tn">3 tbsp</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Ground Cinnamon</span><span class="imeas tn">2 tsp</span></div>
+                    <div class="ing cut"><span class="mark">&minus;</span><span class="iname">Cayenne Pepper</span><span class="imeas tn">1/4 tsp</span></div>
+                    <div class="ing chg"><span class="mark">~</span><span class="iname">Granulated Sugar</span><span class="imeas tn"><s>1/2 cup</s> &rarr; <b>1/4 cup</b></span></div>
+                  </div>
+                  <div class="dcol">
+                    <div class="rule-soft"><span class="ulabel">method &mdash; delta</span><span class="gloss tn">2 of 6 steps</span></div>
+                    <div class="dstep">
+                      <span class="num tn">04</span>
+                      <div>
+                        <p class="kick">replaces</p>
+                        <p class="was">Stir the sugar, salt and cayenne together, then fold through the nuts with the melted butter and vanilla.</p>
+                        <p class="now">Stir the sugar, cinnamon and salt together and fold through the nuts with the butter and vanilla, then pour the maple syrup over and toss until it ropes off the spoon.</p>
+                      </div>
+                    </div>
+                    <div class="dstep">
+                      <span class="num tn">05</span>
+                      <div>
+                        <p class="kick">changes</p>
+                        <p class="now">Bake 35 minutes, stirring at 12 and 24 &mdash; maple catches at the edges long before the middle sets.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="dfoot">Everything else is the base recipe above &mdash; <span class="tn">6</span> of <span class="tn">8</span> ingredients and <span class="tn">4</span> of <span class="tn">6</span> steps run unchanged.</p>
+                <div class="dacts">
+                  <button class="tlink">Cook this version</button>
+                  <button class="tlink">Add its groceries</button>
+                  <button class="tlink">Photos <span class="tn">(3)</span></button>
+                  <button class="tlink">Open as its own page</button>
+                </div>
+              </div>
+            </li>
+
+            <!-- rung 02 -->
+            <li class="rung" data-i="2">
+              <button class="rhead-btn" aria-expanded="false" aria-controls="d2">
+                <span class="rnum tn">02</span>
+                <span class="rname">Lavender-Coconut</span>
+                <span class="rgloss">floral, pale, cut for the tea tray</span>
+                <span class="rdelta tn"><span class="plus">+3</span> &minus;1 &middot; 2 steps</span>
+                <span class="rmeter"><span class="rtrack"><i style="width:22%"></i></span><span class="rpct tn">22%</span></span>
+                <span class="rsign">
+                  <svg class="plus" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  <svg class="minus" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14"/></svg>
+                </span>
+              </button>
+              <div class="rbodypanel" id="d2" hidden>
+                <p class="dmeta tn">40 min &middot; serves 8 &middot; testing &middot; cooked 2 times &middot; branched Mar 2025</p>
+                <div class="dgrid">
+                  <div class="dcol">
+                    <div class="rule-soft"><span class="ulabel">ingredients &mdash; delta</span><span class="gloss tn">+3 &minus;1 ~1</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Culinary Lavender</span><span class="imeas tn">2 tsp</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Coconut Flakes <span class="gloss">(unsweetened)</span></span><span class="imeas tn">1 cup</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Lime Zest</span><span class="imeas tn">1 tsp</span></div>
+                    <div class="ing cut"><span class="mark">&minus;</span><span class="iname">Cayenne Pepper</span><span class="imeas tn">1/4 tsp</span></div>
+                    <div class="ing chg"><span class="mark">~</span><span class="iname">Mixed Nuts</span><span class="imeas tn"><s>4 cups mixed</s> &rarr; <b>3 cups almond + cashew</b></span></div>
+                  </div>
+                  <div class="dcol">
+                    <div class="rule-soft"><span class="ulabel">method &mdash; delta</span><span class="gloss tn">2 of 6 steps</span></div>
+                    <div class="dstep">
+                      <span class="num tn">04</span>
+                      <div>
+                        <p class="kick">replaces</p>
+                        <p class="was">Stir the sugar, salt and cayenne together, then fold through the nuts with the melted butter and vanilla.</p>
+                        <p class="now">Grind the lavender into the sugar with a mortar until the sugar smells of it, stir in the salt and lime zest, then fold through the nuts with the butter and vanilla.</p>
+                      </div>
+                    </div>
+                    <div class="dstep">
+                      <span class="num tn">05</span>
+                      <div>
+                        <p class="kick">inserts after</p>
+                        <p class="now">Scatter the coconut flakes over for the last 8 minutes only &mdash; any earlier and they go to ash.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="dfoot">Everything else is the base recipe above &mdash; <span class="tn">6</span> of <span class="tn">8</span> ingredients and <span class="tn">4</span> of <span class="tn">6</span> steps run unchanged.</p>
+                <div class="dacts">
+                  <button class="tlink">Cook this version</button>
+                  <button class="tlink">Add its groceries</button>
+                  <button class="tlink">Photos <span class="tn">(2)</span></button>
+                  <button class="tlink">Open as its own page</button>
+                </div>
+              </div>
+            </li>
+
+            <!-- rung 03 -->
+            <li class="rung" data-i="3">
+              <button class="rhead-btn" aria-expanded="false" aria-controls="d3">
+                <span class="rnum tn">03</span>
+                <span class="rname">Rosemary-Black Pepper</span>
+                <span class="rgloss">savoury, resinous, for a drink at six</span>
+                <span class="rdelta tn"><span class="plus">+3</span> &minus;2 &middot; 3 steps</span>
+                <span class="rmeter"><span class="rtrack"><i style="width:31%"></i></span><span class="rpct tn">31%</span></span>
+                <span class="rsign">
+                  <svg class="plus" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  <svg class="minus" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14"/></svg>
+                </span>
+              </button>
+              <div class="rbodypanel" id="d3" hidden>
+                <p class="dmeta tn">35 min &middot; serves 8 &middot; signature &middot; cooked 14 times &middot; branched Dec 2023</p>
+                <div class="dgrid">
+                  <div class="dcol">
+                    <div class="rule-soft"><span class="ulabel">ingredients &mdash; delta</span><span class="gloss tn">+3 &minus;2 ~1</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Rosemary <span class="gloss">(fresh, chopped)</span></span><span class="imeas tn">2 tbsp</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Black Pepper <span class="gloss">(coarse)</span></span><span class="imeas tn">1 1/2 tsp</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Olive Oil</span><span class="imeas tn">1 tbsp</span></div>
+                    <div class="ing cut"><span class="mark">&minus;</span><span class="iname">Granulated Sugar</span><span class="imeas tn">1/2 cup</span></div>
+                    <div class="ing cut"><span class="mark">&minus;</span><span class="iname">Vanilla Extract</span><span class="imeas tn">1 tsp</span></div>
+                    <div class="ing chg"><span class="mark">~</span><span class="iname">Kosher Salt</span><span class="imeas tn"><s>1 1/2 tsp</s> &rarr; <b>2 1/2 tsp</b></span></div>
+                  </div>
+                  <div class="dcol">
+                    <div class="rule-soft"><span class="ulabel">method &mdash; delta</span><span class="gloss tn">3 of 6 steps</span></div>
+                    <div class="dstep">
+                      <span class="num tn">04</span>
+                      <div>
+                        <p class="kick">replaces</p>
+                        <p class="was">Stir the sugar, salt and cayenne together, then fold through the nuts with the melted butter and vanilla.</p>
+                        <p class="now">Fold the salt, pepper, cayenne and half the rosemary through the nuts with the butter and the olive oil. No sugar at all &mdash; the egg white alone does the setting.</p>
+                      </div>
+                    </div>
+                    <div class="dstep">
+                      <span class="num tn">05</span>
+                      <div>
+                        <p class="kick">changes</p>
+                        <p class="now">Bake 25 minutes, stirring once. Without sugar the shell sets faster and browns sooner.</p>
+                      </div>
+                    </div>
+                    <div class="dstep">
+                      <span class="num tn">06</span>
+                      <div>
+                        <p class="kick">changes</p>
+                        <p class="now">Break apart warm and throw the remaining rosemary over while the pan still steams, so it stays green.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="dfoot">Everything else is the base recipe above &mdash; <span class="tn">5</span> of <span class="tn">8</span> ingredients and <span class="tn">3</span> of <span class="tn">6</span> steps run unchanged.</p>
+                <div class="dacts">
+                  <button class="tlink">Cook this version</button>
+                  <button class="tlink">Add its groceries</button>
+                  <button class="tlink">Photos <span class="tn">(5)</span></button>
+                  <button class="tlink">Open as its own page</button>
+                </div>
+              </div>
+            </li>
+
+            <!-- rung 04 -->
+            <li class="rung" data-i="4">
+              <button class="rhead-btn" aria-expanded="false" aria-controls="d4">
+                <span class="rnum tn">04</span>
+                <span class="rname">Chili-Lime</span>
+                <span class="rgloss">sharp, salty, disappears first</span>
+                <span class="rdelta tn"><span class="plus">+3</span> &minus;0 &middot; 2 steps</span>
+                <span class="rmeter"><span class="rtrack"><i style="width:19%"></i></span><span class="rpct tn">19%</span></span>
+                <span class="rsign">
+                  <svg class="plus" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  <svg class="minus" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14"/></svg>
+                </span>
+              </button>
+              <div class="rbodypanel" id="d4" hidden>
+                <p class="dmeta tn">35 min &middot; serves 8 &middot; approved &middot; cooked 9 times &middot; branched Jun 2025</p>
+                <div class="dgrid">
+                  <div class="dcol">
+                    <div class="rule-soft"><span class="ulabel">ingredients &mdash; delta</span><span class="gloss tn">+3 &minus;0 ~2</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Chili Powder <span class="gloss">(ancho)</span></span><span class="imeas tn">1 tbsp</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Lime Zest</span><span class="imeas tn">2 tsp</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Lime Juice</span><span class="imeas tn">1 tbsp</span></div>
+                    <div class="ing chg"><span class="mark">~</span><span class="iname">Cayenne Pepper</span><span class="imeas tn"><s>1/4 tsp</s> &rarr; <b>1/2 tsp</b></span></div>
+                    <div class="ing chg"><span class="mark">~</span><span class="iname">Kosher Salt</span><span class="imeas tn"><s>1 1/2 tsp</s> &rarr; <b>2 tsp flaky</b></span></div>
+                  </div>
+                  <div class="dcol">
+                    <div class="rule-soft"><span class="ulabel">method &mdash; delta</span><span class="gloss tn">2 of 6 steps</span></div>
+                    <div class="dstep">
+                      <span class="num tn">04</span>
+                      <div>
+                        <p class="kick">changes</p>
+                        <p class="now">Stir the chili powder and lime zest into the sugar, salt and cayenne before folding it all through the nuts.</p>
+                      </div>
+                    </div>
+                    <div class="dstep">
+                      <span class="num tn">06</span>
+                      <div>
+                        <p class="kick">replaces</p>
+                        <p class="was">Break the sheet apart while still warm. Cool completely before it goes in a jar.</p>
+                        <p class="now">Break apart warm, hit with the lime juice off the heat, and give it ten minutes back in the switched-off oven to dry again. Cool completely before it goes in a jar.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="dfoot">Everything else is the base recipe above &mdash; <span class="tn">8</span> of <span class="tn">8</span> ingredients kept and <span class="tn">4</span> of <span class="tn">6</span> steps run unchanged.</p>
+                <div class="dacts">
+                  <button class="tlink">Cook this version</button>
+                  <button class="tlink">Add its groceries</button>
+                  <button class="tlink">Photos <span class="tn">(4)</span></button>
+                  <button class="tlink">Open as its own page</button>
+                </div>
+              </div>
+            </li>
+
+            <!-- rung 05 -->
+            <li class="rung" data-i="5">
+              <button class="rhead-btn" aria-expanded="false" aria-controls="d5">
+                <span class="rnum tn">05</span>
+                <span class="rname">Za'atar-Sesame</span>
+                <span class="rgloss">herbal, dry, keeps a fortnight</span>
+                <span class="rdelta tn"><span class="plus">+2</span> &minus;2 &middot; 1 step</span>
+                <span class="rmeter"><span class="rtrack"><i style="width:24%"></i></span><span class="rpct tn">24%</span></span>
+                <span class="rsign">
+                  <svg class="plus" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  <svg class="minus" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14"/></svg>
+                </span>
+              </button>
+              <div class="rbodypanel" id="d5" hidden>
+                <p class="dmeta tn">35 min &middot; serves 8 &middot; approved &middot; cooked 3 times &middot; branched Feb 2026</p>
+                <div class="dgrid">
+                  <div class="dcol">
+                    <div class="rule-soft"><span class="ulabel">ingredients &mdash; delta</span><span class="gloss tn">+2 &minus;2 ~0</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Za'atar</span><span class="imeas tn">2 tbsp</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Sesame Seeds</span><span class="imeas tn">3 tbsp</span></div>
+                    <div class="ing cut"><span class="mark">&minus;</span><span class="iname">Granulated Sugar</span><span class="imeas tn">1/2 cup</span></div>
+                    <div class="ing cut"><span class="mark">&minus;</span><span class="iname">Vanilla Extract</span><span class="imeas tn">1 tsp</span></div>
+                  </div>
+                  <div class="dcol">
+                    <div class="rule-soft"><span class="ulabel">method &mdash; delta</span><span class="gloss tn">1 of 6 steps</span></div>
+                    <div class="dstep">
+                      <span class="num tn">04</span>
+                      <div>
+                        <p class="kick">replaces</p>
+                        <p class="was">Stir the sugar, salt and cayenne together, then fold through the nuts with the melted butter and vanilla.</p>
+                        <p class="now">Fold the za'atar, sesame, salt and cayenne through the nuts with the melted butter. No sugar, no vanilla.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="dfoot">Everything else is the base recipe above &mdash; <span class="tn">6</span> of <span class="tn">8</span> ingredients and <span class="tn">5</span> of <span class="tn">6</span> steps run unchanged.</p>
+                <div class="dacts">
+                  <button class="tlink">Cook this version</button>
+                  <button class="tlink">Add its groceries</button>
+                  <button class="tlink">Photos <span class="tn">(1)</span></button>
+                  <button class="tlink">Open as its own page</button>
+                </div>
+              </div>
+            </li>
+
+            <!-- rung 06 -->
+            <li class="rung" data-i="6">
+              <button class="rhead-btn" aria-expanded="false" aria-controls="d6">
+                <span class="rnum tn">06</span>
+                <span class="rname">Maple-Miso</span>
+                <span class="rgloss">deep, salty-sweet, borrowed from 01</span>
+                <span class="rdelta tn"><span class="plus">+2</span> &minus;1 &middot; 2 steps</span>
+                <span class="rmeter"><span class="rtrack"><i style="width:17%"></i></span><span class="rpct tn">17%</span></span>
+                <span class="rsign">
+                  <svg class="plus" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  <svg class="minus" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14"/></svg>
+                </span>
+              </button>
+              <div class="rbodypanel" id="d6" hidden>
+                <p class="dmeta tn">40 min &middot; serves 8 &middot; testing &middot; cooked 1 time &middot; branched off <span style="text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px">01 Cinnamon-Maple</span></p>
+                <div class="dgrid">
+                  <div class="dcol">
+                    <div class="rule-soft"><span class="ulabel">ingredients &mdash; delta</span><span class="gloss tn">+2 &minus;1 ~0</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">White Miso</span><span class="imeas tn">2 tbsp</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Maple Syrup</span><span class="imeas tn">3 tbsp</span></div>
+                    <div class="ing cut"><span class="mark">&minus;</span><span class="iname">Kosher Salt</span><span class="imeas tn">1 1/2 tsp</span></div>
+                  </div>
+                  <div class="dcol">
+                    <div class="rule-soft"><span class="ulabel">method &mdash; delta</span><span class="gloss tn">2 of 6 steps</span></div>
+                    <div class="dstep">
+                      <span class="num tn">02</span>
+                      <div>
+                        <p class="kick">changes</p>
+                        <p class="now">Whisk the miso into the egg white and water first, until there are no lumps left at all.</p>
+                      </div>
+                    </div>
+                    <div class="dstep">
+                      <span class="num tn">04</span>
+                      <div>
+                        <p class="kick">changes</p>
+                        <p class="now">Fold the sugar and cayenne through with the butter, then the maple syrup. The miso is carrying all the salt.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="dfoot">This rung branched off <span style="color:#111">01 Cinnamon-Maple</span>, not the base &mdash; the delta shown is against the base so the two can be read side by side.</p>
+                <div class="dacts">
+                  <button class="tlink">Cook this version</button>
+                  <button class="tlink">Add its groceries</button>
+                  <button class="tlink">Show delta vs. 01 instead</button>
+                  <button class="tlink">Open as its own page</button>
+                </div>
+              </div>
+            </li>
+
+            <!-- rung 07 : archived -->
+            <li class="rung arch" data-i="7">
+              <button class="rhead-btn" aria-expanded="false" aria-controls="d7">
+                <span class="rnum tn">07</span>
+                <span class="rname">Smoked Cocoa-Almond</span>
+                <span class="rgloss">bitter once cold &mdash; tried, didn't like</span>
+                <span class="rdelta tn"><span class="plus">+3</span> &minus;1 &middot; 2 steps</span>
+                <span class="rmeter"><span class="rtrack"><i style="width:27%"></i></span><span class="rpct tn">27%</span></span>
+                <span class="rsign">
+                  <svg class="plus" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  <svg class="minus" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14"/></svg>
+                </span>
+              </button>
+              <div class="rbodypanel" id="d7" hidden>
+                <p class="dmeta tn">35 min &middot; serves 8 &middot; archived &middot; cooked 1 time &middot; branched Aug 2025</p>
+                <div class="dgrid">
+                  <div class="dcol">
+                    <div class="rule-soft"><span class="ulabel">ingredients &mdash; delta</span><span class="gloss tn">+3 &minus;1 ~1</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Cocoa Powder <span class="gloss">(dutched)</span></span><span class="imeas tn">3 tbsp</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Smoked Salt</span><span class="imeas tn">1 tsp</span></div>
+                    <div class="ing add"><span class="mark">+</span><span class="iname">Dark Brown Sugar</span><span class="imeas tn">2 tbsp</span></div>
+                    <div class="ing cut"><span class="mark">&minus;</span><span class="iname">Vanilla Extract</span><span class="imeas tn">1 tsp</span></div>
+                    <div class="ing chg"><span class="mark">~</span><span class="iname">Mixed Nuts</span><span class="imeas tn"><s>4 cups mixed</s> &rarr; <b>4 cups almond</b></span></div>
+                  </div>
+                  <div class="dcol">
+                    <div class="rule-soft"><span class="ulabel">method &mdash; delta</span><span class="gloss tn">2 of 6 steps</span></div>
+                    <div class="dstep">
+                      <span class="num tn">04</span>
+                      <div>
+                        <p class="kick">changes</p>
+                        <p class="now">Sift the cocoa into the sugars with the smoked salt and cayenne, then fold through the nuts with the butter.</p>
+                      </div>
+                    </div>
+                    <div class="dstep">
+                      <span class="num tn">05</span>
+                      <div>
+                        <p class="kick">changes</p>
+                        <p class="now">Bake 25 minutes only. Cocoa scorches, and scorched cocoa is what went wrong here.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="dfoot">Archived rungs stay on the ladder so the mistake is not made twice. Hidden from the grid tile and from search.</p>
+                <div class="dacts">
+                  <button class="tlink">Un-archive</button>
+                  <button class="tlink">Read the cook log <span class="tn">(1)</span></button>
+                  <button class="tlink">Delete this rung</button>
+                </div>
+              </div>
+            </li>
+          </ol>
+
+          <div class="lctl" style="padding-top:20px">
+            <button class="tlink" style="color:#111;text-transform:none">Add a variation</button>
+            <span class="gloss">starts from the base and records only what you change</span>
+          </div>
+        </div>
+
+        <!-- photos, grouped by rung -->
+        <div class="photos">
+          <div class="rule">
+            <h2 class="slabel">Photos</h2>
+            <span class="gloss"><span class="tn">16</span> &middot; grouped by rung</span>
+          </div>
+          <div class="pstrip">
+            <div class="pthumb"><div class="ph ph-base" data-cap="Base"></div></div>
+            <div class="pthumb"><div class="ph ph-cin" data-cap="01"></div></div>
+            <div class="pthumb"><div class="ph ph-lav" data-cap="02"></div></div>
+            <div class="pthumb"><div class="ph ph-ros" data-cap="03"></div></div>
+            <div class="pthumb"><div class="ph ph-chi" data-cap="04"></div></div>
+          </div>
+          <div class="pcap">
+            <span class="lc">base &middot; <span class="tn">3</span></span>
+            <span class="lc">cinnamon-maple</span>
+            <span class="lc">lavender-coconut</span>
+            <span class="lc">rosemary-pepper</span>
+            <span class="lc">chili-lime</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="screen-cap">
+      <span class="gloss">A &middot; recipe detail, <span class="tn">896</span>px container. The ladder sits between Method and Photos.</span>
+      <span class="gloss">seven rungs shut = <span class="tn">7</span> lines</span>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION B ===================== -->
+  <section id="sec-b">
+    <div class="sectionhead">
+      <div class="rule">
+        <h2>B &mdash; On the home grid</h2>
+        <span class="gloss">/ &middot; recipes index</span>
+      </div>
+      <p class="note"><b>The ladder, seen edge-on.</b> The tile keeps the base photo at full width on top and hangs the variations beneath it as <span style="color:#111">rungs</span> &mdash; thin horizontal bands, in ladder order, each captioned. The stack itself is the branch indicator: no other tile in the grid has a banded bottom edge. The last rung is deliberately not a photo but a count, <span style="color:#111">+3 more</span>, which is what tells you the list is longer than the tile. A hairline rung counter sits top-left in the same white-on-hairline idiom as the existing card controls. <b>Try it:</b> click a rung to promote it into the top band; use the <em>branch indicator</em> row to strip the counter, or fall back to today's single photo, and judge whether the banding alone is enough.</p>
+    </div>
+
+    <div class="screen">
+      <div class="nav"><div class="nav-in">
+        <span class="wordmark">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/></svg>
+          cookbook
+        </span>
+        <nav class="navlinks">
+          <a class="on" href="#sec-b">Recipes</a><a href="#sec-b">Collections</a><a href="#sec-b">Seasonal</a><a href="#sec-b">Flavor</a>
+        </nav>
+        <span class="navright">
+          <button aria-label="Search"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+          <button aria-label="Add recipe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+        </span>
+      </div></div>
+
+      <div class="hpage">
+        <div class="htop">
+          <h1>Recipes</h1>
+          <div class="fbar">
+            <div class="fsearch">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#767676" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <span>Search recipes&hellip;</span>
+            </div>
+            <div class="frow">
+              <button class="on">all</button><button>italian</button><button>jewish</button><button>filipino</button><button>roman</button><button>viking</button><button>argentine</button><button>other</button>
+              <button class="push">more filters</button><button class="push">reset</button>
+            </div>
+          </div>
+          <p class="countline tn">28 recipes &middot; 1 with variations</p>
+        </div>
+
+        <div class="modes" id="modes">
+          <span class="slabel">branch indicator &mdash;</span>
+          <button class="on" data-mode="full">rungs + counter</button>
+          <button data-mode="nomark">rungs only</button>
+          <button data-mode="plain">single photo (today)</button>
+        </div>
+
+        <div class="hgrid" id="hgrid">
+
+          <!-- ==== the branched tile ==== -->
+          <article class="card" id="branchcard">
+            <div class="frame collage" id="collage">
+              <div class="cband lead" id="cband-lead"><div class="ph ph-base" data-cap="Spiced Nuts &mdash; base"></div></div>
+              <button class="cband thin" data-k="cin" aria-label="Preview Cinnamon-Maple"><div class="ph ph-cin" data-cap="01 Cinnamon-Maple"></div></button>
+              <button class="cband thin" data-k="lav" aria-label="Preview Lavender-Coconut"><div class="ph ph-lav" data-cap="02 Lavender-Coconut"></div></button>
+              <button class="cband thin" data-k="ros" aria-label="Preview Rosemary-Black Pepper"><div class="ph ph-ros" data-cap="03 Rosemary-Black Pepper"></div></button>
+              <div class="cmore"><span>+3 more rungs</span></div>
+
+              <span class="rungmark" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+                <span class="n tn">7</span>
+              </span>
+
+              <div class="hovercontrols">
+                <button aria-label="Status"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></button>
+                <button aria-label="Favourite"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2-3.4 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.6.5 3.5 2 5l7 7z"/></svg></button>
+              </div>
+            </div>
+            <p class="tag-link lc branchtag" id="branch-tag">other &middot; <span class="tn">7</span> variations</p>
+            <h3 class="ctitle" id="branch-title">Spiced Nuts</h3>
+            <p class="cmeta tn" id="branch-meta">35m &middot; serves 8</p>
+          </article>
+
+          <!-- ==== ordinary tiles ==== -->
+          <article class="card">
+            <div class="frame">
+              <div class="ph ph-r1" data-cap="Rainbow Cookies"></div>
+              <div class="hovercontrols">
+                <button aria-label="Status"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></button>
+                <button aria-label="Favourite"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2-3.4 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.6.5 3.5 2 5l7 7z"/></svg></button>
+              </div>
+            </div>
+            <p class="tag-link lc">italian</p>
+            <h3 class="ctitle">Rainbow Cookies</h3>
+            <p class="cmeta tn">1d &middot; serves 48</p>
+          </article>
+
+          <article class="card">
+            <div class="frame">
+              <div class="ph ph-r2" data-cap="Chimichurri"></div>
+              <div class="hovercontrols">
+                <button aria-label="Status"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></button>
+                <button aria-label="Favourite"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2-3.4 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.6.5 3.5 2 5l7 7z"/></svg></button>
+              </div>
+            </div>
+            <p class="tag-link lc">argentine</p>
+            <h3 class="ctitle">Chimichurri</h3>
+            <p class="cmeta tn">5m &middot; serves 2</p>
+          </article>
+
+          <article class="card">
+            <div class="frame"><div class="ph ph-r3" data-cap="Jerusalem Bagel"></div></div>
+            <p class="tag-link lc">jewish</p>
+            <h3 class="ctitle">Jerusalem Bagel Recipe</h3>
+            <p class="cmeta tn">3h 30m &middot; serves 6</p>
+          </article>
+
+          <article class="card">
+            <div class="frame"><div class="ph ph-r4" data-cap="Almond Paste"></div></div>
+            <p class="tag-link lc">italian</p>
+            <h3 class="ctitle">Almond Paste</h3>
+            <p class="cmeta tn">10m &middot; serves 24</p>
+          </article>
+
+          <article class="card">
+            <div class="frame"><div class="ph ph-r5" data-cap="Roman Stuffed Dates"></div></div>
+            <p class="tag-link lc">roman</p>
+            <h3 class="ctitle">Roman Stuffed Dates</h3>
+            <p class="cmeta tn">serves 4</p>
+          </article>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="screen-cap">
+      <span class="gloss">B &middot; recipes index, <span class="tn">1280</span>px container, three across. The banded tile is the only one with a stacked edge.</span>
+      <span class="gloss">tile aspect stays <span class="tn">4</span>:<span class="tn">5</span></span>
+    </div>
+  </section>
+
+  <!-- ===================== NOTES ===================== -->
+  <section id="sec-c">
+    <div class="sectionhead">
+      <div class="rule">
+        <h2>Notes &amp; trade-offs</h2>
+        <span class="gloss">concept 07</span>
+      </div>
+    </div>
+    <p class="note" style="margin-top:22px"><b>What it is good at.</b> Scale. Seven rungs cost seven lines; twenty would cost twenty and still be scannable, because every rung carries the same five facts &mdash; number, name, gloss, delta digest, share-of-recipe meter. Nothing is duplicated anywhere on the page, so a change to the base propagates to every variation for free. The delta digest (<span style="color:#111">+2 &minus;1 &middot; 2 steps</span>) plus the ink meter lets you tell a seasoning tweak from a near-rewrite without opening anything.</p>
+    <p class="note" style="margin-top:14px"><b>What it costs.</b> You can never read one variation as a continuous recipe &mdash; the delta view assumes you have the base in your head or on the screen above. That is fine for a cook who owns the base recipe and wrong for a guest following a link. The <em>Open as its own page</em> action is the escape hatch, and it is a second view to build. Deltas against a sibling rather than the base (rung 06 branched off rung 01) also need a rule about which parent you diff against; the mockup defaults to the base and offers the sibling diff as a toggle.</p>
+    <p class="note" style="margin-top:14px"><b>Fidelity to the system.</b> No new colour, no radius, no shadow, no filled badges. The rung head reuses the method-step grid (<span class="tn">26</span>px number column, zero-padded, tabular), the delta ingredient rows reuse the ingredient-row idiom including the struck-through style already used for checked-off ingredients, and the meter uses the Flavor Lab ink <span style="color:#111">#141310</span> on the <span style="color:#111">#eee</span> empty track. Expansion is instant rather than animated, per the colour/opacity-only transition rule.</p>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---------- A: the accordion ladder ---------- */
+  var list = document.getElementById('ladderlist');
+  var mode = 'single';
+
+  function setRung(rung, open){
+    var btn = rung.querySelector('.rhead-btn');
+    var panel = rung.querySelector('.rbodypanel');
+    if(!btn || !panel) return;
+    if(open){
+      rung.classList.add('open');
+      btn.setAttribute('aria-expanded','true');
+      panel.hidden = false;
+    } else {
+      rung.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      panel.hidden = true;
+    }
+  }
+
+  function allRungs(){
+    return Array.prototype.slice.call(list.querySelectorAll('.rung[data-i]'));
+  }
+
+  list.addEventListener('click', function(e){
+    var btn = e.target.closest ? e.target.closest('.rhead-btn') : null;
+    if(!btn) return;
+    var rung = btn.parentNode;
+    if(!rung.hasAttribute('data-i')) return;
+    var isOpen = rung.classList.contains('open');
+    if(mode === 'single' && !isOpen){
+      allRungs().forEach(function(r){ if(r !== rung) setRung(r,false); });
+    }
+    setRung(rung, !isOpen);
+  });
+
+  var lctl = document.getElementById('lctl');
+  lctl.addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('button[data-open]') : null;
+    if(!b) return;
+    mode = b.getAttribute('data-open');
+    Array.prototype.forEach.call(lctl.querySelectorAll('button[data-open]'), function(x){
+      x.classList.toggle('on', x === b);
+    });
+    if(mode === 'single'){
+      var opened = allRungs().filter(function(r){ return r.classList.contains('open'); });
+      opened.slice(1).forEach(function(r){ setRung(r,false); });
+    }
+  });
+
+  document.getElementById('expandall').addEventListener('click', function(){
+    mode = 'many';
+    Array.prototype.forEach.call(lctl.querySelectorAll('button[data-open]'), function(x){
+      x.classList.toggle('on', x.getAttribute('data-open') === 'many');
+    });
+    allRungs().forEach(function(r){ setRung(r,true); });
+  });
+
+  document.getElementById('collapseall').addEventListener('click', function(){
+    allRungs().forEach(function(r){ setRung(r,false); });
+  });
+
+  /* open rung 01 so the delta reading is visible on arrival */
+  setRung(list.querySelector('.rung[data-i="1"]'), true);
+
+  /* ---------- B: the collage tile ---------- */
+  var collage = document.getElementById('collage');
+  var lead = document.getElementById('cband-lead');
+  var leadPh = lead.querySelector('.ph');
+  var tagEl = document.getElementById('branch-tag');
+  var metaEl = document.getElementById('branch-meta');
+
+  var BASE = { cls:'ph-base', cap:'Spiced Nuts &mdash; base',
+               tag:'other &middot; <span class="tn">7</span> variations',
+               meta:'35m &middot; serves 8' };
+  var RUNGS = {
+    cin:{ cls:'ph-cin', cap:'01 Cinnamon-Maple',
+          tag:'other &middot; rung <span class="tn">01</span> of <span class="tn">7</span> &middot; cinnamon-maple',
+          meta:'35m &middot; serves 8 &middot; +2 &minus;1' },
+    lav:{ cls:'ph-lav', cap:'02 Lavender-Coconut',
+          tag:'other &middot; rung <span class="tn">02</span> of <span class="tn">7</span> &middot; lavender-coconut',
+          meta:'40m &middot; serves 8 &middot; +3 &minus;1' },
+    ros:{ cls:'ph-ros', cap:'03 Rosemary-Black Pepper',
+          tag:'other &middot; rung <span class="tn">03</span> of <span class="tn">7</span> &middot; rosemary-black pepper',
+          meta:'35m &middot; serves 8 &middot; +3 &minus;2' }
+  };
+  var PH_CLASSES = ['ph-base','ph-cin','ph-lav','ph-ros','ph-chi'];
+
+  /* data-cap needs plain text, so decode the few entities we use */
+  function decode(s){
+    var d = document.createElement('textarea');
+    d.innerHTML = s;
+    return d.value;
+  }
+  function paint(spec){
+    PH_CLASSES.forEach(function(c){ leadPh.classList.remove(c); });
+    leadPh.classList.add(spec.cls);
+    leadPh.setAttribute('data-cap', decode(spec.cap));
+    tagEl.innerHTML = spec.tag;
+    metaEl.innerHTML = spec.meta;
+  }
+
+  collage.addEventListener('click', function(e){
+    var band = e.target.closest ? e.target.closest('.cband') : null;
+    if(!band) return;
+    Array.prototype.forEach.call(collage.querySelectorAll('.cband'), function(b){ b.classList.remove('on'); });
+    if(band === lead){
+      paint(BASE);
+      return;
+    }
+    var k = band.getAttribute('data-k');
+    if(!k || !RUNGS[k]) return;
+    band.classList.add('on');
+    paint(RUNGS[k]);
+  });
+
+  /* ---------- B: indicator modes ---------- */
+  var modes = document.getElementById('modes');
+  var grid = document.getElementById('hgrid');
+  modes.addEventListener('click', function(e){
+    var b = e.target.closest ? e.target.closest('button[data-mode]') : null;
+    if(!b) return;
+    var m = b.getAttribute('data-mode');
+    Array.prototype.forEach.call(modes.querySelectorAll('button[data-mode]'), function(x){
+      x.classList.toggle('on', x === b);
+    });
+    grid.classList.remove('nomark','plain');
+    if(m !== 'full') grid.classList.add(m);
+    if(m === 'plain'){
+      paint(BASE);
+      tagEl.innerHTML = 'other';
+    } else if(!collage.querySelector('.cband.on')){
+      paint(BASE);
+    }
+  });
+})();
+</script>
+</body>
+</html>

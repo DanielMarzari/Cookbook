@@ -3,6 +3,7 @@
 // The scoring functions take a better-sqlite3 handle passed in by API routes.
 import type Database from 'better-sqlite3';
 import { CUISINES } from '@/data/cuisines';
+import { convertUnitToGrams } from '@/lib/units';
 
 // Canonical family order around the wheel + one hue each (the colour IS the data
 // in the flavour section — the one place it leaves the monochrome system).
@@ -147,17 +148,83 @@ export function synergyByName(db: DB, aName: string, bName: string, cache: Map<n
   return { synergy: synergyFromRaw(raw, maxPartnerRaw(db, a.id, cache), maxPartnerRaw(db, b.id, cache)), shared, notes };
 }
 
+// ── Proportion ───────────────────────────────────────────────────────────────
+// Every plate metric here is a mean over ingredient PAIRS. Left unweighted, that
+// makes a pinch of saffron an equal partner to a cup of rice — which is not how
+// the dish tastes. Where a recipe carries quantities we convert them to a rough
+// gram mass and weight each pair by w_i*w_j.
+//
+// Deliberately quantity-ONLY. Intrinsic potency ("aroma per gram") is not modelled,
+// because note_profiles cannot express it: every ingredient's profile is
+// max-normalised to peak 10.0, so summed intensity ranks Rice (189.7) above
+// Saffron (122.6). Potency needs a curated table; until then we only claim to
+// know how MUCH of something is in the dish, not how loud it is.
+
+/** A plate member. `weight` is a proportion in 0-1; absent means equal-weight. */
+export type PlateMember = { id: number; name: string; weight?: number };
+
+// Rough masses for the count/vague units convertUnitToGrams() can't weigh. These
+// are cooking approximations, used only for proportion — never for nutrition.
+const COUNT_GRAMS: Record<string, number> = {
+  clove: 5, sprig: 2, leaf: 0.5, stalk: 40, slice: 25, piece: 60, whole: 60,
+  can: 400, bunch: 100, head: 500, pinch: 0.3, dash: 0.6, handful: 30,
+};
+const TRACE_GRAMS = 0.5; // "to taste", "for garnish" — small, but still on the plate
+
+/** Rough gram mass of one recipe row, for proportion only. Null if unweighable. */
+export function flavorGrams(quantity: number | null, unit: string | null): number | null {
+  const u = (unit || '').toLowerCase().trim();
+  const q = quantity ?? 0;
+  if (q <= 0) return u && u in COUNT_GRAMS ? COUNT_GRAMS[u] : null; // "pinch" with no number
+  const direct = convertUnitToGrams(q, u);   // mass + volume (volume as water-equivalent)
+  if (direct != null) return direct;
+  if (u in COUNT_GRAMS) return q * COUNT_GRAMS[u];
+  if (!u || /taste|garnish|topping|optional|needed|serving/.test(u)) return q * TRACE_GRAMS;
+  return q * COUNT_GRAMS.piece;              // unknown unit — treat as a countable piece
+}
+
+/**
+ * Per-ingredient perceptual weights (each 0-1, summing to 1) from gram masses.
+ *
+ * Perception tracks the LOG of intensity (Fechner), so a 10x mass is nowhere near
+ * 10x the impression — ln() keeps bulk from swamping everything and keeps a small
+ * accent legible. Rows whose mass is unknown fall back to the plate's median, so a
+ * single unparseable unit can't distort the rest. If NO row has a mass, every
+ * weight is equal and all metrics below reduce exactly to their unweighted form.
+ */
+export function perceptualWeights(grams: (number | null)[]): number[] {
+  const known = grams.filter((g): g is number => g != null && g > 0).sort((a, b) => a - b);
+  if (known.length === 0) return grams.map(() => 1 / (grams.length || 1));
+  const median = known[Math.floor(known.length / 2)];
+  const L0 = 5;      // reference load: ~5 g. Below this, differences stop mattering much.
+  const FLOOR = 0.03; // a named ingredient never vanishes entirely
+  const s = grams.map((g) => Math.max(Math.log(1 + (g ?? median) / L0), FLOOR));
+  const total = s.reduce((a, b) => a + b, 0);
+  return s.map((v) => v / total);
+}
+
+const pairWeight = (a: PlateMember, b: PlateMember) => (a.weight ?? 1) * (b.weight ?? 1);
+
+// Summing w*score over pairs accumulates float error differently than summing
+// score alone, so an exact .5 mean (Döner Kebab: 50.5) could round down where the
+// unweighted path rounds up. The epsilon absorbs that drift so equal weights give
+// back exactly the unweighted number.
+const roundScore = (sum: number, wsum: number) => (wsum ? Math.round(sum / wsum + 1e-9) : 0);
+
 /** Mean pairwise harmony (0-100) across a set of note-ingredients + the tightest pairs. */
-export function plateHarmony(db: DB, members: { id: number; name: string }[]): { harmony: number; pairs: { a: string; b: string; harmony: number }[] } {
+export function plateHarmony(db: DB, members: PlateMember[]): { harmony: number; pairs: { a: string; b: string; harmony: number }[] } {
   const pairs: { a: string; b: string; harmony: number }[] = [];
+  let sum = 0, wsum = 0;
   for (let i = 0; i < members.length; i++)
     for (let j = i + 1; j < members.length; j++) {
       const h = harmonyByName(db, members[i].name, members[j].name);
-      if (h) pairs.push({ a: members[i].name, b: members[j].name, harmony: h.harmony });
+      if (!h) continue;
+      pairs.push({ a: members[i].name, b: members[j].name, harmony: h.harmony });
+      const w = pairWeight(members[i], members[j]);
+      sum += w * h.harmony; wsum += w;
     }
   pairs.sort((x, y) => y.harmony - x.harmony);
-  const harmony = pairs.length ? Math.round(pairs.reduce((s, p) => s + p.harmony, 0) / pairs.length) : 0;
-  return { harmony, pairs };
+  return { harmony: roundScore(sum, wsum), pairs };
 }
 
 // Suggest ingredients that would harmonise with a plate — using note associations,
@@ -255,16 +322,21 @@ export function complementByName(db: DB, aName: string, bName: string): { comple
 }
 
 /** Mean pairwise aroma affinity (0-100) across a set of ingredients. */
-export function plateAffinity(db: DB, members: { id: number; name: string }[], cache: Map<number, number>): number {
-  const ahn = members.map((m) => ahnByName(db, m.name)).filter(Boolean) as { id: number }[];
-  let sum = 0, n = 0;
+export function plateAffinity(db: DB, members: PlateMember[], cache: Map<number, number>): number {
+  // keep each member's weight alongside its Ahn id — members without one drop out
+  const ahn = members.flatMap((m) => {
+    const ref = ahnByName(db, m.name);
+    return ref ? [{ id: ref.id, weight: m.weight ?? 1 }] : [];
+  });
+  let sum = 0, wsum = 0;
   for (let i = 0; i < ahn.length; i++)
     for (let j = i + 1; j < ahn.length; j++) {
       const { raw } = pairRaw(db, ahn[i].id, ahn[j].id);
-      sum += synergyFromRaw(raw, maxPartnerRaw(db, ahn[i].id, cache), maxPartnerRaw(db, ahn[j].id, cache));
-      n++;
+      const w = ahn[i].weight * ahn[j].weight;
+      sum += w * synergyFromRaw(raw, maxPartnerRaw(db, ahn[i].id, cache), maxPartnerRaw(db, ahn[j].id, cache));
+      wsum += w;
     }
-  return n ? Math.round(sum / n) : 0;
+  return roundScore(sum, wsum);
 }
 
 type AddOpt = { name: string; noteId: number; fit: number; family: string | null; delta: number };
@@ -471,14 +543,16 @@ export function classifyCuisine(
 }
 
 /** Mean pairwise complement / balance (0-100) across a set of ingredients. */
-export function plateComplement(db: DB, members: { id: number; name: string }[]): number {
-  let sum = 0, n = 0;
+export function plateComplement(db: DB, members: PlateMember[]): number {
+  let sum = 0, wsum = 0;
   for (let i = 0; i < members.length; i++)
     for (let j = i + 1; j < members.length; j++) {
       const c = complementByName(db, members[i].name, members[j].name);
-      if (c) { sum += c.complement; n++; }
+      if (!c) continue;
+      const w = pairWeight(members[i], members[j]);
+      sum += w * c.complement; wsum += w;
     }
-  return n ? Math.round(sum / n) : 0;
+  return roundScore(sum, wsum);
 }
 
 /** Merge several note-ingredients' profiles into one combined wheel (max intensity per note). */

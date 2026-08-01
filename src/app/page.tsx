@@ -61,12 +61,19 @@ export default function RecipesPage() {
   const hasActiveFilters =
     filters.search || filters.cuisine || filters.difficulty || filters.maxTime;
 
+  // Variations live inside their base's collage tile rather than taking their own
+  // cell — but only while browsing. Once you're searching or filtering, a
+  // variation is a legitimate hit and hiding it would just look like a bug.
+  const gridRecipes = hasActiveFilters
+    ? recipes
+    : recipes.filter((r) => !r.parent_recipe_id);
+
   const countLine = (() => {
     if (loading || error) return ' ';
     if (totalCount !== null && recipes.length !== totalCount) {
       return `Showing ${recipes.length} of ${totalCount}`;
     }
-    return `${recipes.length} recipe${recipes.length !== 1 ? 's' : ''}`;
+    return `${gridRecipes.length} recipe${gridRecipes.length !== 1 ? 's' : ''}`;
   })();
 
   return (
@@ -109,7 +116,7 @@ export default function RecipesPage() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12 md:gap-y-14 pb-24">
-          {recipes.map((recipe) => (
+          {gridRecipes.map((recipe) => (
             <RecipeCard
               key={recipe.id}
               recipe={recipe}

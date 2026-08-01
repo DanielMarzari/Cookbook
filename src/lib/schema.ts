@@ -32,7 +32,38 @@ CREATE TABLE IF NOT EXISTS recipes (
   status TEXT,
   image_rotation REAL,
   image_position TEXT,
-  image_zoom REAL
+  image_zoom REAL,
+  notes TEXT,
+  yield_quantity REAL,
+  yield_unit TEXT,
+  parent_recipe_id TEXT,
+  variation_of_label TEXT
+);
+
+-- A 24-hour undo buffer. Anything destructive snapshots the affected recipe here
+-- first, so a mistaken delete/promote/commit can be put back. Rows expire on
+-- their own; this is a safety net, not history.
+CREATE TABLE IF NOT EXISTS recipe_archive (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  recipe_id TEXT,
+  title TEXT,
+  reason TEXT,
+  payload TEXT,
+  created_at TEXT,
+  expires_at TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_recipe_archive_expires ON recipe_archive(expires_at);
+
+-- Uncommitted edits to a recipe. Editing stages changes here instead of writing
+-- straight through, so a change can either be committed back to the recipe or
+-- branched off into a variation. One draft per recipe — it's a workbench, not a
+-- history.
+CREATE TABLE IF NOT EXISTS recipe_drafts (
+  recipe_id TEXT PRIMARY KEY,
+  payload TEXT,
+  created_at TEXT,
+  updated_at TEXT,
+  FOREIGN KEY (recipe_id) REFERENCES recipes(id)
 );
 
 CREATE TABLE IF NOT EXISTS ingredients (
@@ -66,6 +97,8 @@ CREATE TABLE IF NOT EXISTS recipe_ingredients (
   unit TEXT,
   notes TEXT,
   order_index INTEGER,
+  section TEXT,
+  child_recipe_id TEXT,
   custom_calories REAL,
   custom_protein REAL,
   custom_carbs REAL,

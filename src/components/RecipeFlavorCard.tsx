@@ -22,6 +22,10 @@ export default function RecipeFlavorCard({ recipeId }: { recipeId: string }) {
 
   if (!d || !d.merged || d.ingredients.length < 2 || d.harmony === 0) return null;
 
+  // Only claim a proportion when the recipe actually gave us amounts to weigh —
+  // otherwise the shares would just be 1/n dressed up as a measurement.
+  const measured = (d.proportions ?? []).some((p) => p.grams != null) ? d.proportions : [];
+
   return (
     <section className="mt-10">
       <div className="flex items-baseline justify-between border-b border-text pb-2.5 mb-5">
@@ -44,7 +48,27 @@ export default function RecipeFlavorCard({ recipeId }: { recipeId: string }) {
             ))}
           </div>
           {d.boost && <p className="text-[13px] text-text-secondary m-0">Boost: a touch of <b className="text-text">{cap(d.boost.name)}</b> would tie the plate together <span className="text-text">(+{d.boost.lift})</span>.</p>}
-          <p className="text-[11.5px] text-text-secondary mt-3">reads {d.ingredients.length} flavour ingredients: {d.ingredients.map(cap).join(', ')}</p>
+          {measured.length > 0 ? (
+            <div className="mt-3.5">
+              <div className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-1.5">by proportion</div>
+              <div className="flex h-[7px] w-full" role="img" aria-label={measured.map((p) => `${cap(p.name)} ${p.pct}%`).join(', ')}>
+                {measured.map((p, i) => (
+                  <div
+                    key={p.name}
+                    className="h-full border-r border-white last:border-r-0"
+                    // ramp spans the same 1 → 0.4 range however many ingredients
+                    // there are, so a long list's tail stays legible
+                    style={{ width: `${p.pct}%`, background: `rgba(20,19,16,${1 - (i / Math.max(1, measured.length - 1)) * 0.6})` }}
+                  />
+                ))}
+              </div>
+              <p className="text-[11.5px] text-text-secondary mt-1.5">
+                {measured.map((p) => `${cap(p.name)} ${p.pct}%`).join(' · ')}
+              </p>
+            </div>
+          ) : (
+            <p className="text-[11.5px] text-text-secondary mt-3">reads {d.ingredients.length} flavour ingredients: {d.ingredients.map(cap).join(', ')}</p>
+          )}
         </div>
       </div>
     </section>

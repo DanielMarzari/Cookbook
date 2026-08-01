@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb, hydrateRecipe } from '@/lib/db';
 import { Recipe } from '@/lib/types';
+import { archiveRecipe } from '@/lib/archive';
 
 export async function GET(
   request: NextRequest,
@@ -52,6 +53,9 @@ export async function PUT(
         source_author = COALESCE(?, source_author),
         source_type = COALESCE(?, source_type),
         is_favorite = COALESCE(?, is_favorite),
+        notes = COALESCE(?, notes),
+        yield_quantity = COALESCE(?, yield_quantity),
+        yield_unit = COALESCE(?, yield_unit),
         status = COALESCE(?, status),
         image_rotation = COALESCE(?, image_rotation),
         image_position = COALESCE(?, image_position),
@@ -77,6 +81,10 @@ export async function PUT(
       body.source_author || null,
       body.source_type || null,
       body.is_favorite !== undefined ? (body.is_favorite ? 1 : 0) : null,
+      // not `|| null` — an empty string has to survive so notes can be cleared
+      body.notes !== undefined ? body.notes : null,
+      body.yield_quantity !== undefined ? body.yield_quantity : null,
+      body.yield_unit !== undefined ? body.yield_unit : null,
       body.status || null,
       body.image_rotation !== undefined ? body.image_rotation : null,
       body.image_position !== undefined ? body.image_position : null,
@@ -108,6 +116,18 @@ export async function DELETE(
     // collection_recipes are owned by the recipe and get deleted; grocery list
     // items are the user's shopping data, so we only null their recipe link.
     const cascadeDelete = db.transaction((recipeId: string) => {
+      // Snapshot first — for the next 24 hours this delete can be undone.
+      archiveRecipe(db, recipeId, 'delete');
+      // Other recipes may use this one as an ingredient. Drop the link but keep
+      // the row: "Cannoli Filling" is still a real thing the recipe calls for,
+      // it just no longer points anywhere.
+      db.prepare('UPDATE recipe_ingredients SET child_recipe_id = NULL WHERE child_recipe_id = ?').run(recipeId);
+      // Variations are recipes in their own right — deleting the base must not
+      // strand them. Cutting the link promotes each one to a base of its own,
+      // which keeps them reachable instead of invisible everywhere.
+      db.prepare('UPDATE recipes SET parent_recipe_id = NULL WHERE parent_recipe_id = ?').run(recipeId);
+      // recipe_drafts has a FK to recipes, so a leftover row blocks the delete.
+      db.prepare('DELETE FROM recipe_drafts WHERE recipe_id = ?').run(recipeId);
       db.prepare('DELETE FROM recipe_ingredients WHERE recipe_id = ?').run(recipeId);
       db.prepare('DELETE FROM collection_recipes WHERE recipe_id = ?').run(recipeId);
       db.prepare('DELETE FROM recipe_tags WHERE recipe_id = ?').run(recipeId);

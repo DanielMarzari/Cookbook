@@ -22,12 +22,14 @@ interface FormIngredient {
   is_header?: boolean;
   is_or?: boolean;
   notes: string;
+  child_recipe_id?: string | null; // set when this row IS another recipe
 }
 
 interface FormInstruction {
   text: string;
   timer_minutes?: number;
   timer_label?: string;
+  section?: string;
 }
 
 export default function EditRecipePage() {
@@ -45,6 +47,9 @@ export default function EditRecipePage() {
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [notes, setNotes] = useState('');
+  const [yieldQuantity, setYieldQuantity] = useState(0);
+  const [yieldUnit, setYieldUnit] = useState('');
   const [cuisineType, setCuisineType] = useState('Italian');
   const [customCuisine, setCustomCuisine] = useState('');
   const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
@@ -76,6 +81,9 @@ export default function EditRecipePage() {
 
         setTitle(recipe.title);
         setDescription(recipe.description || '');
+        setNotes(recipe.notes || '');
+        setYieldQuantity(recipe.yield_quantity || 0);
+        setYieldUnit(recipe.yield_unit || '');
         setCuisineType(recipe.cuisine_type);
         // If the cuisine is custom (not in defaults), pre-populate the custom input
         if (recipe.cuisine_type && !DEFAULT_CUISINES.includes(recipe.cuisine_type) && recipe.cuisine_type !== 'Other') {
@@ -96,12 +104,15 @@ export default function EditRecipePage() {
         // Load gallery photos
         api.recipePhotos.list(id).then(setPhotos).catch(() => {});
 
+
+
         // Load instructions
         if (recipe.instructions && recipe.instructions.length > 0) {
           setInstructions(recipe.instructions.map((inst: any) => ({
             text: inst.text || '',
             timer_minutes: inst.timer_minutes,
             timer_label: inst.timer_label || '',
+            section: inst.section || '',
           })));
         }
 
@@ -109,22 +120,73 @@ export default function EditRecipePage() {
         const recipeIngredients = await api.recipeIngredients.list(id);
 
         if (recipeIngredients && recipeIngredients.length > 0) {
-          setIngredients(recipeIngredients.map((ing: any) => {
-            // Detect section headers and OR dividers from DB format
+          // Sections live on the rows themselves; rebuild an editable header row
+          // each time the section changes so the list still reads as one document.
+          const rows: FormIngredient[] = [];
+          let seenSection: string | null = null;
+          for (const ing of recipeIngredients as any[]) {
             if (ing.name === '---OR---') {
-              return { name: 'OR', quantity: 0, unit: '', notes: '', is_or: true };
+              rows.push({ name: 'OR', quantity: 0, unit: '', notes: '', is_or: true });
+              continue;
             }
-            if (ing.name?.startsWith('---') && ing.name?.endsWith('---')) {
-              return { name: ing.name.replace(/^-+\s*/, '').replace(/\s*-+$/, ''), quantity: 0, unit: '', notes: '', is_header: true };
+            const section = ing.section || null;
+            if (section !== seenSection) {
+              seenSection = section;
+              if (section) rows.push({ name: section, quantity: 0, unit: '', notes: '', is_header: true });
             }
-            return {
+            rows.push({
               name: ing.name,
               quantity: ing.quantity,
               unit: ing.unit,
               notes: ing.notes || '',
-            };
-          }));
+              child_recipe_id: ing.child_recipe_id || null,
+            });
+          }
+          setIngredients(rows);
         }
+
+        // If edits are already staged, open in that mode showing them — otherwise
+        // the draft is invisible here and the next keystroke silently forks it.
+        try {
+          const { draft } = await api.recipes.getDraft(id);
+          if (draft) {
+            setTarget('draft');
+            if (draft.title) setTitle(draft.title);
+            if (draft.description !== undefined) setDescription(draft.description || '');
+            if (draft.notes !== undefined) setNotes(draft.notes || '');
+            if (draft.servings) setServings(draft.servings);
+            if (draft.prep_time_minutes !== undefined) setPrepTime(draft.prep_time_minutes);
+            if (draft.cook_time_minutes !== undefined) setCookTime(draft.cook_time_minutes);
+            if (draft.yield_quantity !== undefined) setYieldQuantity(draft.yield_quantity || 0);
+            if (draft.yield_unit !== undefined) setYieldUnit(draft.yield_unit || '');
+            if (draft.cuisine_type) setCuisineType(draft.cuisine_type);
+            if (draft.difficulty) setDifficulty(draft.difficulty as 'easy' | 'medium' | 'hard');
+            if (draft.source_url !== undefined) setSourceUrl(draft.source_url || '');
+            if (draft.source_name !== undefined) setSourceName(draft.source_name || '');
+            if (draft.source_author !== undefined) setSourceAuthor(draft.source_author || '');
+            if (draft.image_url !== undefined) setImageUrl(draft.image_url || '');
+            if (draft.image_rotation !== undefined) setImageRotation(draft.image_rotation || 0);
+            if (draft.image_position !== undefined) setImagePosition(draft.image_position || '50% 50%');
+            if (draft.image_zoom !== undefined) setImageZoom(draft.image_zoom || 1);
+            if (draft.ingredients?.length) {
+              const rows: FormIngredient[] = [];
+              let seen: string | null = null;
+              for (const ing of draft.ingredients) {
+                if (ing.name === '---OR---') { rows.push({ name: 'OR', quantity: 0, unit: '', notes: '', is_or: true }); continue; }
+                const sec = ing.section || null;
+                if (sec !== seen) { seen = sec; if (sec) rows.push({ name: sec, quantity: 0, unit: '', notes: '', is_header: true }); }
+                rows.push({ name: ing.name, quantity: ing.quantity, unit: ing.unit, notes: ing.notes || '', child_recipe_id: ing.child_recipe_id || null });
+              }
+              setIngredients(rows);
+            }
+            if (draft.instructions?.length) {
+              setInstructions(draft.instructions.map((i) => ({
+                text: i.text || '', timer_minutes: i.timer_minutes,
+                timer_label: i.timer_label || '', section: i.section || '',
+              })));
+            }
+          }
+        } catch { /* no draft is the normal case */ }
       } catch (err) {
         console.error('Error loading recipe:', err);
       } finally {
@@ -136,13 +198,103 @@ export default function EditRecipePage() {
     fetchRecipe();
   }, [id]);
 
+  // The sections a step can be filed under are whatever the ingredient list
+  // already defines, so the two halves of a recipe stay in step with each other.
+  const sectionNames = Array.from(
+    new Set(ingredients.filter((i) => i.is_header && i.name.trim()).map((i) => i.name.trim()))
+  );
+
+  // Recipes that can be used as an ingredient here (anything but this one).
+  const [otherRecipes, setOtherRecipes] = useState<{ id: string; title: string }[]>([]);
+  useEffect(() => {
+    api.recipes.list().then((rs) => setOtherRecipes(rs.filter((r) => r.id !== id).map((r) => ({ id: r.id, title: r.title })))).catch(() => {});
+  }, [id]);
+
+  const addSubRecipe = (childId: string) => {
+    const child = otherRecipes.find((r) => r.id === childId);
+    if (!child) return;
+    setIngredients((prev) => [
+      ...prev,
+      { name: child.title, quantity: 1, unit: 'batch', notes: '', child_recipe_id: child.id },
+    ]);
+  };
+
+  // Lift a section out into a recipe of its own. Saves first so the section's
+  // current contents are what gets moved, then reloads to show the reference.
+  const [promoting, setPromoting] = useState(false);
+  // Where edits land. 'recipe' is the long-standing behaviour: autosave writes
+  // straight through. 'draft' stages them instead, so they can become a variation
+  // without ever having touched the original.
+  const [target, setTarget] = useState<'recipe' | 'draft'>('recipe');
+  const promoteSection = async (section: string) => {
+    if (promoting) return;
+    if (target === 'draft') {
+      toast.error('Switch saving back to "This recipe" first — promoting edits the recipe directly, which would bypass your staged changes.');
+      return;
+    }
+    if (!confirm(`Move "${section}" into its own recipe? Its ingredients and steps leave this recipe and it stays linked here.`)) return;
+    setPromoting(true);
+    try {
+      await doAutosave();
+      const res = await api.recipes.promoteSection(id, section);
+      toast.success(`Created "${res.recipe.title}" — ${res.movedIngredients} ingredients, ${res.movedSteps} steps`);
+      window.location.reload();
+    } catch (err) {
+      console.error('Error promoting section:', err);
+      toast.error('Failed to promote section');
+      setPromoting(false);
+    }
+  };
+
   // Autosave: debounce 1.5s after any change
   const doAutosave = useCallback(async () => {
     if (!initialLoadDone.current || !title.trim()) return;
     setSaving(true);
     try {
+      const stagedIngredients = (() => {
+        let sec: string | null = null;
+        const out: { name: string; quantity: number; unit: string; notes: string; section: string | null; child_recipe_id: string | null }[] = [];
+        for (const ing of ingredients) {
+          if (ing.is_header) { sec = ing.name.trim() || null; continue; }
+          if (!ing.is_or && !ing.name.trim()) continue;
+          out.push({
+            name: ing.is_or ? '---OR---' : titleCaseIngredient(ing.name),
+            quantity: ing.is_or ? 0 : ing.quantity,
+            unit: ing.is_or ? '' : ing.unit,
+            notes: ing.is_or ? '' : ing.notes,
+            section: sec,
+            child_recipe_id: ing.child_recipe_id || null,
+          });
+        }
+        return out;
+      })();
+
+      if (target === 'draft') {
+        // Staged: the recipe on disk is deliberately left alone.
+        await api.recipes.saveDraft(id, {
+          title, description, notes, servings,
+          cuisine_type: cuisineType, difficulty,
+          source_url: sourceUrl, source_name: sourceName, source_author: sourceAuthor,
+          image_url: imageUrl, image_rotation: imageRotation,
+          image_position: imagePosition, image_zoom: imageZoom,
+          prep_time_minutes: prepTime, cook_time_minutes: cookTime,
+          total_time_minutes: prepTime + cookTime,
+          yield_quantity: yieldQuantity || null, yield_unit: yieldUnit || null,
+          instructions: instructions.map((inst, idx) => ({
+            step_number: idx + 1, text: inst.text,
+            timer_minutes: inst.timer_minutes, timer_label: inst.timer_label,
+            section: inst.section?.trim() || undefined,
+          })),
+          ingredients: stagedIngredients,
+        });
+        setSaved(true);
+        setTimeout(() => setSaved(false), 2000);
+        return;
+      }
+
       await api.recipes.update(id, {
-        title, description, cuisine_type: cuisineType, difficulty,
+        title, description, notes, cuisine_type: cuisineType, difficulty,
+        yield_quantity: yieldQuantity || undefined, yield_unit: yieldUnit || undefined,
         prep_time_minutes: prepTime, cook_time_minutes: cookTime,
         total_time_minutes: prepTime + cookTime, servings,
         image_url: imageUrl, image_rotation: imageRotation,
@@ -151,22 +303,35 @@ export default function EditRecipePage() {
         instructions: instructions.map((inst, idx) => ({
           step_number: idx + 1, text: inst.text,
           timer_minutes: inst.timer_minutes, timer_label: inst.timer_label,
+          section: inst.section?.trim() || undefined,
         })),
       });
 
-      // Save ingredients
+      // Save ingredients. Header rows are an editing convenience only — on the way
+      // out they collapse into the `section` of the rows beneath them, so nothing
+      // is stored as a fake "--- Filling ---" ingredient any more.
       await api.recipeIngredients.deleteByRecipeId(id);
-      const ingredientsWithRecipeId = ingredients
-        .filter(ing => ing.name.trim() || ing.is_header || ing.is_or)
-        .map((ing, idx) => ({
+      let currentSection: string | null = null;
+      const ingredientsWithRecipeId: Record<string, unknown>[] = [];
+      for (const ing of ingredients) {
+        if (ing.is_header) {
+          currentSection = ing.name.trim() || null;
+          continue;
+        }
+        if (!ing.is_or && !ing.name.trim()) continue;
+        ingredientsWithRecipeId.push({
           recipe_id: id,
-          name: ing.is_header ? `--- ${ing.name} ---` : ing.is_or ? '---OR---' : titleCaseIngredient(ing.name),
-          quantity: ing.is_header || ing.is_or ? 0 : ing.quantity,
-          unit: ing.is_header || ing.is_or ? '' : ing.unit,
-          notes: ing.is_header || ing.is_or ? '' : ing.notes,
-          order_index: idx,
+          name: ing.is_or ? '---OR---' : titleCaseIngredient(ing.name),
+          quantity: ing.is_or ? 0 : ing.quantity,
+          unit: ing.is_or ? '' : ing.unit,
+          notes: ing.is_or ? '' : ing.notes,
+          section: currentSection,
+          // preserved so editing a recipe never severs its sub-recipe links
+          child_recipe_id: ing.child_recipe_id || null,
+          order_index: ingredientsWithRecipeId.length,
           ingredient_id: null,
-        }));
+        });
+      }
       if (ingredientsWithRecipeId.length > 0) {
         await api.recipeIngredients.create(ingredientsWithRecipeId);
       }
@@ -177,19 +342,21 @@ export default function EditRecipePage() {
     } finally {
       setSaving(false);
     }
-  }, [id, title, description, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients]);
+  }, [id, target, title, description, notes, yieldQuantity, yieldUnit, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients]);
 
   useEffect(() => {
     if (!initialLoadDone.current) return;
     if (autosaveTimer.current) clearTimeout(autosaveTimer.current);
     autosaveTimer.current = setTimeout(doAutosave, 1500);
     return () => { if (autosaveTimer.current) clearTimeout(autosaveTimer.current); };
-  }, [title, description, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients, doAutosave]);
+  }, [target, title, description, notes, yieldQuantity, yieldUnit, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients, doAutosave]);
 
   const handleRotateImage = async () => {
     const newRotation = (imageRotation + 90) % 360;
     setImageRotation(newRotation);
-    // Save immediately
+    // While staging, rotation rides along in the draft like every other field —
+    // writing it through here would edit the recipe behind the draft's back.
+    if (target === 'draft') return;
     await api.recipes.update(id, { image_rotation: newRotation });
   };
 
@@ -462,6 +629,35 @@ export default function EditRecipePage() {
                 </div>
               </div>
 
+              {/* Yield: what one batch makes. Only needed if this recipe gets used
+                  inside another one — it's the number the parent scales against. */}
+              <div>
+                <label className="block text-xs text-text-secondary mb-1">
+                  Makes <span className="text-text-secondary/70">— so other recipes can use this one as an ingredient</span>
+                </label>
+                <div className="flex gap-2">
+                  <input
+                    type="number"
+                    step="any"
+                    min="0"
+                    placeholder="2"
+                    value={yieldQuantity || ''}
+                    onChange={(e) => setYieldQuantity(parseFloat(e.target.value) || 0)}
+                    className="w-28 px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  />
+                  <select
+                    value={yieldUnit}
+                    onChange={(e) => setYieldUnit(e.target.value)}
+                    className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">—</option>
+                    {UNITS.map((u) => (
+                      <option key={u} value={u}>{u}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
               {/* Main / cover photo */}
               <div>
                 <label className="block text-xs text-text-secondary mb-1">Main / cover photo</label>
@@ -708,7 +904,42 @@ export default function EditRecipePage() {
               >
                 + OR
               </button>
+              {otherRecipes.length > 0 && (
+                <select
+                  value=""
+                  onChange={(e) => { if (e.target.value) addSubRecipe(e.target.value); e.target.value = ''; }}
+                  className="px-4 py-2 border border-border rounded-lg text-sm text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary"
+                  aria-label="Use another recipe as an ingredient"
+                >
+                  <option value="">+ Use a recipe…</option>
+                  {otherRecipes.map((r) => (
+                    <option key={r.id} value={r.id}>{r.title}</option>
+                  ))}
+                </select>
+              )}
             </div>
+
+            {/* Promote a section into its own recipe — the "cannoli filling is
+                really its own recipe" move. */}
+            {sectionNames.length > 0 && (
+              <div className="mt-5 pt-4 border-t border-border">
+                <p className="text-xs text-text-secondary mb-2">
+                  Split a section into its own recipe, so you can use it elsewhere:
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {sectionNames.map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => promoteSection(s)}
+                      disabled={promoting}
+                      className="px-3 py-1.5 border border-border rounded-lg text-sm text-text-secondary hover:text-text hover:bg-background transition-colors disabled:opacity-50"
+                    >
+                      {s} &rarr; own recipe
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Instructions */}
@@ -718,8 +949,21 @@ export default function EditRecipePage() {
             <div className="space-y-4">
               {instructions.map((inst, idx) => (
                 <div key={idx} className="border border-border rounded-lg p-4">
-                  <div className="flex gap-2 mb-2">
+                  <div className="flex items-center gap-2 mb-2">
                     <span className="font-semibold text-primary">Step {idx + 1}</span>
+                    {sectionNames.length > 0 && (
+                      <select
+                        value={inst.section || ''}
+                        onChange={(e) => updateInstruction(idx, 'section', e.target.value)}
+                        className="text-sm px-2 py-1 border border-border rounded focus:outline-none focus:ring-2 focus:ring-primary text-text-secondary"
+                        aria-label={`Section for step ${idx + 1}`}
+                      >
+                        <option value="">No section</option>
+                        {sectionNames.map((s) => (
+                          <option key={s} value={s}>{s}</option>
+                        ))}
+                      </select>
+                    )}
                     <button
                       onClick={() => removeInstruction(idx)}
                       className="ml-auto p-1 text-red-600 hover:bg-red-50 rounded transition-colors"
@@ -763,6 +1007,50 @@ export default function EditRecipePage() {
               <Plus size={20} />
               Add Step
             </button>
+          </div>
+
+          {/* Notes — what you learned making it, kept apart from the method */}
+          <div className="bg-surface border border-border rounded-lg p-6 shadow-warm">
+            <h2 className="text-2xl font-bold text-text mb-1">Notes</h2>
+            <p className="text-sm text-text-secondary mb-4">
+              Substitutions, what to watch for, how it went last time.
+            </p>
+            <textarea
+              placeholder="Doubled the brown butter and it was better. Dough needs a full overnight rest — 4 hours wasn't enough."
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              rows={5}
+              className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+          </div>
+
+          {/* Where edits land: straight through, or staged as a would-be variation */}
+          <div className="border border-border p-5">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-xs text-text-secondary">Saving to</span>
+              {(['recipe', 'draft'] as const).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setTarget(t)}
+                  aria-pressed={target === t}
+                  className={`px-3 py-1.5 border text-sm transition-colors ${
+                    target === t ? 'bg-text border-text text-white' : 'border-border text-text-secondary hover:text-text hover:border-text'
+                  }`}
+                >
+                  {t === 'recipe' ? 'This recipe' : 'A staged change'}
+                </button>
+              ))}
+              {target === 'draft' && (
+                <Link href={`/recipes/${id}/versions`} className="tlink text-sm text-text-secondary hover:text-text">
+                  Review &amp; commit &rarr;
+                </Link>
+              )}
+            </div>
+            <p className="text-xs text-text-secondary mt-3 max-w-[62ch]">
+              {target === 'recipe'
+                ? 'Edits are written straight to the recipe, as they always have been.'
+                : 'The recipe on disk stays exactly as it is. Your edits are held aside until you commit them to it — or turn them into a variation. Uploading or removing gallery photos still takes effect immediately: those are files, not text.'}
+            </p>
           </div>
 
           {/* Autosave indicator + Done button */}

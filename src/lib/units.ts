@@ -25,8 +25,31 @@ const TO_ML: Record<string, number> = {
 
 const METRIC_UNITS = new Set(['g', 'kg', 'ml', 'l']);
 
+// Units that never take an -s: symbols (2 g, 3 tbsp) and words that are already
+// quantity-invariant ("2 large eggs", "2 dozen", "2 whole").
+const INVARIANT_UNITS = new Set([
+  'g', 'kg', 'mg', 'ml', 'l', 'oz', 'fl oz', 'tbsp', 'tsp',
+  'dozen', 'whole', 'large', 'medium', 'small', 'to taste',
+]);
+// Sibilant endings take -es: a pinch -> two pinches.
+const SIBILANT = /(s|x|z|ch|sh)$/;
+
 function norm(unit: string): string {
   return (unit || '').toLowerCase().trim();
+}
+
+/**
+ * Pluralise a unit for display when there's more than one of it — "1 cup" but
+ * "2 cups". Purely a display concern: units are stored singular, so this never
+ * changes what's in the database.
+ */
+export function pluralizeUnit(unit: string, quantity: number): string {
+  const u = norm(unit);
+  if (!u || quantity <= 1 || INVARIANT_UNITS.has(u)) return unit;
+  if (u.endsWith('s') && !u.endsWith('ss')) return unit; // already plural
+  const suffix = SIBILANT.test(u) ? 'es' : 's';
+  // preserve the caller's capitalisation (Cup -> Cups)
+  return unit + (unit === unit.toUpperCase() && unit !== u ? suffix.toUpperCase() : suffix);
 }
 
 export function isWeightUnit(unit: string): boolean {
@@ -108,6 +131,6 @@ export function formatQuantity(quantity: number, unit: string): string {
     qtyStr = quantity % 1 !== 0 ? toFraction(quantity) : String(quantity);
   }
 
-  const unitStr = unit && unit !== 'piece' ? ` ${unit}` : '';
+  const unitStr = unit && unit !== 'piece' ? ` ${pluralizeUnit(unit, quantity)}` : '';
   return `${qtyStr}${unitStr}`;
 }

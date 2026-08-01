@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 05 &mdash; Inline Swap Chips | Cookbook branched recipes</title>
+<style>
+/* ------------------------------------------------------------------
+   COOKBOOK DESIGN TOKENS (verbatim from src/app/globals.css)
+   ------------------------------------------------------------------ */
+:root {
+  --color-primary: #111111;
+  --color-primary-dark: #000000;
+  --color-secondary: #767676;
+  --color-accent: #111111;
+  --color-background: #ffffff;
+  --color-surface: #ffffff;
+  --color-text: #111111;
+  --color-text-secondary: #767676;
+  --color-border: #e8e8e8;
+  --color-shadow: rgba(0, 0, 0, 0.05);
+}
+
+*, ::before, ::after { box-sizing: border-box; border: 0 solid var(--color-border); }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: 'Neue Haas Grotesk Text', 'Helvetica Neue', Helvetica, Arial,
+    -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+h1, h2, h3, p, ul, ol, figure { margin: 0; }
+/* ONE WEIGHT ONLY - headings never bold in this system */
+h1, h2, h3, h4, b, strong { font-weight: 400; }
+ul, ol { padding: 0; list-style: none; }
+button { font: inherit; letter-spacing: inherit; color: inherit; background: none; padding: 0; cursor: pointer; }
+input { font: inherit; letter-spacing: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+img, svg { display: block; max-width: 100%; }
+
+button:focus-visible, a:focus-visible, input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 3.5px var(--color-text);
+}
+
+/* interactive affordance */
+.tlink { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; cursor: pointer; }
+.tlink:hover { color: var(--color-text-secondary); }
+.tag-link {
+  font-size: 12.5px; color: var(--color-text-secondary);
+  text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-thickness: 1px; text-decoration-color: #cfcfcf;
+}
+
+/* ------------------------------------------------------------------
+   TYPE LADDER
+   ------------------------------------------------------------------ */
+.t-h1-index { font-size: 34px; line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; }
+.t-h1-recipe { font-size: 30px; line-height: 1.08; letter-spacing: -0.02em; font-weight: 400; max-width: 22ch; margin: 14px auto; text-wrap: balance; }
+.t-rule-label { font-size: 12.5px; color: var(--color-text-secondary); }
+.t-gloss { font-size: 11.5px; color: var(--color-text-secondary); }
+.t-card-title { font-size: 16.5px; line-height: 1.4; color: var(--color-text); max-width: 34ch; }
+.t-lede { font-size: 16.5px; line-height: 1.65; color: #3A3A3A; max-width: 62ch; }
+.t-step { font-size: 15px; line-height: 1.65; }
+.t-ing { font-size: 14.5px; }
+.t-measure { font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--color-text-secondary); }
+.t-meta-detail { font-size: 13.5px; color: var(--color-text-secondary); text-transform: lowercase; }
+.t-13 { font-size: 13px; color: var(--color-text-secondary); }
+.t-micro { font-size: 12.5px; }
+.t-caption { font-size: 11.5px; color: var(--color-text-secondary); }
+.t-ulabel { font-size: 11px; text-transform: uppercase; letter-spacing: 0.13em; color: var(--color-text-secondary); }
+.t-nutri { font-size: 24px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; color: var(--color-text); }
+.lower { text-transform: lowercase; }
+.sec { color: var(--color-text-secondary); }
+.num { font-variant-numeric: tabular-nums; }
+
+/* ------------------------------------------------------------------
+   RULES & CONTAINERS
+   ------------------------------------------------------------------ */
+.rule { display: flex; align-items: baseline; justify-content: space-between;
+        border-bottom: 1px solid var(--color-text); padding-bottom: 10px; }
+.row-rule { border-bottom: 1px solid var(--color-border); }
+.wrap-7xl { max-width: 80rem; margin: 0 auto; padding: 0 16px; }
+.wrap-4xl { max-width: 56rem; margin: 0 auto; padding: 0 16px; }
+
+/* ------------------------------------------------------------------
+   MOCKUP CHROME (not part of the app)
+   ------------------------------------------------------------------ */
+.sheet { max-width: 96rem; margin: 0 auto; padding: 0 20px 96px; }
+.mk-head { padding: 40px 0 26px; border-bottom: 1px solid var(--color-text); }
+.mk-title { font-size: 34px; line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; margin-top: 12px; }
+.mk-sub { font-size: 16.5px; line-height: 1.65; color: #3A3A3A; max-width: 62ch; margin-top: 14px; }
+.mk-section { padding-top: 56px; }
+.mk-secrule { display: flex; align-items: baseline; justify-content: space-between;
+              border-bottom: 1px solid var(--color-text); padding-bottom: 10px; }
+.mk-seclabel { font-size: 11px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--color-text); }
+.frame { border: 1px solid var(--color-border); margin-top: 26px; background: #fff; }
+.frame-bar { display: flex; align-items: center; gap: 10px;
+             border-bottom: 1px solid var(--color-border); padding: 8px 14px;
+             font-size: 11px; letter-spacing: 0.06em; color: var(--color-text-secondary); }
+.frame-dots { display: flex; gap: 5px; }
+.frame-dots i { width: 6px; height: 6px; background: #e0e0e0; display: block; }
+.note { border-left: 1px solid var(--color-text); padding-left: 14px; margin-top: 26px; max-width: 66ch; }
+.note p { font-size: 12.5px; line-height: 1.6; color: var(--color-text-secondary); margin-top: 6px; }
+.note ol { margin-top: 8px; }
+.note li { font-size: 12.5px; line-height: 1.6; color: var(--color-text-secondary);
+           display: grid; grid-template-columns: 22px 1fr; gap: 8px; padding: 3px 0; }
+.note li span:first-child { font-variant-numeric: tabular-nums; }
+
+/* ------------------------------------------------------------------
+   APP NAV
+   ------------------------------------------------------------------ */
+.nav { background: rgba(255,255,255,0.95); border-bottom: 1px solid var(--color-border); }
+.nav-in { max-width: 80rem; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; gap: 32px; height: 60px; }
+.wordmark { display: flex; align-items: center; gap: 8px; font-size: 17px; letter-spacing: -0.02em; }
+.nav-links { display: flex; align-items: center; gap: 24px; font-size: 14px; }
+.nav-links a { padding-bottom: 2px; border-bottom: 1px solid transparent; }
+.nav-links a.on { border-bottom-color: var(--color-text); }
+.nav-links a:hover { border-bottom-color: var(--color-text); }
+.nav-act { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.nav-act button { padding: 6px; }
+.nav-act button:hover { color: var(--color-text-secondary); }
+
+/* ------------------------------------------------------------------
+   PHOTO PLACEHOLDERS (CSS only, monochrome)
+   ------------------------------------------------------------------ */
+.ph { position: relative; background: #F4F4F4; overflow: hidden; }
+.ph::before { content: ''; position: absolute; inset: 0; }
+.ph::after { content: ''; position: absolute; inset: 0;
+  background: linear-gradient(158deg, rgba(0,0,0,0.055) 0%, rgba(0,0,0,0) 46%, rgba(0,0,0,0.085) 100%); }
+.ph .cap { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 0 12%; font-size: 10px; text-transform: uppercase;
+  letter-spacing: 0.14em; color: #6b6a66; line-height: 1.6; }
+
+/* variation textures */
+.tx-cin::before { background-color: #f1f1f1;
+  background-image: repeating-linear-gradient(48deg, #e0e0e0 0 5px, #f4f4f4 5px 11px); }
+.tx-lav::before { background-color: #f7f7f7;
+  background-image: radial-gradient(#dadada 1.5px, transparent 1.7px); background-size: 13px 13px; }
+.tx-ros::before { background-color: #ededed;
+  background-image: repeating-linear-gradient(0deg, #dcdcdc 0 1px, transparent 1px 8px),
+                    repeating-linear-gradient(90deg, #dcdcdc 0 1px, transparent 1px 8px); }
+.tx-chi::before { background-color: #eaeaea;
+  background-image: radial-gradient(#c9c9c9 2.4px, transparent 2.6px); background-size: 17px 17px; }
+/* ordinary recipe textures */
+.tx-a::before { background-color: #f2f2f2;
+  background-image: repeating-linear-gradient(112deg, #e2e2e2 0 3px, #f5f5f5 3px 9px); }
+.tx-b::before { background-color: #efefef;
+  background-image: radial-gradient(#d5d5d5 1.1px, transparent 1.3px); background-size: 9px 9px; }
+.tx-c::before { background-color: #f4f4f4;
+  background-image: repeating-linear-gradient(0deg, #e0e0e0 0 1px, transparent 1px 12px); }
+.tx-d::before { background-color: #ececec;
+  background-image: repeating-linear-gradient(135deg, #dedede 0 2px, #f0f0f0 2px 14px); }
+.tx-e::before { background-color: #f2f2f2;
+  background-image: radial-gradient(#d0d0d0 3px, transparent 3.2px); background-size: 24px 24px; }
+
+/* ------------------------------------------------------------------
+   INLINE SWAP CHIPS  (the concept)
+   ------------------------------------------------------------------ */
+.chiprow { display: inline; }
+.chip {
+  display: inline-block;
+  border: 1px solid var(--color-border);
+  padding: 2px 8px 3px;
+  margin: 0 3px 3px 0;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  vertical-align: baseline;
+  transition: color 150ms, border-color 150ms, background-color 150ms;
+}
+.chip:hover { color: var(--color-text); border-color: var(--color-text); }
+.chip[aria-pressed="true"] {
+  background: var(--color-text);
+  border-color: var(--color-text);
+  color: #ffffff;
+}
+.chip[aria-pressed="true"]:hover { background: #2a2a2a; border-color: #2a2a2a; color: #ffffff; }
+
+/* the flash that marks rewritten text */
+.swapzone { transition: background-color 320ms; background-color: transparent;
+            box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.swapzone.flash { background-color: #F4F4F4; }
+
+/* ------------------------------------------------------------------
+   RECIPE PAGE
+   ------------------------------------------------------------------ */
+.util { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; font-size: 14px; }
+.util .back { display: inline-flex; align-items: center; gap: 6px; color: var(--color-text-secondary); }
+.util .back:hover { color: var(--color-text); }
+.util .acts { display: flex; align-items: center; gap: 20px; }
+.rhead { text-align: center; padding: 24px 0 28px; }
+.hero { position: relative; width: 100%; aspect-ratio: 3 / 2; }
+.pacts { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; padding: 28px 0 8px; font-size: 14px; }
+.body-grid { display: grid; grid-template-columns: minmax(0,1fr); gap: 40px; padding-top: 56px; }
+.unit-row { display: flex; align-items: baseline; gap: 12px; font-size: 12.5px; }
+.unit-row .on { color: var(--color-text); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.unit-row .off { color: var(--color-text-secondary); }
+.unit-row .off:hover { color: var(--color-text); }
+.ing-row { width: 100%; display: flex; align-items: baseline; justify-content: space-between;
+           gap: 20px; padding: 10px 0; border-bottom: 1px solid var(--color-border); text-align: left; }
+.ing-row.checked .t-ing, .ing-row.checked .t-measure { text-decoration: line-through; color: var(--color-text-secondary); }
+.subhead { font-size: 12.5px; font-style: italic; color: var(--color-text-secondary); padding: 20px 0 4px; }
+.step { width: 100%; display: grid; grid-template-columns: 26px 1fr; gap: 16px;
+        padding: 16px 0; border-bottom: 1px solid var(--color-border); text-align: left; }
+.step:last-child { border-bottom: 0; }
+.step .n { font-size: 13px; color: var(--color-text-secondary); font-variant-numeric: tabular-nums; padding-top: 2px; }
+.step.done .n { color: var(--color-text); }
+.nutri-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 24px; padding-top: 16px; }
+
+/* ------------------------------------------------------------------
+   HOME GRID
+   ------------------------------------------------------------------ */
+.home-head { padding: 40px 0 28px; }
+.filterbar { display: grid; gap: 20px; }
+.search { position: relative; max-width: 28rem; }
+.search svg { position: absolute; left: 0; top: 50%; transform: translateY(-50%); color: var(--color-text-secondary); }
+.search input { width: 100%; padding: 8px 8px 8px 28px; background: transparent;
+  border-bottom: 1px solid var(--color-border); font-size: 15px; }
+.search input::placeholder { color: var(--color-text-secondary); }
+.search input:focus { border-bottom-color: var(--color-text); outline: none; box-shadow: none; }
+.cuisines { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px; font-size: 14px; }
+.cuisines button { text-transform: lowercase; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.cuisines button.on { color: var(--color-text); text-decoration: underline; }
+.cuisines button.off { color: var(--color-text-secondary); }
+.cuisines button.off:hover { color: var(--color-text); text-decoration: underline; }
+.cuisines .push { margin-left: auto; font-size: 12.5px; text-decoration: underline; }
+
+.grid { display: grid; grid-template-columns: 1fr; gap: 48px 24px; padding-bottom: 40px; }
+.card { position: relative; }
+.card .photo { position: relative; width: 100%; aspect-ratio: 4 / 5; background: #F4F4F4; overflow: hidden; }
+.card .photo > .ph { position: absolute; inset: 0; }
+.card .photo > .ph, .card .photo .collage { transition: opacity 300ms; }
+.card:hover .photo > .ph, .card:hover .photo .collage { opacity: 0.9; }
+.card-ctl { position: absolute; top: 12px; right: 12px; z-index: 4; display: flex; gap: 6px;
+            opacity: 0; transition: opacity 300ms; }
+.card:hover .card-ctl, .card:focus-within .card-ctl { opacity: 1; }
+.card-ctl button { padding: 8px; background: rgba(255,255,255,0.95); border: 1px solid var(--color-border); display: flex; }
+.card-ctl button:hover { background: #fff; }
+.card .tagline { margin: 14px 0 6px; }
+.card:hover .t-card-title { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.card .metaline { font-size: 12.5px; color: var(--color-text-secondary); margin-top: 6px; }
+
+/* the collage tile */
+.collage { position: absolute; inset: 0; display: flex; gap: 2px; background: #ffffff; }
+.collage .dom { position: relative; flex: 1 1 auto; }
+.collage .strip { display: flex; flex-direction: column; gap: 2px; width: 27%; }
+.collage .sliv { position: relative; flex: 1 1 0; }
+.collage .sliv .cap { writing-mode: vertical-rl; letter-spacing: 0.16em; font-size: 8.5px; padding: 10% 0; }
+.collage .dom .cap { align-items: flex-end; justify-content: flex-start; padding: 0 0 14px 14px; text-align: left; letter-spacing: 0.16em; }
+
+/* branch indicator: the mini chip row under the card meta */
+.mini-row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-top: 10px; }
+.mini {
+  border: 1px solid var(--color-border); padding: 2px 6px 3px;
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--color-text-secondary); line-height: 1.5;
+  transition: color 150ms, border-color 150ms, background-color 150ms;
+}
+.mini:hover { color: var(--color-text); border-color: var(--color-text); }
+.mini[aria-pressed="true"] { background: var(--color-text); border-color: var(--color-text); color: #fff; }
+.mini-count { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-secondary); margin-left: 2px; }
+
+/* ------------------------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------------------------ */
+@media (min-width: 640px) {
+  .grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (min-width: 768px) {
+  .wrap-7xl, .wrap-4xl, .nav-in { padding-left: 32px; padding-right: 32px; }
+  .t-h1-index, .mk-title { font-size: 52px; }
+  .t-h1-recipe { font-size: 48px; }
+  .body-grid { grid-template-columns: minmax(0,1fr) minmax(0,1.5fr); gap: 64px; }
+  .rhead { padding-top: 40px; }
+  .home-head { padding-top: 64px; }
+  .grid { gap: 56px 24px; }
+}
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- =============================================================
+       MOCKUP HEADER
+       ============================================================= -->
+  <header class="mk-head">
+    <p class="t-ulabel">Concept 05 &nbsp;/&nbsp; branched recipes &nbsp;/&nbsp; cookbook</p>
+    <h1 class="mk-title">Inline swap chips</h1>
+    <p class="mk-sub">
+      The recipe stays one document. The variable part of the ingredient list is a row of
+      selectable chips set inline in the running text &mdash; <em>toss with</em>
+      [cinnamon-maple] [lavender + coconut]. Picking one rewrites that line, the matching
+      method step, the nutrition read-out and the hero photo in place. No tabs, no sub-pages,
+      no second column: the branch is a sentence you finish yourself.
+    </p>
+  </header>
+
+  <!-- =============================================================
+       SECTION A - RECIPE PAGE
+       ============================================================= -->
+  <section class="mk-section" id="section-a">
+    <div class="mk-secrule">
+      <h2 class="mk-seclabel">A &mdash; On the recipe page</h2>
+      <p class="t-gloss">/recipes/spiced-nuts</p>
+    </div>
+
+    <div class="frame">
+      <div class="frame-bar">
+        <span class="frame-dots"><i></i><i></i><i></i></span>
+        <span>cookbook.local/recipes/spiced-nuts</span>
+      </div>
+
+      <!-- app nav -->
+      <div class="nav">
+        <div class="nav-in">
+          <a class="wordmark" href="#section-a">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.6 12 3l9 6.6V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/></svg>
+            <span>cookbook</span>
+          </a>
+          <nav class="nav-links">
+            <a href="#section-b" class="on">Recipes</a>
+            <a href="#section-b">Collections</a>
+            <a href="#section-b">Seasonal</a>
+            <a href="#section-b">Flavor</a>
+          </nav>
+          <div class="nav-act">
+            <button type="button" aria-label="Search">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+            </button>
+            <button type="button" aria-label="Add recipe">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- recipe detail -->
+      <div class="wrap-4xl" style="padding-bottom:64px;">
+
+        <!-- 1 utility row -->
+        <div class="util">
+          <a class="back" href="#section-b">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            Recipes
+          </a>
+          <div class="acts">
+            <button type="button" aria-label="Favourite">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1l8.8 8.8 8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>
+            </button>
+            <button type="button" class="tlink sec">Edit</button>
+            <button type="button" class="tlink sec">Delete</button>
+          </div>
+        </div>
+
+        <!-- 2 centered head -->
+        <div class="rhead">
+          <p class="tag-link lower">american &nbsp;&middot;&nbsp; 4 variations</p>
+          <h1 class="t-h1-recipe">Spiced Nuts</h1>
+          <p class="t-meta-detail num">35m &nbsp;&middot;&nbsp; serves 8 &nbsp;&middot;&nbsp; easy &nbsp;&middot;&nbsp; approved &nbsp;&middot;&nbsp; via Family Cookbook</p>
+        </div>
+
+        <!-- 3 hero -->
+        <div class="hero ph tx-cin" id="hero">
+          <span class="cap" id="hero-cap">Spiced Nuts &middot; Cinnamon-Maple</span>
+        </div>
+
+        <!-- 4 lede -->
+        <p class="t-lede" style="text-align:center;margin:32px auto 0;">
+          One tray, one method, four endings. The nuts, the egg white and the bake never change &mdash;
+          only the last toss, which happens in the thirty seconds the tray comes out of the oven.
+        </p>
+
+        <!-- 5 primary actions -->
+        <div class="pacts">
+          <button type="button" class="tlink">Add to grocery list</button>
+          <a class="tlink" href="#section-a">View original</a>
+        </div>
+
+        <!-- 6 two-column body -->
+        <div class="body-grid">
+
+          <!-- 6a ingredients -->
+          <div>
+            <div class="rule">
+              <h2 class="t-rule-label">Ingredients</h2>
+              <div class="unit-row">
+                <button type="button" class="on">orig</button>
+                <button type="button" class="off">metric</button>
+                <button type="button" class="off">imperial</button>
+              </div>
+            </div>
+
+            <ul>
+              <li><button type="button" class="ing-row js-check"><span class="t-ing">Raw Mixed Nuts <span class="t-13">(pecans, cashews, almonds)</span></span><span class="t-measure">4 cups</span></button></li>
+              <li><button type="button" class="ing-row js-check"><span class="t-ing">Egg White</span><span class="t-measure">1</span></button></li>
+              <li><button type="button" class="ing-row js-check"><span class="t-ing">Water</span><span class="t-measure">1 tbsp</span></button></li>
+              <li><button type="button" class="ing-row js-check"><span class="t-ing">Granulated Sugar</span><span class="t-measure">1/3 cup</span></button></li>
+              <li><button type="button" class="ing-row js-check"><span class="t-ing">Kosher Salt</span><span class="t-measure">1 tsp</span></button></li>
+            </ul>
+
+            <!-- THE INLINE CHIP SENTENCE -->
+            <p class="subhead">the finish &mdash; toss with</p>
+            <p class="t-ing" style="line-height:1.9;padding-bottom:6px;">
+              <span class="chiprow" id="chips-ing"></span>
+            </p>
+            <ul id="ing-variant" class="swapzone" style="display:block;"></ul>
+
+            <!-- 6b nutrition -->
+            <div style="margin-top:32px;">
+              <div class="rule">
+                <h2 class="t-rule-label">Nutrition &mdash; per serving</h2>
+                <span class="t-gloss">estimated</span>
+              </div>
+              <div class="nutri-grid swapzone" id="nutri">
+                <div><p class="t-caption lower">calories</p><p class="t-nutri" id="n-cal">286</p></div>
+                <div><p class="t-caption lower">protein</p><p class="t-nutri" id="n-pro">8 g</p></div>
+                <div><p class="t-caption lower">carbs</p><p class="t-nutri" id="n-car">19 g</p></div>
+                <div><p class="t-caption lower">fat</p><p class="t-nutri" id="n-fat">22 g</p></div>
+              </div>
+              <p class="t-caption" style="margin-top:12px;" id="n-foot">7 of 8 ingredients matched to the library</p>
+            </div>
+          </div>
+
+          <!-- 6c method -->
+          <div>
+            <h2 class="t-rule-label" style="border-bottom:1px solid var(--color-text);padding-bottom:10px;">
+              Method <span style="color:rgba(118,118,118,0.7);">&mdash; tap a step to check it off</span>
+            </h2>
+
+            <div>
+              <div class="step js-step">
+                <span class="n">01</span>
+                <p class="t-step">Heat the oven to 300&deg;F and line a sheet pan with parchment. Nothing here changes, whichever finish you pick.</p>
+              </div>
+              <div class="step js-step">
+                <span class="n">02</span>
+                <p class="t-step">Whisk the egg white with the water until loose and foamy &mdash; no peaks, just bubbles &mdash; then fold the nuts through until every one is dull and wet.</p>
+              </div>
+              <div class="step js-step">
+                <span class="n">03</span>
+                <p class="t-step">Toss with the granulated sugar and kosher salt, spread in a single layer and bake 25 minutes, stirring once at the halfway mark.
+                  <span class="tlink sec" style="font-size:12.5px;margin-top:8px;display:inline-block;">Start 25m timer</span>
+                </p>
+              </div>
+
+              <!-- THE VARIABLE STEP -->
+              <div class="step js-step" id="step-04">
+                <span class="n">04</span>
+                <p class="t-step">
+                  Pull the tray out and, while it is still steaming, toss with
+                  <span class="chiprow" id="chips-method"></span>
+                  <span class="swapzone" id="step-tail"></span>
+                </p>
+              </div>
+
+              <div class="step js-step">
+                <span class="n">05</span>
+                <p class="t-step">Cool completely on the tray before breaking apart. They crisp as they cool, not in the oven &mdash; a warm nut always tastes like a failure.</p>
+              </div>
+            </div>
+
+            <p class="t-caption" style="margin-top:20px;">
+              Steps 01&ndash;03 and 05 are shared by all four finishes. Editing them edits every variation at once.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <p class="t-ulabel" style="color:var(--color-text);">How the branch reads here</p>
+      <ol>
+        <li><span class="num">01</span><span>The tag line says <em>american &middot; 4 variations</em> &mdash; the only added furniture above the fold.</span></li>
+        <li><span class="num">02</span><span>The chips sit inside two sentences (<em>the finish &mdash; toss with</em>, and step 04). They are read as words, not as a control panel.</span></li>
+        <li><span class="num">03</span><span>One click rewrites four things at once: the three variant ingredient rows, the tail of step 04, the nutrition figures and the hero photo. Rewritten regions flash <span class="num">#F4F4F4</span> for a beat so the change is traceable.</span></li>
+        <li><span class="num">04</span><span>Both chip rows are the same control. Selecting in the method column moves the ingredient column too, and the reverse.</span></li>
+        <li><span class="num">05</span><span>Cost of the feature on this page: one italic sub-header and one extra line of type. Everything else is the recipe that was already there.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- =============================================================
+       SECTION B - HOME GRID
+       ============================================================= -->
+  <section class="mk-section" id="section-b">
+    <div class="mk-secrule">
+      <h2 class="mk-seclabel">B &mdash; On the home grid</h2>
+      <p class="t-gloss">/ &mdash; the recipes index</p>
+    </div>
+
+    <div class="frame">
+      <div class="frame-bar">
+        <span class="frame-dots"><i></i><i></i><i></i></span>
+        <span>cookbook.local</span>
+      </div>
+
+      <div class="nav">
+        <div class="nav-in">
+          <a class="wordmark" href="#section-b">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.6 12 3l9 6.6V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/></svg>
+            <span>cookbook</span>
+          </a>
+          <nav class="nav-links">
+            <a href="#section-b" class="on">Recipes</a>
+            <a href="#section-b">Collections</a>
+            <a href="#section-b">Seasonal</a>
+            <a href="#section-b">Flavor</a>
+          </nav>
+          <div class="nav-act">
+            <button type="button" aria-label="Search">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+            </button>
+            <button type="button" aria-label="Add recipe">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap-7xl">
+        <div class="home-head">
+          <h1 class="t-h1-index" style="margin-bottom:32px;">Recipes</h1>
+          <div class="filterbar">
+            <div class="search">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
+              <input type="text" placeholder="Search recipes&hellip;" aria-label="Search recipes">
+            </div>
+            <div class="cuisines">
+              <button type="button" class="on">all</button>
+              <button type="button" class="off">american</button>
+              <button type="button" class="off">argentine</button>
+              <button type="button" class="off">filipino</button>
+              <button type="button" class="off">italian</button>
+              <button type="button" class="off">jewish</button>
+              <button type="button" class="off">roman</button>
+              <button type="button" class="off">viking</button>
+              <button type="button" class="off push">more filters</button>
+              <button type="button" class="off" style="font-size:12.5px;text-decoration:underline;">reset</button>
+            </div>
+          </div>
+          <p class="t-micro sec num" style="padding-top:20px;">29 recipes</p>
+        </div>
+
+        <div class="grid">
+
+          <!-- ============ THE BRANCHED TILE ============ -->
+          <article class="card" id="branch-card">
+            <div class="photo">
+              <div class="collage">
+                <div class="dom ph tx-cin" id="col-dom">
+                  <span class="cap" id="col-dom-cap">Cinnamon-Maple</span>
+                </div>
+                <div class="strip" id="col-strip"></div>
+              </div>
+              <div class="card-ctl">
+                <button type="button" aria-label="Status: approved">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.4 2.4 2.5 4.6-5.1"/></svg>
+                </button>
+                <button type="button" aria-label="Favourite">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1l8.8 8.8 8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>
+                </button>
+              </div>
+            </div>
+            <p class="tag-link tagline lower">american &nbsp;&middot;&nbsp; 4 variations</p>
+            <h3 class="t-card-title">Spiced Nuts</h3>
+            <p class="metaline num">35m &middot; serves 8</p>
+            <div class="mini-row" id="mini-row" role="group" aria-label="Spiced Nuts variations"></div>
+          </article>
+
+          <!-- ============ ORDINARY TILE 1 ============ -->
+          <article class="card">
+            <div class="photo">
+              <div class="ph tx-a"><span class="cap">Rainbow Cookies</span></div>
+              <div class="card-ctl">
+                <button type="button" aria-label="Status: approved">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.4 2.4 2.5 4.6-5.1"/></svg>
+                </button>
+                <button type="button" aria-label="Favourite">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1l8.8 8.8 8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>
+                </button>
+              </div>
+            </div>
+            <p class="tag-link tagline lower">italian</p>
+            <h3 class="t-card-title">Rainbow Cookies</h3>
+            <p class="metaline num">1d 5m &middot; serves 48</p>
+          </article>
+
+          <!-- ============ ORDINARY TILE 2 ============ -->
+          <article class="card">
+            <div class="photo">
+              <div class="ph tx-b"><span class="cap">Chimichurri</span></div>
+              <div class="card-ctl">
+                <button type="button" aria-label="Status: new">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.2 13.9 8 18.8 9.6 13.9 11.2 12 16 10.1 11.2 5.2 9.6 10.1 8z"/><path d="M18.5 15.5 19.3 17.6 21.4 18.4 19.3 19.2 18.5 21.3 17.7 19.2 15.6 18.4 17.7 17.6z"/></svg>
+                </button>
+                <button type="button" aria-label="Favourite">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 5.6a5 5 0 0 0-7.1 0L12 7.3l-1.7-1.7a5 5 0 1 0-7.1 7.1l8.8 8.8 8.8-8.8a5 5 0 0 0 0-7.1z"/></svg>
+                </button>
+              </div>
+            </div>
+            <p class="tag-link tagline lower">argentine</p>
+            <h3 class="t-card-title">Chimichurri</h3>
+            <p class="metaline num">5m &middot; serves 2</p>
+          </article>
+
+          <!-- second row, for grid rhythm -->
+          <article class="card">
+            <div class="photo"><div class="ph tx-c"><span class="cap">Jerusalem Bagel</span></div></div>
+            <p class="tag-link tagline lower">jewish</p>
+            <h3 class="t-card-title">Jerusalem Bagel Recipe</h3>
+            <p class="metaline num">3h 30m &middot; serves 6</p>
+          </article>
+          <article class="card">
+            <div class="photo"><div class="ph tx-d"><span class="cap">Pizza Dough</span></div></div>
+            <p class="tag-link tagline lower">italian</p>
+            <h3 class="t-card-title">Pizza Dough</h3>
+            <p class="metaline num">45m &middot; serves 4</p>
+          </article>
+          <article class="card">
+            <div class="photo"><div class="ph tx-e"><span class="cap">Roman Stuffed Dates</span></div></div>
+            <p class="tag-link tagline lower">roman</p>
+            <h3 class="t-card-title">Roman Stuffed Dates</h3>
+            <p class="metaline num">serves 4</p>
+          </article>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <p class="t-ulabel" style="color:var(--color-text);">The collage and the branch indicator</p>
+      <ol>
+        <li><span class="num">01</span><span><strong style="font-weight:400;color:var(--color-text);">Composition:</strong> one dominant panel plus a vertical strip of three slivers, separated by 2px white gutters. It reads <em>one recipe with three alternates</em>, not a four-up contact sheet &mdash; which is exactly what the swap-chip model is.</span></li>
+        <li><span class="num">02</span><span><strong style="font-weight:400;color:var(--color-text);">Indicator one:</strong> the white hairline gutters. A single-photo tile is edge to edge; a branched tile is visibly cut.</span></li>
+        <li><span class="num">03</span><span><strong style="font-weight:400;color:var(--color-text);">Indicator two:</strong> the tag line reads <em>american &middot; 4 variations</em> where an ordinary tile reads <em>italian</em>.</span></li>
+        <li><span class="num">04</span><span><strong style="font-weight:400;color:var(--color-text);">Indicator three:</strong> a row of miniature chips under the meta &mdash; the same control as the recipe page, at 9px. Click one and the dominant panel becomes that finish; the other three fall back into the strip. The grid teaches the recipe page.</span></li>
+        <li><span class="num">05</span><span><strong style="font-weight:400;color:var(--color-text);">Shared state:</strong> the two sections here are wired together on purpose. Pick a finish on the recipe page and the home tile leads with it &mdash; the tile shows the version you last cooked, not an arbitrary default.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <footer class="mk-section">
+    <div class="mk-secrule">
+      <h2 class="mk-seclabel">Trade-offs</h2>
+      <p class="t-gloss">concept 05</p>
+    </div>
+    <div class="note" style="margin-top:20px;">
+      <p><strong style="font-weight:400;color:var(--color-text);">Gains:</strong> the lightest possible footprint &mdash; no new routes, no tabs, no accordion, no second scroll. A variation is a data row, not a document. Notes, photos, the cook log and the flavour card stay singular, so a family with four finishes still has one page of history rather than four thin ones.</p>
+      <p><strong style="font-weight:400;color:var(--color-text);">Costs:</strong> a variation cannot diverge far. If Lavender-Coconut ever needs its own bake time or a sixth step, this model breaks and the recipe has to be forked properly. There is also no permalink for a single finish &mdash; you can send someone <em>Spiced Nuts</em>, not <em>Spiced Nuts, chili-lime</em>, unless a query parameter is added later.</p>
+      <p><strong style="font-weight:400;color:var(--color-text);">Best for:</strong> finishes, glazes, spice blends, fillings, sauces &mdash; the last-toss family. Wrong for variations that change the method.</p>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var VARIATIONS = [
+    {
+      key: 'cin',
+      chip: 'Cinnamon-Maple',
+      short: 'Cinnamon',
+      cap: 'Cinnamon-Maple',
+      tex: 'tx-cin',
+      ing: [
+        ['Ground Cinnamon', '', '1 tbsp'],
+        ['Maple Syrup', 'dark, robust', '2 tbsp'],
+        ['Flaky Sea Salt', '', '1/2 tsp']
+      ],
+      tail: ' &mdash; cinnamon first, so it lands on sugar that is still tacky, then the maple in a thin thread from a spoon, then the flaky salt scattered from a height so it stays on the surface.',
+      nutri: ['286', '8 g', '19 g', '22 g'],
+      foot: '7 of 8 ingredients matched to the library'
+    },
+    {
+      key: 'lav',
+      chip: 'Lavender + Coconut',
+      short: 'Lavender',
+      cap: 'Lavender + Coconut',
+      tex: 'tx-lav',
+      ing: [
+        ['Dried Culinary Lavender', 'crushed coarse', '2 tsp'],
+        ['Toasted Coconut Flakes', '', '3/4 cup'],
+        ['Confectioners Sugar', '', '2 tbsp']
+      ],
+      tail: ' &mdash; the lavender and confectioners sugar go on hot, but wait two full minutes before folding in the coconut flakes. Any hotter and they scorch instead of toasting.',
+      nutri: ['312', '8 g', '17 g', '26 g'],
+      foot: '6 of 8 ingredients matched to the library'
+    },
+    {
+      key: 'ros',
+      chip: 'Rosemary + Pepper',
+      short: 'Rosemary',
+      cap: 'Rosemary + Black Pepper',
+      tex: 'tx-ros',
+      ing: [
+        ['Fresh Rosemary', 'finely chopped', '2 tbsp'],
+        ['Cracked Black Pepper', '', '1 tsp'],
+        ['Unsalted Butter', 'melted', '1 tbsp']
+      ],
+      tail: ' &mdash; warm the rosemary in the melted butter for thirty seconds first, pour it over the tray, then crack the pepper straight onto the nuts and toss exactly twice. More than that and the rosemary goes bitter.',
+      nutri: ['264', '8 g', '11 g', '24 g'],
+      foot: '8 of 8 ingredients matched to the library'
+    },
+    {
+      key: 'chi',
+      chip: 'Chili + Lime',
+      short: 'Chili',
+      cap: 'Chili + Lime',
+      tex: 'tx-chi',
+      ing: [
+        ['Ancho Chili Powder', '', '1 tbsp'],
+        ['Lime Zest', 'from 2 limes', '2 tsp'],
+        ['Light Brown Sugar', '', '2 tbsp']
+      ],
+      tail: ' &mdash; ancho and brown sugar together, tossed until the tray looks matte, then zest the limes directly over the hot nuts so the oils land while the sugar is still catching.',
+      nutri: ['271', '8 g', '14 g', '22 g'],
+      foot: '7 of 8 ingredients matched to the library'
+    }
+  ];
+
+  var ALL_TEX = 'tx-cin tx-lav tx-ros tx-chi'.split(' ');
+  var current = 0;
+
+  function byId(id) { return document.getElementById(id); }
+
+  function setTexture(el, tex) {
+    for (var i = 0; i < ALL_TEX.length; i++) { el.classList.remove(ALL_TEX[i]); }
+    el.classList.add(tex);
+  }
+
+  function flash(el) {
+    if (!el) return;
+    el.classList.remove('flash');
+    void el.offsetWidth;
+    el.classList.add('flash');
+    window.setTimeout(function () { el.classList.remove('flash'); }, 340);
+  }
+
+  /* ---------- build the two inline chip rows + the mini row ---------- */
+  function buildChips(host, cls, labelKey) {
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < VARIATIONS.length; i++) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = cls;
+      b.setAttribute('aria-pressed', i === current ? 'true' : 'false');
+      b.setAttribute('data-i', String(i));
+      b.textContent = VARIATIONS[i][labelKey];
+      frag.appendChild(b);
+    }
+    host.innerHTML = '';
+    host.appendChild(frag);
+  }
+
+  /* ---------- the collage strip (the three that are NOT selected) ---------- */
+  function renderStrip() {
+    var strip = byId('col-strip');
+    var html = '';
+    for (var i = 0; i < VARIATIONS.length; i++) {
+      if (i === current) continue;
+      html += '<div class="sliv ph ' + VARIATIONS[i].tex + '">' +
+              '<span class="cap">' + VARIATIONS[i].cap + '</span></div>';
+    }
+    strip.innerHTML = html;
+  }
+
+  /* ---------- ingredient rows for the selected finish ---------- */
+  function renderVariantIngredients() {
+    var v = VARIATIONS[current];
+    var host = byId('ing-variant');
+    var html = '';
+    for (var i = 0; i < v.ing.length; i++) {
+      var notes = v.ing[i][1]
+        ? ' <span class="t-13">(' + v.ing[i][1] + ')</span>'
+        : '';
+      html += '<li><button type="button" class="ing-row js-check">' +
+              '<span class="t-ing">' + v.ing[i][0] + notes + '</span>' +
+              '<span class="t-measure">' + v.ing[i][2] + '</span>' +
+              '</button></li>';
+    }
+    host.innerHTML = html;
+  }
+
+  /* ---------- the whole swap ---------- */
+  function select(i, animate) {
+    if (i === current) return;
+    current = i;
+    var v = VARIATIONS[current];
+
+    /* chip pressed states, all three rows */
+    var rows = document.querySelectorAll('#chips-ing .chip, #chips-method .chip, #mini-row .mini');
+    for (var k = 0; k < rows.length; k++) {
+      rows[k].setAttribute('aria-pressed', rows[k].getAttribute('data-i') === String(current) ? 'true' : 'false');
+    }
+
+    /* ingredients */
+    renderVariantIngredients();
+
+    /* method tail */
+    byId('step-tail').innerHTML = v.tail;
+
+    /* nutrition */
+    byId('n-cal').textContent = v.nutri[0];
+    byId('n-pro').textContent = v.nutri[1];
+    byId('n-car').textContent = v.nutri[2];
+    byId('n-fat').textContent = v.nutri[3];
+    byId('n-foot').textContent = v.foot;
+
+    /* hero */
+    setTexture(byId('hero'), v.tex);
+    byId('hero-cap').innerHTML = 'Spiced Nuts &middot; ' + v.cap;
+
+    /* home tile collage */
+    setTexture(byId('col-dom'), v.tex);
+    byId('col-dom-cap').textContent = v.cap;
+    renderStrip();
+
+    if (animate !== false) {
+      flash(byId('ing-variant'));
+      flash(byId('step-tail'));
+      flash(byId('nutri'));
+    }
+  }
+
+  /* ---------- wiring ---------- */
+  function onChipClick(e) {
+    var t = e.target.closest ? e.target.closest('[data-i]') : null;
+    if (!t) return;
+    e.preventDefault();
+    select(parseInt(t.getAttribute('data-i'), 10), true);
+  }
+
+  /* left / right arrows walk the chip row, like a radio group */
+  function onChipKey(e) {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    var t = e.target.closest ? e.target.closest('[data-i]') : null;
+    if (!t) return;
+    e.preventDefault();
+    var n = VARIATIONS.length;
+    var i = parseInt(t.getAttribute('data-i'), 10);
+    var next = e.key === 'ArrowRight' ? (i + 1) % n : (i - 1 + n) % n;
+    select(next, true);
+    var host = t.parentNode;
+    var target = host.querySelector('[data-i="' + next + '"]');
+    if (target) target.focus();
+  }
+
+  buildChips(byId('chips-ing'), 'chip', 'chip');
+  buildChips(byId('chips-method'), 'chip', 'chip');
+  buildChips(byId('mini-row'), 'mini', 'short');
+
+  var count = document.createElement('span');
+  count.className = 'mini-count';
+  count.textContent = '4 finishes';
+  byId('mini-row').appendChild(count);
+
+  renderVariantIngredients();
+  byId('step-tail').innerHTML = VARIATIONS[0].tail;
+  renderStrip();
+
+  var hosts = ['chips-ing', 'chips-method', 'mini-row'];
+  for (var h = 0; h < hosts.length; h++) {
+    byId(hosts[h]).addEventListener('click', onChipClick);
+    byId(hosts[h]).addEventListener('keydown', onChipKey);
+  }
+
+  /* ingredient check-off + step check-off, so the page feels alive */
+  document.addEventListener('click', function (e) {
+    /* a chip click is a swap, never a check-off */
+    if (e.target.closest && e.target.closest('[data-i]')) return;
+    var ing = e.target.closest ? e.target.closest('.ing-row') : null;
+    if (ing) { ing.classList.toggle('checked'); return; }
+    var step = e.target.closest ? e.target.closest('.js-step') : null;
+    if (step) {
+      step.classList.toggle('done');
+      var n = step.querySelector('.n');
+      if (step.classList.contains('done')) {
+        n.setAttribute('data-num', n.textContent);
+        n.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+      } else {
+        n.textContent = n.getAttribute('data-num') || '';
+      }
+    }
+  });
+})();
+</script>
+
+</body>
+</html>

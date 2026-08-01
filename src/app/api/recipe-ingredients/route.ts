@@ -38,9 +38,9 @@ export async function POST(request: NextRequest) {
       const stmt = db.prepare(`
         INSERT INTO recipe_ingredients (
           id, recipe_id, ingredient_id, name, quantity, unit,
-          notes, order_index, custom_calories, custom_protein,
+          notes, order_index, section, child_recipe_id, custom_calories, custom_protein,
           custom_carbs, custom_fat
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
       const results = body.map((item: any) => {
@@ -54,6 +54,8 @@ export async function POST(request: NextRequest) {
           item.unit || '',
           item.notes || null,
           item.order_index || 0,
+          item.section || null,
+          item.child_recipe_id || null,
           item.custom_calories || null,
           item.custom_protein || null,
           item.custom_carbs || null,

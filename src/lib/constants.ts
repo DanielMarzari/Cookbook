@@ -6,10 +6,11 @@ export const DEFAULT_CUISINES = [
   'Southern', 'Spanish', 'Thai', 'Turkish', 'Vietnamese',
 ];
 
+// Alphabetical, so the picker is scannable. Stored singular — display
+// pluralises via pluralizeUnit() in lib/units.ts.
 export const UNITS = [
-  'g', 'kg', 'ml', 'l', 'cup', 'tbsp', 'tsp', 'oz', 'lb',
-  'quart', 'pint', 'gallon', 'piece', 'part', 'dozen', 'drop',
-  'stick', 'clove', 'slice', 'can', 'bottle', 'jar',
-  'pinch', 'dash', 'handful', 'sprig', 'bunch', 'head',
-  'stalk', 'package', 'bag', 'whole', 'large', 'medium', 'small',
+  'bag', 'bottle', 'bunch', 'can', 'clove', 'cup', 'dash', 'dozen', 'drop',
+  'g', 'gallon', 'handful', 'head', 'jar', 'kg', 'l', 'large', 'lb', 'medium',
+  'ml', 'oz', 'package', 'part', 'piece', 'pinch', 'pint', 'quart', 'slice',
+  'small', 'sprig', 'stalk', 'stick', 'tbsp', 'tsp', 'whole',
 ];

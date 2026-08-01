@@ -4,6 +4,7 @@ export interface InstructionStep {
   text: string;
   timer_minutes?: number;
   timer_label?: string;
+  section?: string; // which part of the dish this step belongs to ("Shells", "Filling")
 }
 
 // Nutrition information
@@ -50,6 +51,8 @@ export interface RecipeIngredient {
   unit: string;
   notes?: string;
   order_index: number;
+  section?: string; // which part of the dish this belongs to ("Shells", "Filling")
+  child_recipe_id?: string | null; // set when this "ingredient" is another recipe
   custom_calories?: number;
   custom_protein?: number;
   custom_carbs?: number;
@@ -90,6 +93,14 @@ export interface Recipe {
   source_author?: string;
   source_type?: string;
   is_favorite: boolean;
+  notes?: string; // free-form notes about the recipe, shown after the method
+  // What one batch makes ("2 cups"), so this recipe can be used as an ingredient
+  // in another and scaled to the amount actually called for.
+  yield_quantity?: number;
+  yield_unit?: string;
+  parent_recipe_id?: string | null; // set on a variation; null/absent on a base
+  variation_of_label?: string | null; // the short label for a branch, e.g. "honey"
+  variation_count?: number; // bases only: how many variations hang off this recipe
   status?: 'new' | 'testing' | 'approved' | 'signature' | 'archived';
   image_rotation?: number;
   image_position?: string; // CSS object-position for the main photo, e.g. "50% 30%"

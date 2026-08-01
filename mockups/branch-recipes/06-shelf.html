@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 06 &mdash; Variation Shelf &middot; Cookbook branched recipes</title>
+<style>
+/* ============================================================
+   Cookbook design system ("Noma cut") -- tokens copied verbatim
+   from src/app/globals.css
+   ============================================================ */
+:root{
+  --color-primary:#111111;
+  --color-primary-dark:#000000;
+  --color-secondary:#767676;
+  --color-accent:#111111;
+  --color-background:#ffffff;
+  --color-surface:#ffffff;
+  --color-text:#111111;
+  --color-text-secondary:#767676;
+  --color-border:#e8e8e8;
+  --color-shadow:rgba(0,0,0,0.05);
+}
+*,::before,::after{box-sizing:border-box;border:0 solid var(--color-border);margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:#f6f6f4;
+  color:var(--color-text);
+  font-family:'Neue Haas Grotesk Text','Helvetica Neue',Helvetica,Arial,-apple-system,BlinkMacSystemFont,sans-serif;
+  font-weight:400;
+  letter-spacing:-0.005em;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+button{font:inherit;letter-spacing:inherit;color:inherit;background:none;cursor:pointer;text-align:left}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+h1,h2,h3{font-weight:400;font-size:inherit}
+p{margin:0}
+::-webkit-scrollbar{width:.5rem;height:.5rem}
+::-webkit-scrollbar-track{background:var(--color-background)}
+::-webkit-scrollbar-thumb{background:#d8d8d8;border-radius:9999px}
+::-webkit-scrollbar-thumb:hover{background:#b8b8b8}
+button:focus-visible,a:focus-visible,input:focus-visible{
+  outline:none;
+  box-shadow:0 0 0 2px var(--color-background),0 0 0 3.5px var(--color-text);
+}
+.tlink{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px;cursor:pointer;transition:color .15s}
+.tlink:hover{color:var(--color-text-secondary)}
+.tag-link{font-size:12.5px;color:var(--color-text-secondary);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;text-decoration-color:#cfcfcf}
+.lc{text-transform:lowercase}
+.tn{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+
+/* ---- shared type ladder ---- */
+.ulabel{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--color-text-secondary)}
+.slabel{font-size:12.5px;color:var(--color-text-secondary)}
+.gloss{font-size:11.5px;color:var(--color-text-secondary)}
+.rule{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--color-text);padding-bottom:10px}
+.rule-soft{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--color-border);padding-bottom:10px}
+
+/* ============================================================
+   Mockup chrome (NOT app UI -- deliberately quiet, sits on grey)
+   ============================================================ */
+.doc{max-width:1120px;margin:0 auto;padding:0 24px 96px}
+.mhead{padding:48px 0 30px}
+.mhead h1{font-size:34px;line-height:1.05;letter-spacing:-0.02em;margin:12px 0 14px}
+.mhead .lede{font-size:16.5px;line-height:1.65;color:#3A3A3A;max-width:62ch}
+.mjump{display:flex;flex-wrap:wrap;gap:0 24px;font-size:12.5px;padding-top:18px;border-top:1px solid #dcdcd8;margin-top:26px}
+.mjump span{color:var(--color-text-secondary)}
+.sectionhead{padding:52px 0 14px}
+.sectionhead .rule{border-bottom-color:#111}
+.sectionhead h2{font-size:20px;letter-spacing:-0.01em;color:var(--color-text)}
+.note{border-left:1px solid var(--color-text);padding-left:12px;margin:16px 0 0;font-size:11.5px;line-height:1.7;color:var(--color-text-secondary);max-width:74ch}
+.note b{font-weight:400;color:var(--color-text)}
+.screen{background:#fff;border:1px solid var(--color-border);margin-top:20px}
+.screen-cap{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-top:10px}
+
+/* ---- app navigation (Navigation.tsx) ---- */
+.nav{border-bottom:1px solid var(--color-border);background:rgba(255,255,255,.95)}
+.nav-in{max-width:1280px;margin:0 auto;padding:0 32px;display:flex;align-items:center;gap:32px;height:60px}
+.wordmark{display:flex;align-items:center;gap:8px;font-size:17px;letter-spacing:-0.02em}
+.navlinks{display:flex;align-items:center;gap:22px;font-size:14px}
+.navlinks a{padding-bottom:2px;border-bottom:1px solid transparent;color:var(--color-text-secondary)}
+.navlinks a.on{border-bottom-color:var(--color-text);color:var(--color-text)}
+.navlinks a:hover{border-bottom-color:var(--color-text);color:var(--color-text)}
+.navright{margin-left:auto;display:flex;align-items:center;gap:6px}
+.navright button{padding:6px;color:var(--color-text)}
+.navright button:hover{color:var(--color-text-secondary)}
+
+/* ---- photo placeholders (no image files exist -- CSS only) ---- */
+.ph{position:relative;overflow:hidden;background:#F4F4F4}
+.ph::after{
+  content:attr(data-cap);
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:10px;
+  font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-secondary);
+  line-height:1.5;
+}
+.ph-a{background:
+  radial-gradient(120% 92% at 28% 22%,#ffffff 0%,#efefef 44%,#dedede 100%),
+  repeating-linear-gradient(24deg,#e9e9e9 0 3px,#f1f1f1 3px 7px)}
+.ph-b{background:
+  radial-gradient(78% 70% at 72% 30%,#f7f7f7 0%,#e6e6e6 62%,#d9d9d9 100%),
+  repeating-linear-gradient(-38deg,#e4e4e4 0 4px,#eeeeee 4px 9px)}
+.ph-c{background:
+  conic-gradient(from 205deg at 58% 44%,#f4f4f4,#e0e0e0 38%,#f2f2f2 66%,#e6e6e6 100%)}
+.ph-d{background:
+  linear-gradient(158deg,#f2f2f2 0 42%,#e2e2e2 42% 100%),
+  repeating-linear-gradient(90deg,#e8e8e8 0 5px,#f0f0f0 5px 11px)}
+.ph-e{background:
+  radial-gradient(64% 64% at 68% 68%,#dedede 0%,#ebebeb 52%,#f5f5f5 100%),
+  repeating-linear-gradient(70deg,#e6e6e6 0 2px,#f0f0f0 2px 6px)}
+.ph-f{background:radial-gradient(96% 80% at 40% 30%,#fafafa,#e4e4e4 70%,#d7d7d7 100%)}
+.ph-g{background:linear-gradient(120deg,#eeeeee 0 46%,#dfdfdf 46% 100%)}
+.ph-h{background:conic-gradient(from 40deg at 40% 60%,#eeeeee,#dcdcdc 30%,#f2f2f2 62%,#e4e4e4 100%)}
+.ph-i{background:radial-gradient(70% 90% at 30% 70%,#f3f3f3,#e0e0e0 76%)}
+.ph-j{background:repeating-linear-gradient(52deg,#e6e6e6 0 7px,#f1f1f1 7px 15px)}
+
+/* ============================================================
+   SECTION A -- recipe page
+   ============================================================ */
+.rpage{max-width:896px;margin:0 auto;padding:0 32px 60px}
+.utilrow{display:flex;align-items:center;justify-content:space-between;padding:20px 0;font-size:14px}
+.utilrow .back{display:inline-flex;align-items:center;gap:6px;color:var(--color-text-secondary)}
+.utilrow .back:hover{color:var(--color-text)}
+.utilrow .acts{display:flex;align-items:center;gap:20px}
+.utilrow .acts button{color:var(--color-text-secondary)}
+.utilrow .acts button:hover{color:var(--color-text)}
+.rhead{text-align:center;padding:40px 0 28px}
+.rhead h1{font-size:48px;line-height:1.08;letter-spacing:-0.02em;max-width:22ch;margin:14px auto;text-wrap:balance}
+.rhead .meta{font-size:13.5px;color:var(--color-text-secondary);text-transform:lowercase}
+.hero{position:relative;width:100%;aspect-ratio:3/2}
+.rlede{text-align:center;font-size:16.5px;line-height:1.65;color:#3A3A3A;max-width:62ch;margin:32px auto 0}
+.racts{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 24px;padding:28px 0 8px;font-size:14px}
+.rbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:64px;padding-top:56px}
+.unitrow{display:flex;align-items:baseline;gap:12px;font-size:12.5px}
+.unitrow .on{color:var(--color-text);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.unitrow .off{color:var(--color-text-secondary)}
+.irow{width:100%;display:flex;align-items:baseline;justify-content:space-between;gap:20px;padding:10px 0;border-bottom:1px solid var(--color-border)}
+.irow .n{font-size:14.5px}
+.irow .n .sub{color:var(--color-text-secondary);font-size:13px;margin-left:4px}
+.irow .q{font-size:14px;white-space:nowrap;color:var(--color-text-secondary)}
+.nutri{margin-top:32px}
+.nutri .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 24px;padding-top:16px}
+.nutri .lab{font-size:11.5px;color:var(--color-text-secondary);text-transform:lowercase}
+.nutri .val{font-size:24px;letter-spacing:-0.01em}
+.mstep{width:100%;display:grid;grid-template-columns:26px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--color-border)}
+.mstep:last-child{border-bottom:0}
+.mstep .num{font-size:13px;color:var(--color-text-secondary);padding-top:2px}
+.mstep p{font-size:15px;line-height:1.65}
+
+/* ---- THE VARIATION SHELF ---- */
+.shelfsec{padding-top:56px}
+.shelfnote{font-size:12.5px;color:var(--color-text-secondary);max-width:64ch;margin:14px 0 22px;line-height:1.6}
+.shelf{display:flex;gap:12px;overflow-x:auto;padding:2px 4px 14px;margin:0 -4px;scroll-snap-type:x mandatory;position:relative}
+.vcard{flex:none;width:184px;scroll-snap-align:start;display:block}
+.vcard .vph{width:100%;aspect-ratio:4/5;transition:opacity .3s}
+.vcard:hover .vph{opacity:.9}
+.vcard .vname{font-size:14.5px;line-height:1.4;margin-top:12px;padding-bottom:0}
+.vcard:hover .vname{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.vcard .vchange{font-size:12px;line-height:1.5;color:var(--color-text-secondary);margin-top:5px;max-width:26ch}
+.vcard .vkicker{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--color-text-secondary);margin-top:10px}
+/* selected = a black hairline under the photo + underlined name. No box, no fill. */
+.vcard[aria-pressed="true"] .vph{border-bottom:1px solid var(--color-text)}
+.vcard[aria-pressed="true"] .vname{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.vcard[aria-pressed="false"] .vph{border-bottom:1px solid transparent}
+.stemtrack{position:relative;height:22px;overflow:hidden}
+.stem{position:absolute;top:0;bottom:0;width:1px;background:var(--color-text);transform:translateX(-.5px);transition:left .15s,opacity .15s}
+
+/* ---- the delta read-out under the shelf ---- */
+.delta{padding-top:2px}
+.delta .dhead{display:flex;align-items:baseline;justify-content:space-between;gap:16px;border-bottom:1px solid var(--color-text);padding-bottom:10px}
+.delta .dlede{font-size:15px;line-height:1.65;color:#3A3A3A;max-width:70ch;margin-top:16px}
+.dgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:64px;padding-top:34px}
+.legend{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--color-text-secondary);padding-top:12px}
+.drow{display:grid;grid-template-columns:16px 1fr auto;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--color-border)}
+.drow:last-of-type{border-bottom:0}
+.drow .mk{font-size:12.5px;color:var(--color-text-secondary);text-align:center}
+.drow .n{font-size:14.5px}
+.drow .n .sub{color:var(--color-text-secondary);font-size:13px;margin-left:4px}
+.drow .q{font-size:14px;white-space:nowrap;color:var(--color-text-secondary)}
+.drow.cut .n,.drow.cut .q{text-decoration:line-through;color:var(--color-text-secondary)}
+.dfoot{font-size:11.5px;color:var(--color-text-secondary);margin-top:12px;line-height:1.6}
+.dstep{display:grid;grid-template-columns:26px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--color-border)}
+.dstep:last-of-type{border-bottom:0}
+.dstep .num{font-size:13px;color:var(--color-text-secondary);padding-top:2px}
+.dstep .kick{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--color-text-secondary);margin-bottom:6px}
+.dstep p{font-size:15px;line-height:1.65}
+.dacts{display:flex;flex-wrap:wrap;gap:8px 24px;padding-top:30px;font-size:14px}
+.baseline-msg{font-size:15px;line-height:1.65;color:#3A3A3A;max-width:70ch;padding-top:20px}
+.baselist{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13.5px;padding-top:16px}
+
+/* ============================================================
+   SECTION B -- home grid
+   ============================================================ */
+.hpage{max-width:1280px;margin:0 auto;padding:0 32px 56px}
+.htop{padding:40px 0 28px}
+.htop h1{font-size:52px;line-height:1.05;letter-spacing:-0.02em;margin-bottom:32px}
+.fbar{display:flex;flex-direction:column;gap:20px}
+.fsearch{position:relative;max-width:28rem;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--color-border);padding:8px 0}
+.fsearch span{font-size:15px;color:var(--color-text-secondary)}
+.frow{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 24px;font-size:14px}
+.frow button{text-transform:lowercase;color:var(--color-text-secondary)}
+.frow button.on{color:var(--color-text);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.frow button:hover{color:var(--color-text);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.frow .push{margin-left:auto;font-size:12.5px;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.countline{font-size:12.5px;color:var(--color-text-secondary);padding-top:20px}
+.hgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:56px 24px;padding-bottom:24px}
+.card{display:block;width:100%}
+.frame{position:relative;width:100%;aspect-ratio:4/5;background:#F4F4F4;overflow:hidden}
+.frame .ph{width:100%;height:100%;transition:opacity .3s}
+.card:hover .frame .ph{opacity:.9}
+.card .tagline{margin:14px 0 6px}
+.card .ctitle{font-size:16.5px;line-height:1.4;max-width:34ch}
+.card:hover .ctitle{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.card .cmeta{font-size:12.5px;color:var(--color-text-secondary);margin-top:6px}
+.hovercontrols{position:absolute;top:12px;right:12px;display:flex;align-items:center;gap:6px;opacity:0;transition:opacity .3s}
+.card:hover .hovercontrols,.card:focus-within .hovercontrols{opacity:1}
+.hovercontrols button{padding:8px;background:rgba(255,255,255,.95);border:1px solid var(--color-border)}
+.hovercontrols button:hover{background:#fff}
+
+/* ---- the collage tile ---- */
+.collage{display:grid;grid-template-columns:1.68fr 1fr;gap:2px;background:#fff}
+.collage .main{position:relative;overflow:hidden}
+.collage .side{display:grid;grid-template-rows:repeat(4,1fr);gap:2px;min-height:0}
+.collage .side .ph{min-height:0}
+.collage .sliver{position:relative;overflow:hidden;min-height:0}
+.collage .sliver .ph::after{font-size:9px;letter-spacing:.12em;padding:4px}
+.collage .sliver:hover .ph{opacity:.82}
+/* branch indicator chip -- same idiom as the card hover controls, always on */
+.branchchip{position:absolute;top:12px;left:12px;display:flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.95);border:1px solid var(--color-border);padding:5px 8px;z-index:2}
+.branchchip .n{font-size:11.5px;line-height:1;color:var(--color-text)}
+/* judging modes */
+.hgrid.no-chip .branchchip{display:none}
+.hgrid.plain .collage{display:block}
+.hgrid.plain .collage .side{display:none}
+.hgrid.plain .collage .main{width:100%;height:100%}
+.hgrid.plain .branchchip{display:none}
+.modes{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 24px;font-size:14px;padding:0 0 26px}
+.modes button{color:var(--color-text-secondary);text-transform:lowercase}
+.modes button.on{color:var(--color-text);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.modes button:hover{color:var(--color-text)}
+
+@media (max-width:900px){
+  .rbody,.dgrid{grid-template-columns:minmax(0,1fr);gap:40px}
+  .hgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rhead h1{font-size:30px}
+  .htop h1{font-size:34px}
+  .mhead h1{font-size:30px}
+}
+@media (max-width:620px){
+  .hgrid{grid-template-columns:minmax(0,1fr)}
+  .rpage,.hpage{padding-left:16px;padding-right:16px}
+  .nav-in{padding:0 16px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <!-- ===================== MOCKUP HEADER ===================== -->
+  <header class="mhead">
+    <p class="ulabel">Cookbook &middot; branched recipes &middot; concept 06 of 08</p>
+    <h1>Variation Shelf</h1>
+    <p class="lede">The base recipe reads exactly as it does today &mdash; nothing above the fold changes. Underneath it sits a shelf of variations, borrowed wholesale from the compare shelf in the Flavor Lab: a row of small photos you scroll sideways, each with a name and the one line that says what changed. Pick one and the shelf drops a hairline into a short read-out of the difference. The base is never rewritten in front of you.</p>
+    <nav class="mjump">
+      <span>jump &mdash;</span>
+      <a class="tlink" href="#sec-a">A. on the recipe page</a>
+      <a class="tlink" href="#sec-b">B. on the home grid</a>
+    </nav>
+  </header>
+
+  <!-- ===================== SECTION A ===================== -->
+  <section id="sec-a">
+    <div class="sectionhead">
+      <div class="rule">
+        <h2>A &mdash; On the recipe page</h2>
+        <span class="gloss">/recipes/spiced-nuts</span>
+      </div>
+      <p class="note"><b>How to read this:</b> everything above the shelf is the recipe page shipping today, unchanged. The shelf is the whole proposal. Click a variation card &mdash; or focus one and use the arrow keys &mdash; to open its difference. Click <b>Base</b> to close it again.</p>
+    </div>
+
+    <div class="screen">
+      <!-- app nav -->
+      <div class="nav"><div class="nav-in">
+        <span class="wordmark">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/></svg>
+          cookbook
+        </span>
+        <nav class="navlinks">
+          <a class="on" href="#sec-b">Recipes</a><a href="#sec-a">Collections</a><a href="#sec-a">Seasonal</a><a href="#sec-a">Flavor</a>
+        </nav>
+        <span class="navright">
+          <button aria-label="Search"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+          <button aria-label="Add recipe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+        </span>
+      </div></div>
+
+      <div class="rpage">
+        <!-- 1. utility row -->
+        <div class="utilrow">
+          <a class="back" href="#sec-b"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>Recipes</a>
+          <div class="acts">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2-3.4 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.6.5 3.5 2 5l7 7z"/></svg>
+            <button class="tlink">Edit</button>
+            <button class="tlink">Delete</button>
+          </div>
+        </div>
+
+        <!-- 2. centered head -->
+        <div class="rhead">
+          <p class="tag-link lc">other</p>
+          <h1>Spiced Nuts</h1>
+          <p class="meta tn">35m &nbsp;&middot;&nbsp; serves 8 &nbsp;&middot;&nbsp; easy &nbsp;&middot;&nbsp; approved &nbsp;&middot;&nbsp; via Family Cookbook</p>
+        </div>
+
+        <!-- 3. hero -->
+        <div class="hero ph ph-a" data-cap="Spiced Nuts &mdash; base"></div>
+
+        <!-- 4. lede -->
+        <p class="rlede">One egg white, one sheet pan, thirty-five minutes. This is the jar that sits out at Christmas and the base every other jar in this house branches off &mdash; baked until the coating goes matte and dry to the touch.</p>
+
+        <!-- 5. actions -->
+        <div class="racts">
+          <button class="tlink">Add to grocery list</button>
+          <a class="tlink" href="#sec-a">View original</a>
+        </div>
+
+        <!-- 6. two-column body -->
+        <div class="rbody">
+          <div>
+            <div class="rule">
+              <h2 class="slabel">Ingredients</h2>
+              <div class="unitrow"><span class="on">orig</span><span class="off">metric</span><span class="off">imperial</span></div>
+            </div>
+            <div class="irow"><span class="n">Raw Pecan Halves</span><span class="q tn">2 cups</span></div>
+            <div class="irow"><span class="n">Raw Almonds<span class="sub">(skin on)</span></span><span class="q tn">1 cup</span></div>
+            <div class="irow"><span class="n">Egg White<span class="sub">(large)</span></span><span class="q tn">1</span></div>
+            <div class="irow"><span class="n">Granulated Sugar</span><span class="q tn">1/3 cup</span></div>
+            <div class="irow"><span class="n">Kosher Salt</span><span class="q tn">1 1/4 tsp</span></div>
+            <div class="irow"><span class="n">Black Pepper<span class="sub">(finely ground)</span></span><span class="q tn">1/2 tsp</span></div>
+            <div class="irow" style="border-bottom:0"><span class="n">Unsalted Butter<span class="sub">(melted)</span></span><span class="q tn">1 tbsp</span></div>
+
+            <div class="nutri">
+              <div class="rule">
+                <h2 class="slabel">Nutrition &mdash; per serving</h2>
+                <span class="gloss">estimated</span>
+              </div>
+              <div class="grid">
+                <div><p class="lab">calories</p><p class="val tn">286</p></div>
+                <div><p class="lab">protein</p><p class="val tn">6g</p></div>
+                <div><p class="lab">carbs</p><p class="val tn">14g</p></div>
+                <div><p class="lab">fat</p><p class="val tn">24g</p></div>
+              </div>
+              <p class="gloss" style="margin-top:12px">6 of 7 ingredients matched to the library</p>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="slabel rule" style="display:block">Method <span style="color:rgba(118,118,118,.7)">&mdash; tap a step to check it off</span></h2>
+            <div class="mstep"><span class="num tn">01</span><p>Heat the oven to 300&deg;F and line a sheet pan with parchment.</p></div>
+            <div class="mstep"><span class="num tn">02</span><p>Whisk the egg white with a splash of water until loose and foamy &mdash; not stiff, not meringue. It is glue, not structure.</p></div>
+            <div class="mstep"><span class="num tn">03</span><p>Tip in the pecans and almonds and toss until every surface is wet, then tilt the bowl and pour off whatever pools at the bottom.</p></div>
+            <div class="mstep"><span class="num tn">04</span><p>Add the sugar, salt and pepper. Toss until the coating is even and slightly tacky, then stir through the melted butter.</p></div>
+            <div class="mstep"><span class="num tn">05</span><p>Spread in one layer and bake 35 minutes, stirring twice, until the coating is matte and dry to the touch. They crisp as they cool.</p></div>
+          </div>
+        </div>
+
+        <!-- ============ THE VARIATION SHELF ============ -->
+        <div class="shelfsec">
+          <div class="rule" style="padding-bottom:8px">
+            <span class="ulabel">variations of this recipe</span>
+            <span class="gloss" id="shelf-gloss">4 branches &middot; one base</span>
+          </div>
+          <p class="shelfnote">Same seven ingredients, same five steps, one deliberate change each. Nothing here is a separate recipe &mdash; they live on this page and share the base's history, its cook log and its grocery lines. Tap a variation to see what changes.</p>
+
+          <div class="shelf" id="shelf" role="group" aria-label="Variations of Spiced Nuts">
+            <button class="vcard" data-key="base" aria-pressed="true">
+              <div class="vph ph ph-a" data-cap="Spiced Nuts &mdash; base"></div>
+              <p class="vname">Base &middot; Spiced Nuts</p>
+              <p class="vchange">the version you just read</p>
+            </button>
+            <button class="vcard" data-key="cinnamon" aria-pressed="false">
+              <div class="vph ph ph-b" data-cap="Cinnamon-Maple"></div>
+              <p class="vname">Cinnamon-Maple</p>
+              <p class="vchange">maple syrup takes the sugar's job</p>
+            </button>
+            <button class="vcard" data-key="lavender" aria-pressed="false">
+              <div class="vph ph ph-c" data-cap="Lavender-Coconut"></div>
+              <p class="vname">Lavender-Coconut</p>
+              <p class="vchange">lavender ground into the sugar, coconut folded in late</p>
+            </button>
+            <button class="vcard" data-key="rosemary" aria-pressed="false">
+              <div class="vph ph ph-d" data-cap="Rosemary-Black Pepper"></div>
+              <p class="vname">Rosemary-Black Pepper</p>
+              <p class="vchange">savoury turn &mdash; barely any sugar, rosemary bloomed in butter</p>
+            </button>
+            <button class="vcard" data-key="chili" aria-pressed="false">
+              <div class="vph ph ph-e" data-cap="Chili-Lime"></div>
+              <p class="vname">Chili-Lime</p>
+              <p class="vchange">ancho in the coating, lime juice only after the oven</p>
+            </button>
+          </div>
+
+          <div class="stemtrack"><span class="stem" id="stem" style="opacity:0"></span></div>
+          <div class="delta" id="delta"></div>
+        </div>
+
+        <p class="gloss" style="padding-top:56px;border-top:1px solid var(--color-border);margin-top:56px">
+          Variations never take a row of their own in the index &mdash; they surface as a single tile on the home grid. See section B.
+        </p>
+      </div>
+    </div>
+    <div class="screen-cap">
+      <span class="ulabel">fig. A &mdash; recipe page, shelf selected: <span id="figa-state">base</span></span>
+      <span class="gloss">the shelf scrolls sideways &middot; 5 tiles, 4 fit</span>
+    </div>
+
+    <p class="note"><b>Why a shelf and not tabs:</b> tabs make you choose before you have read anything, and they hide three of the four options. A shelf is a display case &mdash; the whole family is visible at a glance, in photographs, in the order the cook added them. It also already exists in this codebase: <b>CompareShelf</b> on /flavor is the same horizontal snap-scroller with the same rule-and-micro-label header, so nothing new has to be invented or learned.</p>
+    <p class="note"><b>The selected state carries no box.</b> A 1px black rule under the chosen photo and an underline on its name &mdash; the two emphasis devices the system already owns. A hairline stem drops from the selected tile into the read-out below so the connection survives scrolling the shelf.</p>
+  </section>
+
+  <!-- ===================== SECTION B ===================== -->
+  <section id="sec-b">
+    <div class="sectionhead">
+      <div class="rule">
+        <h2>B &mdash; On the home grid</h2>
+        <span class="gloss">/ &middot; recipes index</span>
+      </div>
+      <p class="note"><b>The tile is the shelf, shrunk.</b> The base photo holds the left two-thirds; the four variations stack down the right edge as spines, in shelf order. It reads as one recipe with a run of siblings, not as a four-up mood board. Click a spine to promote it into the main panel &mdash; the tile previews its own branches in place. Click the main panel to go back to the base.</p>
+    </div>
+
+    <div class="screen">
+      <div class="nav"><div class="nav-in">
+        <span class="wordmark">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-7h6v7"/></svg>
+          cookbook
+        </span>
+        <nav class="navlinks">
+          <a class="on" href="#sec-b">Recipes</a><a href="#sec-b">Collections</a><a href="#sec-b">Seasonal</a><a href="#sec-b">Flavor</a>
+        </nav>
+        <span class="navright">
+          <button aria-label="Search"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+          <button aria-label="Add recipe"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+        </span>
+      </div></div>
+
+      <div class="hpage">
+        <div class="htop">
+          <h1>Recipes</h1>
+          <div class="fbar">
+            <div class="fsearch">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#767676" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <span>Search recipes&hellip;</span>
+            </div>
+            <div class="frow">
+              <button class="on">all</button><button>italian</button><button>jewish</button><button>filipino</button><button>roman</button><button>viking</button><button>argentine</button><button>other</button>
+              <button class="push">more filters</button><button class="push" style="margin-left:0">reset</button>
+            </div>
+          </div>
+          <p class="countline tn">28 recipes</p>
+        </div>
+
+        <div class="modes" id="modes">
+          <span class="slabel">branch indicator &mdash;</span>
+          <button class="on" data-mode="full">collage + chip</button>
+          <button data-mode="no-chip">collage only</button>
+          <button data-mode="plain">single photo (today)</button>
+        </div>
+
+        <div class="hgrid" id="hgrid">
+
+          <!-- ==== the branched tile ==== -->
+          <article class="card" id="branchcard">
+            <div class="frame collage" id="collage">
+              <button class="main" id="collage-main" aria-label="Show the base recipe photo">
+                <div class="ph ph-a" data-cap="Spiced Nuts &mdash; base"></div>
+              </button>
+              <div class="side">
+                <button class="sliver" data-i="0" aria-label="Preview Cinnamon-Maple"><div class="ph ph-b" data-cap="Cinnamon-Maple"></div></button>
+                <button class="sliver" data-i="1" aria-label="Preview Lavender-Coconut"><div class="ph ph-c" data-cap="Lavender-Coconut"></div></button>
+                <button class="sliver" data-i="2" aria-label="Preview Rosemary-Pepper"><div class="ph ph-d" data-cap="Rosemary-Pepper"></div></button>
+                <button class="sliver" data-i="3" aria-label="Preview Chili-Lime"><div class="ph ph-e" data-cap="Chili-Lime"></div></button>
+              </div>
+              <span class="branchchip" aria-hidden="true">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+                <span class="n tn">4</span>
+              </span>
+              <div class="hovercontrols">
+                <button aria-label="Status"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></button>
+                <button aria-label="Favourite"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2-3.4 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.6.5 3.5 2 5l7 7z"/></svg></button>
+              </div>
+            </div>
+            <p class="tag-link lc" id="branch-tag">other &middot; 4 variations</p>
+            <h3 class="ctitle" id="branch-title">Spiced Nuts</h3>
+            <p class="cmeta tn" id="branch-meta">35m &middot; serves 8</p>
+          </article>
+
+          <!-- ==== ordinary tiles ==== -->
+          <article class="card">
+            <div class="frame">
+              <div class="ph ph-f" data-cap="Rainbow Cookies"></div>
+              <div class="hovercontrols">
+                <button aria-label="Status"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></button>
+                <button aria-label="Favourite"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2-3.4 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.6.5 3.5 2 5l7 7z"/></svg></button>
+              </div>
+            </div>
+            <p class="tag-link lc">italian</p>
+            <h3 class="ctitle">Rainbow Cookies</h3>
+            <p class="cmeta tn">1d 5m &middot; serves 48</p>
+          </article>
+
+          <article class="card">
+            <div class="frame">
+              <div class="ph ph-g" data-cap="Chimichurri"></div>
+              <div class="hovercontrols">
+                <button aria-label="Status"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg></button>
+                <button aria-label="Favourite"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 2-3.4 2-5a5 5 0 0 0-9-3 5 5 0 0 0-9 3c0 1.6.5 3.5 2 5l7 7z"/></svg></button>
+              </div>
+            </div>
+            <p class="tag-link lc">argentine</p>
+            <h3 class="ctitle">Chimichurri</h3>
+            <p class="cmeta tn">5m &middot; serves 2</p>
+          </article>
+
+          <article class="card">
+            <div class="frame"><div class="ph ph-h" data-cap="Jerusalem Bagel"></div></div>
+            <p class="tag-link lc">jewish</p>
+            <h3 class="ctitle">Jerusalem Bagel Recipe</h3>
+            <p class="cmeta tn">3h 30m &middot; serves 6</p>
+          </article>
+
+          <article class="card">
+            <div class="frame"><div class="ph ph-i" data-cap="Almond Paste"></div></div>
+            <p class="tag-link lc">italian</p>
+            <h3 class="ctitle">Almond Paste</h3>
+            <p class="cmeta tn">10m &middot; serves 24</p>
+          </article>
+
+          <article class="card">
+            <div class="frame"><div class="ph ph-j" data-cap="Braciole"></div></div>
+            <p class="tag-link lc">italian</p>
+            <h3 class="ctitle">Braciole</h3>
+            <p class="cmeta tn">1h 20m &middot; serves 5</p>
+          </article>
+
+        </div>
+      </div>
+    </div>
+    <div class="screen-cap">
+      <span class="ulabel">fig. B &mdash; recipes index, tile 1 of 28 is branched</span>
+      <span class="gloss">click a spine to promote it &middot; click the main panel to reset</span>
+    </div>
+
+    <p class="note"><b>Three signals, in falling order of subtlety.</b> (1) The composition itself &mdash; a wide panel with a stack of spines is unmistakable at grid scale even before you read a word. (2) The count chip, top-left, using the same <b>white / hairline-border</b> square as the card's own hover controls, with a 13px lucide branch glyph at strokeWidth 1.8. It sits left so it never collides with the status and heart controls that appear top-right on hover. (3) The tag line, which already carries "cuisine &middot; signature" today and simply gains "&middot; 4 variations" in the same lowercase micro-voice. Use the toggle above the grid to judge the tile with the chip, without it, and against how it looks today.</p>
+    <p class="note"><b>Cost of the composition:</b> the base photo loses about a third of its width, so tightly-cropped food shots take a hit. Below three variations the spines get tall and the stack looks unbalanced; above five they get too thin to read. The honest range is 2&ndash;5 branches, with a "+N" spine if a recipe ever exceeds that.</p>
+
+    <p class="note" style="border-left-color:#767676"><b>Not built into this mockup:</b> the editor flow for creating a branch, mobile behaviour of the shelf (it scrolls the same, but the read-out stacks to one column), and what happens to search &mdash; presumably a hit on "lavender" should surface the Spiced Nuts tile with the Lavender-Coconut spine promoted.</p>
+  </section>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------------------------------------------------------
+     Variation data. Marks: '+' added, 'x' dropped, '>' adjusted
+     --------------------------------------------------------- */
+  var DATA = {
+    cinnamon: {
+      name: 'Cinnamon-Maple',
+      meta: '40m &middot; serves 8 &middot; easy',
+      lede: 'The one the children ask for. Maple takes over the job the sugar was doing, so the coating stays a shade darker and stickier and the pan needs an extra five minutes to dry out properly.',
+      touched: '4 of 7',
+      ing: [
+        { m: 'x', n: 'Granulated Sugar', s: '', q: '1/3 cup', cut: true },
+        { m: '+', n: 'Maple Syrup', s: '(dark, grade B)', q: '3 tbsp' },
+        { m: '+', n: 'Ground Cinnamon', s: '', q: '2 tsp' },
+        { m: '>', n: 'Black Pepper', s: '', q: '1/2 tsp &rarr; 1/4 tsp' }
+      ],
+      steps: [
+        { num: '04', kick: 'replaces step 04', t: 'Add the maple syrup, cinnamon and salt. Toss until the nuts are lacquered rather than tacky &mdash; syrup wets more than sugar does, so keep going until nothing pools.' },
+        { num: '05', kick: 'replaces step 05', t: 'Spread in one layer and bake 40 minutes, stirring three times. Maple browns faster than sugar; pull them when the coating is matte, not glossy.' }
+      ]
+    },
+    lavender: {
+      name: 'Lavender-Coconut',
+      meta: '35m &middot; serves 10 &middot; easy',
+      lede: 'The floral one, and the one most likely to go wrong. Grind the lavender with the sugar so it disappears into the coating instead of sitting on top of it like potpourri.',
+      touched: '3 of 7',
+      ing: [
+        { m: '+', n: 'Culinary Lavender', s: '(ground with the sugar)', q: '1 1/2 tsp' },
+        { m: '+', n: 'Coconut Flakes', s: '(unsweetened, wide)', q: '3/4 cup' },
+        { m: 'x', n: 'Black Pepper', s: '', q: '1/2 tsp', cut: true }
+      ],
+      steps: [
+        { num: '05', kick: 'replaces step 05', t: 'Spread in one layer and bake 25 minutes, stirring twice.' },
+        { num: '06', kick: 'new step, after 05', t: 'Scatter the coconut over, fold it through and give it 10 minutes more &mdash; long enough to toast, short enough not to scorch. Coconut goes from pale to burnt in about ninety seconds.' }
+      ]
+    },
+    rosemary: {
+      name: 'Rosemary-Black Pepper',
+      meta: '30m &middot; serves 8 &middot; easy',
+      lede: 'The cocktail-hour version. Almost no sugar, twice the pepper and coarse instead of fine, and the rosemary bloomed in butter first so it perfumes the whole pan rather than sitting in green flecks.',
+      touched: '4 of 7',
+      ing: [
+        { m: '>', n: 'Granulated Sugar', s: '', q: '1/3 cup &rarr; 2 tbsp' },
+        { m: '>', n: 'Black Pepper', s: '(coarse, not fine)', q: '1/2 tsp &rarr; 1 1/4 tsp' },
+        { m: '>', n: 'Unsalted Butter', s: '', q: '1 tbsp &rarr; 2 tbsp' },
+        { m: '+', n: 'Fresh Rosemary', s: '(chopped fine)', q: '2 tbsp' }
+      ],
+      steps: [
+        { num: '02', kick: 'new step, after 01', t: 'Warm the butter with the rosemary over a low heat for two minutes, until the kitchen smells like a hedge. Take it off and let it sit while you do the egg white.' },
+        { num: '05', kick: 'replaces step 05', t: 'Spread in one layer and bake 30 minutes, stirring twice. With this little sugar they never fully lacquer &mdash; they should look dry and dusty, not glassy.' }
+      ]
+    },
+    chili: {
+      name: 'Chili-Lime',
+      meta: '35m &middot; serves 8 &middot; medium',
+      lede: 'The loud one. Chili goes in with the sugar; the lime juice only ever goes on after the oven, or it steams the crust soft and the whole batch turns chewy.',
+      touched: '4 of 7',
+      ing: [
+        { m: '+', n: 'Ancho Chili Powder', s: '', q: '1 tbsp' },
+        { m: '+', n: 'Cayenne', s: '(to taste)', q: '1/4 tsp' },
+        { m: '+', n: 'Lime Zest', s: '(2 limes)', q: '2 tsp' },
+        { m: '+', n: 'Lime Juice', s: '(off the heat, at the end)', q: '1 tbsp' }
+      ],
+      steps: [
+        { num: '04', kick: 'replaces step 04', t: 'Add the sugar, salt, ancho, cayenne and lime zest. Toss until the coating is even and rust-coloured, then stir through the melted butter.' },
+        { num: '06', kick: 'new step, after 05', t: 'Off the heat, sprinkle the lime juice over while the nuts are still hot and stir once. They will look wet and wrong; they crisp again as they cool.' }
+      ]
+    }
+  };
+
+  var ORDER = ['base', 'cinnamon', 'lavender', 'rosemary', 'chili'];
+  var MARKS = { '+': '+', 'x': '&times;', '>': '&rarr;' };
+
+  var shelf = document.getElementById('shelf');
+  var cards = Array.prototype.slice.call(shelf.querySelectorAll('.vcard'));
+  var delta = document.getElementById('delta');
+  var stem = document.getElementById('stem');
+  var figa = document.getElementById('figa-state');
+  var gloss = document.getElementById('shelf-gloss');
+  var current = 'base';
+
+  function esc(s) { return s; }
+
+  function baseHTML() {
+    var links = '';
+    for (var i = 1; i < ORDER.length; i++) {
+      links += '<button class="tlink" data-goto="' + ORDER[i] + '">' + DATA[ORDER[i]].name + '</button>';
+    }
+    return '' +
+      '<div class="dhead">' +
+        '<span class="ulabel">reading the base</span>' +
+        '<span class="gloss">7 ingredients &middot; 5 steps</span>' +
+      '</div>' +
+      '<p class="baseline-msg">Every variation on the shelf starts from exactly what is above &mdash; the same seven ingredients and the same five steps &mdash; and then makes one deliberate change. Pick one to see only that change.</p>' +
+      '<div class="baselist">' + links + '</div>';
+  }
+
+  function varHTML(key) {
+    var v = DATA[key];
+    var rows = '';
+    for (var i = 0; i < v.ing.length; i++) {
+      var r = v.ing[i];
+      rows += '<div class="drow' + (r.cut ? ' cut' : '') + '">' +
+        '<span class="mk">' + MARKS[r.m] + '</span>' +
+        '<span class="n">' + esc(r.n) + (r.s ? '<span class="sub">' + r.s + '</span>' : '') + '</span>' +
+        '<span class="q tn">' + r.q + '</span>' +
+      '</div>';
+    }
+    var steps = '';
+    for (var j = 0; j < v.steps.length; j++) {
+      var s = v.steps[j];
+      steps += '<div class="dstep">' +
+        '<span class="num tn">' + s.num + '</span>' +
+        '<div><p class="kick">' + s.kick + '</p><p>' + s.t + '</p></div>' +
+      '</div>';
+    }
+    return '' +
+      '<div class="dhead">' +
+        '<h3 class="ulabel">what changes &mdash; ' + v.name.toLowerCase() + '</h3>' +
+        '<span class="gloss tn">' + v.meta + '</span>' +
+      '</div>' +
+      '<p class="dlede">' + v.lede + '</p>' +
+      '<div class="dgrid">' +
+        '<div>' +
+          '<div class="rule-soft"><span class="slabel">Ingredients &mdash; changes</span><span class="gloss tn">' + v.touched + '</span></div>' +
+          '<p class="legend">+ added &nbsp;&middot;&nbsp; &times; dropped &nbsp;&middot;&nbsp; &rarr; adjusted</p>' +
+          rows +
+          '<p class="dfoot">Everything not listed is the base recipe, unchanged.</p>' +
+        '</div>' +
+        '<div>' +
+          '<div class="rule-soft"><span class="slabel">Method &mdash; changes</span><span class="gloss tn">' + v.steps.length + (v.steps.length === 1 ? ' step' : ' steps') + '</span></div>' +
+          steps +
+        '</div>' +
+      '</div>' +
+      '<div class="dacts">' +
+        '<button class="tlink">Cook this variation</button>' +
+        '<button class="tlink">Add its changes to the grocery list</button>' +
+        '<button class="tlink" data-goto="base">Back to the base</button>' +
+      '</div>';
+  }
+
+  function placeStem() {
+    var i = ORDER.indexOf(current);
+    var card = cards[i];
+    if (!card) { stem.style.opacity = '0'; return; }
+    /* shelf is inset by -4px (margin) relative to the stem track */
+    var x = card.offsetLeft + (card.offsetWidth / 2) - shelf.scrollLeft - 4;
+    if (x < 6 || x > shelf.clientWidth - 6) { stem.style.opacity = '0'; return; }
+    stem.style.opacity = '1';
+    stem.style.left = x + 'px';
+  }
+
+  function select(key) {
+    current = key;
+    for (var i = 0; i < cards.length; i++) {
+      cards[i].setAttribute('aria-pressed', cards[i].getAttribute('data-key') === key ? 'true' : 'false');
+    }
+    delta.innerHTML = (key === 'base') ? baseHTML() : varHTML(key);
+    figa.textContent = (key === 'base') ? 'base' : DATA[key].name.toLowerCase();
+    gloss.innerHTML = (key === 'base')
+      ? '4 branches &middot; one base'
+      : 'branch ' + ORDER.indexOf(key) + ' of 4 &middot; from Spiced Nuts';
+    placeStem();
+  }
+
+  for (var i = 0; i < cards.length; i++) {
+    (function (c) {
+      c.addEventListener('click', function () {
+        select(c.getAttribute('data-key'));
+        c.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+      });
+      c.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault();
+        var idx = cards.indexOf(c) + (e.key === 'ArrowRight' ? 1 : -1);
+        if (idx < 0) idx = cards.length - 1;
+        if (idx >= cards.length) idx = 0;
+        cards[idx].focus();
+        select(cards[idx].getAttribute('data-key'));
+      });
+    })(cards[i]);
+  }
+
+  delta.addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target.closest('[data-goto]') : null;
+    if (!t) return;
+    var k = t.getAttribute('data-goto');
+    select(k);
+    var idx = ORDER.indexOf(k);
+    if (cards[idx]) cards[idx].scrollIntoView({ block: 'nearest', inline: 'nearest' });
+  });
+
+  shelf.addEventListener('scroll', placeStem, { passive: true });
+  window.addEventListener('resize', placeStem);
+
+  select('base');
+
+  /* ---------------------------------------------------------
+     Home grid: collage promotion + branch-indicator modes
+     --------------------------------------------------------- */
+  var VARS = [
+    { cls: 'ph-b', cap: 'Cinnamon-Maple', name: 'Cinnamon-Maple', meta: '40m &middot; serves 8' },
+    { cls: 'ph-c', cap: 'Lavender-Coconut', name: 'Lavender-Coconut', meta: '35m &middot; serves 10' },
+    { cls: 'ph-d', cap: 'Rosemary-Pepper', name: 'Rosemary-Black Pepper', meta: '30m &middot; serves 8' },
+    { cls: 'ph-e', cap: 'Chili-Lime', name: 'Chili-Lime', meta: '35m &middot; serves 8' }
+  ];
+  var BASE_TILE = { cls: 'ph-a', cap: 'Spiced Nuts &mdash; base', meta: '35m &middot; serves 8' };
+
+  var main = document.getElementById('collage-main');
+  var mainPh = main.querySelector('.ph');
+  var slivers = Array.prototype.slice.call(document.querySelectorAll('#collage .sliver'));
+  var bTitle = document.getElementById('branch-title');
+  var bTag = document.getElementById('branch-tag');
+  var bMeta = document.getElementById('branch-meta');
+  var shown = -1;
+
+  function setMain(idx) {
+    shown = idx;
+    var src = (idx < 0) ? BASE_TILE : VARS[idx];
+    mainPh.className = 'ph ' + src.cls;
+    mainPh.setAttribute('data-cap', src.cap);
+    if (idx < 0) {
+      bTitle.innerHTML = 'Spiced Nuts';
+      bTag.innerHTML = 'other &middot; 4 variations';
+      bMeta.innerHTML = BASE_TILE.meta;
+    } else {
+      bTitle.innerHTML = 'Spiced Nuts <span style="color:var(--color-text-secondary)">&mdash; ' + VARS[idx].name + '</span>';
+      bTag.innerHTML = 'other &middot; variation ' + (idx + 1) + ' of 4';
+      bMeta.innerHTML = VARS[idx].meta;
+    }
+    for (var k = 0; k < slivers.length; k++) {
+      slivers[k].style.opacity = (idx >= 0 && k === idx) ? '.45' : '1';
+    }
+  }
+
+  main.addEventListener('click', function () { setMain(-1); });
+  for (var s = 0; s < slivers.length; s++) {
+    (function (el, idx) {
+      el.addEventListener('click', function () { setMain(shown === idx ? -1 : idx); });
+    })(slivers[s], s);
+  }
+
+  var grid = document.getElementById('hgrid');
+  var modeBtns = Array.prototype.slice.call(document.querySelectorAll('#modes button'));
+  for (var m = 0; m < modeBtns.length; m++) {
+    (function (b) {
+      b.addEventListener('click', function () {
+        for (var q = 0; q < modeBtns.length; q++) modeBtns[q].classList.remove('on');
+        b.classList.add('on');
+        grid.className = 'hgrid';
+        var mode = b.getAttribute('data-mode');
+        if (mode !== 'full') grid.classList.add(mode);
+        if (mode === 'plain') setMain(-1);
+      });
+    })(modeBtns[m]);
+  }
+})();
+</script>
+</body>
+</html>

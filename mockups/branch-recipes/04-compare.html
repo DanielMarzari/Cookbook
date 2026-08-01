@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en" class="antialiased">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concept 04 &mdash; Side-by-Side Compare | Cookbook branched recipes</title>
+<style>
+/* ------------------------------------------------------------------
+   Cookbook design system &mdash; "Noma cut"
+   Tokens copied verbatim from src/app/globals.css
+------------------------------------------------------------------ */
+:root {
+  --color-primary: #111111;
+  --color-primary-dark: #000000;
+  --color-secondary: #767676;
+  --color-accent: #111111;
+  --color-background: #ffffff;
+  --color-surface: #ffffff;
+  --color-text: #111111;
+  --color-text-secondary: #767676;
+  --color-border: #e8e8e8;
+  --color-shadow: rgba(0, 0, 0, 0.05);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  border-color: var(--color-border);
+  border-style: solid;
+  border-width: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: 'Neue Haas Grotesk Text', 'Helvetica Neue', Helvetica, Arial,
+    -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 15px;
+}
+
+h1, h2, h3, p, b { margin: 0; font-weight: 400; }
+button { font: inherit; letter-spacing: inherit; color: inherit; background: none;
+  border: 0; padding: 0; margin: 0; cursor: pointer; text-align: left; }
+a { color: inherit; text-decoration: none; }
+
+button:focus-visible, a:focus-visible, input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-background), 0 0 0 3.5px var(--color-text);
+}
+
+::-webkit-scrollbar { width: 0.5rem; height: 0.5rem; }
+::-webkit-scrollbar-track { background-color: var(--color-background); }
+::-webkit-scrollbar-thumb { background-color: #d8d8d8; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background-color: #b8b8b8; }
+
+/* ---- house idioms ---- */
+.tlink { text-decoration: underline; text-underline-offset: 4px;
+  text-decoration-thickness: 1px; cursor: pointer; }
+.tlink:hover { color: var(--color-text-secondary); }
+.tag-link { font-size: 12.5px; color: var(--color-text-secondary);
+  text-decoration: underline; text-underline-offset: 3px;
+  text-decoration-thickness: 1px; text-decoration-color: #cfcfcf; }
+.lc { text-transform: lowercase; }
+.tn { font-variant-numeric: tabular-nums; font-feature-settings: "tnum"; }
+.sec { color: var(--color-text-secondary); }
+
+.micro { font-size: 11px; text-transform: uppercase; letter-spacing: 0.13em;
+  color: var(--color-text-secondary); }
+.micro-10 { font-size: 10px; text-transform: uppercase; letter-spacing: 0.13em;
+  color: var(--color-text-secondary); }
+
+/* section heading = a black hairline rule with a small grey label */
+.rule {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 20px; border-bottom-width: 1px; border-bottom-color: var(--color-text);
+  padding-bottom: 10px;
+}
+.rule h2 { font-size: 12.5px; color: var(--color-text-secondary); }
+.rule .gloss { font-size: 11.5px; color: var(--color-text-secondary); }
+
+.wrap-4xl { max-width: 896px; margin: 0 auto; padding: 0 32px; }
+.wrap-7xl { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+
+/* ------------------------------------------------------------------
+   Mockup chrome (annotation only &mdash; not part of the app)
+------------------------------------------------------------------ */
+.page-head { border-bottom-width: 1px; }
+.page-head-inner { max-width: 1280px; margin: 0 auto; padding: 56px 32px 40px; }
+.page-head h1 {
+  font-size: 34px; line-height: 1.05; letter-spacing: -0.02em;
+  margin: 14px 0 14px;
+}
+.page-head .lede { font-size: 16.5px; line-height: 1.65; color: #3A3A3A; max-width: 62ch; }
+
+.section { padding: 56px 0 0; }
+.section-label {
+  max-width: 1280px; margin: 0 auto; padding: 0 32px 18px;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 20px;
+}
+.screen { border-width: 1px; background: #fff; }
+.note {
+  border-left-width: 1px; border-left-color: var(--color-text);
+  padding-left: 14px; max-width: 66ch;
+}
+.note p { font-size: 12.5px; line-height: 1.6; color: var(--color-text-secondary); }
+.note p + p { margin-top: 8px; }
+
+/* ------------------------------------------------------------------
+   App navigation (h-[60px])
+------------------------------------------------------------------ */
+.nav { border-bottom-width: 1px; background: rgba(255,255,255,0.95); }
+.nav-inner { display: flex; align-items: center; gap: 32px; height: 60px; }
+.wordmark { display: flex; align-items: center; gap: 8px; font-size: 17px;
+  letter-spacing: -0.02em; text-transform: lowercase; }
+.nav-links { display: flex; align-items: center; gap: 26px; font-size: 15px; }
+.nav-links span { padding-bottom: 2px; border-bottom-width: 1px;
+  border-bottom-color: transparent; color: var(--color-text); }
+.nav-links span.on { border-bottom-color: var(--color-text); }
+.nav-actions { margin-left: auto; display: flex; align-items: center; gap: 6px;
+  color: var(--color-text); }
+.nav-actions span { padding: 6px; display: inline-flex; }
+
+/* ------------------------------------------------------------------
+   CSS-only photo placeholders (no image files, no network)
+------------------------------------------------------------------ */
+.ph { position: relative; overflow: hidden; background-color: #F4F4F4; }
+.ph-cap {
+  position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: center; text-align: center; padding: 0 10px;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.13em;
+  color: var(--color-text-secondary); line-height: 1.5;
+}
+.ph-cap-v { writing-mode: vertical-rl; transform: rotate(180deg); }
+
+.ph-base  { background-image: radial-gradient(115% 85% at 50% 34%, #ffffff 0%, #ededed 46%, #d8d8d8 100%); }
+.ph-cin   { background-color: #efefef;
+            background-image: repeating-linear-gradient(45deg, #e0e0e0 0 2px, rgba(0,0,0,0) 2px 9px); }
+.ph-lav   { background-color: #f2f2f2;
+            background-image: radial-gradient(#dadada 1.1px, rgba(0,0,0,0) 1.4px);
+            background-size: 9px 9px; }
+.ph-rose  { background-color: #ededed;
+            background-image: repeating-linear-gradient(90deg, #dcdcdc 0 1px, rgba(0,0,0,0) 1px 7px); }
+.ph-chili { background-color: #eaeaea;
+            background-image: repeating-linear-gradient(-45deg, #d4d4d4 0 3px, rgba(0,0,0,0) 3px 13px); }
+.ph-cook  { background-color: #f0f0f0;
+            background-image: repeating-linear-gradient(0deg, #dedede 0 4px, rgba(0,0,0,0) 4px 14px),
+                              linear-gradient(160deg, #f6f6f6, #e2e2e2); }
+.ph-chim  { background-image: radial-gradient(85% 70% at 30% 70%, #e0e0e0 0%, #f0f0f0 60%, #e9e9e9 100%); }
+.ph-bagel { background-color: #f1f1f1;
+            background-image: radial-gradient(circle at 50% 45%, rgba(0,0,0,0) 0 52px, #e0e0e0 52px 53px, rgba(0,0,0,0) 53px),
+                              linear-gradient(200deg, #f6f6f6, #e4e4e4); }
+.ph-dough { background-color: #f3f3f3;
+            background-image: radial-gradient(#e3e3e3 1.6px, rgba(0,0,0,0) 1.8px);
+            background-size: 16px 16px; }
+.ph-dates { background-color: #ececec;
+            background-image: repeating-linear-gradient(115deg, #dfdfdf 0 2px, rgba(0,0,0,0) 2px 16px); }
+
+/* ------------------------------------------------------------------
+   SECTION A &mdash; recipe page
+------------------------------------------------------------------ */
+.util { display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 0; font-size: 14px; }
+.util .back { display: inline-flex; align-items: center; gap: 6px;
+  color: var(--color-text-secondary); }
+.util .back:hover { color: var(--color-text); }
+.util .acts { display: flex; align-items: center; gap: 20px; }
+.util .acts .sec:hover { color: var(--color-text); }
+
+.rhead { text-align: center; padding: 40px 0 28px; }
+.rhead h1 {
+  font-size: 48px; line-height: 1.08; letter-spacing: -0.02em;
+  max-width: 22ch; margin: 14px auto; text-wrap: balance;
+}
+.rhead .meta { font-size: 13.5px; color: var(--color-text-secondary); text-transform: lowercase; }
+.lede { text-align: center; font-size: 16.5px; line-height: 1.65; color: #3A3A3A;
+  max-width: 62ch; margin: 32px auto 0; }
+.actions { display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 8px 24px; padding: 28px 0 8px; font-size: 14px; }
+
+/* the branch strip / picker */
+.picker {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 22px;
+  padding-top: 16px; font-size: 14px;
+}
+.picker .lbl { font-size: 12.5px; color: var(--color-text-secondary); }
+.chip { display: inline-flex; align-items: baseline; gap: 7px;
+  text-transform: lowercase; color: var(--color-text-secondary); }
+.chip:hover { color: var(--color-text); text-decoration: underline;
+  text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.chip.on { color: var(--color-text); text-decoration: underline;
+  text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.chip .idx { font-size: 11px; color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums; letter-spacing: 0.08em; }
+.chip.on .idx { color: var(--color-text); }
+.chip .idx.off { color: #cfcfcf; }
+.picker .right { margin-left: auto; display: flex; align-items: baseline; gap: 20px;
+  font-size: 12.5px; }
+
+.keyline { display: flex; align-items: center; gap: 22px; padding: 14px 0 0; }
+.keyline span { display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.13em;
+  color: var(--color-text-secondary); }
+.tick { display: inline-block; width: 1px; height: 13px; background: var(--color-border); }
+.tick.on { background: var(--color-text); }
+
+/* the compare grid */
+.cmp-scroll { overflow-x: auto; }
+.cmp { display: grid; min-width: 640px; margin-top: 22px; }
+.crow { display: contents; }
+.cc { padding: 10px 0 10px 14px; border-bottom-width: 1px; border-left-width: 1px;
+  font-size: 14px; }
+.cc.lab { padding-left: 0; border-left-width: 0; font-size: 14.5px; }
+.cc.val { font-size: 14px; font-variant-numeric: tabular-nums; white-space: nowrap;
+  color: var(--color-text-secondary); }
+.cc.val.dist { color: var(--color-text); border-left-color: var(--color-text); }
+.cc.val.absent { color: #cfcfcf; }
+.cc.lab.quiet { color: var(--color-text-secondary); }
+.cc.lab .n { font-size: 13px; color: var(--color-text-secondary); margin-left: 4px; }
+.crow:hover .cc { background: #f6f6f4; }
+
+.cc.pane { padding: 0 0 0 14px; border-bottom-width: 0; }
+.cc.pane .ph { aspect-ratio: 4 / 5; }
+.cc.pane-lab { padding: 0; border-left-width: 0; border-bottom-width: 0;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding-bottom: 4px; padding-right: 20px; }
+
+.cc.head { border-bottom-width: 1px; border-bottom-color: var(--color-text);
+  padding-top: 14px; padding-bottom: 10px; }
+.cc.head .name { font-size: 16.5px; line-height: 1.4; }
+.cc.head .sub { font-size: 11.5px; color: var(--color-text-secondary); margin-top: 5px; }
+.cc.head .open { font-size: 12.5px; margin-top: 7px; display: inline-block;
+  color: var(--color-text-secondary); }
+.cc.head-lab { border-left-width: 0; padding-left: 0;
+  border-bottom-color: var(--color-text); }
+
+.cgroup { grid-column: 1 / -1; font-size: 12.5px; font-style: italic;
+  color: var(--color-text-secondary); padding: 20px 0 4px; }
+.cnote { grid-column: 1 / -1; font-size: 11.5px; color: var(--color-text-secondary);
+  padding: 14px 0 0; }
+
+/* the columns glyph &mdash; the branch mark for this concept */
+.glyph { display: inline-flex; align-items: flex-end; gap: 2px; height: 9px; }
+.glyph i { display: block; width: 2px; background: currentColor; }
+.glyph i:nth-child(1) { height: 9px; }
+.glyph i:nth-child(2) { height: 6px; }
+.glyph i:nth-child(3) { height: 9px; }
+.glyph i:nth-child(4) { height: 5px; }
+
+/* method */
+.step { display: grid; grid-template-columns: 26px 1fr; gap: 16px;
+  padding: 16px 0; border-bottom-width: 1px; }
+.step .num { font-size: 13px; color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums; padding-top: 2px; }
+.step p { font-size: 15px; line-height: 1.65; color: var(--color-text-secondary); }
+.mgrid { display: grid; }
+.mgrid .mlab { padding: 16px 20px 16px 0; font-size: 13px;
+  color: var(--color-text-secondary); font-variant-numeric: tabular-nums;
+  border-bottom-width: 1px; }
+.mgrid .mcell { padding: 16px 0 16px 14px; border-left-width: 1px;
+  border-left-color: var(--color-text); border-bottom-width: 1px; }
+.mgrid .mcell .who { font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.13em; color: var(--color-text-secondary); margin-bottom: 7px; }
+.mgrid .mcell p { font-size: 15px; line-height: 1.65; color: var(--color-text); }
+
+/* ------------------------------------------------------------------
+   SECTION B &mdash; home grid
+------------------------------------------------------------------ */
+.home-head { padding: 40px 0 28px; }
+.home-head h1 { font-size: 52px; line-height: 1.05; letter-spacing: -0.02em;
+  margin-bottom: 32px; }
+.fb { display: flex; flex-direction: column; gap: 20px; }
+.fb .search { position: relative; max-width: 28rem; display: flex; align-items: center; }
+.fb .search svg { position: absolute; left: 0; color: var(--color-text-secondary); }
+.fb .search input {
+  width: 100%; padding: 8px 8px 8px 28px; background: transparent;
+  border-bottom-width: 1px; font-size: 15px; font-family: inherit;
+  letter-spacing: inherit; color: var(--color-text);
+}
+.fb .search input::placeholder { color: var(--color-text-secondary); }
+.fb .search input:focus { border-bottom-color: var(--color-text); }
+.fb .cuisines { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 24px;
+  font-size: 14px; }
+.fb .cuisines button { text-transform: lowercase; color: var(--color-text-secondary); }
+.fb .cuisines button:hover { color: var(--color-text); text-decoration: underline;
+  text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.fb .cuisines button.on { color: var(--color-text); text-decoration: underline;
+  text-underline-offset: 4px; text-decoration-thickness: 1px; }
+.fb .cuisines .push { margin-left: auto; font-size: 12.5px; }
+.countline { font-size: 12.5px; color: var(--color-text-secondary); padding-top: 20px; }
+
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 24px; row-gap: 56px; padding-bottom: 96px; }
+.card { cursor: pointer; }
+.card .frame { position: relative; width: 100%; aspect-ratio: 4 / 5;
+  overflow: hidden; background-color: #F4F4F4; }
+.card .frame > .ph { position: absolute; inset: 0; transition: opacity 300ms; }
+.card:hover .frame > .ph { opacity: 0.9; }
+.card .tags { margin: 14px 0 6px; }
+.card .card-title { font-size: 16.5px; line-height: 1.4; max-width: 34ch; }
+.card:hover .card-title { text-decoration: underline; text-underline-offset: 4px;
+  text-decoration-thickness: 1px; }
+.card .card-meta { font-size: 12.5px; color: var(--color-text-secondary); margin-top: 6px; }
+.card .ctrls { position: absolute; top: 12px; right: 12px; display: flex;
+  align-items: center; gap: 6px; opacity: 0; transition: opacity 200ms; }
+.card:hover .ctrls, .card:focus-within .ctrls { opacity: 1; }
+.card .ctrls span { padding: 8px; background: rgba(255,255,255,0.95);
+  border-width: 1px; display: inline-flex; color: var(--color-text); }
+
+/* the collage: vertical slices, one per branch */
+.collage { position: absolute; inset: 0; display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; gap: 1px;
+  background: var(--color-border); }
+.collage .slice { position: relative; overflow: hidden; }
+.collage .slice .cap { position: absolute; inset: 0; display: flex;
+  align-items: center; justify-content: center; font-size: 9px;
+  text-transform: uppercase; letter-spacing: 0.12em; color: var(--color-text-secondary);
+  writing-mode: vertical-rl; transform: rotate(180deg); opacity: 0.75;
+  transition: opacity 200ms, color 200ms; }
+.card:hover .collage .slice .cap { opacity: 1; }
+.collage .slice:hover .cap { color: var(--color-text); }
+.collage .slice.base .cap { writing-mode: horizontal-tb; transform: none;
+  font-size: 10px; letter-spacing: 0.13em; padding: 0 8px; text-align: center; }
+
+/* the branch indicator */
+.branchmark {
+  position: absolute; left: 0; bottom: 0; display: inline-flex; align-items: center;
+  gap: 8px; padding: 7px 10px; background: rgba(255,255,255,0.95);
+  border-top-width: 1px; border-right-width: 1px;
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.13em;
+  color: var(--color-text);
+}
+
+.annot { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 24px; padding: 0 0 96px; }
+
+.foot { border-top-width: 1px; }
+.foot-inner { max-width: 1280px; margin: 0 auto; padding: 28px 32px 64px;
+  display: flex; flex-wrap: wrap; gap: 10px 32px; }
+
+@media (max-width: 1000px) {
+  .grid, .annot { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rhead h1 { font-size: 30px; }
+  .home-head h1 { font-size: 34px; }
+}
+@media (max-width: 660px) {
+  .grid, .annot { grid-template-columns: minmax(0, 1fr); }
+  .wrap-4xl, .wrap-7xl, .page-head-inner, .section-label, .foot-inner { padding-left: 16px; padding-right: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     MOCKUP HEADER
+============================================================ -->
+<header class="page-head">
+  <div class="page-head-inner">
+    <p class="micro">Cookbook &middot; branched recipes &middot; concept 04 of 08</p>
+    <h1>Side-by-side compare</h1>
+    <p class="lede">A branched recipe is not a parent with children &mdash; it is one dish held
+      in two or three hands at once. Variations sit as parallel columns on a single shared
+      spine, so an ingredient row reads straight across. Rows every branch agrees on go
+      quiet; the cells that actually diverge take the ink, and the hairline gutter between
+      columns darkens exactly where they do.</p>
+  </div>
+</header>
+
+<!-- ============================================================
+     SECTION A &mdash; ON THE RECIPE PAGE
+============================================================ -->
+<section class="section" id="secA">
+  <div class="section-label">
+    <p class="micro">Section A &mdash; on the recipe page</p>
+    <p class="micro">/recipes/spiced-nuts</p>
+  </div>
+
+  <div class="screen">
+    <!-- app nav -->
+    <div class="nav">
+      <div class="wrap-7xl nav-inner">
+        <span class="wordmark">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+          cookbook
+        </span>
+        <nav class="nav-links">
+          <span class="on">Recipes</span><span>Collections</span><span>Seasonal</span><span>Flavor</span>
+        </nav>
+        <span class="nav-actions">
+          <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+          <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
+        </span>
+      </div>
+    </div>
+
+    <div class="wrap-4xl" style="padding-bottom:96px">
+      <!-- 1. utility row -->
+      <div class="util">
+        <span class="back"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Recipes</span>
+        <span class="acts">
+          <span style="display:inline-flex"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg></span>
+          <button class="tlink sec">Edit</button>
+          <button class="tlink sec">Delete</button>
+        </span>
+      </div>
+
+      <!-- 2. centered head -->
+      <div class="rhead">
+        <p class="tag-link lc">other</p>
+        <h1>Spiced Nuts</h1>
+        <p class="meta tn">25 min &nbsp;&middot;&nbsp; serves 8 &nbsp;&middot;&nbsp; easy &nbsp;&middot;&nbsp; approved &nbsp;&middot;&nbsp; via Family Cookbook</p>
+      </div>
+
+      <!-- 3 + 6. the compare: photos and rows share one grid -->
+      <div class="rule">
+        <h2>Variations <span style="color:rgba(118,118,118,0.7)">&mdash; four branches off this base</span></h2>
+        <span class="gloss" id="glossCount">3 of 5 columns shown</span>
+      </div>
+
+      <div class="picker">
+        <span class="lbl">compare &mdash;</span>
+        <span id="chips" style="display:flex;flex-wrap:wrap;gap:8px 22px;align-items:baseline"></span>
+        <span class="right">
+          <button class="tlink" id="diffToggle">only differences</button>
+          <button class="tlink sec" id="resetBtn">reset</button>
+        </span>
+      </div>
+
+      <div class="keyline">
+        <span><i class="tick on"></i> cell differs from the others</span>
+        <span><i class="tick"></i> shared &mdash; held quiet</span>
+        <span id="pickNote">up to three columns &middot; a fourth pick drops the oldest</span>
+      </div>
+
+      <div class="cmp-scroll">
+        <div class="cmp" id="cmpGrid"></div>
+      </div>
+
+      <!-- lede -->
+      <p class="lede">Egg white, low heat, a long stir. The base is deliberately plain so it can
+        take a hard turn in any direction &mdash; sweet, floral, herbal or hot &mdash; without
+        rewriting the method.</p>
+
+      <div class="actions">
+        <button class="tlink">Add to grocery list</button>
+        <button class="tlink">Print all columns</button>
+        <button class="tlink">Add a variation</button>
+      </div>
+
+      <!-- method -->
+      <div style="padding-top:56px">
+        <div class="rule">
+          <h2>Method <span style="color:rgba(118,118,118,0.7)">&mdash; identical until step 03</span></h2>
+          <span class="gloss" id="methodGloss">1 diverging step</span>
+        </div>
+
+        <div class="step">
+          <span class="num">01</span>
+          <p>Heat the oven to the temperature in the row above and line a sheet pan with parchment.</p>
+        </div>
+        <div class="step">
+          <span class="num">02</span>
+          <p>Whisk the egg white to a loose foam, then fold the nuts through it until every piece is glossy and nothing is pooling in the bowl.</p>
+        </div>
+
+        <div class="mgrid" id="methodGrid"></div>
+
+        <div class="step">
+          <span class="num">04</span>
+          <p>Spread in a single layer and bake, stirring every ten minutes, until the coating is dry and the kitchen smells toasted.</p>
+        </div>
+        <div class="step" style="border-bottom-width:0">
+          <span class="num">05</span>
+          <p>Cool completely on the pan, break apart, and finish with flaky salt.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label" style="padding-top:20px">
+    <div class="note">
+      <p><b class="micro" style="color:var(--color-text)">How the branching reads</b></p>
+      <p>The photographs are the first row of the table, not a hero &mdash; each column is
+        headed by its own frame, so the eye learns the column order before it ever reaches an
+        ingredient. Everything below inherits that order: at-a-glance figures, ingredient rows,
+        and the one method step where the branches part company.</p>
+      <p>Emphasis is carried by two things only, both already in the system: ink colour
+        (#111111 against #767676) and the hairline gutter. Where a cell is unlike its
+        neighbours the gutter to its left turns black, so scanning down the columns you see the
+        rule break into dark ticks precisely at the differences. Nothing is tinted, badged or
+        boxed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION B &mdash; ON THE HOME GRID
+============================================================ -->
+<section class="section" id="secB">
+  <div class="section-label">
+    <p class="micro">Section B &mdash; on the home grid</p>
+    <p class="micro">/ &middot; recipes index</p>
+  </div>
+
+  <div class="screen">
+    <div class="nav">
+      <div class="wrap-7xl nav-inner">
+        <span class="wordmark">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+          cookbook
+        </span>
+        <nav class="nav-links">
+          <span class="on">Recipes</span><span>Collections</span><span>Seasonal</span><span>Flavor</span>
+        </nav>
+        <span class="nav-actions">
+          <span><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+          <span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg></span>
+        </span>
+      </div>
+    </div>
+
+    <div class="wrap-7xl">
+      <div class="home-head">
+        <h1>Recipes</h1>
+        <div class="fb">
+          <div class="search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input id="recipe-search" type="text" placeholder="Search recipes...">
+          </div>
+          <div class="cuisines">
+            <button class="on">all</button>
+            <button>italian</button>
+            <button>jewish</button>
+            <button>filipino</button>
+            <button>roman</button>
+            <button>viking</button>
+            <button>argentine</button>
+            <button class="push tlink sec">more filters</button>
+            <button class="tlink sec" style="font-size:12.5px">reset</button>
+          </div>
+        </div>
+        <p class="countline tn">28 recipes &middot; 1 branched</p>
+      </div>
+
+      <div class="grid">
+        <!-- THE BRANCHED TILE -->
+        <article class="card" id="branchCard">
+          <div class="frame">
+            <div class="collage" id="collage"></div>
+            <span class="ctrls">
+              <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8.5 12.2 2.5 2.5 4.7-5"/></svg></span>
+              <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg></span>
+            </span>
+            <span class="branchmark"><span class="glyph"><i></i><i></i><i></i><i></i></span> 4 variations</span>
+          </div>
+          <p class="tag-link tags lc">other &middot; 4 variations</p>
+          <h3 class="card-title">Spiced Nuts</h3>
+          <p class="card-meta tn">25 min &middot; serves 8</p>
+        </article>
+
+        <!-- ordinary tiles -->
+        <article class="card">
+          <div class="frame">
+            <div class="ph ph-cook"><span class="ph-cap">Rainbow Cookies</span></div>
+            <span class="ctrls">
+              <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m8.5 12.2 2.5 2.5 4.7-5"/></svg></span>
+              <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg></span>
+            </span>
+          </div>
+          <p class="tag-link tags lc">italian</p>
+          <h3 class="card-title">Rainbow Cookies</h3>
+          <p class="card-meta tn">24 hr 5 min &middot; serves 48</p>
+        </article>
+
+        <article class="card">
+          <div class="frame">
+            <div class="ph ph-chim"><span class="ph-cap">Chimichurri</span></div>
+            <span class="ctrls">
+              <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6Z"/><path d="M18.5 15.5 19 17l1.5.5-1.5.5-.5 1.5-.5-1.5L16.5 18l1.5-.5Z"/></svg></span>
+              <span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg></span>
+            </span>
+          </div>
+          <p class="tag-link tags lc">argentine</p>
+          <h3 class="card-title">Chimichurri</h3>
+          <p class="card-meta tn">5 min &middot; serves 2</p>
+        </article>
+
+        <article class="card">
+          <div class="frame">
+            <div class="ph ph-bagel"><span class="ph-cap">Jerusalem Bagel</span></div>
+          </div>
+          <p class="tag-link tags lc">jewish</p>
+          <h3 class="card-title">Jerusalem Bagel Recipe</h3>
+          <p class="card-meta tn">3 hr 30 min &middot; serves 6</p>
+        </article>
+
+        <article class="card">
+          <div class="frame">
+            <div class="ph ph-dough"><span class="ph-cap">Pizza Dough</span></div>
+          </div>
+          <p class="tag-link tags lc">italian</p>
+          <h3 class="card-title">Pizza Dough</h3>
+          <p class="card-meta tn">45 min &middot; serves 4</p>
+        </article>
+
+        <article class="card">
+          <div class="frame">
+            <div class="ph ph-dates"><span class="ph-cap">Roman Stuffed Dates</span></div>
+          </div>
+          <p class="tag-link tags lc">roman</p>
+          <h3 class="card-title">Roman Stuffed Dates</h3>
+          <p class="card-meta tn">serves 4</p>
+        </article>
+      </div>
+
+      <div class="annot">
+        <div class="note">
+          <p><b class="micro" style="color:var(--color-text)">The collage</b></p>
+          <p>The 4:5 frame is cut into five vertical slices on hairline gutters &mdash; the base
+            takes a wider slice at the left, the four branches follow in the order they were
+            added. It is the compare table seen end-on, so the tile and the page teach the same
+            reading direction.</p>
+        </div>
+        <div class="note">
+          <p><b class="micro" style="color:var(--color-text)">The indicator</b></p>
+          <p>Three things mark it, none of them a coloured badge: the sliced composition itself,
+            the four-bar column glyph in a white hairline chip at the foot of the frame, and the
+            tag line reading "other &middot; 4 variations" where a single recipe would read only
+            its cuisine.</p>
+        </div>
+        <div class="note">
+          <p><b class="micro" style="color:var(--color-text)">Try it</b></p>
+          <p>Hover the tile and the slice captions come up; hover one slice and it takes the ink.
+            Click any slice to load that branch as a column in the compare table above &mdash;
+            the tile is a column picker in miniature.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="foot-inner">
+    <span class="micro">Concept 04 &mdash; side-by-side compare</span>
+    <span class="micro">monochrome &middot; hairline &middot; one weight</span>
+    <span class="micro">static mockup &middot; no network requests</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------------- data ---------------- */
+  var VARIANTS = [
+    { id: 'base',  name: 'Spiced Nuts',            chip: 'base',                  tex: 'ph-base',  cap: 'Spiced Nuts',            since: 'the mother recipe' },
+    { id: 'cin',   name: 'Cinnamon-Maple',         chip: 'cinnamon-maple',        tex: 'ph-cin',   cap: 'Cinnamon-Maple',         since: 'branched Nov 2024' },
+    { id: 'lav',   name: 'Lavender-Coconut',       chip: 'lavender-coconut',      tex: 'ph-lav',   cap: 'Lavender-Coconut',       since: 'branched Mar 2025' },
+    { id: 'rose',  name: 'Rosemary-Black Pepper',  chip: 'rosemary-black pepper', tex: 'ph-rose',  cap: 'Rosemary-Black Pepper',  since: 'branched Dec 2024' },
+    { id: 'chili', name: 'Chili-Lime',             chip: 'chili-lime',            tex: 'ph-chili', cap: 'Chili-Lime',             since: 'branched Jun 2025' }
+  ];
+
+  var GROUPS = [
+    {
+      title: 'At a glance',
+      rows: [
+        { n: 'Total time',  v: { base: '25 min',  cin: '30 min',  lav: '35 min',  rose: '25 min',  chili: '25 min' } },
+        { n: 'Serves',      v: { base: '8',       cin: '8',       lav: '8',       rose: '6',       chili: '8' } },
+        { n: 'Oven',        v: { base: '325 F',   cin: '300 F',   lav: '300 F',   rose: '350 F',   chili: '325 F' } },
+        { n: 'Difficulty',  v: { base: 'easy',    cin: 'easy',    lav: 'medium',  rose: 'easy',    chili: 'easy' } }
+      ]
+    },
+    {
+      title: 'The nuts and the binder &mdash; the part nobody argues with',
+      rows: [
+        { n: 'Pecan Halves',   v: { base: '2 cups',  cin: '2 cups',  lav: '2 cups',  rose: '2 cups',  chili: '2 cups' } },
+        { n: 'Raw Cashews',    v: { base: '1 cup',   cin: '1 cup',   lav: '1 cup',   rose: '1 cup',   chili: '1 cup' } },
+        { n: 'Marcona Almonds', note: 'skin on', v: { rose: '1 cup' } },
+        { n: 'Egg White', note: 'beaten to a loose foam', v: { base: '1 large', cin: '1 large', lav: '1 large', rose: '1 large', chili: '1 large' } },
+        { n: 'Unsalted Butter', note: 'melted', v: { base: '2 tbsp', cin: '2 tbsp', lav: '2 tbsp', rose: '2 tbsp', chili: '2 tbsp' } },
+        { n: 'Kosher Salt',    v: { base: '1 tsp',   cin: '1 tsp',   lav: '3/4 tsp', rose: '1 1/4 tsp', chili: '1 tsp' } }
+      ]
+    },
+    {
+      title: 'Sweetener',
+      rows: [
+        { n: 'Granulated Sugar',  v: { base: '1/2 cup', cin: '1/4 cup', lav: '1/3 cup', chili: '1/4 cup' } },
+        { n: 'Light Brown Sugar', v: { cin: '1/4 cup', chili: '2 tbsp' } },
+        { n: 'Maple Syrup',       v: { cin: '3 tbsp' } },
+        { n: 'Honey',             v: { lav: '2 tbsp' } }
+      ]
+    },
+    {
+      title: 'Aromatics &mdash; where the branches actually part',
+      rows: [
+        { n: 'Ground Cinnamon',   v: { base: '1 tsp',   cin: '1 tbsp',  chili: '1/2 tsp' } },
+        { n: 'Ground Ginger',     v: { base: '1/2 tsp', cin: '1/2 tsp' } },
+        { n: 'Orange Zest',       v: { cin: '1 orange' } },
+        { n: 'Culinary Lavender', note: 'ground fine', v: { lav: '2 tsp' } },
+        { n: 'Coconut Flakes',    note: 'toasted',     v: { lav: '3/4 cup' } },
+        { n: 'Rosemary',          note: 'chopped',     v: { rose: '2 tbsp' } },
+        { n: 'Black Pepper',      note: 'coarse',      v: { base: '1/4 tsp', rose: '1 1/2 tsp', chili: '1/2 tsp' } },
+        { n: 'Ancho Chili Powder', v: { chili: '2 tsp' } },
+        { n: 'Cayenne',           v: { base: 'pinch', chili: '1 tsp' } },
+        { n: 'Lime Zest',         v: { chili: '2 limes' } }
+      ]
+    },
+    {
+      title: 'Finish',
+      rows: [
+        { n: 'Flaky Sea Salt', v: { base: 'to finish', cin: 'to finish', lav: 'to finish', rose: 'to finish', chili: 'to finish' } }
+      ]
+    }
+  ];
+
+  var STEP3 = {
+    base:  'Stir the sugar, cinnamon, ginger, salt and pepper together dry, then toss the whole lot through the nuts.',
+    cin:   'Warm the maple syrup with the brown sugar until it loosens, pour it over the nuts, then add the cinnamon and orange zest off the heat.',
+    lav:   'Grind the lavender into the sugar first so it does not read soapy, toss with the nuts and honey, and hold back half the coconut for the end.',
+    rose:  'Skip the sugar entirely. Toss with the rosemary, a heavy hand of black pepper, and the salt.',
+    chili: 'Toss with the ancho, cayenne and sugar. Keep the lime zest back until the nuts come out of the oven.'
+  };
+
+  var DEFAULT_SEL = ['base', 'cin', 'lav'];
+  var sel = DEFAULT_SEL.slice();
+  var diffOnly = false;
+
+  function vById(id) {
+    for (var i = 0; i < VARIANTS.length; i++) if (VARIANTS[i].id === id) return VARIANTS[i];
+    return null;
+  }
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+  /* ---- per-row analysis: which cells are unlike their neighbours ---- */
+  var NONE = '<absent>';
+
+  function analyse(row) {
+    var vals = sel.map(function (id) {
+      var x = row.v[id];
+      return (x === undefined || x === null) ? null : x;
+    });
+    var counts = {};
+    vals.forEach(function (x) {
+      var k = (x === null) ? NONE : x;
+      counts[k] = (counts[k] || 0) + 1;
+    });
+    var keys = Object.keys(counts);
+    var differs = keys.length > 1;
+    var majority = null, top = 0, tied = false;
+    keys.forEach(function (k) {
+      if (counts[k] > top) { top = counts[k]; majority = k; tied = false; }
+      else if (counts[k] === top) { tied = true; }
+    });
+    if (tied) majority = null;
+    var dist = vals.map(function (x) {
+      if (!differs) return false;
+      if (majority === null) return true;
+      var k = (x === null) ? NONE : x;
+      return k !== majority;
+    });
+    return { vals: vals, differs: differs, dist: dist };
+  }
+
+  function allRows() {
+    var out = [];
+    GROUPS.forEach(function (g) { g.rows.forEach(function (r) { out.push(r); }); });
+    return out;
+  }
+
+  /* a row only earns a line if at least one shown column uses it */
+  function relevant(r) {
+    return analyse(r).vals.some(function (x) { return x !== null; });
+  }
+  function liveRows() { return allRows().filter(relevant); }
+
+  function distinctCounts() {
+    var counts = sel.map(function () { return 0; });
+    liveRows().forEach(function (r) {
+      var a = analyse(r);
+      a.dist.forEach(function (d, i) { if (d) counts[i]++; });
+    });
+    return counts;
+  }
+
+  /* ---------------- render ---------------- */
+  var grid = document.getElementById('cmpGrid');
+  var chipsEl = document.getElementById('chips');
+  var methodGrid = document.getElementById('methodGrid');
+
+  function cols() {
+    return 'minmax(150px, 0.95fr) repeat(' + sel.length + ', minmax(0, 1fr))';
+  }
+
+  function renderChips() {
+    var html = '';
+    VARIANTS.forEach(function (v) {
+      var i = sel.indexOf(v.id);
+      var on = i > -1;
+      html += '<button class="chip' + (on ? ' on' : '') + '" data-id="' + v.id + '">' +
+              '<span class="idx tn' + (on ? '' : ' off') + '">' + (on ? pad(i + 1) : '--') + '</span>' +
+              v.chip + '</button>';
+    });
+    chipsEl.innerHTML = html;
+    Array.prototype.forEach.call(chipsEl.querySelectorAll('.chip'), function (b) {
+      b.addEventListener('click', function () { toggle(b.getAttribute('data-id')); });
+    });
+    document.getElementById('glossCount').textContent =
+      sel.length + ' of ' + VARIANTS.length + ' columns shown';
+    var dt = document.getElementById('diffToggle');
+    dt.className = diffOnly ? 'tlink' : 'tlink sec';
+    dt.textContent = diffOnly ? 'showing differences only' : 'only differences';
+  }
+
+  function renderTable() {
+    var counts = distinctCounts();
+    var html = '';
+
+    /* row 1 &mdash; the photographs, one per column */
+    html += '<div class="crow">';
+    html += '<div class="cc pane-lab"><p class="micro" style="line-height:1.6">' +
+            '<span class="glyph" style="color:var(--color-text);margin-right:7px;vertical-align:-1px"><i></i><i></i><i></i><i></i></span>' +
+            'branch<br>columns</p></div>';
+    sel.forEach(function (id) {
+      var v = vById(id);
+      html += '<div class="cc pane"><div class="ph ' + v.tex + '">' +
+              '<span class="ph-cap">' + v.cap + '</span></div></div>';
+    });
+    html += '</div>';
+
+    /* row 2 &mdash; column heads, closed by the black rule */
+    html += '<div class="crow">';
+    html += '<div class="cc head head-lab" style="display:flex;align-items:flex-end">' +
+            '<h2 style="font-size:12.5px;color:var(--color-text-secondary)">Ingredients</h2></div>';
+    sel.forEach(function (id, i) {
+      var v = vById(id);
+      html += '<div class="cc head">' +
+              '<p class="name">' + v.name + '</p>' +
+              '<p class="sub tn">' + counts[i] + ' rows unlike the others &middot; ' + v.since + '</p>' +
+              '<span class="open tlink">open on its own page</span>' +
+              '</div>';
+    });
+    html += '</div>';
+
+    /* the rows */
+    GROUPS.forEach(function (g) {
+      var visible = g.rows.filter(function (r) {
+        if (!relevant(r)) return false;
+        return diffOnly ? analyse(r).differs : true;
+      });
+      if (!visible.length) return;
+      html += '<p class="cgroup">' + g.title + '</p>';
+      visible.forEach(function (r) {
+        var a = analyse(r);
+        html += '<div class="crow">';
+        html += '<div class="cc lab' + (a.differs ? '' : ' quiet') + '">' + r.n +
+                (r.note ? '<span class="n">(' + r.note + ')</span>' : '') + '</div>';
+        a.vals.forEach(function (x, i) {
+          var cls = 'cc val';
+          if (a.dist[i]) cls += ' dist';
+          if (x === null) cls += ' absent';
+          html += '<div class="' + cls + '">' + (x === null ? '&mdash;' : x) + '</div>';
+        });
+        html += '</div>';
+      });
+    });
+
+    var rows = liveRows();
+    var shared = 0;
+    rows.forEach(function (r) { if (!analyse(r).differs) shared++; });
+    var elsewhere = allRows().length - rows.length;
+    html += '<p class="cnote tn">' + (rows.length - shared) + ' of ' + rows.length +
+            ' rows differ across the columns shown' +
+            (diffOnly ? ' &middot; ' + shared + ' shared rows hidden' : '') +
+            (elsewhere ? ' &middot; ' + elsewhere + ' more rows belong to branches not on screen' : '') +
+            '</p>';
+
+    grid.style.gridTemplateColumns = cols();
+    grid.innerHTML = html;
+  }
+
+  function renderMethod() {
+    var html = '';
+    html += '<div class="mlab">03</div>';
+    sel.forEach(function (id) {
+      var v = vById(id);
+      html += '<div class="mcell"><p class="who">' + v.name + '</p><p>' + STEP3[id] + '</p></div>';
+    });
+    methodGrid.style.gridTemplateColumns = cols();
+    methodGrid.innerHTML = html;
+    document.getElementById('methodGloss').innerHTML =
+      'step 03 &times; ' + sel.length + ' columns';
+  }
+
+  function renderCollage() {
+    var el = document.getElementById('collage');
+    var html = '';
+    VARIANTS.forEach(function (v, i) {
+      html += '<button class="slice ph ' + v.tex + (i === 0 ? ' base' : '') +
+              '" data-id="' + v.id + '" title="compare ' + v.cap + '">' +
+              '<span class="cap">' + (i === 0 ? 'Base' : v.cap) + '</span></button>';
+    });
+    el.innerHTML = html;
+    Array.prototype.forEach.call(el.querySelectorAll('.slice'), function (b) {
+      b.addEventListener('click', function (e) {
+        e.preventDefault();
+        var id = b.getAttribute('data-id');
+        if (sel.indexOf(id) === -1) {
+          if (sel.length >= 3) sel.shift();
+          sel.push(id);
+          renderAll();
+        }
+        document.getElementById('secA').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  }
+
+  function toggle(id) {
+    var i = sel.indexOf(id);
+    if (i > -1) {
+      if (sel.length <= 2) {
+        flash('two columns is the minimum &mdash; pick another before dropping this one');
+        return;
+      }
+      sel.splice(i, 1);
+    } else {
+      if (sel.length >= 3) {
+        var dropped = vById(sel.shift());
+        flash('three columns is the maximum &middot; dropped ' + dropped.chip);
+      }
+      sel.push(id);
+    }
+    renderAll();
+  }
+
+  var noteEl = document.getElementById('pickNote');
+  var noteTimer = null;
+  function flash(msg) {
+    noteEl.innerHTML = msg;
+    noteEl.style.color = 'var(--color-text)';
+    if (noteTimer) clearTimeout(noteTimer);
+    noteTimer = setTimeout(function () {
+      noteEl.innerHTML = 'up to three columns &middot; a fourth pick drops the oldest';
+      noteEl.style.color = '';
+    }, 2600);
+  }
+
+  function renderAll() { renderChips(); renderTable(); renderMethod(); }
+
+  document.getElementById('diffToggle').addEventListener('click', function () {
+    diffOnly = !diffOnly;
+    renderAll();
+  });
+  document.getElementById('resetBtn').addEventListener('click', function () {
+    sel = DEFAULT_SEL.slice();
+    diffOnly = false;
+    renderAll();
+  });
+
+  renderAll();
+  renderCollage();
+})();
+</script>
+</body>
+</html>

@@ -1,3 +1,5 @@
+import type { DraftPayload } from '@/lib/drafts';
+import type { InstructionStep } from '@/lib/types';
 import {
   Recipe,
   RecipeIngredient,
@@ -55,7 +57,47 @@ export const api = {
     create: (data: Partial<Recipe>) => fetchJson<Recipe>('/api/recipes', { method: 'POST', body: data }),
     update: (id: string, data: Partial<Recipe>) => fetchJson<Recipe>(`/api/recipes/${id}`, { method: 'PUT', body: data }),
     delete: (id: string) => fetch(`/api/recipes/${id}`, { method: 'DELETE' }),
-    duplicate: (id: string) => fetchJson<Recipe>(`/api/recipes/${id}/duplicate`, { method: 'POST' }),
+    duplicate: (id: string) => fetchJson<Recipe>(`/api/recipes/${id}/duplicate`, { method: 'POST', body: {} }),
+    branch: (id: string, title?: string, label?: string) =>
+      fetchJson<Recipe>(`/api/recipes/${id}/duplicate`, { method: 'POST', body: { asVariation: true, title, label } }),
+    archiveList: () =>
+      fetchJson<{ entries: { id: number; recipe_id: string; title: string; reason: string; created_at: string; expires_at: string }[] }>('/api/recipes/archive'),
+    archiveRestore: (archiveId: number) =>
+      fetchJson<{ ok: boolean; recipeId: string }>('/api/recipes/archive', { method: 'POST', body: { archiveId } }),
+    family: (id: string) =>
+      fetchJson<{
+        base: { id: string; title: string; image_url: string | null };
+        baseIngredients: { name: string; quantity: number; unit: string; section: string | null }[];
+        variations: {
+          id: string; title: string; image_url: string | null; variation_of_label: string | null;
+          ingredients: { name: string; quantity: number; unit: string; section: string | null }[];
+          instructions: InstructionStep[];
+          diff: {
+            added: { name: string; quantity: number; unit: string }[];
+            removed: { name: string; quantity: number; unit: string }[];
+            changed: { from: { name: string; quantity: number; unit: string }; to: { name: string; quantity: number; unit: string } }[];
+          };
+          changedKeys: string[];
+          summary: string;
+        }[];
+        isBranched: boolean;
+        count: number;
+      }>(`/api/recipes/${id}/family`),
+    getDraft: (id: string) =>
+      fetchJson<{ draft: DraftPayload | null; current: DraftPayload }>(`/api/recipes/${id}/draft`),
+    saveDraft: (id: string, payload: DraftPayload) =>
+      fetchJson<{ ok: boolean }>(`/api/recipes/${id}/draft`, { method: 'PUT', body: payload }),
+    discardDraft: (id: string) => fetch(`/api/recipes/${id}/draft`, { method: 'DELETE' }),
+    commitDraft: (id: string, mode: 'update' | 'branch', title?: string, label?: string) =>
+      fetchJson<{ mode: string; recipe: Recipe }>(`/api/recipes/${id}/draft`, {
+        method: 'POST',
+        body: { mode, title, label },
+      }),
+    promoteSection: (id: string, section: string, title?: string) =>
+      fetchJson<{ recipe: Recipe; movedIngredients: number; movedSteps: number }>(
+        `/api/recipes/${id}/promote-section`,
+        { method: 'POST', body: { section, title } }
+      ),
   },
 
   flavor: {
@@ -158,8 +200,10 @@ export const api = {
       fetchJson<{
         recipe: { id: string; title: string; cuisine: string | null; image_url: string | null };
         ingredients: string[];
+        proportions: { name: string; pct: number; grams: number | null }[];
         merged: { families: { name: string; notes: { note: string; intensity: number }[] }[]; activeNotes: number; strongest: { note: string; family: string; intensity: number }[] };
         harmony: number;
+        harmonyByProportion: number;
         tightestPairs: { a: string; b: string; synergy: number }[];
         boost: { name: string; lift: number } | null;
       }>(`/api/flavor/recipe-harmony?recipe_id=${encodeURIComponent(recipeId)}`),

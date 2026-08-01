@@ -7,7 +7,13 @@ export async function GET(request: NextRequest) {
     const db = getDb();
     const { searchParams } = request.nextUrl;
 
-    let query = 'SELECT * FROM recipes WHERE 1=1';
+    // Every recipe is returned, variations included — hiding them here would take
+    // them out of search, the planner, grocery and collections too. Each row
+    // carries how many branches it has; the home grid is the only surface that
+    // folds variations into their base, and it does that itself.
+    let query = `SELECT r.*,
+        (SELECT COUNT(*) FROM recipes v WHERE v.parent_recipe_id = r.id) AS variation_count
+      FROM recipes r WHERE 1=1`;
     const params: any[] = [];
 
     const search = searchParams.get('search');
@@ -47,6 +53,28 @@ export async function GET(request: NextRequest) {
     const stmt = db.prepare(query);
     const recipes = (stmt.all(...params) as Recipe[]).map(hydrateRecipe);
 
+    // Attach each base's variations in one extra query, so a branched tile can
+    // collage their photos without the grid firing a request per card.
+    const branched = recipes.filter((r) => (r.variation_count || 0) > 0);
+    if (branched.length > 0) {
+      const placeholders = branched.map(() => '?').join(',');
+      const rows = db.prepare(
+        `SELECT id, title, image_url, variation_of_label, parent_recipe_id
+         FROM recipes WHERE parent_recipe_id IN (${placeholders}) ORDER BY created_at`
+      ).all(...branched.map((r) => r.id)) as {
+        id: string; title: string; image_url: string | null;
+        variation_of_label: string | null; parent_recipe_id: string;
+      }[];
+      const byParent = new Map<string, typeof rows>();
+      for (const v of rows) {
+        if (!byParent.has(v.parent_recipe_id)) byParent.set(v.parent_recipe_id, []);
+        byParent.get(v.parent_recipe_id)!.push(v);
+      }
+      for (const r of branched) {
+        (r as Recipe & { variations?: unknown }).variations = byParent.get(r.id) || [];
+      }
+    }
+
     return NextResponse.json(recipes);
   } catch (error) {
     console.error('Error fetching recipes:', error);
@@ -65,8 +93,8 @@ export async function POST(request: NextRequest) {
         difficulty, prep_time_minutes, cook_time_minutes, total_time_minutes,
         servings, instructions, source_url, source_name, source_author,
         source_type, is_favorite, status, image_rotation, image_position, image_zoom,
-        created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        notes, yield_quantity, yield_unit, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const id = `recipe_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -94,6 +122,9 @@ export async function POST(request: NextRequest) {
       body.image_rotation || 0,
       body.image_position || null,
       body.image_zoom || null,
+      body.notes || null,
+      body.yield_quantity || null,
+      body.yield_unit || null,
       now,
       now
     );
