@@ -55,6 +55,7 @@ export const api = {
     create: (data: Partial<Recipe>) => fetchJson<Recipe>('/api/recipes', { method: 'POST', body: data }),
     update: (id: string, data: Partial<Recipe>) => fetchJson<Recipe>(`/api/recipes/${id}`, { method: 'PUT', body: data }),
     delete: (id: string) => fetch(`/api/recipes/${id}`, { method: 'DELETE' }),
+    duplicate: (id: string) => fetchJson<Recipe>(`/api/recipes/${id}/duplicate`, { method: 'POST' }),
   },
 
   flavor: {

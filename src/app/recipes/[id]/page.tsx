@@ -94,6 +94,7 @@ export default function RecipeDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [duplicating, setDuplicating] = useState(false);
   const [nutrition, setNutrition] = useState<NutritionCalculation | null>(null);
   const [imageRotation, setImageRotation] = useState(0);
   const [recipeIngredients, setRecipeIngredients] = useState<RecipeIngredient[]>([]);
@@ -247,6 +248,22 @@ export default function RecipeDetailPage() {
     }
   };
 
+  // Duplicating lands you straight in the editor on the copy — the point is
+  // almost always to change something (a variation, a scaled batch).
+  const handleDuplicateRecipe = async () => {
+    if (!recipe || duplicating) return;
+    setDuplicating(true);
+    try {
+      const copy = await api.recipes.duplicate(recipe.id);
+      toast.success(`Created "${copy.title}"`);
+      router.push(`/recipes/${copy.id}/edit`);
+    } catch (err) {
+      console.error('Error duplicating recipe:', err);
+      toast.error('Failed to duplicate recipe');
+      setDuplicating(false);
+    }
+  };
+
   const handleDeleteRecipe = async () => {
     if (!recipe) return;
     if (!confirm(`Are you sure you want to delete "${recipe.title}"? This cannot be undone.`)) return;
@@ -311,6 +328,9 @@ export default function RecipeDetailPage() {
             <Heart size={17} strokeWidth={1.8} className={isFavorite ? 'fill-text text-text' : ''} />
           </button>
           <button onClick={() => router.push(`/recipes/${id}/edit`)} className="tlink text-text-secondary hover:text-text">Edit</button>
+          <button onClick={handleDuplicateRecipe} disabled={duplicating} className="tlink text-text-secondary hover:text-text disabled:opacity-50">
+            {duplicating ? 'Duplicating…' : 'Duplicate'}
+          </button>
           <button onClick={handleDeleteRecipe} className="tlink text-text-secondary hover:text-text">Delete</button>
         </div>
       </div>
