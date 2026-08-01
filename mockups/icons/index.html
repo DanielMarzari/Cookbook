@@ -1,0 +1,86 @@
+<meta charset="utf-8">
+<title>Cookbook &mdash; eight marks</title>
+<style>
+  :root { --text:#111111; --sec:#767676; --border:#e8e8e8; }
+  * { box-sizing:border-box; }
+  body { font-family:Helvetica,Arial,sans-serif; color:var(--text); background:#fff;
+         margin:0; padding:44px 32px 90px; -webkit-font-smoothing:antialiased; }
+  .wrap { max-width:1080px; margin:0 auto; }
+  h1 { font-size:30px; font-weight:400; letter-spacing:-0.02em; margin:0 0 10px; }
+  .lede { color:var(--sec); font-size:14px; max-width:66ch; line-height:1.55; margin:0 0 4px; }
+  .rule { border:0; border-top:1px solid var(--text); margin:26px 0 0; }
+
+  .row { display:grid; grid-template-columns:210px 1fr; gap:28px;
+         padding:26px 0; border-bottom:1px solid var(--border); align-items:start; }
+  .num { font-size:11px; letter-spacing:0.13em; color:var(--sec); }
+  .name { font-size:17px; margin:5px 0 4px; }
+  .why { font-size:12.5px; color:var(--sec); line-height:1.5; }
+
+  .sizes { display:flex; align-items:flex-end; gap:34px; flex-wrap:wrap; }
+  .cell { text-align:center; }
+  .cell span { display:block; font-size:10px; letter-spacing:0.1em; color:var(--sec); margin-top:9px; }
+  .chrome { display:flex; align-items:center; gap:8px; font-size:17px; letter-spacing:-0.01em;
+            border:1px solid var(--border); padding:11px 15px; }
+  .tab { display:inline-flex; align-items:center; gap:7px; font-size:11.5px; color:var(--sec);
+         border:1px solid var(--border); border-bottom:0; padding:7px 13px 8px; }
+  .inv { background:var(--text); padding:13px; display:inline-grid; place-items:center; }
+  .inv svg { color:#fff; }
+</style>
+
+<div class="wrap">
+  <h1>Eight marks</h1>
+  <p class="lede">All 24&times;24, 1.8px stroke, currentColor &mdash; same construction as the
+  house mark they&rsquo;d replace, so each drops straight into the header and works as a favicon.
+  Shown at 16px (browser tab), 17px (header, in context), 40px, and knocked out on ink.</p>
+  <hr class="rule">
+  <div id="rows"></div>
+</div>
+
+<script>
+const ICONS = [
+  { n:'01', name:'Open book',
+    why:'The literal thing. Safest and most legible at 16px &mdash; reads instantly as a book, never as anything else. Risk: every recipe app has one.',
+    d:'<path d="M12 7c-2-1.6-5-2.2-8-1.7v12.4c3-.5 6 .1 8 1.7"/><path d="M12 7c2-1.6 5-2.2 8-1.7v12.4c-3-.5-6 .1-8 1.7"/><path d="M12 7v12.4"/>' },
+  { n:'02', name:'Pot, from the side',
+    why:'Cooking rather than reading. The lid line gives it a strong horizontal that survives shrinking, and the handles keep it from reading as a bucket.',
+    d:'<path d="M3.5 9.5h17"/><path d="M5.5 9.5v7.5a2.5 2.5 0 0 0 2.5 2.5h8a2.5 2.5 0 0 0 2.5-2.5V9.5"/><path d="M3.5 11.5h-1.5M20.5 11.5h1.5"/><path d="M12 9.5V7"/>' },
+  { n:'03', name:'Flavour wheel',
+    why:'The one thing this app has that others do not. A segmented circle is the Flavor Lab in miniature &mdash; it says analysis, not just storage.',
+    d:'<circle cx="12" cy="12" r="8.2"/><path d="M12 3.8v16.4M3.8 12h16.4M6.2 6.2l11.6 11.6M17.8 6.2 6.2 17.8"/>' },
+  { n:'04', name:'Plate, from above',
+    why:'Two concentric circles &mdash; the rim and the well. Quietest option and the most at home in the monochrome system; the fine-dining idiom the app already borrows.',
+    d:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.6"/>' },
+  { n:'05', name:'Branch',
+    why:'A stem that splits, with a node at each tip. Names the feature the app just grew &mdash; a recipe is a base and its variations.',
+    d:'<path d="M12 20.5v-7.2"/><path d="M12 13.3 7.2 8.5M12 13.3l4.8-4.8"/><circle cx="6.4" cy="7.7" r="1.7"/><circle cx="17.6" cy="7.7" r="1.7"/><circle cx="12" cy="21" r="1.4"/>' },
+  { n:'06', name:'Whisk',
+    why:'Craft and motion. The crossing wires make it unmistakable at 40px, though it is the busiest of the eight and softens at 16.',
+    d:'<path d="M12 21v-5"/><path d="M12 16c-3.2 0-5-2.6-5-6s1.8-7 5-7 5 3.6 5 7-1.8 6-5 6Z"/><path d="M12 3v13M8 5.6c2.6 2 5.4 2 8 0M7.4 10.5c3 2.2 6.2 2.2 9.2 0"/>' },
+  { n:'07', name:'Book that branches',
+    why:'The two ideas fused: a spine whose pages fan into branches. Most specific to what this app now is &mdash; and the most likely to muddy at small sizes.',
+    d:'<path d="M12 7.5v12"/><path d="M12 7.5C10 6 7 5.4 4 5.9v11.4c3-.5 6 .1 8 1.6"/><path d="M12 7.5c1.6-1.2 3.7-1.9 6-1.7"/><path d="M18 5.8 21 3M18 5.8l2.6 2.4"/><circle cx="21.2" cy="2.6" r="1.2"/><circle cx="21" cy="8.6" r="1.2"/>' },
+  { n:'08', name:'Mortar &amp; pestle',
+    why:'Older and more handmade than a pot &mdash; suits a personal cookbook built over years. The diagonal pestle gives it an asymmetry none of the others have.',
+    d:'<path d="M4.2 10.5h13.6a6.8 6.8 0 0 1-6.8 7.4 6.8 6.8 0 0 1-6.8-7.4Z"/><path d="M11 17.9v2.6M8 20.5h6"/><path d="M14.5 9.6 20 3.4"/><path d="M18.6 2.2 21.4 4.7"/>' },
+];
+
+const svg = (d, px) =>
+  `<svg width="${px}" height="${px}" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+
+document.getElementById('rows').innerHTML = ICONS.map(i => `
+  <div class="row">
+    <div>
+      <div class="num">${i.n}</div>
+      <div class="name">${i.name}</div>
+      <div class="why">${i.why}</div>
+    </div>
+    <div class="sizes">
+      <div class="cell">${svg(i.d,16)}<span>16 TAB</span></div>
+      <div class="cell">${svg(i.d,40)}<span>40</span></div>
+      <div class="cell"><div class="chrome">${svg(i.d,17)}cookbook</div><span>HEADER</span></div>
+      <div class="cell"><div class="tab">${svg(i.d,14)}Cookbook</div><span>BROWSER TAB</span></div>
+      <div class="cell"><div class="inv">${svg(i.d,22)}</div><span>KNOCKED OUT</span></div>
+    </div>
+  </div>`).join('');
+</script>

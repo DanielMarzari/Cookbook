@@ -105,7 +105,15 @@ const pool = db.prepare(
   `SELECT DISTINCT ni.id FROM note_ingredients ni JOIN ingredient_cooccur c ON LOWER(ni.name) = c.name_a`
 ).all().map((r) => r.id);
 
-const auth = await fetch(`${BASE}/api/auth`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: 'REDACTED-SEE-AUTH_PASSWORD-ENV' }) });
+// Never hardcode the site password — these scripts get committed. Reads
+// AUTH_PASSWORD from the environment (.env.local is loaded by `node --env-file`).
+const AUTH_PASSWORD = process.env.AUTH_PASSWORD;
+if (!AUTH_PASSWORD) {
+  console.error('Set AUTH_PASSWORD first, e.g.\n  AUTH_PASSWORD=... node ' + process.argv[1].split('/').pop() +
+                '\nor: node --env-file=.env.local ' + process.argv[1].split('/').pop());
+  process.exit(1);
+}
+const auth = await fetch(`${BASE}/api/auth`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password: AUTH_PASSWORD }) });
 const cookie = (auth.headers.getSetCookie?.() || []).map((c) => c.split(';')[0]).join('; ');
 const lab = async (ids) => (await fetch(`${BASE}/api/flavor/lab`, { method: 'POST', headers: { 'Content-Type': 'application/json', Cookie: cookie }, body: JSON.stringify({ ids }) })).json();
 
