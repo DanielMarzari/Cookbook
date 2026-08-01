@@ -93,7 +93,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
              notes, yield_quantity, yield_unit, parent_recipe_id, variation_of_label,
              created_at, updated_at
            )
-           SELECT ?, ?, description, image_url, cuisine_type, origin, difficulty,
+           SELECT ?, ?, description, NULL, cuisine_type, origin, difficulty,
                   prep_time_minutes, cook_time_minutes, total_time_minutes, servings,
                   instructions, source_url, source_name, source_author, source_type,
                   0, 'new', image_rotation, image_position, image_zoom,

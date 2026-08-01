@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDb, hydrateRecipe } from '@/lib/db';
 import { Recipe } from '@/lib/types';
 import { archiveRecipe } from '@/lib/archive';
+import { resolvePhoto } from '@/lib/variations';
 
 export async function GET(
   request: NextRequest,
@@ -18,7 +19,7 @@ export async function GET(
       return NextResponse.json({ error: 'Recipe not found' }, { status: 404 });
     }
 
-    return NextResponse.json(hydrateRecipe(recipe));
+    return NextResponse.json(resolvePhoto(db, hydrateRecipe(recipe) as never));
   } catch (error) {
     console.error('Error fetching recipe:', error);
     return NextResponse.json({ error: 'Failed to fetch recipe' }, { status: 500 });

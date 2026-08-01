@@ -21,6 +21,12 @@ export interface IngredientLine {
   unit: string;
   notes?: string | null;
   section?: string | null;
+  // carried so a variation's nutrition resolves as precisely as the base's
+  ingredient_id?: string | null;
+  custom_calories?: number | null;
+  custom_protein?: number | null;
+  custom_carbs?: number | null;
+  custom_fat?: number | null;
 }
 
 /** The base a recipe belongs to: itself if it is one, otherwise its parent. */
@@ -88,4 +94,36 @@ export function describeDiff(d: IngredientDiff): string {
   if (d.removed.length) parts.push(`− ${d.removed.map((i) => i.name.toLowerCase()).join(', ')}`);
   if (d.changed.length) parts.push(`${d.changed.length} amount${d.changed.length > 1 ? 's' : ''} changed`);
   return parts.join(' · ') || 'same ingredients';
+}
+
+/**
+ * A variation shows the family's picture unless it has one of its own.
+ *
+ * One photo usually serves a whole family — the four spiced-nut variations look
+ * the same in a bowl — so a branch inherits rather than freezing a copy. Replace
+ * the base's photo and every variation follows; give a variation its own and it
+ * overrides. Framing (position/zoom/rotation) travels with whichever photo wins,
+ * since framing describes that image and not the recipe.
+ */
+export interface PhotoFields {
+  image_url?: string | null;
+  image_position?: string | null;
+  image_zoom?: number | null;
+  image_rotation?: number | null;
+  parent_recipe_id?: string | null;
+}
+
+export function resolvePhoto<T extends PhotoFields>(db: DB, recipe: T): T {
+  if (recipe.image_url || !recipe.parent_recipe_id) return recipe;
+  const base = db.prepare(
+    'SELECT image_url, image_position, image_zoom, image_rotation FROM recipes WHERE id = ?'
+  ).get(recipe.parent_recipe_id) as PhotoFields | undefined;
+  if (!base?.image_url) return recipe;
+  return {
+    ...recipe,
+    image_url: base.image_url,
+    image_position: base.image_position,
+    image_zoom: base.image_zoom,
+    image_rotation: base.image_rotation,
+  };
 }

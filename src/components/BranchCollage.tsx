@@ -52,7 +52,7 @@ export default function BranchCollage({ base, variations }: Props) {
 
       {thumbs.map((v, i) => (
         <div key={v.id} className="relative overflow-hidden bg-[#F4F4F4]" style={{ gridColumn: 2, gridRow: i + 1 }}>
-          {photo(v.image_url, v.title, undefined, '10vw')}
+          {photo(v.image_url || base.image_url, v.title, undefined, '10vw')}
           {/* the last visible thumb absorbs the count when there are more */}
           {overflow > 0 && i === thumbs.length - 1 && (
             <span className="absolute inset-0 grid place-items-center bg-white/75 text-[10px] tracking-[0.1em] text-text">

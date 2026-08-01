@@ -345,6 +345,11 @@ export default function RecipeDetailPage() {
   const shownIngredients = (version?.ingredients ?? recipeIngredients) as typeof recipeIngredients;
   const shownSteps = version?.instructions ?? recipe.instructions ?? [];
   const changedKeys = new Set(version?.changedKeys ?? []);
+  // Nutrition follows the version on screen — a variation that swaps butter for
+  // oil is a different plate, and showing the base's numbers under it would lie.
+  const shownNutrition = version
+    ? computeNutrition({ ...recipe, servings: recipe.servings }, shownIngredients as RecipeIngredient[], allIngredients)
+    : nutrition;
   const lineKey = (i: { name: string; section?: string | null }) =>
     `${(i.section || '').toLowerCase()}|${i.name.toLowerCase()}`;
 
@@ -524,7 +529,7 @@ export default function RecipeDetailPage() {
             </div>
 
             {/* Nutrition, tucked under ingredients */}
-            {nutrition && (
+            {shownNutrition && (
               <div className="mt-8">
                 <div className="flex items-baseline justify-between border-b border-text pb-2.5">
                   <h2 className="text-[12.5px] text-text-secondary">Nutrition — per serving</h2>
@@ -532,10 +537,10 @@ export default function RecipeDetailPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-x-6 gap-y-4 pt-4">
                   {([
-                    ['calories', nutrition.nutrition.calories],
-                    ['protein', `${nutrition.nutrition.protein}g`],
-                    ['carbs', `${nutrition.nutrition.carbs}g`],
-                    ['fat', `${nutrition.nutrition.fat}g`],
+                    ['calories', shownNutrition.nutrition.calories],
+                    ['protein', `${shownNutrition.nutrition.protein}g`],
+                    ['carbs', `${shownNutrition.nutrition.carbs}g`],
+                    ['fat', `${shownNutrition.nutrition.fat}g`],
                   ] as const).map(([label, val]) => (
                     <div key={label}>
                       <p className="text-[11.5px] text-text-secondary lowercase">{label}</p>
@@ -544,7 +549,7 @@ export default function RecipeDetailPage() {
                   ))}
                 </div>
                 <p className="text-[11.5px] text-text-secondary mt-3">
-                  {nutrition.matchedCount} of {nutrition.totalCount} ingredients matched to the library
+                  {shownNutrition.matchedCount} of {shownNutrition.totalCount} ingredients matched to the library
                 </p>
               </div>
             )}
@@ -605,7 +610,7 @@ export default function RecipeDetailPage() {
       </div>
 
       {/* Flavour profile & cohesion (from the Flavor Lab) */}
-      <RecipeFlavorCard recipeId={recipe.id} />
+      <RecipeFlavorCard recipeId={version?.id ?? recipe.id} />
 
       {/* Photo gallery */}
       {photos.length > 0 && (

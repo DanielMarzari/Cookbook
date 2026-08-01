@@ -48,13 +48,13 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
            notes, yield_quantity, yield_unit, parent_recipe_id, variation_of_label,
            created_at, updated_at
          )
-         SELECT ?, ?, description, image_url, cuisine_type, origin,
+         SELECT ?, ?, description, CASE WHEN ? THEN NULL ELSE image_url END, cuisine_type, origin,
                 difficulty, prep_time_minutes, cook_time_minutes, total_time_minutes,
                 servings, instructions, source_url, source_name, source_author,
                 source_type, 0, 'new', image_rotation, image_position, image_zoom,
                 notes, yield_quantity, yield_unit, ?, ?, ?, ?
          FROM recipes WHERE id = ?`
-      ).run(newId, title, asVariation ? (source.parent_recipe_id || id) : null, asVariation ? (body?.label || null) : null, now, now, id);
+      ).run(newId, title, asVariation ? 1 : 0, asVariation ? (source.parent_recipe_id || id) : null, asVariation ? (body?.label || null) : null, now, now, id);
 
       const ingredients = db.prepare('SELECT * FROM recipe_ingredients WHERE recipe_id = ? ORDER BY order_index').all(id) as
         Record<string, unknown>[];

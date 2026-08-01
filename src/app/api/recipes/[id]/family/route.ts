@@ -16,7 +16,9 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     if (!base) return NextResponse.json({ error: 'Recipe not found' }, { status: 404 });
 
     const ingredientsOf = db.prepare(
-      `SELECT name, quantity, unit, notes, section FROM recipe_ingredients
+      `SELECT name, quantity, unit, notes, section, ingredient_id,
+              custom_calories, custom_protein, custom_carbs, custom_fat
+       FROM recipe_ingredients
        WHERE recipe_id = ? AND name <> '---OR---' ORDER BY order_index`
     );
     const baseIngredients = ingredientsOf.all(base.id) as IngredientLine[];
@@ -30,6 +32,8 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     };
 
     const members = variations.map((v) => {
+      // a variation with no photo of its own shows the base's
+      if (!v.image_url) v.image_url = base.image_url;
       const ingredients = ingredientsOf.all(v.id) as IngredientLine[];
       const d = diffIngredients(baseIngredients, ingredients);
       return {

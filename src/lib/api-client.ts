@@ -70,7 +70,7 @@ export const api = {
         baseIngredients: { name: string; quantity: number; unit: string; section: string | null }[];
         variations: {
           id: string; title: string; image_url: string | null; variation_of_label: string | null;
-          ingredients: { name: string; quantity: number; unit: string; section: string | null }[];
+          ingredients: { name: string; quantity: number; unit: string; section: string | null; ingredient_id: string | null; custom_calories: number | null; custom_protein: number | null; custom_carbs: number | null; custom_fat: number | null }[];
           instructions: InstructionStep[];
           diff: {
             added: { name: string; quantity: number; unit: string }[];

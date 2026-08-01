@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb, hydrateRecipe, toFtsQuery } from '@/lib/db';
 import { Recipe } from '@/lib/types';
+import { resolvePhoto } from '@/lib/variations';
 
 export async function GET(request: NextRequest) {
   try {
@@ -51,7 +52,7 @@ export async function GET(request: NextRequest) {
     query += ' ORDER BY created_at DESC';
 
     const stmt = db.prepare(query);
-    const recipes = (stmt.all(...params) as Recipe[]).map(hydrateRecipe);
+    const recipes = (stmt.all(...params) as Recipe[]).map(hydrateRecipe).map((r) => resolvePhoto(db, r as never) as Recipe);
 
     // Attach each base's variations in one extra query, so a branched tile can
     // collage their photos without the grid firing a request per card.
