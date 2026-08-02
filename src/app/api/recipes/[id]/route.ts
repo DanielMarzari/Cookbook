@@ -19,7 +19,13 @@ export async function GET(
       return NextResponse.json({ error: 'Recipe not found' }, { status: 404 });
     }
 
-    return NextResponse.json(resolvePhoto(db, hydrateRecipe(recipe) as never));
+    // The source row is authoritative; source_name survives only as the raw text
+    // the recipe was imported with, kept for reference on the sources page.
+    const withSource = hydrateRecipe(recipe) as unknown as Record<string, unknown>;
+    if (withSource.source_id) {
+      withSource.source = db.prepare('SELECT id, name, kind, featured FROM sources WHERE id = ?').get(withSource.source_id) || null;
+    }
+    return NextResponse.json(resolvePhoto(db, withSource as never));
   } catch (error) {
     console.error('Error fetching recipe:', error);
     return NextResponse.json({ error: 'Failed to fetch recipe' }, { status: 500 });

@@ -14,7 +14,8 @@ export async function GET(request: NextRequest) {
     // folds variations into their base, and it does that itself.
     let query = `SELECT r.*,
         (SELECT COUNT(*) FROM recipes v WHERE v.parent_recipe_id = r.id) AS variation_count,
-        (SELECT s.featured FROM sources s WHERE s.id = r.source_id) AS source_featured
+        (SELECT s.featured FROM sources s WHERE s.id = r.source_id) AS source_featured,
+        (SELECT s.name FROM sources s WHERE s.id = r.source_id) AS source_label
       FROM recipes r WHERE 1=1`;
     const params: any[] = [];
 

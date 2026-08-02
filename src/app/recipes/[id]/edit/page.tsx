@@ -586,23 +586,6 @@ export default function EditRecipePage() {
               />
 
               <div className="grid grid-cols-2 gap-4">
-                <input
-                  type="text"
-                  placeholder="Source / Origin (optional)"
-                  value={sourceName}
-                  onChange={(e) => setSourceName(e.target.value)}
-                  className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-                <input
-                  type="text"
-                  placeholder="Author (optional)"
-                  value={sourceAuthor}
-                  onChange={(e) => setSourceAuthor(e.target.value)}
-                  className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
                   <select
                     value={cuisineType === 'Other' || (!cuisines.includes(cuisineType) && cuisineType !== '' && cuisineType !== 'Italian') ? 'Other' : cuisineType}

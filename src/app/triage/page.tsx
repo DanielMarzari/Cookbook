@@ -21,6 +21,8 @@ export default function SourcesPage() {
   const [sources, setSources] = useState<Source[]>([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState<string | null>(null);
+  const [picked, setPicked] = useState<Set<string>>(new Set());
+  const [bulking, setBulking] = useState(false);
 
   const load = () =>
     Promise.all([api.recipes.list(), api.sources.list()])
@@ -50,6 +52,34 @@ export default function SourcesPage() {
       load();
     }
   };
+
+  // Backfilling one dropdown at a time is the slow way through fifty recipes.
+  // Select a run of them and file the whole lot at once.
+  const assignPicked = async (sourceId: string) => {
+    if (!sourceId || picked.size === 0) return;
+    setBulking(true);
+    const ids = [...picked];
+    try {
+      // sequential on purpose — SQLite writes serialise anyway, and this keeps
+      // a failure halfway through from being ambiguous about what landed
+      for (const rid of ids) await api.recipes.update(rid, { source_id: sourceId });
+      toast.success(`Filed ${ids.length} recipe${ids.length === 1 ? '' : 's'}`);
+      setPicked(new Set());
+      await load();
+    } catch {
+      toast.error('Some did not save — reloading to show what did');
+      await load();
+    } finally {
+      setBulking(false);
+    }
+  };
+
+  const togglePick = (id: string) =>
+    setPicked((prev) => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
 
   const toggleFeatured = async (s: Source) => {
     setBusy(s.id);
@@ -146,14 +176,41 @@ export default function SourcesPage() {
       </div>
 
       {/* Assignment */}
-      <div className="flex items-baseline justify-between border-b border-text pb-2.5">
-        <h2 className="text-[12.5px] text-text-secondary">Every recipe</h2>
+      <div className="flex flex-wrap items-center gap-3 border-b border-text pb-2.5">
+        <h2 className="text-[12.5px] text-text-secondary flex-1">Every recipe</h2>
+        <button
+          onClick={() => setPicked(picked.size === recipes.length ? new Set() : new Set(recipes.map((r) => r.id)))}
+          className="tlink text-[12.5px] text-text-secondary hover:text-text"
+        >
+          {picked.size === recipes.length ? 'clear' : 'select all'}
+        </button>
+        {picked.size > 0 && (
+          <>
+            <span className="text-[12.5px] text-text tabular-nums">{picked.size} selected &rarr;</span>
+            <select
+              defaultValue=""
+              disabled={bulking}
+              onChange={(e) => { assignPicked(e.target.value); e.target.value = ''; }}
+              className="px-3 py-1.5 border border-text text-[12.5px] focus:outline-none disabled:opacity-50"
+            >
+              <option value="">file all under&hellip;</option>
+              {sources.map((s) => (<option key={s.id} value={s.id}>{s.name}</option>))}
+            </select>
+          </>
+        )}
       </div>
       {loading ? (
         <p className="text-[13px] text-text-secondary py-8">Loading&hellip;</p>
       ) : (
         recipes.map((r) => (
-          <div key={r.id} className="grid grid-cols-[44px_minmax(0,1fr)_auto] gap-4 items-center py-3 border-b border-border">
+          <div key={r.id} className={`grid grid-cols-[22px_44px_minmax(0,1fr)_auto] gap-4 items-center py-3 border-b border-border ${picked.has(r.id) ? 'bg-[#fafafa]' : ''}`}>
+            <input
+              type="checkbox"
+              checked={picked.has(r.id)}
+              onChange={() => togglePick(r.id)}
+              aria-label={`Select ${r.title}`}
+              className="w-4 h-4 accent-black cursor-pointer"
+            />
             <span className="relative block w-11 h-14 bg-[#F4F4F4] overflow-hidden">
               {r.image_url && <Image src={r.image_url} alt="" fill sizes="44px" className="object-cover" />}
             </span>
@@ -162,7 +219,8 @@ export default function SourcesPage() {
                 {r.title}
               </Link>
               <span className="block text-[11.5px] text-text-secondary truncate mt-0.5">
-                {r.source_name || 'no source recorded'}{r.source_author ? ` · ${r.source_author}` : ''}
+                {r.source_label || 'unassigned'}
+                {r.source_name && r.source_name !== r.source_label ? ` · imported as "${r.source_name}"` : ''}
               </span>
             </span>
             <select

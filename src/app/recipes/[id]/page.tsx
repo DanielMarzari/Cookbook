@@ -360,7 +360,7 @@ export default function RecipeDetailPage() {
     recipe.yield_quantity ? `makes ${formatQuantity(recipe.yield_quantity, recipe.yield_unit || '')}` : null,
     recipe.difficulty,
     recipe.status && recipe.status !== 'new' ? recipe.status : null,
-    recipe.source_name ? `via ${recipe.source_name}` : null,
+    recipe.source?.name ? `via ${recipe.source.name}` : recipe.source_name ? `via ${recipe.source_name}` : null,
   ].filter(Boolean);
 
   return (

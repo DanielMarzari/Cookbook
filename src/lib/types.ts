@@ -104,6 +104,8 @@ export interface Recipe {
   meal_type?: string | null; // breakfast / dinner / hors d'oeuvre …
   source_id?: string | null; // which source this came from (controlled vocabulary)
   source_featured?: number | null; // joined from sources: does its source lead the shelf
+  source_label?: string | null; // joined from sources: its display name
+  source?: Source | null; // the full source row, on single-recipe reads
   status?: 'new' | 'testing' | 'approved' | 'signature' | 'archived';
   image_rotation?: number;
   image_position?: string; // CSS object-position for the main photo, e.g. "50% 30%"

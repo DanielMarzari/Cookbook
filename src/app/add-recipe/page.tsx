@@ -47,6 +47,9 @@ export default function AddRecipePage() {
   const router = useRouter();
   const { cuisines } = useCuisines();
   const [customCuisine, setCustomCuisine] = useState('');
+  const [sourceId, setSourceId] = useState('');
+  const [sourceList, setSourceList] = useState<{ id: string; name: string }[]>([]);
+  useEffect(() => { api.sources.list().then((r) => setSourceList(r.sources)).catch(() => {}); }, []);
   const [activeTab, setActiveTab] = useState<'manual' | 'url' | 'paste' | 'image' | 'pdf'>(
     'manual'
   );
@@ -550,8 +553,7 @@ export default function AddRecipePage() {
           section: inst.section?.trim() || undefined,
         })),
         source_url: formData.source_url,
-        source_name: formData.source_name,
-        source_author: formData.source_author,
+        source_id: sourceId || undefined,
         source_type: importedData ? 'url' : 'manual',
         is_favorite: false,
       });
@@ -685,23 +687,24 @@ export default function AddRecipePage() {
                   className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                 />
 
-                <div className="grid grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    name="source_name"
-                    placeholder="Source / Origin (optional)"
-                    value={formData.source_name}
-                    onChange={handleInputChange}
-                    className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
-                  <input
-                    type="text"
-                    name="source_author"
-                    placeholder="Author (optional)"
-                    value={formData.source_author}
-                    onChange={handleInputChange}
-                    className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                  />
+                <div>
+                  <label className="block text-xs text-text-secondary mb-1">Source</label>
+                  <select
+                    value={sourceId}
+                    onChange={async (e) => {
+                      if (e.target.value !== '__new__') return setSourceId(e.target.value);
+                      const name = prompt('New source — a person, publication, platform, or "Family recipes"');
+                      if (!name?.trim()) return;
+                      const { source } = await api.sources.create(name.trim());
+                      setSourceList((prev) => (prev.some((x) => x.id === source.id) ? prev : [...prev, source]));
+                      setSourceId(source.id);
+                    }}
+                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">&mdash; where did this come from?</option>
+                    {sourceList.map((x) => (<option key={x.id} value={x.id}>{x.name}</option>))}
+                    <option value="__new__">+ new source&hellip;</option>
+                  </select>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
