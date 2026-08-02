@@ -11,6 +11,7 @@ import { formatQuantity } from '@/lib/units';
 import { titleCaseIngredient } from '@/lib/utils';
 import type { DraftPayload } from '@/lib/drafts';
 import { usePrompt } from '@/components/Prompt';
+import BranchDialog, { type BranchCandidate } from '@/components/BranchDialog';
 
 type Family = Awaited<ReturnType<typeof api.recipes.family>>;
 
@@ -36,25 +37,12 @@ export default function RecipeVersionsPage() {
   const [cur, setCur] = useState(0);
   const [draft, setDraft] = useState<DraftPayload | null>(null);
   const [busy, setBusy] = useState(false);
-  // Recipes that could join this family — anything standing on its own.
-  const [candidates, setCandidates] = useState<{ id: string; title: string; variation_count: number }[]>([]);
-  useEffect(() => {
-    loadCandidates();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
-
-  const loadCandidates = () =>
-    api.recipes.list()
-      .then((rs) => setCandidates(
-        rs.filter((r) => !r.parent_recipe_id && r.id !== id)
-          .map((r) => ({ id: r.id, title: r.title, variation_count: r.variation_count || 0 }))
-      ))
-      .catch(() => {});
+  const [branching, setBranching] = useState(false);
 
   // Join a recipe that already exists, rather than forking a copy of this one.
-  const adopt = async (childId: string) => {
-    const child = candidates.find((c) => c.id === childId);
-    if (!child) return;
+  // The dialog fetches and searches the candidates itself.
+  const adopt = async (child: BranchCandidate) => {
+    const childId = child.id;
     const extra = child.variation_count;
     const question = extra > 0
       ? `"${child.title}" has ${extra} variation${extra === 1 ? '' : 's'} of its own. Joining flattens the two families — ${child.title} and ${extra === 1 ? 'its variation' : 'all ' + extra + ' of them'} become variations of ${family?.base.title}, siblings rather than a branch of a branch. Nothing is copied or lost.`
@@ -69,7 +57,6 @@ export default function RecipeVersionsPage() {
           : `"${child.title}" joined the family`
       );
       load();
-      loadCandidates();
     } catch (err) {
       const msg = err instanceof Error ? err.message.replace(/^API error:\s*/, '') : '';
       try { toast.error(JSON.parse(msg).error || 'Could not link those recipes'); }
@@ -145,7 +132,6 @@ export default function RecipeVersionsPage() {
       toast.success(`"${title}" now stands on its own`);
       setCur(0);
       load();
-      loadCandidates();
     } catch {
       toast.error('Could not detach that version');
     } finally {
@@ -161,7 +147,6 @@ export default function RecipeVersionsPage() {
       toast.success(`Deleted "${title}"`);
       setCur(0);
       load();
-      loadCandidates();
     } catch {
       toast.error('Could not delete that version');
     } finally {
@@ -184,12 +169,30 @@ export default function RecipeVersionsPage() {
         </Link>
       </div>
 
+      {branching && (
+        <BranchDialog
+          recipeId={family.base.id}
+          recipeTitle={family.base.title}
+          onClose={() => setBranching(false)}
+          onCreate={async (name) => {
+            setBranching(false);
+            setBusy(true);
+            try {
+              const v = await api.recipes.branch(family.base.id, name, name.split('—').pop()?.trim().toLowerCase());
+              toast.success(`Branched "${v.title}"`);
+              router.push(`/recipes/${v.id}/edit`);
+            } catch { toast.error('Could not create that branch'); setBusy(false); }
+          }}
+          onAdopt={(c) => { setBranching(false); adopt(c); }}
+        />
+      )}
+
       <div className="grid grid-cols-1 md:grid-cols-[236px_minmax(0,1fr)]">
         {/* ── rail: every version, base first ── */}
         <aside className="md:border-r border-border md:pr-5 pb-6 md:pb-10">
           <div className="md:sticky md:top-4">
             <div className="flex items-baseline justify-between border-b border-text pb-2.5">
-              <h2 className="text-[12.5px] text-text-secondary">Versions</h2>
+              <h2 className="text-[12.5px] text-text-secondary">Branches</h2>
               <span className="text-[12.5px] text-text-secondary tabular-nums">{pad(versions.length)}</span>
             </div>
             {versions.map((v, i) => (
@@ -214,33 +217,25 @@ export default function RecipeVersionsPage() {
                 </span>
               </button>
             ))}
-            {candidates.length > 0 && (
-              <div className="pt-4">
-                <select
-                  value=""
-                  disabled={busy}
-                  onChange={(e) => { if (e.target.value) adopt(e.target.value); e.target.value = ''; }}
-                  className="w-full px-2 py-1.5 border border-border text-[12.5px] text-text-secondary focus:outline-none focus:border-text disabled:opacity-50"
-                >
-                  <option value="">+ add an existing recipe&hellip;</option>
-                  {candidates.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.title}{c.variation_count > 0 ? ` (+${c.variation_count})` : ''}
-                    </option>
-                  ))}
-                </select>
-                <p className="text-[11.5px] text-text-secondary mt-2 leading-[1.45]">
-                  Joins a recipe you already have to this family. Nothing is copied &mdash; one with variations of its own brings them along as siblings.
-                </p>
-              </div>
-            )}
+            <div className="pt-4">
+              <button
+                onClick={() => setBranching(true)}
+                disabled={busy}
+                className="w-full px-3 py-2 border border-border text-[12.5px] text-text-secondary hover:text-text hover:border-text transition-colors disabled:opacity-50"
+              >
+                + Add a branch
+              </button>
+              <p className="text-[11.5px] text-text-secondary mt-2 leading-[1.45]">
+                Start a new variation, or search for a recipe you already have.
+              </p>
+            </div>
           </div>
         </aside>
 
         {/* ── detail: the selected version, plus anything staged ── */}
         <section className="md:pl-9 pt-2">
           <p className="text-[11px] uppercase tracking-[0.13em] text-text-secondary">
-            version {pad(cur + 1)} of {pad(versions.length)}{active.isBase ? ' · base' : ''}
+            branch {pad(cur + 1)} of {pad(versions.length)}{active.isBase ? ' · base' : ''}
           </p>
           <h1 className="text-[26px] tracking-[-0.01em] mt-2 mb-1">{active.title}</h1>
           <p className="text-[13px] text-text-secondary mb-4">{active.summary}</p>

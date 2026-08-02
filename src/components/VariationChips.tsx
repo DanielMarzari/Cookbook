@@ -106,7 +106,7 @@ export default function VariationChips({
           <>
             {family.count} variation{family.count > 1 ? 's' : ''} branch from here ·{' '}
             <Link href={`/recipes/${family.base.id}/versions`} className="tlink">
-              compare all versions
+              manage branches
             </Link>
           </>
         )}

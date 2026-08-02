@@ -16,7 +16,7 @@ import CookLogSection from '@/components/CookLogSection';
 import PhotoGallery from '@/components/PhotoGallery';
 import RecipeFlavorCard from '@/components/RecipeFlavorCard';
 import VariationChips, { type ActiveVersion } from '@/components/VariationChips';
-import { usePrompt } from '@/components/Prompt';
+import BranchDialog, { type BranchCandidate } from '@/components/BranchDialog';
 import { RecipePhoto } from '@/lib/types';
 
 interface NutritionCalculation {
@@ -92,7 +92,7 @@ export default function RecipeDetailPage() {
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
-  const ask = usePrompt();
+  const [branching, setBranching] = useState(false);
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -269,16 +269,11 @@ export default function RecipeDetailPage() {
     }
   };
 
-  // Branch: an immediate variation of this recipe, ready to diverge.
-  const handleBranch = async () => {
-    if (!recipe || duplicating) return;
-    const name = await ask({
-      title: 'Name this variation',
-      hint: 'It branches from this recipe and keeps everything you do not change.',
-      defaultValue: `${recipe.title} — `,
-      confirmLabel: 'Branch',
-    });
-    if (!name) return;
+  // Branch: either fork this recipe into a new variation, or join one that
+  // already exists. The dialog owns that choice.
+  const createBranch = async (name: string) => {
+    if (!recipe) return;
+    setBranching(false);
     setDuplicating(true);
     try {
       const v = await api.recipes.branch(recipe.id, name, name.split('—').pop()?.trim().toLowerCase());
@@ -287,6 +282,27 @@ export default function RecipeDetailPage() {
     } catch (err) {
       console.error('Error branching recipe:', err);
       toast.error('Failed to branch recipe');
+      setDuplicating(false);
+    }
+  };
+
+  const adoptBranch = async (c: BranchCandidate) => {
+    if (!recipe) return;
+    const extra = c.variation_count;
+    const question = extra > 0
+      ? `"${c.title}" has ${extra} variation${extra === 1 ? '' : 's'} of its own. Joining flattens the two families — all of them become variations of ${recipe.title}, siblings rather than a branch of a branch. Nothing is copied or lost.`
+      : `Make "${c.title}" a variation of ${recipe.title}? It keeps its own ingredients, steps and photos — it just joins the family.`;
+    if (!confirm(question)) return;
+    setBranching(false);
+    setDuplicating(true);
+    try {
+      const res = await api.recipes.adopt(recipe.id, c.id);
+      toast.success(res.broughtCount > 0
+        ? `"${c.title}" joined, bringing ${res.broughtCount} variation${res.broughtCount === 1 ? '' : 's'}`
+        : `"${c.title}" joined the family`);
+      router.push(`/recipes/${recipe.id}/versions`);
+    } catch {
+      toast.error('Could not link those recipes');
       setDuplicating(false);
     }
   };
@@ -389,7 +405,7 @@ export default function RecipeDetailPage() {
           <button onClick={handleDuplicateRecipe} disabled={duplicating} className="tlink text-text-secondary hover:text-text disabled:opacity-50">
             {duplicating ? 'Duplicating…' : 'Duplicate'}
           </button>
-          <button onClick={handleBranch} disabled={duplicating} className="tlink text-text-secondary hover:text-text disabled:opacity-50">Branch</button>
+          <button onClick={() => setBranching(true)} disabled={duplicating} className="tlink text-text-secondary hover:text-text disabled:opacity-50">Branch</button>
           <button onClick={handleDraft} disabled={duplicating} className="tlink text-text-secondary hover:text-text disabled:opacity-50">Draft</button>
           <button onClick={handleDeleteRecipe} className="tlink text-text-secondary hover:text-text">Delete</button>
         </div>
@@ -615,6 +631,16 @@ export default function RecipeDetailPage() {
           </div>
         )}
       </div>
+
+      {branching && recipe && (
+        <BranchDialog
+          recipeId={recipe.id}
+          recipeTitle={recipe.title}
+          onClose={() => setBranching(false)}
+          onCreate={createBranch}
+          onAdopt={adoptBranch}
+        />
+      )}
 
       {/* Flavour profile & cohesion (from the Flavor Lab) */}
       <RecipeFlavorCard recipeId={version?.id ?? recipe.id} />

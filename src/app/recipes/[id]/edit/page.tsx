@@ -548,7 +548,7 @@ export default function EditRecipePage() {
               or give this one its own below to override.
             </p>
             <Link href={`/recipes/${id}/versions`} className="tlink text-[12.5px] text-text-secondary hover:text-text mt-3 inline-block">
-              Compare versions &rarr;
+              Manage branches &rarr;
             </Link>
           </aside>
         )}

@@ -7,6 +7,7 @@ import { Search, MapPin } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { FAMILY_COLORS } from '@/lib/flavor';
 import { MONTHS, REGIONS, regionForState, regionName, seasonalFor, type RegionId } from '@/data/seasonal-regional';
+import ForageSection from '@/components/ForageSection';
 import { FARM_COLORS, type Farm } from '@/components/FarmsMap';
 
 const FarmsMap = dynamic(() => import('@/components/FarmsMap'), {
@@ -131,6 +132,9 @@ export default function SeasonalPage() {
             : <div key={it.name} className="border border-border">{inner}</div>;
         })}
       </div>
+
+      {/* what's growing wild — sits between the cultivated and the bought */}
+      <ForageSection region={region} month={month} regionLabel={regionName(region)} monthLabel={MONTHS[month]} />
 
       {/* local farms */}
       <div className="border-t border-border pt-8">
