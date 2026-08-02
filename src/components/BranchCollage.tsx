@@ -15,56 +15,95 @@ interface Props {
   variations: VariationThumb[];
 }
 
-const MAX_THUMBS = 4;
+const MAX_PANES = 6;
+
+/**
+ * How a family divides its frame, by how many versions there are.
+ *
+ * A fixed lead-plus-strip looked wrong for small families — two versions got one
+ * big panel and three empty cells. So the geometry follows the count: two split
+ * down the middle, three are vertical bands, four is a window pane. Only past
+ * that does the base take a dominant panel with the rest as a strip, because by
+ * then equal panes would be too small to read.
+ */
+function layoutFor(count: number): { style: React.CSSProperties; areas: React.CSSProperties[] } {
+  const at = (gridColumn: string, gridRow: string): React.CSSProperties => ({ gridColumn, gridRow });
+  switch (count) {
+    case 1:
+      return { style: { gridTemplateColumns: '1fr', gridTemplateRows: '1fr' }, areas: [at('1', '1')] };
+    case 2: // halves
+      return {
+        style: { gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr' },
+        areas: [at('1', '1'), at('2', '1')],
+      };
+    case 3: // three vertical bands
+      return {
+        style: { gridTemplateColumns: '1fr 1fr 1fr', gridTemplateRows: '1fr' },
+        areas: [at('1', '1'), at('2', '1'), at('3', '1')],
+      };
+    case 4: // window pane
+      return {
+        style: { gridTemplateColumns: '1fr 1fr', gridTemplateRows: '1fr 1fr' },
+        areas: [at('1', '1'), at('2', '1'), at('1', '2'), at('2', '2')],
+      };
+    case 5: // base leads, four stacked beside it
+      return {
+        style: { gridTemplateColumns: '2fr 1fr', gridTemplateRows: 'repeat(4, 1fr)' },
+        areas: [at('1', '1 / 5'), at('2', '1'), at('2', '2'), at('2', '3'), at('2', '4')],
+      };
+    default: // 6+: base leads a 2x2 of the rest
+      return {
+        style: { gridTemplateColumns: '2fr 1fr 1fr', gridTemplateRows: '1fr 1fr' },
+        areas: [at('1', '1 / 3'), at('2', '1'), at('3', '1'), at('2', '2'), at('3', '2')],
+      };
+  }
+}
 
 /**
  * A branched recipe's photo, inside the ordinary 4:5 card frame. A base with
  * variations doesn't get a bigger or differently shaped tile — the frame is
- * identical to every other card. What changes is inside it: the photo splits
- * into a dominant lead panel and a narrow strip of variation thumbs, divided by
- * 2px white gutters that read as a physical seam rather than a drawn border.
+ * identical to every other card. What changes is inside it: the photo divides
+ * into one pane per version, separated by 2px white gutters that read as a
+ * physical seam rather than a drawn border.
  *
  * Deliberately colourless. The whole indicator vocabulary is hairlines and
  * greyscale, matching the rest of the app — the geometry does the talking.
  */
 export default function BranchCollage({ base, variations }: Props) {
-  const thumbs = variations.slice(0, MAX_THUMBS);
-  const overflow = variations.length - thumbs.length;
-
-  const photo = (
-    src: string | null | undefined,
-    alt: string,
-    framing?: Parameters<typeof framingStyle>[0],
-    sizes = '33vw'
-  ) =>
-    src ? (
-      <Image src={src} alt={alt} fill sizes={sizes} className="object-cover" style={framing ? framingStyle(framing) : undefined} />
-    ) : (
-      <span className="absolute inset-0 bg-[#F4F4F4]" />
-    );
+  // The base is the first pane; its variations fill the rest.
+  const panes = [
+    { id: '__base__', title: base.title, image_url: base.image_url ?? null, framing: base as Parameters<typeof framingStyle>[0] | undefined },
+    ...variations.map((v) => ({ id: v.id, title: v.title, image_url: v.image_url, framing: undefined })),
+  ];
+  const shown = panes.slice(0, MAX_PANES);
+  const overflow = panes.length - shown.length;
+  const { style, areas } = layoutFor(shown.length);
 
   return (
-    <div className="absolute inset-0 grid gap-[2px] bg-white" style={{ gridTemplateColumns: '75.65% 1fr', gridTemplateRows: 'repeat(4, 1fr)' }}>
-      {/* the base, spanning the full height of the frame */}
-      <div className="relative overflow-hidden bg-[#F4F4F4]" style={{ gridColumn: 1, gridRow: '1 / 5' }}>
-        {photo(base.image_url, base.title, base, '(max-width: 560px) 76vw, 25vw')}
-      </div>
-
-      {thumbs.map((v, i) => (
-        <div key={v.id} className="relative overflow-hidden bg-[#F4F4F4]" style={{ gridColumn: 2, gridRow: i + 1 }}>
-          {photo(v.image_url || base.image_url, v.title, undefined, '10vw')}
-          {/* the last visible thumb absorbs the count when there are more */}
-          {overflow > 0 && i === thumbs.length - 1 && (
-            <span className="absolute inset-0 grid place-items-center bg-white/75 text-[10px] tracking-[0.1em] text-text">
-              +{overflow}
-            </span>
-          )}
-        </div>
-      ))}
-      {/* keep the strip's rhythm when a base has fewer than four variations */}
-      {Array.from({ length: Math.max(0, MAX_THUMBS - thumbs.length) }).map((_, i) => (
-        <div key={`pad-${i}`} className="bg-[#F4F4F4]" style={{ gridColumn: 2, gridRow: thumbs.length + i + 1 }} />
-      ))}
+    <div className="absolute inset-0 grid gap-[2px] bg-white" style={style}>
+      {shown.map((p, i) => {
+        // a variation without its own photo shows the family's
+        const src = p.image_url || base.image_url;
+        return (
+          <div key={p.id} className="relative overflow-hidden bg-[#F4F4F4]" style={areas[i]}>
+            {src && (
+              <Image
+                src={src}
+                alt={p.title}
+                fill
+                sizes={i === 0 ? '(max-width: 560px) 100vw, 25vw' : '12vw'}
+                className="object-cover"
+                style={p.framing ? framingStyle(p.framing) : undefined}
+              />
+            )}
+            {overflow > 0 && i === shown.length - 1 && (
+              <span className="absolute inset-0 grid place-items-center bg-white/75 text-[10px] tracking-[0.1em] text-text">
+                +{overflow}
+              </span>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }

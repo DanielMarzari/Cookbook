@@ -93,6 +93,10 @@ export const api = {
         method: 'POST',
         body: { mode, title, label },
       }),
+    adopt: (id: string, childId: string, label?: string) =>
+      fetchJson<{ ok: boolean; baseId: string; child: string }>(`/api/recipes/${id}/adopt`, { method: 'POST', body: { childId, label } }),
+    detach: (id: string, childId: string) =>
+      fetchJson<{ ok: boolean; detached: boolean }>(`/api/recipes/${id}/adopt`, { method: 'POST', body: { childId, detach: true } }),
     promoteSection: (id: string, section: string, title?: string) =>
       fetchJson<{ recipe: Recipe; movedIngredients: number; movedSteps: number }>(
         `/api/recipes/${id}/promote-section`,

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { api } from '@/lib/api-client';
 import { Recipe, Source } from '@/lib/types';
 import { toast } from '@/lib/toast';
+import { usePrompt } from '@/components/Prompt';
 
 /**
  * Who each recipe came from.
@@ -23,6 +24,8 @@ export default function SourcesPage() {
   const [busy, setBusy] = useState<string | null>(null);
   const [picked, setPicked] = useState<Set<string>>(new Set());
   const [bulking, setBulking] = useState(false);
+  const [mergingFrom, setMergingFrom] = useState<string | null>(null);
+  const ask = usePrompt();
 
   const load = () =>
     Promise.all([api.recipes.list(), api.sources.list()])
@@ -37,9 +40,9 @@ export default function SourcesPage() {
 
   const assign = async (recipeId: string, sourceId: string) => {
     if (sourceId === '__new__') {
-      const name = prompt('New source — a person, publication, platform, or "Family recipes"');
-      if (!name?.trim()) return;
-      const { source } = await api.sources.create(name.trim());
+      const name = await ask({ title: 'New source', hint: 'A person, a publication, a platform, or something like "Family recipes".', confirmLabel: 'Create' });
+      if (!name) return;
+      const { source } = await api.sources.create(name);
       await api.recipes.update(recipeId, { source_id: source.id });
       toast.success(`Filed under ${source.name}`);
       return load();
@@ -93,18 +96,16 @@ export default function SourcesPage() {
     }
   };
 
-  const merge = async (s: Source) => {
-    const others = sources.filter((o) => o.id !== s.id);
-    const target = prompt(
-      `Merge "${s.name}" into which source?\n\n${others.map((o, i) => `${i + 1}. ${o.name}`).join('\n')}\n\nEnter a number:`
-    );
-    const pick = others[Number(target) - 1];
-    if (!pick) return;
-    if (!confirm(`Move all ${s.recipe_count} recipes from "${s.name}" to "${pick.name}"? "${s.name}" is then removed.`)) return;
-    setBusy(s.id);
+  const merge = async (fromId: string, intoId: string) => {
+    const from = sources.find((x) => x.id === fromId);
+    const into = sources.find((x) => x.id === intoId);
+    if (!from || !into) return;
+    if (!confirm(`Move ${from.recipe_count} recipe${from.recipe_count === 1 ? '' : 's'} from "${from.name}" to "${into.name}"? "${from.name}" is then removed.`)) return;
+    setBusy(fromId);
     try {
-      await api.sources.update({ id: s.id, mergeInto: pick.id });
-      toast.success(`Merged into ${pick.name}`);
+      await api.sources.update({ id: fromId, mergeInto: intoId });
+      toast.success(`Merged into ${into.name}`);
+      setMergingFrom(null);
       await load();
     } catch {
       toast.error('Could not merge');
@@ -144,11 +145,26 @@ export default function SourcesPage() {
                 {s.kind || 'unclassified'} &middot; {s.recipe_count} recipe{s.recipe_count === 1 ? '' : 's'}
               </span>
             </span>
-            {(s.recipe_count ?? 0) > 0 && sources.length > 1 && (
-              <button onClick={() => merge(s)} disabled={busy === s.id}
-                className="tlink text-[12.5px] text-text-secondary hover:text-text disabled:opacity-50">
-                merge
-              </button>
+            {sources.length > 1 && (
+              mergingFrom === s.id ? (
+                <select
+                  autoFocus
+                  defaultValue=""
+                  disabled={busy === s.id}
+                  onChange={(e) => (e.target.value ? merge(s.id, e.target.value) : setMergingFrom(null))}
+                  className="px-2 py-1.5 border border-text text-[12.5px] focus:outline-none disabled:opacity-50"
+                >
+                  <option value="">merge into&hellip;</option>
+                  {sources.filter((o) => o.id !== s.id).map((o) => (
+                    <option key={o.id} value={o.id}>{o.name}</option>
+                  ))}
+                </select>
+              ) : (
+                <button onClick={() => setMergingFrom(s.id)} disabled={busy === s.id}
+                  className="tlink text-[12.5px] text-text-secondary hover:text-text disabled:opacity-50">
+                  merge
+                </button>
+              )
             )}
             <button
               onClick={() => toggleFeatured(s)}
@@ -164,9 +180,10 @@ export default function SourcesPage() {
         ))}
         <button
           onClick={async () => {
-            const name = prompt('New source — a person, publication, platform, or "Family recipes"');
-            if (!name?.trim()) return;
-            await api.sources.create(name.trim());
+            const name = await ask({ title: 'New source', hint: 'A person, a publication, a platform, or something like "Family recipes".', confirmLabel: 'Create' });
+            if (!name) return;
+            await api.sources.create(name);
+            toast.success(`Added ${name}`);
             load();
           }}
           className="mt-4 tlink text-[13px] text-text-secondary hover:text-text"

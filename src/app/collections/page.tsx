@@ -90,6 +90,11 @@ export default function CookbooksPage() {
           Your own collections of recipes and the PDF/EPUB cookbooks you&rsquo;ve imported — all on one shelf. Open a blank
           book to start a new one, or import a book you own.
         </p>
+        <p className="text-[13.5px] text-text-secondary mt-4">
+          Every recipe also belongs to a{' '}
+          <Link href="/sources" className="tlink text-text">source</Link>{' '}
+          — who it came from, and which of them lead the home shelf.
+        </p>
       </div>
 
       {loading ? (

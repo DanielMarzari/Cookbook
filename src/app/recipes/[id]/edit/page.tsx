@@ -13,6 +13,7 @@ import { fileToResizedDataUrl } from '@/lib/photo';
 import { toast } from '@/lib/toast';
 import { UNITS, DEFAULT_CUISINES, MEAL_TYPES } from '@/lib/constants';
 import { useCuisines } from '@/lib/useCuisines';
+import { usePrompt } from '@/components/Prompt';
 
 
 interface FormIngredient {
@@ -37,6 +38,7 @@ export default function EditRecipePage() {
   const router = useRouter();
   const id = params.id as string;
   const { cuisines } = useCuisines();
+  const ask = usePrompt();
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -682,9 +684,9 @@ export default function EditRecipePage() {
                     value={sourceId}
                     onChange={async (e) => {
                       if (e.target.value !== '__new__') return setSourceId(e.target.value);
-                      const name = prompt('New source — a person, publication, platform, or "Family recipes"');
-                      if (!name?.trim()) return;
-                      const { source } = await api.sources.create(name.trim());
+                      const name = await ask({ title: 'New source', hint: 'A person, a publication, a platform, or something like "Family recipes".', confirmLabel: 'Create' });
+                      if (!name) return;
+                      const { source } = await api.sources.create(name);
                       setSourceList((prev) => (prev.some((x) => x.id === source.id) ? prev : [...prev, source]));
                       setSourceId(source.id);
                     }}
@@ -696,7 +698,7 @@ export default function EditRecipePage() {
                   </select>
                   <p className="text-[11px] text-text-secondary mt-1.5">
                     Featured sources lead the home shelf &mdash; set that on{' '}
-                    <Link href="/triage" className="tlink">the sources page</Link>.
+                    <Link href="/sources" className="tlink">the sources page</Link>.
                   </p>
                 </div>
               </div>

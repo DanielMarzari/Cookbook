@@ -16,6 +16,7 @@ import CookLogSection from '@/components/CookLogSection';
 import PhotoGallery from '@/components/PhotoGallery';
 import RecipeFlavorCard from '@/components/RecipeFlavorCard';
 import VariationChips, { type ActiveVersion } from '@/components/VariationChips';
+import { usePrompt } from '@/components/Prompt';
 import { RecipePhoto } from '@/lib/types';
 
 interface NutritionCalculation {
@@ -91,6 +92,7 @@ export default function RecipeDetailPage() {
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
+  const ask = usePrompt();
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -270,11 +272,16 @@ export default function RecipeDetailPage() {
   // Branch: an immediate variation of this recipe, ready to diverge.
   const handleBranch = async () => {
     if (!recipe || duplicating) return;
-    const name = prompt('Name this variation', `${recipe.title} — `);
-    if (!name || !name.trim()) return;
+    const name = await ask({
+      title: 'Name this variation',
+      hint: 'It branches from this recipe and keeps everything you do not change.',
+      defaultValue: `${recipe.title} — `,
+      confirmLabel: 'Branch',
+    });
+    if (!name) return;
     setDuplicating(true);
     try {
-      const v = await api.recipes.branch(recipe.id, name.trim(), name.split('—').pop()?.trim().toLowerCase());
+      const v = await api.recipes.branch(recipe.id, name, name.split('—').pop()?.trim().toLowerCase());
       toast.success(`Branched "${v.title}"`);
       router.push(`/recipes/${v.id}/edit`);
     } catch (err) {

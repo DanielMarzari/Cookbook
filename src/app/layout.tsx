@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Toaster from "@/components/Toaster";
+import { PromptProvider } from "@/components/Prompt";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -22,15 +23,17 @@ export default function RootLayout({
   return (
     <html lang="en" className="antialiased">
       <body className="min-h-screen flex flex-col bg-background text-text">
-        {/* Top header (all sizes) + mobile bottom bar */}
-        <Navigation />
+        <PromptProvider>
+          {/* Top header (all sizes) + mobile bottom bar */}
+          <Navigation />
 
-        {/* Main Content */}
-        <main className="flex-1 pb-20 md:pb-0">
-          {children}
-        </main>
+          {/* Main Content */}
+          <main className="flex-1 pb-20 md:pb-0">
+            {children}
+          </main>
 
-        <Toaster />
+          <Toaster />
+        </PromptProvider>
       </body>
     </html>
   );

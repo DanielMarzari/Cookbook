@@ -10,6 +10,7 @@ import { Recipe, RecipeIngredient, Tag } from '@/lib/types';
 import { toFraction, titleCaseIngredient } from '@/lib/utils';
 import { UNITS } from '@/lib/constants';
 import { useCuisines } from '@/lib/useCuisines';
+import { usePrompt } from '@/components/Prompt';
 
 interface FormIngredientItem {
   name: string;
@@ -46,6 +47,7 @@ interface FormRecipe {
 export default function AddRecipePage() {
   const router = useRouter();
   const { cuisines } = useCuisines();
+  const ask = usePrompt();
   const [customCuisine, setCustomCuisine] = useState('');
   const [sourceId, setSourceId] = useState('');
   const [sourceList, setSourceList] = useState<{ id: string; name: string }[]>([]);
@@ -693,9 +695,9 @@ export default function AddRecipePage() {
                     value={sourceId}
                     onChange={async (e) => {
                       if (e.target.value !== '__new__') return setSourceId(e.target.value);
-                      const name = prompt('New source — a person, publication, platform, or "Family recipes"');
-                      if (!name?.trim()) return;
-                      const { source } = await api.sources.create(name.trim());
+                      const name = await ask({ title: 'New source', hint: 'A person, a publication, a platform, or something like "Family recipes".', confirmLabel: 'Create' });
+                      if (!name) return;
+                      const { source } = await api.sources.create(name);
                       setSourceList((prev) => (prev.some((x) => x.id === source.id) ? prev : [...prev, source]));
                       setSourceId(source.id);
                     }}

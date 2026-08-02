@@ -10,6 +10,7 @@ import { toast } from '@/lib/toast';
 import { formatQuantity } from '@/lib/units';
 import { titleCaseIngredient } from '@/lib/utils';
 import type { DraftPayload } from '@/lib/drafts';
+import { usePrompt } from '@/components/Prompt';
 
 type Family = Awaited<ReturnType<typeof api.recipes.family>>;
 
@@ -29,11 +30,39 @@ export default function RecipeVersionsPage() {
   const params = useParams();
   const router = useRouter();
   const id = params.id as string;
+  const ask = usePrompt();
 
   const [family, setFamily] = useState<Family | null>(null);
   const [cur, setCur] = useState(0);
   const [draft, setDraft] = useState<DraftPayload | null>(null);
   const [busy, setBusy] = useState(false);
+  // Recipes that could join this family — anything standing on its own.
+  const [candidates, setCandidates] = useState<{ id: string; title: string }[]>([]);
+  useEffect(() => {
+    api.recipes.list()
+      .then((rs) => setCandidates(rs.filter((r) => !r.parent_recipe_id && r.id !== id).map((r) => ({ id: r.id, title: r.title }))))
+      .catch(() => {});
+  }, [id]);
+
+  // Join a recipe that already exists, rather than forking a copy of this one.
+  const adopt = async (childId: string) => {
+    const child = candidates.find((c) => c.id === childId);
+    if (!child) return;
+    if (!confirm(`Make "${child.title}" a variation of ${family?.base.title}? It keeps its own ingredients, steps and photos — it just joins the family.`)) return;
+    setBusy(true);
+    try {
+      await api.recipes.adopt(id, childId);
+      toast.success(`"${child.title}" joined the family`);
+      load();
+      api.recipes.list().then((rs) => setCandidates(rs.filter((r) => !r.parent_recipe_id && r.id !== id).map((r) => ({ id: r.id, title: r.title })))).catch(() => {});
+    } catch (err) {
+      const msg = err instanceof Error ? err.message.replace(/^API error:\s*/, '') : '';
+      try { toast.error(JSON.parse(msg).error || 'Could not link those recipes'); }
+      catch { toast.error('Could not link those recipes'); }
+    } finally {
+      setBusy(false);
+    }
+  };
 
   const load = useCallback(() => {
     api.recipes.family(id).then(setFamily).catch(() => setFamily(null));
@@ -64,7 +93,12 @@ export default function RecipeVersionsPage() {
     let title: string | undefined;
     let label: string | undefined;
     if (mode === 'branch') {
-      const answer = prompt('Name this variation', `${family.base.title} — variation`);
+      const answer = await ask({
+        title: 'Name this variation',
+        hint: 'Your staged changes become this new branch; the recipe stays as it was.',
+        defaultValue: `${family.base.title} — `,
+        confirmLabel: 'Branch',
+      });
       if (!answer) return;
       title = answer;
       label = answer.split('—').pop()?.trim().toLowerCase();
@@ -130,6 +164,22 @@ export default function RecipeVersionsPage() {
                 </span>
               </button>
             ))}
+            {candidates.length > 0 && (
+              <div className="pt-4">
+                <select
+                  value=""
+                  disabled={busy}
+                  onChange={(e) => { if (e.target.value) adopt(e.target.value); e.target.value = ''; }}
+                  className="w-full px-2 py-1.5 border border-border text-[12.5px] text-text-secondary focus:outline-none focus:border-text disabled:opacity-50"
+                >
+                  <option value="">+ add an existing recipe&hellip;</option>
+                  {candidates.map((c) => (<option key={c.id} value={c.id}>{c.title}</option>))}
+                </select>
+                <p className="text-[11.5px] text-text-secondary mt-2 leading-[1.45]">
+                  Joins a recipe you already have to this family. Nothing is copied.
+                </p>
+              </div>
+            )}
           </div>
         </aside>
 
