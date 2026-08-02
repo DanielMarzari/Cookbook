@@ -52,7 +52,8 @@ export default function EditRecipePage() {
   const [yieldUnit, setYieldUnit] = useState('');
   const [cuisineType, setCuisineType] = useState('');
   const [mealType, setMealType] = useState('');
-  const [isMine, setIsMine] = useState(false);
+  const [sourceId, setSourceId] = useState('');
+  const [sourceList, setSourceList] = useState<{ id: string; name: string; featured: number }[]>([]);
   const [customCuisine, setCustomCuisine] = useState('');
   const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
   const [prepTime, setPrepTime] = useState(0);
@@ -88,7 +89,7 @@ export default function EditRecipePage() {
         setYieldUnit(recipe.yield_unit || '');
         setCuisineType(recipe.cuisine_type || '');
         setMealType(recipe.meal_type || '');
-        setIsMine(!!recipe.is_mine);
+        setSourceId(recipe.source_id || '');
         // If the cuisine is custom (not in defaults), pre-populate the custom input
         if (recipe.cuisine_type && !DEFAULT_CUISINES.includes(recipe.cuisine_type) && recipe.cuisine_type !== 'Other') {
           setCustomCuisine(recipe.cuisine_type);
@@ -215,6 +216,10 @@ export default function EditRecipePage() {
     api.recipes.family(id).then((f) => setFamily(f.isBranched ? f : null)).catch(() => setFamily(null));
   }, [id]);
 
+  useEffect(() => {
+    api.sources.list().then((r) => setSourceList(r.sources)).catch(() => {});
+  }, []);
+
   const [otherRecipes, setOtherRecipes] = useState<{ id: string; title: string }[]>([]);
   useEffect(() => {
     api.recipes.list().then((rs) => setOtherRecipes(rs.filter((r) => r.id !== id).map((r) => ({ id: r.id, title: r.title })))).catch(() => {});
@@ -305,7 +310,7 @@ export default function EditRecipePage() {
       await api.recipes.update(id, {
         title, description, notes, cuisine_type: cuisineType, difficulty,
         yield_quantity: yieldQuantity || undefined, yield_unit: yieldUnit || undefined,
-        meal_type: mealType || undefined, is_mine: isMine,
+        meal_type: mealType || undefined, source_id: sourceId || undefined,
         prep_time_minutes: prepTime, cook_time_minutes: cookTime,
         total_time_minutes: prepTime + cookTime, servings,
         image_url: imageUrl, image_rotation: imageRotation,
@@ -353,14 +358,14 @@ export default function EditRecipePage() {
     } finally {
       setSaving(false);
     }
-  }, [id, target, title, description, notes, yieldQuantity, yieldUnit, mealType, isMine, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients]);
+  }, [id, target, title, description, notes, yieldQuantity, yieldUnit, mealType, sourceId, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients]);
 
   useEffect(() => {
     if (!initialLoadDone.current) return;
     if (autosaveTimer.current) clearTimeout(autosaveTimer.current);
     autosaveTimer.current = setTimeout(doAutosave, 1500);
     return () => { if (autosaveTimer.current) clearTimeout(autosaveTimer.current); };
-  }, [target, title, description, notes, yieldQuantity, yieldUnit, mealType, isMine, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients, doAutosave]);
+  }, [target, title, description, notes, yieldQuantity, yieldUnit, mealType, sourceId, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients, doAutosave]);
 
   const handleRotateImage = async () => {
     const newRotation = (imageRotation + 90) % 360;
@@ -689,20 +694,27 @@ export default function EditRecipePage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-xs text-text-secondary mb-1">Whose recipe</label>
-                  <div className="flex gap-2">
-                    {[[true, 'Mine'], [false, 'From elsewhere']].map(([v, label]) => (
-                      <button
-                        key={String(v)}
-                        onClick={() => setIsMine(v as boolean)}
-                        aria-pressed={isMine === v}
-                        className={`px-3 py-2 border text-sm transition-colors ${
-                          isMine === v ? 'bg-text border-text text-white' : 'border-border text-text-secondary hover:text-text hover:border-text'
-                        }`}
-                      >{label as string}</button>
-                    ))}
-                  </div>
-                  <p className="text-[11px] text-text-secondary mt-1.5">Only yours appear on the home shelf.</p>
+                  <label className="block text-xs text-text-secondary mb-1">Source</label>
+                  <select
+                    value={sourceId}
+                    onChange={async (e) => {
+                      if (e.target.value !== '__new__') return setSourceId(e.target.value);
+                      const name = prompt('New source — a person, publication, platform, or "Family recipes"');
+                      if (!name?.trim()) return;
+                      const { source } = await api.sources.create(name.trim());
+                      setSourceList((prev) => (prev.some((x) => x.id === source.id) ? prev : [...prev, source]));
+                      setSourceId(source.id);
+                    }}
+                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">&mdash;</option>
+                    {sourceList.map((x) => (<option key={x.id} value={x.id}>{x.name}</option>))}
+                    <option value="__new__">+ new source&hellip;</option>
+                  </select>
+                  <p className="text-[11px] text-text-secondary mt-1.5">
+                    Featured sources lead the home shelf &mdash; set that on{' '}
+                    <Link href="/triage" className="tlink">the sources page</Link>.
+                  </p>
                 </div>
               </div>
 

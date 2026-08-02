@@ -39,10 +39,25 @@ CREATE TABLE IF NOT EXISTS recipes (
   parent_recipe_id TEXT,
   variation_of_label TEXT,
   meal_type TEXT,
+  source_id TEXT,
   -- 1 = a recipe of mine, 0 = collected from elsewhere. The home shelf shows
   -- mine; everything else still lives in collections and search.
   is_mine INTEGER
 );
+
+-- Where a recipe came from, as a controlled list rather than free text. Source
+-- names were previously typed per-recipe, which produced "Tasting History" and
+-- "Tasting History (Cookbook)" as separate things. A source is created once and
+-- assigned; the featured flag decides whether its recipes appear on the home
+-- shelf, so your own recipes lead and collected ones stay in the library.
+CREATE TABLE IF NOT EXISTS sources (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  kind TEXT,          -- family | person | publication | platform | restaurant
+  featured INTEGER,   -- 1 = its recipes appear on the home shelf
+  created_at TEXT
+);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_sources_name ON sources(name COLLATE NOCASE);
 
 -- A 24-hour undo buffer. Anything destructive snapshots the affected recipe here
 -- first, so a mistaken delete/promote/commit can be put back. Rows expire on

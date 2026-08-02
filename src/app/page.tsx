@@ -66,11 +66,12 @@ export default function RecipesPage() {
   // variation is a legitimate hit and hiding it would just look like a bug.
   // Two things are folded away while browsing: variations live inside their
   // base's collage tile, and recipes collected from elsewhere live in
-  // collections rather than on the shelf. Searching or filtering shows
+  // collections rather than on the shelf — which source leads is set once per
+  // source, not per recipe. Searching or filtering shows
   // everything again — a hidden hit reads as a bug.
   const gridRecipes = hasActiveFilters
     ? recipes
-    : recipes.filter((r) => !r.parent_recipe_id && r.is_mine);
+    : recipes.filter((r) => !r.parent_recipe_id && r.source_featured);
 
   const countLine = (() => {
     if (loading || error) return ' ';

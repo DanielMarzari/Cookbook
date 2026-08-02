@@ -73,6 +73,55 @@ function backfillIsMine(db: Database.Database): void {
   ).run();
 }
 
+/**
+ * Turn the free-text `source_name` values into real source rows and link each
+ * recipe to one. Runs once; a database that already has sources is left alone.
+ *
+ * Deliberately does NOT merge near-duplicates ("Tasting History" vs "Tasting
+ * History (Cookbook)") — they might be a channel and a book, and guessing wrong
+ * would quietly destroy a real distinction. They arrive as separate sources and
+ * can be merged by hand.
+ *
+ * `featured` is seeded from the is_mine guess so the home shelf keeps working.
+ */
+function migrateSources(db: Database.Database): void {
+  const existing = (db.prepare('SELECT COUNT(*) AS c FROM sources').get() as { c: number }).c;
+  if (existing > 0) return;
+
+  const names = db.prepare(
+    `SELECT TRIM(source_name) AS name,
+            SUM(CASE WHEN is_mine = 1 THEN 1 ELSE 0 END) AS mine
+     FROM recipes WHERE source_name IS NOT NULL AND TRIM(source_name) <> ''
+     GROUP BY TRIM(source_name) COLLATE NOCASE`
+  ).all() as { name: string; mine: number }[];
+
+  const now = new Date().toISOString();
+  const insert = db.prepare('INSERT OR IGNORE INTO sources (id, name, kind, featured, created_at) VALUES (?, ?, ?, ?, ?)');
+  const link = db.prepare('UPDATE recipes SET source_id = ? WHERE TRIM(source_name) = ? COLLATE NOCASE');
+
+  db.transaction(() => {
+    for (const { name, mine } of names) {
+      const id = `src_${name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+      // a source whose recipes were mostly counted as "mine" leads the shelf
+      insert.run(id, name, guessKind(name), mine > 0 ? 1 : 0, now);
+      link.run(id, name);
+    }
+    // Recipes with no source at all become your own work.
+    const ownId = 'src_my-own';
+    insert.run(ownId, 'My own', 'family', 1, now);
+    db.prepare("UPDATE recipes SET source_id = ? WHERE source_id IS NULL").run(ownId);
+  })();
+}
+
+/** A first guess at what kind of thing a source is, from its name. */
+function guessKind(name: string): string {
+  const n = name.toLowerCase();
+  if (/family|my own|grandma|mum|mom|nonna/.test(n)) return 'family';
+  if (/\.(com|org|net)$|instagram|youtube|tiktok|reddit/.test(n)) return 'platform';
+  if (/cookbook|magazine|times|kitchen|learning/.test(n)) return 'publication';
+  return 'person';
+}
+
 export function getDb(): Database.Database {
   if (!db) {
     db = new Database(DB_PATH);
@@ -93,8 +142,10 @@ export function getDb(): Database.Database {
     ensureColumn(db, 'recipes', 'variation_of_label', 'TEXT');
     ensureColumn(db, 'recipes', 'meal_type', 'TEXT');
     ensureColumn(db, 'recipes', 'is_mine', 'INTEGER');
+    ensureColumn(db, 'recipes', 'source_id', 'TEXT');
     migrateSectionSentinels(db);
     backfillIsMine(db);
+    migrateSources(db);
     // Let yesterday's undo buffer go, so the table can't grow unbounded.
     purgeExpiredArchives(db);
     ensureColumn(db, 'books', 'cover', 'TEXT');

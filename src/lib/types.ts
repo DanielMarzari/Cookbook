@@ -102,7 +102,8 @@ export interface Recipe {
   variation_of_label?: string | null; // the short label for a branch, e.g. "honey"
   variation_count?: number; // bases only: how many variations hang off this recipe
   meal_type?: string | null; // breakfast / dinner / hors d'oeuvre …
-  is_mine?: boolean | null; // mine vs collected from elsewhere; drives the home shelf
+  source_id?: string | null; // which source this came from (controlled vocabulary)
+  source_featured?: number | null; // joined from sources: does its source lead the shelf
   status?: 'new' | 'testing' | 'approved' | 'signature' | 'archived';
   image_rotation?: number;
   image_position?: string; // CSS object-position for the main photo, e.g. "50% 30%"
@@ -207,4 +208,13 @@ export interface RecipeFilters {
   dietary: string[];
   difficulty: string | null;
   maxTime: number | null;
+}
+
+// Where a recipe came from, as a controlled list rather than free text.
+export interface Source {
+  id: string;
+  name: string;
+  kind: string | null;
+  featured: number;
+  recipe_count?: number;
 }

@@ -13,7 +13,8 @@ export async function GET(request: NextRequest) {
     // carries how many branches it has; the home grid is the only surface that
     // folds variations into their base, and it does that itself.
     let query = `SELECT r.*,
-        (SELECT COUNT(*) FROM recipes v WHERE v.parent_recipe_id = r.id) AS variation_count
+        (SELECT COUNT(*) FROM recipes v WHERE v.parent_recipe_id = r.id) AS variation_count,
+        (SELECT s.featured FROM sources s WHERE s.id = r.source_id) AS source_featured
       FROM recipes r WHERE 1=1`;
     const params: any[] = [];
 
@@ -94,8 +95,8 @@ export async function POST(request: NextRequest) {
         difficulty, prep_time_minutes, cook_time_minutes, total_time_minutes,
         servings, instructions, source_url, source_name, source_author,
         source_type, is_favorite, status, image_rotation, image_position, image_zoom,
-        notes, yield_quantity, yield_unit, meal_type, is_mine, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        notes, yield_quantity, yield_unit, meal_type, is_mine, source_id, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const id = `recipe_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -128,6 +129,7 @@ export async function POST(request: NextRequest) {
       body.yield_unit || null,
       body.meal_type || null,
       body.is_mine ? 1 : 0,
+      body.source_id || null,
       now,
       now
     );

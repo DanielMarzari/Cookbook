@@ -1,5 +1,5 @@
 import type { DraftPayload } from '@/lib/drafts';
-import type { InstructionStep } from '@/lib/types';
+import type { InstructionStep, Source } from '@/lib/types';
 import {
   Recipe,
   RecipeIngredient,
@@ -98,6 +98,14 @@ export const api = {
         `/api/recipes/${id}/promote-section`,
         { method: 'POST', body: { section, title } }
       ),
+  },
+
+  sources: {
+    list: () => fetchJson<{ sources: Source[] }>('/api/sources'),
+    create: (name: string, kind?: string, featured?: boolean) =>
+      fetchJson<{ source: Source; created: boolean }>('/api/sources', { method: 'POST', body: { name, kind, featured } }),
+    update: (patch: { id: string; name?: string; kind?: string; featured?: boolean; mergeInto?: string }) =>
+      fetchJson<{ source?: Source; merged?: boolean }>('/api/sources', { method: 'PATCH', body: patch }),
   },
 
   flavor: {
