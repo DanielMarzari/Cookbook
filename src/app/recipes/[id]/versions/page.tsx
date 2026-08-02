@@ -37,24 +37,39 @@ export default function RecipeVersionsPage() {
   const [draft, setDraft] = useState<DraftPayload | null>(null);
   const [busy, setBusy] = useState(false);
   // Recipes that could join this family — anything standing on its own.
-  const [candidates, setCandidates] = useState<{ id: string; title: string }[]>([]);
+  const [candidates, setCandidates] = useState<{ id: string; title: string; variation_count: number }[]>([]);
   useEffect(() => {
-    api.recipes.list()
-      .then((rs) => setCandidates(rs.filter((r) => !r.parent_recipe_id && r.id !== id).map((r) => ({ id: r.id, title: r.title }))))
-      .catch(() => {});
+    loadCandidates();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  const loadCandidates = () =>
+    api.recipes.list()
+      .then((rs) => setCandidates(
+        rs.filter((r) => !r.parent_recipe_id && r.id !== id)
+          .map((r) => ({ id: r.id, title: r.title, variation_count: r.variation_count || 0 }))
+      ))
+      .catch(() => {});
 
   // Join a recipe that already exists, rather than forking a copy of this one.
   const adopt = async (childId: string) => {
     const child = candidates.find((c) => c.id === childId);
     if (!child) return;
-    if (!confirm(`Make "${child.title}" a variation of ${family?.base.title}? It keeps its own ingredients, steps and photos — it just joins the family.`)) return;
+    const extra = child.variation_count;
+    const question = extra > 0
+      ? `"${child.title}" has ${extra} variation${extra === 1 ? '' : 's'} of its own. Joining flattens the two families — ${child.title} and ${extra === 1 ? 'its variation' : 'all ' + extra + ' of them'} become variations of ${family?.base.title}, siblings rather than a branch of a branch. Nothing is copied or lost.`
+      : `Make "${child.title}" a variation of ${family?.base.title}? It keeps its own ingredients, steps and photos — it just joins the family.`;
+    if (!confirm(question)) return;
     setBusy(true);
     try {
-      await api.recipes.adopt(id, childId);
-      toast.success(`"${child.title}" joined the family`);
+      const res = await api.recipes.adopt(id, childId);
+      toast.success(
+        res.broughtCount > 0
+          ? `"${child.title}" joined, bringing ${res.broughtCount} variation${res.broughtCount === 1 ? '' : 's'}`
+          : `"${child.title}" joined the family`
+      );
       load();
-      api.recipes.list().then((rs) => setCandidates(rs.filter((r) => !r.parent_recipe_id && r.id !== id).map((r) => ({ id: r.id, title: r.title })))).catch(() => {});
+      loadCandidates();
     } catch (err) {
       const msg = err instanceof Error ? err.message.replace(/^API error:\s*/, '') : '';
       try { toast.error(JSON.parse(msg).error || 'Could not link those recipes'); }
@@ -119,6 +134,41 @@ export default function RecipeVersionsPage() {
     }
   };
 
+  // Two different things a "branch" can stop being. Detaching keeps the recipe
+  // and only cuts the family tie; deleting removes it. Both are recoverable for
+  // 24 hours, but only one of them still leaves you a recipe.
+  const detach = async (versionId: string, title: string) => {
+    if (!confirm(`Remove "${title}" from this family? The recipe stays exactly as it is — it just stops being a variation and stands on its own.`)) return;
+    setBusy(true);
+    try {
+      await api.recipes.detach(id, versionId);
+      toast.success(`"${title}" now stands on its own`);
+      setCur(0);
+      load();
+      loadCandidates();
+    } catch {
+      toast.error('Could not detach that version');
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const deleteVersion = async (versionId: string, title: string) => {
+    if (!confirm(`Delete "${title}" entirely? Recoverable for 24 hours, but it leaves the cookbook.`)) return;
+    setBusy(true);
+    try {
+      await api.recipes.delete(versionId);
+      toast.success(`Deleted "${title}"`);
+      setCur(0);
+      load();
+      loadCandidates();
+    } catch {
+      toast.error('Could not delete that version');
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const discard = async () => {
     if (!confirm('Throw away the staged changes? The recipe itself is untouched.')) return;
     await api.recipes.discardDraft(id);
@@ -173,10 +223,14 @@ export default function RecipeVersionsPage() {
                   className="w-full px-2 py-1.5 border border-border text-[12.5px] text-text-secondary focus:outline-none focus:border-text disabled:opacity-50"
                 >
                   <option value="">+ add an existing recipe&hellip;</option>
-                  {candidates.map((c) => (<option key={c.id} value={c.id}>{c.title}</option>))}
+                  {candidates.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.title}{c.variation_count > 0 ? ` (+${c.variation_count})` : ''}
+                    </option>
+                  ))}
                 </select>
                 <p className="text-[11.5px] text-text-secondary mt-2 leading-[1.45]">
-                  Joins a recipe you already have to this family. Nothing is copied.
+                  Joins a recipe you already have to this family. Nothing is copied &mdash; one with variations of its own brings them along as siblings.
                 </p>
               </div>
             )}
@@ -189,7 +243,20 @@ export default function RecipeVersionsPage() {
             version {pad(cur + 1)} of {pad(versions.length)}{active.isBase ? ' · base' : ''}
           </p>
           <h1 className="text-[26px] tracking-[-0.01em] mt-2 mb-1">{active.title}</h1>
-          <p className="text-[13px] text-text-secondary mb-6">{active.summary}</p>
+          <p className="text-[13px] text-text-secondary mb-4">{active.summary}</p>
+
+          {!active.isBase && (
+            <div className="flex flex-wrap items-center gap-4 mb-6">
+              <button onClick={() => detach(active.id, active.title)} disabled={busy}
+                className="tlink text-[12.5px] text-text-secondary hover:text-text disabled:opacity-50">
+                Remove from family
+              </button>
+              <button onClick={() => deleteVersion(active.id, active.title)} disabled={busy}
+                className="tlink text-[12.5px] text-text-secondary hover:text-text disabled:opacity-50">
+                Delete this version
+              </button>
+            </div>
+          )}
 
           {/* Staged changes live at the top, because they're the thing awaiting a
               decision — everything below is already settled. */}

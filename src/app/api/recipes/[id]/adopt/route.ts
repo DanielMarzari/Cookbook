@@ -43,21 +43,34 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       return NextResponse.json({ error: 'That recipe is already the base of this family' }, { status: 400 });
     }
 
-    // A recipe with variations of its own would bring them along and create a
-    // second level, which this model deliberately doesn't have.
-    const childHasOwn = (db.prepare('SELECT COUNT(*) AS c FROM recipes WHERE parent_recipe_id = ?').get(childId) as { c: number }).c;
-    if (childHasOwn > 0) {
-      return NextResponse.json(
-        { error: `"${child.title}" has variations of its own — branch from it instead, or detach those first.` },
-        { status: 400 }
-      );
-    }
+    // A recipe joining with variations of its own brings them along, and the two
+    // families flatten into one — they all become variations of the same base,
+    // siblings rather than a second level. Keeping the model flat is the point:
+    // "this dish and its versions" stays scannable, a tree does not.
+    const brought = db.prepare('SELECT id, title FROM recipes WHERE parent_recipe_id = ?').all(childId) as
+      { id: string; title: string }[];
 
-    archiveRecipe(db, childId, 'commit-draft');
-    db.prepare('UPDATE recipes SET parent_recipe_id = ?, variation_of_label = COALESCE(?, variation_of_label) WHERE id = ?')
-      .run(baseId, label || null, childId);
+    const join = db.transaction(() => {
+      // Archive everything that changes, so the whole join is undoable together.
+      archiveRecipe(db, childId, 'commit-draft');
+      for (const b of brought) archiveRecipe(db, b.id, 'commit-draft');
 
-    return NextResponse.json({ ok: true, baseId, child: child.title });
+      // The child's own variations re-parent to the new base first, so they are
+      // never briefly orphaned by the child moving out from under them.
+      db.prepare('UPDATE recipes SET parent_recipe_id = ? WHERE parent_recipe_id = ?').run(baseId, childId);
+      db.prepare('UPDATE recipes SET parent_recipe_id = ?, variation_of_label = COALESCE(?, variation_of_label) WHERE id = ?')
+        .run(baseId, label || null, childId);
+    });
+    join();
+
+    return NextResponse.json({
+      ok: true,
+      baseId,
+      child: child.title,
+      // how many came along, so the caller can say what actually happened
+      broughtCount: brought.length,
+      brought: brought.map((b) => b.title),
+    });
   } catch (error) {
     console.error('Error linking recipes:', error);
     return NextResponse.json({ error: 'Failed to link those recipes' }, { status: 500 });
