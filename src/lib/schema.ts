@@ -37,7 +37,11 @@ CREATE TABLE IF NOT EXISTS recipes (
   yield_quantity REAL,
   yield_unit TEXT,
   parent_recipe_id TEXT,
-  variation_of_label TEXT
+  variation_of_label TEXT,
+  meal_type TEXT,
+  -- 1 = a recipe of mine, 0 = collected from elsewhere. The home shelf shows
+  -- mine; everything else still lives in collections and search.
+  is_mine INTEGER
 );
 
 -- A 24-hour undo buffer. Anything destructive snapshots the affected recipe here

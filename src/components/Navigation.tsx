@@ -55,9 +55,10 @@ export default function Navigation() {
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-border">
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center gap-8 h-[60px]">
           <Link href="/" className="flex items-center gap-2 text-[17px] tracking-tight text-text">
+            {/* A plate seen from above: the rim and the well. */}
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
-              <path d="M4 11l8-7 8 7" />
-              <path d="M6 9.5V20h12V9.5" />
+              <circle cx="12" cy="12" r="9" />
+              <circle cx="12" cy="12" r="4.6" />
             </svg>
             cookbook
           </Link>

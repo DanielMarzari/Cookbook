@@ -14,3 +14,10 @@ export const UNITS = [
   'ml', 'oz', 'package', 'part', 'piece', 'pinch', 'pint', 'quart', 'slice',
   'small', 'sprig', 'stalk', 'stick', 'tbsp', 'tsp', 'whole',
 ];
+
+// When you'd eat it. Kept short and broad — this is for filtering the shelf,
+// not classifying a menu.
+export const MEAL_TYPES = [
+  'Breakfast', 'Brunch', 'Lunch', 'Dinner',
+  'Hors d\'oeuvre', 'Side', 'Dessert', 'Snack', 'Drink',
+];

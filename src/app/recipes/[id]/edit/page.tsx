@@ -11,7 +11,7 @@ import { toFraction, titleCaseIngredient } from '@/lib/utils';
 import { framingStyle, parsePosition, buildPosition } from '@/lib/image';
 import { fileToResizedDataUrl } from '@/lib/photo';
 import { toast } from '@/lib/toast';
-import { UNITS, DEFAULT_CUISINES } from '@/lib/constants';
+import { UNITS, DEFAULT_CUISINES, MEAL_TYPES } from '@/lib/constants';
 import { useCuisines } from '@/lib/useCuisines';
 
 
@@ -50,7 +50,9 @@ export default function EditRecipePage() {
   const [notes, setNotes] = useState('');
   const [yieldQuantity, setYieldQuantity] = useState(0);
   const [yieldUnit, setYieldUnit] = useState('');
-  const [cuisineType, setCuisineType] = useState('Italian');
+  const [cuisineType, setCuisineType] = useState('');
+  const [mealType, setMealType] = useState('');
+  const [isMine, setIsMine] = useState(false);
   const [customCuisine, setCustomCuisine] = useState('');
   const [difficulty, setDifficulty] = useState<'easy' | 'medium' | 'hard'>('medium');
   const [prepTime, setPrepTime] = useState(0);
@@ -84,7 +86,9 @@ export default function EditRecipePage() {
         setNotes(recipe.notes || '');
         setYieldQuantity(recipe.yield_quantity || 0);
         setYieldUnit(recipe.yield_unit || '');
-        setCuisineType(recipe.cuisine_type);
+        setCuisineType(recipe.cuisine_type || '');
+        setMealType(recipe.meal_type || '');
+        setIsMine(!!recipe.is_mine);
         // If the cuisine is custom (not in defaults), pre-populate the custom input
         if (recipe.cuisine_type && !DEFAULT_CUISINES.includes(recipe.cuisine_type) && recipe.cuisine_type !== 'Other') {
           setCustomCuisine(recipe.cuisine_type);
@@ -205,6 +209,12 @@ export default function EditRecipePage() {
   );
 
   // Recipes that can be used as an ingredient here (anything but this one).
+  // The family this recipe belongs to, so its branches are reachable while editing.
+  const [family, setFamily] = useState<Awaited<ReturnType<typeof api.recipes.family>> | null>(null);
+  useEffect(() => {
+    api.recipes.family(id).then((f) => setFamily(f.isBranched ? f : null)).catch(() => setFamily(null));
+  }, [id]);
+
   const [otherRecipes, setOtherRecipes] = useState<{ id: string; title: string }[]>([]);
   useEffect(() => {
     api.recipes.list().then((rs) => setOtherRecipes(rs.filter((r) => r.id !== id).map((r) => ({ id: r.id, title: r.title })))).catch(() => {});
@@ -295,6 +305,7 @@ export default function EditRecipePage() {
       await api.recipes.update(id, {
         title, description, notes, cuisine_type: cuisineType, difficulty,
         yield_quantity: yieldQuantity || undefined, yield_unit: yieldUnit || undefined,
+        meal_type: mealType || undefined, is_mine: isMine,
         prep_time_minutes: prepTime, cook_time_minutes: cookTime,
         total_time_minutes: prepTime + cookTime, servings,
         image_url: imageUrl, image_rotation: imageRotation,
@@ -342,14 +353,14 @@ export default function EditRecipePage() {
     } finally {
       setSaving(false);
     }
-  }, [id, target, title, description, notes, yieldQuantity, yieldUnit, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients]);
+  }, [id, target, title, description, notes, yieldQuantity, yieldUnit, mealType, isMine, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients]);
 
   useEffect(() => {
     if (!initialLoadDone.current) return;
     if (autosaveTimer.current) clearTimeout(autosaveTimer.current);
     autosaveTimer.current = setTimeout(doAutosave, 1500);
     return () => { if (autosaveTimer.current) clearTimeout(autosaveTimer.current); };
-  }, [target, title, description, notes, yieldQuantity, yieldUnit, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients, doAutosave]);
+  }, [target, title, description, notes, yieldQuantity, yieldUnit, mealType, isMine, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients, doAutosave]);
 
   const handleRotateImage = async () => {
     const newRotation = (imageRotation + 90) % 360;
@@ -498,7 +509,43 @@ export default function EditRecipePage() {
 
   return (
     <div className="min-h-screen bg-background py-8">
-      <div className="max-w-4xl mx-auto px-4">
+      <div className={family ? 'max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-[210px_minmax(0,1fr)] gap-8 items-start' : 'max-w-4xl mx-auto px-4'}>
+        {family && (
+          <aside className="md:sticky md:top-8">
+            <div className="flex items-baseline justify-between border-b border-text pb-2 mb-1">
+              <h2 className="text-[12.5px] text-text-secondary">This recipe branches</h2>
+              <span className="text-[12.5px] text-text-secondary tabular-nums">{String(family.count + 1).padStart(2, '0')}</span>
+            </div>
+            {[{ id: family.base.id, title: family.base.title, label: 'base' },
+              ...family.variations.map((v) => ({ id: v.id, title: v.title, label: v.variation_of_label || 'variation' }))
+            ].map((v) => {
+              const here = v.id === id;
+              return (
+                <Link
+                  key={v.id}
+                  href={`/recipes/${v.id}/edit`}
+                  aria-current={here}
+                  className={`block py-2.5 pl-3 border-b border-border last:border-b-0 border-l transition-colors ${
+                    here ? 'border-l-text' : 'border-l-transparent'
+                  }`}
+                >
+                  <span className={`block text-[13.5px] leading-[1.32] ${here ? 'text-text underline underline-offset-4 decoration-1' : 'text-text-secondary hover:text-text'}`}>
+                    {v.title}
+                  </span>
+                  <span className="block text-[11.5px] text-text-secondary mt-[3px]">{v.label}</span>
+                </Link>
+              );
+            })}
+            <p className="text-[11.5px] text-text-secondary mt-4 leading-[1.5]">
+              One photo serves the family. Set it on the base and every branch follows &mdash;
+              or give this one its own below to override.
+            </p>
+            <Link href={`/recipes/${id}/versions`} className="tlink text-[12.5px] text-text-secondary hover:text-text mt-3 inline-block">
+              Compare versions &rarr;
+            </Link>
+          </aside>
+        )}
+        <div>
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <Link
@@ -626,6 +673,36 @@ export default function EditRecipePage() {
                     onChange={(e) => setServings(parseInt(e.target.value) || 1)}
                     className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs text-text-secondary mb-1">Meal</label>
+                  <select
+                    value={mealType}
+                    onChange={(e) => setMealType(e.target.value)}
+                    className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">&mdash;</option>
+                    {MEAL_TYPES.map((m) => (<option key={m} value={m}>{m}</option>))}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-xs text-text-secondary mb-1">Whose recipe</label>
+                  <div className="flex gap-2">
+                    {[[true, 'Mine'], [false, 'From elsewhere']].map(([v, label]) => (
+                      <button
+                        key={String(v)}
+                        onClick={() => setIsMine(v as boolean)}
+                        aria-pressed={isMine === v}
+                        className={`px-3 py-2 border text-sm transition-colors ${
+                          isMine === v ? 'bg-text border-text text-white' : 'border-border text-text-secondary hover:text-text hover:border-text'
+                        }`}
+                      >{label as string}</button>
+                    ))}
+                  </div>
+                  <p className="text-[11px] text-text-secondary mt-1.5">Only yours appear on the home shelf.</p>
                 </div>
               </div>
 
@@ -1068,6 +1145,7 @@ export default function EditRecipePage() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

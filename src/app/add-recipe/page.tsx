@@ -74,10 +74,10 @@ export default function AddRecipePage() {
   const [formData, setFormData] = useState<FormRecipe>({
     title: '',
     description: '',
-    cuisine_type: 'Italian',
+    cuisine_type: '',
     difficulty: 'medium',
-    prep_time_minutes: 15,
-    cook_time_minutes: 30,
+    prep_time_minutes: 0,
+    cook_time_minutes: 0,
     servings: 4,
     image_url: '',
     source_url: '',

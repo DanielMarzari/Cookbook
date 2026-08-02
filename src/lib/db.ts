@@ -54,6 +54,25 @@ function migrateSectionSentinels(db: Database.Database): void {
   migrate();
 }
 
+/**
+ * `is_mine` splits the shelf from the library, but every pre-existing recipe has
+ * it unset — and an unset flag would empty the home page. Infer it once from
+ * provenance: anything imported from a URL or a PDF came from somewhere else,
+ * everything else is treated as yours. It's a guess, deliberately a generous one,
+ * and a single toggle per recipe corrects it.
+ */
+function backfillIsMine(db: Database.Database): void {
+  const unset = (db.prepare('SELECT COUNT(*) AS c FROM recipes WHERE is_mine IS NULL').get() as { c: number }).c;
+  if (unset === 0) return;
+  db.prepare(
+    `UPDATE recipes SET is_mine = CASE
+       WHEN source_type IN ('url', 'pdf', 'image') THEN 0
+       WHEN source_url IS NOT NULL AND source_url <> '' THEN 0
+       ELSE 1 END
+     WHERE is_mine IS NULL`
+  ).run();
+}
+
 export function getDb(): Database.Database {
   if (!db) {
     db = new Database(DB_PATH);
@@ -72,7 +91,10 @@ export function getDb(): Database.Database {
     ensureColumn(db, 'recipes', 'yield_unit', 'TEXT');
     ensureColumn(db, 'recipes', 'parent_recipe_id', 'TEXT');
     ensureColumn(db, 'recipes', 'variation_of_label', 'TEXT');
+    ensureColumn(db, 'recipes', 'meal_type', 'TEXT');
+    ensureColumn(db, 'recipes', 'is_mine', 'INTEGER');
     migrateSectionSentinels(db);
+    backfillIsMine(db);
     // Let yesterday's undo buffer go, so the table can't grow unbounded.
     purgeExpiredArchives(db);
     ensureColumn(db, 'books', 'cover', 'TEXT');

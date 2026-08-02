@@ -64,9 +64,13 @@ export default function RecipesPage() {
   // Variations live inside their base's collage tile rather than taking their own
   // cell — but only while browsing. Once you're searching or filtering, a
   // variation is a legitimate hit and hiding it would just look like a bug.
+  // Two things are folded away while browsing: variations live inside their
+  // base's collage tile, and recipes collected from elsewhere live in
+  // collections rather than on the shelf. Searching or filtering shows
+  // everything again — a hidden hit reads as a bug.
   const gridRecipes = hasActiveFilters
     ? recipes
-    : recipes.filter((r) => !r.parent_recipe_id);
+    : recipes.filter((r) => !r.parent_recipe_id && r.is_mine);
 
   const countLine = (() => {
     if (loading || error) return ' ';

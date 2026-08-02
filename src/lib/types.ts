@@ -101,6 +101,8 @@ export interface Recipe {
   parent_recipe_id?: string | null; // set on a variation; null/absent on a base
   variation_of_label?: string | null; // the short label for a branch, e.g. "honey"
   variation_count?: number; // bases only: how many variations hang off this recipe
+  meal_type?: string | null; // breakfast / dinner / hors d'oeuvre …
+  is_mine?: boolean | null; // mine vs collected from elsewhere; drives the home shelf
   status?: 'new' | 'testing' | 'approved' | 'signature' | 'archived';
   image_rotation?: number;
   image_position?: string; // CSS object-position for the main photo, e.g. "50% 30%"

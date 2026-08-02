@@ -94,8 +94,8 @@ export async function POST(request: NextRequest) {
         difficulty, prep_time_minutes, cook_time_minutes, total_time_minutes,
         servings, instructions, source_url, source_name, source_author,
         source_type, is_favorite, status, image_rotation, image_position, image_zoom,
-        notes, yield_quantity, yield_unit, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        notes, yield_quantity, yield_unit, meal_type, is_mine, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const id = `recipe_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
       body.title || '',
       body.description || null,
       body.image_url || null,
-      body.cuisine_type || 'Other',
+      body.cuisine_type || null,
       body.origin || null,
       body.difficulty || 'medium',
       body.prep_time_minutes || 0,
@@ -126,6 +126,8 @@ export async function POST(request: NextRequest) {
       body.notes || null,
       body.yield_quantity || null,
       body.yield_unit || null,
+      body.meal_type || null,
+      body.is_mine ? 1 : 0,
       now,
       now
     );
