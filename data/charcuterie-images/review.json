@@ -1,0 +1,2063 @@
+[
+ {
+  "id": "triple-creme",
+  "name": "Triple-cr\u00e8me",
+  "cat": "cheese",
+  "score": 0,
+  "title": "Brie on a Shelf",
+  "source": "openverse",
+  "detail": "https://commons.wikimedia.org/w/index.php?curid=143480014",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://www.parismuseescollections.paris.fr/sites/default/files/atoms/images/GAL/galgal2003.20.1_1.jpg",
+    "title": "Pochette (sac)",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "chevre",
+  "name": "Goat cheese",
+  "cat": "cheese",
+  "score": 45,
+  "title": "Bacon, spinach, roasted garlic and goat cheese scramble",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/77114776@N00/3713693238",
+  "reason": "low confidence (45)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/65535/55159713657_1c4497fd74_b.jpg",
+    "title": "Little gem salad with Humboldt Fog goat cheese",
+    "score": 40
+   },
+   {
+    "url": "https://live.staticflickr.com/269/31321380780_44bf4faa9d_b.jpg",
+    "title": "Open as in Local Goat Cheese and Fudge",
+    "score": 30
+   },
+   {
+    "url": "https://live.staticflickr.com/460/20103883219_3a8c935ea4_b.jpg",
+    "title": "beets and goat cheese stacks",
+    "score": 30
+   }
+  ]
+ },
+ {
+  "id": "aged-gouda",
+  "name": "Aged gouda",
+  "cat": "cheese",
+  "score": 40,
+  "title": "File:Stolpersteine Gouda AG de Vrijestraat 18 (detail1).jpg",
+  "source": "openverse",
+  "detail": "https://commons.wikimedia.org/w/index.php?curid=71961928",
+  "reason": "low confidence (40)",
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Stolpersteine_Gouda_AG_de_Vrijestraat_18_%28detail2%29.jpg",
+    "title": "File:Stolpersteine Gouda AG de Vrijestraat 18 (detail2).jpg",
+    "score": 23
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Stolpersteine_Gouda_AG_de_Vrijestraat_18.jpg",
+    "title": "File:Stolpersteine Gouda AG de Vrijestraat 18.jpg",
+    "score": 23
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Platen_van_grafzerk_Gijsbert_Willemsz._Raet_Le_Moyen-Age_et_la_Renaissance_dans_les_Pays-Bas%2C_1865-1878_%28serietitel%29%2C_RP-P-1998-24.jpg",
+    "title": "File:Platen van grafzerk Gijsbert Willemsz. Raet Le Moyen-Age et la Renaissance dans les Pays-Bas, 1865-1878 (serietitel), RP-P-1998-24.jpg",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "cheddar",
+  "name": "Sharp cheddar",
+  "cat": "cheese",
+  "score": 0,
+  "title": "Organic breakfast sandwich on onion bagel",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/7633518@N08/54096609638",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/65535/54096609638_873432dec2_b.jpg",
+    "title": "Organic breakfast sandwich on onion bagel",
+    "score": 10
+   }
+  ]
+ },
+ {
+  "id": "parmigiano",
+  "name": "Parmigiano-Reggiano",
+  "cat": "cheese",
+  "score": 0,
+  "title": "Queso",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/62518311@N00/115094517",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9zdGF0aWMvaW1hZ2Uvd2Vic2l0ZS8yMDIyLTA0L2xyL2ZycGFybWVzYW5fY2hlZXNlX3N0b2NrX2l0YWx5LWltYWdlLWt5YmQwNTByLmpwZw.jpg",
+    "title": "Parmigiano Reggiano cheese storage",
+    "score": 25
+   },
+   {
+    "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvZnJwYXJtaWdpYW5vX3JlZ2dpYW5vX2NoZWVzZV9pdGFseS1pbWFnZS1reWNmeHl2dC5qcGc.jpg",
+    "title": "",
+    "score": 15
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/be/Italian_government_trophies_in_sumo.jpg",
+    "title": "Italian government trophies in sumo",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "epoisses",
+  "name": "\u00c9poisses",
+  "cat": "cheese",
+  "score": 0,
+  "title": "201907_0289",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/186165403@N05/50210044606",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/65535/50210044606_fdb351740a_b.jpg",
+    "title": "201907_0289",
+    "score": 60
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Ch%C3%A2teau_d%27%C3%89poisses_-_ancien_pont-levis_-_btv1b105933129.jpg",
+    "title": "<div class='fn'> Ch\u00e2teau d'\u00c9poisses : ancien pont-levis</div>",
+    "score": 60
+   }
+  ]
+ },
+ {
+  "id": "havarti",
+  "name": "Havarti",
+  "cat": "cheese",
+  "score": 8,
+  "title": "Ham, cheese and tomato omelet",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/77114776@N00/3732521283",
+  "reason": "low confidence (8)",
+  "alternates": []
+ },
+ {
+  "id": "cream-cheese",
+  "name": "Cream cheese block",
+  "cat": "cheese",
+  "score": 0,
+  "title": "Radisson Hotel Dinner Menu - DPLA - b36f60798d8a9735331c6e0e8847c2d2 (page 1)",
+  "source": "commons",
+  "detail": "https://commons.wikimedia.org/wiki/File:Radisson_Hotel_Dinner_Menu_-_DPLA_-_b36f60798d8a9735331c6e0e8847c2d2_(page_1).jpg",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Radisson_Hotel_Dinner_Menu_-_DPLA_-_b36f60798d8a9735331c6e0e8847c2d2_%28page_1%29.jpg/960px-Radisson_Hotel_Dinner_Menu_-_DPLA_-_b36f60798d8a9735331c6e0e8847c2d2_%28page_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Radisson Hotel Dinner Menu - DPLA - b36f60798d8a9735331c6e0e8847c2d2 (page 1)",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Radisson_Hotel_Dinner_Menu_-_DPLA_-_b36f60798d8a9735331c6e0e8847c2d2_%28page_2%29.jpg/960px-Radisson_Hotel_Dinner_Menu_-_DPLA_-_b36f60798d8a9735331c6e0e8847c2d2_%28page_2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Radisson Hotel Dinner Menu - DPLA - b36f60798d8a9735331c6e0e8847c2d2 (page 2)",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Radisson_Hotel_Dinner_Menu_-_DPLA_-_b36f60798d8a9735331c6e0e8847c2d2_%28page_3%29.jpg/960px-Radisson_Hotel_Dinner_Menu_-_DPLA_-_b36f60798d8a9735331c6e0e8847c2d2_%28page_3%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Radisson Hotel Dinner Menu - DPLA - b36f60798d8a9735331c6e0e8847c2d2 (page 3)",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "humboldt-fog",
+  "name": "Humboldt Fog",
+  "cat": "cheese",
+  "score": 45,
+  "title": "Little gem salad with Humboldt Fog goat cheese",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/7633518@N08/55159713657",
+  "reason": "low confidence (45)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/65535/55159713657_1c4497fd74_b.jpg",
+    "title": "Little gem salad with Humboldt Fog goat cheese",
+    "score": 40
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/cb/BearRiver.png",
+    "title": "BearRiver",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Brigitte_Bistro_-_Feburary_2026_-_Sarah_Stierch_05.jpg",
+    "title": "Brigitte Bistro - Feburary 2026 - Sarah Stierch 05",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "grana-padano",
+  "name": "Grana Padano",
+  "cat": "cheese",
+  "score": 0,
+  "title": "",
+  "source": "openverse",
+  "detail": "https://www.rawpixel.com/image/5949037/free-public-domain-cc0-photo",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/4f/Lyon_3e_-_L%27Osteria_-_Pizza_Rucola.jpeg",
+    "title": "Lyon 3e - L'Osteria - Pizza Rucola",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "wensleydale-cranberry",
+  "name": "Wensleydale & cranberry",
+  "cat": "cheese",
+  "score": 8,
+  "title": "Project 365 #341: 081213 Cheese Cake",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/23408922@N07/11260655666",
+  "reason": "low confidence (8)",
+  "alternates": []
+ },
+ {
+  "id": "choc-almond",
+  "name": "Chocolate-covered almonds",
+  "cat": "sweet",
+  "score": 8,
+  "title": "Finnish Sweeties #13: Tupla Kingsize",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/23408922@N07/13474648734",
+  "reason": "low confidence (8)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/7071/13474648734_4b33334689_b.jpg",
+    "title": "Finnish Sweeties #13: Tupla Kingsize",
+    "score": 15
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Tupla_suklaapatukka.jpg",
+    "title": "File:Tupla suklaapatukka.jpg",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "pink-peppercorn",
+  "name": "Pink peppercorns",
+  "cat": "garnish",
+  "score": 0,
+  "title": "",
+  "source": "openverse",
+  "detail": "https://www.rawpixel.com/image/5961633/free-public-domain-cc0-photo",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHgxMTM1MjQ0LWltYWdlLWt3eXI1Z29yLmpwZw.jpg",
+    "title": "",
+    "score": 23
+   },
+   {
+    "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHgxNjI1NzIyLWltYWdlLWt3eXBtdTJwLmpwZw.jpg",
+    "title": "",
+    "score": 23
+   },
+   {
+    "url": "https://images.rawpixel.com/editor_1024/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvcHgxNTk2NjY4LWltYWdlLWt3eXB2c3gxLmpwZw.jpg",
+    "title": "",
+    "score": 23
+   }
+  ]
+ },
+ {
+  "id": "chorizo",
+  "name": "Spanish chorizo",
+  "cat": "meat",
+  "score": 0,
+  "title": "Seafood Market: 'El asturiano'",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/62518311@N00/107864528",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/52/107864528_e88cd5564b_b.jpg",
+    "title": "Seafood Market: 'El asturiano'",
+    "score": 45
+   },
+   {
+    "url": "https://live.staticflickr.com/5298/5793851307_c5d07d3de3_b.jpg",
+    "title": "Project 365 #154: 030611 The Official Launch",
+    "score": 23
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Chorizo_espa%C3%B1ol%2C_Mazatl%C3%A1n%2C_26_de_abril_de_2023.jpg",
+    "title": "Chorizo espa\u00f1ol, Mazatl\u00e1n, 26 de abril de 2023",
+    "score": 23
+   }
+  ]
+ },
+ {
+  "id": "pate",
+  "name": "P\u00e2t\u00e9 de campagne",
+  "cat": "meat",
+  "score": 40,
+  "title": "Pork pate, country style, with mustard on a toasted everything bagel - Massachusetts",
+  "source": "commons",
+  "detail": "https://commons.wikimedia.org/wiki/File:Pork_pate,_country_style,_with_mustard_on_a_toasted_everything_bagel_-_Massachusetts.jpg",
+  "reason": "low confidence (40)",
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Pork_country_pate_and_cheese_on_white_toast%2C_with_black_pepper_and_mustard%2C_all_cold_-_Massachusetts.jpg/960px-Pork_country_pate_and_cheese_on_white_toast%2C_with_black_pepper_and_mustard%2C_all_cold_-_Massachusetts.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Pork country pate and cheese on white toast, with black pepper and mustard, all cold - Massachusetts",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Green_olives_and_pork_pate_de_compagne_on_rye_toast%2C_with_black_pepper_and_guacamole_habanero_sauce%2C_all_heated_-_Massachusetts.jpg/960px-Green_olives_and_pork_pate_de_compagne_on_rye_toast%2C_with_black_pepper_and_guacamole_habanero_sauce%2C_all_heated_-_Massachusetts.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Green olives and pork pate de compagne on rye toast, with black pepper and guacamole habanero sauce, all heated - Massachusetts",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "prosciutto-cotto",
+  "name": "Prosciutto cotto",
+  "cat": "meat",
+  "score": 0,
+  "title": "Cooked ham served on wooden boards",
+  "source": "commons",
+  "detail": "https://commons.wikimedia.org/wiki/File:Cooked_ham_served_on_wooden_boards.jpg",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Cooked_ham_served_on_wooden_boards.jpg/960px-Cooked_ham_served_on_wooden_boards.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Cooked ham served on wooden boards",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "water-cracker",
+  "name": "Water crackers",
+  "cat": "cracker",
+  "score": 0,
+  "title": "NoPetroPA-plastic-nurdles-public-domain-7793",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/9602574@N02/39755523943",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/4828/39755523833_b5d61188a3_b.jpg",
+    "title": "NoPetroPA-plastic-nurdles-public-domain-7787",
+    "score": 0
+   },
+   {
+    "url": "https://live.staticflickr.com/7852/39755521783_def71c8a37_b.jpg",
+    "title": "NoPetroPA-plastic-nurdles-public-domain-7752",
+    "score": 0
+   },
+   {
+    "url": "https://live.staticflickr.com/4807/45995855514_c2a1d4e840_b.jpg",
+    "title": "NoPetroPA-plastic-nurdles-public-domain-7781",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "seeded-crisp",
+  "name": "Seeded crisps",
+  "cat": "cracker",
+  "score": 0,
+  "title": "Chouchou",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/11234074@N05/10143697606",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/7362/10143697606_502d103909_b.jpg",
+    "title": "Chouchou",
+    "score": 10
+   },
+   {
+    "url": "https://pd.w.org/2025/08/15968afc2f2b9cc17.69549249-2048x1536.jpg",
+    "title": "A bowl of noodles topped with sesame seeds, accompanied by a fried egg with a runny yolk, slices of boiled eggs, and crisp pieces of breaded chicken",
+    "score": 10
+   },
+   {
+    "url": "https://live.staticflickr.com/4570/38370939242_547c412521_b.jpg",
+    "title": "Buerue Box Pear Tree on Property of Mr C Bennett, Annerley",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "baguette",
+  "name": "Baguette rounds",
+  "cat": "cracker",
+  "score": 0,
+  "title": "baroque",
+  "source": "openverse",
+  "detail": "https://svgsilh.com/ffc107/image/1712561.html",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://svgsilh.com/png/1712561.png",
+    "title": "filigreed",
+    "score": 23
+   },
+   {
+    "url": "https://svgsilh.com/png/1712550-e91e63.png",
+    "title": "\u0642\u062f\u064a\u0645",
+    "score": 23
+   },
+   {
+    "url": "https://svgsilh.com/png/1712561-e91e63.png",
+    "title": "filigreed",
+    "score": 23
+   }
+  ]
+ },
+ {
+  "id": "fig-jam",
+  "name": "Fig jam",
+  "cat": "spread",
+  "score": 40,
+  "title": "Fig Tree, Sunnybank",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/60455048@N02/38370914672",
+  "reason": "low confidence (40)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/4529/38370914672_19bd52d117_b.jpg",
+    "title": "Fig Tree, Sunnybank",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/84/Fruits_of_Roxburgh_fig.jpg",
+    "title": "Fruits of Roxburgh fig",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Cup_containing_dried_fruit_with_papyrus_strips%2C_clay_-_Museo_Egizio_%28Turin%29_S_8347_p03.jpg",
+    "title": "<div class='fn'> <div style='font-weight:bold;display:inline-block;'><div style='display:inline-block' dir='ltr' lang='en'><i>Cup containing dried fruit with papyrus strips <span class='mw-valign-text-top' typeof='mw:File/Frameless'><a href='https://www.wikidata.org/wiki/Q117423506#P1476' title='Edit this at Wikidata'><img alt='Edit this at Wikidata' src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png' decoding='async' width='10' height='10' class='mw-file-element' data-file-width='20' data-file-height='20'></a></span></i></div></div><div style='display: none;'>title QS:P1476,en:'Cup containing dried fruit with papyrus strips <span class='mw-valign-text-top' typeof='mw:File/Frameless'><a href='https://www.wikidata.org/wiki/Q117423506#P1476' title='Edit this at Wikidata'><img alt='Edit this at Wikidata' src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png' decoding='async' width='10' height='10' class='mw-file-element' data-file-width='20' data-file-height='20'></a></span>'</div><div style='display: none;'>label QS:Len,'Cup containing dried fruit with papyrus strips <span class='mw-valign-text-top' typeof='mw:File/Frameless'><a href='https://www.wikidata.org/wiki/Q117423506#P1476' title='Edit this at Wikidata'><img alt='Edit this at Wikidata' src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png' decoding='async' width='10' height='10' class='mw-file-element' data-file-width='20' data-file-height='20'></a></span>'</div><div style='display: none;'>label QS:Lit,'Coppa con frutta essiccata, trattenuta da strisce di papiro'</div></div>",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "apricot-preserve",
+  "name": "Apricot preserve",
+  "cat": "spread",
+  "score": 0,
+  "title": "Supplies for home canning on table",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/93936679@N05/34639260193",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/4217/34639260193_cfc308c4b1_b.jpg",
+    "title": "Supplies for home canning on table",
+    "score": 45
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/34639258973_8cc2948dbe_b.jpg",
+    "title": "Canning supplies from above",
+    "score": 45
+   },
+   {
+    "url": "https://live.staticflickr.com/8201/29449430841_5283efe825_b.jpg",
+    "title": "Apricot Globemallow",
+    "score": 23
+   }
+  ]
+ },
+ {
+  "id": "onion-jam",
+  "name": "Caramelised onion jam",
+  "cat": "spread",
+  "score": 0,
+  "title": "Blue Cheese CRUNCH - Crunch&Co 2024-04-16",
+  "source": "commons",
+  "detail": "https://commons.wikimedia.org/wiki/File:Blue_Cheese_CRUNCH_-_Crunch%26Co_2024-04-16.jpg",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Blue_Cheese_CRUNCH_-_Crunch%26Co_2024-04-16.jpg/960px-Blue_Cheese_CRUNCH_-_Crunch%26Co_2024-04-16.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Blue Cheese CRUNCH - Crunch&Co 2024-04-16",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "olive-oil",
+  "name": "Good olive oil",
+  "cat": "spread",
+  "score": 53,
+  "title": "St Helena Superintendent Seeking Information Re Making Olive Oil",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/60455048@N02/41140031744",
+  "reason": "low confidence (53)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/4116/4801186144_199c6bd613_b.jpg",
+    "title": "Yummy Leftovers",
+    "score": 10
+   },
+   {
+    "url": "https://live.staticflickr.com/4506/38014646676_6d089a93b8_b.jpg",
+    "title": "20171027-AMS-LSC-1627",
+    "score": 0
+   },
+   {
+    "url": "https://live.staticflickr.com/4210/34786654740_32b7d8653d_b.jpg",
+    "title": "6 Tips For Healthy Skin Care",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "tapenade",
+  "name": "Olive tapenade",
+  "cat": "spread",
+  "score": 40,
+  "title": "26-Tulbagh Oakhurst Olives",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/76319087@N08/49780636873",
+  "reason": "low confidence (40)",
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Pork_liver_confit_and_French_mustard%2C_topped_with_chopped_tea_egg_and_cornichon_%28top%29%2C_and_green_olive_and_almond_tapenade%2C_topped_with_tea_egg_and_pickled_asparagus_%28below%29%2C_both_on_crisp_bread.jpg",
+    "title": "Pork liver confit and French mustard, topped with chopped tea egg and cornichon (top), and green olive and almond tapenade, topped with tea egg and pickled asparagus (below), both on crisp bread",
+    "score": 45
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/01/Tapenade_and_green_olives_on_aloo_gobi_paratha_-_Massachusetts.jpg",
+    "title": "Tapenade and green olives on aloo gobi paratha - Massachusetts",
+    "score": 45
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/49780636873_cf25272239_b.jpg",
+    "title": "26-Tulbagh Oakhurst Olives",
+    "score": 23
+   }
+  ]
+ },
+ {
+  "id": "kalamata",
+  "name": "Kalamata olives",
+  "cat": "briny",
+  "score": 40,
+  "title": "Kalamata railstation",
+  "source": "commons",
+  "detail": "https://commons.wikimedia.org/wiki/File:Kalamata_railstation.JPG",
+  "reason": "low confidence (40)",
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Kalamata-olive-soap.jpg/960px-Kalamata-olive-soap.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Kalamata-olive-soap",
+    "score": 23
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Turkish_Eggs_-_Moksha_2025-08-01.jpg",
+    "title": "Turkish Eggs - Moksha 2025-08-01",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "caper-berry",
+  "name": "Caper berries",
+  "cat": "briny",
+  "score": 0,
+  "title": "Illustration Capparis spinosa0",
+  "source": "commons",
+  "detail": "https://commons.wikimedia.org/wiki/File:Illustration_Capparis_spinosa0.jpg",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Illustration_Capparis_spinosa0.jpg/960px-Illustration_Capparis_spinosa0.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Illustration Capparis spinosa0",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "rye-crisp",
+  "name": "Rye crispbread",
+  "cat": "cracker",
+  "score": 0,
+  "title": "Knaeckebroed",
+  "source": "commons",
+  "detail": "https://commons.wikimedia.org/wiki/File:Knaeckebroed.jpg",
+  "reason": "low confidence (0)",
+  "alternates": []
+ },
+ {
+  "id": "parmesan-crisp",
+  "name": "Parmesan crisps",
+  "cat": "cracker",
+  "score": 40,
+  "title": "Feta parcels and parmesan shortbread in the oven",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/75126686@N00/52846914710",
+  "reason": "low confidence (40)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/65535/53406968475_d017d41f04_b.jpg",
+    "title": "Caesar Side Salad",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Carbonara_Scrambled_Eggs_on_Toasted_Sourdough_-_T_%40_Hove_2023-10-22.jpg",
+    "title": "Carbonara Scrambled Eggs on Toasted Sourdough - T @ Hove 2023-10-22",
+    "score": 0
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/53406968305_9a0c580849_b.jpg",
+    "title": "Caesar Side Salad",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "everything-cracker",
+  "name": "Everything crackers",
+  "cat": "cracker",
+  "score": 48,
+  "title": "Project 365 #290: 171010 Absolutely Crackers",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/23408922@N07/5089402435",
+  "reason": "low confidence (48)",
+  "alternates": []
+ },
+ {
+  "id": "melba-toast",
+  "name": "Melba toast",
+  "cat": "cracker",
+  "score": 0,
+  "title": "GCDA Week 2 Bread 03",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/75126686@N00/52866402028",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/65535/52866401943_ca6bd6a2c0_b.jpg",
+    "title": "GCDA Week 2 Bread 05",
+    "score": 45
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/52865962146_0d1d6390fa_b.jpg",
+    "title": "GCDA Week 2 Bread 07",
+    "score": 45
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/49463692776_79472d01de_m.jpg",
+    "title": "Named for the toast....or, perhaps named the toast. *",
+    "score": 23
+   }
+  ]
+ },
+ {
+  "id": "romesco",
+  "name": "Romesco",
+  "cat": "spread",
+  "score": 0,
+  "title": "FEL INTERMEDIAR",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/26291296@N02/17157271431",
+  "reason": "low confidence (0)",
+  "alternates": []
+ },
+ {
+  "id": "mango-chutney",
+  "name": "Mango chutney",
+  "cat": "spread",
+  "score": 0,
+  "title": "It Smells Great",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/43296902@N00/2395177570",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/2194/2395177570_bf542b6f6c_b.jpg",
+    "title": "It Smells Great",
+    "score": 45
+   },
+   {
+    "url": "https://live.staticflickr.com/7836/40369832033_e1371a2f41_b.jpg",
+    "title": "Day 068 samosas with mango, mint, and tamarind chutneys",
+    "score": 45
+   },
+   {
+    "url": "https://live.staticflickr.com/2073/2409961485_570be1b507_b.jpg",
+    "title": "2008_04_13",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "roasted-pepper",
+  "name": "Roasted red peppers",
+  "cat": "briny",
+  "score": 53,
+  "title": "A spicy, richly seasoned chicken dish with vibrant green and red bell peppers and onions on a white plate, garnished with green onions, sits on a wooden table.",
+  "source": "openverse",
+  "detail": "https://wordpress.org/photos/photo/3156a4a6f3/",
+  "reason": "low confidence (53)",
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/01/Anchovies_and_roasted_red_pepper_hummus%2C_on_rye_crisp_bread%2C_with_black_pepper_and_curry_powder_-_Massachusetts.jpg",
+    "title": "Anchovies and roasted red pepper hummus, on rye crisp bread, with black pepper and curry powder - Massachusetts",
+    "score": 23
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Salad_of_mixed_greens_plus_a_side_of_roasted_red_pepper_hummus%2C_with_broiled_Roma_tomato%2C_radishes%2C_celery%2C_peanuts%2C_olive_oil%2C_vinegar%2C_and_black_pepper_-_Massachusetts.jpg",
+    "title": "Salad of mixed greens plus a side of roasted red pepper hummus, with broiled Roma tomato, radishes, celery, peanuts, olive oil, vinegar, and black pepper - Massachusetts",
+    "score": 23
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Radishes%2C_anchovies%2C_and_roasted_red_pepper_hummus_on_German_three-grain_bread_-_Massachusetts.jpg",
+    "title": "Radishes, anchovies, and roasted red pepper hummus on German three-grain bread - Massachusetts",
+    "score": 23
+   }
+  ]
+ },
+ {
+  "id": "strawberry",
+  "name": "Strawberry",
+  "cat": "fruit",
+  "score": 0,
+  "title": "strawberries",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/42787780@N04/6984507532",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/7245/6984506512_c1b27915ff_b.jpg",
+    "title": "strawberries",
+    "score": 85
+   },
+   {
+    "url": "https://live.staticflickr.com/8168/7130593189_393be2e768_b.jpg",
+    "title": "strawberries",
+    "score": 85
+   },
+   {
+    "url": "https://live.staticflickr.com/8858/17311254066_fb33e47ffc_b.jpg",
+    "title": "Strawberry 'Oscar' (1870-1879)",
+    "score": 75
+   }
+  ]
+ },
+ {
+  "id": "blackberry",
+  "name": "Blackberry",
+  "cat": "fruit",
+  "score": 0,
+  "title": "fresh-blackberries-on-white-background",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/65798313@N06/18934171116",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/2932/14671927302_55024b22d7_b.jpg",
+    "title": "Blackberries. John Lewis Childs, Inc. (1921)",
+    "score": 85
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/51787829677_a1e9552620_b.jpg",
+    "title": "blackberry cobbler and ice cream",
+    "score": 70
+   },
+   {
+    "url": "https://live.staticflickr.com/2944/15355049692_da876a085e_b.jpg",
+    "title": "Blackberry lily, as Chinese Ixia (Iris domestica, as Ixia chinensis), and Gibraltar candytuft (Iberis gibraltarica). The new botanic garden (1812)",
+    "score": 60
+   }
+  ]
+ },
+ {
+  "id": "citrus",
+  "name": "Citrus supremes",
+  "cat": "fruit",
+  "score": 40,
+  "title": "Florida-Supreme-Court-2014",
+  "source": "commons",
+  "detail": "https://commons.wikimedia.org/wiki/File:Florida-Supreme-Court-2014.jpg",
+  "reason": "low confidence (40)",
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Florida_Supreme_Court_Seal.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+    "title": "Florida Supreme Court Seal",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Florida-Supreme-Court-2014.jpg/960px-Florida-Supreme-Court-2014.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Florida-Supreme-Court-2014",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Florida_Supreme_Court_2017.jpg/960px-Florida_Supreme_Court_2017.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Florida Supreme Court 2017",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "dried-cherry",
+  "name": "Dried cherries",
+  "cat": "dried",
+  "score": 0,
+  "title": "Jar Mug",
+  "source": "openverse",
+  "detail": "https://stocksnap.io/photo/jar-mug-QRDORARYQV",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/65535/54864014905_11e53033e2_b.jpg",
+    "title": "Dried Cherry Tomatoes",
+    "score": 48
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/50653591692_f67afb1a47_b.jpg",
+    "title": "Seafood Dinner Spread",
+    "score": 0
+   },
+   {
+    "url": "https://live.staticflickr.com/4540/38347610566_a8dcc2cf21.jpg",
+    "title": "Cherry orchard, Ballandean. No 85",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "candied-orange",
+  "name": "Candied orange",
+  "cat": "dried",
+  "score": 0,
+  "title": "Candy colored candles",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/40632439@N00/24964224570",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/1536/24964224570_6a7e732f88_b.jpg",
+    "title": "Candy colored candles",
+    "score": 23
+   },
+   {
+    "url": "https://live.staticflickr.com/8240/8597920611_94d636f23e_b.jpg",
+    "title": "Project 365 #87: 280313 Agent Orange?",
+    "score": 23
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/9/9f/WikiChallenge_Botswana_training_at_Orange_Digital_Center_located_at_Finance_Park%2C_Gaborone_with_Candy.jpg",
+    "title": "WikiChallenge Botswana training at Orange Digital Center located at Finance Park, Gaborone with Candy",
+    "score": 23
+   }
+  ]
+ },
+ {
+  "id": "dried-pear",
+  "name": "Dried pear",
+  "cat": "dried",
+  "score": 0,
+  "title": "Another Zero Dollar Project",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/37996646802@N01/2523437258",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/2081/2523437258_336d601fda_b.jpg",
+    "title": "Another Zero Dollar Project",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Another_Zero_Dollar_Project_%282523437258%29.jpg",
+    "title": "File:Another Zero Dollar Project (2523437258).jpg",
+    "score": 0
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/55317212506_48cc58f521_b.jpg",
+    "title": "Royal fern (Osmunda regalis L.",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "dried-strawberry",
+  "name": "Freeze-dried strawberries",
+  "cat": "dried",
+  "score": 0,
+  "title": "Finnish Sweeties #8: Fazer Strawberry and Raspberry in White and Dark Chocolate",
+  "source": "openverse",
+  "detail": "https://www.flickr.com/photos/23408922@N07/13044368385",
+  "reason": "low confidence (0)",
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/9/90/Freeze-dried_strawberry_yogurt_cubes.jpg",
+    "title": "Freeze-dried strawberry yogurt cubes",
+    "score": 15
+   },
+   {
+    "url": "https://live.staticflickr.com/7302/13044368385_c03b1bd02b_b.jpg",
+    "title": "Finnish Sweeties #8: Fazer Strawberry and Raspberry in White and Dark Chocolate",
+    "score": 0
+   }
+  ]
+ },
+ {
+  "id": "aged-gouda",
+  "name": "Aged gouda",
+  "cat": "cheese",
+  "score": 40,
+  "title": "File:Stolpersteine Gouda AG de Vrijestraat 18 (detail1).jpg",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"File:Stolpersteine Gouda AG de Vrijestraat 18 (detail1).jpg\" by Gouwenaar is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/deed.en.",
+  "detail": "https://commons.wikimedia.org/w/index.php?curid=71961928",
+  "bytes": 196802,
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/ad/Stolpersteine_Gouda_AG_de_Vrijestraat_18_%28detail2%29.jpg",
+    "title": "File:Stolpersteine Gouda AG de Vrijestraat 18 (detail2).jpg",
+    "score": 23
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Stolpersteine_Gouda_AG_de_Vrijestraat_18.jpg",
+    "title": "File:Stolpersteine Gouda AG de Vrijestraat 18.jpg",
+    "score": 23
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Platen_van_grafzerk_Gijsbert_Willemsz._Raet_Le_Moyen-Age_et_la_Renaissance_dans_les_Pays-Bas%2C_1865-1878_%28serietitel%29%2C_RP-P-1998-24.jpg",
+    "title": "File:Platen van grafzerk Gijsbert Willemsz. Raet Le Moyen-Age et la Renaissance dans les Pays-Bas, 1865-1878 (serietitel), RP-P-1998-24.jpg",
+    "score": 0
+   }
+  ],
+  "score0": 23,
+  "reason": "busy background \u2014 only 0% keyed"
+ },
+ {
+  "id": "apricot",
+  "name": "Fresh apricot",
+  "cat": "fruit",
+  "score": 92,
+  "title": "Pile fresh apricots",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Pile fresh apricots\" is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.rawpixel.com/image/6029278/photo-image-public-domain-fruit-food",
+  "bytes": 280758,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/4457/37430529046_a649b884d9_b.jpg",
+    "title": "Fresh Peaches",
+    "score": 70
+   },
+   {
+    "url": "https://live.staticflickr.com/5670/23249381361_5b61bf6a79_b.jpg",
+    "title": "Apricot tree with fruits",
+    "score": 70
+   },
+   {
+    "url": "https://live.staticflickr.com/579/22704826613_35c317ccf0_b.jpg",
+    "title": "Ripe Apricots",
+    "score": 70
+   }
+  ],
+  "score0": 85,
+  "reason": "busy background \u2014 only 1% keyed"
+ },
+ {
+  "id": "baguette",
+  "name": "Baguette rounds",
+  "cat": "cracker",
+  "score": 0,
+  "title": "baroque",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"baroque\" is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://svgsilh.com/ffc107/image/1712561.html",
+  "bytes": 24672,
+  "alternates": [
+   {
+    "url": "https://svgsilh.com/png/1712561.png",
+    "title": "filigreed",
+    "score": 23
+   },
+   {
+    "url": "https://svgsilh.com/png/1712550-e91e63.png",
+    "title": "\u0642\u062f\u064a\u0645",
+    "score": 23
+   },
+   {
+    "url": "https://svgsilh.com/png/1712561-e91e63.png",
+    "title": "filigreed",
+    "score": 23
+   }
+  ],
+  "score0": 23,
+  "reason": "over-keyed \u2014 100% removed, subject likely eaten"
+ },
+ {
+  "id": "biscotti",
+  "name": "Biscotti",
+  "cat": "sweet",
+  "score": 92,
+  "title": "2011 11 02 pranzo e biscotti",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"2011 11 02 pranzo e biscotti\" by gabriele valeria e mauro is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/72923835@N00/9366133994",
+  "bytes": 154122,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/3807/9366133994_9d6014dde6_b.jpg",
+    "title": "2011 11 02 pranzo e biscotti",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/3708/9366132822_218bc87ccf_b.jpg",
+    "title": "2011 11 02 pranzo e biscotti",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/3750/9363351687_b5471f2b8e_b.jpg",
+    "title": "2011 11 02 pranzo e biscotti",
+    "score": 60
+   }
+  ],
+  "score0": 60,
+  "reason": "busy background \u2014 only 1% keyed"
+ },
+ {
+  "id": "blueberry",
+  "name": "Blueberry",
+  "cat": "fruit",
+  "score": 92,
+  "title": "Blueberry Strawberry Mix",
+  "license": "pdm",
+  "source": "openverse",
+  "attribution": "\"Blueberry Strawberry Mix\" by moonjazz is marked with Public Domain Mark 1.0. To view the terms, visit https://creativecommons.org/publicdomain/mark/1.0/.",
+  "detail": "https://www.flickr.com/photos/8398907@N02/5192360565",
+  "bytes": 147703,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/8763/17400214194_ff9ecf733f_b.jpg",
+    "title": "Open Hand Holding a Blueberry",
+    "score": 75
+   },
+   {
+    "url": "https://live.staticflickr.com/4646/39408499551_7a08221317_b.jpg",
+    "title": "Vaccinium corymbosum, blueberry flower, Howard County, MD, Helen Lowe Metzman_2017-07-25-21.44",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/49493124038_415b3ae3d6_b.jpg",
+    "title": "Blueberry Unbothered",
+    "score": 60
+   }
+  ],
+  "score0": 85,
+  "reason": "busy background \u2014 only 4% keyed"
+ },
+ {
+  "id": "camembert",
+  "name": "Camembert",
+  "cat": "cheese",
+  "score": 92,
+  "title": "'Magasin de perfectionement du fromage de Camembert'.",
+  "license": "pdm",
+  "source": "openverse",
+  "attribution": "\"'Magasin de perfectionement du fromage de Camembert'.\" by Biblioteca Rector Machado y Nu\u00f1ez is marked with Public Domain Mark 1.0. To view the terms, visit https://creativecommons.org/publicdomain/mark/1.0/.",
+  "detail": "https://www.flickr.com/photos/37667416@N04/4306304760",
+  "bytes": 434451,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/2795/4306304466_916f13bc72_b.jpg",
+    "title": "'Fromage de Camembert'.",
+    "score": 75
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Vegan_Cheese_Happy_White_Camembert_Alternative.jpg",
+    "title": "Vegan Cheese Happy White Camembert Alternative",
+    "score": 75
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/49954980388_35e191fbf3_b.jpg",
+    "title": "Le MONNIER, Henry. \ud83c\uddeb\ud83c\uddf7 Demandez un Camembert Georges Bisson.",
+    "score": 60
+   }
+  ],
+  "score0": 75,
+  "reason": "busy background \u2014 only 0% keyed"
+ },
+ {
+  "id": "candied-orange",
+  "name": "Candied orange",
+  "cat": "dried",
+  "score": 0,
+  "title": "Candy colored candles",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Candy colored candles\" by Thad Zajdowicz is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/40632439@N00/24964224570",
+  "bytes": 255264,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/1536/24964224570_6a7e732f88_b.jpg",
+    "title": "Candy colored candles",
+    "score": 23
+   },
+   {
+    "url": "https://live.staticflickr.com/8240/8597920611_94d636f23e_b.jpg",
+    "title": "Project 365 #87: 280313 Agent Orange?",
+    "score": 23
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/9/9f/WikiChallenge_Botswana_training_at_Orange_Digital_Center_located_at_Finance_Park%2C_Gaborone_with_Candy.jpg",
+    "title": "WikiChallenge Botswana training at Orange Digital Center located at Finance Park, Gaborone with Candy",
+    "score": 23
+   }
+  ],
+  "score0": 23,
+  "reason": "busy background \u2014 only 2% keyed"
+ },
+ {
+  "id": "cashew",
+  "name": "Cashews",
+  "cat": "nut",
+  "score": 100,
+  "title": "cashew nuts",
+  "license": "pdm",
+  "source": "openverse",
+  "attribution": "\"cashew nuts\" by GeorgeTan#2...INACTIVE NOW is marked with Public Domain Mark 1.0. To view the terms, visit https://creativecommons.org/publicdomain/mark/1.0/.",
+  "detail": "https://www.flickr.com/photos/171425013@N02/50254225402",
+  "bytes": 137878,
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/bd/Close-up_of_Vengurla_Cashews.jpg",
+    "title": "Close-up of Vengurla Cashews",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/50254225402_3cf4506b2e_b.jpg",
+    "title": "cashew nuts",
+    "score": 25
+   },
+   {
+    "url": "https://live.staticflickr.com/7435/26993921725_b132e44fa5_b.jpg",
+    "title": "Roasted Cashew Nuts",
+    "score": 15
+   }
+  ],
+  "score0": 25,
+  "reason": "busy background \u2014 only 1% keyed"
+ },
+ {
+  "id": "chive",
+  "name": "Chives",
+  "cat": "garnish",
+  "score": 92,
+  "title": "Siberian chives, Lower Lovetts Farm",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Siberian chives, Lower Lovetts Farm\" by karenblakeman is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/11569642@N00/19634181248",
+  "bytes": 481275,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/3607/3386358205_0379da5f5c_b.jpg",
+    "title": "Through the chives",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/963/27438473207_80e843c4d5_b.jpg",
+    "title": "Wild Chives - Allium schoenoprasum",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/8860/18569840791_af88a6b451_b.jpg",
+    "title": "Chive Flower",
+    "score": 0
+   }
+  ],
+  "score0": 70,
+  "reason": "busy background \u2014 only 0% keyed"
+ },
+ {
+  "id": "chorizo",
+  "name": "Spanish chorizo",
+  "cat": "meat",
+  "score": 0,
+  "title": "Seafood Market: 'El asturiano'",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Seafood Market: 'El asturiano'\" by Daquella manera is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/62518311@N00/107864528",
+  "bytes": 260031,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/52/107864528_e88cd5564b_b.jpg",
+    "title": "Seafood Market: 'El asturiano'",
+    "score": 45
+   },
+   {
+    "url": "https://live.staticflickr.com/5298/5793851307_c5d07d3de3_b.jpg",
+    "title": "Project 365 #154: 030611 The Official Launch",
+    "score": 23
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Chorizo_espa%C3%B1ol%2C_Mazatl%C3%A1n%2C_26_de_abril_de_2023.jpg",
+    "title": "Chorizo espa\u00f1ol, Mazatl\u00e1n, 26 de abril de 2023",
+    "score": 23
+   }
+  ],
+  "score0": 45,
+  "reason": "busy background \u2014 only 1% keyed"
+ },
+ {
+  "id": "cornichon",
+  "name": "Cornichons",
+  "cat": "briny",
+  "score": 92,
+  "title": "Cornichon sauteur",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Cornichon sauteur\" by Isaszas is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/87805257@N00/29604019834",
+  "bytes": 147833,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/5625/31147394322_81fb7479ae_b.jpg",
+    "title": "cornichons Ludin",
+    "score": 60
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Sm%C3%B8rrebr%C3%B8d_homage_01_-_anchovies%2C_chorizo%2C_cornichons%2C_onion%2C_pepper%2C_on_German_rye_-_Massachusetts.jpg",
+    "title": "Sm\u00f8rrebr\u00f8d homage 01 - anchovies, chorizo, cornichons, onion, pepper, on German rye - Massachusetts",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/2870/34143939095_9d46f9ea5f_b.jpg",
+    "title": "Jeune cornichon",
+    "score": 0
+   }
+  ],
+  "score0": 60,
+  "reason": "busy background \u2014 only 2% keyed"
+ },
+ {
+  "id": "cranberry-sauce",
+  "name": "Cranberry sauce",
+  "cat": "spread",
+  "score": 92,
+  "title": "Food Cranberry Sauce",
+  "license": "pdm",
+  "source": "openverse",
+  "attribution": "\"Food Cranberry Sauce\" by bhmcityschools is marked with Public Domain Mark 1.0. To view the terms, visit https://creativecommons.org/publicdomain/mark/1.0/.",
+  "detail": "https://www.flickr.com/photos/193916823@N05/51687785102",
+  "bytes": 204194,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/4912/31365304697_6bf7783e58_b.jpg",
+    "title": "Cranberry sauce on holiday table",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/4870/46304157401_94b3620f12_b.jpg",
+    "title": "Delicious, nutritious cranberry sauce!",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/4907/32432317828_b8e73ee082_b.jpg",
+    "title": "Pretty table with cranberry sauce",
+    "score": 60
+   }
+  ],
+  "score0": 70,
+  "reason": "busy background \u2014 only 1% keyed"
+ },
+ {
+  "id": "cream-cheese",
+  "name": "Cream cheese block",
+  "cat": "cheese",
+  "score": 0,
+  "title": "Radisson Hotel Dinner Menu - DPLA - b36f60798d8a9735331c6e0e8847c2d2 (page 1)",
+  "license": "Public domain",
+  "source": "commons",
+  "attribution": "Radisson Hotel Dinner Menu - DPLA - b36f60798d8a9735331c6e0e8847c2d2 (page 1).jpg \u2014 Wikimedia Commons (Public domain)",
+  "detail": "https://commons.wikimedia.org/wiki/File:Radisson_Hotel_Dinner_Menu_-_DPLA_-_b36f60798d8a9735331c6e0e8847c2d2_(page_1).jpg",
+  "bytes": 203084,
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Radisson_Hotel_Dinner_Menu_-_DPLA_-_b36f60798d8a9735331c6e0e8847c2d2_%28page_1%29.jpg/960px-Radisson_Hotel_Dinner_Menu_-_DPLA_-_b36f60798d8a9735331c6e0e8847c2d2_%28page_1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Radisson Hotel Dinner Menu - DPLA - b36f60798d8a9735331c6e0e8847c2d2 (page 1)",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Radisson_Hotel_Dinner_Menu_-_DPLA_-_b36f60798d8a9735331c6e0e8847c2d2_%28page_2%29.jpg/960px-Radisson_Hotel_Dinner_Menu_-_DPLA_-_b36f60798d8a9735331c6e0e8847c2d2_%28page_2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Radisson Hotel Dinner Menu - DPLA - b36f60798d8a9735331c6e0e8847c2d2 (page 2)",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Radisson_Hotel_Dinner_Menu_-_DPLA_-_b36f60798d8a9735331c6e0e8847c2d2_%28page_3%29.jpg/960px-Radisson_Hotel_Dinner_Menu_-_DPLA_-_b36f60798d8a9735331c6e0e8847c2d2_%28page_3%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Radisson Hotel Dinner Menu - DPLA - b36f60798d8a9735331c6e0e8847c2d2 (page 3)",
+    "score": 0
+   }
+  ],
+  "score0": 0,
+  "reason": "busy background \u2014 only 2% keyed"
+ },
+ {
+  "id": "currants-red",
+  "name": "Redcurrants",
+  "cat": "fruit",
+  "score": 92,
+  "title": "Redcurrants",
+  "license": "pdm",
+  "source": "openverse",
+  "attribution": "\"Redcurrants\" by Stoutcob is marked with Public Domain Mark 1.0. To view the terms, visit https://creativecommons.org/publicdomain/mark/1.0/.",
+  "detail": "https://www.flickr.com/photos/63058338@N02/46690154675",
+  "bytes": 270003,
+  "alternates": [
+   {
+    "url": "https://images.rawpixel.com/editor_1024/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA0L3drNjk5ODAwNjktd2lraW1lZGlhLWltYWdlLWtwNmoyNmp6LmpwZw.jpg",
+    "title": "Redcurrant berries basket",
+    "score": 25
+   },
+   {
+    "url": "https://images.rawpixel.com/image_png_1300/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIyLTA1L2pvYjcyNy0wODUtcF8xLnBuZw.png",
+    "title": "Redcurrant png sticker fruit illustration",
+    "score": 25
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/58/Budding_leaves_on_redcurrant_1_%28cropped%29.jpg",
+    "title": "Budding leaves on redcurrant 1 (cropped)",
+    "score": 0
+   }
+  ],
+  "score0": 60,
+  "reason": "busy background \u2014 only 0% keyed"
+ },
+ {
+  "id": "dried-fig",
+  "name": "Dried fig",
+  "cat": "dried",
+  "score": 100,
+  "title": "Dried figs isolated on a white background",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Dried figs isolated on a white background\" by www.readyelements.com is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/155753322@N06/41903829690",
+  "bytes": 257927,
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/DRIED_FIGS.jpg",
+    "title": "DRIED FIGS",
+    "score": 75
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/28/Dried_figs_%282%29.jpg",
+    "title": "Dried figs (2)",
+    "score": 75
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Dried_figs_-_Massachusetts.jpg",
+    "title": "Dried figs - Massachusetts",
+    "score": 75
+   }
+  ],
+  "score0": 85,
+  "reason": "busy background \u2014 only 2% keyed"
+ },
+ {
+  "id": "dried-pear",
+  "name": "Dried pear",
+  "cat": "dried",
+  "score": 0,
+  "title": "Another Zero Dollar Project",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Another Zero Dollar Project\" by cogdogblog is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/37996646802@N01/2523437258",
+  "bytes": 435555,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/2081/2523437258_336d601fda_b.jpg",
+    "title": "Another Zero Dollar Project",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Another_Zero_Dollar_Project_%282523437258%29.jpg",
+    "title": "File:Another Zero Dollar Project (2523437258).jpg",
+    "score": 0
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/55317212506_48cc58f521_b.jpg",
+    "title": "Royal fern (Osmunda regalis L.",
+    "score": 0
+   }
+  ],
+  "score0": 0,
+  "reason": "busy background \u2014 only 0% keyed"
+ },
+ {
+  "id": "everything-cracker",
+  "name": "Everything crackers",
+  "cat": "cracker",
+  "score": 48,
+  "title": "Project 365 #290: 171010 Absolutely Crackers",
+  "license": "pdm",
+  "source": "openverse",
+  "attribution": "\"Project 365 #290: 171010 Absolutely Crackers\" by comedy_nose is marked with Public Domain Mark 1.0. To view the terms, visit https://creativecommons.org/publicdomain/mark/1.0/.",
+  "detail": "https://www.flickr.com/photos/23408922@N07/5089402435",
+  "bytes": 125843,
+  "alternates": [],
+  "score0": 38,
+  "reason": "busy background \u2014 only 1% keyed"
+ },
+ {
+  "id": "fennel-frond",
+  "name": "Fennel fronds",
+  "cat": "garnish",
+  "score": 92,
+  "title": "Swirling drops in fennel fronds",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Swirling drops in fennel fronds\" by terri_bateman is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/134468672@N06/34608871313",
+  "bytes": 188194,
+  "alternates": [],
+  "score0": 60,
+  "reason": "busy background \u2014 only 1% keyed"
+ },
+ {
+  "id": "fig-jam",
+  "name": "Fig jam",
+  "cat": "spread",
+  "score": 40,
+  "title": "Fig Tree, Sunnybank",
+  "license": "pdm",
+  "source": "openverse",
+  "attribution": "\"Fig Tree, Sunnybank\" by Queensland State Archives is marked with Public Domain Mark 1.0. To view the terms, visit https://creativecommons.org/publicdomain/mark/1.0/.",
+  "detail": "https://www.flickr.com/photos/60455048@N02/38370914672",
+  "bytes": 156412,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/4529/38370914672_19bd52d117_b.jpg",
+    "title": "Fig Tree, Sunnybank",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/84/Fruits_of_Roxburgh_fig.jpg",
+    "title": "Fruits of Roxburgh fig",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Cup_containing_dried_fruit_with_papyrus_strips%2C_clay_-_Museo_Egizio_%28Turin%29_S_8347_p03.jpg",
+    "title": "<div class='fn'> <div style='font-weight:bold;display:inline-block;'><div style='display:inline-block' dir='ltr' lang='en'><i>Cup containing dried fruit with papyrus strips <span class='mw-valign-text-top' typeof='mw:File/Frameless'><a href='https://www.wikidata.org/wiki/Q117423506#P1476' title='Edit this at Wikidata'><img alt='Edit this at Wikidata' src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png' decoding='async' width='10' height='10' class='mw-file-element' data-file-width='20' data-file-height='20'></a></span></i></div></div><div style='display: none;'>title QS:P1476,en:'Cup containing dried fruit with papyrus strips <span class='mw-valign-text-top' typeof='mw:File/Frameless'><a href='https://www.wikidata.org/wiki/Q117423506#P1476' title='Edit this at Wikidata'><img alt='Edit this at Wikidata' src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png' decoding='async' width='10' height='10' class='mw-file-element' data-file-width='20' data-file-height='20'></a></span>'</div><div style='display: none;'>label QS:Len,'Cup containing dried fruit with papyrus strips <span class='mw-valign-text-top' typeof='mw:File/Frameless'><a href='https://www.wikidata.org/wiki/Q117423506#P1476' title='Edit this at Wikidata'><img alt='Edit this at Wikidata' src='https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png' decoding='async' width='10' height='10' class='mw-file-element' data-file-width='20' data-file-height='20'></a></span>'</div><div style='display: none;'>label QS:Lit,'Coppa con frutta essiccata, trattenuta da strisce di papiro'</div></div>",
+    "score": 0
+   }
+  ],
+  "score0": 0,
+  "reason": "busy background \u2014 only 2% keyed"
+ },
+ {
+  "id": "grape-green",
+  "name": "Green grapes",
+  "cat": "fruit",
+  "score": 92,
+  "title": "Green Grapes",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Green Grapes\" by Peter Belch is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://stocksnap.io/photo/green-grapes-4ELIEQT8IV",
+  "bytes": 136157,
+  "alternates": [
+   {
+    "url": "https://cdn.stocksnap.io/img-thumbs/960w/SE7GH6483X.jpg",
+    "title": "Green Grapes",
+    "score": 85
+   },
+   {
+    "url": "https://cdn.stocksnap.io/img-thumbs/960w/JDT71I6U96.jpg",
+    "title": "Green Grapes",
+    "score": 85
+   },
+   {
+    "url": "https://cdn.stocksnap.io/img-thumbs/960w/CP2ANG4WUS.jpg",
+    "title": "Green Grapes",
+    "score": 85
+   }
+  ],
+  "score0": 85,
+  "reason": "busy background \u2014 only 1% keyed"
+ },
+ {
+  "id": "hazelnut",
+  "name": "Hazelnuts",
+  "cat": "nut",
+  "score": 92,
+  "title": "Still life with plums, grapes and peaches in a wicker basket, with Cherries, Hazelnuts, a Beetle and a Butterfly on the Woodentabletop Beneath\u201d Jacob van Hulsdonck - circa 1620 (Belgian, 1582 - 1647)",
+  "license": "pdm",
+  "source": "openverse",
+  "attribution": "\"Still life with plums, grapes and peaches in a wicker basket, with Cherries, Hazelnuts, a Beetle and a Butterfly on the Woodentabletop Beneath\u201d Jacob van Hulsdonck - circa 1620 (Belgian, 1582 - 1647)\" by Swallowtail Garden Seeds is marked with Public Domain Mark 1.0. To view the terms, visit https://creativecommons.org/publicdomain/mark/1.0/.",
+  "detail": "https://www.flickr.com/photos/97123293@N07/15027916849",
+  "bytes": 207112,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/7386/16396168199_026788c6d8_b.jpg",
+    "title": "1901 Hazelnuts Keramic Studio",
+    "score": 30
+   },
+   {
+    "url": "https://live.staticflickr.com/4359/36860346222_0341f3e233_b.jpg",
+    "title": "hazelnut \u00e9clairs forever #batardForever",
+    "score": 25
+   },
+   {
+    "url": "https://live.staticflickr.com/4835/46307591874_20dbb82a95_b.jpg",
+    "title": "Hazelnut orchard in snow, Willamette Valley, Oregon",
+    "score": 15
+   }
+  ],
+  "score0": 75,
+  "reason": "busy background \u2014 only 3% keyed"
+ },
+ {
+  "id": "jamon-iberico",
+  "name": "Jam\u00f3n ib\u00e9rico",
+  "cat": "meat",
+  "score": 92,
+  "title": "Jam\u00f3n 100% ib\u00e9rico de bellota (Etiqueta Negra) 'Monte Nevado' (Carbonero el Mayor. Segovia. Espa\u00f1a)",
+  "license": "pdm",
+  "source": "openverse",
+  "attribution": "\"Jam\u00f3n 100% ib\u00e9rico de bellota (Etiqueta Negra) 'Monte Nevado' (Carbonero el Mayor. Segovia. Espa\u00f1a)\" by pedro.cifuentes is marked with Public Domain Mark 1.0. To view the terms, visit https://creativecommons.org/publicdomain/mark/1.0/.",
+  "detail": "https://www.flickr.com/photos/187577229@N08/54897404299",
+  "bytes": 336130,
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/2e/Jam%C3%B3n_de_cebo_ib%C3%A9rico_%2850%25%29.jpg",
+    "title": "Jam\u00f3n de cebo ib\u00e9rico (50%)",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Tapas%2C_Madrid.jpg",
+    "title": "Tapas, Madrid",
+    "score": 0
+   }
+  ],
+  "score0": 0,
+  "reason": "busy background \u2014 only 1% keyed"
+ },
+ {
+  "id": "macadamia",
+  "name": "Macadamias",
+  "cat": "nut",
+  "score": 92,
+  "title": "Glyhposate herbicide injury to macadamia (Macadamia integrifolia)",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Glyhposate herbicide injury to macadamia (Macadamia integrifolia)\" by Plant pests and diseases is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/62295966@N07/14851227924",
+  "bytes": 271847,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/3914/14667980957_296c3c7ec6_b.jpg",
+    "title": "Thrips feeding injury to macadamia",
+    "score": 10
+   },
+   {
+    "url": "https://live.staticflickr.com/2546/5816371202_ee3ea6df59_b.jpg",
+    "title": "macadamia-quick-decline-1",
+    "score": 0
+   },
+   {
+    "url": "https://live.staticflickr.com/3139/5791152101_4229f011d1_b.jpg",
+    "title": "macadamia coffee",
+    "score": 0
+   }
+  ],
+  "score0": 10,
+  "reason": "busy background \u2014 only 2% keyed"
+ },
+ {
+  "id": "melba-toast",
+  "name": "Melba toast",
+  "cat": "cracker",
+  "score": 0,
+  "title": "GCDA Week 2 Bread 03",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"GCDA Week 2 Bread 03\" by Jodiepedia is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/75126686@N00/52866402028",
+  "bytes": 217247,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/65535/52866401943_ca6bd6a2c0_b.jpg",
+    "title": "GCDA Week 2 Bread 05",
+    "score": 45
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/52865962146_0d1d6390fa_b.jpg",
+    "title": "GCDA Week 2 Bread 07",
+    "score": 45
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/49463692776_79472d01de_m.jpg",
+    "title": "Named for the toast....or, perhaps named the toast. *",
+    "score": 23
+   }
+  ],
+  "score0": 45,
+  "reason": "busy background \u2014 only 3% keyed"
+ },
+ {
+  "id": "microgreens",
+  "name": "Microgreens",
+  "cat": "garnish",
+  "score": 92,
+  "title": "Microgreen Emerging - Urban Agriculture",
+  "license": "pdm",
+  "source": "openverse",
+  "attribution": "\"Microgreen Emerging - Urban Agriculture\" by nrcs-pia-enews is marked with Public Domain Mark 1.0. To view the terms, visit https://creativecommons.org/publicdomain/mark/1.0/.",
+  "detail": "https://www.flickr.com/photos/194676499@N06/52272915426",
+  "bytes": 137815,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/65535/52733392628_f2f1c27497_b.jpg",
+    "title": "Growing Microgreens",
+    "score": 70
+   },
+   {
+    "url": "https://pd.w.org/2024/05/92966549665a286c0.72642357-1536x2048.jpg",
+    "title": "A beautifully plated dish featuring a creamy base topped with sliced tomatoes, fresh greens, and microgreens, set on a rustic ceramic plate.",
+    "score": 70
+   },
+   {
+    "url": "https://pd.w.org/2025/06/650685ccbcbdbe022.62506631-1536x2048.jpg",
+    "title": "An elegant plated dish featuring slices of smoked salmon, avocado, crunchy caramelised nuts, and microgreens, artistically drizzled with balsamic and herb-infused oils on a white rectangular plate.",
+    "score": 70
+   }
+  ],
+  "score0": 70,
+  "reason": "busy background \u2014 only 0% keyed"
+ },
+ {
+  "id": "parmesan-crisp",
+  "name": "Parmesan crisps",
+  "cat": "cracker",
+  "score": 40,
+  "title": "Feta parcels and parmesan shortbread in the oven",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Feta parcels and parmesan shortbread in the oven\" by Jodiepedia is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/75126686@N00/52846914710",
+  "bytes": 243111,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/65535/53406968475_d017d41f04_b.jpg",
+    "title": "Caesar Side Salad",
+    "score": 0
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Carbonara_Scrambled_Eggs_on_Toasted_Sourdough_-_T_%40_Hove_2023-10-22.jpg",
+    "title": "Carbonara Scrambled Eggs on Toasted Sourdough - T @ Hove 2023-10-22",
+    "score": 0
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/53406968305_9a0c580849_b.jpg",
+    "title": "Caesar Side Salad",
+    "score": 0
+   }
+  ],
+  "score0": 23,
+  "reason": "busy background \u2014 only 2% keyed"
+ },
+ {
+  "id": "passionfruit",
+  "name": "Passionfruit",
+  "cat": "fruit",
+  "score": 92,
+  "title": "Passionfruit: Cucumber mosaic virus",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Passionfruit: Cucumber mosaic virus\" by Plant pests and diseases is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/62295966@N07/14692287977",
+  "bytes": 173483,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/7619/16242305433_0c918b0ffb_b.jpg",
+    "title": "Orange-petaled passion flower, Norfolk Island passionfruit. Passiflora aurantia (1817)",
+    "score": 75
+   },
+   {
+    "url": "https://live.staticflickr.com/7483/15459320443_58a65177a1_b.jpg",
+    "title": "Red banana passionfruit. Passiflora antioquiensis.",
+    "score": 75
+   },
+   {
+    "url": "https://live.staticflickr.com/7789/16714590864_775afab7e8_b.jpg",
+    "title": "Banana Passionfruit",
+    "score": 75
+   }
+  ],
+  "score0": 85,
+  "reason": "busy background \u2014 only 3% keyed"
+ },
+ {
+  "id": "pear",
+  "name": "Pear",
+  "cat": "fruit",
+  "score": 92,
+  "title": "Asian pear",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Asian pear\" by Plant pests and diseases is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/62295966@N07/15212122077",
+  "bytes": 125105,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/3865/15211611399_8aa2d950e9_b.jpg",
+    "title": "Asian pear: Leaf spot",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/3955/15682273041_83d00ccce8_b.jpg",
+    "title": "Asian pear: Leaf spot",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/8601/15828329258_eb0e4673da_b.jpg",
+    "title": "Asian pear: Leaf spot",
+    "score": 60
+   }
+  ],
+  "score0": 60,
+  "reason": "busy background \u2014 only 3% keyed"
+ },
+ {
+  "id": "pepper-jelly",
+  "name": "Pepper jelly",
+  "cat": "spread",
+  "score": 92,
+  "title": "Another Round of Chile Pepper Jelly",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Another Round of Chile Pepper Jelly\" by cogdogblog is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/37996646802@N01/31035895361",
+  "bytes": 200697,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/3934/33874181430_c50387ec3c_b.jpg",
+    "title": "New Pepper Jelly Test Drive",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/5575/30492362986_a91321fd39_b.jpg",
+    "title": "Sampling the Pepper Jelly",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/52473116414_5593bae879_b.jpg",
+    "title": "Made some hot pepper jelly using peppers from our garden.",
+    "score": 60
+   }
+  ],
+  "score0": 60,
+  "reason": "busy background \u2014 only 4% keyed"
+ },
+ {
+  "id": "pineapple",
+  "name": "Pineapple",
+  "cat": "fruit",
+  "score": 92,
+  "title": "Pineapples",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Pineapples\" by Thad Zajdowicz is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/40632439@N00/16256685132",
+  "bytes": 249365,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/7247/27868521545_d8f652b1d6_b.jpg",
+    "title": "Pineapple Label",
+    "score": 75
+   },
+   {
+    "url": "https://live.staticflickr.com/3850/15159940169_f410ce6fed_b.jpg",
+    "title": "Pineapple. Ananas comosus. Moninckx, J., Moninckx atlas, vol. 1: t. 36 (1682)",
+    "score": 75
+   },
+   {
+    "url": "https://live.staticflickr.com/5072/5832862315_3dd0edcac8_b.jpg",
+    "title": "P3110017 pineapple Spanish",
+    "score": 60
+   }
+  ],
+  "score0": 85,
+  "reason": "busy background \u2014 only 3% keyed"
+ },
+ {
+  "id": "pistachio",
+  "name": "Pistachios",
+  "cat": "nut",
+  "score": 100,
+  "title": "Pistachios Nuts",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Pistachios Nuts\" by Krzysztof%20Puszczy%u0144ski is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://stocksnap.io/photo/pistachios-nuts-D3JX2C0MW9",
+  "bytes": 115929,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/7267/26215809934_11a9b26724_b.jpg",
+    "title": "Leopard lizard with encroaching line of pistachios in background",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/662/32553617616_f06a21a156_b.jpg",
+    "title": "Pistachio nut",
+    "score": 15
+   },
+   {
+    "url": "https://live.staticflickr.com/5301/5888683438_5995ef0216_b.jpg",
+    "title": "Turkish version of the Wonders of creation, Pistachio of Syria and pepper of India, Walters Manuscript W.659, fol. 214a",
+    "score": 0
+   }
+  ],
+  "score0": 85,
+  "reason": "busy background \u2014 only 1% keyed"
+ },
+ {
+  "id": "plum",
+  "name": "Plum",
+  "cat": "fruit",
+  "score": 92,
+  "title": "Still life with plums, grapes and peaches in a wicker basket, with Cherries, Hazelnuts, a Beetle and a Butterfly on the Woodentabletop Beneath\u201d Jacob van Hulsdonck - circa 1620 (Belgian, 1582 - 1647)",
+  "license": "pdm",
+  "source": "openverse",
+  "attribution": "\"Still life with plums, grapes and peaches in a wicker basket, with Cherries, Hazelnuts, a Beetle and a Butterfly on the Woodentabletop Beneath\u201d Jacob van Hulsdonck - circa 1620 (Belgian, 1582 - 1647)\" by Swallowtail Garden Seeds is marked with Public Domain Mark 1.0. To view the terms, visit https://creativecommons.org/publicdomain/mark/1.0/.",
+  "detail": "https://www.flickr.com/photos/97123293@N07/15027916849",
+  "bytes": 207112,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/3910/14891711445_d6fd59d250_b.jpg",
+    "title": "Plum 'Royale'. Prunus domestica. By P.J. Redoute\u0301 (1827-1833)",
+    "score": 75
+   },
+   {
+    "url": "https://live.staticflickr.com/3855/15056231826_306f205aee_b.jpg",
+    "title": "Purple Apricot. Prunus dasycarpa. Native to China. Showy white flowers followed by deep purple fruits. Probably a cross of an apricot and plum",
+    "score": 75
+   },
+   {
+    "url": "https://live.staticflickr.com/1502/26234898286_50b96e2f8f_b.jpg",
+    "title": "plum blossom",
+    "score": 60
+   }
+  ],
+  "score0": 75,
+  "reason": "busy background \u2014 only 3% keyed"
+ },
+ {
+  "id": "prosciutto-cotto",
+  "name": "Prosciutto cotto",
+  "cat": "meat",
+  "score": 0,
+  "title": "Cooked ham served on wooden boards",
+  "license": "CC0",
+  "source": "commons",
+  "attribution": "Cooked ham served on wooden boards.jpg \u2014 Wikimedia Commons (CC0)",
+  "detail": "https://commons.wikimedia.org/wiki/File:Cooked_ham_served_on_wooden_boards.jpg",
+  "bytes": 171742,
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Cooked_ham_served_on_wooden_boards.jpg/960px-Cooked_ham_served_on_wooden_boards.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "title": "Cooked ham served on wooden boards",
+    "score": 0
+   }
+  ],
+  "score0": 0,
+  "reason": "busy background \u2014 only 4% keyed"
+ },
+ {
+  "id": "radish",
+  "name": "Breakfast radishes",
+  "cat": "veg",
+  "score": 92,
+  "title": "Fried egg on toast with cutting radishes pieces- Healthy breakfast",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Fried egg on toast with cutting radishes pieces- Healthy breakfast\" by Bhuwan Bdr. Rokaha is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://wordpress.org/photos/photo/7356572fdf/",
+  "bytes": 560969,
+  "alternates": [],
+  "score0": 55,
+  "reason": "busy background \u2014 only 4% keyed"
+ },
+ {
+  "id": "roquefort",
+  "name": "Roquefort",
+  "cat": "cheese",
+  "score": 92,
+  "title": "'La rue des caves, \u00e0 Roquefort'.",
+  "license": "pdm",
+  "source": "openverse",
+  "attribution": "\"'La rue des caves, \u00e0 Roquefort'.\" by Biblioteca Rector Machado y Nu\u00f1ez is marked with Public Domain Mark 1.0. To view the terms, visit https://creativecommons.org/publicdomain/mark/1.0/.",
+  "detail": "https://www.flickr.com/photos/37667416@N04/4306306688",
+  "bytes": 450658,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/2786/4306306688_c6653d2e21_b.jpg",
+    "title": "'La rue des caves, \u00e0 Roquefort'.",
+    "score": 60
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/41/Signature_de_Jean_Joseph_Mougins_de_Roquefort.jpg",
+    "title": "Signature de Jean Joseph Mougins de Roquefort",
+    "score": 60
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Signature_de_Boniface_Antoine_Mougins_de_Roquefort.jpg",
+    "title": "Signature de Boniface Antoine Mougins de Roquefort",
+    "score": 60
+   }
+  ],
+  "score0": 60,
+  "reason": "busy background \u2014 only 0% keyed"
+ },
+ {
+  "id": "seeded-crisp",
+  "name": "Seeded crisps",
+  "cat": "cracker",
+  "score": 0,
+  "title": "Chouchou",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"Chouchou\" by Philippe Vieux-Jeanton is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/11234074@N05/10143697606",
+  "bytes": 231236,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/7362/10143697606_502d103909_b.jpg",
+    "title": "Chouchou",
+    "score": 10
+   },
+   {
+    "url": "https://pd.w.org/2025/08/15968afc2f2b9cc17.69549249-2048x1536.jpg",
+    "title": "A bowl of noodles topped with sesame seeds, accompanied by a fried egg with a runny yolk, slices of boiled eggs, and crisp pieces of breaded chicken",
+    "score": 10
+   },
+   {
+    "url": "https://live.staticflickr.com/4570/38370939242_547c412521_b.jpg",
+    "title": "Buerue Box Pear Tree on Property of Mr C Bennett, Annerley",
+    "score": 0
+   }
+  ],
+  "score0": 10,
+  "reason": "busy background \u2014 only 1% keyed"
+ },
+ {
+  "id": "shortbread",
+  "name": "Shortbread",
+  "cat": "sweet",
+  "score": 92,
+  "title": "Christmas shortbread",
+  "license": "pdm",
+  "source": "openverse",
+  "attribution": "\"Christmas shortbread\" by Dious is marked with Public Domain Mark 1.0. To view the terms, visit https://creativecommons.org/publicdomain/mark/1.0/.",
+  "detail": "https://www.flickr.com/photos/91387891@N07/15581894010",
+  "bytes": 330758,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/8619/15580955219_e7d2438625_b.jpg",
+    "title": "Christmas Shortbread",
+    "score": 70
+   },
+   {
+    "url": "https://live.staticflickr.com/4190/34302767612_2b066dc4be_b.jpg",
+    "title": "Stigmata Shortbread!!",
+    "score": 60
+   },
+   {
+    "url": "https://live.staticflickr.com/1651/24711466386_9e474a5eab_b.jpg",
+    "title": "Making shortbread cookies.",
+    "score": 60
+   }
+  ],
+  "score0": 70,
+  "reason": "busy background \u2014 only 1% keyed"
+ },
+ {
+  "id": "strawberry",
+  "name": "Strawberry",
+  "cat": "fruit",
+  "score": 0,
+  "title": "strawberries",
+  "license": "pdm",
+  "source": "openverse",
+  "attribution": "\"strawberries\" by Fried Dough is marked with Public Domain Mark 1.0. To view the terms, visit https://creativecommons.org/publicdomain/mark/1.0/.",
+  "detail": "https://www.flickr.com/photos/42787780@N04/6984507532",
+  "bytes": 290493,
+  "alternates": [
+   {
+    "url": "https://live.staticflickr.com/7245/6984506512_c1b27915ff_b.jpg",
+    "title": "strawberries",
+    "score": 85
+   },
+   {
+    "url": "https://live.staticflickr.com/8168/7130593189_393be2e768_b.jpg",
+    "title": "strawberries",
+    "score": 85
+   },
+   {
+    "url": "https://live.staticflickr.com/8858/17311254066_fb33e47ffc_b.jpg",
+    "title": "Strawberry 'Oscar' (1870-1879)",
+    "score": 75
+   }
+  ],
+  "score0": 85,
+  "reason": "busy background \u2014 only 1% keyed"
+ },
+ {
+  "id": "tapenade",
+  "name": "Olive tapenade",
+  "cat": "spread",
+  "score": 40,
+  "title": "26-Tulbagh Oakhurst Olives",
+  "license": "cc0",
+  "source": "openverse",
+  "attribution": "\"26-Tulbagh Oakhurst Olives\" by www.wbayer.com - www.facebook.com/wbayercom is marked with CC0 1.0. To view the terms, visit https://creativecommons.org/publicdomain/zero/1.0/.",
+  "detail": "https://www.flickr.com/photos/76319087@N08/49780636873",
+  "bytes": 169034,
+  "alternates": [
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Pork_liver_confit_and_French_mustard%2C_topped_with_chopped_tea_egg_and_cornichon_%28top%29%2C_and_green_olive_and_almond_tapenade%2C_topped_with_tea_egg_and_pickled_asparagus_%28below%29%2C_both_on_crisp_bread.jpg",
+    "title": "Pork liver confit and French mustard, topped with chopped tea egg and cornichon (top), and green olive and almond tapenade, topped with tea egg and pickled asparagus (below), both on crisp bread",
+    "score": 45
+   },
+   {
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/01/Tapenade_and_green_olives_on_aloo_gobi_paratha_-_Massachusetts.jpg",
+    "title": "Tapenade and green olives on aloo gobi paratha - Massachusetts",
+    "score": 45
+   },
+   {
+    "url": "https://live.staticflickr.com/65535/49780636873_cf25272239_b.jpg",
+    "title": "26-Tulbagh Oakhurst Olives",
+    "score": 23
+   }
+  ],
+  "score0": 23,
+  "reason": "busy background \u2014 only 3% keyed"
+ }
+]
