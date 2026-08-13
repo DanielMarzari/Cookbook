@@ -106,8 +106,13 @@ export interface IngestResult {
  * Keeps the original if the background won't key — a photo shot on a busy
  * surface still beats no photo, and the motif clip hides most of the edge.
  */
-export async function ingestPhoto(id: string, input: Buffer): Promise<IngestResult> {
-  await mkdir(CUSTOM_PHOTOS_DIR, { recursive: true });
+export async function ingestPhoto(
+  id: string,
+  input: Buffer,
+  opts: { save?: boolean } = {},
+): Promise<IngestResult & { dataUrl?: string }> {
+  const save = opts.save !== false;
+  if (save) await mkdir(CUSTOM_PHOTOS_DIR, { recursive: true });
 
   const base = sharp(input).rotate().resize(640, 640, { fit: 'inside', withoutEnlargement: true });
   const { data, info } = await base.raw().ensureAlpha().toBuffer({ resolveWithObject: true });
@@ -133,11 +138,15 @@ export async function ingestPhoto(id: string, input: Buffer): Promise<IngestResu
         .toBuffer(),
     );
 
-  await writeFile(customPhotoPath(id), out);
+  if (save) await writeFile(customPhotoPath(id), out);
   return {
     id,
     removed,
     clean,
+    // Handed back for the preview so the board can show the cutout before it is
+    // committed — you should see how a picture sits among the food, not just
+    // how it looks in a swatch.
+    dataUrl: save ? undefined : `data:image/webp;base64,${out.toString('base64')}`,
     note: clean
       ? `background removed (${Math.round(removed * 100)}% keyed)`
       : removed < 0.04

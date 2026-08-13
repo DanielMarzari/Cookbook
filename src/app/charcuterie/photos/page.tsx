@@ -32,6 +32,7 @@ export default function PhotoDeskPage() {
       id: i.id,
       name: i.name,
       cat: i.cat,
+      motif: i.motif,
       score: p?.score ?? 0,
       title: p?.title ?? "",
       detail: p?.detail ?? "",

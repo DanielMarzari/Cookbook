@@ -1,4 +1,5 @@
 import CharcuterieNav from "@/components/charcuterie/CharcuterieNav";
+import { PhotoAvailabilityProvider } from "@/components/charcuterie/PhotoAvailability";
 
 export const metadata = {
   title: "Charcuterie · Cookbook",
@@ -27,7 +28,7 @@ export default function CharcuterieLayout({
 
       <CharcuterieNav />
 
-      {children}
+      <PhotoAvailabilityProvider>{children}</PhotoAvailabilityProvider>
     </div>
   );
 }

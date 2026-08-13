@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import PhotoTryOut from './PhotoTryOut';
+import type { Motif } from '@/lib/charcuterie/types';
 
 export interface PhotoRow {
   id: string;
@@ -10,6 +12,8 @@ export interface PhotoRow {
   score: number;
   title: string;
   detail: string;
+  /** How this ingredient gets arranged, so the preview matches the board. */
+  motif: Motif;
   /** Already cleared for the board. */
   verified: boolean;
   /** How many curated themes use it — the reason to do this one first. */
@@ -32,6 +36,8 @@ export default function PhotoDesk({ rows }: { rows: PhotoRow[] }) {
   const [status, setStatus] = useState<Record<string, Status>>({});
   // Bumped per item to bust the browser cache after a replacement.
   const [rev, setRev] = useState<Record<string, number>>({});
+  // Processed but not stored: what you're deciding about.
+  const [candidate, setCandidate] = useState<Record<string, { src: string; note: string; body: FormData }>>({});
   const [filter, setFilter] = useState<'todo' | 'all'>('todo');
 
   useEffect(() => {
@@ -46,21 +52,50 @@ export default function PhotoDesk({ rows }: { rows: PhotoRow[] }) {
     return list;
   }, [rows, filter, custom]);
 
+  /** Process without storing, so the picture can be seen on the board first. */
   async function send(id: string, body: FormData) {
     setStatus((s) => ({ ...s, [id]: { kind: 'busy' } }));
     try {
-      const res = await fetch('/api/charcuterie/photos', { method: 'POST', body });
+      const probe = new FormData();
+      for (const [k, v] of body.entries()) probe.append(k, v);
+      probe.set('preview', '1');
+      const res = await fetch('/api/charcuterie/photos', { method: 'POST', body: probe });
       const data = await res.json();
       if (!res.ok) {
         setStatus((s) => ({ ...s, [id]: { kind: 'err', note: data.error ?? 'failed' } }));
         return;
       }
-      setCustom((c) => new Set(c).add(id));
-      setRev((r) => ({ ...r, [id]: (r[id] ?? 0) + 1 }));
-      setStatus((s) => ({ ...s, [id]: { kind: 'ok', note: data.note } }));
+      setCandidate((c) => ({ ...c, [id]: { src: data.dataUrl, note: data.note, body } }));
+      setStatus((s) => ({ ...s, [id]: { kind: 'idle' } }));
     } catch (e) {
       setStatus((s) => ({ ...s, [id]: { kind: 'err', note: (e as Error).message } }));
     }
+  }
+
+  /** Commit the candidate — the same image, stored this time. */
+  async function keep(id: string) {
+    const c = candidate[id];
+    if (!c) return;
+    setStatus((s) => ({ ...s, [id]: { kind: 'busy' } }));
+    try {
+      const res = await fetch('/api/charcuterie/photos', { method: 'POST', body: c.body });
+      const data = await res.json();
+      if (!res.ok) {
+        setStatus((s) => ({ ...s, [id]: { kind: 'err', note: data.error ?? 'failed' } }));
+        return;
+      }
+      setCustom((x) => new Set(x).add(id));
+      setRev((r) => ({ ...r, [id]: (r[id] ?? 0) + 1 }));
+      setCandidate(({ [id]: _drop, ...rest }) => rest);
+      setStatus((s) => ({ ...s, [id]: { kind: 'ok', note: 'on the board' } }));
+    } catch (e) {
+      setStatus((s) => ({ ...s, [id]: { kind: 'err', note: (e as Error).message } }));
+    }
+  }
+
+  function discard(id: string) {
+    setCandidate(({ [id]: _drop, ...rest }) => rest);
+    setStatus((s) => ({ ...s, [id]: { kind: 'idle' } }));
   }
 
   async function drop(id: string) {
@@ -101,8 +136,11 @@ export default function PhotoDesk({ rows }: { rows: PhotoRow[] }) {
             hasCustom={custom.has(r.id)}
             rev={rev[r.id] ?? 0}
             status={status[r.id] ?? { kind: 'idle' }}
+            candidate={candidate[r.id]}
             onSend={send}
             onDrop={drop}
+            onKeep={keep}
+            onDiscard={discard}
           />
         ))}
       </div>
@@ -121,15 +159,21 @@ function Row({
   hasCustom,
   rev,
   status,
+  candidate,
   onSend,
   onDrop,
+  onKeep,
+  onDiscard,
 }: {
   row: PhotoRow;
   hasCustom: boolean;
   rev: number;
   status: Status;
+  candidate?: { src: string; note: string };
   onSend: (id: string, body: FormData) => void;
   onDrop: (id: string) => void;
+  onKeep: (id: string) => void;
+  onDiscard: (id: string) => void;
 }) {
   const [url, setUrl] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
@@ -227,6 +271,18 @@ function Row({
             </a>
           )}
         </div>
+
+        {candidate && (
+          <PhotoTryOut
+            itemId={r.id}
+            motif={r.motif}
+            src={candidate.src}
+            note={candidate.note}
+            saving={busy}
+            onKeep={() => onKeep(r.id)}
+            onDiscard={() => onDiscard(r.id)}
+          />
+        )}
 
         {status.kind !== 'idle' && (
           <p className={`text-[11.5px] mt-1.5 ${status.kind === 'err' ? 'text-text' : 'text-text-secondary'}`}>

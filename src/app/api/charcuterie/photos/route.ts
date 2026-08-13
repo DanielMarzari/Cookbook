@@ -51,8 +51,11 @@ export async function POST(req: Request) {
   if (buf.length < 1000) return NextResponse.json({ error: 'image too small' }, { status: 400 });
   if (buf.length > 25_000_000) return NextResponse.json({ error: 'image too large' }, { status: 400 });
 
+  // preview=1 processes and hands the cutout straight back without storing it,
+  // so a picture can be seen on the board before it replaces anything.
+  const preview = String(form.get('preview') ?? '') === '1';
   try {
-    const result = await ingestPhoto(id, buf);
+    const result = await ingestPhoto(id, buf, { save: !preview });
     return NextResponse.json(result);
   } catch (e) {
     return NextResponse.json({ error: `could not process: ${(e as Error).message}` }, { status: 500 });

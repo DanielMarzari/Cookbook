@@ -1,6 +1,9 @@
+"use client";
+
 import { Fragment, type ReactNode } from "react";
 import { rngFor } from "@/lib/charcuterie/geometry";
-import { hasPhoto, photoUrl } from "@/lib/charcuterie/photos";
+import { photoUrl } from "@/lib/charcuterie/photos";
+import { usePhotoSet } from "./PhotoAvailability";
 import { PhotoFill } from "./PhotoFill";
 import type { Cut, Item, Motif, Zone } from "@/lib/charcuterie/types";
 
@@ -727,9 +730,11 @@ export function ZoneFill({
   const clipId = `${idPrefix}-${zone.id}`;
   const rng = rngFor(`${zone.id}:${item.id}:${motif}`);
   const render = MOTIFS[motif] ?? MOTIFS.cluster;
-  // A photograph beats a polygon wherever we have one. The drawn motif stays as
-  // the fallback so an ingredient without a picture still fills its zone.
-  const photo = hasPhoto(item.id) ? photoUrl(item.id) : null;
+  // A photograph beats a polygon wherever we have one — including the ones you
+  // supplied, which is what the context carries. The drawn motif stays as the
+  // fallback so an ingredient without a picture still fills its zone.
+  const usable = usePhotoSet();
+  const photo = usable.has(item.id) ? photoUrl(item.id) : null;
 
   return (
     <>
