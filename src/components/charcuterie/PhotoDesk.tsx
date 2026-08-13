@@ -10,6 +10,10 @@ export interface PhotoRow {
   score: number;
   title: string;
   detail: string;
+  /** Already cleared for the board. */
+  verified: boolean;
+  /** How many curated themes use it — the reason to do this one first. */
+  uses: number;
 }
 
 type Status = { kind: 'idle' } | { kind: 'busy' } | { kind: 'ok'; note: string } | { kind: 'err'; note: string };
@@ -38,7 +42,7 @@ export default function PhotoDesk({ rows }: { rows: PhotoRow[] }) {
   }, []);
 
   const shown = useMemo(() => {
-    const list = filter === 'all' ? rows : rows.filter((r) => r.score < 60 && !custom.has(r.id));
+    const list = filter === 'all' ? rows : rows.filter((r) => !r.verified && !custom.has(r.id));
     return list;
   }, [rows, filter, custom]);
 
@@ -70,7 +74,7 @@ export default function PhotoDesk({ rows }: { rows: PhotoRow[] }) {
     setStatus((s) => ({ ...s, [id]: { kind: 'idle' } }));
   }
 
-  const todo = rows.filter((r) => r.score < 60 && !custom.has(r.id)).length;
+  const todo = rows.filter((r) => !r.verified && !custom.has(r.id)).length;
 
   return (
     <div>
@@ -84,7 +88,7 @@ export default function PhotoDesk({ rows }: { rows: PhotoRow[] }) {
               filter === f ? 'text-text border-text' : 'text-text-secondary border-transparent hover:text-text'
             }`}
           >
-            {f === 'todo' ? `Needs a photo — ${todo}` : `All ingredients — ${rows.length}`}
+            {f === 'todo' ? `Needs a picture — ${todo}` : `All ingredients — ${rows.length}`}
           </button>
         ))}
       </div>
@@ -145,13 +149,18 @@ function Row({
           }}
         />
         <span className="block text-[10.5px] uppercase tracking-[0.1em] text-text-secondary mt-1">
-          {hasCustom ? 'yours' : r.score > 0 ? `fetched · ${r.score}` : 'none'}
+          {hasCustom ? 'yours · live' : r.verified ? 'live' : r.score > 0 ? 'fetched · unchecked' : 'none'}
         </span>
       </div>
 
       <div className="min-w-0 flex-1">
         <p className="text-[14px] text-text leading-[1.3]">
           {r.name} <span className="text-[11.5px] text-text-secondary">{r.cat}</span>
+          {r.uses > 0 && (
+            <span className="text-[11px] text-text-secondary ml-1.5">
+              · in {r.uses} theme{r.uses === 1 ? '' : 's'}
+            </span>
+          )}
         </p>
         {r.title && !hasCustom && (
           <p className="text-[11.5px] text-text-secondary leading-[1.4] truncate">{r.title}</p>
