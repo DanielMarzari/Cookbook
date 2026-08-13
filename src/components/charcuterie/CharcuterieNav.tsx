@@ -2,18 +2,21 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { MOCKUPS } from "@/lib/charcuterie/mockups";
-
 /** Section nav, in the same idiom as the site header: a text row where the
- *  active item is marked by an underline rather than a filled pill. */
+ *  active item is marked by an underline rather than a filled pill.
+ *
+ *  Studio leads because it is the section now — the other five views moved
+ *  behind one Mockups link rather than each taking a slot in a row you read
+ *  every time. */
 export default function CharcuterieNav() {
   const pathname = usePathname();
   const active = pathname.split("/")[2] ?? "";
 
   const items = [
-    { slug: "", label: "Overview" },
-    ...MOCKUPS.map((m) => ({ slug: m.slug, label: m.name })),
+    { slug: "studio", label: "Studio" },
     { slug: "boards", label: "Saved boards" },
+    { slug: "photos", label: "Ingredient photos" },
+    { slug: "mockups", label: "Mockups" },
   ];
 
   return (
