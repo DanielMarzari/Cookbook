@@ -1231,5 +1231,31 @@ export function photoFor(id: string): string | null {
   return ITEM_PHOTOS[id] ? `/charcuterie/items/${id}.webp` : null;
 }
 
+/**
+ * Photos cleared for the board.
+ *
+ * Deliberately not "everything we downloaded". The CC0 pool is amateur snapshots
+ * on cluttered backgrounds, so the flood-fill left most of them as rectangles
+ * with a kitchen counter attached, and the title scorer passed a memorial stone
+ * as aged gouda and a plate of sausages as biscotti. A wrong photograph is worse
+ * than an honest drawing, so an ingredient earns its photo by being looked at —
+ * either approved here, or supplied by hand at /charcuterie/photos.
+ */
+export const VERIFIED_PHOTOS = new Set<string>([
+  "bell-pepper",
+  "blackberry",
+]);
+
+/** True when this ingredient has a photo we're willing to put on the board. */
+export function hasPhoto(id: string): boolean {
+  return VERIFIED_PHOTOS.has(id) && Boolean(ITEM_PHOTOS[id]);
+}
+
+/** Always route through the API: it prefers a photo you supplied by hand over
+ *  the fetched one, and the board shouldn't have to care which it got. */
+export function photoUrl(id: string): string {
+  return `/api/charcuterie/photo/${id}`;
+}
+
 /** Below this the match is a guess — the review page lists these for a human. */
 export const PHOTO_CONFIDENCE_FLOOR = 60;

@@ -1,5 +1,7 @@
 import { Fragment, type ReactNode } from "react";
 import { rngFor } from "@/lib/charcuterie/geometry";
+import { hasPhoto, photoUrl } from "@/lib/charcuterie/photos";
+import { PhotoFill } from "./PhotoFill";
 import type { Cut, Item, Motif, Zone } from "@/lib/charcuterie/types";
 
 /** Draws food *texture* inside a zone, clipped to the zone's true outline.
@@ -725,6 +727,9 @@ export function ZoneFill({
   const clipId = `${idPrefix}-${zone.id}`;
   const rng = rngFor(`${zone.id}:${item.id}:${motif}`);
   const render = MOTIFS[motif] ?? MOTIFS.cluster;
+  // A photograph beats a polygon wherever we have one. The drawn motif stays as
+  // the fallback so an ingredient without a picture still fills its zone.
+  const photo = hasPhoto(item.id) ? photoUrl(item.id) : null;
 
   return (
     <>
@@ -735,15 +740,24 @@ export function ZoneFill({
       </defs>
       <g clipPath={`url(#${clipId})`}>
         {!NO_BED.includes(motif) && (
-          <path d={zone.d} fill={item.palette[1]} opacity={0.38} />
+          <path d={zone.d} fill={item.palette[1]} opacity={photo ? 0.16 : 0.38} />
         )}
-        {render({
-          rng,
-          box: zone.bbox,
-          center: zone.center,
-          palette: item.palette,
-          key: clipId,
-        })}
+        {photo
+          ? PhotoFill({
+              rng,
+              box: zone.bbox,
+              center: zone.center,
+              motif,
+              src: photo,
+              key: clipId,
+            })
+          : render({
+              rng,
+              box: zone.bbox,
+              center: zone.center,
+              palette: item.palette,
+              key: clipId,
+            })}
       </g>
     </>
   );
