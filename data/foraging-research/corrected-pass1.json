@@ -1097,14 +1097,16 @@
    10
   ],
   "regions": [
+   "midwest",
    "northeast",
-   "southeast",
-   "midwest"
+   "southcentral",
+   "southeast"
   ],
   "terrain": [
    "woodland",
    "upland",
-   "edge"
+   "edge",
+   "wetland"
   ],
   "habitat": "Oak-hickory woods, fertile upland slopes, and old fencerows and pasture edges, from southeastern Minnesota and southeastern Nebraska east through southern Ontario to southern Maine, south to Georgia, Alabama, Mississippi, Louisiana and eastern Texas (west also to eastern Kansas and eastern Oklahoma). It is largely absent from the southeastern and Gulf coastal plains, the lower Mississippi Delta and Florida, so do not expect it on the outer coastal plain. Northern trees hold upland slopes; in the Ohio Valley it favours north- and east-facing slopes of fertile uplands; in Arkansas, Mississippi and Louisiana it is chiefly a river-bottom tree. Identify the tree before you pick anything up: mature trunks break into long, wide gray plates attached at the middle and curving free at one or both ends. Young trees are NOT shaggy - their bark is smooth, tight and gray - so confirm with the leaf: alternate, pinnately compound, 8-14 in long, usually 5 leaflets (sometimes 7) with the terminal three much larger, the teeth fringed with fine hairs.",
   "indicator": "A fertile upland slope or old fencerow in oak-hickory woods, with squirrel-cracked four-part husk shells scattered in the litter under a bearing tree.",
@@ -1157,7 +1159,9 @@
   ],
   "regions": [
    "midwest",
+   "mountain",
    "northeast",
+   "southcentral",
    "southeast",
    "west"
   ],
@@ -1165,7 +1169,8 @@
    "woodland",
    "edge",
    "upland",
-   "disturbed"
+   "disturbed",
+   "wetland"
   ],
   "habitat": "White-oak-group oaks reach every US region: Q. alba, Q. montana and Q. muehlenbergii through the Northeast and Southeast; Q. macrocarpa and Q. bicolor across the Midwest; Q. gambelii and Q. arizonica in the Southwest; Q. lobata and Q. douglasii in California's valleys and foothills; and Q. garryana from southern California north through Oregon and Washington to Vancouver Island. Most are upland trees of dry slopes, ridges, ravines and oak-hickory or oak-savanna edge, though Q. bicolor and the swamp chestnut oaks hold bottomland and stream terraces. Street and park oaks fruit heavily and are the easiest gleaning, but that is also exactly where horse chestnut is planted as a shade tree, so identify the tree standing over you before you pick anything off the pavement.",
   "indicator": "Pale ash-grey, flaky-plated bark on a broad open crown with hickories mixed in, and a scatter of scaly cup-caps and squirrel-cut shell halves already on the ground.",
@@ -1179,7 +1184,7 @@
    },
    {
     "name": "Native buckeyes (Aesculus glabra, A. flava, A. pavia, A. californica)",
-    "danger": "toxic",
+    "danger": "deadly",
     "tell": "Same seed anatomy as horse chestnut: a round, glossy brown seed with one broad pale hilum scar (the 'buck's eye'), no cap scar, no pointed apex, shed from a warty or prickly leathery capsule; and the same opposite, palmately compound leaves overhead. California buckeye is the specific trap in the West, dropping big smooth brown seeds into the same blue oak and valley oak woodland at the same time of year as the acorns you want. NC State Extension lists muscle weakness, dilated pupils, vomiting, diarrhoea, paralysis and stupor."
    },
    {
@@ -1221,15 +1226,15 @@
    "edge",
    "disturbed"
   ],
-  "habitat": "Deep, well-drained, near-neutral bottomland and cove soils, plus fencerows, old-field edges, roadsides and yards, from New England west to eastern South Dakota and south to western Oklahoma, central Texas and northwest Florida. It will not tolerate poorly drained ground, so skip soggy bottoms; open-grown trees carry by far the heaviest crops. Widely planted well beyond this native range.",
+  "habitat": "Deep, well-drained, near-neutral bottomland and cove soils, plus fencerows, old-field edges, roadsides and yards, from New England west to eastern South Dakota and south to western Oklahoma, central Texas and northwest Florida. Those same river-bottom and cove sites are prime yellow buckeye ground - it wants the identical moist, deep, well-drained soil - and horse chestnut is a standard planted shade tree along the very roadsides and yards this entry sends you to, so expect Aesculus fruit underfoot in the same September woods. It will not tolerate poorly drained ground, so skip soggy bottoms; open-grown trees carry by far the heaviest crops. Widely planted well beyond this native range.",
   "indicator": "An open-crowned tree with dark, diamond-furrowed bark standing over conspicuously bare ground - juglone from its roots suppresses plants under the dripline.",
-  "parts": "Kernel only. The husk is not food: its juice stains skin, clothing and concrete brown for weeks and can irritate skin, so wear rubber gloves. Gather when the green husk dents under thumb pressure, then hull the same day - a two-week delay in husk removal turns kernels black and rancid. Wash the nuts, throw out any that are mouldy or whose shells are cracked or fissured, then cure them in a single layer no more than a few nuts deep in a cool, dry, ventilated spot out of direct sun for two to three weeks before cracking. Keep shelled kernels in the fridge or freezer; the oil goes rancid quickly.",
-  "caution": "care",
+  "parts": "Kernel only. Identify the tree before you pick anything up: alternate, pinnately compound leaves one to two feet long with 15-23 leaflets, dark diamond-furrowed bark, and a fleshy green husk holding exactly one rock-hard, deeply grooved nut - never the opposite, palmate leaves and three-valved capsule of a buckeye. Cut the first fruit of the day through with a knife as a positive check: black walnut is thick fibrous green flesh whose juice stains the blade and your fingers yellow-brown within minutes, wrapped around a single shell the knife cannot enter, while a buckeye is a thin leathery rind over one to three smooth, shell-less seeds the blade slices straight through into solid ivory. The husk is not food: its juice stains skin, clothing and concrete brown for weeks and can irritate skin, so wear rubber gloves. Only once the tree is confirmed does ripeness matter - gather when the green husk dents under thumb pressure, then hull the same day, because a two-week delay in husk removal turns kernels black and rancid. The dent test is a ripeness test and nothing more: a green buckeye capsule dents under thumb pressure too, so it can never stand in for identification. Wash the nuts, throw out any that are mouldy or whose shells are cracked or fissured, then cure them in a single layer one nut deep in a cool, dry, ventilated spot out of direct sun for two to three weeks before cracking. Keep shelled kernels in the fridge or freezer; the oil goes rancid quickly.",
+  "caution": "expert",
   "lookalikes": [
    {
-    "name": "Buckeyes and horse chestnut (Aesculus glabra, A. flava, A. hippocastanum)",
-    "danger": "toxic",
-    "tell": "The buckeye fruit is a leathery capsule that splits into two or three valves and releases a smooth, shell-less, glossy mahogany seed with one large pale scar; a black walnut husk is fleshy, never splits, and holds a single rock-hard, deeply grooved black-brown nut. On the tree: buckeye leaves are opposite and palmate, five to seven leaflets radiating from one point; walnut leaves are alternate and pinnate, 15-23 leaflets along a stalk one to two feet long."
+    "name": "Buckeyes and horse chestnut (Aesculus flava, A. glabra, A. hippocastanum, A. pavia)",
+    "danger": "deadly",
+    "tell": "Habitat and calendar put this one directly under your feet: yellow buckeye (A. flava) grows in the same river bottoms, coves and moist north slopes as black walnut and drops a smooth, round, leathery capsule 1.5-2 in across - the same size and silhouette as a green walnut hull; Ohio buckeye (A. glabra) fruits September-October in the same rich valley, ravine and low-woods edge; and horse chestnut is a standard yard and street planting. Thumb pressure will not separate them - a green Aesculus capsule dents too - so cut the fruit through. Black walnut is thick fibrous green flesh, sharply aromatic, whose juice stains the blade and your fingers yellow-brown within minutes, around one rock-hard, deeply corrugated shell the knife cannot enter. Aesculus is a thin leathery rind peeling off one to three smooth, shell-less seeds - glossy mahogany when ripe, pale ivory when green, each with one large pale scar - that the blade cuts straight into as solid ivory, with no stain and no smell. A drying Aesculus capsule shows three sutures and splits into three valves; a walnut husk is fleshy and never splits. Overhead the difference is absolute: Aesculus leaves are opposite and palmate, five to seven leaflets radiating from one point; walnut leaves are alternate and pinnate, 15-23 leaflets along a stalk one to two feet long. NC State Extension rates both A. flava and A. hippocastanum Poison Severity: High, saying of yellow buckeye that it can cause death in humans, livestock and pets and of horse chestnut that it is highly toxic and may be fatal if eaten; poison centres record severe poisoning - weakness, twitching, paralysis, collapse, airway swelling - after only one to four seeds, with children the usual casualties. No Aesculus seed is edible by any preparation, and no amount of leaching makes one safe."
    },
    {
     "name": "Osage orange (Maclura pomifera)",
@@ -1240,13 +1245,17 @@
   "harvest": "Pick nuts up off the ground within a few days of the drop, never from the tree. Ask permission for yard trees, and skip trees on sprayed lawns, sprayed rights-of-way and busy road shoulders. Spread your take across several heavy-bearing yard or roadside trees rather than stripping one isolated woodland tree, whose crop is winter mast for squirrels, deer and turkey. Discard any nut that overwintered on the ground, shows mould, or has a cracked or fissured shell: Penicillium crustosum growing on fallen walnuts produces the tremorgenic mycotoxin penitrem A, documented in dog poisonings and in one adult man who ate about eight mouldy kernels and developed tremors, incoordination and confusion within 12 hours. Anyone with a tree-nut allergy should not eat these at all - walnut is a major food allergen and anaphylaxis is the one hazard here that genuinely kills. Oblong, sticky-hairy fruits are butternut (Juglans cinerea): also edible, but leave them, as the species is collapsing from butternut canker.",
   "sources": [
    "USDA Forest Service, Silvics of North America: Black Walnut (native range, soils, September-October ripening) - https://research.fs.usda.gov/silvics/black-walnut",
+   "USDA Forest Service, Silvics of North America: Yellow Buckeye (grows on moist, deep, well-drained soils in river bottoms, coves and northern slopes - the same sites as black walnut) - https://research.fs.usda.gov/silvics/yellow-buckeye",
    "Iowa State University Extension, \"How to Harvest, Crack, and Store Black Walnuts\" (hull immediately; dry two to three weeks; rubber gloves) - https://yardandgarden.extension.iastate.edu/how-to/how-harvest-crack-and-store-black-walnuts",
    "University of Illinois Extension, \"Preparing Black Walnuts for Eating\" (collect late September to early October; husk dents under a finger when mature) - https://extension.illinois.edu/blogs/extensions-greatest-hits/1999-10-02-preparing-black-walnuts-eating",
    "University of Missouri IPM, \"Black Walnuts: Pick Them and Clean Them Up Quickly\" (two-week hulling delay blackens kernels; discard cracked or fissured shells for microbial risk) - https://ipm.missouri.edu/MEG/2009/10/Black-Walnuts-Pick-Them-and-Clean-Them-Up-Quickly",
    "NC State Extension Plant Toolbox, Juglans nigra (non-splitting fleshy husk, 15-23 leaflets, juglone suppresses plants under the dripline) - https://plants.ces.ncsu.edu/plants/juglans-nigra/",
+   "NC State Extension Plant Toolbox, Aesculus flava (Poison Severity: High; \"It can cause death in humans, livestock and pets\"; smooth leathery capsule 1.5-2 in wide holding 1-3 shiny seeds with a pale scar) - https://plants.ces.ncsu.edu/plants/aesculus-flava/",
    "NC State Extension Plant Toolbox, Aesculus hippocastanum (Poison Severity: High; \"HIGHLY TOXIC, MAY BE FATAL IF EATEN\"; aesculin and aescin) - https://plants.ces.ncsu.edu/plants/aesculus-hippocastanum/",
+   "NC State Extension Plant Toolbox, Aesculus glabra (poison symptoms: muscle weakness, dilated pupils, vomiting, diarrhoea, paralysis and stupor; toxic principle aesculin and aescin in fruits, leaves and stems) - https://plants.ces.ncsu.edu/plants/aesculus-glabra/",
+   "National Capital Poison Center, \"Horse chestnuts are toxic\" (severe poisoning from 1 to 4 seeds: weakness, paralysis, twitching, collapse, angioedema) - https://www.poison.org/articles/horse-chestnuts-are-toxic-214",
    "Clemson HGIC, \"Buckeyes & Horsechestnuts\" (capsules split open; seeds resemble chestnuts but are quite poisonous; palmately compound leaves) - https://hgic.clemson.edu/factsheet/buckeyes-horsechestnuts/",
-   "Missouri Department of Conservation field guide, Ohio buckeye (leathery capsule splitting into three parts; shiny brown seeds; opposite palmate leaves) - https://mdc.mo.gov/discover-nature/field-guide/ohio-buckeye",
+   "Missouri Department of Conservation field guide, Ohio buckeye (fruits September-October; leathery capsule 1-2.25 in splitting into three parts; shiny brown seeds; opposite palmate leaves; rich woods of valleys, ravines, slopes and edges of low woods) - https://mdc.mo.gov/discover-nature/field-guide/ohio-buckeye",
    "Missouri Department of Conservation field guide, Osage orange (4-5 inch brainlike fruit, milky sap that irritates skin, thorny twigs, simple leaves) - https://mdc.mo.gov/discover-nature/field-guide/osage-orange",
    "Mycotoxin Research (2019), \"Putative neuromycotoxicoses in an adult male following ingestion of moldy walnuts,\" PMID 30088215 - https://pubmed.ncbi.nlm.nih.gov/30088215/",
    "Mycopathologia (1981), \"Moldy walnut toxicosis in a dog, caused by the mycotoxin, penitrem A,\" PMID 7312021 - https://pubmed.ncbi.nlm.nih.gov/7312021/",
