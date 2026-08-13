@@ -1,0 +1,1588 @@
+import type { ForageSpecies } from './foraging';
+
+/**
+ * Verified foraging entries.
+ *
+ * Every entry here has been through two independent passes: one that rewrites and
+ * corrects it, and one that reviews it adversarially and can block publication.
+ * Nothing lands in this file until the second pass approves it, because the failure
+ * mode is someone eating the wrong thing, not a bad page.
+ *
+ * The prose runs long on purpose. `habitat` and the lookalike `tell` fields carry the
+ * detail that makes a call possible in the field; the UI shows a lead sentence on the
+ * collapsed row and the full text once you open it.
+ */
+export const FORAGE_SPECIES: ForageSpecies[] = [
+  {
+    "name": "Burdock root",
+    "scientific": "Arctium minus (also A. lappa, A. tomentosum)",
+    "months": [
+      1,
+      2,
+      3,
+      8,
+      9,
+      10
+    ],
+    "regions": [
+      "northeast",
+      "midwest",
+      "mountain",
+      "west"
+    ],
+    "terrain": [
+      "disturbed",
+      "edge",
+      "wetland",
+      "meadow"
+    ],
+    "habitat": "Deep, moist but well-drained loam, high in nitrogen and organic matter, near-neutral pH — old manure ground, silt deposits, and anywhere livestock or people have concentrated fertility for years. Full sun to surprisingly deep part shade, which is why burdock lines the boundary rather than standing in the open field: hedgerows and fence lines, the lower edge of floodplain woods, alley and barnyard margins, the shaded strip along a stream or irrigation ditch, trampled pasture corners, vacant lots, quarry spoil and old farmyards. It grows under and around boxelder, black locust, black walnut, elderberry and multiflora rose. Reliable associates are stinging nettle, curly and broad-leaved dock, motherwort, catnip, garlic mustard, and jewelweed on wet banks. It avoids both extremes — not on dry sand, shale barrens or thin upland turf, and not in standing water or permanently saturated muck. It wants moisture with drainage, and depth for the taproot. RANGE, which is narrower than 'everywhere': solidly established across the Northeast, the Midwest, the Rockies and the Pacific states. Southward it follows cool high ground only — down the Appalachian spine into the Upper South (West Virginia, Kentucky, Tennessee, western North Carolina, the north Georgia mountains) and into the Southwest on montane and irrigated ground. It thins fast on the hot lowland South: rare to absent on the Gulf Coast plain (Louisiana, Mississippi, southern Alabama, southern Georgia) and not part of the flora of peninsular Florida, and the Texas presence is a recent, local Panhandle record rather than a general one. Below the fall line in the Southeast, or anywhere on the Gulf plain, assume you are looking at something else and identify it as something else.",
+    "indicator": "Stinging nettle (Urtica dioica) is the giveaway. Both are deep-rooted nitrophiles, so a nettle patch on rich moist ground almost always carries burdock at its edge, usually with curly dock alongside. At landscape scale look for the shaded, fertile transition strip: a fence line or hedgerow under boxelder or black locust on old farm ground, or the lower bank of a stream ten or twenty feet back from the water. An old manure pile, a collapsed barn foundation or a corral corner is the single most productive thing to check.",
+    "parts": "WHICH SPECIES DOES NOT MATTER — THE GENUS DOES. Every Arctium in the US is an introduced Eurasian biennial with an edible root: A. minus (common or lesser burdock), A. lappa (greater burdock, the cultivated 'gobo') and A. tomentosum (woolly burdock, upper Midwest and Northeast). So the field call you have to get right is the genus, not the species. Burdock genus characters: a solitary ground-level rosette of very large, simple, undivided, wavy-edged leaves; each blade deeply heart-notched at the base with the leaf stalk inserted INSIDE that notch, so blade and stalk are cleanly separate and nothing runs down the stalk as a green wing; underside white-woolly; stalk grooved; one thick unbranched taproot going straight down, with no colony, no patch of same-sized leaves and no runners. (Hollow petioles in A. minus, solid in A. lappa — that separates the species, and it is not the safety test.)\n\nTake the taproot, and only from a plant that has not flowered: a rosette with no flower stalk, and no dead stalk from last season standing in the crown.\n\nDIG GATE, AND IT IS ABSOLUTE. Dig only when the crown carries at least one intact, attached, LIVING rosette leaf that you can lift and read — heart-shaped base with a deep notch, the petiole inserted inside that notch, and a white-woolly underside. No such leaf on the plant, no dig. Do not dig a slack, withered, frost-flattened or bare crown; do not dig from a remembered location; do not let last year's dead stalk stand as your evidence. Poison hemlock, water hemlock, belladonna and pokeweed all sit in this same ground with a thick root and a dead or missing top, and once a root is out of the soil with the top gone it is not reliably identifiable — nothing about the root itself will tell you what it came from, and no preparation of any kind makes a misidentified root safe. Identify the living plant, then dig that plant.\n\nThe root runs 12-24 inches straight down (more in loose soil) and will snap if pulled: dig a trench alongside with a spade or digging bar and lever it out. Scrub, scrape or thinly peel, then slice or julienne.\n\nSAFETY PREPARATION: none is required. Burdock root contains no toxin, is edible raw and cooked, and needs no leaching, boiling-off, fermenting or repeated water changes. The customary soak in vinegar- or lemon-water is purely cosmetic — it stops the cut surface browning and softens astringency — and MUST NOT be read as a detoxifying step. Cook it however you like: simmered, braised, stir-fried, pickled.\n\nThe inulin is a FODMAP and will produce gas in people not used to it; start with a small portion. Burdock is an Asteraceae, so anyone allergic to ragweed, chrysanthemum or daisy can react, and anaphylaxis to burdock has been reported. The leaf hairs and root sap cause contact dermatitis in some people — wear gloves if you are scrubbing a lot. It is a genuine diuretic and lowers blood sugar, so treat large quantities with care if you take diabetic medication or diuretics; traditional sources avoid it in pregnancy.\n\nSecond-year plants are not root crops, but they are not wasted: the peeled leaf stalks and the peeled pith of the young flower stalk are good boiled. That is a May-June harvest, taken before the burs form — deliberately outside the two root windows this entry lists, and a stem harvest, not a dig.\n\nTIMING BY LATITUDE (root windows only): both shift by about three to four weeks per 300 miles, and both are gated on a living, readable rosette rather than on a date. Mild Pacific coast and the low interior valleys — autumn digging from late September, spring window opening in February. Mid-Atlantic, Ohio Valley, central plains and the lower Midwest — October into November, then March. Northern New England, upper Great Lakes, northern Rockies and interior Northwest — a short autumn window in late September and October before the ground frost-locks, then April. In autumn, dig once the root has filled with inulin but while the rosette is still green and readable, and stop before hard frost takes the leaves down. In spring, dig from an overwintered rosette that has pushed fresh leaves, and stop the moment you see stalks rising — across most of the range that is early May, which is why the listed months end in April.",
+    "caution": "expert",
+    "lookalikes": [
+      {
+        "name": "Foxglove (Digitalis purpurea)",
+        "danger": "deadly",
+        "tell": "The most dangerous confusion, and it occurs at exactly the stage you dig: an overwintered first-year rosette, in the same open disturbed ground, February to April. Naturalised and abundant in the Pacific Northwest and northern California, locally in the Northeast, Appalachians and upper Midwest. DO NOT rely on the 'woolly white underneath' test alone — it is unreliable on cold young rosettes, where a chilled burdock leaf can look pale-hairy on both faces and foxglove is densely hairy beneath. Two tells hold everywhere. (1) LEAF BASE: burdock's blade has a deep heart-shaped notch and the stalk attaches inside that notch, so blade and stalk are cleanly separate; foxglove's blade tapers gradually into the stalk and runs down it as a narrow green wing, so there is no notch and no clean boundary. (2) ROOT: burdock is one thick fleshy taproot 12-24 inches deep that needs a spade and often snaps; foxglove sits on a shallow mat of fine fibrous roots with no fleshy central root. Foxglove leaves are also finely and evenly toothed with a strongly netted, puckered surface, where burdock's margins are wavy, irregular and often nearly entire. Digoxin and digitoxin survive drying, boiling and long cooking — there is no preparation that makes it safe, and fatalities from rosette confusion are documented. If the crown is not carrying at least one living, intact, heart-based, white-backed burdock leaf, put the spade down."
+      },
+      {
+        "name": "Poison hemlock (Conium maculatum)",
+        "danger": "deadly",
+        "tell": "Colonises the identical habitat — nitrogen-rich disturbed ground, roadside ditches, alley edges, stream banks, old barnyards — is now in nearly every state, overwinters as a rosette, and is the one that puts a white, fleshy, carrot-like unbranched taproot in the same soil you are digging. That makes it a bigger practical risk to a root-digger on disturbed ground than water hemlock, which is the wetland species. Once a root is out of the ground with the top snapped off, a Conium taproot and a burdock taproot are NOT reliably separable — the identification has to be made above ground, on the living plant, before you dig. Conium rosette leaves are hairless and finely three-to-four-times divided, fern- or parsley-like; the stalks are hairless with purple blotching; the crushed plant reeks rank and mousy. Burdock leaves are simple, huge, undivided and woolly-backed, and the plant has no smell. Coniine is not destroyed by cooking or drying."
+      },
+      {
+        "name": "Deadly nightshade / belladonna (Atropa belladonna)",
+        "danger": "deadly",
+        "tell": "Localised but real, and the risk is at root level. Naturalised on dumps, quarry spoil, old gardens, cellar holes and shaded disturbed ground in New York, and locally in Pennsylvania, Michigan, Ohio and the Pacific coast states — which is precisely the kind of ground this entry sends a root-digger to. Both plants put down a thick brownish taproot and the roots are hard to separate once dug, so this has to be settled above ground. Belladonna is a branching perennial herb, NOT a rosette — soft, unlobed, entire-margined oval leaves that are green and only sparsely hairy underneath, never white-woolly, often with one large and one small leaf paired at a node, plus dull purple-brown nodding bell flowers and single shiny black berries sitting in a green star-shaped calyx. If you find belladonna on a site, do not dig roots anywhere on that site. On the story you will see repeated: the 1978 case (Bryson et al., JAMA) is real anticholinergic poisoning from a commercial 'burdock root' tea, with FDA-confirmed atropine at 30 mg/g, but the authors say how the alkaloid got into the preparation could only be speculated — it was NOT traced to belladonna root co-harvested with the burdock, and 30 mg/g is 3% by weight, roughly an order of magnitude above the total alkaloid content of belladonna root itself. Read it as what it is: poisoning from a commercial preparation of unestablished origin, and an argument for digging your own identified plant rather than buying loose root. The reason to worry about Atropa in the field is its naturalised range, not that case."
+      },
+      {
+        "name": "Water hemlock (Cicuta maculata)",
+        "danger": "deadly",
+        "tell": "The most poisonous plant in North America, present in essentially every state, occupying the wet end of burdock's range — ditch bottoms, stream banks, wet pasture. It is a shared-ground risk, not a leaf mimic: a walnut-sized piece of root is the figure commonly cited as a lethal dose for a cow. It never makes a single taproot. The crown carries a bundle of fleshy tuberous fingers, and a lengthwise cut through that crown shows distinct horizontal chambers and weeps a yellowish oily sap smelling rank and mousy. Burdock is one solid, unchambered, off-white taproot with no oil. Rule it out above ground first: Cicuta leaves are pinnately compound, and the leaflet side-veins run to the NOTCHES between the teeth rather than to the tooth tips. Standing rule for this entry: never eat a root you did not personally identify from the intact living plant above ground before you dug it."
+      },
+      {
+        "name": "Common comfrey (Symphytum officinale)",
+        "danger": "toxic",
+        "tell": "The classic rosette-stage confusion with burdock and foxglove, on the same moist rich disturbed ground; naturalised from old homesteads across the Northeast, Midwest and Northwest. It also puts down a thick fleshy taproot, so this is a root-level mistake and not only a leaf one. Comfrey ROOT carries roughly ten times the pyrrolizidine alkaloid of the leaf; these cause hepatic veno-occlusive disease, are cumulative, are not destroyed by cooking, and are implicated as carcinogens — the FDA asked oral comfrey products off the US market in 2001. The damage is silent and additive, so there is no warning taste to protect you. Tells: comfrey leaves are lance-shaped or elliptic, tapering at BOTH ends, dark green and rough-bristly on both faces (they will scratch a forearm), with the blade running down the stalk as a wing. Burdock leaves are heart-based, wavy-edged, soft, and cottony-white only underneath, on a distinct grooved stalk. Cut the root: comfrey's is blackish outside and white, slimy and mucilaginous inside; burdock's is greyish-white, crisp, and browns quickly in air."
+      },
+      {
+        "name": "Butterbur (Petasites hybridus, P. japonicus)",
+        "danger": "toxic",
+        "tell": "The one that breaks the leaf-size shortcut. Petasites throws heart- to kidney-shaped leaves two to three feet across, white-woolly beneath, on wet banks, ditch sides, floodplain edges, shaded roadside seeps and old homestead and garden plantings — the wet-ground end of exactly the terrain this entry sends you to. Common where it has escaped in the Northeast and the Pacific Northwest, spreading in the upper Midwest, and listed as invasive in several states. Unextracted plant material carries hepatotoxic pyrrolizidine alkaloids causing hepatic veno-occlusive disease; the damage is silent and cumulative and there is no warning taste. (The PA-removed commercial migraine extracts are a manufactured product and tell you nothing about the safety of a plant you dug.) Tells, in order of reliability. (1) ROOT AND HABIT: butterbur is colonial, running on thick creeping rhizomes, so you get a dense stand of many same-sized leaves and there is no taproot under any of them; burdock is a solitary rosette over one thick anchored root. (2) VEINS: butterbur's main veins radiate palmately, like spokes, from the top of the leaf stalk; burdock's run pinnately off a single central midrib. (3) FLOWERS: butterbur sends up a thick scaly spike of whitish, pink or dull purple heads in late winter or early spring BEFORE the leaves appear; burdock never flowers leafless, and never before its second summer. If you are digging a big white-backed leaf on a wet bank and the leaves around it are all the same size, stop — you are in a rhizome patch, not on a taproot."
+      },
+      {
+        "name": "Coltsfoot (Tussilago farfara)",
+        "danger": "toxic",
+        "tell": "The lookalike that defeats the standard 'white-woolly underneath' test, because coltsfoot has a white-felted underside too, on a broadly heart-shaped leaf, on the same damp roadside cuts, ditch banks and clay slopes through the Northeast, Appalachians, upper Midwest and Pacific Northwest. Separate them at the ROOT, which is decisive: coltsfoot is a colonial perennial running on thin white creeping rhizomes just under the surface and produces a patch of many evenly sized leaves with no taproot at all; burdock is a solitary biennial rosette over one thick anchored taproot. Coltsfoot leaves are also angular and shallowly lobed with palmate veins radiating like spokes from the stalk tip, and are hand-sized rather than two feet long — but do not let leaf size carry this call on its own, because butterbur is white-backed too and two to three feet across. Root, growth habit and venation are the tests that hold for all three. In late winter coltsfoot flowers BEFORE its leaves appear — bare scaly stalks carrying a yellow dandelion-like head — which burdock never does. Contains hepatotoxic pyrrolizidine alkaloids."
+      },
+      {
+        "name": "Pokeweed (Phytolacca americana)",
+        "danger": "toxic",
+        "tell": "Shares burdock's ground exactly — fence lines, barnyards, alley edges, rich disturbed soil — across the East and Midwest, and the ROOT is the most poisonous part of the plant (phytolaccatoxin, saponins and a mitogen), causing severe vomiting, bloody diarrhoea, hypotension and convulsions. Documented poisonings came from people digging it in mistake for horseradish or parsnip. It is at its most deceptive in precisely the two seasons this entry sends you out, autumn and early spring, when the top has died back to a bare crown and a dead hollow stalk — which is exactly the state the dig gate above forbids you to dig in, and pokeweed is one of the reasons that gate exists. The root is a very large fleshy taproot, often forearm-thick and branching on older plants. Cut it: pokeweed root is white to yellowish with distinct concentric growth rings in cross-section; burdock's is slender (thumb- to wrist-thick), unbranched, unringed and greyish-white. The root cannot be made safe by any preparation — unlike the young shoots, it is never leached edible."
+      },
+      {
+        "name": "Wild parsnip (Pastinaca sativa)",
+        "danger": "toxic",
+        "tell": "Listed for the ground it shares, not because it mimics a burdock leaf. It takes the same nitrogen-rich disturbed ground — roadside verges, old pasture, fence lines, ditch banks — across the Northeast, Midwest, mountain states and Northwest, overwinters as a first-year rosette, and puts a thick pale carrot-like taproot in the soil in both of the seasons you would be digging. Two hazards. (1) SAP: it carries furanocoumarins, and sap on skin plus sunlight gives phytophotodermatitis — a delayed burn appearing 24-48 hours later, from reddening to large blisters that behave like a second-degree burn, followed by brown staining and sun sensitivity that can last months. That is a real risk for someone kneeling in a mixed patch levering roots out and brushing crushed leaves with forearms, wrists and face. Wear gloves and long sleeves and keep it out of your eyes; if you get sap on skin, wash it off with soap and water immediately and keep that skin covered and out of sunlight for 48 hours. (2) IT COMPOUNDS THE CONIUM PROBLEM: Pastinaca and poison hemlock rosettes are routinely confused with each other — both are hairless with divided leaves — so 'it's only wild parsnip' is not a safe conclusion to reach in the field. Against burdock the separation is easy and absolute: burdock leaves are simple, huge, undivided and woolly-backed; parsnip leaves are pinnately compound with coarsely toothed leaflets and smell of parsnip when crushed. If your patch contains parsnip or hemlock rosettes, work slowly and identify every plant you put a spade near."
+      },
+      {
+        "name": "Common cocklebur (Xanthium strumarium)",
+        "danger": "toxic",
+        "tell": "Grows shoulder to shoulder with burdock on the same waste ground and its burs get loosely called 'burdock', but for a root-digger the confusion ends at the root: cocklebur is an annual on a branching fibrous root system, with no taproot to dig. Its leaves are triangular or maple-shaped, borne alternately up a stem rather than in a ground-level rosette, and sandpaper-rough on BOTH faces with no white wool underneath. Burs are oval with two curved terminal horns; burdock burs are round with many hooked bracts. The dangerous stage is the two-leaved seedling in spring and the seed, which carry carboxyatractyloside — a hypoglycaemic hepatotoxin that kills livestock and has caused reported human deaths in children."
+      },
+      {
+        "name": "Velvetleaf (Abutilon theophrasti)",
+        "danger": "unpalatable",
+        "tell": "Listed so you stop wasting holes on it — the commonest non-toxic misdig. Big heart-shaped softly velvety leaves on the same disturbed ground. Velvetleaf is velvety on BOTH faces (burdock is green and smooth above, cottony-white only beneath), its leaf tip is drawn out into a long point where burdock's is blunt, its leaves are borne alternately up an erect stem rather than in a ground-level rosette, the crushed plant smells sharply unpleasant, and the root is a shallow branching fibrous system rather than a deep taproot. Not poisonous — just inedible, and a wasted dig."
+      }
+    ],
+    "harvest": "Non-native and invasive across most of its US range, so there is no conservation reason to hold back: take what you want. The real limits are the burs, the law and the soil.\n\nBURS — a genuine injury hazard, not just a nuisance. Do not carry burs off in your clothes and seed a new patch, but do not handle mature ones casually either. The pappus bristles packed inside a ripe bur detach as tiny barbed fibres that travel on the slightest breeze; they cause skin and respiratory irritation, and they are a documented cause of conjunctival foreign body and chronic non-healing corneal ulceration in people, horses and dogs ('burdock ophthalmia'), where a single embedded bristle can hold an ulcer open for weeks. If you cut and bag burs: wear sealed wraparound eye protection or goggles — open-sided safety glasses do not stop airborne bristles — plus gloves and long sleeves; cut the heads straight down into the bag rather than pulling burs apart or stripping them off clothing; work upwind; keep your hands off your face and wash them before you touch your eyes. Cutting the seed heads while they are still green, before the bur dries and the bristles loosen, is far safer than clearing a dry stand, and you should never shred, mow or burn dry burs. If an eye is irritated after handling burs and stays irritated, treat it as an eye-clinic problem rather than something to rinse out — the bristles are microscopic and lodge under the lids.\n\nLEGAL: digging a root is not picking a leaf. Most parks, preserves and public lands that permit casual foraging still prohibit digging, and on private ground it is a different and more serious act than picking. Ask first, and refill every hole.\n\nCHEMICAL: a taproot spends a full year concentrating whatever is in the soil, so the barnyard-and-alley habitat that makes burdock easy to find is also what makes it risky to eat. Do not dig from: roadside verges and highway ditches (lead, zinc and cadmium from brake and tyre wear — stay at least 100 ft / 30 m back from a busy road); railroad ballast and utility rights-of-way (herbicide); old orchards and pre-1978 house sites (lead arsenate and lead paint); industrial land, fill and demolition lots; sprayed pasture and hayfield margins; or active barnyards and feedlot runoff (manure pathogens, veterinary residues, and high nitrate, which burdock accumulates on heavily manured ground). Find clean, unsprayed, rich ground — and be willing to walk past a magnificent plant standing in a bad place.",
+    "sources": [
+      "USDA NRCS PLANTS Database — Arctium minus Bernh. profile and state distribution: https://plants.sc.egov.usda.gov/plant-profile/ARMI2",
+      "Go Botany, Native Plant Trust — Arctium minus (common burdock): https://gobotany.nativeplanttrust.org/species/arctium/minus/",
+      "Nesom GL. Arctium minus (Asteraceae): historical review, ecological consequences, and addition to Texas flora. J Bot Res Inst Texas — US range limits, absence from peninsular Florida and the Gulf plain, the recent Texas Panhandle record: https://journals.brit.org/jbrit/article/view/975",
+      "Ohio Perennial and Biennial Weed Guide (OSU CFAES) — Common Burdock, and Coltsfoot (Tussilago farfara): https://weedguide.cfaes.osu.edu/singlerecord.asp?id=16",
+      "University of Illinois Extension, Home Yard and Garden — Common Burdock (rosette characters, hollow petioles of A. minus vs. solid in A. lappa): https://hyg.ipm.illinois.edu/article.php?id=1304",
+      "Cole TCH, Su M, Hilger HH. Arctium lappa — burdock pappus bristles can cause skin irritation and burdock ophthalmia. PeerJ Preprints 1871 (2016), doi:10.7287/peerj.preprints.1871v1 — basis for the bur handling and eye-protection rule: https://peerj.com/preprints/1871/",
+      "Conjunctival foreign body (burdock pappus) induced keratitis: 10 cases — chronic non-healing corneal ulceration from Arctium pappus bristles: https://www.sciencedirect.com/science/article/abs/pii/S0737080606810890",
+      "Bryson PD et al. Burdock root tea poisoning: case report involving a commercial preparation. JAMA 1978;239(20):2157 — FDA-confirmed atropine at 30 mg/g in a commercial preparation; the authors state the route of contamination could only be speculated, and it was NOT established as co-harvested belladonna root: https://jamanetwork.com/journals/JAMA/articlepdf/360075/jama_239_20_028.pdf",
+      "Rhoads PM et al. Anticholinergic poisonings associated with commercial burdock root tea. J Toxicol Clin Toxicol 1984;22(6): https://pubmed.ncbi.nlm.nih.gov/6535850/",
+      "Fatal cardiac glycoside poisoning due to mistaking foxglove for comfrey. Forensic Sci Int 2017: https://pubmed.ncbi.nlm.nih.gov/28463019/",
+      "National Capital Poison Center — Foxglove: toxic to the heart: https://www.poison.org/articles/foxglove",
+      "NIH LiverTox — Comfrey: pyrrolizidine alkaloids and hepatic veno-occlusive disease: https://www.ncbi.nlm.nih.gov/books/NBK548370/",
+      "US FDA, Letter to industry concerning dietary supplements containing comfrey (July 2001): https://www.e-lactancia.org/media/papers/Comfrey-FDA2001.pdf",
+      "NIH LiverTox — Butterbur (Petasites hybridus): pyrrolizidine alkaloids, hepatotoxicity, and why PA-removed commercial extracts say nothing about raw plant material: https://www.ncbi.nlm.nih.gov/books/NBK547997/",
+      "Go Botany, Native Plant Trust — Petasites hybridus (butterbur sweet-coltsfoot), Northeast naturalisation, leaf size and rhizomatous habit: https://gobotany.nativeplanttrust.org/species/petasites/hybridus/",
+      "Minnesota DNR — common butterbur (Petasites hybridus) and giant butterbur (P. japonicus), invasive status and wet-ground habitat: https://www.dnr.state.mn.us/invasives/terrestrialplants/common-butterbur.html",
+      "Wisconsin DNR — Wild parsnip (Pastinaca sativa): sap, furanocoumarins and phytophotodermatitis: https://dnr.wisconsin.gov/topic/Invasives/fact/WildParsnip",
+      "New York State DEC — Wild Parsnip fact sheet (blistering burns, protective clothing, 24-48 hour delay): https://extapps.dec.ny.gov/docs/lands_forests_pdf/wildparsnipfact.pdf",
+      "Wild parsnip (Pastinaca sativa)-induced photosensitization. Toxicon 2019: https://pubmed.ncbi.nlm.nih.gov/31173794/",
+      "Roberge R et al. The root of evil — pokeweed intoxication. Ann Emerg Med 1986: https://www.sciencedirect.com/science/article/abs/pii/S0196064486801913",
+      "Poisoning by Phytolacca (review), and Human exposures to Phytolacca americana in Kentucky, Toxicon 2022: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9162593/",
+      "Memorial Sloan Kettering, About Herbs — Burdock (Asteraceae allergy, anaphylaxis reports, diuretic and hypoglycaemic activity): https://www.mskcc.org/cancer-care/integrative-medicine/herbs/burdock",
+      "Heavy metal contamination in urban roadside vegetables: origins, exposure pathways and health implications. Discover Environment (Springer) 2024 — basis for the 30 m / 100 ft roadside setback: https://link.springer.com/article/10.1007/s44274-024-00182-7"
+    ]
+  },
+  {
+    "name": "Chestnut",
+    "scientific": "Castanea spp. Wild in the US: C. pumila (Allegheny chinquapin) and C. ozarkensis (Ozark chinquapin). Planted, persisting and locally naturalised: C. mollissima (Chinese), C. crenata (Japanese), C. sativa (European) and their hybrids, including the Dunstan group (C. dentata x C. mollissima). C. dentata (American chestnut) survives almost only as blight-killed rootstock throwing short-lived sprouts. Note the name trap: on the West Coast, 'chinquapin' means Chrysolepis chrysophylla, a different genus in the same family.",
+    "months": [
+      7,
+      8,
+      9,
+      10
+    ],
+    "regions": [
+      "midwest",
+      "northeast",
+      "southeast",
+      "southcentral",
+      "west"
+    ],
+    "terrain": [
+      "woodland",
+      "edge",
+      "upland",
+      "disturbed"
+    ],
+    "habitat": "Castanea wants deep, well-drained, acidic sandy or gravelly loam and will not tolerate wet feet. It dies on heavy clay and in bottomland, so a candidate tree standing in seasonally flooded or mucky ground is not a chestnut - that alone rules out a lot of misidentifications. Allegheny chinquapin is the genuinely wild one: a suckering shrub or small tree of dry to droughty, acid (pH about 5.1-6.5) sandy and rocky uplands, ridges and slopes through the Southeast and lower Midwest, from the coastal plain to about 4,500 ft. It grows in open oak-hickory woods, in longleaf and shortleaf pine-scrub oak sandhills that burn regularly, in pine plantations, on well-drained stream terraces, and along old fields, fence rows, roadsides and railroad and powerline rights-of-way. It needs light and comes back hardest after fire or cutting, so it concentrates on edges and in recently burned or cut ground rather than under closed canopy. Its companions are blackjack, post, turkey and bear oak, hickory, sourwood, sassafras, blueberry, huckleberry and deerberry. Ozark chinquapin fills the same role on dry acid slopes and ridges in Arkansas, Missouri and eastern Oklahoma, reaching west into the Ouachitas and the Oklahoma end of the Ozark uplift. Chinese, Japanese, European and hybrid chestnuts are almost never truly wild here: they are planted trees that persist and occasionally seed in around old homesteads and cellar holes, farm lanes, derelict orchards, cemeteries, campuses, parks and roadsides throughout the eastern half of the country, including small farm and homestead plantings in eastern Oklahoma and east Texas - and in western Oregon and Washington, where 19th-century settler and sailor plantings have escaped into surrounding hardwood forest and crop heavily because the Pacific Northwest has stayed largely free of chestnut blight (Cryphonectria parasitica has been found in Oregon since the 1930s, but it has never gone epidemic there). Gold Rush-era homestead and farm-lane plantings do the same thing in the California foothills, where the surrounding blue-oak and valley-oak woodland is also full of California buckeye dropping smooth-husked seed in the same weeks. American chestnut persists across its old Appalachian range only as root systems throwing sprouts that usually die back at 15-25 ft; a few reach bearing age before the blight takes them.",
+    "indicator": "The spent-bur carpet is the giveaway and it works from a distance: the ground under a bearing chestnut is littered with split, straw-coloured, spiny husks that persist for months and stand out sharply in leaf-off woods. For planted trees, read the site rather than the tree - chestnuts stand inside old homestead assemblages, so look for a lane of black walnut, a derelict apple or pear, lilac, periwinkle, daylily or naturalised daffodils around a stone foundation or a cellar hole. For wild Allegheny chinquapin, look on dry acid sand or rock ridges in the fire-maintained oak-pine belt, especially along a right-of-way or old-field edge where blueberry, huckleberry, sourwood and scrub oak grow; in late summer its burs are conspicuously bright yellow-green in clusters along the twigs, at eye height, on a shrubby suckering plant rather than a tree.",
+    "parts": "The nut kernel. Chestnuts are starchy rather than oily, and they are NOT toxic raw - the issue is that the raw kernel is astringent with tannins and hard to digest, so a quantity of raw ones brings on nausea, cramps and bloating. Roast or boil. SCORE EVERY NUT: cut an X through the shell on the flat face before roasting. An unscored chestnut builds steam and bursts hard enough to throw boiling starch and shell fragments, and this is the most common actual injury from this species. Peel off both the hard outer shell and the bitter papery pellicle beneath while the nut is still hot; the pellicle is much harder to remove once cold. Good boiled, roasted, or dried and ground into flour. CULL BEFORE COOKING: chestnut weevil larvae (Curculio) live inside apparently sound nuts and keep emerging for weeks after harvest - a single nut can host ten or more - so float the crop in water and discard everything that floats, along with anything mouldy or rattling, then hold the keepers cold. ALLERGY, and this matters: chestnut is a tree nut and it is one of the core latex-fruit syndrome foods alongside banana, avocado and kiwi. Roughly 30-50% of people with natural rubber latex allergy react to at least one of these; reactions run from oral itching to anaphylaxis, and cooking does not reliably remove the risk. Anyone with a latex or tree-nut allergy should not eat foraged chestnut.",
+    "caution": "expert",
+    "lookalikes": [
+      {
+        "name": "Buckeyes and horse chestnut (Aesculus hippocastanum horse chestnut, A. glabra Ohio buckeye, A. flava yellow buckeye, A. pavia red buckeye, A. sylvatica painted buckeye, A. parviflora bottlebrush buckeye, A. californica California buckeye)",
+        "danger": "deadly",
+        "tell": "TREAT THE PUBLISHED HUSK TELL AS UNRELIABLE. The usual rule - 'horse chestnut husk is thick and leathery with a few short blunt spikes' - describes only A. hippocastanum and, loosely, Ohio buckeye (warty-prickly). Yellow buckeye, abundant throughout the Appalachians where this entry sends you; red, painted and bottlebrush buckeye in the Southeast; and California buckeye, the Aesculus of exactly the foothill oak woodland where old California chestnut plantings persist, whose fruit is a SMOOTH pear- or fig-shaped capsule that splits to drop one big glossy seed - all have completely smooth, spineless husks. A reader looking for blunt spikes and holding a smooth husk has no rule to apply. Work from the nut and the leaf instead, and assume every roundish brown nut under a park, yard or foothill tree is a buckeye until the nut itself says otherwise. (1) APEX, and this is the tell that works on a bare nut off the ground with no husk and no leaf - which is how nearly every real mix-up happens: every Castanea nut, chestnut or chinquapin, ends in a distinct POINT capped by a dry bristly tuft of persistent styles, and the shell there is matte and finely downy. Every Aesculus seed is blunt and rounded, has no point and no tuft anywhere, and is uniformly glossy like polished furniture. (2) PALE SCAR: chestnut's pale scar sits at the flat base and covers roughly a quarter to a third of the nut. The buckeye's scar is huge, circular and pale, covering a third to a half or more of one face - it is literally the 'buck's eye' - with no point opposite it. (3) SHAPE, with a caveat: chestnut nuts from a 2-3 seeded bur are flat-sided or wedge-shaped where they pressed against neighbours, while buckeyes are plump and round all over. Do NOT use this alone - an Allegheny chinquapin bur holds a SINGLE rounded nut, and a lone nut in a chestnut bur is rounded too, so for those the point-and-tuft is the tell and the flat side is not. (4) BUR, if you have one: a Castanea bur is armoured all over in dense, long, branched, needle-sharp spines that draw blood through a bare hand and cannot be picked up comfortably. No Aesculus husk is remotely like that; even the spiniest, Ohio buckeye, is merely warty-prickly and handles fine. (5) LEAF, whenever the tree is in leaf (roughly April-October) - this is the one call that never fails anywhere in the range: Castanea leaves are ALTERNATE and SIMPLE, one long canoe-shaped blade per stalk, with every marginal tooth drawn out into a fine incurved BRISTLE. Aesculus leaves are OPPOSITE and palmately COMPOUND, 5-7 leaflets spreading from a single point like fingers. Alternate-simple versus opposite-compound settles it. (6) DO NOT TASTE-TEST TO IDENTIFY. There is no safe taste rule here and this guide does not give one: identify from the apex point and style tuft, the basal scar, the bur and the leaf, and if those four do not all agree, put the nut down and leave it. Cooking is not a way around the identification either - heat does not destroy aescin, and the historical Californian preparation of A. californica seed took days of leaching in running water, not a roasting pan. IF A NUT IS ALREADY IN YOUR MOUTH and it tastes bitter, soapy or mouth-drying - a raw chestnut kernel is starchy and faintly sweet, while buckeye is violently bitter and astringent - SPIT IT OUT IMMEDIATELY, swallow no part of it, then rinse your mouth with water twice and spit that out too. The toxins are aesculin, fraxin and the saponin aescin, concentrated in the seed. A swallowed buckeye means vomiting, diarrhoea, cramps, weakness and unsteady gait, and in large ingestions dilated pupils, stupor or coma; children are the usual serious cases. Call Poison Control on 1-800-222-1222 immediately, before symptoms appear - do not wait to see how it goes."
+      },
+      {
+        "name": "American beech (Fagus grandifolia)",
+        "danger": "unpalatable",
+        "tell": "Same family, same woods, same season, and the bur is genuinely prickly, so beginners conflate them. The beech bur is small - under an inch - reddish-brown, and clothed in short weak recurved prickles you can crush in a bare hand without injury; it splits into four neat lobes and releases one or two sharply THREE-SIDED pyramid nuts. A chestnut bur is 1.5-3 in, green to tan, and viciously spined, and its nuts are rounded or flat-sided with a pointed tufted tip, never three-angled. Bark settles it year-round: beech is smooth pale grey like an elephant's leg, chestnut is furrowed with flat-topped ridges. A recoverable mistake rather than a dangerous one - beechnuts are food - but they are not harmless by the handful: raw beechnuts carry saponins and small amounts of fagin and bring on nausea and gastric upset in quantity, so roast them and eat modestly rather than grazing raw ones."
+      },
+      {
+        "name": "Chestnut oak, chinkapin oak, swamp chestnut oak (Quercus montana, Q. muehlenbergii, Q. michauxii)",
+        "danger": "unpalatable",
+        "tell": "This is exactly why a leaf-only identification is not enough, and why a beginner spends an afternoon under the wrong tree. All three carry a simple, long, coarsely toothed leaf that closely mimics a chestnut leaf, and chestnut oak grows on precisely the dry acid uplands that Allegheny chinquapin favours. The separator is on the tooth tips: chestnut and chinquapin teeth each end in a fine, sharp, incurved BRISTLE, while these oaks have teeth that are rounded, scalloped or gland-tipped and never bristle-awned. The fruit settles it instantly - acorn in a scaly cap, never a spiny bur. No harm done if you call this one wrong: you have found an oak, and its acorns are food in their own right once the tannins are leached out."
+      },
+      {
+        "name": "Golden chinquapin and tanoak (Chrysolepis chrysophylla, Notholithocarpus densiflorus) - West Coast only",
+        "danger": "unpalatable",
+        "tell": "A name collision with a real spiny bur behind it. In Oregon, Washington and California 'chinquapin' means Chrysolepis, a different genus. Its bur is spiny like a chestnut's, but the leaves are EVERGREEN, thick and leathery, untoothed, and coated underneath in dense golden-yellow scales that rub off on a thumb; chestnut leaves are deciduous, thin, and bristle-toothed. Tanoak shares the golden-fuzzy leaf underside but bears acorns, not burs. Golden chinquapin nuts are themselves edible and good, closer to a hazelnut than a chestnut - but do not report one as a wild chestnut, and do not expect chestnut yields from it."
+      },
+      {
+        "name": "Sweetgum burs / gumballs (Liquidambar styraciflua)",
+        "danger": "unpalatable",
+        "tell": "The commonest 'I found chestnut burs!' error in the Southeast, in the same months and often under the same edge habitat. A gumball is a hard, hollow, WOODY sphere built from paired stiff beaks with open holes all over it, it rattles when empty, and there is no nut inside - only tiny winged seeds. A chestnut bur is soft-walled when fresh, densely clothed in fine flexible spines rather than rigid beaks, and splits along clean seams to release nuts. Not dangerous, just not food."
+      }
+    ],
+    "harvest": "TIMING: the core window is late September through October across most of the range, with real shifts at both ends. Gulf-coast and Deep South Allegheny chinquapin can start dropping in late August; Deep South Chinese chestnut and late orchard cultivars run into early November; northern Michigan, upstate New York and New England run mid-September to mid-October; higher elevation in the southern Appalachians behaves like several hundred miles further north. RIPENESS: wait for the burs to split open on the tree and the nuts to fall on their own. Nuts prised out of a closed green bur are immature and will never sweeten. FREQUENCY: gather every day or two. Chestnuts are high-moisture, they mould quickly on wet ground, and deer, squirrels and turkey strip a tree within days. HANDLING: use thick gloves, or roll the burs open underfoot with a boot heel. The spines are needle-sharp, go through thin gloves and thin soles, and cause puncture wounds. ACCESS: nearly every bearing chestnut in the US stands on private, farm, campus, cemetery, orchard or municipal ground, so ask first, and check park rules - many municipalities prohibit collecting outright. RESTRAINT: Allegheny chinquapin is uncommon, declining and not fully blight-resistant, and is tracked as rare in several states at its range margins; take a token from a stand and never a whole crop. Ozark chinquapin is scarcer still across Arkansas, Missouri and eastern Oklahoma and is the subject of an active restoration and seed-collection programme - leave its nuts where they fall. Do NOT collect nuts from surviving American chestnut - it is state-listed endangered or critically imperiled in Michigan, Kentucky and DC and tracked as imperiled or vulnerable in Delaware, Georgia, Tennessee, Indiana, Ohio, Maryland and Maine, and every viable nut is worth far more to restoration than to dinner.",
+    "sources": [
+      "https://research.fs.usda.gov/feis/species-reviews/caspum",
+      "https://plants.sc.egov.usda.gov/DocumentLibrary/plantguide/pdf/pg_capu9.pdf",
+      "https://plants.ces.ncsu.edu/plants/castanea-pumila/",
+      "https://mortonarb.org/plant-and-protect/trees-and-plants/chinese-chestnut/",
+      "https://hort.purdue.edu/newcrop/proceedings1993/V2-500.html",
+      "https://hgic.clemson.edu/factsheet/buckeyes-horsechestnuts/",
+      "https://bygl.osu.edu/node/1786",
+      "https://plants.ces.ncsu.edu/plants/aesculus-glabra/",
+      "https://plants.ces.ncsu.edu/plants/aesculus-flava/",
+      "https://plants.ces.ncsu.edu/plants/aesculus-californica/",
+      "https://plants.sc.egov.usda.gov/DocumentLibrary/plantguide/pdf/pg_aegl.pdf",
+      "https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/buckeye",
+      "https://bplant.org/compare/188-189",
+      "https://dendro.cnre.vt.edu/dendrology/syllabus/factsheet.cfm?ID=76",
+      "https://plants.ces.ncsu.edu/plants/fagus-grandifolia/",
+      "https://landscapeplants.oregonstate.edu/plants/chrysolepis-chrysophylla",
+      "https://rngr.net/publications/chestnut/1992/critical-factors-in-establishing-chestnuts-in-the-pacific-northwest/at_download/file",
+      "https://extension.oregonstate.edu/news/grow-your-own-christmas-chestnuts",
+      "https://mnfi.anr.msu.edu/species/description/14214/Castanea-dentata",
+      "https://tacf.org/history-american-chestnut/",
+      "https://extension.psu.edu/from-the-woods-american-chestnut",
+      "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9788462/",
+      "https://pubmed.ncbi.nlm.nih.gov/12440950/",
+      "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11278189/",
+      "https://pubmed.ncbi.nlm.nih.gov/17919142/"
+    ]
+  },
+  {
+    "name": "Chicken of the Woods",
+    "scientific": "Laetiporus sulphureus and L. cincinnatus",
+    "months": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "regions": [
+      "northeast",
+      "southeast",
+      "midwest"
+    ],
+    "terrain": [
+      "woodland",
+      "edge",
+      "disturbed"
+    ],
+    "habitat": "Bright orange, soft, suede-surfaced shelves in overlapping tiers straight out of trunk wounds, stumps, snags and fallen logs of hardwoods — oak above all, also cherry, beech and maple. No stalk and no gills: the underside is a flat sheet of minute pores, lemon-yellow in L. sulphureus. It is a heart rot, so brackets often sit high — Burdsall & Banik note ten feet or more above ground. L. cincinnatus is the other form and the other habit: a rosette pushing up out of the soil or off a surface root at the base of a living oak, salmon-orange above with a cream to white pore surface, a root-and-butt rot rather than a heart rot. Brown rot of the heartwood and roots; the mycelium persists in the wood, so a productive tree or stump commonly fruits again in later years. Mostly late summer into autumn — July to October in southern New England, May to November in Missouri, later and longer south. TWO RANGE LIMITS THAT ARE SAFETY LIMITS, not trivia. (1) West of the Rockies there is no true L. sulphureus at all. (2) Burdsall & Banik: L. sulphureus occurs throughout the eastern USA 'except for in the states along the Gulf of Mexico where L. gilbertsonii is common', and UF/IFAS reports L. gilbertsonii as the only Laetiporus DNA-confirmed from Florida. Everything below assumes temperate eastern and midwestern hardwood forest — inland woodland, woodland edges, parks and old cut stumps — not the Gulf rim and not the West.",
+    "indicator": "A big old oak with a trunk wound or a dying crown — or its stump — with rusty-brown, cubically cracked rot crumbling out of the heartwood or root flare.",
+    "parts": "L. sulphureus: only the soft, suede-textured outer inch or two of a young bracket; behind that it goes chalky and tough. L. cincinnatus rosettes are tenderer and the whole fruitbody is usually usable (Tom Volk). Take only fresh, firm, brightly coloured material — anything soft, weeping, sour-smelling or bug-riddled will make you ill whatever the species. Cook it thoroughly: raw and undercooked Laetiporus causes GI distress, and Volk records roommates getting 'very severe upset stomachs' from raw L. cincinnatus. Eat a small portion the first time and wait a day. MDC notes some people get stomach upset or swollen lips from perfect specimens; the Cornell mycology blog puts severe reactions — vomiting, chills, sweating — near 10% of participants in trials, and sensitivity can appear after years of eating it uneventfully. Hardwood hosts only. Skip anything on a needle-bearing tree, and treat yew as the hardest no: yew foliage is cardiotoxic and twigs and needles can be folded into a fast-growing bracket. That yew warning is European precaution rather than a documented North American poisoning, but yew is a conifer and the conifer rule already excludes it. Black locust is the usual extra host on the avoid list; there are no documented locust cases, so treat it as unsettled caution rather than fact — with oaks everywhere it costs nothing to skip. None of this transfers to the Gulf Coast or west of the Rockies; see the lookalikes.",
+    "caution": "care",
+    "lookalikes": [
+      {
+        "name": "Gulf Coast chicken of the woods (Laetiporus gilbertsonii var. pallidus)",
+        "danger": "toxic",
+        "tell": "The one that breaks the 'east of the Rockies is fine' rule. In states bordering the Gulf of Mexico, Burdsall & Banik's key routes an oak-borne chicken here on three visible characters: brackets SHELVING on the trunk or limbs, cap pale salmon, tan or nearly white instead of bright orange, and a cream-to-white pore surface instead of lemon-yellow. Do not read a white pore surface as 'pale chicken, so L. cincinnatus' — cincinnatus is never a shelf on a trunk, it is a rosette out of the soil or a surface root at the base of a living tree. This is genetically the same species as the California L. gilbertsonii, the one with the reaction record, and UF/IFAS PP358 reports it as the only Laetiporus DNA-confirmed from Florida. On the Gulf rim, assume gilbertsonii: cook it hard, eat a small test portion, or leave it."
+      },
+      {
+        "name": "Eastern conifer chicken of the woods (Laetiporus huroniensis)",
+        "danger": "toxic",
+        "tell": "There is no cap or pore character that separates it in the field — which is precisely why the substrate rule here is absolute rather than a habitat hint. Read the wood the mushroom is fixed to: needles overhead, needle litter, resinous plated or furrowed conifer bark, the fine even grain of a conifer stump. If the host is hemlock, pine, spruce, fir or larch, it is not the hardwood species. The type collection is on eastern hemlock in the Upper Peninsula of Michigan; Burdsall & Banik record it from the UP and Wisconsin and expect it 'in adjacent areas and to the east on old growth conifers', so this is a Great Lakes and Northeast problem, not a western one. The Cornell mycology blog notes the conifer species causes poisoning more often than the hardwood one — vomiting, chills, sweating."
+      },
+      {
+        "name": "Pacific-coast and border-state chickens (Laetiporus conifericola, L. gilbertsonii)",
+        "danger": "toxic",
+        "tell": "Kuo puts true L. sulphureus east of the Rockies and Duffy (MykoWeb) states it does not occur on the Pacific Coast at all, so an identical-looking orange shelf out west is L. conifericola on conifers (California to south-central Alaska) or L. gilbertsonii on oak and eucalyptus in the Pacific and Mexican-border states. Once again these are cryptic species told apart by substrate and geography, not by looks. A 1975 San Francisco Mycological Society survey of 158 poisoning reports found seven people with near-identical reactions to sulfur shelf — nausea and vomiting 5 to 45 minutes after eating, lasting up to 2.5 hours — with later cases clustering around raw or barely cooked specimens. Both are widely eaten there by people who know them; nothing in this entry transfers west."
+      },
+      {
+        "name": "Jack-o'-lantern (Omphalotus illudens)",
+        "danger": "toxic",
+        "tell": "Turn it over. Jack-o'-lantern is a true gilled mushroom on a definite stalk — narrow, sharp-edged, crowded, non-branching orange gills that run down the stem — growing in dense clusters from a single base on hardwood stumps, buried wood and the foot of living trees: the same square metre where the L. cincinnatus rosette appears. Chicken of the woods has no stalk and no gills; its underside is a flat layer of minute pores. Jack-o'-lantern is orange through the flesh as well, and fresh gills may give a faint greenish glow in the dark. MDC: severe stomach upset, not life-threatening to a healthy adult. The same test — gills plus a stalk means put it down — also disposes of the other orange clumps at oak bases, big laughing gym and the honey mushrooms."
+      },
+      {
+        "name": "Cinnamon bracket / tender nesting polypore (Hapalopilus nidulans, = H. rutilans)",
+        "danger": "toxic",
+        "tell": "The one genuinely organ-toxic polypore in eastern hardwood woods. Small — brackets roughly 2-10 cm across, usually on dead branches and fallen limbs rather than a big trunk wound — and uniformly drab: cap, flesh and pore surface all the same dull cinnamon to apricot-brown, with none of chicken's two-tone bright-orange top over sulfur-yellow pores. Flesh soft and watery. A drop of KOH turns every part of it violet to lilac instantly; chicken does not react. It carries up to 40% polyporic acid by dry weight. In a published case a father and his 13-year-old daughter who took it for an edible polypore had abdominal pain, vomiting, double vision, visual hallucinations, nystagmus, kidney injury and violet urine starting about 12 hours after the meal."
+      }
+    ],
+    "harvest": "Slice the tender outer margin off with a knife and leave the rest of the bracket attached — it keeps growing and keeps releasing spores. Take one shelf from a cluster rather than the whole flush, and leave brackets that have faded to chalky white or tan; they are past eating anyway. Cut cleanly rather than tearing, which strips bark from the wound. Do not climb for high brackets and do not work under a colonised trunk in wind: this is a brown rot that decays the cellulose and hemicellulose and leaves the wood badly weakened (UMass), so infected trunks and limbs fail — and L. sulphureus routinely fruits ten feet or more up. Take from the ground or leave it. Mind the tree, not just the mushroom: a bracket growing on a street tree, park specimen or old fencerow oak takes up what the ground and the trunk have been given, so skip anything on chemically treated turf, sprayed rights-of-way, or within a few metres of heavy traffic.",
+    "sources": [
+      "USDA Forest Products Laboratory / Harvard Papers in Botany 6(1): Burdsall & Banik, 'The genus Laetiporus in North America' — species key, hosts and distributions incl. L. gilbertsonii var. pallidus (Gulf states) and L. huroniensis — https://www.fpl.fs.usda.gov/documnts/pdf2001/burds01a.pdf",
+      "UF/IFAS Extension PP358, 'Chicken of the Woods (Laetiporus sulphureus species complex)' — L. gilbertsonii the only DNA-confirmed Laetiporus from Florida; raw/undercooked GI risk — https://ask.ifas.ufl.edu/publication/PP358",
+      "Missouri Department of Conservation, Field Guide: Sulfur-Colored Chicken of the Woods — May-November season, pore surface, swollen lips/upset stomach, cut the tender outer edges — https://mdc.mo.gov/discover-nature/field-guide/sulfur-colored-chicken-woods",
+      "Missouri Department of Conservation, Field Guide: Pale Chicken of the Woods (Laetiporus cincinnatus) — https://mdc.mo.gov/discover-nature/field-guide/pale-chicken-woods",
+      "Missouri Department of Conservation, Field Guide: Jack-o'-Lantern (Omphalotus illudens) — decurrent sharp-edged gills, clustered at tree bases, bioluminescence, 'not life-threatening to healthy adults' — https://mdc.mo.gov/discover-nature/field-guide/jack-o-lantern",
+      "UMass Amherst CAFE, 'Root and Butt Rot caused by Laetiporus cincinnatus & L. sulphureus' — brown rot, loss of wood strength, July-October in southern New England, fruiting position — https://www.umass.edu/agriculture-food-environment/landscape/fact-sheets/root-butt-rot-caused-by-laetiporus-cincinnatus-l-sulphureus-chicken-of-woods",
+      "Cornell Mushroom Blog (Cornell Dept. of Plant Pathology), 'Eating the Chicken of the Woods' — ~10% severe reactions in trials; L. huroniensis on conifers poisons more often — https://blog.mycology.cornell.edu/2006/10/31/eating-the-chicken-of-the-woods/",
+      "Tom Volk's Fungus of the Month, July 2001: Laetiporus cincinnatus (Univ. of Wisconsin-La Crosse) — rosette habit, white pores, whole fruitbody usually edible, raw specimens caused severe upset — https://botit.botany.wisc.edu/toms_fungi/jul2001.html",
+      "Michael Kuo, MushroomExpert.Com, 'Laetiporus sulphureus' (widely distributed east of the Rocky Mountains) — https://www.mushroomexpert.com/laetiporus_sulphureus.html",
+      "Michael Kuo, MushroomExpert.Com, 'Laetiporus gilbertsonii' (southwestern/western NA; var. pallidus with white pores along the Gulf Coast) — https://www.mushroomexpert.com/laetiporus_gilbertsonii.html",
+      "Thomas J. Duffy, MD, 'Toxic Fungi of Western North America' (MykoWeb) — no true L. sulphureus on the Pacific Coast; 7/158 reports, vomiting 5-45 min, cases especially from raw or nearly raw material — https://www.mykoweb.com/TFWNA/P-52.html",
+      "North American Mycological Association, McIlvainea: 'Polyporic Acid in Fungi: A Brief Note' — Hapalopilus up to 40% polyporic acid, CNS and kidney effects, violet KOH reaction in North American collections — https://namyco.org/publications/mcilvainea-journal-of-american-amateur-mycology/polyporic-acid-in-fungi-a-brief-note/",
+      "PubMed 23937526, 'Tender Nesting Polypore (Hapalopilus rutilans) poisoning' — father and 13-year-old daughter, onset 12 h, diplopia, hallucinations, nystagmus, renal injury, violet urine, mistaken for an edible polypore — https://pubmed.ncbi.nlm.nih.gov/23937526/"
+    ]
+  },
+  {
+    "name": "Common blue violet",
+    "scientific": "Viola sororia",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "regions": [
+      "midwest",
+      "northeast",
+      "southeast"
+    ],
+    "terrain": [
+      "woodland",
+      "edge",
+      "meadow",
+      "wetland",
+      "disturbed"
+    ],
+    "habitat": "Lawns, verges, parks and the shaded strip where mown grass runs out under trees; rich moist woods and woodland edges; old fields; stream banks and swamp margins (Lady Bird Johnson Wildflower Center gives the habitat as rich moist woods and swamps, NC State adds streambeds). Native across the East and Midwest, reaching its southwestern limit in eastern Oklahoma and eastern Texas - it is not a desert Southwest plant, and the stemless blue violets of the Rockies and Pacific states are a different complex not covered here. Wherever it grows it grows mixed in with other low spring rosettes: harmless ones like garlic mustard, toxic ones like lesser celandine, buttercup and ground ivy, and - in old plantings, cemeteries, homestead yards and the shaded edge of an old lawn - dense colonies of lily-of-the-valley, which is deadly. That mixing, not the violet itself, is the whole problem - which is why leaf-only identification is a bad habit here.",
+    "indicator": "Damp, rich, shaded ground under maple, ash or oak - the mossy strip where a mown lawn gives out beneath the trees is the reliable spot. Read that strip as a warning as well as a signal: beside an old house it is also exactly where lily-of-the-valley was planted a century ago and never left, so expect to find both on the same few square feet.",
+    "parts": "Leaves and flowers only, and only from stemless blue- or white-flowered violets. Young heart-shaped leaves raw in salad or cooked as a mild, slightly mucilaginous green (a decent soup thickener); flowers candied, made into jelly, syrup or violet vinegar, or scattered raw over a salad. The leaves and flowers carry saponins, so treat them as a salad component or potherb in normal portions rather than a bulk green - large helpings can cause nausea, cramping or a laxative effect. Roots, rhizomes and seeds are NOT food: they concentrate the saponins and are strongly emetic and purgative (Illinois Extension: 'Both the flowers and leaves of common blue violet are edible, but the roots are not'). Seed capsules ripen inside the harvest window, so keep them out of the basket. African violet is an unrelated houseplant and is not food.",
+    "caution": "expert",
+    "lookalikes": [
+      {
+        "name": "Lily-of-the-valley - European (Convallaria majalis) and the native Appalachian species (C. pseudomajalis, syn. C. majuscula)",
+        "danger": "deadly",
+        "tell": "The one that can kill you, and it is a leaf-season problem: Convallaria leaves push up in March-April, a month or more ahead of its own May bells, so through most of this entry's Feb-June leaf window there is nothing but foliage to judge it on. Judge it leaf by leaf, on four features, every one of them visible without a flower. (1) VEINS - the single most reliable check, and it works on one detached leaf: a violet leaf is palmately veined, the main veins fanning out from the point where the stalk meets the blade at the notch of the heart and branching into a net; a Convallaria leaf is parallel-veined like the monocot it is, unbranched veins running the length of the blade and converging at the tip. (2) BLADE SHAPE AND MARGIN: violet blades are heart-shaped, broadest near the base, with scalloped, round-toothed margins the whole way round; Convallaria blades are elliptic to oblanceolate, roughly 4-8 in long, broadest at or above the middle, tapering to a point, with a completely smooth, entire margin. (3) HOW IT MEETS THE GROUND: every violet leaf stands alone on its own bare round petiole rising straight from a ground-level crown; Convallaria carries two, sometimes three, leaves per shoot whose tapered bases wrap and sheathe one another into one shared stalk. Two leaves sharing a sheathed base means it is not a violet - stop there. (4) UNDERGROUND: a violet has one stout knobby rhizome with plain fibrous roots and stays a discrete clump; Convallaria runs on a slender creeping horizontal rhizome with roots along its length and forms a dense unbroken colony that pushes shoots up between the violets, not politely to one side. Two things that do NOT work here. Smell is worthless: the torn-leaf onion test that separates this plant from ramps proves nothing in a violet patch, because violet leaves have no smell either. And early season is the worst season: in March a Convallaria shoot is still furled into a narrow upright spear and has not opened out to show its shape, so wait for the blade to unroll before you judge it. Habitat overlaps exactly - C. majalis persists and spreads for decades in old plantings, cemeteries, homestead yards and shaded lawn edges, the same mown-grass-to-tree strip this entry sends you to, and NC State puts the native C. pseudomajalis in mountain hardwood forest and rocky woodland at roughly 3,000-5,000 ft from northern Virginia and West Virginia south to northern Georgia. Every part is toxic, leaves and berries alike, and so is the water from a vase: cardiac glycosides (convallatoxin among dozens), rated high poison severity by NC State - burning mouth and throat, nausea, vomiting, abdominal pain, slow or irregular pulse, dilated pupils, headache, confusion, low blood pressure, and in severe cases seizures or coma. Treat any suspected ingestion as an emergency: call Poison Control on 1-800-222-1222 immediately, do not wait to see whether symptoms develop."
+      },
+      {
+        "name": "Lesser celandine / fig buttercup (Ficaria verna, syn. Ranunculus ficaria)",
+        "danger": "toxic",
+        "tell": "The mistake that matters, because it happens before either plant flowers. Two structural tells, both checkable without a flower. (1) Leaf margin: violet leaves are toothed around the entire edge; celandine leaves are kidney-shaped with smooth, or at most gently lobed and wavy, margins (Penn State Extension makes this the primary separation). Do not use gloss - violet leaves are often waxy and shiny too, which is why lawn herbicides run off them. (2) Rootstock and growth form: pull one up. Celandine sits on a cluster of detachable pale fig-shaped tubers the size of a fingernail, often with small bulbils in the leaf axils later in the season, and it spreads as a dense unbroken carpet. A violet has one stout knobby rhizome with plain fibrous roots, no tubers, and grows as a discrete clump with each leaf on its own stalk. In flower it is trivial: celandine has about 8 glossy yellow petals; violet has 5 blue-purple petals, bilaterally symmetrical, with a nectar spur on the lower petal. NC State lists leaves, stems, roots and sap as poisonous (protoanemonin; vomiting, diarrhea, oral ulcers), and the sap can irritate skin."
+      },
+      {
+        "name": "Wild ginger (Asarum canadense) and the southeastern heartleafs (Hexastylis / Asarum arifolia group)",
+        "danger": "toxic",
+        "tell": "The woodland-floor confusion rather than the lawn one - same shaded, moist, rich ground, same season, also heart-shaped. Use the margin first: every wild ginger and heartleaf has an ENTIRE, untoothed leaf edge, and its leaf is thick and leathery; a violet leaf is thinner and scallop-toothed all the way round. Then use the plant: A. canadense carries a pair of dull gray-green, softly hairy, conspicuously veined leaves 3-6 in across from the tip of one short stalk, and dies back for winter; the southeastern heartleafs are EVERGREEN, glossy, leathery, often silver-mottled, and their leaves rise singly from creeping underground stems (NC State, Hexastylis arifolia) - so the 'leaves in pairs' rule you may have read is useless south of Virginia. Scratch the rhizome or stem: a ginger-to-peppery smell means put it down; a faint or absent smell proves nothing, so never clear a plant on scent alone. Its flower is a single brownish-purple cup sitting in the leaf litter under the leaves, easily missed - so a wild ginger can look 'flowerless' in a patch of blooming violets. Do not eat any part: NC State rates leaves, stems and roots poisonous for aristolochic acid, which is nephrotoxic and a carcinogen, with FDA warnings behind it. The damage is cumulative, delayed and silent, so 'I ate some and felt fine' means nothing here."
+      },
+      {
+        "name": "Kidneyleaf, creeping and bulbous buttercup (Ranunculus abortivus, R. repens, R. bulbosus)",
+        "danger": "toxic",
+        "tell": "The most abundant kidney-shaped basal leaf in the same lawns, verges and moist woods. R. abortivus basal leaves are round to heart or kidney-shaped with scalloped margins on long stalks (UMass Weed Herbarium) - genuinely violet-like at a glance. The give-away is that a buttercup builds an upright, branching, LEAFY flowering stem, and the leaves on that stem are deeply cut into 3-5 narrow lobes, nothing like the basal ones; R. repens goes further and divides its leaves into three stalked leaflets, often pale-blotched, and runs on above-ground stolons. A violet never makes a leafy stem at all: leaves and flower stalks each rise separately, bare, from a ground-level crown. Flowers are small, glossy, 5-petalled and yellow. All Ranunculus carry ranunculin, which becomes protoanemonin when the plant is crushed or chewed - a vesicant that blisters lips, mouth and gut and irritates skin (Cornell Poisonous Plants; Illinois Extension)."
+      },
+      {
+        "name": "Marsh marigold (Caltha palustris)",
+        "danger": "toxic",
+        "tell": "Do not separate these by wetness - blue violets grow on stream banks, seeps and swamp margins, and marsh blue violet (V. cucullata) grows right alongside marsh marigold. Separate them by structure. Marsh marigold builds thick, hairless, HOLLOW, branching stems that carry glossy leaves and flowers well above the ground, with leaves 3-6 in across; a violet is stemless, every leaf and every flower stalk rising individually from the crown, and no violet part is hollow. Flowers are 1-2 in across with 5-9 shiny waxy yellow sepals, versus a violet's 5 purple petals with a spur. Protoanemonin again; NC State is explicit that no part of this plant should ever be eaten raw."
+      },
+      {
+        "name": "Ground ivy / creeping Charlie (Glechoma hederacea)",
+        "danger": "unpalatable",
+        "tell": "The commonest thing actually picked by mistake in a lawn. Roll the stem between your fingers: ground ivy stems are SQUARE, creep flat along the ground and root at every node, forming continuous runners, with pairs of opposite round-to-kidney leaves 0.5-1.5 in wide, scalloped, strongly minty-aromatic when crushed (WSU Hortsense). Violet leaves are alternate-looking only because each has its own bare stalk from a central crown - no runners, no square stems, no smell. Its flowers are small, two-lipped, tubular and blue-violet, clustered in the leaf axils along the runner, not solitary 5-petalled spurred flowers on bare stalks. Widely eaten historically as a pot herb, but its oil contains pulegone (the pennyroyal compound); it is regarded as toxic to livestock and is not something to eat by the handful or in pregnancy."
+      },
+      {
+        "name": "Yellow-flowered violets (e.g. downy yellow violet, Viola pubescens)",
+        "danger": "unpalatable",
+        "tell": "Real violets, not poisonous, but they are caulescent: 1-2 leafy, hairy above-ground stems 4-10 in tall carry alternate leaves as well as any basal ones, and the flowers are yellow with brownish-purple veins on the lowest petal (NC State). NC State notes the flowers are edible only in limited quantities because they can have a laxative effect. Stick to the stemless blue- and white-flowered kinds, where every leaf and flower stalk rises straight from the ground."
+      }
+    ],
+    "harvest": "Confirm every plant in flower, and confirm it per plant, not per patch - then, for leaves, confirm every single leaf as well. The confusables here are separable at a glance once a violet flower is on the crown you are picking from - 5 blue-purple petals, bilaterally symmetrical, a spur on the lower petal, on a bare stalk from the base - and are genuinely easy to mix up before that. This is UMN Extension's advice too: beginning foragers should take flowers only, because violet leaves are easily confused with other non-edible plants. So take flowers freely from plants you can see blooming; take leaves only from a clump you personally watched flower, and pick leaf by leaf from that crown rather than stripping a handful out of mixed groundcover. But understand what the flower rule does not cover. A violet flower on the crown does NOT clear the leaves around it, and it cannot reach the deadly one at all: lily-of-the-valley puts its leaves up in March-April, ahead of its own May bells, so for most of this Feb-June leaf window it is standing there as foliage only, and in old plantings, cemeteries, homestead yards and shaded lawn edges it carpets the exact ground violets carpet, alongside celandine and buttercup. So run this test on every leaf, held in your hand, before it goes in the basket: the blade must be heart-shaped, scallop-toothed the whole way round, with veins fanning out from the notch and branching into a net, on its own single bare stalk. Any leaf that is smooth-edged, elliptic, tapered to a point, veined with unbranched lines running lengthwise, or that shares a sheathed base with a second leaf, is not a violet - discard the entire handful, not just that leaf, and start again from a crown you have re-checked. If you find lily-of-the-valley anywhere in the colony, take no leaves from that ground at all: take flowers only there, or move to a different patch, because its running rhizome pushes shoots up between the violet crowns rather than politely to one side. In March, wait for a furled shoot to unroll before judging it - a furled Convallaria spear has not yet shown its blade shape. Sort the whole harvest a second time at home, one leaf at a time on a flat surface, before it goes anywhere near a pan. Wild ginger and heartleaf hide their flowers in the litter, so an unflowering neighbour proves nothing. No roots, no rhizomes, no seed capsules. Keep portions moderate: the saponins make a big bowl of leaves a bad idea even when the identification is perfect. Sustainability: common and resilient, but pick flowers sparingly from any one patch, take only a few leaves per plant so the crown keeps producing, and leave plenty of bloom - fritillary butterfly caterpillars depend on violets. The bigger risk is chemical, not botanical: violets are most abundant in lawns, verges and parks, which are precisely the places sprayed for them - UMN's turf guidance recommends triclopyr, 2,4-D, dicamba and others against this exact species. Harvest only from ground whose treatment history you know.",
+    "sources": [
+      "University of Minnesota Extension - Wild edibles: Common blue violets (beginners should take flowers only; leaves easily confused): https://extension.umn.edu/natural-resources-news/wild-edibles-common-blue-violets",
+      "University of Minnesota Extension - Wild violet (lawn habitat, waxy leaf surface, herbicides used on turf violets): https://extension.umn.edu/weeds/wild-violet",
+      "NC State Extension Gardener Plant Toolbox - Viola sororia (basal cordate serrate-crenate leaves, Feb-May bloom in NC, woods/thickets/streambeds): https://plants.ces.ncsu.edu/plants/viola-sororia/",
+      "Go Botany, Native Plant Trust - Viola sororia (stemless habit, toothed margins, 5 petals with nectar spur): https://gobotany.nativeplanttrust.org/species/viola/sororia/",
+      "Lady Bird Johnson Wildflower Center - Viola sororia (native state list incl. OK and TX; habitat 'rich, moist woods; swamps'): https://www.wildflower.org/plants/result.php?id_plant=VISO",
+      "Illinois Extension, Good Growing - Embracing the common blue violet (flowers and leaves edible, roots are not; leaf variability): https://extension.illinois.edu/blogs/good-growing/2017-06-07-embracing-common-blue-violet",
+      "NC State Extension Gardener Plant Toolbox - Convallaria majalis (elliptic parallel-veined entire leaves, 2-3 per sheathed shoot from a creeping rhizome; cardiac glycosides, all parts toxic, high poison severity): https://plants.ces.ncsu.edu/plants/convallaria-majalis/",
+      "NC State Extension Gardener Plant Toolbox - Convallaria pseudomajalis (American / Appalachian lily-of-the-valley; mountain hardwood forest and rocky woodland at roughly 3,000-5,000 ft): https://plants.ces.ncsu.edu/plants/convallaria-pseudomajalis/",
+      "National Capital Poison Center - Lily of the valley (all parts contain cardiac glycosides; call Poison Control 1-800-222-1222): https://www.poison.org/articles/lily-of-the-valley",
+      "NC State Extension Gardener Plant Toolbox - Ficaria verna / Ranunculus ficaria (protoanemonin; leaves, roots, sap and stems poisonous; tubers and bulbils; ~8 petals): https://plants.ces.ncsu.edu/plants/ficaria-verna/",
+      "Penn State Extension - Don't Be Deceived by This Beguiling Springtime Plant (lesser celandine tubers and bulblets; violet leaves toothed around the entire edge): https://extension.psu.edu/dont-be-deceived-by-this-beguiling-springtime-plant",
+      "University of Maryland Extension - Lesser Celandine (tuberous roots, detachable bulblets at leaf bases, kidney-shaped waxy leaves): https://extension.umd.edu/resource/lesser-celandine",
+      "NC State Extension Gardener Plant Toolbox - Asarum canadense (paired hairy gray-green leaves; aristolochic acid, nephrotoxic and carcinogenic, do not consume any part): https://plants.ces.ncsu.edu/plants/asarum-canadense/",
+      "NC State Extension Gardener Plant Toolbox - Hexastylis arifolia (evergreen, leathery, silver-mottled leaves borne singly from creeping stems; aristolochic acid): https://plants.ces.ncsu.edu/plants/hexastylis-arifolia/",
+      "UMass Extension Weed Herbarium - Ranunculus abortivus (basal leaves round to heart or kidney-shaped with scalloped margins; deeply lobed stem leaves): https://extension.umass.edu/weed-herbarium/weeds/ranunculus-abortivus/index.html",
+      "Cornell University Department of Animal Science, Plants Poisonous to Livestock - buttercups (protoanemonin, blistering of lips, mouth and GI tract): https://poisonousplants.ansci.cornell.edu/php/plants.php?action=faqs&num=35",
+      "Illinois Extension - Buttercup Management in Pastures (protoanemonin; blistering of mouth and GI tract): https://extension.illinois.edu/beef-cattle/buttercup-management-pastures",
+      "NC State Extension Gardener Plant Toolbox - Caltha palustris (hollow hairless stems, 5-9 waxy yellow sepals, protoanemonin, never eat raw): https://plants.ces.ncsu.edu/plants/caltha-palustris/",
+      "NC State Extension Gardener Plant Toolbox - Viola pubescens (leafy hairy stems; flowers edible only in limited quantities, laxative effect): https://plants.ces.ncsu.edu/plants/viola-pubescens/",
+      "WSU Hortsense - Ground ivy, Glechoma hederacea (square stems rooting at nodes, scalloped round-kidney leaves, aromatic when crushed): https://hortsense.cahnrs.wsu.edu/fact-sheet/weeds-ground-ivy-glechoma-hederacea/",
+      "Missouri Department of Conservation - Great spangled fritillary (larvae feed on plants in the genus Viola): https://mdc.mo.gov/discover-nature/field-guide/great-spangled-fritillary",
+      "Pennsylvania DCNR - Invasive Plant Fact Sheets (lesser celandine): https://www.pa.gov/agencies/dcnr/conservation/wild-plants/invasive-plants/invasive-plant-fact-sheets"
+    ]
+  },
+  {
+    "name": "Common chickweed",
+    "scientific": "Stellaria media",
+    "months": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      9,
+      10,
+      11
+    ],
+    "regions": [
+      "midwest",
+      "mountain",
+      "northeast",
+      "southcentral",
+      "southeast",
+      "west"
+    ],
+    "terrain": [
+      "woodland",
+      "edge",
+      "disturbed",
+      "wetland"
+    ],
+    "habitat": "Cool, moist, fertile ground that gets disturbed: garden beds, shaded lawns, orchard and nursery floors, hedge bottoms, field and ditch margins, streamside flats and compost heaps. It is a shade specialist - Cornell records it flowering in as little as 1.5% of full daylight - and a cold specialist that keeps photosynthesising near freezing. Seed germinates best at 54-68F and, per SARE, will not germinate above 86F, so it is high summer that shuts it down rather than winter. Regionally that means midwinter is the peak in the South and in coastal California; spring and again through fall in the Northeast and Midwest; and near year-round picking in the maritime Northwest and in shaded, irrigated ground anywhere.",
+    "indicator": "Dense, soft, low green mats on damp rich shade - the north side of buildings, under hedges, along drip lines and downspouts where the soil never quite dries.",
+    "parts": "The whole tender above-ground plant - leaves, stems and flowers. Cut only the top few inches and discard the tough stringy lower stems. Mild and faintly sweet, like raw corn silk: raw in salads, wilted into soup off the heat, or blitzed into pesto. Eat it as a vegetable, not a staple. The leaves carry saponins, which NC State notes are very poorly absorbed and are broken down by thorough cooking, but a large raw dose in one sitting (a whole batch of pesto) can bring on gastrointestinal upset. Because the plant also concentrates nitrate, keep bulk raw servings away from infants and small children.",
+    "caution": "expert",
+    "lookalikes": [
+      {
+        "name": "Scarlet pimpernel / poison chickweed (Lysimachia arvensis, formerly Anagallis arvensis)",
+        "danger": "deadly",
+        "tell": "Roll a stem between finger and thumb. Pimpernel's stem is square in cross-section and carries no hair line - any hairs it has are scattered and glandular. Chickweed's stem is round and bears one narrow line of fine white non-glandular hairs running up a single side, switching sides at each node. Pimpernel leaves are stalkless, opposite or sometimes whorled, and speckled with dark glandular dots underneath; chickweed's lower leaves sit on distinctly hairy stalks and have no dots. Do not decide on flowers: UC IPM notes pimpernel's salmon-orange five-petalled flowers (rarely brick red, bright blue or white, with a deeper red-purple centre) stay closed in cool or cloudy weather, which is chickweed's whole season, and young plants have no flowers at all. Chickweed's white petals are cleft so deeply that five look like ten. UC IPM rates this plant's toxicity as ranging from virtually nontoxic to fatally toxic; Massey University records saponin poisoning that strips the gut, destroys the renal tubules and kills sheep, cattle and horses within 24-36 hours, and Penn State lists 'poison chickweed' among its names. If the stem is square, put the whole handful down."
+      },
+      {
+        "name": "Poison hemlock (Conium maculatum)",
+        "danger": "deadly",
+        "tell": "Not a leaf-for-leaf twin, but the deadly plant most likely to end up sheared into a handful of chickweed and blended. It overwinters as a low rosette in exactly the moist disturbed ground chickweed mats over - ditch banks, streamsides, floodplains, pasture and field margins - and a first-year rosette sits at chickweed height in chickweed's season. Its leaves are pinnately compound, fern- or parsley-like, glossy dark green, alternate and basal from a taproot, and they reek musty-mousy when crushed; stems are smooth, hollow and blotched purple. Chickweed leaves are simple, entire, oval with a pointed tip, strictly paired opposite on a solid round stem, and smell of nothing. UMD Extension: all parts are poisonous and can be fatal to humans. Sort the cut handful leaf by leaf before it goes near a blender."
+      },
+      {
+        "name": "Petty spurge and the other spurges (Euphorbia peplus, E. helioscopia, E. maculata)",
+        "danger": "toxic",
+        "tell": "Snap a stem: every spurge bleeds sticky white latex, chickweed's sap is clear. That test is the whole ID and it never fails - run it on the actual stems in your hand, every time. Do not use leaf arrangement: NC State records petty spurge's oval leaves as alternate at the base but opposite further up the stem, so an upper piece looks as paired as chickweed. Petty spurge is erect, hairless and light green with pale cup-shaped flower structures, blooms February through August, and favours the same moist shaded flowerbeds; chickweed sprawls into a mat and carries the one-sided hair line. NC State rates the latex as causing mild to severe contact dermatitis, blistering of the lips and oral mucosa if eaten, and temporary to permanent corneal damage if it reaches the eye - do not rub your eyes while picking."
+      },
+      {
+        "name": "Mouse-ear chickweed (Cerastium fontanum, C. glomeratum)",
+        "danger": "unpalatable",
+        "tell": "Softly hairy all over - both leaf surfaces and the entire circumference of the stem - rather than a single line of hairs down one side. Leaves are blunter, thicker and greyer-green. Edible and harmless, just woolly and dull in the mouth; confirm it is all-round fuzz and not a hair line before you decide either way."
+      }
+    ],
+    "harvest": "An abundant non-native annual, so there is no conservation reason to hold back and a cut patch regrows repeatedly. Weed the patch before you cut, not after: hand-clear everything that is not chickweed out of the mat, then shear the chickweed an inch above the ground, then spread the cut handful on a flat surface and pick through it again. Scissors plus a blender is what makes this plant dangerous - one square-stemmed pimpernel or one hemlock leaflet disappears into a batch of pesto. The other caveat is chemical: chickweed thrives on nitrogen and, per Cornell and SARE, concentrates nitrate to toxic levels on over-fertile ground, so skip heavily fertilised lawns, manure and compost heaps, sprayed beds, roadsides and anywhere dogs run.",
+    "sources": [
+      "Cornell University Weed Ecology and Management - Common chickweed (Stellaria media): https://cals.cornell.edu/weed-science/weed-profiles/common-chickweed",
+      "NC State Extension Gardener Plant Toolbox - Stellaria media: https://plants.ces.ncsu.edu/plants/stellaria-media/",
+      "UC Statewide IPM Program - Chickweeds (Home and Landscape; germination temperatures, one-sided hair band): https://ipm.ucanr.edu/home-and-landscape/chickweeds/",
+      "SARE - Manage Weeds on Your Farm: Common chickweed (fertility response, nitrate accumulation, 86F germination ceiling): https://www.sare.org/publications/manage-weeds-on-your-farm/common-chickweed/",
+      "UC Statewide IPM Program - Scarlet Pimpernel (square stems, glandular hairs, flowers closed in cool or cloudy weather, toxicity range): https://ipm.ucanr.edu/PMG/WEEDS/scarlet_pimpernel.html",
+      "Penn State Extension Plant Identification - Scarlet-pimpernel (lists 'Poison chickweed' as a synonym): https://plantscience.psu.edu/outreach/plant-id/broadleaf/scarlet-pimpernel",
+      "Massey University Poisonous Plants Database - Scarlet pimpernel (saponin, renal tubular necrosis, deaths in sheep, cattle and horses): https://poisonousplants.massey.ac.nz/data/scarlet_pimp/scar_pimp.html",
+      "UC Statewide IPM Program - Petty Spurge (erect hairless habit, milky sap, moist shady flowerbeds, Feb-Aug): https://ipm.ucanr.edu/PMG/WEEDS/petty_spurge.html",
+      "NC State Extension Gardener Plant Toolbox - Petty spurge (latex: dermatitis, oral blistering, corneal damage; leaves alternate at base and opposite above): https://plants.ces.ncsu.edu/plants/euphorbia-peplus/common-name/petty-spurge/",
+      "University of Maryland Extension - Poison Hemlock Identification and Management (first-year rosette, purple-blotched hollow stems, habitat, fatal to humans): https://extension.umd.edu/resource/poison-hemlock-identification-and-management"
+    ]
+  },
+  {
+    "name": "Dandelion",
+    "scientific": "Taraxacum officinale",
+    "months": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      8,
+      9,
+      10,
+      11
+    ],
+    "regions": [
+      "all"
+    ],
+    "terrain": [
+      "disturbed",
+      "meadow",
+      "edge"
+    ],
+    "habitat": "Lawns, pastures, hayfields, gardens, field and path margins, waste ground and sidewalk cracks - anywhere sunny, compacted and disturbed. Naturalised from Eurasia and recorded in all fifty states, which is exactly why it is the beginner's plant. What passes for T. officinale here is an apomictic aggregate, and red-seeded dandelion (T. erythrospermum) grows mixed in with it; both are edible, so a leaf that keys out slightly off is not cause for alarm - the sap and the flower stalk are what decide it.",
+    "indicator": "Sunny, compacted, mown or trodden ground - lawn edges, pasture gates, path shoulders - where a flat rosette can sit below the mower blade.",
+    "parts": "Leaves, crowns, flower petals and roots. Greens are best from the unbolted rosette before the first flower buds open, and again after autumn frosts, when cold sweetens them; blanch or mix with milder greens if the bitterness is too much. That window moves with latitude - March to May and again October to November across the Northeast, Midwest and interior Northwest; December to March in the Southeast, Southwest and low-elevation West, where high summer is the only dead season. Petals go into fritters and jelly (pull them off the green base, which is bitter); roots dug in early spring or late autumn roast into a coffee substitute, best from plants at least a year old. Every broken part bleeds milky white latex - but read that test in one direction only. No latex means it is NOT a dandelion, and that is what rules out groundsel, butterweed, coltsfoot and ragwort. Latex does NOT confirm a dandelion: cat's ear, sow thistle, wild lettuce and chicory all bleed milky sap too (Montana State Extension lists milky sap among the features cat's ear shares with dandelion). Confirm with the flower stalk - a true dandelion carries exactly one head on a smooth, naked, unbranched, hollow scape that collapses when you pinch it, and never bears a leaf on that stalk. The latex can also irritate sensitive skin, so rinse your hands after a long picking session.",
+    "caution": "care",
+    "lookalikes": [
+      {
+        "name": "Common groundsel (Senecio vulgaris)",
+        "danger": "toxic",
+        "tell": "Once it bolts it grows a branched, leafy upright stem carrying clusters of small yellow flower heads with no visible ray petals, sitting in conspicuously black-tipped bracts (UC IPM calls those black tips the distinguishing mark). But in the late-winter and spring greens window it is still a low rosette of deeply lobed leaves that reads as a young dandelion, and none of those flowering marks are there yet - at that stage the test is the sap. Snap a leaf or cut the crown: dandelion bleeds milky white latex from any break; groundsel has no latex at any stage and its cut surfaces are watery. Supporting marks: groundsel's lobes are rounded and irregular with a broad blunt tip, and the whole plant is slightly fleshy, where dandelion's side lobes are sharp triangles pointing back toward the crown. Dandelion also never carries a leaf on its flower stalk and never more than one head per hollow, leafless scape. Groundsel's pyrrolizidine alkaloids are cumulative - repeated small amounts over weeks or months are the real danger, not a single leaf - and the liver injury they cause can be permanent."
+      },
+      {
+        "name": "Tansy ragwort (Jacobaea vulgaris, syn. Senecio jacobaea)",
+        "danger": "toxic",
+        "tell": "The first-year plant is a flat rosette of dark green, ruffled, blunt-lobed 'kale-like' leaves sitting in exactly the mown pasture, trail-side and roadside ground where dandelion greens get cut - and at that stage it has no flowers to give it away. Break it: no milky latex, watery sap, so it fails the dandelion test outright. Supporting marks: ragwort's lobes are rounded and crumpled with a broad blunt terminal lobe, often faintly cobwebby-hairy underneath, and young stems are purplish; dandelion's lobes are sharp backward-pointing triangles and its rosette is hairless or nearly so. Second-year plants bolt one to four feet on a branched, leafy stem and carry flat-topped clusters of daisy heads with about thirteen rays, June into autumn - dandelion never branches, never leafs out on the scape, and never holds more than one head. King County (WA) states plainly that it can sicken or kill livestock, pets and people; the pyrrolizidine alkaloids cause cumulative, irreversible liver damage. Widespread west of the Cascades and in coastal California, also established in the Northeast."
+      },
+      {
+        "name": "Coltsfoot (Tussilago farfara)",
+        "danger": "toxic",
+        "tell": "The trap is the flower, not the leaf, so it matters most when you are picking petals for fritters or jelly. Coltsfoot blooms in March on bare, disturbed ground - roadsides, ditches, gravel, stream banks, wet clay - with no leaves anywhere on the plant; its hoof- or heart-shaped, white-woolly-backed leaves only appear weeks after the flowers have gone. A dandelion flower always rises out of a leafy rosette. The stalk settles it: coltsfoot's is stout, grey-woolly and clad in overlapping purplish scale-like bracts, like a small asparagus spear (Ohio State's weedguide uses exactly that comparison), while a dandelion scape is smooth, naked and hollow. The head differs too - coltsfoot has a raised centre of disc florets ringed by rays, giving it a slightly bowl-shaped look, where a dandelion head is all flat strap-shaped rays and no disc. It bleeds no milky latex. Coltsfoot carries hepatotoxic pyrrolizidine alkaloids, the same class as groundsel."
+      },
+      {
+        "name": "Butterweed / cressleaf groundsel (Packera glabella)",
+        "danger": "toxic",
+        "tell": "From April to June it bolts one to three feet on a hollow, succulent, deeply grooved stem often tinged reddish-purple, with alternate leaves running all the way up it and many yellow daisy-like heads in a showy flat-topped cluster - it turns whole Midwest, Mid-Atlantic and Southeast fields yellow. Dandelion is a stemless rosette with one head on each hollow, leafless stalk. The real trap is earlier: it germinates in autumn and overwinters as a ragged, deeply lobed rosette sitting right in the late-winter and early-spring greens window. Break it - butterweed's sap is watery with no milky latex, dandelion's is milky white; and butterweed's lobes are round-toothed with a broad terminal lobe rather than dandelion's backward-pointing triangles. Pyrrolizidine alkaloids are present in leaves, stems, flowers and seeds; the liver disease they cause is called seneciosis."
+      },
+      {
+        "name": "Hairy cat's ear (Hypochaeris radicata)",
+        "danger": "unpalatable",
+        "tell": "The one that shares the most with dandelion - Montana State Extension lists milky sap, a basal rosette, ray-florets-only yellow heads, one head at each stem tip and a wind-blown seed puff as features it holds in common, so the latex test does nothing here. Two things separate them. Leaves: cat's ear leaves are darker green, lie flatter, have rounded rather than jagged lobes, and are covered in coarse bristly hairs; dandelion leaves are lighter, jagged and hairless or nearly so. Stalk: cat's ear's is solid and wiry, carries small scale-like bracts, and forks so one plant shows several heads, while dandelion's is hollow (pinch it and it collapses), utterly naked and unforked, with exactly one head. Cat's ear peaks a little later, in early summer. Edible for people but tough and hairy and not worth the trouble; it is a noxious weed in Washington and causes stringhalt lameness in grazing horses."
+      },
+      {
+        "name": "Common sow thistle (Sonchus oleraceus)",
+        "danger": "unpalatable",
+        "tell": "A tall, leafy, branched stem with clasping arrow-shaped (auriculate) leaf bases, soft prickle-edged margins and many flower heads, versus dandelion's stemless basal rosette. Note that sow thistle bleeds milky sap too, so the latex test will not separate these two - go by the leafy branched stem and the clasping leaf bases. It is edible, milder in fact, but it is not what you thought you picked."
+      },
+      {
+        "name": "Prickly / wild lettuce (Lactuca serriola and relatives)",
+        "danger": "unpalatable",
+        "tell": "Included for the same reason as sow thistle: it bleeds milky latex, so the sap test passes and proves nothing. In spring it is a lobed basal rosette that can pass for a coarse dandelion, then bolts to a tall leafy branched stem with many small heads. The giveaway is a single row of stiff prickles running along the underside of the leaf midrib, and leaves that twist to hold their edges vertical; dandelion has neither, and never bolts a leafy stem. Bitter and mildly sedative rather than dangerous, but a poor dinner."
+      }
+    ],
+    "harvest": "No conservation concern - it is a non-native lawn weed and you can cut all the greens and dig all the roots you want. The one restraint worth keeping is to leave some flowers standing in a small patch in early spring, when dandelion is one of the first pollen and nectar sources bees have. The real risk is chemical, not botanical: dandelion grows exactly where herbicides, lawn fertiliser, road salt, dog traffic and old urban lead concentrate, and it takes up what it sits in. Harvest only from ground you know has not been treated, skip roadsides, ditches and sidewalk cracks entirely no matter how good the rosettes look, prefer ground away from old painted buildings, and wash in several changes of water. Avoiding roadsides and ditches does double duty - that is also where coltsfoot, groundsel and ragwort are thickest. One health note: the latex causes contact dermatitis in some people (NC State attributes it to taraxinic acid), so anyone with a ragweed, Asteraceae or latex allergy should try a small amount first; the greens and root are a real diuretic; and skip the root preparations altogether if you have gallstones or a bile-duct problem.",
+    "sources": [
+      "NC State Extension Publications - Common Dandelion (TurfFiles): https://content.ces.ncsu.edu/common-dandelion",
+      "NC State Extension Gardener Plant Toolbox - Taraxacum officinale (hollow leafless unbranched scape, milky latex, contact dermatitis from taraxinic acid): https://plants.ces.ncsu.edu/plants/taraxacum-officinale/",
+      "University of Wisconsin-Madison Extension Horticulture - Dandelion, Taraxacum officinale: https://hort.extension.wisc.edu/articles/dandelion-taraxacum-officinale/",
+      "USDA Forest Service, Fire Effects Information System - Taraxacum officinale (occurs in all 50 states): https://research.fs.usda.gov/feis/species-reviews/taroff",
+      "Montana State University Extension - Monthly Weed Post, January 2020: Hairy cat's ear (Hypochaeris radicata): https://www.montana.edu/extension/invasiveplants/extension/monthly-weed-posts/202001mwp-january-hairy-cats-ear.html",
+      "Penn State Extension - Noxious Weed: Catsear (forked solid stems vs. dandelion's unforked hollow stem): https://extension.psu.edu/noxious-weed-catsear",
+      "UC Statewide IPM Program - Common Groundsel (Senecio vulgaris): https://ipm.ucanr.edu/PMG/WEEDS/common_groundsel.html",
+      "Ohio State University Extension, BYGL - Coltsfoot, Not Dandelion: https://bygl.osu.edu/node/689",
+      "Ohio State University CFAES - Ohio Weedguide: Coltsfoot (Tussilago farfara): https://weedguide.cfaes.osu.edu/singlerecord.asp?id=29",
+      "Ohio State University Extension, BYGL - Butterweed / Cressleaf Groundsel: Beauty is in the Eye of the Beholder: https://bygl.osu.edu/node/1023",
+      "Ohio State University CFAES - Cressleaf Groundsel Identification and Control (hollow grooved stem; pyrrolizidine alkaloids and liver necrosis): https://cfaes.osu.edu/fact-sheet/cressleaf-groundsel-identification-and-control",
+      "King County (WA) Noxious Weeds - Tansy ragwort identification and control: https://kingcounty.gov/en/dept/dnrp/nature-recreation/environment-ecology-conservation/noxious-weeds/identification-control/tansy-ragwort",
+      "Washington State University Hortsense - Tansy ragwort (Senecio jacobaea): https://hortsense.cahnrs.wsu.edu/fact-sheet/weeds-tansy-ragwort-senecio-jacobaea/",
+      "University of Missouri IPM - David Trinklein, Spring Wildcrafting: Going for the Green(s), Missouri Environment & Garden Newsletter, 5 March 2013: https://ipm.missouri.edu/MEG/2013/3/Spring-Wildcrafting-Going-for-the-Greens/"
+    ]
+  },
+  {
+    "name": "Elderberry",
+    "scientific": "Sambucus canadensis - American elderberry, east of the Rockies; Sambucus nigra ssp. caerulea - blue elderberry, in the West. Taxonomy is genuinely split: under Bolli's aggregate treatment (adopted by ITIS) these are S. nigra ssp. canadensis and S. nigra ssp. caerulea, while World Flora Online and most US extension services still keep S. canadensis as a species. Western guides and herbarium labels also use S. caerulea, S. cerulea and S. mexicana for blue elderberry - all the same plant. NOT Sambucus racemosa (red elderberry), a separate species that is not food in this guide and that is black-fruited in parts of the West.",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "regions": [
+      "all"
+    ],
+    "terrain": [
+      "wetland",
+      "edge",
+      "meadow",
+      "disturbed",
+      "woodland"
+    ],
+    "habitat": "The wet seam in the landscape. A fast-growing, root-suckering, multi-stemmed shrub that wants moist to periodically saturated, fertile, near-neutral to slightly acid soil with an open canopy, and that thins out and dies as shade closes over it. East of the Rockies, American elderberry lines stream and river banks, the outer edge of floodplain and bottomland hardwood forest, ditch banks, roadside swales, seepy field corners, fencerows, wet meadow margins, beaver-pond edges, powerline cuts and fresh clearings, from Florida and the Gulf Coast north into southern Canada and west to the eastern Plains. It grows up through spring flood sediment, tolerates heavy clay and short periods of standing water, and colonises burns, blowdowns and logged ground within a few seasons. Typical eastern company: black willow, sycamore, box elder, silver maple, green ash and cottonwood overhead; silky dogwood, buttonbush, ninebark, spicebush and wild grape alongside; jewelweed, stinging nettle, poison ivy, Joe-Pye weed and pokeweed at its feet - and, on true bog, fen and swamp margins from New England to the Gulf, poison sumac, which likes the same wet ground and is the one neighbour here that can hurt you without being eaten. In the West, blue elderberry takes over along canyon bottoms, spring lines and seeps, riparian corridors, the moist edge of oak woodland and chaparral, montane meadow margins, roadcuts and irrigation ditches, from sea level to roughly 10,000 ft, with willow, cottonwood, box elder, coast live oak or blue oak, chokecherry and poison oak. In the arid Southwest and Great Basin it is confined almost entirely to watercourses, seeps and shaded canyon bottoms. Two gaps inside the western range as this guide files it: neither American nor blue elderberry reaches Alaska, where the only elder is red elderberry, and neither is a wild plant to go looking for in Hawaii - read the western range as California, Oregon, Washington and the interior West. Red elderberry - the one you do not want - prefers cooler, shadier, higher ground: coastal and montane conifer forest, north slopes and upper stream banks.",
+    "indicator": "Follow the water. A ribbon of elder marks a shallow water table: it strings out along the green line of willow, cottonwood, sycamore or box elder crossing an otherwise dry field, along the roadside ditch that is still green in August, and around seeps and spring lines in western canyons. On eastern floodplain edges it keeps company with jewelweed, stinging nettle and poison ivy. It is also a bird-planted fenceline shrub - check under isolated perch trees, along wire fences and beneath powerlines where they cross damp ground.",
+    "parts": "Two harvests, both needing care. FLOWERS, late spring into midsummer (April in the Gulf states and lowland California, mid-June to early July in New England, the Upper Midwest and at elevation): use only the creamy-white florets, shaken or combed off the green flower stalks, which stay bitter and carry the plant's glycosides. They go into cordial, fritters, vinegar and infused sugar. Sources genuinely disagree about the florets raw: most extension services and every traditional recipe treat the flowers as the one part of this plant that does not need cooking, while University of Minnesota Extension counts flowers among the parts carrying cyanogenic compounds and says even dried elderflower should be heat-treated before use. Mainstream practice is on the side of raw florets, but the cautious version costs nothing - pour boiling syrup or hot vinegar over the flowers and let them infuse as it cools rather than cold-steeping - and either way be scrupulous about combing out every green stalk, which is where the compounds concentrate. BERRIES, from midsummer into autumn: only fully ripe, soft, deep purple-black fruit - blue elderberry looks powder-blue because of a heavy waxy bloom, so rub a berry and check that the skin beneath is black - and the berries MUST BE COOKED. Nothing else on the plant is food. Leaves, bark, roots, twigs, green pedicels and green unripe fruit all carry higher loads of cyanogenic glycosides (sambunigrin, prunasin) plus lectins, and they are the usual cause of poisoning. Required preparation, in order: (1) chill or freeze the cut clusters, then comb the berries off with a fork, or rub the frozen clusters gently over a wire cooling rack set on a tray so the fruit drops and the stems stay behind, so that no green stem goes in the pot - the documented 1983 Monterey County, California outbreak, which put eight people in a hospital by helicopter with vomiting, cramps, weakness and stupor, came from blue elderberries crushed leaves-and-branches-and-all in a press; (2) float the fruit in water and discard anything green, shrivelled or unripe; (3) bring the fruit to a full rolling boil and HOLD THAT BOIL FOR AT LEAST 10 MINUTES - University of Minnesota Extension's figure - before making syrup, jelly, juice, pie or wine, then strain the seeds out; the same 10 minutes is the floor for juice you intend to ferment, because fermentation does not destroy the glycosides; (4) do not drink raw juice, do not eat handfuls raw, and do not treat drying or freezing as a substitute for cooking - Oregon State Extension is explicit that elderberries can safely be frozen or dried raw but must still be cooked before they are eaten. Even properly cooked, elderberry is a rich, laxative fruit: start with a modest serving. It is a syrup, jam and pie fruit, not a survival calorie.",
+    "caution": "expert",
+    "lookalikes": [
+      {
+        "name": "Water hemlock (Cicuta maculata; C. douglasii in the West)",
+        "danger": "deadly",
+        "tell": "The deadliest confusion in this entry, and it happens in June and July while you are cutting white flower heads for cordial - water hemlock stands in the same wet ditches, stream banks, marsh edges and seepy meadows as elder and flowers at the same time. Settle it on the STEM before you look at any flower. Elder is WOODY: grey-brown bark with raised corky lenticels, a stem you cannot snap with your fingers, and a wide white-to-tan spongy pith when you cut it. Water hemlock is herbaceous - a smooth green stem, usually streaked or blotched purple, hollow between the nodes, that snaps wetly; slice the swollen stem base or root lengthwise and it is divided into horizontal chambers that weep a yellow oily sap smelling of raw parsnip. Leaves: elder's are OPPOSITE and once-pinnate, 5-11 toothed leaflets on a single axis. Water hemlock's are ALTERNATE and two or three times divided, and on each leaflet the side veins run to the NOTCH between the teeth rather than to the tooth tip - 'veins to the cuts, not the teeth'. The flower head differs too: water hemlock carries a true umbel, all rays springing from one point at the top of a bare stalk with visible gaps between the ball-shaped flower clusters; elder's cyme branches again and again into a dense flat plate with no gaps. A mouthful of root kills an adult with seizures, and there is no field antidote. If it is not woody, walk away."
+      },
+      {
+        "name": "Poison hemlock (Conium maculatum)",
+        "danger": "deadly",
+        "tell": "Same trap, same season, drier ground - roadsides, ditch banks, waste corners and field edges, flowering May through July right alongside elderflower time. Second-year plants reach 6-10 ft and branch, so at a distance they can read as shrub-sized. The tell is the same first check: elder is woody with bark and lenticels; poison hemlock is a herbaceous biennial with one smooth, hairless, hollow, distinctly ridged green stem blotched and streaked purple, which crushes flat under your fingers. Its leaves are ALTERNATE and fern-like, three or four times finely divided; elder's are OPPOSITE and once-compound with 5-11 broad sharply toothed leaflets. Its flower head is a compound umbel with the rays radiating from a single point and clear gaps between the little flower balls; elder's is a solid flat plate. It smells rank and mousy, but do not go crushing leaves to check - the sap is not something to handle - decide on the stem and the leaves. All parts are lethal; it is the plant that killed Socrates."
+      },
+      {
+        "name": "Moonseed (Menispermum canadense)",
+        "danger": "deadly",
+        "tell": "A twining vine of moist eastern woods, stream banks and thicket edges - exactly elderberry ground - carrying loose drooping clusters of blue-black, grape-like fruit with a waxy bloom in September. It is usually flagged as a wild-grape lookalike, but it climbs up through elder shrubs, so its fruit can hang in the middle of an elder and be picked with it. It has no woody trunk of its own and no tendrils - it simply twines. Its leaves are SIMPLE, alternate, broad, with 3-7 shallow lobes and NO teeth, and the leaf stalk joins the underside of the blade just inside the margin rather than at the notch. Nothing about it is compound; nothing is opposite. The decider is inside the fruit: crush one and moonseed holds a single large flattened crescent-shaped stone, while elderberry holds 3-5 tiny soft seeds. Fatally toxic - the alkaloid dauricine has killed adults who mistook it for wild grape."
+      },
+      {
+        "name": "Red elderberry, including the black-fruited form (Sambucus racemosa, incl. var. melanocarpa)",
+        "danger": "toxic",
+        "tell": "The published rule 'red is bad, blue-black is good' FAILS across part of the US range and you must not rely on it. In the Northern Rockies, Great Basin and interior Northwest - and less commonly into eastern Washington and Oregon, northern California, Nevada and northern Arizona - S. racemosa var. melanocarpa carries purple-black fruit and is routinely called 'black elderberry'. Use two tells that work everywhere and in every month instead. FIRST, cluster shape: S. racemosa holds flowers and fruit in a dome-shaped, egg-shaped or pyramidal cluster with an obvious central axis running to the tip, while American and blue elderberry hold theirs in a flat-topped or barely convex plate with no central axis, five main rays leaving the top of the stalk at once. SECOND, cut a pencil-thick twig: red elder's pith is brown or tan in a comparatively narrow twig; American and blue elder's pith is white to pale tan and startlingly wide, most of the twig. Timing supports both - red elder flowers in spring and drops its fruit in early to midsummer, weeks before blue elderberry colours up. The raw fruit and especially the seeds are strongly emetic, and Oregon State Extension advises against making food from red elderberry at all. Some people cook and strain it; for this guide, treat any dome-clustered or brown-pithed elder as off the menu."
+      },
+      {
+        "name": "Pokeweed (Phytolacca americana)",
+        "danger": "toxic",
+        "tell": "Dark purple-black berries ripening at the same time in the same wet field edges, fencerows and waste ground. It is entirely herbaceous - snap a stem and it is juicy and hollow with smooth magenta-to-red skin, never woody, never barked, and it dies to the ground every winter. Leaves are SIMPLE and ALTERNATE, not compound and opposite. The berries hang in one long unbranched raceme like a bead necklace on a thick magenta stalk, while elderberry's sit in a flat-topped, repeatedly branching head. Berry in hand: pokeweed's is big, 8-12 mm, flattened with a dimpled top and vertical ribs like a tiny pumpkin; elderberry's is 4-6 mm and round, on a fine green-to-purple pedicel. Pokeweed berries are the commonest route of poisoning in children."
+      },
+      {
+        "name": "Common and glossy buckthorn (Rhamnus cathartica, Frangula alnus)",
+        "danger": "toxic",
+        "tell": "Invasive shrubs and small trees choking the same hedgerows, fencerows, wet woodland edges and old fields across the Northeast, Midwest and Northwest, carrying clusters of pea-sized black fruit at exactly elderberry time. Every leaf is SIMPLE, never compound - that alone settles it. Common buckthorn's leaves are sub-opposite (offset by a few millimetres), finely round-toothed, with 3-5 pairs of veins that curve forward and run parallel to the leaf edge toward the tip, and most twigs end in a short sharp thorn. Glossy buckthorn's are alternate, glossy and untoothed with the same curving veins and no thorn. Both hold their fruit in small tight bunches sitting in the leaf axils along the length of the twig; elderberry's fruit is always in one big terminal flat-topped head at the end of the shoot. Squash a berry: buckthorn has 3-4 large hard grooved stones, elderberry 3-5 tiny soft seeds. The name is literal - the fruit is a violent purgative."
+      },
+      {
+        "name": "Privet (Ligustrum sinense, L. vulgare, L. japonicum and relatives)",
+        "danger": "toxic",
+        "tell": "The commonest elderberry mistake in the Southeast and in any old hedge or neglected yard edge. Privet is woody, multi-stemmed, with OPPOSITE leaves, panicles of small white flowers in late spring and clusters of blue-black fruit in autumn - a very similar overall impression. The leaves settle it instantly: privet's are SIMPLE, small, leathery, untoothed with a smooth entire margin, and semi-evergreen, hanging on through winter; elder's are compound with 5-11 sharply toothed leaflets on a shared axis and are shed by late autumn. The flower cluster is a cone-shaped upright panicle with a central axis and a heavy cloying scent, not a flat plate. Privet fruit stays small, hard and dry on the bush into winter; elderberry fruit is soft, juicy and gone to the birds by October. Privet berries reliably cause vomiting, cramps and low blood pressure, and livestock deaths are well documented; the old reports of child deaths are contested, but a handful will make an adult very ill."
+      },
+      {
+        "name": "Virginia creeper (Parthenocissus quinquefolia)",
+        "danger": "toxic",
+        "tell": "Scrambles through the same riparian thickets, fencerows and hedge bottoms and drapes itself right over elderberry shrubs, so its fruit can be hanging inside an elder. In late summer it carries clusters of dark blue-black berries - but on bright coral-red or magenta stalks, which elderberry never has; elder's fruit stalks are green to dull purple-red and never that vivid. It is a VINE, with forked tendrils tipped in small adhesive pads gripping bark, stone or siding; elder stands on its own woody stems. Its leaves are palmately compound - five leaflets radiating from one point like fingers - and ALTERNATE, not pinnately compound and opposite. Its berries are noticeably larger, 6-8 mm, with 2-4 big seeds. The fruit is loaded with oxalate raphides and reliably causes burning mouth, vomiting and cramps; the old case reports of child deaths are thinly documented and disputed, but nothing about the berry is worth testing."
+      },
+      {
+        "name": "Giant hogweed and cow parsnip (Heracleum mantegazzianum, H. maximum)",
+        "danger": "toxic",
+        "tell": "Not mistaken for the shrub, but for the white flower head at cordial time, and the injury is real. Both are huge herbaceous umbellifers of wet ditches, stream banks, roadside seeps and moist meadows, flowering June-July alongside elder. Cow parsnip is 4-8 ft with ridged, hollow, softly hairy green stems and enormous maple-like leaves divided into three; giant hogweed (Northeast, Great Lakes, Pacific Northwest) is 8-15 ft with coarse white bristles, purple blotches and an umbel up to 2.5 ft across. Neither is woody, both have ALTERNATE leaves, and both carry true umbels with all rays from a single point. Their sap plus sunlight causes severe blistering burns and scars that last for years, and hogweed sap in the eye can blind. Check for woody bark and opposite compound leaves before your snips go in."
+      },
+      {
+        "name": "Poison sumac (Toxicodendron vernix)",
+        "danger": "toxic",
+        "tell": "The one shrub on this ground that hurts you for reaching into it rather than for eating it, and it defeats the cues used elsewhere in this entry: it is a woody shrub to small tree of bogs, fens, swamp margins, wet pine flatwoods and streambank thickets, it has PINNATELY COMPOUND leaves, and its smooth grey bark carries conspicuous raised lenticels - so woody, once-compound and lenticelled all match it too. Separate them from arm's length, before the snips go in, on four points. ONE, leaf arrangement: poison sumac's leaves are ALTERNATE, one per node, staggering up the twig; elder's are strictly OPPOSITE, in pairs. TWO, margins: 7-13 leaflets with ENTIRE, completely untoothed edges, usually on a bright red rachis; elder's 5-11 leaflets are sharply toothed all the way round on a green rachis. THREE, fruit: small, hard, greyish yellow-white drupes in slack drooping panicles hanging from the leaf axils along the twig; elder's is one terminal flat-topped plate of soft purple-black berries at the tip of the shoot. FOUR, flowers: small, greenish-yellow and axillary, so there is never a flat white cyme on it in June. It is an eastern plant, absent from the West, where the contact hazard in elder thickets is poison oak instead. Every part carries urushiol; NC State rates it a high-severity poison and the blistering rash is generally worse and longer-lasting than poison ivy's. Never cut it into a brush pile and never burn it - smoke from burning poison sumac carries urushiol into the airway and can be fatal."
+      },
+      {
+        "name": "Devil's walking stick and American spikenard (Aralia spinosa, A. racemosa)",
+        "danger": "toxic",
+        "tell": "Also carries broad clusters of small dark purple-black berries in late summer in eastern woods, clearings and edges, and its compound foliage gives a similar gestalt from a distance. Devil's walking stick has a trunk and stems armed with dense sharp prickles - unmistakable once you look - and huge leaves that are twice or three times compound, so the leaflets sit on side branches off a main axis; elderberry's leaves are once-compound with all leaflets on one axis, and its stems are smooth with raised lenticels (a cue it shares with poison sumac, above - confirm the OPPOSITE toothed leaflets too, never lenticels alone). Its fruit sits in an enormous branched panicle with a stout central axis, often on red-purple stalks, not a flat plate. American spikenard is unarmed and herbaceous with the same twice-compound leaves and dark berries in an elongated cluster. Berries are emetic and purgative."
+      },
+      {
+        "name": "Silky, gray and red-osier dogwood (Cornus amomum, C. racemosa, C. sericea)",
+        "danger": "toxic",
+        "tell": "Multi-stemmed woody shrubs of the same wet ditches, stream banks and pond edges, with flat-topped white flower clusters in June and clusters of pale blue, white, or blue-and-white blotched drupes in late summer - silky dogwood in particular reads as 'blue elderberry' from ten feet away. Their leaves are SIMPLE, opposite, with untoothed margins and 3-6 pairs of veins that curve forward and run parallel to the leaf edge toward the tip. The decisive test works from May to October: tear a leaf slowly across and fine white elastic threads stretch between the two halves, which nothing else in this habitat does. The fruit holds a single hard stone, and gray dogwood's fruit stalks are bright red. Bitter and stomach-turning in quantity rather than dangerous."
+      },
+      {
+        "name": "Nannyberry, blackhaw, arrowwood and possumhaw viburnum (Viburnum lentago, V. prunifolium, V. dentatum, V. nudum)",
+        "danger": "unpalatable",
+        "tell": "The closest match to elderberry's whole appearance: woody multi-stemmed shrubs of moist woodland edges and stream banks, with OPPOSITE leaves, flat-topped white flower clusters in spring and clusters of dark blue-black fruit in late summer. Filed here as the mildest tier because it is not a poisoning risk - nannyberry, blackhaw and possumhaw are pleasant cooked, arrowwood is dry, seedy and barely worth swallowing - but none of them is elderberry, and none of them behaves like it in a pot. Viburnum leaves are SIMPLE, one blade to a stalk; elderberry's are pinnately compound with 5-11 leaflets on a shared axis. Viburnum fruit is larger and oval rather than round and holds one flat stone you cannot mill or sieve through; elderberry fruit is 4-6 mm, round, with 3-5 tiny soft seeds. Viburnum stems have a narrow firm pith; elder's is wide and spongy. Know which you are holding before you cook 4 lb of it."
+      }
+    ],
+    "harvest": "Cut whole clusters with snips rather than tearing at the shrub - the stems are brittle and a torn stem is next year's dead wood. On eastern bog, fen and swamp margins, look at the shrub before you reach through it: poison sumac holds the same wet ground and is also woody, lenticelled and pinnate-leaved, so confirm opposite, sharply toothed leaflets first. Take a fraction of the clusters on any one plant: elderberry is a heavy late-summer fuel stop for migrating birds. Flowers and fruit come off the same shoot, so a head taken for cordial is a head of berries you will not get - choose one or the other on a given bush, and take flowers from the bushes you are not coming back to. In California's Central Valley and its riparian corridors leave old thick elderberry stems entirely alone: the shrub is the sole host of the federally threatened valley elderberry longhorn beetle, and the beetle lives in the older wood. Skip shrubs within a few metres of pavement (lead, salt, herbicide overspray) and anything on a ditch bank downstream of a sprayed field, which rules out a lot of the roadside habitat this plant likes. Keep the cut clusters in their own bag, separate from everything else you have gathered, and process or refrigerate them at 35-40F the same day - elderberries ferment fast in a warm bucket. Freezing the clusters first makes the berries roll off the green stems cleanly, which is the safety step as well as the convenient one.",
+    "sources": [
+      "NC State Extension Gardener Plant Toolbox - Sambucus canadensis: https://plants.ces.ncsu.edu/plants/sambucus-canadensis/",
+      "Lady Bird Johnson Wildflower Center - Sambucus nigra ssp. canadensis: https://www.wildflower.org/plants/result.php?id_plant=sanic4",
+      "Lady Bird Johnson Wildflower Center - Sambucus racemosa var. melanocarpa (black-fruited red elderberry): https://www.wildflower.org/plants/result.php?id_plant=SARAM4",
+      "US Fish & Wildlife Service - Black Elderberry (Sambucus racemosa var. melanocarpa), range and black fruit: https://www.fws.gov/species/black-elderberry-sambucus-racemosa-var-melanocarpa",
+      "NC State Extension Gardener Plant Toolbox - Sambucus racemosa subsp. pubens: https://plants.ces.ncsu.edu/plants/sambucus-racemosa-subsp-pubens/",
+      "CDC MMWR 33(13), 1984 - Poisoning from Elderberry Juice, California (Monterey County, August 1983): https://www.cdc.gov/mmwr/preview/mmwrhtml/00000311.htm",
+      "Poisoning from elderberry juice - California (PubMed record of the MMWR report): https://pubmed.ncbi.nlm.nih.gov/6422238/",
+      "University of Minnesota Extension - elderberry food safety: berries must be boiled for at least 10 minutes before use, and flowers are listed among the parts carrying cyanogenic compounds, with heat treatment advised even for dried elderflower",
+      "Oregon State University Extension EM 9446 - Play it safe when preserving elderberries (all varieties of raw elderberries should be cooked before consuming; berries may be frozen or dried raw but must still be cooked before eating; remove stems and leaves, freeze then screen the fruit off; avoid making food from red elderberry): https://extension.oregonstate.edu/sites/extd8/files/catalog/auto/EM9446.pdf",
+      "NC State Extension Gardener Plant Toolbox - Toxicodendron vernix (poison sumac): high-severity poison, bog/swamp/streambank thicket habitat, alternate pinnately compound leaves of 7-13 entire-margined leaflets, lenticelled bark, whitish drupes in drooping axillary panicles, and the warning that smoke from burning it can be fatal: https://plants.ces.ncsu.edu/plants/toxicodendron-vernix/",
+      "Penn State Extension - Not-so-Nice Native Plants (elderberry and pokeweed toxicity): https://extension.psu.edu/not-so-nice-native-plants",
+      "Penn State Extension - Poison Hemlock Identification: https://extension.psu.edu/poison-hemlock-identification",
+      "Penn State Extension - Common Pokeweed Identification and Management: https://extension.psu.edu/common-pokeweed-identification-and-management",
+      "Purdue Extension FNR - ID That Tree: American Elderberry: https://www.purdue.edu/fnr/extension/id-that-tree-american-elderberry/",
+      "Michigan State University Extension - Drive-by botany: Elderberry and ox-eye daisy: https://www.canr.msu.edu/news/drive-by-botany-elderberry-and-ox-eye-daisy",
+      "USDA Forest Service, Fire Effects Information System - species reviews for Sambucus racemosa and Sambucus nigra ssp. canadensis (cluster form, pith colour, fruit colour variation in var. melanocarpa, successional and riparian habitat)",
+      "Bolli, R. (1994), Revision of the Genus Sambucus - the monograph behind the S. nigra ssp. canadensis / ssp. caerulea treatment adopted by ITIS",
+      "USDA NRCS PLANTS Database - distribution for Cicuta maculata, Cicuta douglasii, Conium maculatum, Rhamnus cathartica, Frangula alnus, Ligustrum sinense, Menispermum canadense, Parthenocissus quinquefolia and Toxicodendron vernix, and for the absence of American and blue elderberry from Alaska and Hawaii",
+      "Penn State Extension and NY State DEC - Giant Hogweed identification, control and phototoxic sap injuries; cow parsnip comparison",
+      "NC State Extension Gardener Plant Toolbox - toxicity entries for Ligustrum sinense, Phytolacca americana, Parthenocissus quinquefolia, Menispermum canadense and Aralia spinosa",
+      "US Fish & Wildlife Service - Valley elderberry longhorn beetle (Desmocerus californicus dimorphus) species profile, on leaving mature elderberry stems intact in California's Central Valley"
+    ]
+  },
+  {
+    "name": "Garlic mustard",
+    "scientific": "Alliaria petiolata",
+    "months": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      9,
+      10,
+      11
+    ],
+    "regions": [
+      "midwest",
+      "northeast",
+      "southeast",
+      "west"
+    ],
+    "terrain": [
+      "woodland",
+      "edge",
+      "disturbed"
+    ],
+    "habitat": "Shaded, moist, disturbed ground in deciduous woods — floodplain terraces and stream banks, trail and road edges, hedgerows, old lots, suburban yards and the open understory of maple-ash-oak forest, where it forms dense carpets that smother spring ephemerals. It wants rich, moist, non-acid soil and partial shade and tolerates everything from periodically flooded bottomland to dry sand forest, but it will not survive standing water through the growing season, so look on the bank and the terrace, not in the marsh. Established from northern New England west to eastern North Dakota and south to eastern Oklahoma and South Carolina, and again west of the Cascades in Washington and Oregon; the scattered Colorado, Utah and California populations are early-detection targets that should be reported to the state rather than quietly harvested.",
+    "indicator": "Rich, non-acid ground under maple, ash and black locust — trail edges and floodplain terraces where an ankle-deep green carpet is already up weeks before the canopy leafs out.",
+    "parts": "First-year basal rosette leaves and the slender white taproot; second-year young tops, flower buds and white flowers before the plant bolts hard. Best flavour is in the first-year rosette, which stays green through autumn and winter; leaves turn sharply bitter once flowering starts, and second-year leaves go woody. Cook it — a brief boil or blanch with the water discarded tames the mustard bite, and it is the sane way to handle a plant that carries roughly 100 ppm cyanide fresh weight in its youngest first-year leaves. The root tastes like mild horseradish, but read the poison hemlock and water hemlock entries before you dig: both have white or tuberous roots in the same wet ground, both are lethal, and root confusion is how people actually die. One caveat on the smell test, which is the tell that separates this plant from everything toxic near it: the garlic odour is strongest in young spring tissue and fades noticeably with leaf age and after flowering (Michigan State Extension: \"Its young leaves produce a garlic smell when crushed. As leaves mature, this odor fades\"). A strong garlic smell from a freshly crushed leaf is good evidence you have the right plant; a faint or absent smell late in the season is NOT evidence that you do — check the leaf shape too, and note that garlic mustard's leaves are smooth and essentially hairless while most of the rosettes it is confused with are fuzzy.",
+    "caution": "expert",
+    "lookalikes": [
+      {
+        "name": "Poison hemlock (Conium maculatum)",
+        "danger": "deadly",
+        "tell": "Not a leaf-for-leaf twin — hemlock's leaves are delicate and parsley- or fern-like, three to four times divided into fine lacy segments, while garlic mustard's are simple, kidney- to heart-shaped and scalloped. The danger is that it is the same kind of plant in the same place at the same time: both are biennials that overwinter as rosettes on low-lying disturbed ground near creeks, ditches and field edges, both get pulled in the same weeks, and in May–June both stand three feet or more topped with small white flowers. Flower shape separates the tops: hemlock's are flat compound umbels like Queen Anne's lace, garlic mustard's are four-petalled crosses in a narrow spike. Then the stem: hemlock's is hollow, hairless and marked with red-purple blotches — faint and easy to miss at the rosette stage, often merging into solid purple in year two (Penn State) — garlic mustard's is not blotched, but absence of purple on a young plant proves nothing on its own. Then the root: hemlock's is a white, parsnip-like taproot, and USDA ARS records human deaths from eating \"hemlock root\" mistaken \"with wild parsnips\", so never dig a white taproot out of a mixed patch. Every part is poisonous (coniine) and the sap irritates skin — wear gloves, and never grab a white-flowered top by feel without looking at the leaf it came from."
+      },
+      {
+        "name": "Water hemlock (Cicuta maculata)",
+        "danger": "deadly",
+        "tell": "The most violently poisonous plant in North America, and it lives in exactly the wet ground a good garlic mustard patch runs down into — stream and ditch banks, wet thickets, floodplains. Again not a leaf twin: leaves are two to three times pinnately divided into lance-shaped saw-toothed leaflets, and the giveaway is that the side veins end in the notches between the teeth rather than at the tips. Flowers are white compound umbels, spring into fall, never four-petalled crosses. The stem is stout, hollow and purple-streaked or mottled with cross-partitions at the nodes; the base and the short tuberous roots are chambered in cross-section and weep a yellow oily sap. NC State rates it \"HIGHLY TOXIC, MAY BE FATAL IF EATEN\", with the roots more poisonous than the rest and cicutoxin causing convulsions within minutes — a mouthful of root has killed adults. No garlic smell. This is the reason not to dig anything in wet bottomland on the assumption it is a garlic mustard taproot."
+      },
+      {
+        "name": "Golden ragwort (Packera aurea)",
+        "danger": "toxic",
+        "tell": "The closest rosette match in moist woods, and semi-evergreen, so its leaves sit beside garlic mustard rosettes all winter and spring in the same forests, ravines, seeps and riparian ground. Basal leaves are heart- to kidney-shaped with blunt scalloped teeth on long slender stalks — the same silhouette. Tells: the leaf underside is flushed reddish-purple, young leaves carry loose cobwebby hairs where garlic mustard's are smooth and hairless, the later stem leaves are deeply cut and lacy, the flowers are yellow daisies in flat-topped clusters, and a crushed leaf has no garlic smell. NC State lists pyrrolizidine alkaloids in the leaves, with \"Liver toxicity; skin irritation following contact\" — cumulative hepatotoxins, not something to bulk out a salad with."
+      },
+      {
+        "name": "Wild ginger (Asarum canadense; A. caudatum in the Northwest)",
+        "danger": "toxic",
+        "tell": "Named by weed-control programs as one of the natives volunteers pull believing it is garlic mustard, and its reputation as a woodland ginger substitute makes it likelier that someone eats it. Leaves are heart- to kidney-shaped but rise in pairs from a creeping rhizome rather than as a many-leaved rosette; they are dull, leathery, strongly veined and covered in fine hairs, with smooth untoothed margins, and the crushed leaf or root smells of ginger and pepper, not garlic. The flower is a single maroon-brown cup sitting on the ground beneath the leaf pair. NC State is blunt: \"Aristolochic acid is nephrotoxic and a carcinogen. Do not consume any part of this plant.\" Aristolochic acid causes irreversible kidney damage and urinary tract cancers, and the damage is cumulative."
+      },
+      {
+        "name": "Kidneyleaf buttercup (Ranunculus abortivus)",
+        "danger": "toxic",
+        "tell": "The closest match there is to a garlic mustard rosette: a native buttercup whose basal leaves are round to kidney-shaped, heart-shaped at the base, with the same rounded scalloped margins on long stalks, in the same moist bottomland woods, lawns, trail edges and disturbed ground. Scalloped edges do NOT separate the two — the smell does: crush a fresh young leaf, garlic mustard reeks of garlic, this smells of nothing. Its stem leaves change abruptly, deeply divided into narrow oblong toothed lobes, and its flowers are tiny — five pale yellow petals only 1.5–3.5 mm long, shorter than the sepals — never white crosses. All parts carry ranunculin, which converts on crushing to protoanemonin, an acrid irritant that reddens and blisters skin and burns the mouth and gut."
+      },
+      {
+        "name": "Lesser celandine / fig buttercup (Ficaria verna)",
+        "danger": "toxic",
+        "tell": "Leaves are glossy, fleshy, dark green and kidney- to heart-shaped with smooth margins — at most gently lobed, never crisply scallop-toothed — growing in dense low mats in floodplains and moist shady soil, with fig-shaped tubers like tiny potatoes along the roots and bulbils in the leaf axils. Flowers are unmistakable once open: glossy buttercup-yellow stars an inch across with eight or more petals, March to May. Crush a leaf and there is no smell. Garlic mustard's rosette leaves are dull, distinctly scallop-toothed and reek of garlic. Toxic principle is protoanemonin (vomiting, diarrhoea, oral ulcers), and it is a Pennsylvania Class B noxious weed — the two grow intermingled in the same floodplains in March, and celandine's mats are usually the thing you are standing in while you pick."
+      },
+      {
+        "name": "Ground ivy / creeping Charlie (Glechoma hederacea)",
+        "danger": "unpalatable",
+        "tell": "Square, four-angled stems that creep along the ground and root at the nodes instead of forming a tidy rosette; round to kidney-shaped leaves with scalloped edges on long stalks; three to seven blue-violet, two-lipped tubular flowers in whorls in the leaf axils; and a musky mint aroma rather than garlic when crushed. Not dangerous to people in the amounts you would eat, but strongly aromatic and bitter — and NC State flags it as toxic to horses."
+      }
+    ],
+    "harvest": "The one plant on this list you should take as much of as you can carry — but look hard at what your hand is closing on before you close it. It is a DCNR-listed invasive and a Pennsylvania Class B noxious weed that produces hundreds to thousands of seeds per plant, viable in the soil for at least five years (Penn State says up to five, Minnesota DNR says five to ten, USFS says a small fraction persist four to six), suppresses native wildflowers and the mycorrhizal fungi trees depend on, and smothers spring ephemerals. Pull the whole root before the pods ripen and bag the plants for the trash rather than composting them — pulled or cut flowering stems left lying on the soil can still ripen viable seed. Wear gloves, and look at what you are grabbing: poison hemlock is a biennial of the same wet bottomland, gets pulled in the same weeks, and its sap irritates skin. Two consequences of this plant being everyone's favourite target: the patches most convenient to reach — park trail edges, preserve boundaries, roadsides — are exactly the ones land managers spray with glyphosate or triclopyr in early spring, so do not harvest on managed land without asking what has been applied and when; and the legal picture varies, from Class B in Pennsylvania to a Class A noxious weed in Washington where eradication is required state-wide, landowners are legally obliged to control it and sightings should be reported, with Colorado and Utah treating it as an early-detection species. Foraging is welcome; carrying seed out on your boots and in an open bag is not. Do not pull the natives by mistake: cutleaf toothwort (Cardamine concatenata) carries the same four-petalled white crosses but its leaves are deeply cut and compound, split into narrow fingers, where garlic mustard's are simple and kidney- or heart-shaped — and it is the host plant of the rare West Virginia white butterfly, so leave it be. Food note: cyanide in garlic mustard tissue reaches around 100 ppm fresh weight, highest in the youngest leaves of first-year plants — the same rosette leaves that taste best — so chop and cook rather than eating large raw quantities, and start with a small portion if you are sensitive to brassicas.",
+    "sources": [
+      "Penn State Extension — Garlic Mustard: Accurate Identification (leaf shape year 1 vs year 2; \"a garlic odor when crushed which tends to fade as the plant ages\"; flowers late April–June): https://extension.psu.edu/garlic-mustard-accurate-identification",
+      "Penn State Extension — Garlic Mustard, a Ubiquitous Invasive Weed (habitat, ~800 seeds/plant, seed viable \"up to 5 years\", bag pulled plants, edibility): https://extension.psu.edu/garlic-mustard-a-ubiquitous-invasive-weed",
+      "Penn State Extension — Poison Hemlock Identification (biennial, rosette year 1, \"At the rosette stage, the spots may be faint and difficult to see\", 3–6 ft in year 2, low-lying areas near creeks and streams, wear gloves): https://extension.psu.edu/poison-hemlock-identification",
+      "USDA ARS Poisonous Plant Research — Poison hemlock, Conium maculatum (hollow purple-spotted stem, parsley-like leaves, \"a white taproot\", all parts poisonous, deaths from confusing hemlock root with wild parsnips): https://www.ars.usda.gov/pacific-west-area/logan-ut/poisonous-plant-research/docs/poison-hemlock-conium-maculatum/",
+      "NC State Extension Gardener Plant Toolbox — Cicuta maculata, water hemlock (chambered tuberous roots, veins ending in the notch between the teeth, purple-mottled hollow stem, \"HIGHLY TOXIC, MAY BE FATAL IF EATEN\", roots most poisonous): https://plants.ces.ncsu.edu/plants/cicuta-maculata/",
+      "NC State Extension Gardener Plant Toolbox — Packera aurea, golden ragwort (heart-shaped blunt-toothed basal leaves, reddish-purple undersides, semi-evergreen, riparian woods, pyrrolizidine alkaloids and liver toxicity): https://plants.ces.ncsu.edu/plants/packera-aurea/",
+      "NC State Extension Gardener Plant Toolbox — Asarum canadense, wild ginger (paired hairy heart-shaped leaves, ginger scent, \"Aristolochic acid is nephrotoxic and a carcinogen. Do not consume any part of this plant.\"): https://plants.ces.ncsu.edu/plants/asarum-canadense/",
+      "NC State Extension Gardener Plant Toolbox — Ficaria verna, lesser celandine (glossy smooth-margined kidney leaves, fig-shaped tubers and axillary bulbils, 8-petalled 1-inch yellow flowers, floodplains, toxic principle protoanemonin): https://plants.ces.ncsu.edu/plants/ficaria-verna/",
+      "NC State Extension Gardener Plant Toolbox — Glechoma hederacea, ground ivy (4-angled creeping stems rooting at the nodes, scalloped kidney leaves, blue-violet two-lipped flowers in axillary whorls, aromatic, toxic to horses): https://plants.ces.ncsu.edu/plants/glechoma-hederacea/",
+      "Penn State Extension — Don't Be Deceived by This Beguiling Springtime Plant (lesser celandine: glossy kidney-shaped mostly smooth-edged leaves, tubers and bulblets, floodplains and riparian areas, gone by late May in PA, PA Noxious Weed List): https://extension.psu.edu/dont-be-deceived-by-this-beguiling-springtime-plant",
+      "Pennsylvania Department of Agriculture — Controlled Plant & Noxious Weed Lists (garlic mustard, lesser celandine and poison hemlock all Class B): https://www.pa.gov/agencies/pda/plants-land-water/plant-industry/noxious-weeds-and-controlled-plants/controlled-plant-noxious-weed-lists",
+      "Pennsylvania DCNR — Invasive Plant Fact Sheets (garlic mustard, \"a weed of shady moist spots in suburban gardens, woods, and floodplains throughout Pennsylvania\"): https://www.pa.gov/agencies/dcnr/conservation/wild-plants/invasive-plants/invasive-plant-fact-sheets",
+      "USDA Forest Service, Fire Effects Information System — Alliaria petiolata (range New England to eastern North Dakota, south to eastern Oklahoma and South Carolina, plus UT/CO/OR/WA; \"not tolerant of growing season inundation\"; \"apparently not found on acid soils\"; germination February–March; overwintering green rosettes; flowering early April–early June): https://research.fs.usda.gov/feis/species-reviews/allpet",
+      "King County, Washington Noxious Weed Program — Garlic mustard (Class A noxious weed, eradication required state-wide, landowners legally required to control, report sightings; rosette look-alikes fringecup, piggyback plant, nettle, violets; \"garlic mustard leaves are smooth and mostly hairless\"): https://kingcounty.gov/en/dept/dnrp/nature-recreation/environment-ecology-conservation/noxious-weeds/identification-control/garlic-mustard",
+      "Minnesota DNR — Garlic mustard (kidney-shaped scalloped first-year rosette, triangular upper leaves, \"hundreds to thousands of seeds that are viable in the soil for five to ten years\"): https://www.dnr.state.mn.us/invasives/terrestrialplants/herbaceous/garlicmustard.html",
+      "Michigan State University Extension — Garlic Mustard: Frequently Asked Questions (\"Its young leaves produce a garlic smell when crushed. As leaves mature, this odor fades.\"): https://www.canr.msu.edu/resources/garlic-mustard-frequently-asked-questions",
+      "UMass Amherst Weed Herbarium — Ranunculus abortivus (basal leaves \"round to heart or kidney-shaped with scalloped margins on long petioles\"; stem leaves deeply divided into narrow oblong lobes; pale yellow petals shorter than the sepals): https://extension.umass.edu/weed-herbarium/weeds/ranunculus-abortivus/",
+      "Go Botany, Native Plant Trust — Ranunculus abortivus (reniform, cordate-based basal blade; yellow petals 1.5–3.5 mm, shorter than the sepals): https://gobotany.nativeplanttrust.org/species/ranunculus/abortivus/",
+      "Cornell University Department of Animal Science — Plants Poisonous to Livestock: buttercup (Ranunculus spp.), all parts poisonous, toxic agent protoanemonin: https://poisonousplants.ansci.cornell.edu/php/plants.php?action=indiv&byname=common&keynum=71",
+      "Cipollini D, Gruner B (2007). Cyanide in the chemical arsenal of garlic mustard, Alliaria petiolata. Journal of Chemical Ecology 33(1):85–94. doi:10.1007/s10886-006-9205-x — cyanide reaching ~100 ppm fresh weight, highest in young first-year leaves (publisher page sits behind an authentication redirect; cite by DOI)"
+    ]
+  },
+  {
+    "name": "Giant Puffball",
+    "scientific": "Calvatia gigantea (syn. Langermannia gigantea)",
+    "months": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "regions": [
+      "midwest",
+      "northeast",
+      "southcentral",
+      "southeast"
+    ],
+    "terrain": [
+      "meadow",
+      "edge",
+      "disturbed"
+    ],
+    "habitat": "Open ground rather than deep woods - pastures, old fields, hedgerows, lawns and parks, the edges of meadows, drainage ditches and under brush - singly or in arcs and rings that refruit in the same spot for years, usually a few days after a soaking rain. Range is the Great Plains eastward; West Coast and Southwest reports are old and probably errors, and the huge western puffball is Calvatia booniana, whose surface breaks into polygonal scales. Records thin out south of the Appalachians and it is effectively absent from Florida and the Gulf coast, where the pear- or skull-shaped Calvatia craniiformis (also edible young, but with a tough sterile base) is the common big white puffball. The season is heavily weighted to September-October - close to eighty percent of North American records - with August good in the north, July flushes after heavy rain, and a few lingering into November. Missouri Dept. of Conservation gives May-October for its state, but spring and early-summer finds are rare everywhere.",
+    "indicator": "Rich, disturbed, nitrogen-fed ground on the open side of a wood - meadow edges, hedgerows, old manured pasture, drainage ditches - and above all a spot that produced one last autumn, because the same arc refruits for years.",
+    "parts": "Only firm flesh that is pure marshmallow-white edge to edge, with no cap outline, no gill line, no stem, no distinct rind layer and no jelly anywhere in cross-section. Peel the outer skin - MDC: 'Peel off the tough outer skin before cooking, since it can be hard to digest' - then slice into slabs and cook thoroughly. Do not wash it; it soaks up water like a sponge (Cornell). Once any part of the interior has gone yellow, olive, brown or powdery, discard the whole puffball rather than trimming back to the white - the maturing spore mass causes GI upset. Skip lawns, verges and parks that may have been sprayed, and eat only a small portion the first time: MDC notes that 'some people are simply allergic to certain chemicals in certain fungi.' Never eat it raw — raw puffball causes stomach upset in some people; cook it through.",
+    "caution": "expert",
+    "lookalikes": [
+      {
+        "name": "Button or 'egg' stage of deadly Amanita species (destroying angel, Amanita bisporigera and the A. virosa group; death cap, A. phalloides)",
+        "danger": "deadly",
+        "tell": "Slice every ball from top to bottom before it goes in the basket, large ones included - the test only works on a vertical cut through the middle, and size is never a clearance. An Amanita egg shows the silhouette of a whole tiny mushroom in cross-section: a domed cap, a pale arc of developing gills beneath it, and a stem running down the centre, all wrapped in a thin membranous universal veil that becomes the volva. NPS puts it plainly - a vertical slice reveals 'the future stem and cap of the Amanita in cross-section.' A giant puffball is uniform, featureless white like a marshmallow from skin to skin. Second check at the base: an Amanita egg sits in a sac-like volva ('the remnants of a sac-like volva at the base', NC State), while a giant puffball hangs from a single thick white mycelial cord - so cut at ground level and look, do not snip blind. Amanita eggs are small, roughly one to three inches, so anything under about a softball deserves extra suspicion, but slice everything regardless. Amatoxins cause liver and kidney failure and are regularly fatal: NC State gives symptoms at 6-24 hours, then 'kidney failure, and death, usually within 7 days.' This confusion is not theoretical - in March 2026 California health officials confirmed that a Humboldt County forager in an out-of-area ICU with amatoxin poisoning had eaten western destroying angels 'mistook for puffball mushrooms by experienced local foragers.'"
+      },
+      {
+        "name": "Earthballs / pigskin poison puffballs (Scleroderma polyrhizum, S. citrinum and other Scleroderma spp.)",
+        "danger": "toxic",
+        "tell": "Interior colour alone will not save you - MDC: 'when very young, the inside is nearly white, but soon becomes marbled, then purplish, then blackish with age.' Judge by the rind, the cut and the feel. In cross-section an earthball is rind-and-core: a sharply demarcated leathery skin about 2-6 mm thick over the spore mass, and that cut rind usually blushes pink or reddish within a minute. A giant puffball is uniform soft flesh with no distinct rind layer and no colour change. Earthballs feel hard and rubbery, not spongy, and the spore mass is hard and purple-black early. Do not lean on 'small and yellow-warted': that describes S. citrinum (MDC gives 1-4 inches, woods and mossy ground), but S. polyrhizum is whitish, fairly smooth with a downy bloom, 8-13 cm across while still round and splitting to 30+ cm, and it grows in grass, lawns and disturbed urban ground - the same ground as giant puffballs. Anything marbled, purplish or blackish inside is an earthball, full stop. Scleroderma causes upset stomach, nausea and vomiting."
+      },
+      {
+        "name": "Stinkhorn eggs (Phallus, Mutinus, Clathrus spp.)",
+        "danger": "unpalatable",
+        "tell": "A cut egg is layered rather than uniform: a tough outer skin, then a clear gelatinous jelly, then an olive-brown to olive-green gleba around a whitish core that is the compressed future stalk, often with its outline visible. The whole thing is soft, slimy and frequently smells foul. A giant puffball's interior has no layers, no jelly, no dark core and no odour beyond a mild mushroom smell."
+      }
+    ],
+    "harvest": "Cut it free at ground level but look at the base as you cut, then slice every ball top to bottom in the field, so nothing with a cap silhouette, gill line, sac-like base or distinct rind ever reaches the kitchen. Take only what you will eat in a day or two - they yellow fast and do not store. Leave some to mature: a single giant puffball sheds on the order of seven trillion spores. Do not kick or crush mature ones or breathe the dust; inhaling puffball spores caused a hypersensitivity pneumonitis (lycoperdonosis) in eight Wisconsin adolescents in 1994, all of whom needed medical care. Never collect from sprayed lawns, roadside verges or heavily dog-walked parks.",
+    "sources": [
+      "Missouri Department of Conservation, Field Guide: Giant Puffball - https://mdc.mo.gov/discover-nature/field-guide/giant-puffball",
+      "Missouri Department of Conservation, Field Guide: Pigskin Puffball (Common Earthball) - https://mdc.mo.gov/discover-nature/field-guide/pigskin-puffball-common-earthball",
+      "National Park Service, Species Spotlight: Puffballs (Amanita egg cross-section test) - https://www.nps.gov/articles/species-spotlight-puffballs.htm",
+      "Cornell Mushroom Blog (Cornell University), Giant puffballs, Calvatia gigantea - https://blog.mycology.cornell.edu/2006/10/26/giant-puffballs-calvatia-gigantea/",
+      "Penn State Extension (Pike County Master Gardeners), Sights of the Season: Giant Puffball Mushrooms - https://extension.psu.edu/programs/master-gardener/counties/pike/publications/sights-of-the-season/fall/giant-puffball",
+      "Utah State University Intermountain Herbarium, Giant Puffballs (spore load, range) - https://artsci.usu.edu/herbarium/activities_fun-stuff/fun-facts-about-fungi/giant-puffballs",
+      "MushroomExpert.Com (Michael Kuo), Calvatia gigantea - distribution 'from the Great Plains eastward', C. booniana separation - https://www.mushroomexpert.com/calvatia_gigantea.html",
+      "MushroomExpert.Com (Michael Kuo), Scleroderma polyrhizum - size, whitish downy surface, 2-6 mm rind blushing reddish, grassy/disturbed habitat - https://www.mushroomexpert.com/scleroderma_polyrhizum.html",
+      "NC State Extension Gardener Plant Toolbox, Amanita bisporigera (destroying angel) - volva and amatoxin outcome - https://plants.ces.ncsu.edu/plants/amanita-bisporigera/",
+      "CDC MMWR, Respiratory illness associated with inhalation of mushroom spores - Wisconsin, 1994 (lycoperdonosis), via PubMed - https://pubmed.ncbi.nlm.nih.gov/8028572/",
+      "Lost Coast Outpost, 18 Mar 2026: Humboldt County resident hospitalised with amatoxin poisoning after destroying angels were 'mistook for puffball mushrooms' - https://lostcoastoutpost.com/2026/mar/18/local-resident-suffers-amatoxin-poisoning-after-ea/"
+    ]
+  },
+  {
+    "name": "Golden Chanterelle",
+    "scientific": "Cantharellus spp. — the golden chanterelle group: C. flavus, C. enelensis, C. tenuithrix and C. phasmatis in the East and Midwest; C. formosus and C. roseocanus in the Northwest and the Southwest sky islands; C. californicus in coastal California",
+    "months": [
+      0,
+      1,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "regions": [
+      "midwest",
+      "mountain",
+      "northeast",
+      "southeast",
+      "west"
+    ],
+    "terrain": [
+      "woodland",
+      "edge"
+    ],
+    "habitat": "Mycorrhizal, so they rise from soil, moss and leaf litter and return to the same patch year after year. Do not treat 'came out of the ground' as a safety check: jack-o'-lanterns erupt from buried roots and look perfectly terrestrial, and both of the deadly lookalikes below are soil fungi fruiting in the very same woods. East of the Rockies they appear singly or in scattered troops under oak, beech and hickory — roughly May–September in Florida and the Gulf, May–October in Missouri and the Midwest, June–September in the Northeast. In the Southwest they are confined to high-elevation oak and conifer in the sky islands and along the Mogollon Rim during the July–September monsoon. The Northwest season is autumn, September into December, in second-growth Douglas-fir, western hemlock and Sitka spruce. Coastal California is a winter mushroom: C. californicus fruits under coast live oak and tanoak from November into February. One caveat on the identification test below — the eastern smooth chanterelle, C. lateritius, has a nearly smooth or only faintly wrinkled underside rather than distinct ridges, so if you cannot resolve blunt forking ridges you do not have the identification this entry covers, and you should leave it.",
+    "indicator": "Mossy, well-drained ground under mature oak and beech in the East or second-growth Douglas-fir and western hemlock in the Northwest, with the shoulders of old logging roads and skid trails the most reliable edge.",
+    "parts": "The whole mushroom, always cooked, never raw. Dry-sauté first to drive off the water they hold, then finish with fat. Even properly cooked they disagree with a minority of people, so eat a small portion the first time, keep one uncooked specimen in the fridge in case identification is needed later, and do not serve a first pick to guests.",
+    "caution": "expert",
+    "lookalikes": [
+      {
+        "name": "Deadly webcaps (Cortinarius rubellus, C. orellanus, C. orellanosus, C. armillatus)",
+        "danger": "deadly",
+        "tell": "Tawny to rust-orange, mycorrhizal, growing from soil in the same forest, and repeatedly picked as chanterelles — a 1957 mass poisoning in southern Poland involved over a hundred people who believed they had chanterelles. They have TRUE gills: blade-like, separable from the cap flesh, pale at first and turning rusty-brown as the spores mature. Young caps carry a cobwebby veil (cortina) that leaves a rusty ring zone on the stalk, and C. rubellus shows yellowish snakeskin banding on the stem. Take a SPORE PRINT — chanterelles drop pale yellow-white to cream, webcaps drop rust-brown; this one test settles the webcaps. Webcap flesh is brittle and does not tear into the white, stringy string-cheese fibres of a chanterelle. Orellanine destroys the kidneys with a 3-to-20-day delay, so there is no early vomiting to warn you, and cooking, drying and freezing do not destroy it. These are in North America: C. rubellus on both coasts, a renal-failure case from C. orellanosus in Michigan, and orellanine confirmed in the common birch-associated C. armillatus."
+      },
+      {
+        "name": "Poison pax / brown roll-rim (Paxillus involutus)",
+        "danger": "deadly",
+        "tell": "Dull yellow-brown to olive-brown, on soil in mixed hardwood-conifer woods and often under birch; the Forest Service's own chanterelle monograph notes it is sometimes called the 'brown chanterelle'. The cap margin is strongly inrolled and finely woolly-matted. Underneath are TRUE gills — crowded, forked, decurrent, dirty yellow to olivaceous — that scrape off the cap as separate blades, and both gills and flesh stain dark reddish-brown where bruised or cut. Spore print is clay-brown, never pale cream. A chanterelle is egg-yolk to apricot, with blunt ridges that cannot be plucked off individually, white to pale flesh, and no browning on handling. Paxillus kills by delayed immune haemolytic anaemia built up over repeated meals, so having eaten it before without harm is no protection whatever."
+      },
+      {
+        "name": "Jack-o'-lantern (Omphalotus illudens East/Midwest, O. subilludens Gulf South, O. olivascens West Coast)",
+        "danger": "toxic",
+        "tell": "TRUE gills — thin, sharp-edged, knife-like, crowded, unforked — that can be plucked off individually as separate blades. A chanterelle has false gills: blunt, wax-like forking ridges with crossveins that are continuous with the cap flesh and tear rather than lift away. Jack-o'-lanterns fruit in large clusters FUSED AT A COMMON BASE, from stumps, the foot of living oaks, or buried roots, so a cluster can appear to come straight out of bare soil — the fusion, not the substrate, is the tell. Sliced, the flesh is orange right through cap and stem; a chanterelle's is white to pale yellow and pulls apart in string-cheese fibres. O. olivascens additionally develops olive tones. Their faint green glow is real but needs total darkness and dark-adapted eyes and fades with age — its absence proves nothing. Illudin S brings violent cramps, vomiting and diarrhoea 1–3 hours after eating; recovery takes about 5–6 days and it is rarely life-threatening to a healthy adult, but the dehydration is genuinely dangerous for children and the elderly."
+      },
+      {
+        "name": "Rustgills (Gymnopilus junonius, G. luteus and relatives)",
+        "danger": "toxic",
+        "tell": "Named by UF/IFAS as one of the two dangerous chanterelle look-alike genera in the Southeast. Orange to tawny, growing on wood and stumps, often in clusters fused at the base, with true blade-like gills, frequently a ring or ring zone on the stalk, and a RUSTY-BROWN spore print where a chanterelle's is pale yellow-white. The flesh is intensely bitter. Causes gastrointestinal upset, and several species are psychoactive."
+      },
+      {
+        "name": "False chanterelle (Hygrophoropsis aurantiaca)",
+        "danger": "unpalatable",
+        "tell": "Thin, soft and floppy, with a brownish-orange, slightly velvety cap usually darker toward the centre, and deep-orange, crowded, repeatedly forked TRUE gills that lift cleanly off the cap flesh. A real chanterelle is thick and firm, tears into fibrous string-cheese strands, and has blunt ridges continuous with the flesh. Usually on conifer duff, rotting wood or wood chips. Mostly just bad-tasting, but it upsets some people — and it is the mushroom beginners most often carry home convinced it is a chanterelle."
+      },
+      {
+        "name": "Scaly vase chanterelle (Turbinellus floccosus, formerly Gomphus floccosus)",
+        "danger": "toxic",
+        "tell": "Deeply vase- or trumpet-shaped, the hollow often running down into the stalk, with coarse orange to reddish scales lining the inside of the cup and a pale buff, wrinkled-ridged outer surface. Golden chanterelles are at most shallowly funnel-shaped and smooth on top. Commonest in western conifer forest but present through the Appalachians from Canada to northern Mexico, so it is not a western-only problem. Causes nausea, vomiting and diarrhoea in many people."
+      }
+    ],
+    "harvest": "Pluck or twist the mushroom free at the base rather than cutting it: thirteen years of Forest Service data from the Bull Run study found no evidence that plucking suppressed fruiting — if anything a slight stimulation — while the cut plots showed a slight depression in chanterelle biomass and abundance. Leave the duff and moss where they lie; raking tears up the mycelial mat that produced the patch and is prohibited on many national forests. Carry them in a basket or open bag so they stay dry and firm (the folk claim that a mesh bag reseeds the woods behind you is untested). Leave the largest, faded ones to sporulate, and get whatever personal-use or commercial permit your national forest or state requires before picking volume, particularly in Oregon and Washington.",
+    "sources": [
+      "Missouri Department of Conservation, Field Guide: Chanterelles — https://mdc.mo.gov/discover-nature/field-guide/chanterelles",
+      "Missouri Department of Conservation, Field Guide: Jack-o'-Lantern — https://mdc.mo.gov/discover-nature/field-guide/jack-o-lantern",
+      "UF/IFAS Extension PP369, 'The Common Chanterelles (Cantharellus and Craterellus) of Florida' — https://ask.ifas.ufl.edu/publication/PP369",
+      "Iowa State University Extension, Yard and Garden: 'The Jack-O'-Lantern Mushroom' — https://yardandgarden.extension.iastate.edu/article/2005/11-9/jack.html",
+      "NC State Extension Gardener Plant Toolbox, Omphalotus illudens — https://plants.ces.ncsu.edu/plants/omphalotus-illudens/",
+      "NC State Extension Gardener Plant Toolbox, Paxillus involutus (Poison Paxillus) — https://plants.ces.ncsu.edu/plants/paxillus-involutus/",
+      "USDA Forest Service PNW-GTR-576, 'Ecology and Management of Commercially Harvested Chanterelle Mushrooms' — https://www.fs.usda.gov/pnw/pubs/pnw_gtr576.pdf",
+      "Shao, Rockwell et al., Toxicon 2016, 'A novel orellanine containing mushroom Cortinarius armillatus' (Harvard Forest) — https://harvardforest1.fas.harvard.edu/publications/pdfs/Shao_Toxicon_2016.pdf",
+      "North American Mycological Association, 'A Rare Cortinarius rubellus Poisoning in North America' — https://namyco.org/wp-content/uploads/2023/08/A_Cortinarius_rubellus_Poisoning_in_Canada-2-1.pdf",
+      "MykoWeb, California Fungi: Omphalotus olivascens — https://www.mykoweb.com/CAF/species/Omphalotus_olivascens.html",
+      "MykoWeb, Toxic Fungi of Western North America: Paxillus involutus — https://www.mykoweb.com/TFWNA/P-40.html",
+      "Oregon Sea Grant / Oregon State University, Chanterelles (Cantharellus formosus) — https://blogs.oregonstate.edu/coastaltourism/chanetrelles-cantharellus-formosus/"
+    ]
+  },
+  {
+    "name": "Hen of the Woods (Maitake)",
+    "scientific": "Grifola frondosa",
+    "months": [
+      7,
+      8,
+      9,
+      10
+    ],
+    "regions": [
+      "northeast",
+      "midwest",
+      "southeast"
+    ],
+    "terrain": [
+      "woodland",
+      "edge",
+      "disturbed"
+    ],
+    "habitat": "On the ground at the root flare, on exposed roots, or beside the stump of a mature and declining oak (occasionally maple, beech or elm) in hardwood forest, parks, yards and old fencerows, essentially east of the Great Plains. Records thin out fast toward the Gulf and the west: GBIF holds 194 US records for North Carolina and 65 for Georgia, but 16 for Mississippi, 13 for Alabama, 3 for Texas and none at all for Florida. Peak is mid-September to early October in the north, with the season running late August into November. An August hen overlaps peak season for the black-staining and dyer's polypores below, so run the checks properly that early. A productive tree fruits in the same spot most autumns for years, so remember the oak. Note what else is coming up around that oak: the destroying angel (Amanita bisporigera) and death cap (A. phalloides) are mycorrhizal with oak and fruit on the ground within a few feet of a hen in the same weeks. They look nothing like a pored rosette, but nothing white, gilled and stalked should ever ride home in the same bag.",
+    "indicator": "A mature, declining oak with a swollen, buttressed root flare - that butt rot is the fungus, and the same tree refruits most autumns.",
+    "parts": "The tender caps and the fleshy upper part of the branching base; trim off the gritty butt where it met the soil. Reject any clump that has gone soft, sour-smelling or larvae-riddled - spoiled hens sicken more people than misidentified ones. Never eat it raw: cook it thoroughly, a slow simmer or roast. Try a modest portion the first time, because even correctly identified maitake gives a minority of people stomach upset and true allergy exists, though it is rare. Two medical notes if you plan to eat it often: maitake lowers blood glucose and may add to the effect of hypoglycemic drugs, and there is a case report of it raising INR in a patient on warfarin (Memorial Sloan Kettering).",
+    "caution": "care",
+    "lookalikes": [
+      {
+        "name": "Jack-o'-lantern (Omphalotus illudens)",
+        "danger": "toxic",
+        "tell": "Also fruits in large clusters at the base of oaks, on oak stumps and from buried oak roots, July through October - the same place and season you hunt hens. It is bright pumpkin-orange right through to the flesh, and it has true gills: sharp-edged, crowded blades running down a distinct stalk. The hen has no gills at all, only a spongy layer of tiny angular pores, and is grey-brown above. Turn one over before anything goes in the bag; eating it means days of violent vomiting and cramps."
+      },
+      {
+        "name": "Black-staining polypore (Meripilus sumstinei)",
+        "danger": "unpalatable",
+        "tell": "Bruises and stains dark brown to black wherever it is cut, pressed or handled, usually within minutes; hen of the woods never blackens, it only yellows with age. Back that up with the underside: Meripilus pores are so fine (6-8 per mm) the surface reads as smooth white skin, while the hen's are visibly angular (1-3 per mm). It is also fewer, larger, thicker fan-shaped caps (2-8 in. each) rather than dozens of small grey-brown spoons. Edible young but it toughens fast and upsets some stomachs."
+      },
+      {
+        "name": "Berkeley's polypore (Bondarzewia berkeleyi)",
+        "danger": "unpalatable",
+        "tell": "A few very large (3-12 in.) thick, cream-white fans with a coarse, wide-pored underside, growing from oak roots or a stump, instead of a rosette of dozens of small grey-brown spoon-shaped caps whose pores are fine and whitish (faintly lavender-grey on a young button, yellowing with age). Go by the cream-white colour and the small number of big caps, not by size alone. The growing edge is firm and cuttable; everything behind it turns woody, tough and bitter."
+      },
+      {
+        "name": "Dyer's polypore (Phaeolus schweinitzii)",
+        "danger": "unpalatable",
+        "tell": "The cap is velvety yellow-brown to rusty red-brown, and the pore surface bruises promptly dark brown to nearly black - it is bright yellow to orange when young and dull brown when old, never the hen's whitish, non-staining pores. Cut it: the flesh is brown and corky, not white and meaty. It is a root pathogen of conifers (white pine, spruce, larch, fir) and only very rarely reported on hardwoods, so the tree at your back is corroboration, not proof - identify it by the brown flesh and the bruising. Fruits early August through September, overlapping the start of hen season."
+      }
+    ],
+    "harvest": "Cut the clump cleanly above the base with a knife rather than tearing it out. The fungus lives on as a white rot in the roots and lower trunk, so taking the fruiting body does not kill it and the same tree usually refruits for years - just do not dig at or damage the root collar. Take one clump per tree rather than stripping every flush, and get it while the caps are still firm, because a wet hen sours quickly. Get permission before cutting on private land or in a park, and bear in mind that a tree carrying this rot has compromised roots: do not work around a badly decayed oak in high wind. Mind the tree, not just the mushroom: a bracket growing on a street tree, park specimen or old fencerow oak takes up what the ground and the trunk have been given, so skip anything on chemically treated turf, sprayed rights-of-way, or within a few metres of heavy traffic.",
+    "sources": [
+      "Missouri Department of Conservation, Field Guide: Hen of the Woods (Maitake) - https://mdc.mo.gov/discover-nature/field-guide/hen-woods-maitake",
+      "Missouri Department of Conservation, Field Guide: Black-Staining Polypore - https://mdc.mo.gov/discover-nature/field-guide/black-staining-polypore",
+      "Missouri Department of Conservation, Field Guide: Berkeley's Polypore - https://mdc.mo.gov/discover-nature/field-guide/berkeleys-polypore",
+      "Missouri Department of Conservation, Field Guide: Jack-o'-Lantern (Omphalotus illudens) - https://mdc.mo.gov/discover-nature/field-guide/jack-o-lantern",
+      "UMass Amherst CAFE, 'Root and Butt Rot caused by Grifola frondosa (Hen of the Woods)' - https://www.umass.edu/agriculture-food-environment/landscape/fact-sheets/root-butt-rot-caused-by-grifola-frondosa-hen-of-woods",
+      "UMass Amherst CAFE, 'Root and Butt Rot caused by Phaeolus schweinitzii' - https://www.umass.edu/agriculture-food-environment/landscape/fact-sheets/root-butt-rot-caused-by-phaeolus-schweinitzii",
+      "Illinois Department of Natural Resources, Wild About Fungi: Hen-of-the-Woods (description and Illinois distribution only) - https://dnr.illinois.gov/education/wildaboutpages/wildaboutfungi/a-l/wafnhenofthewoods.html",
+      "Michael Kuo, MushroomExpert.Com: Grifola frondosa - https://www.mushroomexpert.com/grifola_frondosa.html",
+      "Michael Kuo, MushroomExpert.Com: Meripilus sumstinei - https://www.mushroomexpert.com/meripilus_sumstinei.html",
+      "Michael Kuo, MushroomExpert.Com: Phaeolus schweinitzii - https://www.mushroomexpert.com/phaeolus_schweinitzii.html",
+      "Cornell University Mushroom Blog, 'Stalking the Hen of the Woods' - https://blog.mycology.cornell.edu/2006/11/10/stalking-the-hen-of-the-woods/",
+      "Memorial Sloan Kettering Cancer Center, Integrative Medicine: Maitake (adverse effects and herb-drug interactions) - https://www.mskcc.org/cancer-care/integrative-medicine/herbs/maitake",
+      "GBIF occurrence records for Grifola frondosa, US by state (e.g. Florida = 0) - https://api.gbif.org/v1/occurrence/search?taxonKey=2540800&country=US&stateProvince=Florida&limit=0"
+    ]
+  },
+  {
+    "name": "Jerusalem artichoke (sunchoke)",
+    "scientific": "Helianthus tuberosus",
+    "months": [
+      9,
+      10,
+      11,
+      0,
+      1,
+      2,
+      3
+    ],
+    "regions": [
+      "northeast",
+      "southeast",
+      "midwest",
+      "southcentral",
+      "mountain",
+      "west"
+    ],
+    "terrain": [
+      "disturbed",
+      "edge",
+      "wetland",
+      "meadow"
+    ],
+    "habitat": "A full-sun floodplain plant. It wants deep, fertile, moisture-retentive alluvial loam that stays damp well into summer without standing water: river and creek bottoms, oxbows and point bars, the toe of a slope where seepage collects, wet ditch bottoms and roadside swales, canal banks and railroad embankments, fencerows, old fields, and the sunny outer edge of bottomland woods. It will not persist under a closed canopy - colonies stop dead at the shade line, which is why a patch reads as a wall of stems along an edge rather than anything inside the woods. Usual company is giant ragweed, wingstem, cup plant, Canada and giant goldenrod, boneset, Joe-Pye weed, jewelweed, stinging nettle, common milkweed and reed canary grass. Stands are clonal - one genotype spreading by rhizome - so a patch is often hundreds of stems of a single plant, dense enough to exclude nearly everything else. Where it does and does not grow, stated plainly, because water hemlock occupies these wet ditches across nearly the whole country and sunchoke does not: it is native to the eastern half of the continent and the prairie-plains region (the exact native boundary is disputed) and established in every state except Hawaii, Alaska, Arizona, New Mexico and Nevada. In Hawaii and Alaska there is no wild sunchoke at all and nothing here applies. In the Mountain & Southwest region it is a Montana, Wyoming, Colorado, Idaho and Utah plant, and even there only in irrigation ditches, riparian corridors and old homestead ground; treat the desert Southwest and the Great Basin - Arizona, New Mexico, Nevada - as absent apart from garden escapes on irrigated ground. In the West it means California, Oregon and Washington only, on the same irrigation-ditch, riparian and old-homestead pattern. It is genuinely common only in the Northeast, Southeast, Midwest and South Central states, including east and south Texas and Oklahoma bottomland. Timing shifts a long way with latitude. In northern New England, the Upper Midwest and the northern Plains the first hard frost lands late September to mid-October and the ground is locked from roughly December into February, so the real windows are October-November and again at the March-April thaw. Through the Ohio Valley, mid-Atlantic and maritime Northwest the ground rarely freezes hard and you can work straight from October to March. On the Gulf Coast, in south Texas and in coastal California frost may hold off until late November or December, pushing the start later and letting the season run into April. Quality collapses fast once new shoots appear in spring - the tubers go soft and hollow as they feed the new stems.",
+    "indicator": "Two signals. In late summer and early autumn, a single dense block of rough sunflowers standing head-high to twice head-high on a damp ditch bank, streambank or fence line, still in full yellow flower in September and October when most other sunflowers have finished - and in winter that same block of stiff, dark, ridged, rough-hairy dead stalks still standing after the goldenrod and ragweed have gone over, each topped by the dry remains of a composite head (pokeweed stands in the same ground and holds its stalks just as long, but they are smooth, stout, hollow and often still magenta-stained, with drooping berry racemes - see the lookalikes). The second is old human settlement: sunchokes outlive the people who planted them, so a colony alongside daylily, rhubarb, lilac, periwinkle, an old apple or a stone foundation is almost always a planted patch gone feral.",
+    "parts": "Tubers only. Leaves, stems, flower heads and seeds are not food. The tubers are knobby and irregular, somewhere between a small potato and a hand of ginger - 1-4 in long, white, tan, pink or red-purple, ringed with distinct eyes and leaf scars, with crisp white flesh that snaps like a water chestnut and a clean, sweet, nutty smell. The structural fact that matters underground: they do not sit beneath the stem. They form at the ENDS of pale horizontal rhizomes running 1-3 ft out from the stalk at 4-12 in depth, so you open a wide circle and follow a rhizome inward rather than digging a hole at the stem base. The central hazard of this plant is that the identification lives on the standing summer plant and the harvest happens when that plant is a broken brown stalk or gone. Treat the sequence as mandatory: find and mark colonies in September and October, while the 6-10 ft rough-hairy ridged stems, the sandpapery 4-8 in toothed ovate-to-lanceolate leaves on winged stalks (opposite low on the stem, alternate near the top) and the 2-4 in yellow heads with 10-20 rays around a yellow disc are all present; then dig only inside a marked patch, and keep only tubers you can physically trace along an unbroken rhizome back to a marked sunchoke stalk. That physical trace is the whole identification. A loose root or tuber turned up in the soil cannot be identified by cutting it open, by its colour, or by its smell - solid white flesh does not mean sunchoke, for the reason spelled out under water hemlock - so anything that comes up detached goes back on the ground, however good it looks. Do not use leaf arrangement as a species tell - H. strumosus, H. hirsutus, H. divaricatus and H. giganteus also have opposite leaves and H. tuberosus itself switches to alternate above. And never taste a dug root to identify it: a fragment of water hemlock root smaller than a fingertip has killed adults.",
+    "caution": "expert",
+    "lookalikes": [
+      {
+        "name": "Water hemlock (Cicuta maculata; C. douglasii in the West and Northwest; C. bulbifera in northern wetlands)",
+        "danger": "deadly",
+        "tell": "The one that kills people, and the reason this entry is rated expert. CDC's report on a fatal 1992 Maine case - a man who died after roughly three bites of the root he had dug - notes that water hemlock poisonings happen when the plant is mistaken for edible plants such as artichokes, celery, sweet potatoes, sweet anise or wild parsnip; Jerusalem artichoke is the food most often named. Some Cicuta species occur in nearly every state, in exactly the ground this entry sends you to: wet ditch bottoms, seeps, streambanks and marsh edges. It is a carrot-family plant - hollow, ribbed, often purple-streaked or mottled stems 3-8 ft, twice- to thrice-pinnate compound leaves whose leaflet veins run to the notches between the teeth rather than to the tips, and flat-topped white umbels June-September whose dry umbel skeletons persist into winter. Underground it makes a cluster of fleshy finger-like or small-sweet-potato-like roots hanging directly from the crown - never a chain of knobs at the far end of a long horizontal rhizome. Now read the chambering the right way round, because this is the exact point where root-diggers get killed. The horizontal chambers separated by cross-partitions, the yellow oily sap that beads on a cut face and darkens to reddish-brown, and the sharp raw-parsnip smell are in the ROOTSTOCK ONLY - the short swollen crown at the very base of the stem. The individual fleshy finger roots that hang off that crown are SOLID white inside: no chambers, no partitions, no coloured sap. Those finger roots are also the part that snaps loose and comes up in your hand when the crown stays behind in wet ground. So the test runs in one direction and one direction only. Chambers, cross-partitions or yellow oily sap on a cut crown = Cicuta: stop digging, leave the patch, wash your hands, do not put anything from that hole in a bag. Solid white flesh means NOTHING. It does not confirm sunchoke, because a detached Cicuta finger root gives you precisely that result - 'I cut it lengthwise and it was solid all the way through' is a false positive with the same anatomy as a fatal one. The only thing that identifies a tuber is physical continuity: it must still be attached to a pale horizontal rhizome that you can follow by hand, unbroken, back to a stalk you marked as Helianthus tuberosus while it was standing and in flower. No trace, no tuber - it goes back on the ground. Know where the other tells weaken too: purple stem mottling is not diagnostic in either direction (some Cicuta lack it, poison hemlock has it), and in the Pacific Northwest and Intermountain West C. douglasii replaces C. maculata and is equally lethal. Never nibble to test - seizures can begin 15-60 minutes after a bite and death is by respiratory failure."
+      },
+      {
+        "name": "Poison hemlock (Conium maculatum)",
+        "danger": "deadly",
+        "tell": "Naturalised in all the lower 48 and heaviest in the West and Northwest, in the same moist disturbed ground - ditches, streambanks, riparian woodland, flood plains, roadsides and waste lots. It is biennial: a low ferny rosette in year one, then a 6-10 ft hollow, hairless, purple-blotched stem in year two whose dead skeleton and dry white-umbel remnants stand all winter, which is precisely the season you are digging. The root is a single fleshy white, sometimes branched taproot - parsnip-shaped, no chambers, no chain of knobs on a rhizome. Crush any part and it smells rank and mousy; a sunchoke smells clean and faintly sweet. Note the failure of the standard tell in this season: purple blotching weathers off dead winter stalks and the first-year rosette never had any, so do not rely on stem colour when you dig. Rely on the finely divided ferny leaf remains, the umbel skeleton, and the white taproot instead of knobbed tubers - and, as with Cicuta, on the traced rhizome rather than on what the cut surface of a loose root looks like."
+      },
+      {
+        "name": "Pokeweed (Phytolacca americana)",
+        "danger": "toxic",
+        "tell": "Occupies exactly the ground this entry sends you to - disturbed edges, fencerows, moist old fields, floodplain margins, yard and barn edges - and its thick dead stalks stand right through the winter dig season, often shoulder to shoulder with sunchoke stalks. Winter stalk: stout, an inch or more thick at the base, smooth and hairless, hollow, branching, frequently still stained magenta, hung with drooping racemes that carried purple-black berries; a sunchoke stalk is slimmer, solid-pithy, sandpaper-rough and distinctly ridged, topped by the dry remains of a yellow composite head. The root settles it: pokeweed stores one large fleshy vertical taproot, several inches thick and often a foot or more deep, sometimes branching but always off a single axis rising to one crown of buds - never a chain of knobs at the ends of long horizontal rhizomes. That taproot is the most toxic part of the plant, and documented adult poisonings come specifically from digging it and eating it as an edible root, mistaken for horseradish, parsnip or Jerusalem artichoke: burning mouth and throat, then violent vomiting, cramping and bloody diarrhoea within a few hours, and in bad cases low blood pressure and collapse needing hospital treatment. No cooking, boiling or change of water makes the root safe - the shoot-boiling tradition applies to young spring shoots only. Do not eat pokeweed root in any preparation."
+      },
+      {
+        "name": "Man-of-the-earth / wild potato vine (Ipomoea pandurata)",
+        "danger": "toxic",
+        "tell": "The other plant in this habitat that hands you a large, edible-looking root in the dormant season - roadsides, fencerows, old fields and railroad banks through the East and Midwest. It is a twining vine, not an erect stalk: look for dead wiry stems wound around fence wire and neighbouring plants, and in summer heart- to fiddle-shaped leaves and white morning-glory funnels with a purple throat. Break any green part and it bleeds milky white latex; sunchoke sap is clear and watery. The root settles it - one enormous elongated tuber running straight down, commonly a foot to four feet long and occasionally 25 lb, rather than a scatter of small knobs at the ends of shallow horizontal rhizomes. Raw it is a strong purgative and will make you vomit."
+      },
+      {
+        "name": "Other perennial sunflowers and tall yellow composites (Helianthus strumosus, H. hirsutus, H. giganteus, H. grosseserratus, H. maximiliani, H. divaricatus; wingstem Verbesina alternifolia; cup plant and rosinweeds Silphium spp.; cutleaf coneflower Rudbeckia laciniata; false sunflower Heliopsis helianthoides; and giant ragweed Ambrosia trifida, which shares the ditch and the tall rough stalk)",
+        "danger": "unpalatable",
+        "tell": "Not poisonous, just not food. Jerusalem artichoke is effectively the only common tall sunflower that terminates its rhizomes in swollen, knobbly, ginger-like tubers; the rest have fibrous roots, a woody crown, or slender unswollen rhizomes. A few rhizomatous relatives (H. strumosus, H. maximiliani) can show slightly thickened rhizome tips - small, hard and not worth eating, but not a hazard. Critically, do not invert this rule. Finding a tuber is NOT proof you have a sunchoke: water hemlock, poison hemlock, pokeweed and wild potato vine all produce fleshy underground swellings, and reading a tuber as confirmation is the exact reasoning that kills root-diggers. Confirm the stalk first, then trace the rhizome to the tuber."
+      },
+      {
+        "name": "Groundnut (Apios americana)",
+        "danger": "unpalatable",
+        "tell": "Worth knowing because it shares the moist thickets and streambanks and is dug in the same dormant season - and it is excellent food in its own right, so this is a happy mistake, not a dangerous one. It is a slender twining vine with pinnately compound leaves and maroon-brown pea flowers, and its tubers come as a string of walnut- to egg-sized beads threaded along a wiry underground cord, unlike the single knobby sunchoke tuber at a rhizome tip. Unlike sunchoke it must be cooked; a minority of people react to it raw."
+      }
+    ],
+    "harvest": "Technique and ethics. The colony is clonal, aggressive, and regenerates from any fragment left behind, so inside its native range there is no conservation reason to hold back - a crowded patch makes small tubers and hard digging improves the stand. Work the outer edge, lift with a fork rather than a spade so you can trace rhizomes instead of severing them (that rhizome is the physical link between the tuber and the stalk that identified it, and it is the only identification you have), and backfill. Do not deliberately replant tubers outside its native range: it is profiled as an invasive by the California Invasive Plant Council and behaves the same way in other western and Northwestern riparian corridors, so there take everything and replant nothing. Digging roots is not legally the same as picking leaves - it is prohibited outright in most parks, preserves and public natural areas and needs the landowner's permission everywhere else. Where you dig matters chemically. A tuber is a storage organ sitting in that soil for months, and this species is used in heavy-metal phytoremediation trials for exactly that reason, so skip roadside ditches inside the spray and splash zone of pavement (de-icing salt, roadside herbicide programs, vehicle runoff), railroad ballast, old orchards sprayed with lead arsenate, and any urban or industrial fill. The roadside ditch is the easiest place to find sunchokes and the worst place to dig them. Required preparation. Nothing here is toxic and no leaching is needed, but the mitigation is not optional if you want to stay functional: the tubers store carbohydrate as inulin rather than starch and humans have no enzyme for it, so it passes intact to the colon and ferments there. A first generous meal reliably produces hours of severe bloating, cramping and flatulence, and for people with IBS or fructan/FODMAP intolerance it is genuinely disabling. Harvest after several hard frosts and let the tubers sit cold for two to four weeks before eating them - inulin converts to fructose in the cold and keeps converting in storage. Cook long and slow rather than fast and hot: about 200F for 12-24 hours breaks inulin down (Harold McGee's figure); boiling for 15 minutes in a large volume of water removes roughly half; lacto-fermenting or pickling for a week or more also degrades it. Eat a small portion - about 2-3 oz, half a cup cooked - the first time before committing to a meal of them; raw and thinly sliced they are crisp and sweet and also the most gas-producing form. Scrub rather than peel, the skin is thin. They will not keep like potatoes: the skin is not corky and they shrivel within days at room temperature, so refrigerate in a bag, or leave them in the ground in the marked patch and dig as needed.",
+    "sources": [
+      "NC State Extension Gardener Plant Toolbox - Helianthus tuberosus (rough hairy 6-10 ft stems, opposite ovate serrate leaves, Aug-Sep bloom, tuber 'a cross between an Irish potato and a ginger root', inulin, established in all states except HI, AK, NM, NV and AZ): https://plants.ces.ncsu.edu/plants/helianthus-tuberosus/",
+      "CDC MMWR - Water Hemlock Poisoning, Maine, 1992 (fatal poisoning from three bites of root taken while foraging; poisonings occur when water hemlock is mistaken for edible plants 'such as artichokes, celery, sweet potatoes, sweet anise, or wild parsnip'): https://www.cdc.gov/mmwr/preview/mmwrhtml/00026056.htm",
+      "Texas A&M AgriLife Rangeplants - Spotted water hemlock (habitat; the SHORT ROOTSTOCK is what carries the air cavities or chambers separated by cross-partitions, with the fleshy or fleshy-tuberous roots borne off that base; cicutoxin): https://rangeplants.tamu.edu/plant/spotted-water-hemlock",
+      "John M. Kingsbury, Poisonous Plants of the United States and Canada (1964) - Cicuta diagnosed by a chambered swollen rootstock exuding yellowish oily drops, bearing a fascicle of separate fleshy tuberous roots; the chambering and oily sap are characters of the rootstock, not of the individual roots",
+      "University of Maryland Extension - Poison Hemlock Identification and Management (fleshy white branched taproot, hollow purple-spotted second-year stem, first-year rosette, habitat in streams, ditches, riparian woodlands and flood plains): https://extension.umd.edu/resource/poison-hemlock-identification-and-management",
+      "NC State Extension Gardener Plant Toolbox - Phytolacca americana (all parts poisonous, roots the most toxic part, large fleshy taproot, poisoning from roots mistaken for edible roots): https://plants.ces.ncsu.edu/plants/phytolacca-americana/",
+      "California Invasive Plant Council - Helianthus tuberosus profile (invasive status in western riparian corridors): https://www.cal-ipc.org/plants/profile/helianthus-tuberosus-profile/",
+      "NC State Extension Gardener Plant Toolbox - Ipomoea pandurata (tuberous root to ~4 ft and 25-30 lb, purgative raw, indole alkaloids): https://plants.ces.ncsu.edu/plants/ipomoea-pandurata/",
+      "University of Arkansas Division of Agriculture Extension FSA-6088 - Jerusalem Artichoke (harvest after first frost, tubers held in the ground and dug as needed, poor shelf life, inulin not digested and causing flatulence): https://www.uaex.uada.edu/publications/PDF/FSA-6088.pdf",
+      "Go Botany, Native Plant Trust - Helianthus tuberosus (morphology, habitat, New England distribution): https://gobotany.nativeplanttrust.org/species/helianthus/tuberosus/",
+      "Missouri Botanical Garden Plant Finder - Helianthus tuberosus (native range, cultural requirements, clonal spread): http://www.missouribotanicalgarden.org/PlantFinder/PlantFinderDetails.aspx?taxonid=277201",
+      "Invasive Plant Atlas of the United States - Helianthus tuberosus: https://www.invasiveplantatlas.org/subject.html?sub=5716",
+      "Harold McGee, On Food and Cooking, 2nd ed. (2004) - inulin breakdown at roughly 200F over 12-24 hours",
+      "Samuel Thayer, Nature's Garden (2010) - Jerusalem artichoke: marking colonies while standing, rhizome-end tuber placement, digging technique"
+    ]
+  },
+  {
+    "name": "Lion's Mane (Bearded Tooth)",
+    "scientific": "Hericium erinaceus",
+    "months": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      0
+    ],
+    "regions": [
+      "midwest",
+      "northeast",
+      "southcentral",
+      "southeast",
+      "west"
+    ],
+    "terrain": [
+      "woodland",
+      "edge"
+    ],
+    "habitat": "One unbranched white cushion of long spines (1/2-2 in., hanging like icicles) attached at a single point - no cap, no stalk, no branching - on trunk wounds, broken limb stubs, knotholes and scars of living or recently dead hardwoods, often 6-20 ft up. Hosts are oak, beech and maple in the East and Midwest (also walnut and sycamore); in the West it is a live-oak, Oregon white oak and bigleaf maple fungus - there is no native beech west of the Great Plains. Never on conifers: a hericium on a conifer in the West is H. abietis, also edible but a different species. The same wound refruits year after year, sometimes for decades. Peak is Sept-Nov in the East and Midwest; on the West Coast it is a late-fall-to-midwinter mushroom, roughly Nov-Jan. The other white toothed fungi you may meet - comb tooth (H. coralloides) and bear's head (H. americanum), both branched, and hedgehog (Hydnum repandum), which has an orangish-tan cap and stalk and grows from soil - are all good edibles, so a mix-up among these is not dangerous.",
+    "indicator": "Old, storm-damaged oak and beech in mature hardwood forest - scan trunk scars and broken-limb stubs well above eye level, not the ground.",
+    "parts": "The whole fruiting body while it is still pure white and firm; slice into slabs and dry-saute to drive off water, then finish with butter. Always cook it - never eat it raw. Pass on any that has yellowed or gone soft: it turns sour and bitter and older specimens are often bacterially spoiled. A minority of people react badly to lion's mane even properly cooked (Missouri Dept. of Conservation advises trying a small amount to see whether it causes an allergic reaction), so eat a small portion the first time and wait a day before eating more.",
+    "caution": "care",
+    "lookalikes": [
+      {
+        "name": "Northern tooth fungus (Climacodon septentrionalis)",
+        "danger": "unpalatable",
+        "tell": "Grows as a vertical stack of overlapping shelf-like brackets fused into a rosette on the trunk, cream to pale yellow when fresh and turning grey-brown, with short teeth only on the underside of each shelf; the flesh is tough and fibrous and old ones smell rank. Lion's mane is a single unbranched cushion hanging from one attachment point, with long soft spines over its whole surface and no cap or shelf on top. Do not use the host tree to rule it out - northern tooth is commonest on sugar maple but also takes beech, birch, hickory, oak, apple and elm, the same trees lion's mane uses, in the same late-summer-to-autumn window."
+      },
+      {
+        "name": "Marshmallow / spongy toothed polypore (Irpiciporus pachyodon, syn. Spongipellis pachyodon; North American material also called I. mollis)",
+        "danger": "unpalatable",
+        "tell": "Spreads flat along the trunk of a living oak, attached along its whole back and often with small shelving caps on top; the underside is a mix of blunt flattened teeth and irregular angular pores about 3/8 in. (1 cm) deep, and the lower flesh is tough. Lion's mane hangs free from one small attachment point, has spines that are round in cross-section, soft, and up to 2 in. long, and has no pores anywhere. Same hosts (oaks) and same season, so judge by the underside, not the tree."
+      }
+    ],
+    "harvest": "Cut cleanly at the point of attachment with a knife and leave the base and the surrounding bark intact - the same wound often refruits for many years, sometimes decades. Take it while pure white; leave any that have begun to yellow so they can finish shedding spores, and leave some fruitings entirely, as each wound usually gives a single flush per season and the species is uncommon over much of its range.",
+    "sources": [
+      "Missouri Department of Conservation, Field Guide: Bearded Tooth (Hericium erinaceus) - https://mdc.mo.gov/discover-nature/field-guide/bearded-tooth",
+      "Missouri Department of Conservation, 'A Guide to Missouri's Edible and Poisonous Mushrooms' (PDF), Bearded Tooth pp. 20-21 - https://mdc.mo.gov/sites/default/files/2021-03/MushroomGuide.pdf",
+      "Minnesota DNR, Minnesota Conservation Volunteer, 'Minnesota Profile: Lion's Mane (Hericium spp.)' - https://www.dnr.state.mn.us/mcvmagazine/issues/2018/sep-oct/lions-mane.html",
+      "MykoWeb, California Fungi: Hericium erinaceus (Wood & Stevens) - https://www.mykoweb.com/CAF/species/Hericium_erinaceus.html",
+      "MushroomExpert.com (M. Kuo), The Genus Hericium - https://www.mushroomexpert.com/hericium.html",
+      "MushroomExpert.com (M. Kuo), Spongipellis pachyodon - https://www.mushroomexpert.com/spongipellis_pachyodon.html",
+      "UMass Amherst Center for Agriculture, Food and the Environment, 'Trunk Rot caused by Climacodon septentrionalis' - https://www.umass.edu/agriculture-food-environment/landscape/fact-sheets/trunk-rot-caused-by-climacodon-septentrionalis",
+      "Tom Volk's Fungus of the Month, February 2001: Climacodon septentrionale (Univ. of Wisconsin-La Crosse) - https://botit.botany.wisc.edu/toms_fungi/feb2001.html",
+      "GBIF occurrence search, Hericium erinaceus, US herbarium vouchers by state (CA 29, WA 9, OR 6, AZ 2) - https://api.gbif.org/v1/occurrence/search?scientificName=Hericium%20erinaceus&country=US&basisOfRecord=PRESERVED_SPECIMEN&limit=0&facet=stateProvince&facetLimit=60",
+      "UF/IFAS Extension Escambia County, 'Weekly What is it?: Lion's Mane' (supporting: repeat fruiting from the same tree for 20+ years) - https://blogs.ifas.ufl.edu/escambiaco/2024/05/23/weekly-what-is-it-lions-mane/"
+    ]
+  },
+  {
+    "name": "Morel",
+    "scientific": "Morchella americana (yellow/white morel), M. angusticeps (eastern black morel), M. punctipes and M. populiphila (half-free morels), M. exuberans and other burn-site species (Morchella spp.)",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "regions": [
+      "midwest",
+      "mountain",
+      "northeast",
+      "southeast",
+      "west"
+    ],
+    "terrain": [
+      "woodland",
+      "edge",
+      "wetland",
+      "disturbed",
+      "upland"
+    ],
+    "habitat": "Rises straight from bare soil and leaf litter in moist hardwood bottomland and river floodplain, classically around dying and just-dead elms, ash, sycamore, tulip poplar and old apple orchards. In the West, Southwest and Northwest the big flushes are instead on conifer burn sites, the first spring after a fire and more rarely the second. The season is a moving wave that tracks soil temperature rather than the calendar: the Deep South can open in the last days of February in a warm year and runs through early April, the Midwest and Northeast peak late April into May, and high-elevation Rocky Mountain and Cascade burn morels run June into July. One hard caveat about the classic orchard patch. Apple orchards were sprayed with lead arsenate until it was banned in 1988, the residue does not break down, and morels take it up: Shavit and Shavit sampled 29 abandoned northeastern orchards and found up to 13 mg/kg lead and 2.85 mg/kg arsenic in the mushrooms themselves, 94 percent of the arsenic in the inorganic form, with arsenic above the chronic-exposure limit and lead high enough to pose a real health risk. Abandoned orchards grow over and read as ordinary woods, so learn to spot one: ranked rows, old grafted trunks, apple blossom in spring. Occasional orchard morels are a different thing from a standing habit.",
+    "indicator": "A dying or freshly dead American elm with the bark just starting to slip, standing in river-bottom soil - or, out West, a conifer stand that burned last summer.",
+    "parts": "The whole mushroom, always cooked. Slice each one lengthwise before it goes near the pan - that is the identification step as much as how you evict the insects - then rinse and cook thoroughly, ten minutes or more of real heat. Never eat morels raw or lightly cooked, never wash them down with alcohol (Michigan DNR records stomach upset from black morels eaten in quantity or taken with alcoholic drinks), and eat a small portion the first time. Be clear about what is not known: FDA says the toxins in morel mushrooms that cause illness \"are not fully understood\", and CDC's outbreak report lists as a limitation that morel toxins are poorly characterised, so no specific compound could be confirmed in the laboratory. Lagrange and Vernoux propose a hydrazinic link and class true morels as only conditionally edible - a hypothesis, not a settled mechanism. What is settled is the risk. The 2023 Montana outbreak involved cultivated Morchella sextelata imported from China, served uncooked and cold-marinated on one date and given only a pour of hot sauce and a 75-minute marinade on another: 51 people ill, 3 hospitalised, 2 dead. Right species, clean commercial source, still fatal. Cooking is not optional.",
+    "caution": "expert",
+    "lookalikes": [
+      {
+        "name": "False morels / lorchels (Gyromitra spp. - G. caroliniana and G. brunnea in the East; the G. esculenta group in the West and Northwest, where the local species are G. splendida and G. venenata)",
+        "danger": "deadly",
+        "tell": "The cap is brainlike - irregular lobes, folds and wrinkles that bulge OUTWARD - never a honeycomb of pits and ridges pressed inward. Then slice it top to bottom. A true morel is hollow the whole way, cap tip to stem base; a Gyromitra is chambered, packed with cottony wisps, or flatly solid inside. Michigan DNR describes the beefsteak morel by its solid stem; Missouri Conservation describes both G. caroliniana and G. brunnea as chambered inside, not hollow. Habitat is never a filter here: Gyromitra is abundant in montane conifer forest through the West, favours disturbed and recently burned ground, and fruits at snowmelt - the same burn sites and the same fortnight you will be working for burn morels. Slice every mushroom, every time. Gyromitrin metabolises to monomethylhydrazine, which is hepatotoxic, nephrotoxic and seizure-inducing, and people who ate these safely for years have been acutely poisoned and some have died. Parboiling with drying strips most of the gyromitrin but not all of it, the dose is cumulative across meals, and the vapour poisons whoever is standing at the stove. Refuse the whole genus, including the western snowbank group sold as 'snow false morel' (G. montana, G. korfii), which appears to carry little or no gyromitrin but cannot be sorted from its lethal relatives by eye in the field."
+      },
+      {
+        "name": "Early morel / wrinkled thimble-cap (Verpa bohemica, V. conica)",
+        "danger": "toxic",
+        "tell": "Look at where the cap meets the stem - this is the reliable test, and it is the one Michigan DNR leads with. A Verpa cap is joined to the stem only at the very apex and hangs completely free below it, like a thimble or a full skirt, and its surface is wrinkled and ribbed lengthwise rather than carved into deep pits. Do NOT lean on the stuffed-stem slice test here: Verpa stems are usually packed with cotton-candy pith when young but can be hollow, and older specimens routinely lose the pith entirely, so a hollow Verpa will sail through a slice test. Note too that the cap-attachment rule has one legitimate exception - half-free morels (Morchella punctipes in the East, M. populiphila under western cottonwoods) are genuine true morels whose cap is attached about halfway down and hangs free below that. Attached halfway is fine; attached only at the tip is not. Verpa flushes a week or two ahead of the main morel run and haunts the same stream banks, cherry ground and old apple orchards. It causes severe gastrointestinal upset and a cerebellar syndrome - loss of muscle coordination - in susceptible people, sometimes only after repeated meals."
+      },
+      {
+        "name": "Elfin saddles (Helvella spp., incl. H. lacunosa, H. vespertina, H. crispa)",
+        "danger": "toxic",
+        "tell": "The cap is a saddle-shaped or irregularly lobed flap, often grey to black, draped over the stem rather than fused into it, and the stem is deeply ribbed and furrowed on the OUTSIDE instead of smoothly cylindrical. There is no pitted honeycomb anywhere on it. Helvella carry hydrazine-type compounds in the same chemical family as Gyromitra's, metabolised to monomethylhydrazine. Older field guides that list elfin saddles as edible after parboiling have been overtaken - they are now treated as poisonous, with severe illness reported and carcinogenicity concerns from repeated consumption."
+      }
+    ],
+    "harvest": "Pinch or cut at ground level rather than pulling - yanking rips up the surrounding soil and litter. Carry them in a mesh or basket bag so spores drop as you walk, and resist raking or scuffing the leaf litter, which damages the patch for years. Leave the tiny ones and anything gone soft, dark or waterlogged. Skip roadside verges, and for anything you intend to eat regularly skip old orchard ground because of the lead and arsenic. If you are working a first-year burn, treat it as an active hazard site: fire-killed snags drop without warning, burned-out root holes and ash pits are hidden underfoot, and burned slopes shed debris flows and mudslides in rain.",
+    "sources": [
+      "Michigan DNR, Morel Mushroom Identification Tips (true morel species, Verpa cap-attachment test, Gyromitra esculenta solid stem and gyromitrin, black morel alcohol warning) - https://www.michigan.gov/dnr/things-to-do/morels/morel-identification",
+      "Missouri Department of Conservation, Field Guide: Big Red False Morel (Gyromitra caroliniana) - chambered inside, not hollow - https://mdc.mo.gov/discover-nature/field-guide/big-red-false-morel",
+      "Missouri Department of Conservation, Field Guide: Gabled False Morel (Gyromitra brunnea) - cap margin not fused to stalk, chambered inside - https://mdc.mo.gov/discover-nature/field-guide/gabled-false-morel",
+      "Missouri Department of Conservation, Field Guide: Half-Free Morel (Morchella punctipes) - completely hollow, cap free from halfway down - https://mdc.mo.gov/discover-nature/field-guide/half-free-morel",
+      "CDC MMWR 73(10), 14 March 2024, 'Outbreak Linked to Morel Mushroom Exposure - Montana, 2023' (open-access mirror; 51 ill, 3 hospitalised, 2 deaths, cultivated Morchella sextelata imported from China) - https://pmc.ncbi.nlm.nih.gov/articles/PMC10948192/",
+      "FDA, Investigation of Illnesses: Morel Mushrooms (May 2023) - morel toxins 'not fully understood', cooking reduces toxin levels - https://www.fda.gov/food/outbreaks-foodborne-illness/investigation-illnesses-morel-mushrooms-may-2023",
+      "Lagrange E. & Vernoux J.-P., 'Warning on False or True Morels and Button Mushrooms with Potential Toxicity Linked to Hydrazinic Toxins: An Update', Toxins 2020, 12(8), 482 (open-access mirror; note 2022 Correction) - https://pmc.ncbi.nlm.nih.gov/articles/PMC7472412/",
+      "StatPearls (NCBI Bookshelf), Gyromitra Mushroom Toxicity - gyromitrin to monomethylhydrazine, hepatic/renal/CNS effects, parboiling removes ~99% but not all - https://www.ncbi.nlm.nih.gov/books/NBK470580/",
+      "Shavit E. & Shavit E., 'Lead and Arsenic in Morchella esculenta Fruitbodies Collected in Lead Arsenate Contaminated Apple Orchards in the Northeastern United States', FUNGI 3(2), Spring 2010 - https://www.fungimag.com/winter-2010-articles/shavit-morels.pdf",
+      "MushroomExpert.Com, Verpa bohemica - cap hangs completely free attached only at the top; stem hollow OR loosely stuffed with wispy fibers - https://www.mushroomexpert.com/verpa_bohemica.html",
+      "MushroomExpert.Com, Morchella punctipes - half-free morel, cap attached about halfway down, cap and stem hollow; M. populiphila the western counterpart - https://www.mushroomexpert.com/morchella_punctipes.html",
+      "Beaty Biodiversity Museum, University of British Columbia, 'Mushrooms Up!' - Gyromitra esculenta: conifer forest, air chambers when cut lengthwise, gyromitrin/monomethylhydrazine - https://explore.beatymuseum.ubc.ca/mushroomsup/G_esculenta.html",
+      "Oregon Mycological Society, 'Gyromitra and Related Lorchels' (2025) - PNW material is G. splendida or G. venenata, not true G. esculenta; absence of gyromitrin does not equal safe - https://www.wildmushrooms.org/2025/02/27/gyromitra-and-related-lorchels/"
+    ]
+  },
+  {
+    "name": "Ostrich fern fiddleheads",
+    "scientific": "Matteuccia struthiopteris (M. struthiopteris var. pensylvanica)",
+    "months": [
+      3,
+      4,
+      5
+    ],
+    "regions": [
+      "midwest",
+      "northeast",
+      "southeast"
+    ],
+    "terrain": [
+      "wetland",
+      "woodland",
+      "edge"
+    ],
+    "habitat": "Stream and river floodplains and damp alluvial bottomland in part shade, under red maple, silver maple and brown/black ash (Fraxinus nigra) — it wants fine silty soil laid down by water that floods in spring. It is rated FAC, so colonies also run up onto adjoining rich mesic slopes and streambanks. Plants grow as tight vase-shaped crowns and a colony can spread over acres by rhizomes. Last year's stiff, dark-brown, feather-shaped fertile fronds often persist through winter and are the best confirmation you are standing in an ostrich fern colony — but UMaine is explicit that NOT all crowns produce them, and flood or snow can flatten those that exist, so read the whole patch and never trust a single clump. Range runs from the Northeast and upper Midwest south to northern Virginia and Missouri and west to the Dakotas; it also grows in Alaska and British Columbia, but it does not occur wild in Washington, Oregon or the rest of the lower-48 West.",
+    "indicator": "Silver maple and brown ash over flat, silty river bottom that floods in spring, with last year's stiff brown feather-plumes still standing in the leaf litter.",
+    "parts": "Only the tightly coiled crozier, about 2–6 inches tall, snapped or cut while still tightly wound; stop once they begin to uncurl. Check three things, and treat FUZZ as an automatic reject: (1) broad, brittle, brown papery scales or a sheath on the coil — never wool or hair; (2) a deep U-shaped groove down the inside of the smooth stem — roll it between your fingers and feel a celery-like channel interrupting an otherwise round stalk; (3) the colony — tight vase-shaped crowns with last year's stiff dark-brown feather-shaped fertile fronds standing somewhere in the patch. Two caveats that matter: UMaine notes the scales fall off as the crozier elongates, so a taller one may legitimately have shed them and the groove carries the weight; and marks (1) and (2) together narrow it only to ostrich OR lady fern, not to ostrich alone. Rub the scales off while dry, then wash in several changes of cold potable water (never stream or river water), then BOIL at least 15 minutes or steam 10–12 minutes with a lid, and discard that water — do not reuse it for anything. Sautéing, stir-frying and microwaving are explicitly NOT adequate cooking; boil or steam first, then sauté if you want colour.",
+    "caution": "care",
+    "lookalikes": [
+      {
+        "name": "Lady fern (Athyrium filix-femina, incl. ssp. cyclosorum; A. angustum)",
+        "danger": "unpalatable",
+        "tell": "The one lookalike that shares BOTH ostrich fern field marks: the Alaska DNR fiddlehead profile states that lady fern croziers also carry brown papery scales and also show a U-shaped groove down the inside of the stem, and that they are hard for an inexperienced gatherer to distinguish. Use the whole plant plus the crozier, not one mark. Ostrich fern makes two kinds of frond and last year's stiff dark-brown feather-shaped fertile plumes usually stand somewhere in the colony; lady fern makes only one kind of frond and leaves nothing standing over winter. On the crozier itself, ostrich fern has a stout stem, smooth between broad brittle papery scales; lady fern's stipe is slimmer, light green to reddish-brown at the base, and carries narrow scattered scales that look like hairy legs. Lady fern grows in the same bottomland and also out into open meadows and up to timberline, so single lady ferns can stand inside an ostrich colony — never clear a whole patch on the strength of nearby plumes. The consequence of this particular mix-up is low (thiaminase, destroyed by the same thorough cooking), but it is the mistake to expect."
+      },
+      {
+        "name": "Wood ferns, especially male fern (Dryopteris filix-mas; also D. carthusiana, D. cristata, D. clintoniana, D. expansa, D. marginalis)",
+        "danger": "toxic",
+        "tell": "The lookalike that the 'scales, not fuzz' rule does NOT exclude: NC State Extension describes male fern as having a 'short, densely scaly stipe' with 'orange-brown scales', so scales alone never confirm ostrich fern. Discriminate on the groove and the scale form — a Dryopteris crozier stem is round or only shallowly flattened on the inside with no deep celery-like U-channel, and its scales are narrow, numerous and persist all the way up the stalk instead of forming a broad papery sheath that rubs off dry. The croziers rise from a rough scaly crown on rocky slopes, limy rich woods and swamp hummocks rather than on flat silt flats, and they unroll into lacy twice-cut fronds rather than ostrich fern's once-cut plume. Male fern contains filicin (phloroglucinol derivatives): poisoning brings vomiting, diarrhoea, tremor, convulsions and visual damage up to permanent blindness, and fatalities are on record from concentrated male-fern preparations. It occurs from Labrador to Alaska south to Vermont, northern Michigan and South Dakota, and is widely planted and escaped. Do not eat any wood fern."
+      },
+      {
+        "name": "Bracken fern (Pteridium aquilinum)",
+        "danger": "toxic",
+        "tell": "The crozier is fuzzy and silvery-hairy, with no brown papery scales and no U-shaped groove, and it rises as a single stalk that divides into three branching fronds as it opens. It favours dry, sandy, open, burned or disturbed ground rather than wet floodplain silt. It contains ptaquiloside, shown by UMaine's cited research to cause cancer in rats and classed by IARC as a Group 2B possible human carcinogen, and it poisons livestock. Do not eat it, whatever older cookbooks say."
+      },
+      {
+        "name": "Cinnamon fern and interrupted fern (Osmundastrum cinnamomeum, Osmunda claytoniana)",
+        "danger": "toxic",
+        "tell": "The crozier is wrapped head to toe in dense tan-to-cinnamon wool that mats and will not brush off; ostrich fern's scales are brittle and papery and flake away with a dry rub. Alaska DNR's rule is flat: if the fiddlehead has fuzz instead of scales, it is neither ostrich fern nor lady fern. Neither species has the deep U-groove, and both share wet woods and swamp edges with ostrich fern. Cinnamon fern's old fertile structure is a separate stiff cinnamon-brown spike, not a feather-shaped leafy plume. Alaska DNR records speculation — explicitly not proof — that some Lower-48 poisonings blamed on ostrich fern actually involved Osmunda fiddleheads; historical Indigenous food use of cinnamon fern is documented, but no extension service recommends eating them, so treat them as off-limits."
+      },
+      {
+        "name": "Sensitive fern (Onoclea sensibilis)",
+        "danger": "toxic",
+        "tell": "A slimmer, smooth, pale-green crozier, often red-tinged at the base, with no papery scales and no deep celery-like channel — a shallow dip is not the ostrich fern groove. It unrolls into a single coarse, wavy-edged, nearly undivided blade rather than a feathery plume, and it emerges later in spring. It shares the same wet ground, but its persistent fertile stalks are stiff strings of hard dark beads, not feather-plumes. It contains thiaminase plus hepatotoxic compounds, is documented in equine poisoning, and is not considered edible."
+      }
+    ],
+    "harvest": "Pick no more than half the emerged fiddleheads from any one crown, with no follow-up harvest of later-emerging fiddleheads in the same season. UMaine's four-year study found crowns stripped of every emerged fiddlehead each year produced very few or no fiddleheads by the fourth year and declined and often died, while half-harvested crowns kept producing about as well as unpicked controls. Harvest only from vigorous crowns bearing at least four fiddleheads — one or two indicates low vigour or a newly established fern, so leave it. Get landowner permission before you pick. Then treat this as a food-safety plant, not just an ID plant: CDC and Health Canada investigated outbreaks from raw or lightly cooked fiddleheads (British Columbia 1990; New York and western Canada 1994), where 'lightly cooked' included sautéed, parboiled and microwaved. Symptoms are diarrhoea, nausea, vomiting, abdominal cramps and headache, beginning 30 minutes to 12 hours after eating and usually lasting under 24 hours but sometimes up to three days, with dehydration a real risk for the elderly, infants and anyone with underlying illness. No toxin has ever been identified, so thorough cooking with the water discarded is the only control. Clean with potable water, refrigerate promptly and use within about a week. Do not preserve fiddleheads in oil — Alaska DNR warns botulinum toxin can form unless they are acidified with vinegar or lemon juice first — and do not pressure-can them, because safe process times have never been established. To freeze, blanch two minutes, ice-bath two minutes, drain and bag.",
+    "sources": [
+      "University of Maine Cooperative Extension Bulletin #2540 — Ostrich Fern Fiddleheads, Matteuccia struthiopteris (identification, habitat, half-harvest and four-fiddlehead rules, four-year harvest study, boil 15 min): https://extension.umaine.edu/publications/2540e/",
+      "University of Maine Cooperative Extension Bulletin #4198 — Facts on Fiddleheads (season late April–early June, symptoms and 30 min–12 h onset, boil 15 min / steam 10–12 min, sautéing and microwaving NOT recommended, freezing, no pressure canning): https://extension.umaine.edu/publications/4198e/",
+      "Alaska Department of Natural Resources, Plant Materials Center — Alaska Plant Profiles: Fiddlehead Ferns (lady fern also has scales and a U-groove; fuzz means neither ostrich nor lady fern; Osmunda speculation; bracken carcinogens; botulism risk from oil packing; never take more than half): https://dnr.alaska.gov/ag/akpmc/pdf/Fiddleheads.pdf",
+      "Government of New Brunswick, Department of Health — Fiddleheads and Food Safety (wash in several changes of cold water; boil ≥15 min or steam 10–12 min; 'Discard this water and do not re-use for any other purpose'; symptom onset and duration): https://www2.gnb.ca/content/dam/gnb/Departments/h-s/pdf/en/HealthyEnvironments/Food/FiddleheadsAndFoodSafety.pdf",
+      "Gouvernement du Québec — Eating fiddleheads (boil 15 minutes or steam 10 to 12 minutes; do not eat raw or sautéed; onset 30 minutes to 12 hours): https://www.quebec.ca/en/health/nutrition/food-safety-risk-prevention/food-safety/preparing-cooking-food-safely/food-handling-precautions/fiddleheads",
+      "CDC/MMWR 43(37):677, 683–684, 23 Sept 1994 — Ostrich Fern Poisoning: New York and Western Canada, 1994; PubMed record PMID 8078456 (the cdc.gov MMWR archive URL currently returns HTTP 403): https://pubmed.ncbi.nlm.nih.gov/8078456/",
+      "Native Plant Trust Go Botany — Matteuccia struthiopteris (FAC wetland status; riparian and upland forests; New England distribution): https://gobotany.nativeplanttrust.org/species/matteuccia/struthiopteris/",
+      "Penn State Extension — Native Plants of PA: Ostrich Fern, Matteuccia struthiopteris (range North Dakota to Maine, south to Virginia; fertile fronds persist through winter; toxic if not fully cooked): https://extension.psu.edu/native-plants-of-pa-ostrich-fern-matteuccia-struthiopteris",
+      "NC State Extension Gardener Plant Toolbox — Dryopteris filix-mas (male fern), 'short, densely scaly stipe' with orange-brown scales: https://plants.ces.ncsu.edu/plants/dryopteris-filix-mas/",
+      "Dykeman, B.W. 1985. Effects of Crozier Removal on Growth of the Ostrich Fern. Canadian Journal of Plant Science 65:1019–1023 (underlying sustainable-harvest research, cited in the Alaska DNR profile)"
+    ]
+  },
+  {
+    "name": "Oyster Mushroom",
+    "scientific": "Pleurotus ostreatus, P. pulmonarius and P. populinus",
+    "months": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "regions": [
+      "midwest",
+      "mountain",
+      "northeast",
+      "southcentral",
+      "southeast",
+      "west"
+    ],
+    "terrain": [
+      "woodland",
+      "edge",
+      "wetland",
+      "disturbed"
+    ],
+    "habitat": "On wood only, never rising from soil — overlapping shelving clusters on dead and dying trunks, stumps and downed logs. Mostly hardwoods (beech, maple, elm, oak, willow, and especially cottonwood and aspen), but do NOT treat wood type as a test: P. ostreatus is recorded on conifers, and in the Pacific Northwest P. pulmonarius fruits routinely on conifer wood. The three species split the calendar, which is why the season runs year-round: P. ostreatus in cold weather (roughly October to April, including mild spells after a thaw), P. pulmonarius in warm months (late April to September), P. populinus on aspen and cottonwood in early summer. In the north, deep-winter finds only happen during thaws. Flushes arrive a few days after soaking rain.",
+    "indicator": "A storm-broken or standing-dead hardwood with the bark sloughing off — cottonwood, elm, beech, maple — in a damp river bottom.",
+    "parts": "Caps and the tender upper part of the short off-centre stem, always cooked through. Trim the tough basal core, tap the gills out over the sink for beetle larvae, and never eat them raw — raw oysters cause gastrointestinal upset. Eat a small portion the first time: a minority of people react even to well-cooked oysters.",
+    "caution": "expert",
+    "lookalikes": [
+      {
+        "name": "Angel wings (Pleurocybella porrigens)",
+        "danger": "deadly",
+        "tell": "Judge the flesh, not the log. Angel wings is paper-thin, floppy and translucent — held to the light the gill lines show through the cap — pure chalky white throughout, with no stem whatsoever, just a pinched attachment point, and caps of about 2–10 cm. An oyster is thick and firm, with several millimetres of opaque white flesh, coloured whitish-tan through grey to grey-brown, and carries a short stubby stem set off to one side. Substrate is only a supporting clue: angel wings is a conifer specialist, above all on hemlock, but oysters fruit on conifer wood too — the Burke Herbarium lists Pleurotus pulmonarius in the Pacific Northwest on conifer wood, and P. ostreatus is recorded on conifers as well. So 'it was on a hardwood log' never clears a thin white shelf, and 'it was on a conifer' is not by itself proof of angel wings. In 2004 an outbreak in northern Japan sickened 59 people and killed 17 by acute encephalopathy; those who died had chronic kidney disease, but the responsible toxin has still not been pinned down and the species is now treated as unsafe for anyone."
+      },
+      {
+        "name": "Deadly galerina / funeral bell (Galerina marginata)",
+        "danger": "deadly",
+        "tell": "Galerina has a CENTRAL stem bearing a ring or ring-zone, a small cap (about 2–6 cm) that is tawny to dark brown and sticky when moist, gills that are attached to at most slightly decurrent — never running down onto a lateral stub the way an oyster’s do, and a rusty-brown spore print. An oyster's cap attaches to the wood edge-on, its gills run down onto a short off-centre stub, there is no ring, and the print is white to grey-lilac — take a print whenever there is any doubt. Galerina fruits clustered on rotting hardwood AND conifer, year-round and heavily in autumn, so it appears on the very same cold-season logs you search for oysters, and a mature patch seen from above can read as a scatter of small brown oysters. It carries the same amatoxins as the death cap; symptoms are delayed 6–24 hours, by which time liver injury is under way, so any suspected ingestion is a medical emergency."
+      },
+      {
+        "name": "Jack-o'-lantern (Omphalotus illudens, O. subilludens, O. olivascens)",
+        "danger": "toxic",
+        "tell": "Cut one in half: jack-o'-lantern is orange all the way through — cap, gills, stem and interior flesh — whereas oyster flesh is white. It also has a true, well-developed stem, curved and tapering, up to about 15 cm, with the gills running down it; it grows in big fused clumps at the base of stumps and from buried roots; and fresh gills may give off a faint green glow in a dark room. Oysters are white, tan or grey, never orange, and carry only a short stubby lateral stub of a stem. O. illudens is the eastern and midwestern species, O. subilludens occurs in the Southeast, and O. olivascens (with olive tones) is the western one. Causes violent vomiting, cramps and diarrhoea for a day or two rather than death."
+      },
+      {
+        "name": "Oysterlings (Crepidotus spp.)",
+        "danger": "unpalatable",
+        "tell": "Take a spore print: Crepidotus drops BROWN spores and its gills darken to cinnamon-brown as they mature, while oysters print white to grey-lilac and keep pale gills. Crepidotus caps are also small (usually under 3 cm), thin and soft, kidney- to fan-shaped, entirely stemless, and often whitish and downy at the attachment point. Not known to be deadly, but they are not food, and they are the shelf-shaped species most often picked by mistake on hardwood logs."
+      },
+      {
+        "name": "Bear lentinellus (Lentinellus ursinus)",
+        "danger": "unpalatable",
+        "tell": "Gill edges are ragged and saw-toothed rather than smooth and even, the cap is brown, dry and coarsely hairy toward the point of attachment, and there is no stem at all — not even a stub. A tiny nibble, spat out, is searingly bitter and acrid. Oyster gill edges are smooth, the cap surface is bald and moist, and the taste is mild."
+      }
+    ],
+    "harvest": "Cut the cluster free at the base with a knife rather than tearing it — that keeps bark, grit and rotten wood out of the basket. Take young to medium caps with clean, unspotted gills and pass on waterlogged, slimy or sour-smelling ones. The mycelium lives inside the log and is not removed by picking, so a productive log will refruit for years; leave the smallest pins and the largest spore-shedding caps and don't strip every cluster. Skip logs on road shoulders, treated lumber, creosote ties and contaminated ground: Pleurotus is a strong bioaccumulator and is used deliberately for mycoremediation.",
+    "sources": [
+      "Missouri Department of Conservation, Field Guide: Oyster Mushroom — https://mdc.mo.gov/discover-nature/field-guide/oyster-mushroom",
+      "UF/IFAS Extension PP384, 'Oyster Mushrooms (Pleurotus species) of Florida' — https://ask.ifas.ufl.edu/publication/PP384",
+      "Illinois Department of Natural Resources, Wild About Fungi: Oyster Mushroom — https://dnr.illinois.gov/education/wildaboutpages/wildaboutfungi/m-z/wafnoystermushroom.html",
+      "Tom Volk's Fungus of the Month, October 1998: Pleurotus ostreatus (Univ. of Wisconsin–La Crosse) — https://botit.botany.wisc.edu/toms_fungi/oct98.html",
+      "Michael Kuo, MushroomExpert.Com: Pleurotus ostreatus (records conifer substrate and the Oct–Apr season) — https://www.mushroomexpert.com/pleurotus_ostreatus.html",
+      "Michael Kuo, MushroomExpert.Com: Pleurotus pulmonarius (warm-season fruiting; P. populinus restricted to Populus) — https://www.mushroomexpert.com/pleurotus_pulmonarius.html",
+      "Burke Herbarium Image Collection, University of Washington: Pleurotus pulmonarius (substrate: conifer wood in the PNW) — https://burkeherbarium.org/imagecollection/taxon.php?Taxon=Pleurotus+pulmonarius",
+      "UBC Beaty Biodiversity Museum, Mushrooms Up!: Pleurocybella porrigens — https://explore.beatymuseum.ubc.ca/mushroomsup/P_porrigens.html",
+      "Burke Herbarium Image Collection, University of Washington: Pleurocybella porrigens — https://burkeherbarium.org/imagecollection/taxon.php?Taxon=Pleurocybella+porrigens",
+      "Missouri Department of Conservation, Field Guide: Deadly Galerina — https://mdc.mo.gov/discover-nature/field-guide/deadly-galerina",
+      "NC State Extension Gardener Plant Toolbox, Galerina marginata — https://plants.ces.ncsu.edu/plants/galerina-marginata/",
+      "Missouri Department of Conservation, Field Guide: Jack-o'-Lantern — https://mdc.mo.gov/discover-nature/field-guide/jack-o-lantern"
+    ]
+  },
+  {
+    "name": "Ramps (wild leeks)",
+    "scientific": "Allium tricoccum",
+    "months": [
+      2,
+      3,
+      4
+    ],
+    "regions": [
+      "northeast",
+      "southeast",
+      "midwest"
+    ],
+    "terrain": [
+      "woodland"
+    ],
+    "habitat": "East- and north-facing slopes of rich, moist deciduous forest — near spring seeps, drainages and bottomland that stays damp through the season — on calcium-rich soil, often over limestone or other calcareous rock. Penn State gives roughly pH 5.5–7.0; the Pennsylvania stands Nilson et al. actually measured ran pH 4.6–6.1 (mean 5.2), so do not reject a site for being somewhat acidic. Canopy is typically sugar maple with basswood, beech, ash, hickory and elm; ground flora includes trillium, blue cohosh, toothwort, mayapple, jack-in-the-pulpit, hairy Solomon's seal and yellow trout lily. In the southeast this means the Appalachian highlands, not the coastal plain or the Deep South lowlands; in Maine it is rich, usually alluvial hardwood forest. Critically: deadly false hellebore (three of the four Veratrum species involved) and the deadly native American lily-of-the-valley occupy this exact rich upland forest through most of the ramp range, so habitat can NEVER be used to rule either of them out.",
+    "indicator": "A sugar maple canopy over a north- or east-facing slope near a spring seep, with trout lily, blue cohosh, toothwort and mayapple carpeting the ground.",
+    "parts": "Usually two broad, flat, smooth elliptic leaves 1–3 in across (sometimes one, sometimes three), each rising separately from ground level on its own sheathed stalk, from a single plump white bulb. Stalk colour is NOT diagnostic: Penn State records ramp stems as greenish-white or reddish-purple, and the narrow-leaved ramp (A. burdickii) is pale — a green-stemmed ramp is still a ramp, and a red base proves nothing about a plant you have not smelled. Leaves raw in salads, grilled, blitzed into butter, compound oils or pesto; bulbs pickled or roasted. Cutting one leaf from a two- or three-leaved plant and leaving the bulb in the ground gives you nearly all the flavour at a small fraction of the ecological cost of digging.",
+    "caution": "expert",
+    "lookalikes": [
+      {
+        "name": "False hellebore (Veratrum viride, V. parviflorum, V. woodii and V. hybridum)",
+        "danger": "deadly",
+        "tell": "SMELL IS THE ONLY TELL THAT WORKS EVERYWHERE. Tear a leaf: a ramp reeks of onion within seconds; every Veratrum smells of nothing. Tear and sniff every single plant before it goes in your bag, and sniff with clean hands — once you have crushed a few ramps, your fingers, knife and bag smell of onion, and a hellebore leaf buried in the bunch will smell of onion too. Second physical check: dig one. A ramp has a plump white bulb; every Veratrum has a short thick rhizome with dense coarse fibrous roots and no bulb at all. DO NOT rely on growth form. The familiar 'deeply pleated leaves clasping one stout central stalk, coming up as a single pleated cone' rule describes only V. viride. V. parviflorum of the southern Appalachians has leaves that are mostly basal, long-petiolate, elliptic, 2–4 in wide, blue-tinted on the upper surface and only OBSCURELY pleated. V. woodii of the Midwest forms a sessile basal rosette of elliptic to ovate pleated leaves 6–12 in long and 2–4 in across. V. hybridum's leaves are also mostly basal, 0.4–2.8 in wide. All three come up as separate leaves from ground level, exactly like ramps. DO NOT use habitat either: only V. viride is reliably a wet-ground plant. V. parviflorum grows in rich deciduous forest at 800–2,030 m through AL, GA, KY, NC, SC, TN, VA and WV and its growing season coincides with ramps, with documented accidental ingestion. V. woodii grows on north- and east-facing wooded slopes, streamsides and shaded ravines in high-quality deciduous woodland over calcareous or mafic rock from OH to MO, OK and IA. V. hybridum grows on rich rocky slopes, ravines, gorges and coves at 1,000–5,500 ft from southwestern Connecticut and southeastern New York south to northern Georgia (CT, DE, GA, MD, NJ, NY, NC, PA, SC, TN, VA, WV). Steroidal alkaloids (veratridine, cyclopamine, veratramine and relatives) bring severe nausea and vomiting 30 minutes to 4 hours after eating, then slowed heartbeat and low blood pressure, with weakness, dizziness, numbness, tingling, sweating and slowed breathing. Most people who eat it need hospital treatment, frequently overnight. Call Poison Control (1-800-222-1222) immediately rather than waiting for symptoms."
+      },
+      {
+        "name": "Lily-of-the-valley — both European (Convallaria majalis) and the native American / Appalachian species (C. pseudomajalis, syn. C. majuscula)",
+        "danger": "deadly",
+        "tell": "A torn leaf has no onion smell at all — that alone decides it. Structurally: two, sometimes three, elliptic to oblanceolate leaves whose tapered bases wrap and sheathe one another into one shared shoot, rising from a creeping horizontal rhizome with roots along its length; dig one and you find running rhizome, not a plump white bulb. Do not assume the native species is a garden plant you can rule out by location: NC State Extension puts C. pseudomajalis in mountain hardwood forest and rocky woodland at roughly 3,000–5,000 ft through most of the North Carolina mountains, northern Virginia and West Virginia south to northern Georgia — the same rich woods as ramps — with basal leaves 6–14 in long and 2–5 in wide. Both species are equally toxic: all parts contain cardiac glycosides (convallatoxin among dozens), and NC State rates poisoning severity as high — irregular and slow pulse, burning mouth and throat, nausea, vomiting, abdominal pain, dilated pupils, headache, confusion, low blood pressure, and in severe cases seizures or coma. Hospitalised poisonings from leaves picked alongside wild alliums are well documented in Europe, and NC State's plant toolbox names Allium tricoccum as the plant C. majalis is most often confused with. Do not treat a missing red-purple leaf base as proof of anything: ramp stalks range from greenish-white to reddish-purple and A. burdickii is pale. Smell is the decider."
+      },
+      {
+        "name": "Fly poison / stagger grass (Amianthium muscitoxicum)",
+        "danger": "deadly",
+        "tell": "Long (15–20 in), narrow, grass- or strap-like basal leaves with a blunt tip and a distinct centre rib, arching out from a bulb that looks convincingly like a small onion — and neither leaf nor bulb smells of onion. Ramp leaves are broad and elliptic (1–3 in across) and the whole plant smells of onion. The danger is concentrated at the bulb: NC State Extension states 'CAN BE FATAL IF INGESTED! All parts of the plant, including the bulb, are poisonous,' the neurotoxic alkaloids being most concentrated in the bulb — salivation, nausea, vomiting, weakness and death by respiratory failure. It is among the first herbaceous plants up in spring, so it overlaps ramp season, and it grows in moist woods (especially oak forest), bogs, low pinelands, savannas, meadows and sandhills from New York south to Florida and west through Missouri, Arkansas, Louisiana and Oklahoma."
+      },
+      {
+        "name": "Trout lily / dogtooth violet (Erythronium americanum)",
+        "danger": "unpalatable",
+        "tell": "Leaves are glossy and mottled brown-purple rather than plain matte green, single or paired from a deep corm rather than a shallow white bulb, and have no onion smell. Not deadly, but emetic in quantity — and it is one of the standard ramp companion species, so it grows interleaved with them in the same rich woods and a single-leaved trout lily sits next to a single-leaved ramp constantly."
+      }
+    ],
+    "harvest": "The single most over-harvested spring plant in the East, and the published numbers are far stricter than folk practice. Rock, Beckage & Gross (2004), working in Great Smoky Mountains National Park, harvested plots at 0, 25, 50, 75 and 100%; even a single 25% harvest failed to recover within the study, and their model gave roughly 2.5 years' recovery for a 5% harvest and about 150 years for a 95% harvest. The figure usually quoted from that paper — 10% of a population once per DECADE — is a model extrapolation, not an observed recovery, so treat it as an absolute ceiling, not a target. Quebec-derived matrix models land in the same territory: maximum sustainable ANNUAL harvest of about 0–8% of a population depending on its size (Nault & Gagnon 1993; Nantel et al. 1996, as summarised by Nilson et al.). Timing matters as much as quantity: Nilson et al. (2022) found total ramp weight and bulb weight rose 250% and 400% respectively between the early-season 'shoot' stage (1 March–15 April) and the late-season 'peak leaf/bulb' stage (15 April–30 May), so waiting about 30 days after emergence and taking the larger three-leaved plants means far fewer plants pulled for the same basket — 'fewer ramps per pound is more ramps in the ground.' The lowest-impact method is to cut one leaf from a two- or three-leaved plant and leave the bulb; this is lower impact, not free — Dion et al. (2016) found leaf-only harvest can still slow growth by drawing down carbon and nutrient reserves. If you dig, take no more than one plant in ten from a large patch and do not return to that patch for years; never dig a small patch, never dig plants in flower, never dig for sale. Legally: collection is flatly prohibited in Great Smoky Mountains National Park — the Superintendent's Compendium states 'The collection of ramps is not allowed under 36 CFR or 54 USC,' and 36 CFR penalties run to $5,000 and/or six months. Quebec has listed ramps as a vulnerable species since 1995: sale of bulbs, leaves or seeds is prohibited outright and personal harvest is capped at 50 bulbs or 200 g of any part of the plant per person per year outside protected areas. Ramps are also tracked as rare at state level in parts of the range — Special Concern / S3 in Maine, and listed or tracked in Rhode Island, Tennessee and elsewhere. Check state, provincial and land-manager rules, and get permission before harvesting on any land you do not own.",
+    "sources": [
+      "Penn State Extension — Ramps (Allium tricoccum) Factsheet: https://extension.psu.edu/ramps-allium-tricoccum-factsheet",
+      "Nilson SE, Burkhart EP, Jordan RT, Lambert JD (2023; online 28 Oct 2022). Ramp (Allium tricoccum Ait.) weight differs across the harvest season: implications for wild plant stewardship and forest farming. Agroforestry Systems 97(1):97–107. doi:10.1007/s10457-022-00790-3 — https://link.springer.com/article/10.1007/s10457-022-00790-3",
+      "Penn State News — 'Ramped up': Higher demand for wild leeks has foragers overeager, threatens plant: https://www.psu.edu/news/research/story/ramped-higher-demand-wild-leeks-has-foragers-overeager-threatens-plant",
+      "Rock JH, Beckage B, Gross LJ (2004). Population recovery following differential harvesting of Allium tricoccum Ait. in the southern Appalachians. Biological Conservation 116(2):227–234. doi:10.1016/S0006-3207(03)00193-9",
+      "Dion P-P, Bussières J, Lapointe L (2016). Sustainable leaf harvesting and effects of plant density on wild leek cultivation plots and natural stands in Southern Quebec, Canada. Agroforestry Systems 90(6):979–995. doi:10.1007/s10457-015-9878-7",
+      "Vermont Department of Health — Poisonous Plants in Vermont (false hellebore / ramps confusion): https://www.healthvermont.gov/environment/environmental-chemicals-pollutants/poisonous-plants-vermont",
+      "Northern New England Poison Center — False Hellebore (symptom onset 30 minutes to 4 hours; most patients need hospital care): https://www.nnepc.org/poisons/f/false-hellebore",
+      "Emory University School of Medicine, Department of Emergency Medicine — Ramps Advisory, Medical Toxicology (2020): https://med.emory.edu/departments/emergency-medicine/about/news/2020/ramps.html",
+      "Seale JT, McDougal OM (2022). Veratrum parviflorum: An Underexplored Source for Bioactive Steroidal Alkaloids. Molecules 27(16):5349. doi:10.3390/molecules27165349 — https://pmc.ncbi.nlm.nih.gov/articles/PMC9412450/ (leaves petiolate and obscurely plicate; growing season coincides with ramps; documented accidental ingestion)",
+      "USDA Forest Service, Fire Effects Information System — Veratrum hybridum (slender bunchflower), range and habitat: https://research.fs.usda.gov/feis/species-reviews/verhyb",
+      "Illinois Wildflowers — Wood's Bunchflower / Wood's False Hellebore (Melanthium woodii / Veratrum woodii), basal rosette description and slope habitat: https://www.illinoiswildflowers.info/woodland/plants/wd_bunchflower.html",
+      "NC State Extension Gardener Plant Toolbox — Convallaria majalis (lists Allium tricoccum as the plant it is confused with): https://plants.ces.ncsu.edu/plants/convallaria-majalis/",
+      "NC State Extension Gardener Plant Toolbox — Convallaria pseudomajalis (American / Appalachian lily-of-the-valley): https://plants.ces.ncsu.edu/plants/convallaria-pseudomajalis/",
+      "NC State Extension Gardener Plant Toolbox — Amianthium muscitoxicum (fly poison): https://plants.ces.ncsu.edu/plants/amianthium-muscitoxicum/",
+      "National Park Service, Shenandoah National Park — Fly Poison: https://www.nps.gov/shen/learn/nature/fly_poison.htm",
+      "National Park Service, Great Smoky Mountains National Park — Superintendent's Compendium ('The collection of ramps is not allowed under 36 CFR or 54 USC'): https://www.nps.gov/grsm/learn/management/compendium.htm",
+      "Gouvernement du Québec — Ail des bois (Allium tricoccum), espèce floristique vulnérable: https://www.quebec.ca/agriculture-environnement-et-ressources-naturelles/flore/fiches-especes-floristiques/ail-bois",
+      "Maine Natural Areas Program — Rare Plant Fact Sheet, Allium tricoccum (Special Concern, S3): https://www.maine.gov/dacf/mnap/features/alltri.htm",
+      "Illinois Extension — Ramps: an ecologically and historically important woodland species: https://extension.illinois.edu/blogs/flowers-fruits-and-frass/2023-04-14-ramps-ecologically-and-historically-important-woodland"
+    ]
+  },
+  {
+    "name": "Sassafras (leaves for filé)",
+    "scientific": "Sassafras albidum (Nutt.) Nees",
+    "months": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "regions": [
+      "northeast",
+      "southeast",
+      "midwest",
+      "southcentral"
+    ],
+    "terrain": [
+      "edge",
+      "disturbed",
+      "woodland",
+      "upland",
+      "coastal"
+    ],
+    "caution": "expert",
+    "habitat": "A light-demanding pioneer of dry to moist but always WELL-DRAINED upland ground. It does not tolerate poorly drained or flooded soil, so wet bottoms, swamp margins, seeps and floodplains rule it out entirely. Best growth is on moist, well-drained sandy loams around pH 6–7 in open woodland, but it is most abundant and most thicket-forming on drier, poorer, more acid sands and clay loams that other trees colonise slowly. Classic ground is the abandoned field, the fencerow, the powerline cut, the roadcut, the logged or burned patch and the woodland edge, roughly 5–30 years after the disturbance, where it spreads by root suckers into dense clonal thickets and holds them by shading and allelopathy. In old-field succession it runs with eastern redcedar, persimmon, black cherry, winged sumac, blackberry, greenbrier and broomsedge; in the Southeast add sweetgum and loblolly, shortleaf and Virginia pine. Under closed canopy it persists as a scattered understorey tree in oak–hickory and oak–pine woods alongside white, black, scarlet and post oak, hickory, blackgum, sourwood, flowering dogwood, mountain laurel and lowbush blueberry — but it is very shade-intolerant, and shaded trees carry their foliage high and sparse. Reachable, leafy, pickable thickets are a full-sun phenomenon. On the Atlantic Coastal Plain it grows in maritime scrub and dune-back thickets with pitch pine, bayberry and black cherry. Note that three of those constant companions — black cherry, mountain laurel and the low heaths — are lookalike or poisoning hazards in their own right, listed below. Range: southwestern Maine and extreme southern Ontario west through central Michigan to Illinois, Iowa, Missouri, eastern Kansas and eastern Oklahoma, south to eastern Texas and central Florida, reaching about 4,000 ft in the southern Appalachians. In Oklahoma and Texas it is confined to the eastern edge of both states — roughly east of I-35 in Oklahoma, and to the Piney Woods and Post Oak Savannah in east Texas — and it is absent from the rest of that region, from the Great Plains and, as a wild plant, from the West. Sassafras albidum is the only Sassafras native to North America, so the common name is unambiguous everywhere in this range.",
+    "indicator": "An abandoned, well-drained, acid field going back to eastern redcedar, persimmon, winged sumac, blackberry and broomsedge almost always has sassafras in it — typically starting along the old fence line and field margin and running inward in fingers of root suckers. Under canopy, a floor of lowbush blueberry, huckleberry or mountain laurel marks the dry acid upland it favours — but take that last cue as a warning as much as an invitation, because mountain laurel is the most dangerous confusion in this entry and a laurel understorey means you are reaching in among it. The negative indicator is the more reliable one: skunk cabbage, sedge tussocks, cinnamon fern, alder or any standing water means poorly drained ground, and sassafras will not be there.",
+    "parts": "LEAVES ONLY. Young, fully expanded, still-tender green leaves, dried and ground into filé powder — the Cajun and Creole gumbo thickener, a Choctaw and Chitimacha preparation long before it was either. Published analysis (Carlson M. & Thompson R.D., J AOAC Int 1997;80(5):1023, PMID 9325580) measured 26 sassafras-derived products and found safrole below the limit of detection in most of the leaf samples analysed, against brewed root-bark teas at 0.09–4.66 mg per cup and one sassafras oil at 92.4% safrole; and FDA's safrole prohibition at 21 CFR 189.180 bans sassafras bark and oil of sassafras from food while leaving the leaves legal — which is why filé is sold commercially and root-bark tea is not. Read that as 'the leaf is where the safrole is not', not as a certified zero. ROOT AND ROOT BARK ARE A DIFFERENT PART AND A DIFFERENT DECISION: they carry safrole, a rodent hepatocarcinogen listed by the NTP as reasonably anticipated to be a human carcinogen, and root-bark tea is precisely what the prohibition covers. Do not dig roots, and do not let a leaf entry read as permission for a root one. Green twigs are aromatic and mucilaginous but add nothing to filé; flowers and the autumn fruit are not a food here.",
+    "harvest": "Pick young, fully expanded leaves from root suckers, stump sprouts and low branches. Sassafras suckers hard and leaf picking costs a clonal thicket essentially nothing — but do not dig the roots.\n\nTAKE LEAVES ONE AT A TIME. Never by the handful, never by running a closed hand down a stem. This entry is rated expert because two deadly plants grow in and through sassafras thickets at picking height — Canada moonseed twining in the fencerow, mountain laurel standing in the same dry acid upland — and because urushiol, grayanotoxins and cyanogenic cherry leaf all keep their potency through drying and grinding, when the evidence of what went in is gone. Leaf-by-leaf picking, with your eyes on the petiole as each leaf comes off, is the whole safety architecture of this harvest. What you are looking for: ONE blade on ONE petiole, attached singly and alternately to a smooth bright yellow-green twig; the blade thin, soft, matte and bright green; the margin entire and unbroken; the outline an ellipse, a two-lobed mitten with one thumb, or a three-lobed 'ghost' — all three on the same twig.\n\nFOUR REJECTIONS, APPLIED ON THE PLANT AND AGAIN ON THE DRYING SCREEN. (1) THREE LEAFLETS on one shared stalk — poison ivy, or Atlantic poison oak. Eyes before hands, and never crush a doubtful leaf to smell it. (2) THICK, STIFF, LEATHERY, GLOSSY DARK EVERGREEN blade — mountain laurel or another entire-leaved heath. Texture and evergreen persistence are the test here, not outline. (3) ANY TOOTH ON THE MARGIN — mulberry, sweetgum, or black cherry. Cherry is the one that matters: its leaves generate hydrogen cyanide as they wilt and dry, which is exactly what you are about to do to them. (4) A LEAF WHOSE STEM TWINES around another plant, or whose petiole joins the blade a few millimetres inside the rim rather than at the very base — Canada moonseed.\n\nTIMING SHIFTS STRONGLY WITH LATITUDE. Leaf-out is mid-to-late March on the Gulf Coast and in east Texas, so April is a real filé month there. Kentucky and the lower Midwest run late April. At the northern limit — southwestern Maine, southern Ontario, central Michigan — leaves are not out until mid-to-late May and April picking is simply impossible. The best leaves everywhere are the tender ones of late spring and early summer; leaves taken once they have toughened or begun to colour in autumn are low in mucilage and make weak filé. In April, note that mountain laurel and redbay are already in full leaf while sassafras is barely breaking bud — early-season 'sassafras' foliage at eye level deserves a second look.\n\nSITE CHOICE IS A SAFETY STEP. Fencerows, roadsides and powerline cuts are prime sassafras habitat and also prime herbicide habitat. Skip anything showing brush-control spray damage — curled, chlorotic or twisted growth on the plant or its neighbours — and anything within a few yards of pavement.\n\nPREPARATION: NO TREATMENT IS REQUIRED FOR SAFETY. Sassafras leaf is not toxic raw and needs no leaching, boiling, fermenting or repeated water changes. The safety-relevant preparation step is the sorting: spread the leaves in a single layer and check every one individually before drying, because once a poison ivy, laurel or cherry leaf is dried and ground it is unidentifiable and still potent. Then dry in shade with airflow at room temperature — typically 3 to 7 days — until a leaf crumbles between finger and thumb, strip out the tough midribs and petioles, grind fine and sift through a fine-mesh sieve. Colour and mucilage both fade with storage — make it yearly, and keep it in a sealed jar away from light.\n\nCULINARY RULE, NOT A SAFETY RULE: filé goes in OFF the heat, below roughly 180°F (82°C) — about a teaspoon stirred into each bowl at the table, or a tablespoon into a pot of six once it is off the fire, sprinkled over the surface and stirred gently. Boiled filé turns gumbo stringy and thin rather than thickening it.\n\nSassafras ROOT preparations are advised against in pregnancy on safrole grounds. The leaf is not the same issue, but anyone applying that caution should understand which part it attaches to.",
+    "lookalikes": [
+      {
+        "name": "Canada moonseed (Menispermum canadense)",
+        "danger": "deadly",
+        "tell": "Not a shape twin — a co-occurrence hazard, which is worse, because it twines up through the exact fencerow and woodland-edge thickets you are stripping. Its leaves are alternate and SMOOTH-MARGINED like sassafras, so the margin test that separates you from mulberry, cherry and sweetgum is no help at all here. Three checks, all good in leaf: (1) HABIT — follow the leaf back to its stem; moonseed runs to a wiry twining vine wrapped around something else, sassafras to a self-supporting bright yellow-green twig. (2) LOBING — moonseed is a broad heart-shaped blade with 3–7 shallow lobes radiating palmately from one point, like a shallow ivy; sassafras is an ellipse, a two-lobed mitten with one thumb, or a three-lobed 'ghost'. (3) PETIOLE ATTACHMENT — hold the leaf up to the light: moonseed's stalk attaches to the underside of the blade a few millimetres inside the rim (subpeltate), sassafras's attaches at the very base. Moonseed has no aroma when crushed. All parts contain dauricine; the dark blue fruit has killed people who took it for wild grape. Pick leaf by leaf and this plant cannot reach your basket."
+      },
+      {
+        "name": "Mountain laurel (Kalmia latifolia) and the other entire-leaved heaths — rosebay rhododendron (Rhododendron maximum), sheep laurel (Kalmia angustifolia), staggerbush and maleberry (Lyonia spp.), doghobble (Leucothoe spp.)",
+        "danger": "deadly",
+        "tell": "THE ONE DANGEROUS PLANT THAT PASSES EVERY OTHER RULE IN THIS ENTRY, which is why it is here. Its leaves are SIMPLE, so the compound-vs-simple rule that catches poison ivy misses it; ENTIRE-margined, so the toothed-margin rule that catches mulberry, cherry and sweetgum misses it; latex-free, so the mulberry snap test misses it; borne on a SELF-SUPPORTING shrub, so the moonseed twining test misses it; and it is not aromatic, so the smell test returns nothing rather than a warning. Worse, this entry's own 'right spot' cue walks you into it: a laurel-and-blueberry floor is exactly the dry acid upland sassafras likes, and laurel forms head-high thickets you would otherwise reach blind into. SEPARATE THEM ON TEXTURE AND PERSISTENCE, NOT OUTLINE. Mountain laurel leaves are thick, stiff, leathery and glossy dark green above, 2–5 in long, and EVERGREEN — they are on the plant all winter and through April, when sassafras is still bare or barely breaking bud — and they bend or snap rather than tearing, on a grey-brown woody twig. Sassafras is thin, soft, matte, bright yellow-green new growth that tears easily between the fingers, on a smooth bright yellow-green twig, and it is deciduous. Sassafras crushes to root beer; laurel gives nothing. If a leaf is leathery and evergreen, it is not sassafras, whatever its shape. Every part of these plants carries grayanotoxins, and grayanotoxins are non-volatile and heat-stable: they are not destroyed by wilting, by shade-drying, by grinding or by the gumbo pot — dried laurel and rhododendron baled into hay still poisons livestock, and heated mad honey stays toxic — so a laurel leaf that goes into the jar is still poisonous months later. Ingestion causes salivation, vomiting, dizziness, weakness, bradycardia, hypotension and AV block, and at higher doses seizures, coma and death."
+      },
+      {
+        "name": "Black cherry (Prunus serotina)",
+        "danger": "toxic",
+        "tell": "A constant sassafras associate — it appears twice in this entry's own habitat notes, in old-field succession and in dune-back thickets — and it suckers and stump-sprouts at exactly picking height, so young cherry growth stands shoulder to shoulder with young sassafras growth, both simple, both alternate. Four tells, most reliable first: (1) MARGIN — black cherry is finely and evenly SERRATE, with small blunt teeth that curve forward toward the tip; sassafras is entire and unbroken. Draw the edge across a fingernail: cherry catches, sassafras does not. (2) OUTLINE AND SURFACE — cherry is a narrow glossy dark-green ellipse to lanceolate blade, never lobed, never a mitten; sassafras is matte and carries unlobed, two-lobed and three-lobed leaves on the same twig. (3) MIDRIB UNDERSIDE — turn the leaf over: black cherry has a dense band of RUSTY ORANGE-BROWN HAIRS running along the midrib, a tell nothing else here shares; sassafras's underside is pale and hairless. (4) TWIG AND BARK — cherry twigs are slender grey-brown with small pale horizontal lenticels, and scratched bark or twig smells of bitter almond, not root beer. WHY IT MATTERS IN THIS PARTICULAR HARVEST: cherry leaves are cyanogenic, and the prunasin in them is converted to hydrogen cyanide by the leaf's own enzyme when the tissue is bruised, wilted or dried — precisely the wilt-and-dry step this preparation uses. Wilted cherry leaf is the classic livestock cyanide killer. A stray leaf in a jar will not kill an adult, but it is the wrong plant processed in the exact way that maximises its toxin; sort it out before drying, not after."
+      },
+      {
+        "name": "Poison ivy (Toxicodendron radicans, T. rydbergii)",
+        "danger": "toxic",
+        "tell": "THE OPERATIONAL HAZARD OF THIS HARVEST. Poison ivy climbs sassafras trunks and sprawls through low sucker growth at exactly the height you are picking, and on vigorous growth its leaflets are irregularly lobed and read as mittens at arm's length. THE RULE IS ABSOLUTE AND WORKS ALL SEASON: poison ivy is COMPOUND — always three leaflets on one common stalk, the middle leaflet on a noticeably longer stalklet than the two side ones. Sassafras is SIMPLE — one blade per petiole, attached singly and alternately straight to the twig. If any lobe separates all the way down to its own little stalk, it is not sassafras. Check this with your EYES BEFORE YOUR HANDS: do not use the crush-and-smell test to settle a doubtful leaf, because crushing puts urushiol on your skin. Secondary confirmations: poison ivy leaflets are often glossy and the young growth reddish; sassafras is matte green on a smooth bright yellow-green twig. Urushiol survives drying and grinding indefinitely — a single poison ivy leaf dried into a jar of filé contaminates the whole jar, and ingested urushiol causes perioral and gastrointestinal reactions on top of the dermatitis."
+      },
+      {
+        "name": "Atlantic poison oak (Toxicodendron pubescens)",
+        "danger": "toxic",
+        "tell": "The harder of the two urushiol plants to spot, and NOT a southeastern-only problem — do not skip this one on geography. Toxicodendron pubescens is documented from southern New Jersey and Maryland south to Florida and west to east Texas, and inland through West Virginia, Tennessee, southern Illinois, southeastern Missouri, southern Kansas and Oklahoma — that is inside this entry's midwest and southcentral regions and inside the inland range its habitat text claims. It favours dry sandy old fields and pine–oak edges, which is sassafras habitat exactly. Its leaflets are deeply and ROUNDLY lobed like a small white oak leaf, so a single leaflet looks considerably more mitten-like than poison ivy's does. It is a low self-supporting shrub 2–4 ft tall, not a vine, so 'it is standing on its own stem' does NOT rule it out the way it rules out poison ivy climbing a trunk. Fall back on the same compound-vs-simple rule and apply it before touching: THREE lobed leaflets radiating from one shared stalk, velvety-hairy on the underside, versus sassafras's single blade on a smooth, hairless, bright green twig. Anywhere in that range — Missouri and southern Illinois included — do not pick blind into a thicket: pull the branch clear with a stick, look at the leaf arrangement, then pick."
+      },
+      {
+        "name": "Red, white and paper mulberry (Morus rubra, M. alba, Broussonetia papyrifera)",
+        "danger": "unpalatable",
+        "tell": "Share edge, fencerow and old-field ground, and on vigorous sucker growth all three produce mitten-shaped and multi-lobed leaves on the same twig — the closest shape match sassafras has. Snap the petiole: mulberry bleeds white latex within a few seconds, sassafras does not. Margins are sharply TOOTHED on all three mulberries and smooth and unbroken on sassafras. Twigs: sassafras is bright yellow-green and smooth into its second year; red mulberry is grey-brown; paper mulberry is hairy and reddish-brown. Sassafras smells of root beer when crushed and mulberry of almost nothing — but note this only separates it from mulberry, not from the aromatic shrubs below. NOT A POISONING: mulberry leaf is edible — it is silkworm fodder and is drunk as tea — so an error here costs you a weak batch of filé and nothing more. It is tagged 'unpalatable' only because that is the mildest label this guide carries; read it as 'wrong plant', not 'toxic'."
+      },
+      {
+        "name": "Spicebush (Lindera benzoin) and redbay (Persea borbonia)",
+        "danger": "unpalatable",
+        "tell": "Both are Lauraceae like sassafras; both have simple, alternate, SMOOTH-MARGINED leaves that match an unlobed sassafras leaf almost exactly; and both smell strongly when crushed. THIS IS WHY AROMA IS NOT AN ID. Spicebush smells of allspice and lemon, redbay of bay leaf, sassafras of root beer, and separating those by nose alone takes real practice — a published tell that quietly fails for beginners across most of the range. Separate by site and habit instead: spicebush is a multi-stemmed shrub of moist, rich, shaded bottomland and streamside — wet ground where sassafras will not grow at all; redbay is evergreen with thick leathery leaves and is Coastal Plain only. Sassafras is upland, sunny, single-trunked, and green-twigged. NOT A POISONING: both are edible and in fact good seasoning plants, so an error here costs flavour only — 'unpalatable' here means 'wrong plant for filé', not 'toxic'. Redbay's thick leathery evergreen leaf does, however, sit on the same texture test that rules out mountain laurel, so treat leathery evergreen foliage as a stop signal and identify it before, not after, picking."
+      },
+      {
+        "name": "Sweetgum (Liquidambar styraciflua)",
+        "danger": "unpalatable",
+        "tell": "The most abundant thing growing shoulder to shoulder with sassafras in southeastern old fields, and its leaves are conspicuously lobed. It is easy to separate once looked at: sweetgum is a five-pointed star, palmately 5-lobed with all lobes roughly equal and radiating from one point, and the margins are finely toothed. Sassafras is 0-, 2- or 3-lobed with the lobes unequal, and its margins are smooth. Sweetgum twigs are often corky-winged and brown; sassafras twigs are bright green. Sweetgum leaf smells faintly resinous, not of root beer. Not poisonous — the error is only that it makes no filé."
+      }
+    ],
+    "sources": [
+      "USDA Forest Service, Fire Effects Information System (FEIS), species review: Sassafras albidum — https://research.fs.usda.gov/feis/species-reviews/sasalb (range, soils, drainage intolerance, shade intolerance, old-field succession, associates, phenology)",
+      "USDA Forest Service, Silvics of North America Vol. 2 (Ag. Handbook 654), Sassafras albidum — https://www.srs.fs.usda.gov/pubs/misc/ag_654/volume_2/sassafras/albidum.htm",
+      "21 CFR 189.180, Safrole (substances prohibited from use in human food; bans oil of sassafras and sassafras bark in food) — https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-189/subpart-C/section-189.180",
+      "21 CFR 172.580, Safrole-free extract of sassafras — https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-172/subpart-F/section-172.580",
+      "Carlson M. & Thompson R.D., 'Liquid chromatographic determination of safrole in sassafras-derived herbal products,' Journal of AOAC International 80(5):1023–1028 (1997), PMID 9325580 — https://pubmed.ncbi.nlm.nih.gov/9325580/ (26 products; safrole below the limit of detection in most leaf samples, root-bark teas 0.09–4.66 mg/cup, one oil at 92.4%)",
+      "NTP, 15th Report on Carcinogens: Safrole — https://www.ncbi.nlm.nih.gov/books/NBK590823/",
+      "Memorial Sloan Kettering Cancer Center, integrative medicine herb monograph: Sassafras — https://www.mskcc.org/cancer-care/integrative-medicine/herbs/sassafras (pregnancy and root-product cautions)",
+      "NC State Extension Gardener Plant Toolbox, Kalmia latifolia (mountain laurel) — https://plants.ces.ncsu.edu/plants/kalmia-latifolia/ (leaves simple, alternate, entire, leathery, evergreen; all parts poisonous — grayanotoxins, andromedotoxin, arbutin)",
+      "Jansen S.A., Kleerekooper I., Hofman Z.L.M., Kappen I.F.P.M., Weinzinger A. & van der Heyden M.A.G., 'Grayanotoxin poisoning: mad honey disease and beyond,' Cardiovascular Toxicology 12(3):208–215 (2012) — https://link.springer.com/article/10.1007/s12012-012-9162-2 (sodium-channel mechanism; dizziness, hypotension, AV block; toxicity persists through processing)",
+      "Cornell University, Poisonous Trees of Pasture (Prunus serotina: cyanogenic glycosides; wilted leaves are the most toxic state) — https://blogs.cornell.edu/weedid/poisonoustreesofpasture/",
+      "NC State Extension Gardener Plant Toolbox, Prunus serotina (black cherry) — https://plants.ces.ncsu.edu/plants/prunus-serotina/ (serrate incurved margins, rusty midrib pubescence, bitter-almond bark)",
+      "USDA NRCS PLANTS Database, Toxicodendron pubescens — https://plants.usda.gov/plant-profile/TOPU2 (state distribution including IL, KS, MO, OK, TN, TX, WV)",
+      "USDA Forest Service FEIS, Toxicodendron pubescens — https://research.fs.usda.gov/feis/species-reviews/toxpub (inland range to West Virginia, Tennessee, southeastern Missouri, southern Kansas, Oklahoma, east Texas)",
+      "NC State Extension Gardener Plant Toolbox, Toxicodendron pubescens (Atlantic poison oak) — https://plants.ces.ncsu.edu/plants/toxicodendron-pubescens/ (lobed oak-like leaflets, low shrub habit, dry sandy fields)",
+      "Lady Bird Johnson Wildflower Center native plant database, Toxicodendron pubescens — https://www.wildflower.org/plants/result.php?id_plant=topu2",
+      "Weakley, A.S., Flora of the Southeastern United States (taxonomy of Sassafras albidum, Menispermum canadense, Lindera benzoin, Persea borbonia, Kalmia latifolia)",
+      "Gant R.E. & Clebsch E.E.C., 'The allelopathic influences of Sassafras albidum in old-field succession in Tennessee,' Ecology 56:604 (1975) — https://esajournals.onlinelibrary.wiley.com/doi/abs/10.2307/1935494",
+      "Maine Natural Areas Program rare plant fact sheet, Sassafras albidum — https://www.maine.gov/dacf/mnap/features/sasalb.htm (northern range limit)"
+    ]
+  },
+  {
+    "name": "Stinging nettle",
+    "scientific": "Urtica dioica",
+    "months": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9
+    ],
+    "regions": [
+      "midwest",
+      "mountain",
+      "northeast",
+      "southcentral",
+      "southeast",
+      "west"
+    ],
+    "terrain": [
+      "wetland",
+      "edge",
+      "woodland",
+      "disturbed"
+    ],
+    "habitat": "Rich, damp, nitrogen-heavy ground, in dense clonal single-species stands that spread by rhizome — silty floodplain benches and stream banks, spring seeps, wet ditches, alder and box-elder bottoms, hedgerows, orchard edges, old barnyards and corral ground. USFS FEIS records it on deep, rich soils from sea level to about 10,000 ft. Regionally it is not the same plant everywhere: the native ssp. gracilis is the common one across the Northeast, Midwest, Northwest and West; in the Southwest it is strictly riparian — canyon bottoms, intermittent drainages, seeps — and is the most abundant nettle in Arizona; in the Southeast it is a mountain and upper-Piedmont plant, occasional to rare on the coastal plain, where the local stinging nettle is instead the winter-annual heartleaf nettle, Urtica chamaedryoides.",
+    "indicator": "Dark silty alluvium on a floodplain bench under box elder, maple or alder, carrying a dense waist-high stand of one species with jewelweed along its edge.",
+    "parts": "The top four to six leaves of shoots under about a foot tall, before the flower tassels appear. SIGHT-MATCH BEFORE YOU TOUCH ANYTHING: simple, opposite, sharply toothed leaves with a heart-shaped base; a squarish stem that is visibly bristled when you hold it against the light; and — the best non-contact mark there is — a pair of narrow papery stipules 5–15 mm long at every leaf node (Go Botany). Asters have no stipules, mints have no stipules, umbellifers have no stipules. Only then confirm the sting, with the back of ONE fingertip on one leaf you have already matched. Do not sweep a bare hand or forearm through mixed vegetation to find nettle: the same damp disturbed riverbanks and hedgerows carry wild parsnip and giant hogweed, whose sap plus sunlight raises blistering chemical burns that do not appear for about 24 hours and peak at 48–72 (Illinois Extension), and poison ivy is everywhere on that ground. Understand what the sting does and does not prove: it proves stinging hairs, not food. Urtica species and wood nettle sting and are good eating; Cnidoscolus stings harder and is not. Then glove up, wear long sleeves, and cut with scissors. Cooking: a 60–90 second blanch or two minutes covered steaming collapses the stinging trichomes, NC State's published guidance is a five-minute boil, and thorough drying disarms them as well; after that it substitutes for spinach in soup, pesto, gnocchi or tea. Do not eat intact raw leaves. Native wood nettle (Laportea canadensis) is picked and cooked identically and is arguably better eating — but its leaves are ALTERNATE, which inverts the shortcut above: when you are hunting wood nettle, white snakeroot's opposite leaves no longer look wrong, so the stipules and the sting have to carry the whole identification.",
+    "caution": "expert",
+    "lookalikes": [
+      {
+        "name": "White snakeroot (Ageratina altissima)",
+        "danger": "deadly",
+        "tell": "The killer east of the Rockies, growing in exactly the same rich, moist, shaded stream-bank and floodplain ground — Ohio State's weed guide gives its habitat as stream banks, woods and moist rich soils. Like nettle it has opposite, toothed, sharply pointed leaves, and its white flowers are no help in nettle season: it does not bloom until high summer (Illinois Extension gives August–October, Minnesota Wildflowers July–October). Four separators you can see or feel. (1) STIPULES: nettle carries a pair of narrow papery stipules 5–15 mm at every leaf node; snakeroot is an aster and has none, anywhere on the plant. (2) VENATION: snakeroot leaves are 3-nerved, with three main veins arching out of the leaf base (Ohio State Weedguide); nettle has one midrib with pinnate side veins. (3) TEXTURE: nettle's stem is squarish and bristly and stinging hairs stand along the leaf veins beneath; snakeroot's stem is round and smooth — NC State says 'terete and mostly hairless', and note the 'mostly', because fine soft down is normal on snakeroot, so seeing hairs does not acquit it. Stinging bristles are the test, not hairs. (4) THE STING: nettle raises a burning weal in seconds, snakeroot does nothing. Do NOT use leaf-stalk length — snakeroot's petioles run to 2½ inches and nettle's overlap that. Do not use 'coarsely toothed' either; both are. All parts contain tremetone, the milk-sickness toxin, and NC State rates poison severity High: weakness, nausea, abdominal pain, vomiting, delirium, cardiac damage, prostration, coma. RANGE: white snakeroot is an eastern and central plant only — the Lady Bird Johnson Wildflower Center's native list runs from Ontario and New England to Florida and west to the Dakotas and eastern Texas, and includes no Pacific or Mountain West state. West of the Great Plains, the plant below is your deadly one instead."
+      },
+      {
+        "name": "Poison hemlock (Conium maculatum)",
+        "danger": "deadly",
+        "tell": "Not a leaf twin — it is the deadly plant standing in your nettle patch, and it is THE one that matters in the West, Northwest and Southwest, where white snakeroot does not grow. Conium is a nitrogen-loving biennial of stream and ditch banks, riparian woodland and floodplains (PNW Pest Management Handbook; OSU Solve Pest Problems), which is word-for-word nettle ground, and its first-year rosettes are green and up through the whole spring nettle window. Tells: leaves are three to four times pinnately divided into fine, lacy, fern-like segments and are ALTERNATE, where nettle's are simple, undivided, toothed and strictly opposite. The stem is hollow, hairless and smooth with purple-red blotches — no bristles, no stipules, no sting. Crushed foliage smells rank and mousy, not green. Every part is deadly if swallowed and there is no antidote. Note the specific failure mode: Illinois Extension is explicit that poison hemlock does NOT burn skin — it poisons by ingestion or through the eyes and nose — so nothing warns you at the moment of contact. The danger is grabbing a fistful of mixed greens instead of looking at every stem you cut. The same rule covers water hemlock (Cicuta maculata in the East, C. douglasii in the West), the other lethal umbellifer of wet ditches: also alternate, also compound, also fatal."
+      },
+      {
+        "name": "Tread-softly / bull nettle (Cnidoscolus stimulosus in the Southeast; C. texanus in Texas, Oklahoma and southern New Mexico)",
+        "danger": "toxic",
+        "tell": "The reason a sting is not a food test. This is a spurge, not a nettle. Its leaves are ALTERNATE and palmately 3–5 lobed with toothed margins (NC State), the stem bleeds white latex when broken, and its stinging hairs hurt considerably worse than Urtica's — 'gentle brushing in passing' is enough. Nettle leaves are simple, unlobed and strictly opposite, and its sap is clear. Habitat is sandy woods, old fields and roadsides, native from Virginia south to Florida and west to Texas. NC State lists leaves and stems as the poison part (an unidentified cyanogenic glycoside) and rates severity low, but it is not a potherb — the point is that anyone taught 'if it stings, it's nettle' will pick it. Sting plus opposite simple leaves plus papery stipules plus clear sap; never sting alone."
+      },
+      {
+        "name": "Perilla mint / beefsteak plant (Perilla frutescens) and the square-stemmed mints — purple dead nettle (Lamium purpureum), motherwort (Leonurus cardiaca), hedge nettle (Stachys spp.)",
+        "danger": "unpalatable",
+        "tell": "Listed because 'square stem' is a trap, not a tell — the entire mint family is 4-angled. NC State's own Urtica dioica page names Perilla frutescens among the plants commonly confused with stinging nettle, and perilla has a square stem, opposite coarsely serrated sharply pointed leaves, and the same damp disturbed shade (Purdue Extension). Separate them by smell and touch: crush perilla or any mint and it is strongly, obviously aromatic; nettle smells only green and grassy. None of them sting, none of them carry papery stipules, and perilla's leaf undersides are usually purple-tinged. None will hurt a person in the quantity you would eat — perilla is the shiso of Japanese cooking — but perilla ketone causes fatal acute interstitial pneumonia in cattle and horses (Alabama Extension), so this is not stock feed, and it is not what you came for."
+      },
+      {
+        "name": "Clearweed and false nettle (Pilea pumila, Boehmeria cylindrica)",
+        "danger": "unpalatable",
+        "tell": "No stinging hairs whatsoever; clearweed has translucent, almost watery-looking succulent stems, and false nettle is smooth-hairy and matte. Harmless, but bland and stringy. Keep the logic straight, because it is asymmetric: if it doesn't sting it isn't nettle — but the reverse is NOT a safety test, because white snakeroot and poison hemlock don't sting either, and Cnidoscolus does. Put any stingless plant back, whichever one you think it is."
+      },
+      {
+        "name": "Horse nettle (Solanum carolinense)",
+        "danger": "toxic",
+        "tell": "Shares the name and nothing else. Its leaves are ALTERNATE, where nettle's are strictly opposite — that is the separator, not the habitat. It is a nightshade: sharp straight prickles on the stems and along the leaf midribs, wavy-lobed leaves, star-shaped white or violet flowers with a yellow cone of anthers, and yellow tomato-like berries. The prickles jab and draw blood rather than burning, and leave no weals. It emerges later than nettle, in open sun. Contains solasodine-type steroidal glycoalkaloids (loosely called solanine), most concentrated in the berries."
+      }
+    ],
+    "harvest": "Pinch or cut the tops rather than pulling roots — the stand re-shoots and gives a second cutting. The window opens earliest in the maritime Northwest and low-elevation California (late February into March) and latest on northern and high-elevation ground (May into June, and into July above 8,000 ft in the Rockies and Southwest). Stands cut in spring throw tender regrowth again in September and October, worth taking, with the bonus that white snakeroot is in full white flower by then and can no longer hide in the patch. Stop harvesting once flower tassels appear; older leaves accumulate gritty cystoliths and are conventionally avoided. Nettle is abundant and often weedy, so there is no conservation pressure, but leave plenty standing — it is a larval host for red admiral, question mark and comma butterflies.\n\nWHERE you pick matters more than how much. The best-looking nettle grows on the worst ground to eat from: old manure piles, corral and barnyard soil, over-fertilised field edges. Use those stands as a signpost that you are in nettle country, then walk to clean floodplain silt or a woodland seep and cut there. Livestock and manure ground puts faecal pathogens onto a green that gets only a 90-second blanch, and nettle is a nitrophile whose leaf nitrate content rises with soil nitrogen in fertilisation trials. Skip roadsides, ditches beside cropland, and any ground that may have been sprayed. Get permission on land you do not own.\n\nTwo medical notes, because this is a plant people drink daily as tea rather than eat once as a vegetable. Memorial Sloan Kettering's About Herbs monograph lists nettle as potentially additive with diuretics and blood-pressure medication, reports animal evidence of CYP450 inhibition, and records a case of low blood sugar in a man taking a nettle-containing remedy; the greens are also high in vitamin K, so anyone on warfarin should keep intake steady rather than eating a large batch out of nowhere. Nettle is conventionally avoided in pregnancy and while breastfeeding. And the sting itself, trivial for most people (burning and weals peaking within 30 minutes, gone in 6–24 hours), very occasionally triggers a systemic IgE reaction — if a sting ever brings on hives away from the contact site, swelling or wheezing, stop foraging nettle and see an allergist.",
+    "sources": [
+      "Oregon State University Extension EM 9373 — Wild Edibles: Stinging Nettle: https://extension.oregonstate.edu/catalog/em-9373-wild-edibles-stinging-nettle (direct PDF, since the catalog page blocks automated retrieval: https://extension.oregonstate.edu/sites/extd8/files/catalog/auto/EM9373.pdf)",
+      "NC State Extension Gardener Plant Toolbox — Urtica dioica (square stems with stinging hairs, opposite serrate leaves, boil five minutes to remove the sting, poison severity low; lists Perilla frutescens, Boehmeria cylindrica, Laportea canadensis and Pilea pumila as commonly confused): https://plants.ces.ncsu.edu/plants/urtica-dioica/",
+      "Go Botany, Native Plant Trust — Urtica dioica (stem roughly square, opposite leaves, stipules 5–15 mm): https://gobotany.nativeplanttrust.org/species/urtica/dioica/",
+      "USDA Forest Service, Fire Effects Information System — Urtica dioica (distribution across all 50 states; moist sites along streams, coulees and ditches, mountain slopes, woodland clearings, disturbed areas; deep rich soils; sea level to ~10,000 ft): https://research.fs.usda.gov/feis/species-reviews/urtdio",
+      "NatureServe Explorer — Urtica dioica ssp. gracilis (common in the western and northeastern US; occasional or waif in the Southeast): https://explorer.natureserve.org/Taxon/ELEMENT_GLOBAL.2.131886/Urtica_dioica_ssp_gracilis",
+      "NC State Extension Gardener Plant Toolbox — Ageratina altissima (poison severity High; tremetone and glycosides; stems terete and mostly hairless): https://plants.ces.ncsu.edu/plants/ageratina-altissima/",
+      "Ohio State University CFAES, Ohio Weedguide — White snakeroot (leaves opposite and 3-nerved with a rounded base; stream banks, moist forested areas, rich soils; tremetol extremely poisonous): https://weedguide.cfaes.osu.edu/singlerecord.asp?id=91",
+      "University of Illinois Extension HortAnswers — White snakeroot (bloom August–October): https://web.extension.illinois.edu/hortanswers/PlantDetail.cfm?PlantID=836&PlantTypeID=14",
+      "Minnesota Wildflowers — White snakeroot (opposite leaves, leaf stalk to 2½ in, stems green and mostly hairless, bloom July–October, tremetol): https://www.minnesotawildflowers.info/flower/white-snakeroot",
+      "Lady Bird Johnson Wildflower Center — Ageratina altissima native distribution (38 eastern and central states; no Pacific or Mountain West state): https://www.wildflower.org/plants/result.php?id_plant=agal5",
+      "Pacific Northwest Pest Management Handbooks — Hemlock, poison (Conium maculatum): stream and ditch banks, riparian woodlands and floodplains: https://pnwhandbooks.org/node/8521/print",
+      "Oregon State University, Solve Pest Problems — Poison Hemlock (identification, rosette stage, toxicity): https://solvepestproblems.oregonstate.edu/weeds/poison-hemlock",
+      "Illinois Extension, Flowers Fruits and Frass — Carrots gone bad: wild parsnip, giant hogweed and poison hemlock (parsnip and hogweed sap cause phytophotodermatitis; hogweed favours moist riverbanks and partial shade; poison hemlock does NOT burn skin and poisons by ingestion): https://extension.illinois.edu/blogs/flowers-fruits-and-frass/2021-05-17-carrots-gone-bad-wild-parsnip-giant-hogweed-and-poison",
+      "NC State Extension Gardener Plant Toolbox — Cnidoscolus stimulosus (alternate, palmately 3–5 lobed leaves; white latex; stinging hairs; leaves and stems poisonous; Virginia south to Florida, west to Texas): https://plants.ces.ncsu.edu/plants/cnidoscolus-stimulosus/",
+      "Purdue Extension WS-43-W — Beefsteak Plant (Perilla Mint): square stem, opposite coarsely serrated leaves, purple leaf undersides: https://ag.purdue.edu/btny/purdueweedscience/wp-content/uploads/2021/01/WS-43-W.pdf",
+      "Alabama Cooperative Extension System — Perilla Mint: A Toxic Threat to Livestock (perilla ketone, acute interstitial pneumonia): https://www.aces.edu/blog/topics/farming/perilla-mint-a-toxic-threat-to-livestock/",
+      "Missouri Department of Conservation Field Guide — Wood nettle (alternate leaves; Urtica dioica opposite; false nettle and clearweed non-stinging; harvest shoots under 8 in and cook): https://mdc.mo.gov/discover-nature/field-guide/wood-nettle-stinging-nettle",
+      "University of Missouri IPM, Missouri Environment & Garden — Spring Wildcrafting: Going for the Greens (harvest young in spring with gloves; boiling removes the sting; start with small amounts of any new wild green): https://ipm.missouri.edu/MEG/2013/3/Spring-Wildcrafting-Going-for-the-Greens/",
+      "Memorial Sloan Kettering Cancer Center, About Herbs — Nettle (additive effects with diuretics and antihypertensives; animal evidence of CYP450 inhibition; case report of hypoglycaemia; adverse case reports from nettle tea): https://www.mskcc.org/cancer-care/integrative-medicine/herbs/nettle",
+      "Nitrate response to soil nitrogen: 'The effect of nitrogen form and dose on yield, chemical composition and antioxidant activity of stinging nettle (Urtica dioica L.)' — highest nitrogen dose (200 kg/ha) raised leaf nitrate content while lowering dry matter and ascorbic acid; see also 'Chemical and Biochemical Properties of Common Nettle (Urtica dioica L.) Depending on Various Nitrogen Fertilization Doses in Crop Production', Sustainability 17(14):6394 (2025): https://www.mdpi.com/2071-1050/17/14/6394"
+    ]
+  },
+  {
+    "name": "Wild garlic (field garlic)",
+    "scientific": "Allium vineale",
+    "months": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      9,
+      10,
+      11
+    ],
+    "regions": [
+      "midwest",
+      "northeast",
+      "southeast",
+      "west"
+    ],
+    "terrain": [
+      "disturbed",
+      "meadow",
+      "edge"
+    ],
+    "habitat": "Lawns, cemetery turf, pastures and hayfields, fencerows, roadside banks, orchard rows and neglected corners. A winter-growing perennial: it sprouts from the bulb in autumn and does most of its growing while turf is dormant, so it appears from late autumn onward as conspicuous dark green tufts standing proud of a brown lawn. Foliage shrugs off hard frost; in the north the blade tips may brown back at the surface in a severe freeze and lengthen again in late winter, while in the southeast it stays green straight through. It persists best where mowing is infrequent, so fencerows, bed edges and pasture margins hold bigger clumps than closely cut lawn. Introduced from Eurasia and now naturalised through the whole eastern half of the country, and again in the West: chiefly west of the Cascades crest in Washington and Oregon, south through the California lowlands, where UC IPM treats it as a weed of orchards, vineyards and disturbed ground. It thins out west of the 100th meridian and is effectively absent from the desert Southwest.",
+    "indicator": "Dark green, onion-scented tufts standing several inches above a flat, brown, dormant late-winter lawn.",
+    "parts": "The slender green leaves and the small underground bulb, plus the aerial bulbils that form in a papery-sheathed cluster atop the stalk in late spring. Use like scallions, garlic chives or garlic. The flavour is pungent and noticeably harsher and more sulfurous than cultivated garlic rather than simply stronger, so add it early, taste as you go, and expect to want less than a recipe's garlic quantity. Bulbils pickle beautifully. Treat it as a seasoning, not a vegetable: the sulfides that give it its bite can cause nausea and stomach upset if you eat large quantities raw.",
+    "caution": "expert",
+    "lookalikes": [
+      {
+        "name": "Death camas (Toxicoscordion spp.: T. venenosum in the West and Northwest, T. nuttallii in the southern Midwest and Plains, T. leimanthoides on the Atlantic coastal plain and in the southern Appalachians)",
+        "danger": "deadly",
+        "tell": "THE onion-foraging killer in North America. Crushed leaves and cut bulb have NO onion or garlic smell whatsoever, and that absence is the primary tell. Structurally: the leaves are grass-like but V-shaped or keeled in cross-section and SOLID when cut across, never round and hollow like field garlic's; the bulb is ovoid and tunicate but wrapped in a dark brown to black papery outer coat, not the tan tunic of an onion. Do NOT try to rule it out by habitat - it grows in grasslands, prairies, balds, coastal bluffs, pastures, vernally wet meadows and roadside banks, which is field garlic habitat, and the two grow intermingled. Toxins zygacine and zygadenine are sodium-channel activators: vomiting within 30-60 minutes, then bradycardia, collapsing blood pressure, seizures, death. In the case published in the American Journal of Emergency Medicine (online 2024, print January 2025), seven members of one family - five children and two adults - ate bulbs they had gathered as wild onion, Allium canadense; all seven required intensive care, two needed vasopressors, an 89-year-old developed an arrhythmia treated with amiodarone, and all survived. T. nuttallii runs from Kansas and Oklahoma through Missouri, Arkansas, Tennessee, Louisiana and Texas; T. venenosum covers the West from British Columbia to Baja California and east to the Rockies."
+      },
+      {
+        "name": "Fly poison / crow poison (Amianthium muscitoxicum)",
+        "danger": "deadly",
+        "tell": "An onion-like bulb topped by grass-like basal leaves, and again NO onion smell when crushed. The leaves are flat, strap-shaped and SOLID when cut, 15-20 inches long and up to about 3/4 inch (2 cm) wide, with a blunt rounded tip and a shallow groove - never round, hollow and slick. All parts carry alkaloid neurotoxins, most concentrated in the bulb; NC State Extension states that ingestion CAN BE FATAL. It occupies moist to dry woods, oak forest, bogs, low pinelands, savannas, sandhills AND meadows, so open ground does not exclude it. Ranges from New York and Pennsylvania south to Florida and west to Missouri and Oklahoma. Note the trap in the name: 'crow poison' is also used for the far less dangerous Nothoscordum below, so never identify anything off a folk name."
+      },
+      {
+        "name": "Star-of-Bethlehem (Ornithogalum umbellatum)",
+        "danger": "deadly",
+        "tell": "The one most likely to be growing in the same square foot of the same lawn. Leaves are FLAT and solid when cut, not round and hollow, and carry a distinct white stripe down the midline - SARE names that prominent white midvein as the separating character - and crushing them produces no smell at all. The bulb looks like a small onion. The plant is leaf-only for weeks before it flowers, so through the February-May window you get no flower to help you; the six-petalled white star flowers, green-striped on the reverse, come April into June. This is not merely a stomach upset: Cornell lists the toxic principles as convallatoxin and convalloside and Purdue as rhodexin A and rhodexoside - cardiac glycosides of the same digoxin class as foxglove, oleander and lily-of-the-valley, causing arrhythmia and, in sufficient dose, death. It reliably kills grazing livestock. NC State's toolbox rates it only 'Poison Severity: Medium' and names saponins, so sources disagree on how bad it is; a digoxin-class glycoside in a bulb that looks like an onion deserves the conservative rating."
+      },
+      {
+        "name": "Daffodil / narcissus foliage and bulbs (Narcissus spp.)",
+        "danger": "toxic",
+        "tell": "Flat, strap-like, solid, grey-green leaves emerging from the same lawns and beds from late winter, from an ovoid bulb with brown papery membranes that looks very like an onion - and no onion smell. Colorado State's guide records at least 15 phenanthridine alkaloids including lycorine in leaves, stems and bulbs, concentrated in the outer bulb layers: vomiting, salivation, cramping and diarrhoea, with low blood pressure, tremors and cardiac arrhythmias in large ingestions. This is a documented error, not a theoretical one - a 2020 case report in Acute Medicine & Surgery describes three members of a family poisoned after the father cooked curry with garden daffodil bulbs in place of onions, and cites Japanese Ministry of Health data recording 195 accidental daffodil poisonings between 2009 and 2019, one of them fatal."
+      },
+      {
+        "name": "Snowdrop and summer snowflake (Galanthus nivalis, Leucojum aestivum)",
+        "danger": "toxic",
+        "tell": "Naturalised out of old plantings into exactly the same neglected lawns, cemetery turf, orchard rows and floodplain edges, and up in the same February-March window as dense clumps of green blades from onion-like bulbs. The leaves are flat, strap-shaped and solid when cut, distinctly wider and more fleshy than field garlic's, and give no smell when crushed; the flowers, when present, are nodding white bells with green markings, never an onion's upright umbel. Bulbs and leaves contain lycorine and galantamine: vomiting, diarrhoea, cramps and, in larger ingestions, cardiac arrhythmia."
+      },
+      {
+        "name": "False garlic / crow poison (Nothoscordum bivalve)",
+        "danger": "unpalatable",
+        "tell": "The commonest reason a southeastern or midwestern forager gets to use the smell test. It mimics a small wild onion in every visible respect - membrane-coated bulb, very narrow basal leaves 6-16 inches long, six-parted white flowers with a yellow base - and USDA NRCS is blunt that it is an 'odorless' species: crushed leaf and bulb smell of nothing. One decisive positive character: it bears two bracts at the base of the inflorescence, which no Allium has. It is very common in yards, parks, roadsides and pastures, right alongside field garlic. It is not the plant that will kill you - USDA notes livestock graze it and no toxic principle is established - and it is rated here as inedible rather than poisonous for that reason. Its real danger is pedagogical: it looks so convincingly like an onion that finding it and eating it teaches you to identify Alliums by sight, which is the habit that gets people killed by death camas."
+      }
+    ],
+    "harvest": "THE RULE FOR THIS WHOLE GENUS: crush a leaf and smell it before anything goes in the basket. If there is no onion or garlic smell, it is not an Allium, no matter how much it looks like one - that single test is what separates you from death camas, fly poison, star-of-Bethlehem, daffodil and snowdrop. The test has two failure modes you must design around. First, once you have crushed one Allium your fingers reek of onion and every plant you crush afterwards will seem to smell of onion too; Germany's BfR names exactly this as the cause of false-positive identifications. Test each new plant with clean hands, or tear a fresh leaf without handling it, and if you are not certain, wash your hands and start again. Second, and worse: never grab a fistful of green blades and cut them at the base. Field garlic grows interleaved with star-of-Bethlehem in the same square foot of turf, and a mixed handful defeats the per-plant smell test completely. Pick or cut one plant at a time, and if you dig a clump of bulbs, sort and smell them individually before they go in the bag. Back the smell up with the shape: cut a leaf across near the base - field garlic is round in cross-section, hollow and slick. Every dangerous plant listed above is flat or keeled and solid. Harvest freely: it is non-native and genuinely weedy, and if you want it gone from a lawn you must dig the bulbs, since snapping the leaves only lets it regrow from the offset bulblets. Avoid herbicide-treated turf, roadside verges and dog-walking lawns, which is exactly where field garlic is most abundant. If instead you find flat, solid leaves on a plant that smells properly of onion, you likely have native wild onion, Allium canadense - also edible, but native rather than weedy, so take that one sparingly.",
+    "sources": [
+      "NC State Extension Gardener Plant Toolbox - Allium vineale (wild garlic / field garlic): https://plants.ces.ncsu.edu/plants/allium-vineale/",
+      "Penn State Extension - Wild Onion and Wild Garlic ('The leaves of garlic are smooth, round and hollow; while onion leaves are flat and not hollow'): https://extension.psu.edu/wild-onion-and-wild-garlic",
+      "Virginia Tech Weed Identification - Wild garlic, Allium vineale ('leaves are smooth, round, hollow'): https://weedid.cals.vt.edu/profile/650",
+      "Clemson Cooperative Extension HGIC - Weed of the Month: Wild Garlic (winter perennial, emerges in autumn, hollow round leaves, aerial bulbils): https://hgic.clemson.edu/weed-of-the-month-wild-garlic/",
+      "UC IPM Weed Gallery - Wild garlic, Allium vineale (California distribution; 'narrow, hollow, rounded, hairless' leaves): https://ipm.ucanr.edu/PMG/WEEDS/wild_garlic.html",
+      "SARE - Manage Weeds on Your Farm: Wild Garlic (A. canadense leaves 'flat and solid when cut'; star-of-Bethlehem's 'prominent, white midvein'; frost resistance of foliage): https://www.sare.org/publications/manage-weeds-on-your-farm/wild-garlic/",
+      "Burke Herbarium, University of Washington - Allium vineale (naturalised chiefly west of the Cascades crest; SW British Columbia to California): https://burkeherbarium.org/imagecollection/taxon.php?Taxon=Allium+vineale",
+      "NC State Extension Gardener Plant Toolbox - Ornithogalum umbellatum (linear leaves, 'often a white stripe in the middle of each leaf'; Poison Severity: Medium): https://plants.ces.ncsu.edu/plants/ornithogalum-umbellatum/",
+      "Cornell University Department of Animal Science - Plants Poisonous to Livestock: Ornithogalum umbellatum (convallatoxin, convalloside): https://poisonousplants.ansci.cornell.edu/php/plants.php?action=indiv&byname=scientific&keynum=62",
+      "Purdue University College of Agriculture - Toxic Plants: Star of Bethlehem (cardiac glycosides rhodexin A and rhodexoside): https://ag.purdue.edu/department/arge/PACs/sipac/toxic-plants/star-of-bethlehem.html",
+      "Colorado State University College of Veterinary Medicine - Guide to Poisonous Plants: Narcissus (15+ phenanthridine alkaloids incl. lycorine, highest in outer bulb layers): https://poisonousplants.cvmbs.colostate.edu/plant/116",
+      "NC State Extension Gardener Plant Toolbox - Narcissus: https://plants.ces.ncsu.edu/plants/narcissus/",
+      "Ageta et al., 'A family intoxicated by daffodil bulbs mistaken for onions', Acute Medicine & Surgery, 2020 (also cites 195 Japanese daffodil poisonings 2009-2019, one fatal): https://pmc.ncbi.nlm.nih.gov/articles/PMC7648252/",
+      "NC State Extension Gardener Plant Toolbox - Amianthium muscitoxicum (fly poison / crow poison; 'CAN BE FATAL'; habitat includes meadows and savannas; NY to FL, west to MO and OK): https://plants.ces.ncsu.edu/plants/amianthium-muscitoxicum/",
+      "Aleguas et al., 'Acute death Camas (Toxicoscordion venenosum) plant poisoning in seven family members following foraging for wild onions', American Journal of Emergency Medicine, online 2024 / print January 2025: https://pubmed.ncbi.nlm.nih.gov/39472268/",
+      "Lady Bird Johnson Wildflower Center - Zigadenus (Toxicoscordion) nuttallii, Nuttall's death camas ('a large, black-coated bulb'; AR, KS, LA, MO, OK, TN, TX): https://www.wildflower.org/plants/result.php?id_plant=zinu",
+      "Burke Herbarium, University of Washington - Toxicoscordion venenosum (grasslands, balds, prairies and openings, coast to mid elevations, both sides of the Cascades crest): https://burkeherbarium.org/imagecollection/taxon.php?Taxon=Toxicoscordion+venenosum",
+      "USDA NRCS Plant Fact Sheet - Nothoscordum bivalve, false garlic ('odorless' species; very common in yards, parks, roadsides and pastures; two bracts at the base of the inflorescence; grazed by livestock): https://plants.sc.egov.usda.gov/DocumentLibrary/factsheet/pdf/fs_nobi2.pdf",
+      "German Federal Institute for Risk Assessment (BfR) - wild garlic doppelganger poisonings and the limits of the smell test ('An inaccurate result can occur if the scent from a previously tested allium plant sticks to the hands'): https://www.eurekalert.org/news-releases/948277",
+      "NC State Extension Gardener Plant Toolbox - Leucojum aestivum (summer snowflake; lycorine and galantamine): https://plants.ces.ncsu.edu/plants/leucojum-aestivum/"
+    ]
+  }
+];

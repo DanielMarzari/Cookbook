@@ -9,6 +9,7 @@
 // This is a seasonal reference, NOT an identification key. Nothing here is
 // sufficient to eat something wild — see FORAGE_DISCLAIMER.
 import type { RegionId } from '@/data/seasonal-regional';
+import { FORAGE_SPECIES } from '@/data/foraging-species';
 
 export const FORAGE_DISCLAIMER =
   'This is a seasonal guide, not an identification key. Never eat a wild plant or mushroom identified from a screen — confirm with a field guide and, for anything with a dangerous lookalike, an experienced forager or your state extension service. When in doubt, leave it.';
@@ -81,7 +82,43 @@ export const CAUTION_LABEL: Record<Caution, string> = {
   expert: 'deadly lookalike exists',
 };
 
-export const FORAGE: ForageSpecies[] = [];
+export const FORAGE: ForageSpecies[] = FORAGE_SPECIES;
+
+/**
+ * The lead sentence of a long field, for the collapsed row.
+ *
+ * Habitat entries run to a couple of thousand characters because that detail is what
+ * lets you actually make the call in the field. All of it belongs on the page; none of
+ * it belongs in a list you're scanning, so the row gets the first sentence and the rest
+ * waits until you open the row.
+ */
+export function lead(text: string, max = 200, min = 90): string {
+  // Some entries open on a topic sentence — "The wet seam in the landscape." — which
+  // reads as a heading, not a place. Keep taking sentences until the row actually tells
+  // you where to look, then stop at the last one that still fits.
+  const sentences = text.split(/(?<=\.)\s+(?=[A-Z])/);
+  let out = '';
+  for (const s of sentences) {
+    if (out.length >= min) break;
+    out += (out ? ' ' : '') + s;
+  }
+  out = (out || text).trim();
+  if (out.length <= max) return out;
+  const cut = out.lastIndexOf(' ', max);
+  return out.slice(0, cut > 0 ? cut : max).replace(/[,;:—-]$/, '') + '…';
+}
+
+/**
+ * Just the binomial, for the row. Several entries carry a full taxonomic note — which
+ * species are wild here, which are escaped plantings, which shared common name means a
+ * different genus somewhere else — and that reads as a paragraph, not a label.
+ */
+export function shortScientific(scientific: string): string {
+  // Split only at a real sentence break — "Castanea spp." and "(Nutt.) Nees" are part of
+  // the name, not the end of it.
+  const binomial = scientific.split(/;|\s[—-]\s|(?<=\.)\s+(?=[A-Z])/)[0].trim();
+  return binomial.length > 3 && binomial.length <= 60 ? binomial : lead(scientific, 60, 0);
+}
 
 /** What's worth looking for in a region this month, riskiest-first so the warnings lead. */
 export function forageFor(region: RegionId, month: number): ForageSpecies[] {

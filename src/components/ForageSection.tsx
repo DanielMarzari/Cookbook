@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { forageByTerrain, forageFor, CAUTION_LABEL, FORAGE_DISCLAIMER, type ForageSpecies } from '@/data/foraging';
+import { forageByTerrain, forageFor, CAUTION_LABEL, FORAGE_DISCLAIMER, lead, shortScientific, type ForageSpecies } from '@/data/foraging';
 import type { RegionId } from '@/data/seasonal-regional';
 
 /**
@@ -73,7 +73,7 @@ function SpeciesRow({ species: s, open, onToggle }: { species: ForageSpecies; op
       <button onClick={onToggle} aria-expanded={open} className="w-full text-left">
         <span className="flex items-baseline justify-between gap-4">
           <span className="text-[15px] text-text">
-            {s.name} <span className="text-[12px] italic text-text-secondary ml-1">{s.scientific}</span>
+            {s.name} <span className="text-[12px] italic text-text-secondary ml-1">{shortScientific(s.scientific)}</span>
           </span>
           <span className={`text-[11px] uppercase tracking-[0.1em] whitespace-nowrap ${
             s.caution === 'expert' ? 'text-text border-b border-text' : 'text-text-secondary'
@@ -83,10 +83,12 @@ function SpeciesRow({ species: s, open, onToggle }: { species: ForageSpecies; op
         </span>
 
         {/* where to look, on the face of it — this is the part you act on */}
-        <span className="block text-[13px] leading-[1.55] text-text-secondary mt-1 max-w-[68ch]">{s.habitat}</span>
+        <span className="block text-[13px] leading-[1.55] text-text-secondary mt-1 max-w-[68ch]">
+          {open ? s.habitat : lead(s.habitat)}
+        </span>
         {s.indicator && (
           <span className="block text-[12.5px] text-text-secondary mt-1 max-w-[68ch]">
-            <span className="text-text">Right spot when:</span> {s.indicator}
+            <span className="text-text">Right spot when:</span> {open ? s.indicator : lead(s.indicator)}
           </span>
         )}
         {deadly.length > 0 && !open && (
@@ -98,6 +100,10 @@ function SpeciesRow({ species: s, open, onToggle }: { species: ForageSpecies; op
 
       {open && (
         <div className="pt-3 text-[13px] leading-[1.6] text-text-secondary space-y-3">
+          {/* the full taxonomy only once you're reading — on the row it's a label, here it's the answer to "which one is it" */}
+          {s.scientific.length > shortScientific(s.scientific).length && (
+            <p className="italic">{s.scientific}</p>
+          )}
           <p><span className="text-text">What to take.</span> {s.parts}</p>
           <p><span className="text-text">Leave enough.</span> {s.harvest}</p>
 
