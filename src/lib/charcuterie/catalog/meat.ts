@@ -16,7 +16,7 @@ export const MEATS: Item[] = [
       {
         name: "The Ruffle",
         how: "Pinch each slice at the centre and let the edges fall into loose folds. Never lay it flat — flat prosciutto looks like lunch meat.",
-        motif: "drape",
+        motif: "ruffle",
         flair: "Air is the ingredient. Aim for more air than meat.",
         effort: 2,
       },
@@ -117,6 +117,13 @@ export const MEATS: Item[] = [
     note: "Cured, not fresh. Smoked paprika does all the heavy lifting.",
     loves: ["manchego", "castelvetrano", "marcona-almond", "membrillo"],
     cuts: [
+      {
+        name: "Salami Rose",
+        how: "Drape slices over the rim of a wine glass, overlapping halfway round, four or five deep. Press a saucer on top, invert onto the board and lift the glass away — the slices fall open into petals.",
+        motif: "rose",
+        flair: "The one thing on a board people always ask about. It takes ninety seconds.",
+        effort: 2,
+      },
       {
         name: "Bias Coins",
         how: "Slice hard on the diagonal for long ovals rather than small circles — more surface, more colour.",

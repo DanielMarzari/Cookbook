@@ -14,6 +14,13 @@ export const CHEESES: Item[] = [
     loves: ["fig-jam", "baguette", "strawberry", "hot-honey", "dried-apricot"],
     cuts: [
       {
+        name: "The M",
+        how: "Cut the round into even triangles, then flip every other one so points alternate up and down. Close the row up until the edges touch and the whole thing reads as a zigzag.",
+        motif: "mwave",
+        flair: "Costs nothing beyond cutting it straight, and it's the difference between a wedge of cheese and a plated one.",
+        effort: 1,
+      },
+      {
         name: "Crown Cut",
         how: "Leave the wheel whole, slice the top rind off in a disc and lift it away like a lid. The paste slumps outward as it warms.",
         motif: "round",
@@ -44,6 +51,13 @@ export const CHEESES: Item[] = [
     note: "Brie's louder cousin — mushroomy, barnyard-adjacent, worth it.",
     loves: ["baguette", "apple", "walnut", "onion-jam"],
     cuts: [
+      {
+        name: "The M",
+        how: "Cut the round into even triangles, then flip every other one so points alternate up and down. Close the row up until the edges touch and the whole thing reads as a zigzag.",
+        motif: "mwave",
+        flair: "Costs nothing beyond cutting it straight, and it's the difference between a wedge of cheese and a plated one.",
+        effort: 1,
+      },
       {
         name: "Wedge Fan",
         how: "Cut from the centre like a pie, eight wedges, fanned in a quarter-circle.",
@@ -228,6 +242,13 @@ export const CHEESES: Item[] = [
     loves: ["membrillo", "marcona-almond", "chorizo", "castelvetrano"],
     cuts: [
       {
+        name: "The M",
+        how: "Cut the round into even triangles, then flip every other one so points alternate up and down. Close the row up until the edges touch and the whole thing reads as a zigzag.",
+        motif: "mwave",
+        flair: "Costs nothing beyond cutting it straight, and it's the difference between a wedge of cheese and a plated one.",
+        effort: 1,
+      },
+      {
         name: "Classic Triangles",
         how: "Cut the wedge into thin triangles, rind on, and shingle them so the dark rind stripes repeat down the row.",
         motif: "shingle",
@@ -252,6 +273,13 @@ export const CHEESES: Item[] = [
     note: "Butterscotch and crunchy tyrosine crystals. Genuinely candy-like.",
     loves: ["dark-chocolate", "dried-apricot", "mustard", "walnut", "date"],
     cuts: [
+      {
+        name: "The M",
+        how: "Cut the round into even triangles, then flip every other one so points alternate up and down. Close the row up until the edges touch and the whole thing reads as a zigzag.",
+        motif: "mwave",
+        flair: "Costs nothing beyond cutting it straight, and it's the difference between a wedge of cheese and a plated one.",
+        effort: 1,
+      },
       {
         name: "Rustic Shards",
         how: "Drive a short cheese pick in at an angle and lever chunks off. Never slice a gouda this old — you want the fracture.",
@@ -314,6 +342,13 @@ export const CHEESES: Item[] = [
     loves: ["apple", "onion-jam", "walnut", "oat-cake"],
     cuts: [
       {
+        name: "The M",
+        how: "Cut the round into even triangles, then flip every other one so points alternate up and down. Close the row up until the edges touch and the whole thing reads as a zigzag.",
+        motif: "mwave",
+        flair: "Costs nothing beyond cutting it straight, and it's the difference between a wedge of cheese and a plated one.",
+        effort: 1,
+      },
+      {
         name: "Craggy Chunks",
         how: "Break along the natural crumble lines. Leave the cloth rind on one face for contrast.",
         motif: "crumble",
@@ -351,6 +386,13 @@ export const CHEESES: Item[] = [
     loves: ["walnut", "apple", "cornichon", "pear", "grissini"],
     cuts: [
       {
+        name: "The M",
+        how: "Cut the round into even triangles, then flip every other one so points alternate up and down. Close the row up until the edges touch and the whole thing reads as a zigzag.",
+        motif: "mwave",
+        flair: "Costs nothing beyond cutting it straight, and it's the difference between a wedge of cheese and a plated one.",
+        effort: 1,
+      },
+      {
         name: "Thick Triangles",
         how: "Cut generous triangles — thin slices lose the crystalline crunch that makes a good Comté.",
         motif: "wedge",
@@ -387,6 +429,13 @@ export const CHEESES: Item[] = [
     note: "Sheep's milk, sharper and saltier than Parm, with a black rind.",
     loves: ["honeycomb", "pear", "olive-oil"],
     cuts: [
+      {
+        name: "The M",
+        how: "Cut the round into even triangles, then flip every other one so points alternate up and down. Close the row up until the edges touch and the whole thing reads as a zigzag.",
+        motif: "mwave",
+        flair: "Costs nothing beyond cutting it straight, and it's the difference between a wedge of cheese and a plated one.",
+        effort: 1,
+      },
       {
         name: "Rind-Striped Wedges",
         how: "Cut thin wedges keeping the black rind on every piece, then fan them so the dark edge repeats.",

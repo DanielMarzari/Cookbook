@@ -2,8 +2,22 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getAuthSecret, verifySession } from '@/lib/auth';
 
+/**
+ * Skip the password on a local dev server.
+ *
+ * Deliberately gated on NODE_ENV rather than an env flag, so there is no switch
+ * that could be left on in production by accident. `next build` produces a
+ * production bundle, which is what the server runs, so the deployed site always
+ * asks for the password no matter what is set in the environment.
+ */
+const DEV_OPEN = process.env.NODE_ENV === 'development';
+
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  if (DEV_OPEN) {
+    return NextResponse.next();
+  }
 
   // Allow login page and auth API
   if (pathname.startsWith('/login') || pathname.startsWith('/api/auth')) {

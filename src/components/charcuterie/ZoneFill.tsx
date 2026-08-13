@@ -695,6 +695,120 @@ function halved({ rng, box, palette, key }: Args): ReactNode {
   return out;
 }
 
+/** A ring of thin slices stood on edge, each overlapping the last — the move
+ *  that turns four apple slices into something people photograph. Petals lean
+ *  outward so the ring reads as a bloom rather than a coaster. */
+function flower({ rng, box, palette, key }: Args): ReactNode {
+  const [x, y, w, h] = box;
+  const cx = x + w / 2;
+  const cy = y + h / 2;
+  const rad = Math.min(w, h) * 0.34;
+  const n = clamp(Math.round(rad / 5), 9, 18);
+  const out: ReactNode[] = [];
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * Math.PI * 2;
+    const px = cx + Math.cos(a) * rad;
+    const py = cy + Math.sin(a) * rad * 0.72;
+    const pw = Math.max(7, rad * 0.5);
+    const ph = Math.max(11, rad * 0.82);
+    const deg = (a * 180) / Math.PI + 90 + (rng() - 0.5) * 7;
+    out.push(
+      <g key={`${key}-fl${i}`} transform={`rotate(${r2(deg)} ${r2(px)} ${r2(py)})`}>
+        <ellipse
+          cx={r2(px)}
+          cy={r2(py)}
+          rx={r2(pw / 2)}
+          ry={r2(ph / 2)}
+          fill={i % 2 === 0 ? palette[0] : palette[1]}
+          stroke={shade(palette[0], -0.26)}
+          strokeWidth={0.9}
+        />
+        {/* The pale interior line that says this is a cut face. */}
+        <ellipse cx={r2(px)} cy={r2(py)} rx={r2(pw * 0.22)} ry={r2(ph * 0.3)} fill={palette[2]} opacity={0.5} />
+      </g>,
+    );
+  }
+  // A tight bud in the middle so the centre isn't a hole.
+  out.push(
+    <circle key={`${key}-flc`} cx={r2(cx)} cy={r2(cy)} r={r2(rad * 0.3)} fill={palette[1]} stroke={shade(palette[1], -0.3)} strokeWidth={0.9} />,
+  );
+  return out;
+}
+
+/** Wedges alternating point-up and point-down. Cut a round of cheese into
+ *  triangles, flip every other one, and the row zigzags into an M. */
+function mwave({ rng, box, palette, key }: Args): ReactNode {
+  const [x, y, w, h] = box;
+  const n = clamp(Math.round(w / 26), 4, 10);
+  const bw = w / n;
+  const out: ReactNode[] = [];
+  for (let i = 0; i < n; i++) {
+    const up = i % 2 === 0;
+    const bx = x + i * bw;
+    const top = y + h * 0.16;
+    const bottom = y + h * 0.86;
+    const fill = up ? palette[0] : palette[1];
+    const pts: [number, number][] = up
+      ? [[bx + bw * 0.5, top], [bx + bw * 0.98, bottom], [bx + bw * 0.02, bottom]]
+      : [[bx + bw * 0.02, top], [bx + bw * 0.98, top], [bx + bw * 0.5, bottom]];
+    out.push(
+      <g key={`${key}-mw${i}`} transform={`rotate(${r2((rng() - 0.5) * 4)} ${r2(bx + bw / 2)} ${r2((top + bottom) / 2)})`}>
+        <polygon points={polygon(pts)} fill={fill} stroke={shade(fill, -0.26)} strokeWidth={1} strokeLinejoin="round" />
+        {/* Rind along whichever edge is the outside of the round. */}
+        <line
+          x1={r2(bx + bw * 0.02)}
+          y1={r2(up ? bottom : top)}
+          x2={r2(bx + bw * 0.98)}
+          y2={r2(up ? bottom : top)}
+          stroke={palette[2]}
+          strokeWidth={r2(Math.max(1.8, h * 0.04))}
+          strokeLinecap="round"
+        />
+      </g>,
+    );
+  }
+  return out;
+}
+
+/** Ribbons pinched into standing folds. More air than meat is the whole trick —
+ *  a flat slice reads as deli packaging, a folded one reads as a plate. */
+function ruffle({ rng, box, palette, key }: Args): ReactNode {
+  const [x, y, w, h] = box;
+  const n = clamp(Math.round(w / 30), 3, 8);
+  const step = w / n;
+  const out: ReactNode[] = [];
+  for (let i = 0; i < n; i++) {
+    const bx = x + step * (i + 0.5);
+    const by = y + h * (0.45 + (rng() - 0.5) * 0.2);
+    const rw = step * 0.92;
+    const rh = h * (0.5 + rng() * 0.22);
+    const lean = (rng() - 0.5) * 16;
+    const fill = i % 2 === 0 ? palette[0] : palette[1];
+    // Two arcs meeting at a pinched base: the silhouette of a folded slice.
+    const d = [
+      `M ${r2(bx - rw / 2)} ${r2(by + rh / 2)}`,
+      `C ${r2(bx - rw * 0.58)} ${r2(by - rh * 0.42)} ${r2(bx - rw * 0.1)} ${r2(by - rh / 2)} ${r2(bx)} ${r2(by - rh * 0.28)}`,
+      `C ${r2(bx + rw * 0.12)} ${r2(by - rh / 2)} ${r2(bx + rw * 0.6)} ${r2(by - rh * 0.4)} ${r2(bx + rw / 2)} ${r2(by + rh / 2)}`,
+      'Z',
+    ].join(' ');
+    out.push(
+      <g key={`${key}-rf${i}`} transform={`rotate(${r2(lean)} ${r2(bx)} ${r2(by)})`}>
+        <path d={d} fill={fill} stroke={shade(fill, -0.28)} strokeWidth={1} strokeLinejoin="round" />
+        <path
+          d={`M ${r2(bx)} ${r2(by - rh * 0.26)} L ${r2(bx)} ${r2(by + rh * 0.44)}`}
+          stroke={shade(fill, -0.18)}
+          strokeWidth={0.9}
+          fill="none"
+          opacity={0.8}
+        />
+        {/* Fat marbling, the reason cured meat photographs well. */}
+        <ellipse cx={r2(bx - rw * 0.14)} cy={r2(by)} rx={r2(rw * 0.08)} ry={r2(rh * 0.1)} fill={palette[2]} opacity={0.55} />
+      </g>,
+    );
+  }
+  return out;
+}
+
 const MOTIFS: Record<Motif, (a: Args) => ReactNode> = {
   cluster,
   scatter,
@@ -711,6 +825,9 @@ const MOTIFS: Record<Motif, (a: Args) => ReactNode> = {
   round,
   batons,
   halved,
+  flower,
+  mwave,
+  ruffle,
 };
 
 // ─── The component ───────────────────────────────────────────────────────────

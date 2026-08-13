@@ -15,6 +15,13 @@ export const PRODUCE: Item[] = [
     loves: ["burrata", "prosciutto", "chevre", "gorgonzola-dolce", "basil", "honeycomb", "ricotta"],
     cuts: [
       {
+        name: "Fruit Flower",
+        how: "Slice as thin as you can hold, then stand the slices on edge in a ring, each overlapping the last by half. Curl the final few tightly and set them in the middle as the bud.",
+        motif: "flower",
+        flair: "Works on anything that slices into a crescent — the thinner the slice, the more it looks like a bloom.",
+        effort: 3,
+      },
+      {
         name: "Fanned Half-Moons",
         how: "Halve, stone, then slice each half into thin crescents. Keep the slices together and press gently sideways so they fan out like a deck.",
         motif: "fan",
@@ -65,6 +72,13 @@ export const PRODUCE: Item[] = [
     note: "Split one open and the interior does all the work for you.",
     loves: ["prosciutto", "gorgonzola-dolce", "honeycomb", "chevre", "walnut", "burrata"],
     cuts: [
+      {
+        name: "Fruit Flower",
+        how: "Slice as thin as you can hold, then stand the slices on edge in a ring, each overlapping the last by half. Curl the final few tightly and set them in the middle as the bud.",
+        motif: "flower",
+        flair: "Works on anything that slices into a crescent — the thinner the slice, the more it looks like a bloom.",
+        effort: 3,
+      },
       {
         name: "Quartered Blossom",
         how: "Stand the fig up and cut down twice, not quite through the base, then press the quarters open like petals.",
@@ -157,6 +171,13 @@ export const PRODUCE: Item[] = [
     loves: ["brie", "chevre", "dark-chocolate", "basil", "honeycomb"],
     cuts: [
       {
+        name: "Fruit Flower",
+        how: "Slice as thin as you can hold, then stand the slices on edge in a ring, each overlapping the last by half. Curl the final few tightly and set them in the middle as the bud.",
+        motif: "flower",
+        flair: "Works on anything that slices into a crescent — the thinner the slice, the more it looks like a bloom.",
+        effort: 3,
+      },
+      {
         name: "Halved, Leaves On",
         how: "Halve lengthways straight through the green top. The leaf half-moon is free decoration.",
         motif: "halved",
@@ -239,6 +260,13 @@ export const PRODUCE: Item[] = [
     loves: ["cheddar", "gruyere", "comte", "mustard", "walnut", "smoked-gouda"],
     cuts: [
       {
+        name: "Fruit Flower",
+        how: "Slice as thin as you can hold, then stand the slices on edge in a ring, each overlapping the last by half. Curl the final few tightly and set them in the middle as the bud.",
+        motif: "flower",
+        flair: "Works on anything that slices into a crescent — the thinner the slice, the more it looks like a bloom.",
+        effort: 3,
+      },
+      {
         name: "Skin-On Fan",
         how: "Quarter, core, then slice thin with the skin on and fan the slices so the red edges stripe the fan.",
         motif: "fan",
@@ -265,6 +293,13 @@ export const PRODUCE: Item[] = [
     loves: ["gorgonzola-dolce", "roquefort", "stilton", "taleggio", "walnut", "honeycomb", "comte"],
     cuts: [
       {
+        name: "Fruit Flower",
+        how: "Slice as thin as you can hold, then stand the slices on edge in a ring, each overlapping the last by half. Curl the final few tightly and set them in the middle as the bud.",
+        motif: "flower",
+        flair: "Works on anything that slices into a crescent — the thinner the slice, the more it looks like a bloom.",
+        effort: 3,
+      },
+      {
         name: "Long Fan",
         how: "Halve, core with a melon baller for a clean crescent, then slice lengthways and fan into a long teardrop.",
         motif: "fan",
@@ -283,6 +318,13 @@ export const PRODUCE: Item[] = [
     note: "Fuyu, eaten firm like an apple. Late autumn's best colour.",
     loves: ["chevre", "prosciutto", "walnut", "honeycomb"],
     cuts: [
+      {
+        name: "Fruit Flower",
+        how: "Slice as thin as you can hold, then stand the slices on edge in a ring, each overlapping the last by half. Curl the final few tightly and set them in the middle as the bud.",
+        motif: "flower",
+        flair: "Works on anything that slices into a crescent — the thinner the slice, the more it looks like a bloom.",
+        effort: 3,
+      },
       {
         name: "Crosswise Coins",
         how: "Slice across the fruit, not down — you get a faint star pattern in the middle of every coin.",
@@ -412,6 +454,13 @@ export const PRODUCE: Item[] = [
     note: "Deep purple skin, amber flesh — the best two-tone slice you can cut.",
     loves: ["gorgonzola-dolce", "prosciutto", "chevre", "honeycomb"],
     cuts: [
+      {
+        name: "Fruit Flower",
+        how: "Slice as thin as you can hold, then stand the slices on edge in a ring, each overlapping the last by half. Curl the final few tightly and set them in the middle as the bud.",
+        motif: "flower",
+        flair: "Works on anything that slices into a crescent — the thinner the slice, the more it looks like a bloom.",
+        effort: 3,
+      },
       {
         name: "Two-Tone Wedges",
         how: "Cut thin wedges so every one carries a band of dark skin against the pale flesh, then fan.",

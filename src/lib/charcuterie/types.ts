@@ -84,7 +84,13 @@ export type Motif =
   | "stack"
   | "round"
   | "batons"
-  | "halved";
+  | "halved"
+  /** Thin slices stood on edge in a ring — the fruit "flower". */
+  | "flower"
+  /** Triangles alternating point-up and point-down, so the row reads as an M. */
+  | "mwave"
+  /** Ribbons pinched into standing folds — the ruffle a good meat plate has. */
+  | "ruffle";
 
 /** A way of cutting/styling an item. This is the "make it look good" payload —
  *  a cut may override the item's default motif so the board actually shows the

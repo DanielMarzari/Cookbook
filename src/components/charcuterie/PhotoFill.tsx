@@ -110,6 +110,57 @@ function placements(motif: Motif, rng: () => number, box: [number, number, numbe
       return out;
     }
 
+    // A ring of slices stood on edge, each leaning outward — the fruit flower.
+    case 'flower': {
+      const rad = Math.min(w, h) * 0.33;
+      const n = Math.max(9, Math.min(16, Math.round(rad / 6)));
+      for (let i = 0; i < n; i++) {
+        const a = (i / n) * Math.PI * 2;
+        out.push({
+          x: cx + Math.cos(a) * rad,
+          y: cy + Math.sin(a) * rad * 0.72,
+          size: rad * 0.95,
+          rot: (a * 180) / Math.PI + 90 + jitter(6),
+          z: i,
+        });
+      }
+      // The bud that keeps the middle from reading as a hole.
+      out.push({ x: cx, y: cy, size: rad * 0.8, rot: jitter(20), z: n });
+      return out;
+    }
+
+    // Triangles alternating up and down: the row zigzags into an M.
+    case 'mwave': {
+      const n = Math.max(4, Math.min(10, Math.round(w / 26)));
+      const step = w / n;
+      for (let i = 0; i < n; i++) {
+        out.push({
+          x: x + step * (i + 0.5),
+          y: cy + (i % 2 ? h * 0.07 : -h * 0.07),
+          size: Math.min(step * 1.7, h * 0.92),
+          rot: (i % 2 ? 180 : 0) + jitter(5),
+          z: i,
+        });
+      }
+      return out;
+    }
+
+    // Folded ribbons standing up, leaning at slightly different angles.
+    case 'ruffle': {
+      const n = Math.max(3, Math.min(8, Math.round(w / 30)));
+      const step = w / n;
+      for (let i = 0; i < n; i++) {
+        out.push({
+          x: x + step * (i + 0.5),
+          y: cy + jitter(h * 0.18),
+          size: Math.min(step * 1.9, h * 0.98),
+          rot: jitter(26),
+          z: i,
+        });
+      }
+      return out;
+    }
+
     // Loose heaps — nuts, olives, berries, anything spooned into a gap.
     case 'cluster':
     case 'scatter':

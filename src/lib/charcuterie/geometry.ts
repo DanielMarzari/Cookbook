@@ -311,3 +311,78 @@ export function spokes(n: number, from = 0): number[] {
   for (let i = 0; i <= n; i++) out.push(from + (360 * i) / n);
   return out;
 }
+
+/**
+ * A band cut across the board on a slant.
+ *
+ * Everything laid out on the horizontal reads as a shelf. A diagonal makes the
+ * eye travel the long way across the board, which is why food stylists reach for
+ * it — the same ingredients in the same quantities look like more.
+ */
+export function diagonalBand(
+  cx: number,
+  cy: number,
+  length: number,
+  width: number,
+  deg: number,
+  seed = "diag",
+): Shape {
+  const rnd = rngFor(seed);
+  const a = (deg * Math.PI) / 180;
+  const dx = Math.cos(a);
+  const dy = Math.sin(a);
+  const spine: Point[] = [];
+  const n = 7;
+  for (let i = 0; i < n; i++) {
+    const t = i / (n - 1) - 0.5;
+    // A little wander, so it reads as laid by hand rather than ruled.
+    const off = (rnd() - 0.5) * width * 0.16;
+    spine.push([cx + dx * length * t - dy * off, cy + dy * length * t + dx * off]);
+  }
+  return ribbon(spine, (t) => width * (0.82 + Math.sin(t * Math.PI) * 0.3));
+}
+
+/**
+ * A crescent following an arc — the sweep that hugs a round board's edge or
+ * curves around a bowl sitting in the middle.
+ */
+export function arcBand(
+  cx: number,
+  cy: number,
+  radius: number,
+  fromDeg: number,
+  toDeg: number,
+  width: number | ((t: number) => number),
+): Shape {
+  const spine: Point[] = [];
+  const n = 14;
+  for (let i = 0; i < n; i++) {
+    const t = i / (n - 1);
+    const deg = fromDeg + (toDeg - fromDeg) * t;
+    spine.push(polar(cx, cy, radius, deg));
+  }
+  return ribbon(spine, width);
+}
+
+/**
+ * A river that meanders instead of running straight.
+ *
+ * The straight cracker river is the most common thing on a built board and the
+ * most obviously assembled. A serpentine one reads as something that was poured.
+ */
+export function serpentine(
+  x: number,
+  y: number,
+  w: number,
+  h: number,
+  width: number,
+  waves = 1.6,
+): Shape {
+  const spine: Point[] = [];
+  const n = 22;
+  for (let i = 0; i < n; i++) {
+    const t = i / (n - 1);
+    spine.push([x + w * t, y + h / 2 + Math.sin(t * Math.PI * waves * 2) * (h * 0.3)]);
+  }
+  return ribbon(spine, (t) => width * (0.78 + Math.sin(t * Math.PI) * 0.34));
+}
