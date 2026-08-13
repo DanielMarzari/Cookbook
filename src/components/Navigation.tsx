@@ -2,6 +2,7 @@
 
 import {
   BookOpen,
+  Grape,
   Plus,
   ChefHat,
   Leaf,
@@ -22,6 +23,7 @@ const navItems = [
   { icon: CalendarDays, label: 'Planner', href: '/planner' },
   { icon: Sparkles, label: 'Flavor Lab', href: '/flavor' },
   { icon: Sprout, label: 'Seasonal', href: '/seasonal' },
+  { icon: Grape, label: 'Charcuterie', href: '/charcuterie' },
   { icon: ChefHat, label: 'Techniques', href: '/techniques' },
   { icon: Leaf, label: 'Ingredients', href: '/ingredients' },
   { icon: ShoppingCart, label: 'Grocery', href: '/grocery' },

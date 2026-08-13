@@ -1,6 +1,7 @@
 import Database from 'better-sqlite3';
 import path from 'path';
 import { SCHEMA_SQL } from './schema';
+import { CHARCUTERIE_SCHEMA_SQL } from './charcuterie/schema';
 import { purgeExpiredArchives } from './archive';
 
 const DB_PATH = process.env.DATABASE_PATH || path.join(process.cwd(), 'cookbook.db');
@@ -129,6 +130,8 @@ export function getDb(): Database.Database {
     db.pragma('foreign_keys = ON');
     // Idempotent: creates tables/indexes on a fresh DB, no-ops on an existing one.
     db.exec(SCHEMA_SQL);
+    // Charcuterie section — kept in its own file so it drops in as a unit.
+    db.exec(CHARCUTERIE_SCHEMA_SQL);
     // Add columns introduced after a table already existed. CREATE TABLE
     // IF NOT EXISTS won't alter an existing table, so migrate explicitly.
     ensureColumn(db, 'recipes', 'image_position', 'TEXT');

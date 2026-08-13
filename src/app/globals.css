@@ -124,3 +124,19 @@ textarea:focus-visible {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Charcuterie — marching-ants outline when you hover a board section, and a
+   slow pulse marking empty sections as clickable. */
+@keyframes charc-march {
+  to { stroke-dashoffset: -34; }
+}
+@keyframes charc-breathe {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 0.85; }
+}
+.charc-march { animation: charc-march 1.1s linear infinite; }
+.charc-breathe { animation: charc-breathe 3.6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .charc-march, .charc-breathe { animation: none; }
+}
