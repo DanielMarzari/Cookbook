@@ -37,7 +37,7 @@ export default function PhotoDesk({ rows }: { rows: PhotoRow[] }) {
   // Bumped per item to bust the browser cache after a replacement.
   const [rev, setRev] = useState<Record<string, number>>({});
   // Processed but not stored: what you're deciding about.
-  const [candidate, setCandidate] = useState<Record<string, { src: string; note: string; body: FormData }>>({});
+  const [candidate, setCandidate] = useState<Record<string, { src: string; note: string }>>({});
   const [filter, setFilter] = useState<'todo' | 'all'>('todo');
 
   useEffect(() => {
@@ -52,50 +52,40 @@ export default function PhotoDesk({ rows }: { rows: PhotoRow[] }) {
     return list;
   }, [rows, filter, custom]);
 
-  /** Process without storing, so the picture can be seen on the board first. */
+  /**
+   * Save straight away.
+   *
+   * This used to process without storing and wait for a second click to commit,
+   * which quietly threw away any picture where you moved on after the first
+   * one. The two-step existed to protect you from a destructive background
+   * remover that no longer exists — the file is now stored as supplied, so
+   * there is nothing to approve. What you get instead is the saved picture shown
+   * on a board straight after, and a remove button if it is wrong.
+   */
   async function send(id: string, body: FormData) {
     setStatus((s) => ({ ...s, [id]: { kind: 'busy' } }));
     try {
-      const probe = new FormData();
-      for (const [k, v] of body.entries()) probe.append(k, v);
-      probe.set('preview', '1');
-      const res = await fetch('/api/charcuterie/photos', { method: 'POST', body: probe });
-      const data = await res.json();
+      const res = await fetch('/api/charcuterie/photos', { method: 'POST', body });
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setStatus((s) => ({ ...s, [id]: { kind: 'err', note: data.error ?? 'failed' } }));
+        setStatus((s) => ({ ...s, [id]: { kind: 'err', note: data.error ?? `save failed (${res.status})` } }));
         return;
       }
-      setCandidate((c) => ({ ...c, [id]: { src: data.dataUrl, note: data.note, body } }));
-      setStatus((s) => ({ ...s, [id]: { kind: 'idle' } }));
-    } catch (e) {
-      setStatus((s) => ({ ...s, [id]: { kind: 'err', note: (e as Error).message } }));
-    }
-  }
-
-  /** Commit the candidate — the same image, stored this time. */
-  async function keep(id: string) {
-    const c = candidate[id];
-    if (!c) return;
-    setStatus((s) => ({ ...s, [id]: { kind: 'busy' } }));
-    try {
-      const res = await fetch('/api/charcuterie/photos', { method: 'POST', body: c.body });
-      const data = await res.json();
-      if (!res.ok) {
-        setStatus((s) => ({ ...s, [id]: { kind: 'err', note: data.error ?? 'failed' } }));
-        return;
-      }
-      setCustom((x) => new Set(x).add(id));
-      setRev((r) => ({ ...r, [id]: (r[id] ?? 0) + 1 }));
-      setCandidate(({ [id]: _drop, ...rest }) => rest);
+      const next = (rev[id] ?? 0) + 1;
+      setCustom((c) => new Set(c).add(id));
+      setRev((r) => ({ ...r, [id]: next }));
+      // Show what actually landed, read back from the server rather than from
+      // the upload — if it renders here, it is really saved.
+      setCandidate((c) => ({ ...c, [id]: { src: `/api/charcuterie/photo/${id}?v=${next}`, note: data.note ?? 'saved' } }));
       setStatus((s) => ({ ...s, [id]: { kind: 'ok', note: 'on the board' } }));
     } catch (e) {
       setStatus((s) => ({ ...s, [id]: { kind: 'err', note: (e as Error).message } }));
     }
   }
 
-  function discard(id: string) {
+  /** Close the after-the-fact preview; the picture stays saved. */
+  function dismiss(id: string) {
     setCandidate(({ [id]: _drop, ...rest }) => rest);
-    setStatus((s) => ({ ...s, [id]: { kind: 'idle' } }));
   }
 
   async function drop(id: string) {
@@ -106,6 +96,7 @@ export default function PhotoDesk({ rows }: { rows: PhotoRow[] }) {
       return n;
     });
     setRev((r) => ({ ...r, [id]: (r[id] ?? 0) + 1 }));
+    setCandidate(({ [id]: _drop, ...rest }) => rest);
     setStatus((s) => ({ ...s, [id]: { kind: 'idle' } }));
   }
 
@@ -139,8 +130,7 @@ export default function PhotoDesk({ rows }: { rows: PhotoRow[] }) {
             candidate={candidate[r.id]}
             onSend={send}
             onDrop={drop}
-            onKeep={keep}
-            onDiscard={discard}
+            onDismiss={dismiss}
           />
         ))}
       </div>
@@ -162,8 +152,7 @@ function Row({
   candidate,
   onSend,
   onDrop,
-  onKeep,
-  onDiscard,
+  onDismiss,
 }: {
   row: PhotoRow;
   hasCustom: boolean;
@@ -172,8 +161,7 @@ function Row({
   candidate?: { src: string; note: string };
   onSend: (id: string, body: FormData) => void;
   onDrop: (id: string) => void;
-  onKeep: (id: string) => void;
-  onDiscard: (id: string) => void;
+  onDismiss: (id: string) => void;
 }) {
   const [url, setUrl] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
@@ -225,7 +213,7 @@ function Row({
           <input
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="Paste an image URL…"
+            placeholder="Paste an image URL and press Save…"
             className="min-w-0 flex-1 px-2 py-1 border border-border focus:outline-none focus:border-text text-[12.5px]"
           />
           <button
@@ -233,7 +221,7 @@ function Row({
             disabled={busy || !url.trim()}
             className="px-2.5 py-1 border border-text text-[12px] hover:bg-text hover:text-white transition-colors disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-text"
           >
-            Use
+            {busy ? 'Saving…' : 'Save'}
           </button>
         </form>
 
@@ -278,9 +266,8 @@ function Row({
             motif={r.motif}
             src={candidate.src}
             note={candidate.note}
-            saving={busy}
-            onKeep={() => onKeep(r.id)}
-            onDiscard={() => onDiscard(r.id)}
+            onDismiss={() => onDismiss(r.id)}
+            onRemove={() => onDrop(r.id)}
           />
         )}
 

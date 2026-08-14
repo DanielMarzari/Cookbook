@@ -5,33 +5,31 @@ import { rngFor } from '@/lib/charcuterie/geometry';
 import type { Motif } from '@/lib/charcuterie/types';
 
 /**
- * A candidate photo, arranged the way the board would actually arrange it.
+ * The picture you just saved, on the board.
  *
- * A 92px swatch tells you the cutout is clean. It does not tell you that
- * fourteen copies of it spiralled into a rose look like a pile of coasters, and
- * that only shows up once the motif has had its way with the picture. So this is
- * the real PhotoFill on the real board surface, at the size a zone occupies.
+ * It appears after the save rather than before it, because a picture that is not
+ * on disk yet is a picture you can lose by clicking somewhere else. This is the
+ * real frame on real board surface at the size a zone occupies, read back from
+ * the server — so if it renders here, it is genuinely saved.
  */
 export default function PhotoTryOut({
   itemId,
   motif,
   src,
   note,
-  onKeep,
-  onDiscard,
-  saving,
+  onDismiss,
+  onRemove,
 }: {
   itemId: string;
   motif: Motif;
   src: string;
   note: string;
-  onKeep: () => void;
-  onDiscard: () => void;
-  saving: boolean;
+  onDismiss: () => void;
+  onRemove: () => void;
 }) {
   const w = 300;
   const h = 190;
-  // Same seed the board would use, so what you approve is what you get.
+  // Same seed the board uses, so this is the board, not an impression of it.
   const rng = rngFor(`try:${itemId}:${motif}`);
 
   return (
@@ -59,15 +57,14 @@ export default function PhotoTryOut({
       <div className="flex items-center justify-between gap-3 pt-2">
         <span className="text-[11.5px] text-text-secondary leading-[1.4]">{note}</span>
         <span className="flex items-center gap-3 shrink-0">
-          <button onClick={onDiscard} className="tlink text-[12px] text-text-secondary hover:text-text">
-            discard
+          <button onClick={onRemove} className="tlink text-[12px] text-text-secondary hover:text-text">
+            remove
           </button>
           <button
-            onClick={onKeep}
-            disabled={saving}
-            className="px-3 py-1 border border-text text-[12px] hover:bg-text hover:text-white transition-colors disabled:opacity-40"
+            onClick={onDismiss}
+            className="px-3 py-1 border border-text text-[12px] hover:bg-text hover:text-white transition-colors"
           >
-            {saving ? 'saving…' : 'Keep it'}
+            Done
           </button>
         </span>
       </div>

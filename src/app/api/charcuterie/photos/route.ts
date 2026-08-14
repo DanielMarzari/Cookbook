@@ -34,11 +34,37 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'url must be http(s)' }, { status: 400 });
     }
     try {
-      const res = await fetch(url, { headers: { 'User-Agent': 'Cookbook/1.0' } });
-      if (!res.ok) return NextResponse.json({ error: `source returned ${res.status}` }, { status: 400 });
+      // Wikimedia and most CDNs reject a bare tool User-Agent, which is the
+      // commonest reason a perfectly good URL "doesn't save". Ask the way a
+      // browser would.
+      const res = await fetch(url, {
+        headers: {
+          'User-Agent':
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+          Accept: 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
+          'Accept-Language': 'en-US,en;q=0.9',
+        },
+        redirect: 'follow',
+      });
+      if (!res.ok) {
+        return NextResponse.json(
+          {
+            error:
+              res.status === 403 || res.status === 400
+                ? `that host refused the download (${res.status}) — save the image and use "upload a file" instead`
+                : `source returned ${res.status}`,
+          },
+          { status: 400 },
+        );
+      }
       const type = res.headers.get('content-type') ?? '';
       if (!type.startsWith('image/')) {
-        return NextResponse.json({ error: `that URL is ${type || 'not an image'}` }, { status: 400 });
+        return NextResponse.json(
+          {
+            error: `that link is a ${type || 'page'}, not an image file — open the picture itself and copy its address, or upload the file`,
+          },
+          { status: 400 },
+        );
       }
       buf = Buffer.from(await res.arrayBuffer());
     } catch (e) {
