@@ -1,0 +1,42 @@
+{
+ "name": "Spicebush",
+ "scientific": "Lindera benzoin",
+ "months": [
+  7,
+  8,
+  9
+ ],
+ "regions": [
+  "northeast",
+  "southeast",
+  "midwest"
+ ],
+ "habitat": "Understory shrub of moist, rich deciduous woods across the eastern US \u2014 bottomlands, stream banks, wooded swamps and pond shores, occasionally on drier uplands.",
+ "parts": "Ripe scarlet, football-shaped berries (female plants only), dried and ground into an allspice-meets-citrus-pepper spice. Twigs and leaves make a warm tea and can be cut year-round. The flavor is strong \u2014 use a light hand.",
+ "caution": "care",
+ "lookalikes": [
+  {
+   "name": "Asian bush honeysuckle (Lonicera maackii, L. morrowii, L. tatarica)",
+   "danger": "toxic",
+   "tell": "Honeysuckle leaves and berries are OPPOSITE and paired; the translucent red berries sit in twos with a dark dimple at the base, the older stems are hollow, and nothing about the plant smells of spice. Spicebush leaves and berries are alternate, and a scratched twig smells intensely of cloves, anise and citrus. Honeysuckle berries contain saponins and cause abdominal pain, vomiting and diarrhea."
+  },
+  {
+   "name": "Winterberry holly (Ilex verticillata)",
+   "danger": "toxic",
+   "tell": "Winterberry leaves have clearly toothed margins and no aroma at all when crushed, and its round red berries cling to bare branches deep into winter. Spicebush leaves are entire (untoothed) and powerfully aromatic, and its oval berries are stripped by birds by late October. Winterberry fruit causes nausea, vomiting and diarrhea."
+  },
+  {
+   "name": "Carolina and common buckthorn (Frangula caroliniana, Rhamnus cathartica)",
+   "danger": "toxic",
+   "tell": "Buckthorn leaves have strongly arcuate veins that sweep forward toward the leaf tip and are odorless when crushed; the fruit ripens through red to black and acts as a violent laxative. Spicebush veins are not conspicuously curved and the crushed leaf is unmistakably spicy-citrus."
+  }
+ ],
+ "harvest": "Scratch a twig and smell it before you pick anything \u2014 that is the whole test, and no lookalike passes it. Only female shrubs fruit and birds strip them within days of ripening, so take a modest handful and move on. Cut twigs sparingly across several shrubs rather than stripping one; spicebush is the host plant for the spicebush swallowtail.",
+ "sources": [
+  "University of Tennessee Extension, TN Yards & Neighborhoods: Lindera benzoin \u2014 https://tnyards.utk.edu/lindera-benzoin",
+  "Lady Bird Johnson Wildflower Center, Lindera benzoin (northern spicebush) \u2014 https://www.wildflower.org/plants/result.php?id_plant=libe3",
+  "University of Kentucky Nursery Crop Extension, Lindera benzoin (American spicebush) \u2014 https://nursery-crop-extension.mgcafe.uky.edu/content/lindera-benzoin-american-spicebush",
+  "Carleton College Cowling Arboretum, \"Asian Bush Honeysuckle (Lonicera tatarica, L. morrowii)\" \u2014 https://www.carleton.edu/arboretum/about/habitats/management/garden/invasives/asian-bush-honeysuckle/",
+  "Clemson Cooperative Extension HGIC, \"Rain Garden Plants: Winterberry (Ilex verticillata)\" \u2014 https://hgic.clemson.edu/factsheet/rain-garden-plants-winterberry-ilex-verticillata/"
+ ]
+}

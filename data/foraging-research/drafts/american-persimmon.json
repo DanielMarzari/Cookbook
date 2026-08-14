@@ -1,0 +1,26 @@
+{
+ "name": "American persimmon",
+ "scientific": "Diospyros virginiana",
+ "months": [
+  8,
+  9,
+  10,
+  11
+ ],
+ "regions": [
+  "northeast",
+  "southeast",
+  "midwest"
+ ],
+ "habitat": "Old fields, fencerows, roadsides, woodland edges and poor dry uplands from New England south to Florida and west to Texas and Kansas; fruit often hangs on bare branches after the leaves drop, which is when it is easiest to spot.",
+ "parts": "Only fully ripe fruit \u2014 squishy-soft, deep orange, wrinkling, and usually already on the ground. Unripe persimmon is loaded with tannins and is fiercely astringent; eating a lot of unripe fruit is the documented cause of diospyrobezoars, hard tannin masses that can obstruct the stomach or bowel. Astringency goes with ripeness, not with cold: Purdue Extension states outright that the fruit does not have to experience a frost to ripen. Frost simply happens to arrive around the same time. Skin, cook, or pass the pulp through a food mill to remove the large flat seeds.",
+ "caution": "easy",
+ "lookalikes": [],
+ "harvest": "Gather windfalls \u2014 shaking or picking firm fruit off the tree just gets you astringent fruit and wastes it. Persimmon is a heavy autumn food for deer, foxes, raccoons and opossums, so clear only part of the drop under any one tree and come back on later visits rather than stripping it once.",
+ "sources": [
+  "Purdue Extension (Whitley County) \u2014 Divine Fruit? (\"Contrary to popular belief, the fruit does not have to experience a frost to ripen\"; ripens September-October): https://extension.purdue.edu/news/county/whitley/2025/11/divine-fruit.html",
+  "University of Missouri Extension \u2014 Pucker up for persimmon, the first frost fruit: https://extension.missouri.edu/news/pucker-up-for-persimmon-the-first-frost-fruit",
+  "NC State Extension Gardener Plant Toolbox \u2014 Diospyros virginiana (\"astringent when green, but sweet when soft and ripe\"): https://plants.ces.ncsu.edu/plants/diospyros-virginiana/",
+  "Diospyrobezoar (Persimmon Bezoar)-Induced Intestinal Obstruction: A Case Report, PMC12256139: https://pmc.ncbi.nlm.nih.gov/articles/PMC12256139/"
+ ]
+}

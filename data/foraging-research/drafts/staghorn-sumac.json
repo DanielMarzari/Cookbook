@@ -1,0 +1,32 @@
+{
+ "name": "Staghorn Sumac",
+ "scientific": "Rhus typhina",
+ "months": [
+  6,
+  7,
+  8,
+  9
+ ],
+ "regions": [
+  "northeast",
+  "midwest",
+  "southeast"
+ ],
+ "habitat": "Dry, sunny, well-drained ground \u2014 roadside banks, railroad embankments, old fields and woodland edges \u2014 spreading into dense clonal thickets from Quebec and Ontario south to Georgia and west to Minnesota and Iowa. It does not grow in standing water.",
+ "parts": "The dense red drupe clusters (\"bobs\"), taken when deep rust-red. Bruise whole cones and steep them in COLD water for several hours, then strain through cloth for tart pink sumac-ade \u2014 hot water pulls bitter tannin out of the seeds and stems. Dried and rubbed off the stem, the drupes grind into the tart red spice used in za'atar. Fruit forms on female plants only.",
+ "caution": "care",
+ "lookalikes": [
+  {
+   "name": "Poison sumac (Toxicodendron vernix)",
+   "danger": "toxic",
+   "tell": "Poison sumac grows exclusively in standing water \u2014 swamps, bogs, fens, wooded wetlands \u2014 as scattered single plants, has 7\u201313 smooth-edged, hairless leaflets on a reddish central leaf stalk, and carries whitish-green berries in loose clusters that HANG DOWN. Staghorn has 11\u201331 saw-toothed leaflets, velvety reddish-brown fuzz on its young twigs, dense red cones held UPRIGHT above the leaves, and forms colonies on dry ground. Poison sumac carries the same urushiol as poison ivy and the reaction is worse."
+  }
+ ],
+ "harvest": "Pick whole cones after several dry days and before rain \u2014 the tart coating is water-soluble and rain rinses it away. Cut a few cones per clone and leave the rest; the fruit is important late-winter food for robins, bluebirds and grouse. Skip roadside plants likely to have been sprayed or road-salted.",
+ "sources": [
+  "NC State Extension Gardener Plant Toolbox, Rhus typhina \u2014 https://plants.ces.ncsu.edu/plants/rhus-typhina/",
+  "New York State Department of Environmental Conservation, \"Poison Sumac\" \u2014 https://dec.ny.gov/nature/animals-fish-plants/poison-sumac",
+  "University of New Hampshire Extension, \"Beware of Poison Sumac\" \u2014 https://extension.unh.edu/blog/2019/07/beware-poison-sumac-rhus-vernix",
+  "NC State Extension Gardener Plant Toolbox, Toxicodendron vernix \u2014 https://plants.ces.ncsu.edu/plants/toxicodendron-vernix/"
+ ]
+}

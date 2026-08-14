@@ -1,0 +1,33 @@
+{
+ "name": "Bull Kelp (Bullwhip Kelp)",
+ "scientific": "Nereocystis luetkeana",
+ "months": [
+  5,
+  6,
+  7,
+  8
+ ],
+ "regions": [
+  "west",
+  "northwest"
+ ],
+ "habitat": "Rocky subtidal reefs and channels with cold, moving water from central California north through Alaska. An annual: a long hollow stipe rises from a rock holdfast to a single gas-filled bulb at the surface with long blades trailing on the tide \u2014 reachable at low tide from rocks or by kayak.",
+ "parts": "Blades for salads, stir-fries, soups, or dried as a seasoning; the hollow stipe and bulb are most often pickled. Rinse off the salt and peel away the tough brown outer layer to reach the pale green flesh.",
+ "caution": "easy",
+ "lookalikes": [
+  {
+   "name": "Acid kelp / witch's hair (Desmarestia spp.)",
+   "danger": "unpalatable",
+   "tell": "Desmarestia is finely branched and feathery with no hollow stipe and no float bulb, and it stores sulfuric acid in its cells at a pH as low as 0.5 \u2014 it tastes acrid, and if bruised it will discolor and rot every other seaweed sharing your bag. Bull kelp is unmistakable: one long hollow whip ending in a single round float."
+  }
+ ],
+ "harvest": "Cut blades with a knife at least 24 inches above the bulb and never tear the plant loose or disturb the holdfast \u2014 Washington codifies this, requires a Shellfish/Seaweed or combination license, and caps personal harvest at 10 lb wet weight per person per day, with most state parks and marine preserves closed. Kelp forests are declining habitat; take a few blades from several plants rather than stripping one, and stay well away from harbors and outfalls.",
+ "sources": [
+  "University of Alaska Fairbanks Cooperative Extension Service, \"Bullwhip Kelp\" \u2014 https://www.uaf.edu/ces/publications/database/food/bullwhip-kelp.php",
+  "Oregon Sea Grant / Oregon State University, \"Bullwhip Kelp (Nereocystis luetkeana)\" \u2014 https://blogs.oregonstate.edu/coastaltourism/bullwhip-kelp-nereocystis-luetkeana/",
+  "Washington State Department of Natural Resources, \"Seaweed Harvesting\" \u2014 https://dnr.wa.gov/aquatics/seaweed-harvesting",
+  "RCW 79.135.410, Seaweed \u2014 Personal use limit (Washington State Legislature) \u2014 https://app.leg.wa.gov/RCW/default.aspx?cite=79.135.410",
+  "Washington Department of Fish & Wildlife, kelp in Puget Sound \u2014 https://wdfw.wa.gov/species-habitats/ecosystems/marine-shorelines/kelp",
+  "Seaweeds of the Pacific Northwest, \"Witch's Hair, Acid Kelp (Desmarestia)\" \u2014 https://seaweedsofpnw.com/witchs-hair-acid-kelp/"
+ ]
+}

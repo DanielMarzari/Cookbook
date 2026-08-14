@@ -1,0 +1,37 @@
+{
+ "name": "Prickly Pear",
+ "scientific": "Opuntia spp. (O. engelmannii, O. ficus-indica in the Southwest; O. humifusa in the East)",
+ "months": [
+  3,
+  4,
+  5,
+  7,
+  8,
+  9
+ ],
+ "regions": [
+  "southwest",
+  "west",
+  "southeast",
+  "midwest",
+  "northeast"
+ ],
+ "habitat": "Dry, sunny, sharply drained ground \u2014 desert flats and bajadas in the Southwest; sand dunes, shale barrens, pine barrens and coastal sand in the East, where O. humifusa reaches New England and eastern Pennsylvania.",
+ "parts": "Young spring pads (nopales) grilled, griddled or diced, and ripe late-summer fruit (tunas) for juice, syrup and jelly. Pads are best picked mid-morning to mid-afternoon when acid content is lowest. Fruit does not ripen after picking \u2014 take it deep red-purple and yielding.",
+ "caution": "care",
+ "lookalikes": [
+  {
+   "name": "Cholla (Cylindropuntia spp.)",
+   "danger": "unpalatable",
+   "tell": "Cholla stems are cylindrical, jointed rods rather than flat paddles, its spines wear loose papery sheaths, and whole barbed segments detach and stick to skin and clothing far more stubbornly than prickly pear glochids. Its fruit is dry and spiny, not the juicy tuna. Prickly pear is always a flat, paddle-shaped pad."
+  }
+ ],
+ "harvest": "Glochids are the real hazard here, not misidentification. The hair-fine barbed bristles clustered at the base of the big spines detach on contact and lodge in skin, lips and eyes, and even \"spineless\" varieties have them. Wear leather gloves, use tongs and a long knife, and burn or scrape the glochids off BEFORE any rinsing \u2014 water just spreads them. Cut pads cleanly at the joint, take only one or two per plant, and leave fruit for wildlife in dry years. Arizona's Native Plant Law protects native cacti from removal or mutilation, and collecting anywhere requires the landowner's permission.",
+ "sources": [
+  "University of Nevada, Reno Extension, \"Eating Cactus: Prickly Pear for Food\" (Publication 2157) \u2014 https://extension.unr.edu/publication.aspx?PubID=2157",
+  "University of Arizona Cooperative Extension az1800, \"Prickly Pear Cactus: Food of the Desert\" \u2014 https://extension.arizona.edu/sites/default/files/2025-03/Prickly-Pear-Cactus-Food-of-the-Desert.pdf",
+  "NC State Extension Gardener Plant Toolbox, Opuntia \u2014 https://plants.ces.ncsu.edu/plants/opuntia/",
+  "Arizona Department of Agriculture, Native Plants Protection \u2014 https://agriculture.az.gov/plantsproduce/native-plants",
+  "University of Arizona Extension, \"Arizona Native Plant Law: What You Need to Know\" \u2014 https://extension.arizona.edu/publication/arizona-native-plant-law-what-you-need-know"
+ ]
+}

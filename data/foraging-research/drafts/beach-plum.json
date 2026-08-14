@@ -1,0 +1,36 @@
+{
+ "name": "Beach plum",
+ "scientific": "Prunus maritima",
+ "months": [
+  7,
+  8,
+  9
+ ],
+ "regions": [
+  "northeast",
+  "southeast"
+ ],
+ "habitat": "Low sprawling shrub of Atlantic coastal sand \u2014 foredunes, back-dune scrub and sandy coastal plain from New Brunswick and Maine south to Maryland and Virginia; abundant on Cape Cod, Martha's Vineyard, Nantucket and the Jersey Shore, and widely planted for dune stabilisation.",
+ "parts": "Ripe fruit, almost always cooked into jam, jelly or syrup \u2014 it is high in pectin and tart. Fruit is under an inch across and ripens purple, blue-black or occasionally yellow from late August through early October, peaking in September. As with all Prunus, the stones, leaves and twigs are cyanogenic: eat the flesh, never crush or eat the pits.",
+ "caution": "easy",
+ "lookalikes": [
+  {
+   "name": "American plum (Prunus americana), Canada plum (P. nigra), black cherry (P. serotina)",
+   "danger": "unpalatable",
+   "tell": "Genuinely confusable relatives, but all have edible flesh, so a mix-up is disappointing rather than dangerous. Beach plum is the only one that is a low, sprawling, often knee-to-shoulder-high shrub growing directly in loose coastal sand; the others are upright shrubs or trees of inland thickets and woods. Black cherry fruit is small, black and borne in long racemes, not single or paired on short stalks. In every case the stone stays uneaten."
+  },
+  {
+   "name": "Chokecherry (Prunus virginiana)",
+   "danger": "unpalatable",
+   "tell": "Fruit hangs in long cylindrical clusters rather than singly or in twos along the twig, and the flesh is harshly astringent raw. Edible cooked, but not what you came for."
+  }
+ ],
+ "harvest": "Dunes are the fragile part, not the plant. Stay on established paths and off the dune face \u2014 trampling does more damage than picking. Beach plum is state-listed as endangered in Maine (S1) and its habitat has been squeezed hard by beachfront development, so in the northern part of the range take nothing. Many town beaches, state parks and National Seashore areas restrict or prohibit picking; check first, then take a modest share and leave fruit on each bush.",
+ "sources": [
+  "USDA NRCS Plant Guide \u2014 Beach Plum, Prunus maritima: https://plants.sc.egov.usda.gov/DocumentLibrary/plantguide/pdf/pg_prma2.pdf",
+  "Rutgers NJAES FS1297 \u2014 Ultra-Niche Crops Series: Beach Plum (harvest late August into October): https://njaes.rutgers.edu/fs1297/",
+  "Maine Natural Areas Program \u2014 Rare Plant Fact Sheet, Prunus maritima (state endangered, S1): https://www.maine.gov/dacf/mnap/features/prumar.htm",
+  "University of Maryland Extension \u2014 The Beach Plum: https://extension.umd.edu/resource/beach-plum",
+  "Native Plant Trust, Go Botany \u2014 Prunus maritima: https://gobotany.nativeplanttrust.org/species/prunus/maritima/"
+ ]
+}

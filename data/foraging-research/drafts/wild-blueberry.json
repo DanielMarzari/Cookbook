@@ -1,0 +1,39 @@
+{
+ "name": "Wild blueberry",
+ "scientific": "Vaccinium angustifolium (lowbush); V. corymbosum (highbush)",
+ "months": [
+  5,
+  6,
+  7,
+  8
+ ],
+ "regions": [
+  "northeast",
+  "midwest",
+  "southeast"
+ ],
+ "habitat": "Acid, sandy or rocky ground \u2014 open conifer woods, burned-over barrens, granite balds, old fields and bog margins for lowbush; swamp edges and damp woods for highbush. Maine's commercial wild-blueberry barrens are the classic ground.",
+ "parts": "Ripe fruit raw, cooked or frozen. Blue-black with a powdery bloom; genuinely ripe berries fall into your hand.",
+ "caution": "care",
+ "lookalikes": [
+  {
+   "name": "Common buckthorn (Rhamnus cathartica) / glossy buckthorn (Frangula alnus)",
+   "danger": "toxic",
+   "tell": "The decisive test is the blossom end: a true blueberry carries a persistent five-pointed calyx \u2014 a little star-shaped crown \u2014 opposite the stem. Buckthorn's glossy black drupe has no crown, holds 3-4 hard seeds, and grows on a shrub or small tree whose twigs end in a short straight thorn and whose leaves have veins curving forward toward the tip. It also ripens later, August-September, and its fruit contains glycosides that cause nausea, vomiting and violent diarrhea."
+  },
+  {
+   "name": "Pokeweed (Phytolacca americana)",
+   "danger": "toxic",
+   "tell": "Purple-black and glossy, but borne in a long unbranched drooping raceme on a soft magenta-stemmed herb up to 9 feet tall, not on a low twiggy woody shrub. Each berry is slightly flattened with a plain flat scar at the tip \u2014 no five-pointed crown. Berries are the usual cause of pokeweed poisoning in children."
+  }
+ ],
+ "harvest": "Hand-pick rather than raking or stripping twigs \u2014 pulling leaves and stems off wild plants damages the rhizomes that lowbush blueberry regenerates from. Leave a good share: barrens berries are a major late-summer food for bears and birds. Check rules before picking in national/state parks and on tribal or commercially managed barrens.",
+ "sources": [
+  "University of Maine Cooperative Extension \u2014 About the Maine Wild Blueberry: https://extension.umaine.edu/blueberries/about/",
+  "NC State Extension Gardener Plant Toolbox \u2014 Vaccinium angustifolium: https://plants.ces.ncsu.edu/plants/vaccinium-angustifolium/",
+  "USDA Forest Service, Woody Plant Seed Manual \u2014 Vaccinium (persistent calyx on mature fruit): https://www.fs.usda.gov/nsl/Wpsm/Vaccinium.pdf",
+  "NC State Extension Gardener Plant Toolbox \u2014 Rhamnus cathartica: https://plants.ces.ncsu.edu/plants/rhamnus-cathartica/",
+  "Minnesota DNR \u2014 Common buckthorn (Rhamnus cathartica): https://www.dnr.state.mn.us/invasives/terrestrialplants/woody/commonbuckthorn.html",
+  "Penn State Extension \u2014 Common Pokeweed Identification and Management: https://extension.psu.edu/common-pokeweed-identification-and-management"
+ ]
+}

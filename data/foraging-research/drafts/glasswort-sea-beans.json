@@ -1,0 +1,35 @@
+{
+ "name": "Glasswort / Sea Beans",
+ "scientific": "Salicornia spp. (S. depressa, S. bigelovii on the Atlantic; S. pacifica, formerly Sarcocornia pacifica, on the Pacific)",
+ "months": [
+  3,
+  4,
+  5,
+  6,
+  7,
+  8
+ ],
+ "regions": [
+  "northeast",
+  "southeast",
+  "west",
+  "northwest"
+ ],
+ "habitat": "Coastal salt marshes, tidal mudflats and the brackish margins of beaches and estuaries, where it is often the pioneer plant colonizing bare mud; also inland alkaline seeps and salt flats in the West.",
+ "parts": "Only the tender upper stem tips, taken where they snap off cleanly. Eaten raw in salads, blanched, quickly sauteed, or pickled. Already intensely salty, so cook with no added salt; older lower stems turn woody and stringy and are not worth taking.",
+ "caution": "care",
+ "lookalikes": [
+  {
+   "name": "Seaside arrowgrass (Triglochin maritima)",
+   "danger": "toxic",
+   "tell": "Arrowgrass grows in the same salt marshes but its leaves are narrow, half-round, grass-like blades rising in a basal tuft from a papery sheath, and its green leaves contain the cyanogenic glycosides triglochinin and taxiphyllin, which release hydrogen cyanide when chewed or crushed. Salicornia has no leaves at all \u2014 just obviously jointed, segmented leafless succulent stems like strings of tiny pickles."
+  }
+ ],
+ "harvest": "Pinch the top few inches and leave the plant rooted \u2014 Salicornia stabilizes bare marsh mud and regrows from what you leave. Never pull it up. Skip marshes below storm drains, marinas or industrial sites; halophytes concentrate whatever is in the sediment. On the Pacific coast much pickleweed marsh is protected habitat for the endangered salt marsh harvest mouse and Ridgway's rail \u2014 check ownership and rules before cutting anything.",
+ "sources": [
+  "Great Bay National Estuarine Research Reserve (NOAA / NH Fish & Game), \"Glasswort (Salicornia europaea)\" \u2014 https://greatbay.org/60324-2/",
+  "Native Plant Trust, Go Botany: Triglochin maritima (seaside arrow-grass) \u2014 https://gobotany.nativeplanttrust.org/species/triglochin/maritima/",
+  "California Native Plant Society, Vegetation Alliance: Sarcocornia pacifica (Salicornia depressa) \u2014 https://vegetation.cnps.org/alliance/458",
+  "Encyclopaedia Britannica, \"Glasswort\" \u2014 https://www.britannica.com/plant/glasswort"
+ ]
+}

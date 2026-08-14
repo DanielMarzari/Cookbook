@@ -56,8 +56,9 @@ export default function PhotoDeskPage() {
         the board. The rest are drawn — the automatic fetch pulled something for most of them, but on the ones
         checked so far only about one in seven was both the right subject and cleanly cut out, so nothing goes
         live until it has been looked at. Most wanted first: the ingredients the curated themes actually use.
-        Paste a URL or upload a file and that ingredient goes live immediately. Studio shots on a plain white
-        background cut out best.{" "}
+        Paste a URL or upload a file and that ingredient goes live immediately. Pictures are stored exactly as
+        you supply them — nothing is cut out or recoloured — and the board frames them with the zone shape, so
+        a PNG that already has a transparent background works best.{" "}
         <Link href="/charcuterie/studio" className="tlink">
           Back to the studio
         </Link>

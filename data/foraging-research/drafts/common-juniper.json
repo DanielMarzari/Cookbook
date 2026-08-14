@@ -1,0 +1,37 @@
+{
+ "name": "Common Juniper",
+ "scientific": "Juniperus communis",
+ "months": [
+  7,
+  8,
+  9
+ ],
+ "regions": [
+  "northeast",
+  "midwest",
+  "west",
+  "northwest"
+ ],
+ "habitat": "Dry, open, rocky hillsides, sand terraces, maritime escarpments and exposed slopes, usually as a low sprawling mat rather than a tree. Circumboreal: Alaska and British Columbia east to Newfoundland, south through New England to the Carolina mountains and through the western mountains to California, Arizona and New Mexico.",
+ "parts": "Only the ripe, waxy blue-black second- or third-year cones (\"berries\"). Dry and crush them for a resinous, gin-like spice \u2014 game, cured pork, brines, sauerkraut, braised cabbage. Use a few berries, not a spoonful: juniper is a gastrointestinal and kidney irritant in quantity, and is avoided in pregnancy and by anyone with kidney disease.",
+ "caution": "expert",
+ "lookalikes": [
+  {
+   "name": "Yew (Taxus canadensis in the wild; T. cuspidata and T. x media in hedges)",
+   "danger": "deadly",
+   "tell": "Yew is the one that kills. Its needles are flat, soft and set in two flat ranks along either side of the twig, dark above and pale beneath, and its fruit is a bright red, fleshy, OPEN-ENDED cup with a single dark seed visible at the tip. Common juniper's needles are stiff and sharp-tipped, set in whorls of THREE around the twig, each with one broad white stripe on the upper surface, and its fruit is a hard, closed, waxy blue-black cone. Yew seeds and foliage contain taxine, a rapidly absorbed cardiac depressant that can kill within hours."
+  },
+  {
+   "name": "Savin juniper (Juniperus sabina)",
+   "danger": "toxic",
+   "tell": "Savin is a widely planted ground-cover juniper whose mature foliage is scale-like and overlapping, pressed flat against the twig, with a rank, acrid smell when crushed. Common juniper never develops scale leaves \u2014 it keeps sharp needles in whorls of three for its entire life. Savin contains sabinyl acetate, sabinol and podophyllotoxin; ingestion causes necrosis of the kidneys, and its historical use as an abortifacient was frequently fatal."
+  }
+ ],
+ "harvest": "Verify the whorls-of-three sharp needles and the single broad white stripe on every plant before you pick, and never forage \"juniper\" out of ornamental plantings \u2014 savin and yew are both common landscape shrubs. Common juniper is slow-growing and individual plants live over 170 years; take a small handful of ripe cones from a large stand and leave the rest for the birds that disperse them.",
+ "sources": [
+  "USDA Forest Service, Fire Effects Information System: Juniperus communis, common juniper \u2014 https://research.fs.usda.gov/feis/species-reviews/juncom",
+  "Bates College Canopy, \"Common Juniper\" \u2014 https://www.bates.edu/canopy/common-juniper",
+  "Purdue University Animal Disease Diagnostic Laboratory, newsletter on yew (Taxus) toxicosis \u2014 https://addl.purdue.edu/Newsletters/2011/Fall/Yew.aspx",
+  "University of Washington Botanic Gardens, Plant Answer Line: \"the poisonous western yew\" \u2014 https://depts.washington.edu/hortlib/pal/the-poisonous-western-yew"
+ ]
+}

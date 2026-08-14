@@ -1,0 +1,29 @@
+{
+ "name": "Wild Bergamot / Bee Balm",
+ "scientific": "Monarda fistulosa",
+ "months": [
+  5,
+  6,
+  7,
+  8
+ ],
+ "regions": [
+  "all"
+ ],
+ "habitat": "Dry to moderately moist open ground across most of North America \u2014 tallgrass prairie, glade and rocky woodland margins, unplanted fields, fencerows and roadsides in full sun.",
+ "parts": "Leaves and the shaggy lavender-pink flower heads, fresh or dried. Carvacrol and thymol give it an oregano-and-thyme flavor: good in bean and tomato dishes, meat rubs, and steeped as tea. Roots are not used. Confirm three things before picking \u2014 a square, hollow stem, opposite toothed grayish-green leaves, and a strong oregano smell from a crushed leaf.",
+ "caution": "easy",
+ "lookalikes": [
+  {
+   "name": "Spotted horsemint (Monarda punctata)",
+   "danger": "unpalatable",
+   "tell": "Same genus, same square stem and aromatic leaf, but its flowers are pale yellow blotched with purple, stacked in whorls above showy pink-and-white bracts down the stem. Its thymol content is high enough to taste harsh and medicinal rather than pleasant. Wild bergamot carries a single shaggy lavender-pink pompom at the top of the stem."
+  }
+ ],
+ "harvest": "Cut the top third of flowering stems with scissors and leave the rest standing. Wild bergamot is a first-rank nectar plant for bees, hummingbirds and butterflies, and native bees nest inside the hollow dead stems over winter \u2014 so leave dead stems up. Take from large stands only, never more than a small fraction, and leave plenty of flowers to set seed.",
+ "sources": [
+  "NC State Extension Gardener Plant Toolbox, Monarda fistulosa \u2014 https://plants.ces.ncsu.edu/plants/monarda-fistulosa/",
+  "Native Plant Trust, Go Botany: Monarda fistulosa (wild bee-balm) \u2014 https://gobotany.nativeplanttrust.org/species/monarda/fistulosa/",
+  "University of Georgia Extension, \"Wild Bergamot\" \u2014 https://site.extension.uga.edu/kbb/?p=658"
+ ]
+}

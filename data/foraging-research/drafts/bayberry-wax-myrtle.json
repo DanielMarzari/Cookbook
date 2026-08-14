@@ -1,0 +1,35 @@
+{
+ "name": "Bayberry / Wax Myrtle",
+ "scientific": "Morella pensylvanica (syn. Myrica pensylvanica), northern bayberry; Morella cerifera (syn. Myrica cerifera), southern wax myrtle",
+ "months": [
+  4,
+  5,
+  6,
+  7,
+  8,
+  9
+ ],
+ "regions": [
+  "northeast",
+  "southeast"
+ ],
+ "habitat": "Coastal sand dunes, back-dune thickets, pine barrens, forest edges and the upland margins of tidal marshes \u2014 northern bayberry along the northeastern coast south to North Carolina, wax myrtle through the Southeast. Both are strongly tolerant of salt spray and saline soil.",
+ "parts": "The leaves, used exactly like a bay leaf \u2014 dried and simmered whole in stocks, beans, braises and pickling brines, then fished out before serving. Northern bayberry is milder than Mediterranean bay, so use roughly twice as many leaves; drying concentrates the aroma. Harvest leaves any time they are green and pliable. The gray waxy fruit is candle and soap material, not food \u2014 there is almost no flesh on it. Do not use the root bark; that is a medicinal preparation, not a kitchen ingredient.",
+ "caution": "care",
+ "lookalikes": [
+  {
+   "name": "Groundsel tree / eastern baccharis (Baccharis halimifolia)",
+   "danger": "toxic",
+   "tell": "Baccharis shares exactly the same dune edges and marsh-border thickets, but its wedge-shaped, coarsely toothed gray-green leaves have NO smell when crushed, and in autumn it is covered in conspicuous fluffy white seed heads. Its leaves and flowers contain a cardioactive glycoside. Bayberry and wax myrtle leaves are untoothed or only bluntly toothed toward the tip, speckled with yellow resin dots on the underside, and rubbing one releases the unmistakable bayberry-candle scent."
+  }
+ ],
+ "harvest": "Rub and smell a leaf every single time \u2014 the resinous bayberry-candle aroma is the identification. Strip a few leaves from several branches rather than defoliating one stem; these are slow-growing dune stabilizers, and the waxy fruit is critical winter food for yellow-rumped warblers, one of the few birds able to digest the wax. The plants are dioecious, so leave fruiting (female) shrubs alone and take leaves from males where you can tell them apart.",
+ "sources": [
+  "University of Maryland Extension, \"Northern Bayberry\" \u2014 https://extension.umd.edu/resource/northern-bayberry",
+  "NC State Extension Gardener Plant Toolbox, Myrica pensylvanica \u2014 https://plants.ces.ncsu.edu/plants/myrica-pensylvanica/",
+  "Clemson Cooperative Extension HGIC, \"Waxmyrtle\" \u2014 https://hgic.clemson.edu/factsheet/waxmyrtle/",
+  "NC State Extension Gardener Plant Toolbox, Baccharis halimifolia (eastern baccharis) \u2014 https://plants.ces.ncsu.edu/plants/baccharis-halimifolia/",
+  "Alabama Cooperative Extension System, \"Eastern Baccharis Identification & Control\" \u2014 https://www.aces.edu/blog/topics/forestry-wildlife/eastern-baccharis-identification-control/",
+  "Edible Cape Cod, \"Eating Wild: Northern Bayberry, the Local Alternative to a Culinary Staple\" \u2014 https://ediblecapecod.ediblecommunities.com/food-thought/eating-wild-northern-bayberry-local-alternative-culinary-staple (culinary use; extension sources above cover identification, habitat and aroma but do not address cooking)"
+ ]
+}

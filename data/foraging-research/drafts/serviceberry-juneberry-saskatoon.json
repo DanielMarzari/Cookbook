@@ -1,0 +1,36 @@
+{
+ "name": "Serviceberry (juneberry, saskatoon)",
+ "scientific": "Amelanchier spp. (A. arborea, A. laevis, A. canadensis, A. alnifolia)",
+ "months": [
+  4,
+  5,
+  6
+ ],
+ "regions": [
+  "all"
+ ],
+ "habitat": "Small trees and shrubs of forest edges, fencerows, roadsides, cliffs and balds, plus heavily planted as a street and yard tree; A. alnifolia (saskatoon) fills the same role in the Northwest and Rockies and A. utahensis in the Great Basin.",
+ "parts": "Ripe fruit raw or cooked \u2014 a berry-like pome the size of a blueberry that ripens through red to deep purple-black, sweet with an almond note from the soft seeds. Cook and run through a food mill if the seeds bother you.",
+ "caution": "care",
+ "lookalikes": [
+  {
+   "name": "Common buckthorn (Rhamnus cathartica)",
+   "danger": "toxic",
+   "tell": "Similar-sized glossy black fruit in similar hedgerow habitat. Timing is the first filter: serviceberry ripens in May-June, buckthorn not until August-September. Then look at the fruit tip \u2014 serviceberry keeps a five-lobed calyx crown at the blossom end like a tiny apple, buckthorn does not, and buckthorn fruit splits to reveal 3-4 hard seeds. Buckthorn twigs end in a short thorn and its leaf veins curve forward toward the tip."
+  },
+  {
+   "name": "Chokecherry (Prunus virginiana)",
+   "danger": "unpalatable",
+   "tell": "Also dark and shrubby, but chokecherry fruit hangs in long cylindrical racemes and each fruit has one hard stone; serviceberry fruit sits in short loose clusters and is soft with several small seeds. Chokecherry flesh is edible but mouth-puckeringly astringent raw, and its stones, leaves and twigs are cyanogenic \u2014 never crush the pits."
+  }
+ ],
+ "harvest": "Birds strip a tree in days, so competition is real \u2014 take part of a tree, not all of it. Pick from the outside and don't break or bend branches; serviceberry keeps ripening after picking, so slightly under-ripe fruit is fine to gather.",
+ "sources": [
+  "University of Minnesota Extension \u2014 Serviceberry: https://extension.umn.edu/trees-and-shrubs/serviceberry",
+  "Penn State Extension \u2014 Serviceberry in the Garden and in the Kitchen: https://extension.psu.edu/serviceberry-in-the-garden-and-in-the-kitchen",
+  "Wisconsin Horticulture (UW-Madison Division of Extension) \u2014 Serviceberry, Amelanchier spp.: https://hort.extension.wisc.edu/articles/serviceberry-amelanchier-spp/",
+  "NC State Extension Gardener Plant Toolbox \u2014 Amelanchier canadensis: https://plants.ces.ncsu.edu/plants/amelanchier-canadensis/",
+  "Utah State University Extension \u2014 Saskatoon or Western Serviceberry: https://extension.usu.edu/forestry/tree-identification/other-trees/saskatoon-western-serviceberry",
+  "NC State Extension Gardener Plant Toolbox \u2014 Rhamnus cathartica: https://plants.ces.ncsu.edu/plants/rhamnus-cathartica/"
+ ]
+}

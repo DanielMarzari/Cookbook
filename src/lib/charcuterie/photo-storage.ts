@@ -13,9 +13,7 @@ import sharp from 'sharp';
 export const CUSTOM_PHOTOS_DIR =
   process.env.CHARCUTERIE_PHOTOS_DIR || path.join(process.cwd(), '..', 'cookbook-charcuterie-photos');
 
-const SIZE = 512;
-/** How far a pixel may drift from its border seed and still count as background. */
-const TOL = 34;
+const SIZE = 768;
 
 async function exists(p: string): Promise<boolean> {
   try {
@@ -51,60 +49,21 @@ export async function deleteCustomPhoto(id: string): Promise<void> {
   }
 }
 
-/**
- * Flood fill inward from the border and make what it reaches transparent.
- *
- * Seeded from the four corners and the midpoint of each edge, because a subject
- * touching one edge splits the background into regions a single seed can't
- * reach. Same approach as the batch Python pass, so hand-added photos come out
- * looking like the fetched ones rather than obviously pasted in.
- */
-function keyBackground(data: Buffer, w: number, h: number): { alpha: Buffer; removed: number } {
-  const alpha = Buffer.alloc(w * h, 255);
-  const seen = new Uint8Array(w * h);
-  const stack: number[] = [];
-  const seeds = [
-    [0, 0], [w - 1, 0], [0, h - 1], [w - 1, h - 1],
-    [w >> 1, 0], [w >> 1, h - 1], [0, h >> 1], [w - 1, h >> 1],
-  ];
-
-  for (const [sx, sy] of seeds) {
-    const si = sy * w + sx;
-    if (seen[si]) continue;
-    const sr = data[si * 4], sg = data[si * 4 + 1], sb = data[si * 4 + 2];
-    seen[si] = 1;
-    stack.push(si);
-    while (stack.length) {
-      const i = stack.pop() as number;
-      const r = data[i * 4], g = data[i * 4 + 1], b = data[i * 4 + 2];
-      if (Math.max(Math.abs(r - sr), Math.abs(g - sg), Math.abs(b - sb)) > TOL) continue;
-      alpha[i] = 0;
-      const x = i % w, y = (i / w) | 0;
-      if (x > 0 && !seen[i - 1]) { seen[i - 1] = 1; stack.push(i - 1); }
-      if (x < w - 1 && !seen[i + 1]) { seen[i + 1] = 1; stack.push(i + 1); }
-      if (y > 0 && !seen[i - w]) { seen[i - w] = 1; stack.push(i - w); }
-      if (y < h - 1 && !seen[i + w]) { seen[i + w] = 1; stack.push(i + w); }
-    }
-  }
-
-  let removed = 0;
-  for (let i = 0; i < alpha.length; i++) if (alpha[i] === 0) removed++;
-  return { alpha, removed: removed / (w * h) };
-}
-
 export interface IngestResult {
   id: string;
-  removed: number;
-  /** True when the background keyed cleanly enough to look like a cutout. */
-  clean: boolean;
+  /** True when the supplied image already had transparency. */
+  cutout: boolean;
   note: string;
 }
 
 /**
- * Turn a supplied image into a board-ready cutout and store it.
+ * Store a supplied image, as supplied.
  *
- * Keeps the original if the background won't key — a photo shot on a busy
- * surface still beats no photo, and the motif clip hides most of the edge.
+ * There used to be a flood-fill background remover here. It was wrong twice
+ * over: it mangled photographs shot on anything busier than a plain sweep, and
+ * it was destructive — WebP drops the colour under full transparency, so a keyed
+ * image cannot be un-keyed afterwards. Pictures that need a cutout should arrive
+ * as one; the board frames whatever it is given.
  */
 export async function ingestPhoto(
   id: string,
@@ -114,43 +73,32 @@ export async function ingestPhoto(
   const save = opts.save !== false;
   if (save) await mkdir(CUSTOM_PHOTOS_DIR, { recursive: true });
 
-  const base = sharp(input).rotate().resize(640, 640, { fit: 'inside', withoutEnlargement: true });
-  const { data, info } = await base.raw().ensureAlpha().toBuffer({ resolveWithObject: true });
-  const { alpha, removed } = keyBackground(data, info.width, info.height);
+  const meta = await sharp(input).metadata();
+  const cutout = Boolean(meta.hasAlpha);
 
-  // Only accept the key when it took a plausible slice — too little means a busy
-  // background, too much means it ate the subject.
-  const clean = removed >= 0.04 && removed <= 0.93;
-  let img = sharp(data, { raw: { width: info.width, height: info.height, channels: 4 } });
-  if (clean) {
-    for (let i = 0; i < alpha.length; i++) data[i * 4 + 3] = alpha[i];
-    img = sharp(data, { raw: { width: info.width, height: info.height, channels: 4 } });
-  }
+  let img = sharp(input).rotate();
+  // A supplied cutout usually carries empty margin around the subject; trimming
+  // it means the frame fills with food rather than with nothing. A photograph
+  // that has a background is left exactly as given — no keying, no trimming.
+  if (cutout) img = img.trim({ threshold: 1 });
 
   const out = await img
-    .png()
-    .toBuffer()
-    .then((buf) =>
-      sharp(buf)
-        .trim({ threshold: 1 })
-        .resize(SIZE, SIZE, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
-        .webp({ quality: 82, alphaQuality: 90 })
-        .toBuffer(),
-    );
+    // Cap the long edge and keep the picture's own proportions. The board frames
+    // it with preserveAspectRatio="slice", so squaring here would only add
+    // padding for the frame to crop back off.
+    .resize(SIZE, SIZE, { fit: 'inside', withoutEnlargement: true })
+    .webp({ quality: 86, alphaQuality: 92 })
+    .toBuffer();
 
   if (save) await writeFile(customPhotoPath(id), out);
   return {
     id,
-    removed,
-    clean,
-    // Handed back for the preview so the board can show the cutout before it is
-    // committed — you should see how a picture sits among the food, not just
-    // how it looks in a swatch.
+    cutout,
+    // Handed back for the preview so the board can show the picture before it is
+    // committed — you should see how it sits among the food, not just in a swatch.
     dataUrl: save ? undefined : `data:image/webp;base64,${out.toString('base64')}`,
-    note: clean
-      ? `background removed (${Math.round(removed * 100)}% keyed)`
-      : removed < 0.04
-        ? 'kept as-is — background too busy to key cleanly'
-        : 'kept as-is — keying would have eaten the subject',
+    note: cutout
+      ? 'transparent cutout — trimmed to the subject, stored as supplied'
+      : 'stored exactly as supplied; the board frames it rather than cutting it out',
   };
 }
