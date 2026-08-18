@@ -13,6 +13,8 @@ export default function RecipesPage() {
   const [totalCount, setTotalCount] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  // Bases pulled in because one of their branches matched the search.
+  const [baseHits, setBaseHits] = useState<Record<string, Recipe>>({});
   const filters = useCookbookStore((state) => state.filters);
 
   // Total collection size, for the "Showing X of Y" line
@@ -61,17 +63,45 @@ export default function RecipesPage() {
   const hasActiveFilters =
     filters.search || filters.cuisine || filters.difficulty || filters.maxTime;
 
-  // Variations live inside their base's collage tile rather than taking their own
-  // cell — but only while browsing. Once you're searching or filtering, a
-  // variation is a legitimate hit and hiding it would just look like a bug.
-  // Two things are folded away while browsing: variations live inside their
-  // base's collage tile, and recipes collected from elsewhere live in
-  // collections rather than on the shelf — which source leads is set once per
-  // source, not per recipe. Searching or filtering shows
-  // everything again — a hidden hit reads as a bug.
-  const gridRecipes = hasActiveFilters
-    ? recipes
-    : recipes.filter((r) => !r.parent_recipe_id && r.source_featured);
+  // A branch is not its own recipe any more.
+  //
+  // Joining one recipe to another says they are the same dish, so the branch
+  // stops holding a cell of its own and lives inside its base's collage tile.
+  // That holds while searching too: an earlier version showed variations again
+  // as soon as a filter was on, which meant a recipe you had just folded into
+  // another reappeared the moment you looked for it.
+  //
+  // A match still counts, though — searching "honey" when only the honey branch
+  // matches should not come back empty. So a matching branch is swapped for its
+  // base rather than dropped, and any base not already in the results is fetched
+  // below.
+  const parentsOfHits = Array.from(
+    new Set(recipes.filter((r) => r.parent_recipe_id).map((r) => r.parent_recipe_id as string)),
+  );
+  const shown = recipes.filter((r) => !r.parent_recipe_id);
+  const missingParents = parentsOfHits.filter((id) => !shown.some((r) => r.id === id));
+
+  useEffect(() => {
+    if (missingParents.length === 0) return;
+    let live = true;
+    Promise.all(missingParents.map((id) => api.recipes.get(id).catch(() => null)))
+      .then((rs) => {
+        if (!live) return;
+        const found = rs.filter(Boolean) as Recipe[];
+        if (found.length) setBaseHits((prev) => ({ ...prev, ...Object.fromEntries(found.map((r) => [r.id, r])) }));
+      })
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [missingParents.join(',')]);
+
+  const gridRecipes = (() => {
+    const bases = shown.filter((r) => hasActiveFilters || r.source_featured);
+    const pulled = missingParents.map((id) => baseHits[id]).filter(Boolean) as Recipe[];
+    return [...bases, ...pulled];
+  })();
 
   const countLine = (() => {
     if (loading || error) return ' ';
