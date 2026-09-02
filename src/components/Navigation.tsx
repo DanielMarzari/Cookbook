@@ -13,6 +13,7 @@ import {
   Sparkles,
   Sprout,
   Search,
+  Ruler,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -25,6 +26,7 @@ const navItems = [
   { icon: Sprout, label: 'Seasonal', href: '/seasonal' },
   { icon: Grape, label: 'Charcuterie', href: '/charcuterie' },
   { icon: ChefHat, label: 'Techniques', href: '/techniques' },
+  { icon: Ruler, label: 'Canon', href: '/canon' },
   { icon: Leaf, label: 'Ingredients', href: '/ingredients' },
   { icon: ShoppingCart, label: 'Grocery', href: '/grocery' },
   { icon: Library, label: 'Cookbooks', href: '/collections' },
