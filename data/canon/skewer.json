@@ -1,7 +1,7 @@
 {
  "slug": "skewer",
  "name": "Food on a skewer",
- "standfirst": "A stick does two things a grill cannot: it turns a handful of small pieces as one, and it holds them at a fixed distance from the coals. Every fire-using culture worked this out independently, which is why the family is enormous and the differences between its members are narrow — what goes on the meat before the fire, what the fire is made of, and whether the sauce arrives during the cooking or after it.",
+ "standfirst": "A stick does two things a grill cannot: it turns a handful of small pieces as one, and it holds them at a fixed distance from the coals. Nearly every fire-using culture worked this out independently, which is why the family is enormous and the differences between its members are narrow — what goes on the meat before the fire, what the fire is made of, and whether the sauce arrives during the cooking or after it.",
  "root": "Small pieces of food threaded onto a stick and cooked over fire",
  "facets": [
   {
@@ -42,6 +42,13 @@
    ]
   },
   {
+   "label": "By when the sauce arrives",
+   "by": [
+    "sauce",
+    "prep"
+   ]
+  },
+  {
    "label": "By region",
    "by": [
     "region",
@@ -65,8 +72,8 @@
     ],
     "fire": [
      "charcoal",
-     "binchōtan",
-     "narrow trough grill"
+     "narrow trough grill",
+     "binchōtan"
     ],
     "sauce": [
      "during the cooking",
@@ -95,6 +102,7 @@
     ],
     "fire": [
      "charcoal",
+     "open grill",
      "coconut shell",
      "fanned by hand"
     ],
@@ -135,6 +143,34 @@
      "Greece"
     ]
    }
+  },
+  {
+   "name": "Shish taouk",
+   "facets": {
+    "thread": [
+     "cubes of meat",
+     "chicken breast",
+     "flat metal skewer"
+    ],
+    "prep": [
+     "wet marinade",
+     "yoghurt",
+     "garlic",
+     "lemon"
+    ],
+    "fire": [
+     "charcoal",
+     "open grill"
+    ],
+    "sauce": [
+     "after the cooking",
+     "toum alongside"
+    ],
+    "region": [
+     "Lebanon"
+    ]
+   },
+   "note": "The same yoghurt marinade as chicken tikka, taken to an open grill instead of a clay oven. The garlic arrives twice — in the marinade, then whipped with oil as toum at the table."
   },
   {
    "name": "Şiş kebap",
@@ -228,6 +264,37 @@
    "note": "The flat blade is not decoration. Ground meat spins loose on a round rod and drops into the fire; a wide blade grips it."
   },
   {
+   "name": "Kabab kubideh",
+   "facets": {
+    "thread": [
+     "ground meat",
+     "minced lamb",
+     "pressed onto a flat blade"
+    ],
+    "prep": [
+     "seasoned into the mince",
+     "grated onion",
+     "turmeric",
+     "salt"
+    ],
+    "fire": [
+     "charcoal",
+     "mangal",
+     "skewers on rails",
+     "turned constantly"
+    ],
+    "sauce": [
+     "after the cooking",
+     "grilled tomato alongside",
+     "butter into the rice"
+    ],
+    "region": [
+     "Iran"
+    ]
+   },
+   "note": "The same loose mince on the same wide blade as Adana, seasoned the other way — grated onion and turmeric rather than hot pepper, and the onion's water is what makes the mince grip. The tomato goes on a skewer of its own, and the butter goes into rice rather than into bread."
+  },
+  {
    "name": "Seekh kebab",
    "facets": {
     "thread": [
@@ -254,7 +321,7 @@
      "South Asia"
     ]
    },
-   "note": "Same ground-meat problem as Adana, solved in a vertical oven instead of over an open trough — so the mince has to bind well enough to hang."
+   "note": "Same ground-meat problem as Adana and kubideh, solved in a vertical oven instead of over an open trough — so the mince has to bind well enough to hang."
   },
   {
    "name": "Chicken tikka",
@@ -346,7 +413,7 @@
    "note": "The cheapest cut in the family, and the one that most needs the acid. Heart is lean and firm; the vinegar marinade is doing structural work before it is doing flavour."
   },
   {
-   "name": "Churrasco",
+   "name": "Picanha no espeto",
    "facets": {
     "thread": [
      "whole cuts",
@@ -355,7 +422,8 @@
     ],
     "prep": [
      "no marinade",
-     "coarse salt only"
+     "salted",
+     "coarse"
     ],
     "fire": [
      "wood embers",
@@ -370,7 +438,7 @@
      "Brazil"
     ]
    },
-   "note": "The only one here not cut down to a bite. A folded whole cut is sliced off as its outside browns and the rest goes back to the fire."
+   "note": "Churrasco names Brazil's whole fire tradition rather than any one dish, so the skewer form has to be named for the cut. The only one here not cut down to a bite: a folded whole cut is sliced off as its outside browns and the rest goes back to the fire."
   },
   {
    "name": "Sosatie",
@@ -408,7 +476,7 @@
     "thread": [
      "strips of meat",
      "beef",
-     "thin flat skewer"
+     "flat wooden skewer"
     ],
     "prep": [
      "dry rub",
@@ -439,11 +507,12 @@
      "cubes of meat",
      "castrato mutton",
      "fat between",
-     "thin wooden skewer"
+     "thin bamboo"
     ],
     "prep": [
      "no marinade",
-     "salted at the fire"
+     "salted",
+     "at the fire"
     ],
     "fire": [
      "charcoal",
@@ -469,7 +538,8 @@
     ],
     "prep": [
      "dry rub",
-     "coarse salt",
+     "salted",
+     "coarse",
      "crushed garlic",
      "bay leaf"
     ],
@@ -542,6 +612,14 @@
    "url": "https://en.wikipedia.org/wiki/Satay"
   },
   {
+   "label": "Shish taouk",
+   "url": "https://en.wikipedia.org/wiki/Shish_taouk"
+  },
+  {
+   "label": "Kabab kubideh",
+   "url": "https://en.wikipedia.org/wiki/Kabab_koobideh"
+  },
+  {
    "label": "Sosatie",
    "url": "https://en.wikipedia.org/wiki/Sosatie"
   },
@@ -564,6 +642,10 @@
   {
    "label": "Adana kebabı",
    "url": "https://en.wikipedia.org/wiki/Adana_kebab%C4%B1"
+  },
+  {
+   "label": "Picanha",
+   "url": "https://en.wikipedia.org/wiki/Picanha"
   }
  ],
  "yours": [

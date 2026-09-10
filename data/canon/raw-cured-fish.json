@@ -95,7 +95,7 @@
      "Italy"
     ]
    },
-   "note": "Sashimi's Mediterranean sibling, not its descendant. Salt and lemon arrive seconds before the fork does, so they season rather than cure."
+   "note": "Sashimi's Mediterranean sibling, not only its descendant. Salt and lemon arrive seconds before the fork does, so they season rather than cure."
   },
   {
    "name": "Poke",
@@ -111,14 +111,13 @@
     ],
     "dress": [
      "limu seaweed",
-     "inamona",
-     "soy sauce"
+     "ʻinamona"
     ],
     "region": [
      "Hawaii"
     ]
    },
-   "note": "Older than the soy-and-sesame bowl it became: sea salt, limu, and inamona — roasted kukui nut — on cubed aku. The cube is the point. It is fish cut to be eaten with the fingers."
+   "note": "Older than the soy-and-sesame bowl it became: sea salt, limu and ʻinamona — roasted kukui nut — on cubed aku. The cube is the point. It is fish cut to be eaten with the fingers."
   },
   {
    "name": "Hoe",
@@ -145,7 +144,7 @@
    "note": "Korean raw fish, cut thinner and chewier than sashimi and built for wrapping. The vinegar is in the dipping sauce, so it meets the fish for one second per bite — a sauce, never a cure."
   },
   {
-   "name": "Hoe-deopbap",
+   "name": "Hoedeopbap",
    "parent": "Hoe",
    "facets": {
     "acid": [
@@ -184,15 +183,13 @@
     ],
     "dress": [
      "plum sauce",
-     "shredded vegetables",
-     "tossed at the table"
+     "shredded vegetables"
     ],
     "region": [
-     "Singapore",
-     "Malaysia"
+     "Singapore"
     ]
    },
-   "note": "Teochew raw fish rebuilt as a Lunar New Year ritual: everyone stands and tosses it as high as they can. The only dish here whose serving move is the dish."
+   "note": "Teochew raw fish rebuilt in 1960s Singapore as a Lunar New Year ritual, with Seremban in Malaysia disputing the credit. Everyone stands and tosses it as high as they can: the only dish here whose serving move is the dish."
   },
   {
    "name": "Ceviche",
@@ -251,7 +248,7 @@
      "dressed at the plate"
     ],
     "cure": [
-     "salted at the plate"
+     "salted in the liquid"
     ],
     "cut": [
      "sliced across the grain",
@@ -266,7 +263,7 @@
      "Mexico"
     ]
    },
-   "note": "Sinaloa's answer, and the fastest thing here — the chile water hits the plate and you eat. Classically butterflied shrimp; fish is cut thin for the same reason, so the liquid never gets time to go past the surface."
+   "note": "Sinaloa's answer, and the fastest thing here — the salt goes into the chile water rather than onto the fish, so the whole seasoning arrives as a liquid and you eat at once. Classically butterflied shrimp; fish is cut thin for the same reason, so the liquid never gets time to go past the surface."
   },
   {
    "name": "Kinilaw",
@@ -321,11 +318,11 @@
    "facets": {
     "acid": [
      "vinegar",
-     "hours in the acid"
+     "minutes in the acid"
     ],
     "cure": [
      "packed in salt",
-     "drawn for an hour"
+     "drawn for hours"
     ],
     "cut": [
      "cured whole",
@@ -339,7 +336,7 @@
      "Japan"
     ]
    },
-   "note": "Salt first to pull water out, vinegar second to go into the space it left. Do it the other way round and the vinegar sits on wet flesh and does nothing. This is the hinge of the whole family."
+   "note": "Salt first to pull water out, vinegar second to go into the space it left — hours in the salt, well under an hour in the vinegar. Do it the other way round and the vinegar sits on wet flesh and does nothing. This is the hinge of the whole family."
   },
   {
    "name": "Rollmops",
@@ -375,7 +372,7 @@
     ],
     "cure": [
      "brined in salt",
-     "ripened for days"
+     "ripened in the barrel"
     ],
     "cut": [
      "cured whole",
@@ -412,11 +409,10 @@
      "mustard and dill sauce"
     ],
     "region": [
-     "Sweden",
-     "Norway"
+     "Sweden"
     ]
    },
-   "note": "Sugar is not there for sweetness. It holds water in the flesh that salt alone would strip, which is why gravlax stays supple where a straight salt cure goes firm."
+   "note": "Sugar is not there for sweetness. It holds water in the flesh that salt alone would strip, which is why gravlax stays supple where a straight salt cure goes firm. Swedish by name; Norway cures the same fish as gravlaks."
   },
   {
    "name": "Mojama",
@@ -457,7 +453,7 @@
    "body": "Cold-smoked salmon — lox, or Nova — is gravlax's near-twin: the same salt cure, then smoke where the dill would be, and the fish still never gets warm enough to cook. It is missing from the table because smoke would be a column with one entry in it. But it is the obvious next decision, and worth knowing that it sits one step off gravlax rather than anywhere near the raw end of the family."
   },
   {
-   "title": "On the Pacific and the ninth name",
+   "title": "On one dish under four flags",
    "body": "Kokoda is also ʻota ʻika in Tonga, oka iʻa in Samoa and poisson cru in Tahiti — one dish under four flags, and the Tongan version is a national dish. They are listed once here rather than four times, but none of them is a variation of the others. The same warning applies across the table: kinilaw is not Filipino ceviche and tiradito is not Peruvian sashimi. Only tiradito genuinely descends from its neighbour, because Peru is where both parents were standing."
   }
  ],

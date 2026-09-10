@@ -1,8 +1,8 @@
 {
  "slug": "noodle-soup",
  "name": "Noodle soup",
- "standfirst": "Boil noodles, pour hot broth over them, put something on top. Every noodle-eating culture arrived at this, and then argued about the broth — whether to keep it clear, boil it cloudy, cut it with coconut, or make it sour. The second argument is quieter: whether the cook finishes the bowl, or you do.",
- "root": "Noodles in a bowl, with hot broth poured over",
+ "standfirst": "Cook noodles, get hot broth onto them, put something on top. Every noodle-eating culture arrived at this, and then argued about the broth — whether to keep it clear, boil it cloudy, thicken it with pulses or toasted flour, cut it with coconut, or make it sour. The second argument is quieter: whether the cook finishes the bowl, or you do.",
+ "root": "Noodles and hot broth in one bowl",
  "facets": [
   {
    "id": "broth",
@@ -38,6 +38,13 @@
    "label": "By noodle",
    "by": [
     "noodle",
+    "broth"
+   ]
+  },
+  {
+   "label": "By who finishes it",
+   "by": [
+    "finish",
     "broth"
    ]
   },
@@ -108,7 +115,7 @@
      "Fukuoka"
     ]
    },
-   "note": "Same bones as a clear stock, held at a rolling boil instead of a simmer. The noodle is thin because the broth clings to it."
+   "note": "Same pork bones a clear stock would use, held at a rolling boil instead of a simmer. The noodle is thin because the broth clings to it."
   },
   {
    "name": "Wonton noodle soup",
@@ -170,13 +177,13 @@
      "Gansu"
     ]
    },
-   "note": "Judged on the clarity of the broth, which is why the beef is sliced thin and added at the end rather than stewed in it."
+   "note": "Judged on the clarity of the broth, which is why the pot is skimmed and never allowed to boil — the beef cooks in it, then comes out to be sliced and laid on at the end."
   },
   {
-   "name": "Niurou mian",
+   "name": "Hongshao niurou mian",
    "facets": {
     "broth": [
-     "clear",
+     "dark",
      "beef bones",
      "soy-braised",
      "doubanjiang"
@@ -200,16 +207,16 @@
      "Taiwan"
     ]
    },
-   "note": "Taiwan's braised beef noodle soup. The beef and the broth are cooked together, so the broth is dark where Lanzhou's is clear."
+   "note": "Taiwan's red-braised bowl. Lanzhou's beef cooks in its broth too, but this beef is braised in soy and chilli bean paste first, so the colour goes into the pot and stays."
   },
   {
    "name": "Kalguksu",
    "facets": {
     "broth": [
-     "clear",
+     "clouded",
      "dried anchovy",
      "kelp",
-     "clouded by noodle starch"
+     "noodle starch"
     ],
     "noodle": [
      "wheat",
@@ -258,10 +265,10 @@
     ],
     "region": [
      "Vietnam",
-     "Hanoi"
+     "Saigon"
     ]
    },
-   "note": "The rare beef is cooked by the broth as it is poured. Everything else happens at your end of the table."
+   "note": "The rare beef is cooked by the broth as it is poured. In the southern bowl everything else happens at your end of the table."
   },
   {
    "name": "Bún bò Huế",
@@ -269,13 +276,14 @@
     "broth": [
      "clear",
      "beef bones",
+     "pork bones",
      "lemongrass",
      "fermented shrimp paste"
     ],
     "noodle": [
      "rice",
-     "round",
-     "thick"
+     "thick",
+     "round"
     ],
     "top": [
      "beef shank",
@@ -306,7 +314,7 @@
     ],
     "noodle": [
      "rice",
-     "thick",
+     "thin",
      "round",
      "yellow wheat mixed in"
     ],
@@ -323,10 +331,10 @@
     ],
     "region": [
      "Malaysia",
-     "Singapore"
+     "Kuala Lumpur"
     ]
    },
-   "note": "Two noodles in one bowl on purpose — the rice noodle carries the broth, the wheat noodle stays springy in it."
+   "note": "Two noodles in one bowl on purpose — the rice vermicelli carries the broth, the yellow wheat noodle stays springy in it."
   },
   {
    "name": "Asam laksa",
@@ -429,7 +437,7 @@
    "facets": {
     "broth": [
      "clear",
-     "chicken",
+     "whole chicken",
      "turmeric",
      "lemongrass"
     ],
@@ -511,11 +519,10 @@
      "black pepper"
     ],
     "region": [
-     "Ashkenazi Europe",
      "United States"
     ]
    },
-   "note": "The plainest bowl in the family, and the clearest statement of the base: a gently simmered bird, an egg noodle, and nothing hiding."
+   "note": "The plainest bowl in the family, and the clearest statement of the base: a gently simmered bird, an egg noodle, and nothing hiding. Ashkenazi in origin, and now thoroughly American."
   },
   {
    "name": "Yaka mein",
@@ -552,11 +559,11 @@
  "notes": [
   {
    "title": "Clear or cloudy is one decision",
-   "body": "A pot of bones held just under a simmer and skimmed stays transparent — that is Lanzhou beef lamian, and phở. The same bones at a hard rolling boil for eight or twelve hours drive fat and gelatine into suspension until the broth turns opaque and coats the noodle — that is tonkotsu. Nothing else changes. Emulsified broth is not a richer recipe than clear broth; it is a hotter one."
+   "body": "A pot of bones held just under a simmer and skimmed stays transparent — that is Lanzhou beef lamian, and phở. The same bones at a hard rolling boil for eight or twelve hours drive fat and gelatine into suspension until the broth turns opaque and coats the noodle — that is tonkotsu. Nothing else changes. Emulsified broth is not a richer recipe than clear broth; it is a hotter one. Kalguksu clouds a third way, and a cooler one: flour off the noodles, not fat off the bones."
   },
   {
    "title": "Who finishes the bowl",
-   "body": "A ramen bowl arrives with its seasoning already decided — the tare went into the empty bowl before the broth did, and reaching for the chilli is a comment on the cook. A bowl of phở arrives deliberately incomplete, with herbs, lime and chilli on a plate beside it, and assembling it is the last step of the recipe rather than a garnish. Neither bowl is more finished than the other. They put the seasoning decision in different hands."
+   "body": "A ramen bowl arrives with its seasoning already decided — the tare went into the empty bowl before the broth did, and reaching for the chilli is a comment on the cook. A bowl of phở in Saigon arrives deliberately incomplete, with herbs, lime and chilli on a plate beside it, and assembling it is the last step of the recipe rather than a garnish. Neither bowl is more finished than the other. They put the seasoning decision in different hands."
   },
   {
    "title": "The noodle is chosen for how it behaves in liquid",

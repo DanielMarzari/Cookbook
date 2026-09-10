@@ -1,8 +1,8 @@
 {
  "slug": "flatbread",
  "name": "Flatbread",
- "standfirst": "Ground grain, water, and something hot to press it against. Every settled agricultural people arrived at this, which is what makes the family so legible: change the leavening, change the grain, or change the surface, and you land in a different country without changing the idea.",
- "root": "Ground grain and water, flattened, cooked against direct heat",
+ "standfirst": "Ground grain or pulse, water, and something hot to press it against. Wherever a crop was ground to flour and a hot surface was at hand, someone arrived at this, which is what makes the family so legible: change the leavening, change the grain, or change the surface, and you land in a different country without changing the idea.",
+ "root": "Ground grain or pulse and water, flattened, cooked against direct heat",
  "facets": [
   {
    "id": "leaven",
@@ -68,8 +68,7 @@
      "dry tawa"
     ],
     "region": [
-     "South Asia",
-     "East Africa"
+     "South Asia"
     ]
    },
    "note": "Pressed at the edges on the tawa — or finished a second over the open flame, when it is called a phulka — the two skins separate and it balloons. That puff is steam. It is the only leavening the bread ever gets."
@@ -99,7 +98,7 @@
      "South Asia"
     ]
    },
-   "note": "Chapati dough plus fat folded back into it. The ghee keeps the sheets from fusing, so the bread comes off the tawa in leaves rather than as one skin."
+   "note": "Chapati dough plus fat folded back into it — the one row here that is another row plus something. The ghee keeps the sheets from fusing, so the bread comes off the tawa in leaves rather than as one skin."
   },
   {
    "name": "Puri",
@@ -122,7 +121,7 @@
      "South Asia"
     ]
    },
-   "note": "The chapati's dough sent to a different heat. Submerged in hot oil the outside sets before any steam can escape, so it inflates into a sphere in about four seconds."
+   "note": "The same dough as a chapati, nothing added, sent to a different heat. Submerged in hot oil the outside sets before any steam can escape, so it inflates into a sphere in about four seconds."
   },
   {
    "name": "Naan",
@@ -143,12 +142,10 @@
      "slapped on the wall"
     ],
     "region": [
-     "South Asia",
-     "Central Asia",
-     "Iran"
+     "South Asia"
     ]
    },
-   "note": "Yoghurt in the dough softens it and sours it; yeast does the lifting. Slapped wet-side onto the clay it hangs there while it bakes, which is why one end is drawn long."
+   "note": "Yoghurt in the dough softens it and sours it; yeast does the lifting. Slapped wet-side onto the clay it hangs there while it bakes, which is why one end is drawn long. The same bread, under the same name, runs west through Central Asia and Iran."
   },
   {
    "name": "Lavash",
@@ -169,12 +166,11 @@
      "slapped on the wall"
     ],
     "region": [
-     "Armenia",
      "Caucasus",
-     "Iran"
+     "Armenia"
     ]
    },
-   "note": "The same clay wall as naan with the yeast taken out. Rolled thin enough that it dries to a cracker and keeps for months; sprinkled with water it comes back soft."
+   "note": "The same clay wall as naan. Leavened lavash exists — Armenian bakers keep a sourdough starter called ttkhmor for it — but the thin keeping kind is made without: rolled thin enough that it dries to a cracker and lasts for months, then sprinkled with water to come back soft."
   },
   {
    "name": "Sangak",
@@ -219,8 +215,8 @@
      "very hot floor"
     ],
     "region": [
-     "Levant",
-     "Eastern Mediterranean"
+     "Eastern Mediterranean",
+     "Levant"
     ]
    },
    "note": "The pocket is not an ingredient. A thin round hitting a very hot floor sets both faces before the steam between them can escape, and the bread blows itself apart into two layers."
@@ -266,16 +262,15 @@
     ],
     "cook": [
      "griddle",
+     "one side only",
      "clay mitad",
-     "lidded",
-     "one side only"
+     "lidded"
     ],
     "region": [
-     "Ethiopia",
-     "Eritrea"
+     "Horn of Africa"
     ]
    },
-   "note": "Days of fermentation give both the sourness and the gas. The bubbles that break through the top are the eyes, and they are what the stew soaks into. It is the plate as much as the bread."
+   "note": "Days of fermentation give both the sourness and the gas. The bubbles that break through the top are the eyes, and they are what the stew soaks into. In Ethiopia and Eritrea alike it is the plate as much as the bread."
   },
   {
    "name": "Dosa",
@@ -294,15 +289,14 @@
     ],
     "cook": [
      "griddle",
-     "oiled",
-     "one side only"
+     "one side only",
+     "oiled"
     ],
     "region": [
-     "South India",
-     "Sri Lanka"
+     "South Asia"
     ]
    },
-   "note": "The same solution as injera, reached independently: let wild fermentation do the leavening, then pour rather than roll. Rice and lentils ground together supply the protein that wheat would otherwise have brought."
+   "note": "South India reached injera's solution independently: let wild fermentation do the leavening, then pour rather than roll. Rice and lentils ground together supply the protein that wheat would otherwise have brought."
   },
   {
    "name": "Corn tortilla",
@@ -324,11 +318,10 @@
      "turned three times"
     ],
     "region": [
-     "Mesoamerica",
      "Mexico"
     ]
    },
-   "note": "Nixtamalisation — simmering the maize in lime water — is the only step in this table that changes the grain's chemistry. It lets the dough cohere without gluten and frees the niacin that would otherwise be locked away."
+   "note": "Nixtamalisation — simmering the maize in lime water — is the only alkaline treatment in this table. It lets the dough cohere without gluten and frees the niacin that would otherwise be locked away. Mesoamerica has been doing it for three thousand years."
   },
   {
    "name": "Flour tortilla",
@@ -350,11 +343,10 @@
      "dry comal"
     ],
     "region": [
-     "Northern Mexico",
-     "US Southwest"
+     "Mexico"
     ]
    },
-   "note": "Where wheat grew better than maize, the same comal took a different dough. Lard is what lets it fold instead of crack, and it is the only bread here leavened out of a tin."
+   "note": "Where wheat grew better than maize — the north of the country, and the US Southwest beyond it — the same comal took a different dough. Lard is what lets it fold instead of crack, and it is the only bread here leavened out of a tin."
   },
   {
    "name": "Arepa",
@@ -428,11 +420,11 @@
      "shallow-fried in oil"
     ],
     "region": [
-     "Morocco",
-     "Maghreb"
+     "Maghreb",
+     "Morocco"
     ]
    },
-   "note": "Pulled translucent on an oiled surface, then folded in thirds and in thirds again — nine layers with fat between every one. Paratha and laobing do the same thing, and none of the three learned it from the others."
+   "note": "Pulled translucent on an oiled surface, then folded in thirds and in thirds again — nine layers with fat between every one. Paratha and laobing do the same thing, and a belt of layered breads called katlama runs most of the way between them: katmer in Turkey, qatlama in Azerbaijan and Uzbekistan, kattama in Kyrgyzstan, katlama again in Kashmir."
   },
   {
    "name": "Socca",
@@ -446,7 +438,7 @@
     ],
     "flatten": [
      "poured as batter",
-     "into a hot pan"
+     "left to level itself"
     ],
     "cook": [
      "oven",
@@ -458,7 +450,7 @@
      "Liguria"
     ]
    },
-   "note": "No grain in it at all — chickpea flour, water, olive oil. Called farinata a few miles east along the same coast, and sold by the wedge off a barrow in both."
+   "note": "No grain in it at all — chickpea flour, water, olive oil. The batter is thin enough to find its own level in the pan, so nobody rolls or spreads it. Called farinata a few miles east along the same coast, and sold by the wedge off a barrow in both."
   }
  ],
  "notes": [
@@ -503,6 +495,10 @@
   {
    "label": "Laobing",
    "url": "https://en.wikipedia.org/wiki/Laobing"
+  },
+  {
+   "label": "Katlama",
+   "url": "https://en.wikipedia.org/wiki/Katlama"
   },
   {
    "label": "Arepa",

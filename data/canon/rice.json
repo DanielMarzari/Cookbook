@@ -1,7 +1,7 @@
 {
  "slug": "rice",
  "name": "Cooked rice",
- "standfirst": "One grain and one pot, and four decisions that separate every rice dish on earth: how much liquid, what happens to the grain before it meets that liquid, whether it is stirred or left alone, and whether you want the bottom to catch. Answer them one way and you have risotto. Answer them another and you have biryani. None of these is a variation on any of the others — they are separate answers to the same grain.",
+ "standfirst": "One grain and one pot, and four decisions that separate every pot of rice on earth: how much liquid, what happens to the grain before it meets that liquid, whether it is stirred or left alone, and whether you want the bottom to catch. Answer them one way and you have risotto. Answer them another and you have biryani. None of these is a variation on any of the others — they are separate answers to the same grain.",
  "root": "Rice, water and heat",
  "facets": [
   {
@@ -95,11 +95,10 @@
      "dried off the heat"
     ],
     "region": [
-     "South Asia",
-     "Caribbean"
+     "Worldwide"
     ]
    },
-   "note": "Cooked like pasta, in far more water than the grain can take, and poured off when it is done. Most of the world's rice is cooked this way and it is the least written about."
+   "note": "Cooked like pasta, in far more water than the grain can take, and poured off when it is done. Most of the world's rice is cooked this way and it is the least written about, which is why it belongs to no one country here."
   },
   {
    "name": "Khao niao",
@@ -121,8 +120,7 @@
      "flipped once"
     ],
     "region": [
-     "Laos",
-     "Northeast Thailand"
+     "Laos"
     ]
    },
    "note": "No liquid ever touches the grain. The overnight soak does what boiling would do, and steam only finishes it — which is why it can be picked up and eaten with the fingers."
@@ -148,7 +146,7 @@
      "China"
     ]
    },
-   "note": "Ten times the water and enough time, and the starch leaves the grain entirely. The rice thickens what it was cooked in until there is no longer a distinction between the two."
+   "note": "Ten times the water and enough time, and the starch leaves the grain entirely. The rice is washed like any other pot of rice; the body comes from the collapse, not from anything left on the outside of the grain."
   },
   {
    "name": "Kheer",
@@ -194,8 +192,7 @@
      "pandan in the pot"
     ],
     "region": [
-     "Malaysia",
-     "Singapore"
+     "Malaysia"
     ]
    },
    "note": "The absorption method with the water swapped out. Fat in the cooking liquid coats every grain from the inside, which is a different thing from stirring fat in afterwards."
@@ -297,8 +294,8 @@
     "cook": [
      "left alone",
      "uncovered",
-     "spread thin",
-     "crust wanted"
+     "crust wanted",
+     "spread thin"
     ],
     "region": [
      "Valencia"
@@ -324,14 +321,14 @@
     ],
     "cook": [
      "drained",
-     "steamed under a cloth",
-     "crust wanted"
+     "crust wanted",
+     "steamed under a cloth"
     ],
     "region": [
      "Iran"
     ]
    },
-   "note": "Two stages that most cuisines keep apart: boiled like pasta and drained while still firm, then piled back over butter and steamed dry until a slab of tahdig forms underneath."
+   "note": "Two stages that most cuisines keep apart: boiled like pasta and drained while still firm, then piled back over butter and steamed dry under a cloth until a slab of tahdig forms underneath."
   },
   {
    "name": "Biryani",
@@ -365,7 +362,8 @@
    "name": "Jollof rice",
    "facets": {
     "grain": [
-     "long-grain"
+     "long-grain",
+     "factory-parboiled"
     ],
     "prep": [
      "washed"
@@ -377,15 +375,14 @@
     "cook": [
      "left alone",
      "lid on",
-     "sealed with foil",
-     "crust wanted"
+     "crust wanted",
+     "sealed with foil"
     ],
     "region": [
-     "Nigeria",
-     "Ghana"
+     "West Africa"
     ]
    },
-   "note": "The liquid is the entire dish. A reduced tomato-and-pepper base goes in as the cooking water, so nothing is seasoned afterwards. Parboiled long-grain is usual, because it survives the braise without breaking."
+   "note": "The liquid is the entire dish. A reduced tomato-and-pepper base goes in as the cooking water, so nothing is seasoned afterwards; foil under the lid holds the steam in while the bottom is left to catch. Factory-parboiled long-grain is usual, because converted rice survives the braise without breaking."
   },
   {
    "name": "Thieboudienne",
@@ -428,17 +425,18 @@
     "cook": [
      "left alone",
      "lid on",
-     "turned once",
-     "crust wanted"
+     "crust wanted",
+     "uncovered at first",
+     "turned once"
     ],
     "region": [
      "Puerto Rico"
     ]
    },
-   "note": "Uncovered until the liquid is gone, one turn of the spoon, then the lid goes on and stays on. The pegao at the bottom is scraped up and fought over."
+   "note": "The lid stays off until the liquid is gone, then one turn of the spoon and it goes on and stays on while the bottom catches. The pegao is scraped up and fought over."
   },
   {
-   "name": "Bibimbap",
+   "name": "Dolsot bibimbap",
    "facets": {
     "grain": [
      "short-grain japonica"
@@ -454,6 +452,7 @@
     "cook": [
      "left alone",
      "lid on",
+     "crust wanted",
      "topped",
      "mixed at the table"
     ],
@@ -461,13 +460,13 @@
      "Korea"
     ]
    },
-   "note": "Nothing at all is done to the rice. The dish happens on top of plain bap and is not assembled until it reaches the eater — and in a hot stone bowl the base scorches into nurungji while they eat."
+   "note": "Plain absorption rice, moved into a stone bowl hot enough to go on cooking after it leaves the fire. The base is left to scorch into nurungji on purpose, the toppings are laid on rather than cooked in, and the eater finishes the dish by stirring the whole bowl through its own crust."
   }
  ],
  "notes": [
   {
    "title": "On washing",
-   "body": "Rinsing rice washes off loose surface starch, and that one decision splits the family in two. Where the ideal is separate grains — pilaf, biryani, chelow — the rice is washed, often soaked, and sometimes sealed in fat as well. Where the ideal is a bound, creamy dish — risotto, paella, congee — the starch is kept and put to work. It is the same choice that separates a sauced pasta from a soup."
+   "body": "Rinsing rice washes off loose surface starch, and that one decision splits the family in two. Where the ideal is separate grains — pilaf, biryani, chelow — the rice is washed, often soaked, and sometimes sealed in fat as well. Where the ideal is a bound, creamy dish — risotto, paella — it goes into the pan dry and unrinsed and the starch is kept and put to work. It is the same choice that separates a sauced pasta from a soup. Congee sits outside the split rather than proving it: it is washed like any other pot of rice, and its body comes from an hour of collapse rather than from anything left on the outside of the grain."
   },
   {
    "title": "On stirring",
@@ -475,11 +474,11 @@
   },
   {
    "title": "On the crust",
-   "body": "Socarrat, tahdig, pegao, xoon, nurungji, the scorched bottom of party jollof, the lacquered base of Cantonese clay-pot rice. A great deal of the world cooks rice specifically so that some of it burns, and nowhere is this an accident. Whether the pot is left long enough to catch is a decision like any other, and in six of these dishes it is the point."
+   "body": "Socarrat, tahdig, pegao, xoon, nurungji, the scorched bottom of party jollof, the lacquered base of Cantonese clay-pot rice. A great deal of the world cooks rice specifically so that some of it burns, and nowhere is this an accident. Whether the pot is left long enough to catch is a decision like any other, and in six rows of this table it is the point."
   },
   {
    "title": "On one word travelling",
-   "body": "Pilaf, pilav, pulao, plov, polow, pilau, pelau: a single Persian word carried along trade routes from Anatolia to the Caribbean. What travelled with it was a method, not a menu — toast or coat the grain in fat, add a measured amount of liquid, cover it, and do not touch it again. The meat and the spices changed in every country it reached."
+   "body": "Pilaf, pilav, pulao, plov, polow, pilau, pelau: one word, Persian by the time it travelled, carried along trade routes from Anatolia to the Caribbean. What travelled with it was a method, not a menu — toast or coat the grain in fat, add a measured amount of liquid, cover it, and do not touch it again. The meat and the spices changed in every country it reached."
   }
  ],
  "sources": [
@@ -520,6 +519,14 @@
    "url": "https://en.wikipedia.org/wiki/Tahdig"
   },
   {
+   "label": "Bibimbap",
+   "url": "https://en.wikipedia.org/wiki/Bibimbap"
+  },
+  {
+   "label": "Parboiled rice",
+   "url": "https://en.wikipedia.org/wiki/Parboiled_rice"
+  },
+  {
    "label": "Around the World in Bottom Pot (Kitchen Butterfly)",
    "url": "https://www.kitchenbutterfly.com/2016/around-the-world-in-bottom-pot/"
   }
@@ -534,6 +541,7 @@
   "congee",
   "jollof",
   "bibimbap",
+  "dolsot",
   "nasi",
   "arroz"
  ]
