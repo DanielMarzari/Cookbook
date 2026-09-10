@@ -1,0 +1,628 @@
+{
+ "slug": "mole",
+ "name": "Mole",
+ "standfirst": "Mole is not one recipe and it is not chocolate sauce — mōlli is simply Nahuatl for sauce. What every one of these has in common is chillies ground with aromatics and given body by something that is not flour: bread, corn, a seed, a nut. Four decisions separate them — which chillies, what happens to those chillies before the grinder, what else goes in, and what carries the body — and the same four decisions, answered elsewhere in the world, produce romesco and muhammara and ají de gallina.",
+ "root": "Chillies and aromatics ground to a paste, then let down into a sauce",
+ "facets": [
+  {
+   "id": "chilli",
+   "label": "Chilli"
+  },
+  {
+   "id": "prep",
+   "label": "First move"
+  },
+  {
+   "id": "add",
+   "label": "Added"
+  },
+  {
+   "id": "body",
+   "label": "Thickener"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By thickener",
+   "by": [
+    "body",
+    "add",
+    "chilli"
+   ]
+  },
+  {
+   "label": "By first move",
+   "by": [
+    "prep",
+    "add",
+    "body"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "body"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Mole poblano",
+   "facets": {
+    "chilli": [
+     "dried chilli",
+     "ancho",
+     "mulato",
+     "pasilla",
+     "chipotle"
+    ],
+    "prep": [
+     "chillies fried in lard",
+     "nuts and seeds fried separately",
+     "aromatics charred on the comal"
+    ],
+    "add": [
+     "nuts and seeds",
+     "almond",
+     "sesame seed",
+     "raisin",
+     "chocolate"
+    ],
+    "body": [
+     "bread",
+     "bolillo fried in lard",
+     "toasted tortilla"
+    ],
+    "region": [
+     "Puebla"
+    ]
+   },
+   "note": "The one people mean when they say mole. Three chillies for depth and a fourth for smoke; every solid fried in lard on its own before it meets the grinder, which is why it takes a day rather than an afternoon."
+  },
+  {
+   "name": "Mole negro",
+   "facets": {
+    "chilli": [
+     "dried chilli",
+     "chilhuacle negro",
+     "mulato",
+     "pasilla oaxaqueño",
+     "guajillo"
+    ],
+    "prep": [
+     "chillies fried in lard",
+     "chilli seeds burned to smoking",
+     "aromatics charred on the comal"
+    ],
+    "add": [
+     "nuts and seeds",
+     "almond",
+     "sesame seed",
+     "plantain",
+     "chocolate"
+    ],
+    "body": [
+     "bread",
+     "bolillo fried in lard",
+     "burnt tortilla"
+    ],
+    "region": [
+     "Oaxaca"
+    ]
+   },
+   "note": "The black is not the chocolate. It is the reserved chilli seeds taken to the far side of toasted — burned until they smoke — plus a tortilla carried to charcoal, and the chilhuacle negro that Oaxaca grows and almost nowhere else does."
+  },
+  {
+   "name": "Mole coloradito",
+   "facets": {
+    "chilli": [
+     "dried chilli",
+     "ancho",
+     "guajillo",
+     "chilhuacle rojo"
+    ],
+    "prep": [
+     "chillies fried in lard",
+     "aromatics charred on the comal"
+    ],
+    "add": [
+     "nuts and seeds",
+     "almond",
+     "plantain",
+     "chocolate"
+    ],
+    "body": [
+     "bread",
+     "bolillo fried in lard"
+    ],
+    "region": [
+     "Oaxaca"
+    ]
+   },
+   "note": "Nothing is burned, so the red chillies stay red. The everyday Oaxacan mole and the one that turns into enchiladas on the second day."
+  },
+  {
+   "name": "Mole amarillo",
+   "facets": {
+    "chilli": [
+     "dried chilli",
+     "chilcostle",
+     "costeño amarillo",
+     "guajillo"
+    ],
+    "prep": [
+     "chillies toasted dry",
+     "aromatics charred on the comal"
+    ],
+    "add": [
+     "no nuts or seeds",
+     "hoja santa",
+     "miltomate"
+    ],
+    "body": [
+     "masa",
+     "slaked in cold water"
+    ],
+    "region": [
+     "Oaxaca"
+    ]
+   },
+   "note": "Thin enough to drink, because corn masa thickens without enriching. Hoja santa is obligatory in the valleys; the coast swaps in pitiona and the isthmus epazote, and it is still amarillo."
+  },
+  {
+   "name": "Mole verde",
+   "facets": {
+    "chilli": [
+     "fresh chilli",
+     "jalapeño",
+     "serrano"
+    ],
+    "prep": [
+     "chillies go in raw",
+     "nothing toasted at all",
+     "tomatillo simmered soft",
+     "herbs blended raw"
+    ],
+    "add": [
+     "no nuts or seeds",
+     "hoja santa",
+     "epazote",
+     "parsley"
+    ],
+    "body": [
+     "masa",
+     "slaked in cold water"
+    ],
+    "region": [
+     "Oaxaca"
+    ]
+   },
+   "note": "The only mole in Oaxaca where nothing meets a dry comal — heat is what kills the green. Made and eaten the same day for the same reason."
+  },
+  {
+   "name": "Chichilo negro",
+   "facets": {
+    "chilli": [
+     "dried chilli",
+     "chilhuacle negro",
+     "mulato",
+     "pasilla oaxaqueño"
+    ],
+    "prep": [
+     "chillies burned to black",
+     "chilli seeds burned to smoking",
+     "tomato charred on the comal"
+    ],
+    "add": [
+     "no nuts or seeds",
+     "avocado leaf",
+     "no chocolate"
+    ],
+    "body": [
+     "masa",
+     "burnt tortilla"
+    ],
+    "region": [
+     "Oaxaca"
+    ]
+   },
+   "note": "The funeral mole, and the austere one: no nuts, no fruit, no chocolate, beef broth instead of turkey. Everything it has comes from ash and the anise of avocado leaf, and the bitterness is the point rather than an accident."
+  },
+  {
+   "name": "Manchamanteles",
+   "facets": {
+    "chilli": [
+     "dried chilli",
+     "ancho",
+     "guajillo"
+    ],
+    "prep": [
+     "chillies fried in lard",
+     "plantain fried in lard",
+     "fruit simmered in the sauce"
+    ],
+    "add": [
+     "fruit",
+     "pineapple",
+     "plantain",
+     "apple",
+     "almond"
+    ],
+    "body": [
+     "ground nuts",
+     "almond",
+     "the fruit itself"
+    ],
+    "region": [
+     "Oaxaca"
+    ]
+   },
+   "note": "Tablecloth-stainer. The fruit is not a garnish — it cooks down into the sauce and does half the thickening, with cider vinegar holding the sweetness in check."
+  },
+  {
+   "name": "Pipián verde",
+   "facets": {
+    "chilli": [
+     "fresh chilli",
+     "serrano"
+    ],
+    "prep": [
+     "chillies go in raw",
+     "pumpkin seed toasted dry",
+     "tomatillo simmered soft"
+    ],
+    "add": [
+     "nuts and seeds",
+     "pumpkin seed",
+     "cilantro",
+     "hoja santa"
+    ],
+    "body": [
+     "ground seeds",
+     "pumpkin seed"
+    ],
+    "region": [
+     "Central Mexico"
+    ]
+   },
+   "note": "The seed is not an enrichment here, it is the sauce. Ground pepitas thicken and then split if you let them boil, so it is held below a simmer from the moment it goes into the pan."
+  },
+  {
+   "name": "Mole de olla",
+   "facets": {
+    "chilli": [
+     "dried chilli",
+     "guajillo",
+     "pasilla",
+     "chile de árbol"
+    ],
+    "prep": [
+     "chillies toasted dry",
+     "chillies soaked soft",
+     "paste stirred straight into broth"
+    ],
+    "add": [
+     "no nuts or seeds",
+     "epazote",
+     "summer vegetables",
+     "beef shin"
+    ],
+    "body": [
+     "no thickener",
+     "left as broth"
+    ],
+    "region": [
+     "Central Mexico"
+    ]
+   },
+   "note": "A mole you eat with a spoon. It proves what the word means: the chilli paste is never fried and never thickened, just loosened into the pot, and it is still a mole."
+  },
+  {
+   "name": "Adobo",
+   "facets": {
+    "chilli": [
+     "dried chilli",
+     "guajillo",
+     "ancho"
+    ],
+    "prep": [
+     "chillies toasted dry",
+     "chillies soaked soft"
+    ],
+    "add": [
+     "no nuts or seeds",
+     "vinegar",
+     "Mexican oregano",
+     "cumin"
+    ],
+    "body": [
+     "no thickener",
+     "chilli pulp alone"
+    ],
+    "region": [
+     "Mexico"
+    ]
+   },
+   "note": "The floor of the family: chilli, garlic, spice, vinegar, nothing else. Thick enough to coat meat as a marinade and thin enough to serve as sauce — the body is the chilli pulp itself."
+  },
+  {
+   "name": "Pepián",
+   "facets": {
+    "chilli": [
+     "dried chilli",
+     "chile guaque",
+     "chile pasa",
+     "chile cobán"
+    ],
+    "prep": [
+     "chillies toasted dry",
+     "seeds toasted dry",
+     "tomato charred on the comal",
+     "onion charred in its skin"
+    ],
+    "add": [
+     "nuts and seeds",
+     "pumpkin seed",
+     "sesame seed",
+     "cinnamon"
+    ],
+    "body": [
+     "ground seeds",
+     "pumpkin seed",
+     "toasted tortilla"
+    ],
+    "region": [
+     "Guatemala"
+    ]
+   },
+   "note": "Guatemala's national dish and pipián's sibling rather than its child — same answer to the thickener question, reached with different chillies and a comal that chars everything including the onion skin."
+  },
+  {
+   "name": "Romesco",
+   "facets": {
+    "chilli": [
+     "dried chilli",
+     "ñora",
+     "choricero"
+    ],
+    "prep": [
+     "chillies soaked without toasting",
+     "tomato and garlic roasted whole",
+     "bread fried in olive oil",
+     "nuts toasted dry"
+    ],
+    "add": [
+     "nuts and seeds",
+     "almond",
+     "hazelnut",
+     "sherry vinegar"
+    ],
+    "body": [
+     "bread",
+     "fried bread",
+     "ground almond"
+    ],
+    "region": [
+     "Catalonia"
+    ]
+   },
+   "note": "Catalonia arrives at mole poblano's structure independently: dried mild chilli rehydrated, aromatics roasted, fried bread and ground nuts for body. What it leaves out is the spice cabinet."
+  },
+  {
+   "name": "Muhammara",
+   "facets": {
+    "chilli": [
+     "dried chilli",
+     "Aleppo pepper"
+    ],
+    "prep": [
+     "peppers roasted whole",
+     "walnuts toasted dry",
+     "nothing cooked after"
+    ],
+    "add": [
+     "fruit",
+     "pomegranate molasses",
+     "walnut",
+     "cumin"
+    ],
+    "body": [
+     "bread",
+     "breadcrumb",
+     "ground walnut"
+    ],
+    "region": [
+     "Aleppo"
+    ]
+   },
+   "note": "The uncooked one. Bread and nut for body like romesco; fruit for sweet-sourness like manchamanteles — but the grinding is where it ends, so nothing ever meets a pan of fat."
+  },
+  {
+   "name": "Ají de gallina",
+   "facets": {
+    "chilli": [
+     "dried chilli",
+     "ají amarillo",
+     "ají panca"
+    ],
+    "prep": [
+     "chilli fried in oil",
+     "onion and garlic fried first",
+     "bread soaked in milk"
+    ],
+    "add": [
+     "nuts and seeds",
+     "walnut",
+     "pecan",
+     "parmesan"
+    ],
+    "body": [
+     "bread",
+     "white bread soaked in milk",
+     "ground walnut"
+    ],
+    "region": [
+     "Peru"
+    ]
+   },
+   "note": "Peru's version of the same trick, by way of a Spanish bread-and-almond sauce: ají amarillo fried into an onion base, bread soaked soft in milk, walnuts ground in for weight."
+  },
+  {
+   "name": "Mafé",
+   "facets": {
+    "chilli": [
+     "fresh chilli",
+     "scotch bonnet"
+    ],
+    "prep": [
+     "chillies go in raw",
+     "onion fried in oil",
+     "peanuts roasted before grinding"
+    ],
+    "add": [
+     "nuts and seeds",
+     "peanut",
+     "tomato paste"
+    ],
+    "body": [
+     "ground nuts",
+     "peanut paste"
+    ],
+    "region": [
+     "Senegal"
+    ]
+   },
+   "note": "Mandinka in origin and eaten across West Africa. Like pipián it hands the whole job to one ground seed — here the peanut, which thickens, enriches and carries the chilli at once."
+  },
+  {
+   "name": "Korma",
+   "facets": {
+    "chilli": [
+     "dried chilli",
+     "Kashmiri chilli"
+    ],
+    "prep": [
+     "chilli bloomed in ghee",
+     "onion fried to gold",
+     "nuts soaked soft"
+    ],
+    "add": [
+     "nuts and seeds",
+     "almond",
+     "cashew",
+     "yoghurt"
+    ],
+    "body": [
+     "ground nuts",
+     "cashew paste",
+     "yoghurt"
+    ],
+    "region": [
+     "North India"
+    ]
+   },
+   "note": "Mughlai, and the proof that the nut-bodied sauce does not need heat to be interesting: Kashmiri chilli is chosen for colour rather than burn, and the almond and cashew do everything the chilli does not."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On the word",
+   "body": "Mōlli is Nahuatl for sauce, full stop. It carries no promise of chocolate, of chillies in the dozens, or of a day at the stove — mole de olla is a soup and is not a lesser mole for it. The elaborate ones are elaborate because a feast asked them to be, not because the word demands it."
+  },
+  {
+   "title": "On chocolate",
+   "body": "Three of the sixteen here take it, in quantities that would ruin a dessert — an ounce or two of bitter chocolate in several litres of sauce, working as a dark background note the way a bay leaf does. Amarillo, verde and chichilo have none, and chichilo gets its black from char alone."
+  },
+  {
+   "title": "On burning",
+   "body": "Oaxaca is the only tradition here that takes an ingredient deliberately past toasted. In mole negro the reserved chilli seeds are held on the comal until they smoke; in chichilo the chillies themselves go to charcoal, and a tortilla with them. The bitterness that arrives is the flavour being sought, which is why the line between negro and a ruined pan is drawn by smell and about ninety seconds."
+  },
+  {
+   "title": "On the thickener",
+   "body": "This is where the family stops being Mexican. Bread, corn masa, a ground seed or a ground nut — four answers to how a chilli sauce gets body without flour, and cooks in Catalonia, Aleppo and Lima reached the same four independently. Romesco and mole poblano are not related; they are two solutions to one problem that happen to agree."
+  },
+  {
+   "title": "On depth",
+   "body": "Nothing here is given a parent. The seven moles of Oaxaca are made by the same cooks in the same kitchens and are still siblings, not a descent line — negro is not coloradito plus burnt seeds, and poblano is not adobo plus everything. Drawing those arrows would make a tidier picture and a false one."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Mole (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Mole_(sauce)"
+  },
+  {
+   "label": "Moles oaxaqueños",
+   "url": "https://es.wikipedia.org/wiki/Moles_oaxaque%C3%B1os"
+  },
+  {
+   "label": "Chilhuacle",
+   "url": "https://en.wikipedia.org/wiki/Chilhuacle"
+  },
+  {
+   "label": "Mole amarillo (Larousse Cocina)",
+   "url": "https://laroussecocina.mx/palabra/mole-amarillo-amarillo-o-amarillito/"
+  },
+  {
+   "label": "Pipián",
+   "url": "https://es.wikipedia.org/wiki/Pipi%C3%A1n"
+  },
+  {
+   "label": "Mole de olla",
+   "url": "https://es.wikipedia.org/wiki/Mole_de_olla"
+  },
+  {
+   "label": "Pepián",
+   "url": "https://en.wikipedia.org/wiki/Pepi%C3%A1n"
+  },
+  {
+   "label": "Romesco",
+   "url": "https://en.wikipedia.org/wiki/Romesco"
+  },
+  {
+   "label": "Muhammara",
+   "url": "https://en.wikipedia.org/wiki/Muhammara"
+  },
+  {
+   "label": "Ají de gallina",
+   "url": "https://en.wikipedia.org/wiki/Aj%C3%AD_de_gallina"
+  },
+  {
+   "label": "Maafe (peanut stew)",
+   "url": "https://en.wikipedia.org/wiki/Peanut_stew"
+  },
+  {
+   "label": "Korma",
+   "url": "https://en.wikipedia.org/wiki/Korma"
+  }
+ ],
+ "yours": [
+  "mole",
+  "mole poblano",
+  "mole negro",
+  "mole verde",
+  "mole amarillo",
+  "coloradito",
+  "chichilo",
+  "manchamanteles",
+  "pipián",
+  "pipian",
+  "mole de olla",
+  "adobo",
+  "pepián",
+  "romesco",
+  "muhammara",
+  "ají de gallina",
+  "mafé",
+  "peanut stew",
+  "groundnut stew",
+  "korma",
+  "mole rojo",
+  "enmoladas"
+ ]
+}

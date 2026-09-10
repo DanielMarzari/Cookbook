@@ -69,6 +69,8 @@
     "backbone": [
      "lemongrass",
      "galangal",
+     "garlic",
+     "shallot",
      "makrut lime zest",
      "coriander root",
      "shrimp paste"
@@ -97,6 +99,8 @@
     "backbone": [
      "lemongrass",
      "galangal",
+     "garlic",
+     "shallot",
      "makrut lime zest",
      "coriander root",
      "shrimp paste"
@@ -126,6 +130,8 @@
     "backbone": [
      "lemongrass",
      "galangal",
+     "garlic",
+     "shallot",
      "makrut lime zest",
      "coriander root",
      "shrimp paste",
@@ -157,8 +163,9 @@
     "backbone": [
      "lemongrass",
      "galangal",
-     "shrimp paste",
+     "garlic",
      "shallot",
+     "shrimp paste",
      "roasted peanut"
     ],
     "region": [
@@ -191,7 +198,7 @@
      "Cambodia"
     ]
    },
-   "note": "The Thai aromatics without the chilli and without the seeds — heat and funk arrive later, as chilli in the pot and prahok at the end. Red kroeung is this plus dried chilli added mostly for colour."
+   "note": "The Thai aromatics — lemongrass, galangal, garlic, shallot — without the chilli and without the seeds, and with fresh turmeric root and lime leaf where the Thai pastes use the zest. Heat and funk arrive later, as chilli in the pot and prahok at the end. Red kroeung is this plus dried chilli, added mostly for colour."
   },
   {
    "name": "Rempah",
@@ -236,7 +243,8 @@
      "long red chilli"
     ],
     "spice": [
-     "coriander seed ground in raw"
+     "whole seeds ground raw",
+     "coriander seed"
     ],
     "backbone": [
      "lemongrass",
@@ -258,7 +266,8 @@
    "facets": {
     "form": [
      "pounded to a wet paste",
-     "let down with palm vinegar"
+     "let down with acid",
+     "palm vinegar"
     ],
     "chilli": [
      "dried chilli",
@@ -286,7 +295,8 @@
    "facets": {
     "form": [
      "pounded to a wet paste",
-     "let down with sour orange juice"
+     "let down with acid",
+     "sour orange juice"
     ],
     "chilli": [
      "no chilli"
@@ -418,7 +428,8 @@
      "ground to a dry powder"
     ],
     "chilli": [
-     "mild dried chilli"
+     "dried chilli",
+     "mild"
     ],
     "spice": [
      "whole seeds ground raw",
@@ -444,7 +455,8 @@
      "stirred into a butter-and-flour roux"
     ],
     "chilli": [
-     "mild dried chilli"
+     "dried chilli",
+     "mild"
     ],
     "spice": [
      "whole seeds ground raw",
@@ -459,7 +471,7 @@
      "Japan"
     ]
    },
-   "note": "Karē rū: the tin of powder cooked into a browned flour-and-butter roux, which arrived with the British navy in the 1870s as a thickened stew. The thickening is the point — Japanese curry is a gravy, and gravy is the one thing no pounded paste makes."
+   "note": "Karē rū: the tin of powder cooked into a browned flour-and-butter roux. The dish arrived with the British navy in the 1870s as a thickened stew; the roux sold in a solid block came much later, in the twentieth century. The thickening is the point — Japanese curry is a gravy, and gravy is the one thing no pounded paste makes."
   },
   {
    "name": "Berbere",
@@ -469,7 +481,8 @@
     ],
     "chilli": [
      "dried chilli",
-     "sun-dried then roasted",
+     "sun-dried",
+     "then roasted",
      "more chilli than spice"
     ],
     "spice": [
@@ -505,7 +518,7 @@
   },
   {
    "title": "On the word curry",
-   "body": "The word is European and only one entry here is genuinely a British invention. Curry powder and its descendant the Japanese roux are a small family inside this one, and the roux is the only dish nested under another — it really is the powder plus a roux. Everything else has its own name in its own language and owes the tin nothing: rempah, bumbu, kroeung and recado are not versions of curry paste, they are what people did with a mortar."
+   "body": "The word is European and only one entry here is genuinely a British invention. Curry powder and its descendant the Japanese roux are a small family inside this one — the roux really is the powder plus a roux, which is why it hangs beneath it, exactly as panang hangs beneath red paste. Those two are the only nestings on the page. Everything else has its own name in its own language and owes the tin nothing: rempah, bumbu, kroeung and recado are not versions of curry paste, they are what people did with a mortar."
   }
  ],
  "sources": [

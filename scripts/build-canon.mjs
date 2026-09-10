@@ -70,6 +70,23 @@ for (const file of readdirSync(DIR).filter((f) => f.endsWith('.json')).sort()) {
   families.push(c);
 }
 
+// A dish appearing in two families is fine — mole and mother sauces can both
+// claim pipián — but the two entries then have to agree, and nothing else
+// checks that. Report them so a contradiction is visible rather than latent.
+const appearances = new Map();
+for (const c of families) {
+  for (const d of c.dishes) {
+    const k = d.name.toLowerCase();
+    if (!appearances.has(k)) appearances.set(k, []);
+    appearances.get(k).push(c.slug);
+  }
+}
+const shared = [...appearances.entries()].filter(([, fams]) => fams.length > 1);
+if (shared.length) {
+  console.log(`\n${shared.length} dishes appear in more than one family — check they agree:`);
+  for (const [name, fams] of shared) console.log(`  ${name}: ${fams.join(', ')}`);
+}
+
 const header = `import type { Canon } from './canon';
 
 /**

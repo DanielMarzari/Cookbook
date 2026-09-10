@@ -1,0 +1,647 @@
+{
+ "slug": "cured-fish-preserve",
+ "name": "Salted and preserved fish",
+ "standfirst": "Every one of these starts from the same problem: more fish comes ashore in a week than a coast can eat, and none of it lasts three days. Salt pulls the water out. Cold air takes what the salt leaves. Smoke seals the surface. And in some places the rot is not shut out at all but let in early and steered, so that one organism gets there before the dangerous ones do. What separates them is which of those four does the work, how long it is given — and whether what comes out is dinner, or the thing you season dinner with.",
+ "root": "A fish landed faster than it can be eaten · salt · air · smoke · time",
+ "facets": [
+  {
+   "id": "preserve",
+   "label": "What keeps it"
+  },
+  {
+   "id": "fish",
+   "label": "The fish"
+  },
+  {
+   "id": "keep",
+   "label": "Kept"
+  },
+  {
+   "id": "end",
+   "label": "Ends up"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By what keeps it",
+   "by": [
+    "preserve",
+    "keep",
+    "end"
+   ]
+  },
+  {
+   "label": "By food or seasoning",
+   "by": [
+    "end",
+    "preserve",
+    "fish"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "preserve"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Bacalhau",
+   "facets": {
+    "region": [
+     "Portugal",
+     "Norway"
+    ],
+    "preserve": [
+     "salted",
+     "dry salt not brine",
+     "then air-dried hard"
+    ],
+    "fish": [
+     "cod",
+     "split down the backbone",
+     "head and guts out"
+    ],
+    "keep": [
+     "three weeks under salt",
+     "then weeks drying in cold air",
+     "stable at room temperature"
+    ],
+    "end": [
+     "eaten as food",
+     "soaked three days first",
+     "flakes back into fish"
+    ]
+   },
+   "note": "The salt is not seasoning and the drying is not cooking. Between them they take the water below what any spoilage bacterium can work in, and everything you afterwards do to a salt cod is an argument about how to put that water back."
+  },
+  {
+   "name": "Tørrfisk",
+   "facets": {
+    "region": [
+     "Norway",
+     "Lofoten"
+    ],
+    "preserve": [
+     "dried",
+     "no salt at all",
+     "cold wind off the sea"
+    ],
+    "fish": [
+     "cod",
+     "gutted and headed",
+     "hung in pairs by the tail"
+    ],
+    "keep": [
+     "three months on the racks",
+     "February to May",
+     "never warm enough to spoil"
+    ],
+    "end": [
+     "eaten as food",
+     "soaked or beaten soft first",
+     "hard as a board until then"
+    ]
+   },
+   "note": "Lofoten in February is a freeze-dryer — cold enough to stop rot and dry enough to pull the water out through it. Where the winter is milder you have to buy the same effect with salt instead. That purchase is exactly what bacalhau is."
+  },
+  {
+   "name": "Acciughe sotto sale",
+   "facets": {
+    "region": [
+     "Italy",
+     "Spain"
+    ],
+    "preserve": [
+     "salted",
+     "dry salt not brine",
+     "pressed under a weight",
+     "ripened a year"
+    ],
+    "fish": [
+     "anchovies",
+     "whole small fish",
+     "heads pulled off by hand"
+    ],
+    "keep": [
+     "a year in the barrel",
+     "a cool cellar",
+     "the brine that rises kept over them"
+    ],
+    "end": [
+     "eaten as food",
+     "rinsed of its salt first",
+     "and melted into sauces as seasoning"
+    ]
+   },
+   "note": "Twelve months under salt is not storage, it is the process. Enzymes already in the fish break its protein down into free amino acids — the fillet goes from salty to savoury — and it is the same reaction that makes every fish sauce on this table."
+  },
+  {
+   "name": "Colatura di alici",
+   "parent": "Acciughe sotto sale",
+   "facets": {
+    "region": [
+     "Italy",
+     "Cetara"
+    ],
+    "preserve": [
+     "salted",
+     "dry salt not brine",
+     "pressed under a weight",
+     "ripened a year",
+     "the liquid drawn off"
+    ],
+    "fish": [
+     "anchovies",
+     "whole small fish",
+     "heads pulled off by hand"
+    ],
+    "keep": [
+     "a year in the barrel",
+     "a cool cellar",
+     "tapped through a hole in the base"
+    ],
+    "end": [
+     "used as seasoning",
+     "a spoonful over hot pasta",
+     "never cooked"
+    ]
+   },
+   "note": "Anchovies under salt plus one decision: instead of eating the fillets you tap the barrel and keep what ran out of them. Rome's garum by unbroken descent — the Amalfi coast simply never stopped."
+  },
+  {
+   "name": "Garum",
+   "facets": {
+    "region": [
+     "Roman Mediterranean",
+     "Baetica"
+    ],
+    "preserve": [
+     "fermented",
+     "salt heavy enough to stop rot",
+     "guts left in",
+     "sun-warmed in open vats"
+    ],
+    "fish": [
+     "small oily fish",
+     "whole",
+     "guts and blood included"
+    ],
+    "keep": [
+     "two or three months",
+     "open to the sun",
+     "stirred as it liquefies"
+    ],
+    "end": [
+     "used as seasoning",
+     "the salt cellar of the table",
+     "cut with wine or vinegar"
+    ]
+   },
+   "note": "Salt and soy at once for a table that had neither. Small fish and fish guts left under salt in the sun until they dissolved — sneered at as a stink by Roman moralists and shipped in amphorae from Spain to Britain regardless."
+  },
+  {
+   "name": "Nước mắm",
+   "facets": {
+    "region": [
+     "Vietnam",
+     "Phú Quốc"
+    ],
+    "preserve": [
+     "fermented",
+     "salt heavy enough to stop rot",
+     "guts left in",
+     "layered in wooden vats"
+    ],
+    "fish": [
+     "anchovies",
+     "whole small fish",
+     "salted on the boat"
+    ],
+    "keep": [
+     "nine months to two years",
+     "tropical heat",
+     "the liquid drawn and poured back"
+    ],
+    "end": [
+     "used as seasoning",
+     "the salt cellar of the table",
+     "cut with lime and chilli"
+    ]
+   },
+   "note": "Not descended from garum and not its ancestor. Anchovies under salt in a wooden vat can only ever end up as this liquid — Vietnam went on making it while Europe forgot how for a thousand years."
+  },
+  {
+   "name": "Bottarga",
+   "facets": {
+    "region": [
+     "Sardinia",
+     "Sicily"
+    ],
+    "preserve": [
+     "salted",
+     "dry salt not brine",
+     "pressed under a weight",
+     "then air-dried"
+    ],
+    "fish": [
+     "grey mullet roe",
+     "the sac left whole",
+     "membrane unbroken"
+    ],
+    "keep": [
+     "a week under salt",
+     "then three weeks in the air",
+     "shaded and turned"
+    ],
+    "end": [
+     "used as seasoning",
+     "grated over pasta",
+     "or sliced thin and eaten as food"
+    ]
+   },
+   "note": "The only one here made from roe rather than flesh, and the membrane is the whole game — it holds the eggs in one slab while salt and weight take the water out. Break it and you have a wet mess going off."
+  },
+  {
+   "name": "Katsuobushi",
+   "facets": {
+    "region": [
+     "Japan",
+     "Makurazaki"
+    ],
+    "preserve": [
+     "smoked",
+     "simmered first",
+     "smoked over oak again and again",
+     "then grown with mould"
+    ],
+    "fish": [
+     "skipjack tuna",
+     "filleted into loins",
+     "bones picked out"
+    ],
+    "keep": [
+     "a month of smoke",
+     "then months of mould scraped and regrown",
+     "two years for the best"
+    ],
+    "end": [
+     "used as seasoning",
+     "shaved into paper",
+     "steeped for dashi"
+    ]
+   },
+   "note": "The hardest food in the world and the most worked: simmered, boned, smoked a dozen times over a month, then deliberately infected with a mould that is scraped off and grown back four times more. The mould eats the fat, which is why dashi comes out clear."
+  },
+  {
+   "name": "Maldive fish",
+   "facets": {
+    "region": [
+     "Maldives",
+     "Sri Lanka"
+    ],
+    "preserve": [
+     "smoked",
+     "simmered first",
+     "smoked over a low fire",
+     "then sun-dried to a stone"
+    ],
+    "fish": [
+     "skipjack tuna",
+     "cut into four loins",
+     "boiled in its own brine"
+    ],
+    "keep": [
+     "days of smoke",
+     "then weeks in the sun",
+     "keeps years in a dry room"
+    ],
+    "end": [
+     "used as seasoning",
+     "pounded to a coarse dust",
+     "cooked into curries and sambols"
+    ]
+   },
+   "note": "Katsuobushi without the mould, arrived at independently on the other side of the Indian Ocean. Same fish and the same simmer and smoke — but the equatorial sun finishes in weeks what Japan spends two years on, and the result is eaten rather than steeped and discarded."
+  },
+  {
+   "name": "Kippers",
+   "facets": {
+    "region": [
+     "Britain",
+     "Northumberland"
+    ],
+    "preserve": [
+     "smoked",
+     "brined first",
+     "cold smoke over oak",
+     "never dried hard"
+    ],
+    "fish": [
+     "herring",
+     "split down the back",
+     "opened flat in one piece"
+    ],
+    "keep": [
+     "half an hour in brine",
+     "one night in cold smoke",
+     "a week and no more"
+    ],
+    "end": [
+     "eaten as food",
+     "cooked before eating",
+     "breakfast within days"
+    ]
+   },
+   "note": "The odd one out. Half an hour of brine and a night of smoke buys days rather than years, and the smoke is kept below thirty degrees so the fish never cooks — preservation here is almost vestigial now that everyone has a fridge."
+  },
+  {
+   "name": "Surströmming",
+   "facets": {
+    "region": [
+     "Sweden",
+     "the Baltic coast"
+    ],
+    "preserve": [
+     "fermented",
+     "brine too weak to stop it",
+     "left open in the barrel",
+     "canned while still working"
+    ],
+    "fish": [
+     "Baltic herring",
+     "gutted",
+     "small and lean"
+    ],
+    "keep": [
+     "a month in the barrel",
+     "then sealed into tins",
+     "goes on fermenting on the shelf"
+    ],
+    "end": [
+     "eaten as food",
+     "opened under water outdoors",
+     "rolled into flatbread with onion"
+    ]
+   },
+   "note": "A brine deliberately too weak to sterilise. It lets one bacterium work while keeping the dangerous ones out, and canning does not stop it — the tin bulges because the fish inside is still going."
+  },
+  {
+   "name": "Hákarl",
+   "facets": {
+    "region": [
+     "Iceland"
+    ],
+    "preserve": [
+     "fermented",
+     "no salt at all",
+     "pressed under stones",
+     "then hung in the wind"
+    ],
+    "fish": [
+     "Greenland shark",
+     "cut into blocks",
+     "flesh loaded with urea"
+    ],
+    "keep": [
+     "six weeks in a gravel pit",
+     "then four months in a drying shed",
+     "open to the sea air"
+    ],
+    "end": [
+     "eaten as food",
+     "cut into small cubes",
+     "chased with brennivín"
+    ]
+   },
+   "note": "Greenland shark is poisonous fresh — its flesh carries urea and trimethylamine oxide instead of salt to stay buoyant. The pressing and the five months in the wind are a detoxification. That the result also keeps is a side effect."
+  },
+  {
+   "name": "Jeotgal",
+   "facets": {
+    "region": [
+     "Korea"
+    ],
+    "preserve": [
+     "fermented",
+     "salt heavy enough to stop rot",
+     "sealed in a crock",
+     "kept cool"
+    ],
+    "fish": [
+     "tiny shrimp or anchovy",
+     "whole",
+     "guts and all"
+    ],
+    "keep": [
+     "three months in a crock",
+     "buried or cellared",
+     "a year for the anchovy"
+    ],
+    "end": [
+     "eaten as food",
+     "served as a small side dish",
+     "and drained off as aekjeot for kimchi"
+    ]
+   },
+   "note": "The solids and the liquid are both the point. Eaten in a little dish as it is, and drained off to salt the kimchi — Korea gets both jobs out of one crock where Italy keeps its anchovies and its colatura in separate rooms."
+  },
+  {
+   "name": "Shiokara",
+   "facets": {
+    "region": [
+     "Japan"
+    ],
+    "preserve": [
+     "fermented",
+     "salt too light to keep it long",
+     "its own liver stirred back in",
+     "days not months"
+    ],
+    "fish": [
+     "squid",
+     "cut into strips",
+     "the liver kept back and mashed"
+    ],
+    "keep": [
+     "three days to a month",
+     "kept cold throughout",
+     "eaten before it goes far"
+    ],
+    "end": [
+     "eaten as food",
+     "a spoonful alongside drink",
+     "cold and never heated"
+    ]
+   },
+   "note": "Ten per cent salt keeps nothing for long, so this is a ferment you eat while it is still young. The squid's own liver goes back in to supply the enzymes — the animal is made to digest itself on a schedule."
+  },
+  {
+   "name": "Guedj",
+   "facets": {
+    "region": [
+     "Senegal",
+     "Gambia"
+    ],
+    "preserve": [
+     "fermented",
+     "left open to the air first",
+     "salted afterwards",
+     "then sun-dried hard"
+    ],
+    "fish": [
+     "catfish or capitaine",
+     "gutted",
+     "scored to the bone"
+    ],
+    "keep": [
+     "a few days before the salt goes on",
+     "then a week in the sun",
+     "keeps months in the market"
+    ],
+    "end": [
+     "used as seasoning",
+     "a knob dropped into the pot",
+     "flavours a whole cauldron of rice"
+    ]
+   },
+   "note": "Fermentation first and salt second, which is the reverse of everything on the European side of this table. It is why a pot of thieboudienne tastes of the sea long after the fish in it has been eaten."
+  },
+  {
+   "name": "Surume",
+   "facets": {
+    "region": [
+     "Japan",
+     "Korea"
+    ],
+    "preserve": [
+     "dried",
+     "no salt at all",
+     "hung in sun and sea wind"
+    ],
+    "fish": [
+     "squid",
+     "gutted and slit open",
+     "skewered flat with the tentacles on"
+    ],
+    "keep": [
+     "a week in the sun",
+     "on lines by the shore",
+     "turned as it curls"
+    ],
+    "end": [
+     "eaten as food",
+     "torn into strips",
+     "grilled to soften"
+    ]
+   },
+   "note": "Nothing but squid and air. Squid is lean enough that drying alone will hold it — no salt, no smoke, no ferment — which is why it is the cheapest preserved seafood in Asia and the one most likely to be eaten standing up with a beer."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On what actually preserves",
+   "body": "Salt and drying are the same move made two ways: both take water away from the bacteria, and a cod in Lofoten and a cod in Portugal end up at the same dryness by different routes. Smoke is weaker than it looks — it dries the surface and lays down phenols on it, and on its own buys days, which is why every serious smoked fish here is salted or simmered first. Fermentation is the opposite bet entirely: rather than shutting all the microbes out, you let one in fast enough and salty enough that it holds the ground against the ones that would poison you."
+  },
+  {
+   "title": "On food and seasoning",
+   "body": "The seasoning column is not a different technique, it is the same technique taken further. An anchovy at twelve months is a fillet you eat; the liquid drained off the same barrel at the same age is colatura. What has happened in both is that protein has been broken down to free amino acids, glutamate chief among them, and past a certain point there is more savour in a spoonful than anybody wants in a mouthful. Garum, colatura, nước mắm, aekjeot and guedj are not preserved fish that failed. They are preserved fish that went all the way."
+  },
+  {
+   "title": "On depth",
+   "body": "Only colatura sits under anything, because it genuinely is the anchovies under salt plus one move: you tap the barrel instead of eating the fish. Everything else stands at the same level. Garum is not colatura's parent and nước mắm is not its child — three coasts salted small fish in wooden vessels and three coasts got the same liquid. Katsuobushi and Maldive fish are siblings by the same logic: one skipjack, one simmer, one smoke, and two islands that never compared notes."
+  },
+  {
+   "title": "On what is not here",
+   "body": "Gravlax, matjes, rollmops and mojama live in Raw and cured fish, because a cure that leaves the flesh sliceable and raw is a different problem from one meant to survive a year in a warehouse. The line runs at whether you have to reconstitute it. If the fish must be soaked, beaten, grated or cooked before it is food again, it belongs here."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Salted fish (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Salted_fish"
+  },
+  {
+   "label": "Bacalhau",
+   "url": "https://en.wikipedia.org/wiki/Bacalhau"
+  },
+  {
+   "label": "Stockfish",
+   "url": "https://en.wikipedia.org/wiki/Stockfish"
+  },
+  {
+   "label": "Colatura di alici",
+   "url": "https://en.wikipedia.org/wiki/Colatura_di_alici"
+  },
+  {
+   "label": "Garum",
+   "url": "https://en.wikipedia.org/wiki/Garum"
+  },
+  {
+   "label": "Fish sauce",
+   "url": "https://en.wikipedia.org/wiki/Fish_sauce"
+  },
+  {
+   "label": "Bottarga",
+   "url": "https://en.wikipedia.org/wiki/Bottarga"
+  },
+  {
+   "label": "Katsuobushi",
+   "url": "https://en.wikipedia.org/wiki/Katsuobushi"
+  },
+  {
+   "label": "Maldive fish",
+   "url": "https://en.wikipedia.org/wiki/Maldive_fish"
+  },
+  {
+   "label": "Kipper",
+   "url": "https://en.wikipedia.org/wiki/Kipper"
+  },
+  {
+   "label": "Surströmming",
+   "url": "https://en.wikipedia.org/wiki/Surstr%C3%B6mming"
+  },
+  {
+   "label": "Hákarl",
+   "url": "https://en.wikipedia.org/wiki/H%C3%A1karl"
+  },
+  {
+   "label": "Jeotgal",
+   "url": "https://en.wikipedia.org/wiki/Jeotgal"
+  },
+  {
+   "label": "Shiokara",
+   "url": "https://en.wikipedia.org/wiki/Shiokara"
+  },
+  {
+   "label": "Dried shredded squid",
+   "url": "https://en.wikipedia.org/wiki/Dried_shredded_squid"
+  }
+ ],
+ "yours": [
+  "salt cod",
+  "bacalhau",
+  "brandade",
+  "stockfish",
+  "anchovy",
+  "anchovies",
+  "colatura",
+  "fish sauce",
+  "nuoc mam",
+  "bottarga",
+  "katsuobushi",
+  "dashi",
+  "bonito",
+  "jeot",
+  "maldive fish",
+  "dried squid",
+  "kipper",
+  "cured fish"
+ ]
+}

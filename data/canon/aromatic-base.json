@@ -1,7 +1,7 @@
 {
  "slug": "aromatic-base",
  "name": "Aromatic base",
- "standfirst": "Almost every cooked dish begins with something chopped going into hot fat before anything the dish is named after arrives. The vegetables barely vary — an onion and two friends — but what a kitchen does to them decides more about how the finished plate tastes than the meat does. Mirepoix and the holy trinity are the same knife and the same pan; swap the carrot for a green pepper and you are in another country. Four questions separate all of them: what goes in, what it goes into, whether you stop it before it colours or push it until the oil comes back out, and whether it was chopped at all — or pounded, or blended raw, or never fried in the first place.",
+ "standfirst": "Almost every cooked dish begins with something chopped going into hot fat before anything the dish is named after arrives. In Europe the vegetables barely vary — an onion and two friends — but what a kitchen does to them decides more about how the finished plate tastes than the meat does. Mirepoix and the holy trinity are the same knife and the same pan; swap the carrot for a green pepper and you are in another country. Four questions separate all of them: what goes in, what it goes into, whether you stop it before it colours or push it until the oil comes back out, and whether it was chopped at all — or pounded, or blended raw, or never fried in the first place.",
  "root": "Aromatics cut small and given to the pot first, before anything the dish is named after",
  "facets": [
   {
@@ -146,6 +146,7 @@
      "cut even so nothing catches"
     ],
     "heat": [
+     "kept pale",
      "added to fat already browned",
      "the roux taken to peanut or chocolate first",
      "the vegetables stop the roux cooking"
@@ -155,7 +156,7 @@
      "Louisiana"
     ]
    },
-   "note": "Mirepoix with the carrot swapped out — the sugar goes, a green vegetal bitterness comes in. The colour is settled before the vegetables ever appear: the flour and oil are taken to whatever shade the dish wants, and the trinity goes in cold to arrest it."
+   "note": "Mirepoix with the carrot swapped out — the sugar goes, a green vegetal bitterness comes in. The colour is settled before the vegetables ever appear: the flour and oil are taken to whatever shade the dish wants, and the trinity goes in cold to arrest it. The vegetables themselves never colour; all they do is soften and stop the roux."
   },
   {
    "name": "Sofregit",
@@ -203,8 +204,7 @@
      "ten minutes and no more"
     ],
     "region": [
-     "Portugal",
-     "Brazil"
+     "Portugal"
     ]
    },
    "note": "The shortest of the Iberian bases and the most used: in Brazil the pot of beans and the pan of rice both start here, most days, in most houses. Ten minutes is the whole technique, which is why it survived the crossing intact when longer ones did not."
@@ -237,7 +237,7 @@
      "Puerto Rico"
     ]
    },
-   "note": "The Iberian sofrito crossed the Atlantic and stopped being a cooked thing. It is blended raw by the litre and kept in the freezer, so the cooking happens later and briefly, when a spoonful hits the oil. Without tomato it is recaíto, named for the recao — culantro — that makes it green."
+   "note": "The Iberian sofrito crossed the Atlantic and stopped being a cooked thing. It is blended raw by the litre and kept in the freezer, so the cooking happens later and briefly, when a spoonful hits the oil. What is in the jar here is the green one, recaíto, named for the recao — culantro — that makes it; put tomato in and it is sofrito proper."
   },
   {
    "name": "Epis",
@@ -368,8 +368,7 @@
      "the onion taken deep brown first"
     ],
     "region": [
-     "India",
-     "the north"
+     "India"
     ]
    },
    "note": "Bhunao is a verb for a state, not a duration. The onion goes dark, the tomato goes in and collapses, and the step is over when the fat visibly leaves the mass and pools at the edge of the pan — no clock is given because none is needed."
@@ -390,7 +389,7 @@
     ],
     "form": [
      "left whole",
-     "nothing chopped at all"
+     "the slowest seed first and the leaves last"
     ],
     "heat": [
      "seconds in hot fat",
@@ -400,7 +399,7 @@
      "India"
     ]
    },
-   "note": "The only base here that arrives last. Fat pulls the aroma out of a seed in seconds, and pouring the lot over a finished dal puts it on top rather than through it, where nothing simmers it away. Also called tadka in the west, chhaunk in the north, baghar in the Deccan, phoron in Bengal — one move, five names."
+   "note": "The only base here that arrives last. Fat pulls the aroma out of a seed in seconds, and pouring the lot over a finished dal puts it on top rather than through it, where nothing simmers it away. Also called tadka or chhaunk in the north, vaghar in Gujarat, phodni in Maharashtra, baghar in the Deccan, phoron in Bengal — one move, seven names."
   },
   {
    "name": "Obe ata",
@@ -500,11 +499,11 @@
   },
   {
    "title": "On the oil coming back",
-   "body": "Three bases on three continents share one signal and no clock: cook until the fat pools at the edge. Water and fat cannot fry together, so as long as the base is wet it is only steaming, however hot the burner. When the water has finally gone the fat separates out and visibly returns, and only then does anything brown. Bhunao in a north Indian pan, half an hour of ata din din in palm oil, krueng cracked in coconut cream — same test, same moment, and not a thermometer between them."
+   "body": "Three bases in three kitchens share one signal and no clock: cook until the fat pools at the edge. Water and fat cannot fry together, so as long as the base is wet it is only steaming, however hot the burner. When the water has finally gone the fat separates out and visibly returns, and only then does anything brown. Bhunao in a north Indian pan, half an hour of ata din din in palm oil, krueng cracked in coconut cream — same test, same moment, and not a thermometer between them."
   },
   {
    "title": "On chopped and pounded and blended",
-   "body": "A knife opens the cells it meets. A pestle ruptures them all the way through, which is why krueng is pounded and a blender version of it tastes thinner from the same shopping. A blender does a third thing again — it shreds, and it whips in air and water. That is why every blended base here either is never cooked at all, like epis, or has to be fried far longer than its weight suggests, like obe ata and recaudo, driving off water the blender put in."
+   "body": "A knife opens the cells it meets. A pestle ruptures them all the way through, which is why krueng is pounded and a blender version of it tastes thinner from the same shopping. A blender does a third thing again — it shreds, and it whips in air and water. That is why a blended base is either never cooked at all, like epis, or fried far longer than its weight suggests, like obe ata and recaudo — with sofrito the exception that proves the rule, blended and barely cooked because it is a seasoning fired from a frozen cube rather than a base reduced in the pan, driving off water the blender put in."
   },
   {
    "title": "On when it goes in",
@@ -512,7 +511,7 @@
   },
   {
    "title": "On refusing the fat",
-   "body": "Two entries skip the frying and they are not variations of each other. Suppengrün skips it permanently: cut big, simmered in the liquid, lifted out and binned, flavouring by extraction the way a bouquet garni does. The wat base skips it only at the start, and for the opposite reason — a dry pan browns the onion faster and harder than oil would, because there is no fat holding the temperature down and nothing to fry in until the onion's own water is gone."
+   "body": "Two entries never fry at all — and a third, the wat base, postpones the fat rather than refusing it and they are not variations of each other. Suppengrün skips it permanently: cut big, simmered in the liquid, lifted out and binned, flavouring by extraction the way a bouquet garni does. The wat base skips it only at the start, and for the opposite reason — a dry pan browns the onion faster and harder than oil would, because there is no fat holding the temperature down and nothing to fry in until the onion's own water is gone."
   }
  ],
  "sources": [

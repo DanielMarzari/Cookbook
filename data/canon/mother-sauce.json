@@ -1,7 +1,7 @@
 {
  "slug": "mother-sauce",
  "name": "Mother sauces",
- "standfirst": "Five sauces that a nineteenth-century Frenchman decided everything else descends from, and four sauces from elsewhere that answer the same question without him. All of them are a liquid plus something that will not let it stay a liquid — flour cooked in fat, an egg yolk, a starch, a ground seed. The mothers are the base. The derivatives are the base plus one thing, which is why they are drawn underneath.",
+ "standfirst": "Five sauces that one French kitchen had settled on by 1907, and four sauces from elsewhere that answer the same question without it. All of them are a liquid plus something that will not let it stay a liquid — flour cooked in fat, an egg yolk, a starch, a ground seed. The mothers are the base. The derivatives are the base plus one thing, which is why they are drawn underneath.",
  "root": "A liquid · something worked into it that will hold it · cooked until it coats the back of a spoon",
  "facets": [
   {
@@ -75,11 +75,10 @@
      "turns gluey if it boils hard"
     ],
     "region": [
-     "France",
-     "claimed by Tuscany as well"
+     "France"
     ]
    },
-   "note": "The plainest statement of the whole family: flour cooked in butter only until it stops smelling raw, then milk. Everything on the roux side of this page is these same two ingredients left in the pan for longer."
+   "note": "The plainest statement of the whole family: flour cooked in butter only until it stops smelling raw, then milk. Everything on the roux side of this page is these same two ingredients left in the pan for longer. Italy claims it as well, as salsa colla carried north by Catherine de' Medici's cooks — but the archives are against that story: no Italian cook has been found among her servants between her arrival in France and her death."
   },
   {
    "name": "Mornay",
@@ -106,8 +105,7 @@
      "which is why it goes in off the heat"
     ],
     "region": [
-     "France",
-     "Paris"
+     "France"
     ]
    },
    "note": "Béchamel plus cheese and nothing else — it genuinely is the parent with one addition. The only rule is that the pan comes off first: held at a boil, melted cheese protein tightens and squeezes its own fat out."
@@ -137,8 +135,7 @@
      "the whole point is that it stays white"
     ],
     "region": [
-     "France",
-     "Paris"
+     "France"
     ]
    },
    "note": "Béchamel plus onions cooked without a hint of browning. Escoffier's version thickens with rice simmered in the onions instead of a roux — same sauce; the starch just arrives by another route."
@@ -227,11 +224,10 @@
      "no way back once it scrambles"
     ],
     "region": [
-     "France",
-     "German only in name"
+     "France"
     ]
    },
-   "note": "Carême counted this one of his four mothers. Escoffier moved it down here, on the grounds that a sauce built on velouté cannot also be its parent — and the slot it vacated went to hollandaise."
+   "note": "Carême counted this one of his four mothers. Escoffier moved it down here, on the grounds that a sauce built on velouté cannot also be its parent — and put tomate in its place at the top, with hollandaise making a fifth. It is the one sauce on this page thickened twice over, by flour and then by yolk, which is why it takes more heat than avgolemono does."
   },
   {
    "name": "Espagnole",
@@ -252,15 +248,14 @@
     ],
     "break": [
      "safe at a hard boil",
-     "thickens far less than a pale roux of the same weight",
-     "so it takes a great deal more of it"
+     "bitter for good if the roux catches",
+     "greasy unless it is skimmed as it simmers"
     ],
     "region": [
-     "France",
-     "Spanish only in name"
+     "France"
     ]
    },
-   "note": "The same roux left in the pan until the flour browns. Browning breaks the starch chains, so a brown roux has perhaps a third of the thickening power of a white one — you are buying flavour and paying for it in body."
+   "note": "The same roux left in the pan until the flour browns. Browning breaks the starch chains, so a brown roux has perhaps a third of the thickening power of a white one — you are buying flavour and paying for it in body. The two things that ruin it are both patience: a roux taken one shade too far is bitter and stays bitter, and fat left unskimmed never comes back out."
   },
   {
    "name": "Demi-glace",
@@ -317,11 +312,10 @@
      "so it goes in off the heat"
     ],
     "region": [
-     "France",
-     "Bordeaux"
+     "France"
     ]
    },
-   "note": "Two levels down and honestly so: it is demi-glace, which is espagnole, plus a wine reduction and marrow. Nobody makes bordelaise from scratch in an afternoon — the depth of the tree is the depth of the work."
+   "note": "Two levels down and honestly so: it is demi-glace, which is espagnole, plus a wine reduction and marrow. The name is the wine, a red from Bordeaux, and nobody makes bordelaise from scratch in an afternoon — the depth of the tree is the depth of the work."
   },
   {
    "name": "Hollandaise",
@@ -347,8 +341,7 @@
      "comes back if whisked into a spoonful of cold water"
     ],
     "region": [
-     "France",
-     "Dutch only in name"
+     "France"
     ]
    },
    "note": "The other half of the family. Nothing is cooked and nothing is thickened — the yolk's lecithin coats millions of butter droplets and keeps them from finding each other. Body here is crowding; thin the crowd and the sauce is butter again."
@@ -374,24 +367,22 @@
     ],
     "break": [
      "splits above about 70°C",
-     "the extra acid buys it slightly more room than hollandaise",
+     "the same ceiling as hollandaise",
      "comes back if whisked into a spoonful of cold water"
     ],
     "region": [
-     "France",
-     "named for Béarn",
-     "invented at Saint-Germain-en-Laye"
+     "France"
     ]
    },
-   "note": "Hollandaise with a vinegar reduction in place of the water and tarragon through it. The name is a nineteenth-century flourish — the sauce was made outside Paris and has nothing to do with Béarn."
+   "note": "Hollandaise with a vinegar reduction in place of the water and tarragon through it. The reduction replaces the water, not the limit: this splits at the same temperature its parent does. Named not for its cooking but for Henry IV le Béarnais, whose old residence housed the restaurant where it was made — twenty kilometres from Paris and seven hundred from Béarn."
   },
   {
    "name": "Sauce tomate",
    "facets": {
     "thicken": [
      "a roux",
-     "cooked blond in salt pork fat",
-     "the tomato's own pulp doing most of the rest"
+     "cooked blond",
+     "in salt pork fat rather than butter"
     ],
     "liquid": [
      "tomato",
@@ -408,11 +399,10 @@
      "weeps water back out if it is under-reduced"
     ],
     "region": [
-     "France",
-     "Provence"
+     "France"
     ]
    },
-   "note": "The odd mother: the only one that would still be a sauce with the roux left out, because reduced tomato thickens itself. Escoffier kept the roux anyway. The Italian line of descent — amatriciana, puttanesca, vodka — has its own family in this canon."
+   "note": "The odd mother: the only one that would still be a sauce with the roux left out, because reduced tomato thickens itself. Escoffier kept the roux anyway, and cooked it in salt pork fat rather than butter. The Italian line of descent — amatriciana, puttanesca, vodka — has its own family in this canon."
   },
   {
    "name": "Gumbo roux",
@@ -440,7 +430,8 @@
     "region": [
      "United States",
      "Louisiana",
-     "Cajun and Creole"
+     "Cajun",
+     "Creole"
     ]
    },
    "note": "The far end of the same dial as espagnole, forty minutes further along. At this colour the flour has almost stopped thickening and is there for flavour, which is why a gumbo needs a cupful where a béchamel needs a spoon. Butter would burn long before; oil is not a shortcut but the condition of getting there."
@@ -451,7 +442,7 @@
     "thicken": [
      "a liaison",
      "egg yolk beaten with lemon juice",
-     "no fat and no flour at all"
+     "no flour anywhere"
     ],
     "liquid": [
      "a broth",
@@ -465,16 +456,17 @@
     ],
     "break": [
      "curdles if it boils after the yolks",
-     "the acid makes it curdle sooner than allemande would",
-     "temper it or lose it"
+     "no starch between the yolks",
+     "so it curdles at a lower heat than allemande"
     ],
     "region": [
      "Eastern Mediterranean",
-     "Greece and Turkey",
-     "and the Sephardi kitchen"
+     "Greece",
+     "Turkey",
+     "the Sephardi kitchen"
     ]
    },
-   "note": "The same move as allemande with the roux deleted — egg yolk alone carrying a broth — and older than the French sauce by centuries. Turkish calls it terbiye and the Sephardi kitchen agristada; before lemons reached the Mediterranean the sourness came from verjuice or bitter orange."
+   "note": "The same move as allemande with the roux deleted — egg yolk alone carrying a broth, and no fat in it but the yolk's own — and older than the French sauce by centuries. Deleting the roux is what costs it heat: swollen starch granules get between the yolk proteins and slow them finding each other, so allemande will take a temperature this will not. Turkish calls it terbiye and the Sephardi kitchen agristada; before lemons reached the Mediterranean the sourness came from verjuice or bitter orange."
   },
   {
    "name": "Ankake",
@@ -491,19 +483,19 @@
     ],
     "add": [
      "soy sauce",
-     "mirin",
-     "grated ginger at the end"
+     "mirin for the sweetness",
+     "ginger grated in at the end"
     ],
     "break": [
      "safe through one boil",
      "slackens again if it is held hot",
-     "clouds and slumps as it cools"
+     "potato starch loses its gloss as it cools"
     ],
     "region": [
      "Japan"
     ]
    },
-   "note": "Starch with no fat to carry it. A roux uses butter to keep the flour grains apart so they swell one at a time instead of lumping; cold water does the same job for nothing. What you lose is the flavour of cooked flour — which is exactly what this sauce is trying not to have."
+   "note": "Starch with no fat to carry it. A roux uses butter to keep the flour grains apart so they swell one at a time instead of lumping; cold water does the same job for nothing. What you lose is the flavour of cooked flour — which is exactly what this sauce is trying not to have. The two starches part company as the sauce cools: potato starch dulls and slumps, while kudzu sets, which is why the same powder makes kuzumochi and goma-dofu."
   },
   {
    "name": "Pipián verde",
@@ -530,7 +522,8 @@
     ],
     "region": [
      "Mexico",
-     "Puebla and Oaxaca"
+     "Puebla",
+     "Oaxaca"
     ]
    },
    "note": "Thickened by the fat and protein of the seed itself rather than by starch or egg, and on the table long before anyone in France cooked flour in butter. The word comes from Nahuatl. Its sibling with chillies and chocolate is a mole; the thickening decision is the same one."
@@ -539,7 +532,7 @@
  "notes": [
   {
    "title": "On the count of five",
-   "body": "Carême named four: béchamel, velouté, espagnole and allemande. Escoffier kept the first three, demoted allemande to a velouté derivative because it is one, and put hollandaise and tomate in the empty slots. So the number is an editorial decision about a French kitchen at a particular date, not a fact about sauces — which is why avgolemono and pipián sit at the top of this page rather than under anything."
+   "body": "Carême named four in 1833: béchamel, velouté, espagnole and allemande. Escoffier kept the first three, demoted allemande to a velouté derivative because it is one, promoted tomate, and added hollandaise — four became five, and the fifth slot is one he made. Le Guide Culinaire did the demoting in 1903; hollandaise takes its place among the basic sauces in the English edition of 1907, which is where the modern five come from. So the number is an editorial decision about a French kitchen at a particular date, not a fact about sauces — which is why avgolemono and pipián sit at the top of this page rather than under anything."
   },
   {
    "title": "On how far you cook the flour",
@@ -547,7 +540,11 @@
   },
   {
    "title": "On the two ways to hold a liquid",
-   "body": "Starch swells and gets in the way — grains absorb water and crowd the space, and once they have done it they are stable to a boil. Protein does it by surrounding: egg yolk either coats droplets of fat so they cannot coalesce (hollandaise) or sets loosely into a mesh (avgolemono). Protein gives a finer sauce and takes it away above about 70°C. Read the 'how it breaks' column and the whole family sorts itself into things you can boil and things you cannot."
+   "body": "Starch swells and gets in the way — grains absorb water and crowd the space, and once they have done it they are stable to a boil. Protein does it by surrounding: egg yolk either coats droplets of fat so they cannot coalesce (hollandaise) or sets loosely into a mesh (avgolemono). Protein gives a finer sauce and takes it away above about 70°C. Allemande has both, and the starch is the reason it takes more heat than avgolemono: swollen granules sit between the yolk proteins and slow them finding each other. Read the 'how it breaks' column and the whole family sorts itself into things you can boil and things you cannot."
+  },
+  {
+   "title": "On sauces named for the wrong place",
+   "body": "Four of the French names point abroad and none of them means it. Allemande is the pale one, and the same sauce answers to parisienne. Espagnole carries a legend about Spanish cooks at Louis XIII's wedding that nobody has managed to source. Hollandaise was renamed Isigny for a while, after the Normandy butter that is actually in it. Béarnaise honours a king who came from Béarn, not a kitchen that did. The region column says France for all four, because France is where they were made — the stories live in the notes, where their standing can be stated."
   },
   {
    "title": "On depth",
@@ -610,6 +607,10 @@
   {
    "label": "Le Guide Culinaire (Escoffier)",
    "url": "https://en.wikipedia.org/wiki/Le_Guide_Culinaire"
+  },
+  {
+   "label": "Kudzu (kuzu starch)",
+   "url": "https://en.wikipedia.org/wiki/Kudzu"
   }
  ],
  "yours": [
@@ -619,9 +620,11 @@
   "white sauce",
   "cheese sauce",
   "mornay",
+  "soubise",
   "veloute",
   "velouté",
   "suprême",
+  "allemande",
   "espagnole",
   "demi-glace",
   "bordelaise",
@@ -629,7 +632,11 @@
   "bearnaise",
   "béarnaise",
   "roux",
+  "sauce tomate",
   "avgolemono",
+  "terbiye",
+  "agristada",
+  "ankake",
   "gumbo",
   "pipián"
  ]

@@ -1,0 +1,650 @@
+{
+ "slug": "vinaigrette",
+ "name": "Vinaigrette",
+ "standfirst": "Oil and something sour, beaten together and poured over something else. Four decisions separate everything here: which fat, which acid, whether anything is asked to hold the two together, and what else goes in the bowl. Dijon does the holding in Paris, bread soaked in vinegar does it in Turin and again in the Canaries, crushed sesame does it in Beirut and again in Tokyo, a spoonful of hot water does it in Sicily — and in Hanoi and Isan nobody puts fat in at all.",
+ "root": "Fat · acid · salt — and a decision about whether the two are made to stay together",
+ "facets": [
+  {
+   "id": "fat",
+   "label": "The fat"
+  },
+  {
+   "id": "acid",
+   "label": "The acid"
+  },
+  {
+   "id": "bind",
+   "label": "Held together by"
+  },
+  {
+   "id": "aroma",
+   "label": "Aromatics"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By what holds it together",
+   "by": [
+    "bind",
+    "fat",
+    "acid"
+   ]
+  },
+  {
+   "label": "By the fat",
+   "by": [
+    "fat",
+    "acid",
+    "aroma"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "acid"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Vinaigrette",
+   "facets": {
+    "region": [
+     "France"
+    ],
+    "fat": [
+     "olive oil",
+     "three parts to one of vinegar",
+     "neutral oil where the leaves are delicate"
+    ],
+    "acid": [
+     "wine vinegar",
+     "red or white",
+     "sherry vinegar in the south"
+    ],
+    "bind": [
+     "mustard",
+     "Dijon",
+     "whisked until it turns pale and thick",
+     "holds about an hour"
+    ],
+    "aroma": [
+     "shallot",
+     "chopped fine and left to soften in the vinegar",
+     "black pepper"
+    ]
+   },
+   "note": "The mustard is the whole trick. A teaspoon of it puts enough emulsifier in the bowl to hold three times its volume of oil against a quarter as much vinegar — without it you are shaking a jar and racing to the table. Everything else is negotiable: the oil, the vinegar, the shallot. Take the mustard out and the dressing stops being French."
+  },
+  {
+   "name": "Ravigote",
+   "parent": "Vinaigrette",
+   "facets": {
+    "region": [
+     "France"
+    ],
+    "fat": [
+     "olive oil",
+     "three parts to one of vinegar"
+    ],
+    "acid": [
+     "wine vinegar",
+     "white"
+    ],
+    "bind": [
+     "mustard",
+     "Dijon",
+     "whisked until it turns pale and thick"
+    ],
+    "aroma": [
+     "shallot",
+     "capers",
+     "parsley",
+     "chervil",
+     "tarragon"
+    ]
+   },
+   "note": "Vinaigrette plus capers and a fistful of soft herbs — it descends from the dressing rather than from the base, which is why it sits a level down. Spooned over leeks or a poached egg or calf's head. Not to be confused with the hot ravigote of the old repertoire which is a velouté and has nothing to do with this."
+  },
+  {
+   "name": "Salmoriglio",
+   "facets": {
+    "region": [
+     "Sicily",
+     "Calabria"
+    ],
+    "fat": [
+     "olive oil",
+     "green and raw",
+     "a glassful to one lemon"
+    ],
+    "acid": [
+     "lemon juice",
+     "squeezed to order"
+    ],
+    "bind": [
+     "hot water",
+     "a spoonful beaten in while everything is still warm",
+     "goes cloudy then slackens as it cools"
+    ],
+    "aroma": [
+     "oregano",
+     "dried and rubbed between the palms",
+     "garlic",
+     "parsley in Calabria"
+    ]
+   },
+   "note": "The name comes from salamoia — brine — and in Trapani the water beaten into it was once sea water off the rocks. Hot water is a feeble emulsifier and that is the point: salmoriglio is meant to stay loose, poured over swordfish the moment it leaves the grill and never asked to hold."
+  },
+  {
+   "name": "Sauce vierge",
+   "facets": {
+    "region": [
+     "Provence",
+     "France"
+    ],
+    "fat": [
+     "olive oil",
+     "green and raw",
+     "a lot of it",
+     "warmed to blood heat"
+    ],
+    "acid": [
+     "lemon juice"
+    ],
+    "bind": [
+     "nothing",
+     "left to separate on purpose",
+     "spooned so both layers land on the plate"
+    ],
+    "aroma": [
+     "tomato",
+     "peeled and diced raw",
+     "basil",
+     "coriander seed cracked not ground"
+    ]
+   },
+   "note": "Michel Guérard's invention and barely fifty years old — it reads as though it had always been there. Warm it past blood heat and the tomato weeps and the basil blackens; this is a dressing that has been shown the pan rather than cooked in it."
+  },
+  {
+   "name": "Salsa verde",
+   "facets": {
+    "region": [
+     "Piedmont",
+     "Lombardy"
+    ],
+    "fat": [
+     "olive oil",
+     "green and raw",
+     "a lot of it"
+    ],
+    "acid": [
+     "wine vinegar",
+     "red",
+     "the bread drinks most of it"
+    ],
+    "bind": [
+     "bread",
+     "crustless crumb soaked in the vinegar",
+     "squeezed out then pounded in"
+    ],
+    "aroma": [
+     "parsley",
+     "by the bunch",
+     "capers",
+     "anchovy",
+     "garlic"
+    ]
+   },
+   "note": "Bagnet verd in Piedmont where a hard-boiled yolk usually goes in as well. The bread does two jobs — it holds the oil and it holds the sauce still on a slice of boiled beef — and it is why this lands on the plate as a relish rather than a dressing."
+  },
+  {
+   "name": "Chimichurri",
+   "facets": {
+    "region": [
+     "Argentina",
+     "Uruguay"
+    ],
+    "fat": [
+     "olive oil",
+     "sunflower oil in as many kitchens"
+    ],
+    "acid": [
+     "wine vinegar",
+     "red",
+     "enough that it stings"
+    ],
+    "bind": [
+     "nothing",
+     "chopped with a knife rather than blended",
+     "shaken in the jar",
+     "left a day so the herbs bleed"
+    ],
+    "aroma": [
+     "parsley",
+     "dried oregano",
+     "garlic",
+     "ají molido"
+    ]
+   },
+   "note": "The dried oregano is what separates it from every other green herb sauce. Chimichurri is not a fresh sauce but a jar that improves for a week. Blend it and you get a smooth green emulsion tasting of nothing in particular; the knife leaves the parsley in pieces that stay parsley."
+  },
+  {
+   "name": "Mojo picón",
+   "facets": {
+    "region": [
+     "Canary Islands"
+    ],
+    "fat": [
+     "olive oil",
+     "poured into the mortar last"
+    ],
+    "acid": [
+     "wine vinegar",
+     "white",
+     "let down with water if it thickens too far"
+    ],
+    "bind": [
+     "bread",
+     "crustless crumb soaked in the vinegar",
+     "garlic worked to a cream first"
+    ],
+    "aroma": [
+     "garlic",
+     "cumin",
+     "pimienta picona",
+     "pimentón"
+    ]
+   },
+   "note": "The same solution as salsa verde reached at the other end of the Mediterranean with no traffic between them: bread soaked in the vinegar and pounded into the oil. Swap the dried red pepper for coriander leaf and the same mortar gives you mojo verde."
+  },
+  {
+   "name": "Chermoula",
+   "facets": {
+    "region": [
+     "Morocco",
+     "Algeria"
+    ],
+    "fat": [
+     "olive oil",
+     "argan oil in the Souss"
+    ],
+    "acid": [
+     "lemon juice",
+     "preserved lemon in some houses",
+     "a splash of vinegar"
+    ],
+    "bind": [
+     "nothing",
+     "stirred rather than whisked",
+     "the ground spice gives it cling"
+    ],
+    "aroma": [
+     "coriander leaf",
+     "flat parsley",
+     "garlic",
+     "cumin",
+     "sweet paprika"
+    ]
+   },
+   "note": "A marinade before it is a sauce: fish sits packed in it for an hour before it goes near charcoal and what is left in the dish is spooned back over at the table. Cumin and paprika do the work an emulsifier would — ground spice held in suspension makes a sauce that clings without ever being bound."
+  },
+  {
+   "name": "Nar ekşili sos",
+   "facets": {
+    "region": [
+     "Turkey",
+     "Gaziantep"
+    ],
+    "fat": [
+     "olive oil"
+    ],
+    "acid": [
+     "pomegranate molasses",
+     "juice boiled down to a syrup",
+     "sweet as well as sour"
+    ],
+    "bind": [
+     "nothing",
+     "the syrup carries its own body",
+     "shaken to order"
+    ],
+    "aroma": [
+     "sumac",
+     "dried mint",
+     "pul biber"
+    ]
+   },
+   "note": "The only acid here that arrives already thickened. Boiling pomegranate juice to a syrup concentrates the sugar along with the sourness, so the dressing is viscous and sweet before anything else goes in — which is why it wants sumac, a sourness with no sugar attached, to stop it reading as a glaze. Poured over gavurdağı and kısır."
+  },
+  {
+   "name": "Tarator",
+   "facets": {
+    "region": [
+     "Levant",
+     "Lebanon",
+     "Palestine"
+    ],
+    "fat": [
+     "sesame paste",
+     "tahini",
+     "milled from raw hulled seed"
+    ],
+    "acid": [
+     "lemon juice",
+     "a great deal of it",
+     "in before the water"
+    ],
+    "bind": [
+     "the paste itself",
+     "seizes solid then loosens with cold water",
+     "stays bound for days"
+    ],
+    "aroma": [
+     "garlic",
+     "crushed to a paste with salt",
+     "cumin in some houses",
+     "parsley"
+    ]
+   },
+   "note": "The seizing frightens people into throwing it away. Tahini and lemon go stiff and pale and grainy on contact — that is the emulsion forming, not breaking — and cold water a spoonful at a time takes it back to a pourable cream. Also written taratour; the Bulgarian tarator is a cold cucumber soup and unrelated."
+  },
+  {
+   "name": "Goma dare",
+   "facets": {
+    "region": [
+     "Japan"
+    ],
+    "fat": [
+     "sesame paste",
+     "neri goma",
+     "milled from toasted seed"
+    ],
+    "acid": [
+     "rice vinegar",
+     "mild",
+     "a small share of the bowl"
+    ],
+    "bind": [
+     "the paste itself",
+     "let down with dashi",
+     "stays bound"
+    ],
+    "aroma": [
+     "soy sauce",
+     "mirin",
+     "sugar",
+     "grated ginger"
+    ]
+   },
+   "note": "Tarator and goma dare are the same discovery made twice. Crushed sesame is about half oil by weight and the rest is protein and fibre that will hold that oil in water. What differs is the roast: Levantine tahini is milled from raw seed and tastes green and faintly bitter, neri goma from seed toasted nearly to burning and tastes of the toast."
+  },
+  {
+   "name": "Ponzu",
+   "facets": {
+    "region": [
+     "Japan"
+    ],
+    "fat": [
+     "no fat at all"
+    ],
+    "acid": [
+     "citrus juice",
+     "yuzu",
+     "sudachi",
+     "kabosu",
+     "rice vinegar to steady it"
+    ],
+    "bind": [
+     "nothing",
+     "meant to be thin",
+     "clear enough to see through"
+    ],
+    "aroma": [
+     "kombu",
+     "katsuobushi",
+     "steeped cold overnight",
+     "strained"
+    ]
+   },
+   "note": "Pon is the Dutch pons — punch — left behind by the only Europeans Japan traded with for two hundred years; the su on the end is vinegar. The savour comes from kombu and dried bonito rather than from fat, which is how a sauce with no oil in it still coats a slice of raw fish."
+  },
+  {
+   "name": "Ponzu shoyu",
+   "parent": "Ponzu",
+   "facets": {
+    "region": [
+     "Japan"
+    ],
+    "fat": [
+     "no fat at all"
+    ],
+    "acid": [
+     "citrus juice",
+     "yuzu",
+     "rice vinegar to steady it"
+    ],
+    "bind": [
+     "nothing",
+     "meant to be thin"
+    ],
+    "aroma": [
+     "kombu",
+     "katsuobushi",
+     "soy sauce",
+     "mirin"
+    ]
+   },
+   "note": "Ponzu plus soy sauce — and what nearly every bottle labelled ponzu actually contains. It sits a level down because it genuinely is the other one plus something: the dark colour and most of the salt arrive with the soy."
+  },
+  {
+   "name": "Nước chấm",
+   "facets": {
+    "region": [
+     "Vietnam"
+    ],
+    "fat": [
+     "no fat at all"
+    ],
+    "acid": [
+     "lime juice",
+     "rice vinegar in the north"
+    ],
+    "bind": [
+     "nothing",
+     "water lets it down almost to a drink",
+     "sugar gives it what body it has"
+    ],
+    "aroma": [
+     "fish sauce",
+     "garlic",
+     "bird chilli",
+     "palm sugar"
+    ]
+   },
+   "note": "Water is an ingredient here rather than an accident. Fish sauce and lime go in at full strength and are then diluted back to something you could swallow by the glass, because the sauce is poured over a bowl of noodles rather than tossed through leaves. The garlic is chopped rather than crushed so that it floats."
+  },
+  {
+   "name": "Nam jim jaew",
+   "facets": {
+    "region": [
+     "Isan",
+     "Thailand",
+     "Laos"
+    ],
+    "fat": [
+     "no fat at all"
+    ],
+    "acid": [
+     "lime juice",
+     "tamarind in some houses"
+    ],
+    "bind": [
+     "toasted rice powder",
+     "khao khua",
+     "grit in suspension rather than an emulsion"
+    ],
+    "aroma": [
+     "fish sauce",
+     "dried chilli flakes",
+     "palm sugar",
+     "spring onion",
+     "coriander"
+    ]
+   },
+   "note": "Sticky rice dry-toasted to dark brown and ground coarse. It thickens by absorption rather than emulsion and it is the only body the sauce has, which is why jaew is gritty on the tongue in a way nước chấm never is. Made the same day it is eaten — the powder goes soft and stale overnight."
+  },
+  {
+   "name": "Yangnyeomjang",
+   "facets": {
+    "region": [
+     "Korea"
+    ],
+    "fat": [
+     "sesame oil",
+     "toasted",
+     "a spoonful rather than a cupful"
+    ],
+    "acid": [
+     "rice vinegar",
+     "a smaller share than the soy"
+    ],
+    "bind": [
+     "nothing",
+     "stirred again at the table",
+     "the seed settles on the bottom"
+    ],
+    "aroma": [
+     "soy sauce",
+     "gochugaru",
+     "garlic",
+     "spring onion",
+     "toasted sesame seed"
+    ]
+   },
+   "note": "The one place where the fat is the seasoning rather than the body. Toasted sesame oil is too loud to pour by the cupful, so the ratio inverts — soy sauce is the bulk, vinegar the acid, and the oil goes in by the spoon for its smell. Spooned over cold tofu or steamed greens and set beside dumplings."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On what holds it together",
+   "body": "Oil and vinegar separate because that is what they do; anything that keeps them mixed is a third substance with a foot in both phases. Mustard brings mucilage off the seed coat. Crushed sesame brings protein and lecithin, which is why tahini and neri goma emulsify without help from anywhere else. Bread and toasted rice bring starch that swells and traps oil in a mesh rather than truly emulsifying it. Hot water in salmoriglio brings almost nothing and buys ten minutes. And half this family declines to bother: sauce vierge and chimichurri and chermoula are meant to be seen separating in the spoon and are stirred again at the table."
+  },
+  {
+   "title": "On the fat that is not there",
+   "body": "Ponzu, nước chấm and nam jim jaew have no oil in them and are still doing a vinaigrette's job. Fat in a dressing carries aroma, coats what it touches, and blunts the acid so it does not strip the tongue. In the fish sauce sauces the blunting is done by sugar and by water — nước chấm is let down almost to a drink — and the carrying is done by glutamate, which is also why ponzu steeps kombu and bonito in the citrus for a day before anyone tastes it. Yangnyeomjang splits the difference: sesame oil by the spoonful, in for smell rather than for body."
+  },
+  {
+   "title": "On depth",
+   "body": "Only ravigote and ponzu shoyu sit under anything, because only they are genuinely another sauce on this page plus something — ravigote is vinaigrette with capers and soft herbs, ponzu shoyu is ponzu with soy sauce in it. Everything else is one decision away from oil and acid and belongs at the same depth. Tarator and goma dare both bind with crushed sesame and are not related. Salsa verde and mojo picón both bind with bread soaked in vinegar and are not related either. Two kitchens with no knowledge of each other arriving at the same answer is the ordinary case in this family rather than the interesting exception."
+  },
+  {
+   "title": "On the ones next door",
+   "body": "Keep whisking oil into egg yolk until there is no water phase left to speak of and you have left this family for mayonnaise — a sauce you spread rather than pour. Pound the herbs to a paste with cheese and nuts and you are in pesto. Gremolata is not here at all: lemon zest, parsley and garlic chopped together have no fat and no liquid acid, so nothing is dressed and nothing is emulsified — a dry garnish that happens to share three ingredients with half this page. Leche de tigre looks like a fat-free vinaigrette and is really a cure, since its job is to firm the fish rather than to season it."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Vinaigrette (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Vinaigrette"
+  },
+  {
+   "label": "Sauce ravigote",
+   "url": "https://en.wikipedia.org/wiki/Ravigote"
+  },
+  {
+   "label": "Salmoriglio",
+   "url": "https://en.wikipedia.org/wiki/Salmoriglio"
+  },
+  {
+   "label": "Salmoriglio: history and recipe (Forager Chef)",
+   "url": "https://foragerchef.com/bergamot-salmoriglio-sauce/"
+  },
+  {
+   "label": "Sauce vierge",
+   "url": "https://en.wikipedia.org/wiki/Sauce_vierge"
+  },
+  {
+   "label": "Salsa verde",
+   "url": "https://en.wikipedia.org/wiki/Salsa_verde"
+  },
+  {
+   "label": "Chimichurri",
+   "url": "https://en.wikipedia.org/wiki/Chimichurri"
+  },
+  {
+   "label": "Mojo (sauce)",
+   "url": "https://en.wikipedia.org/wiki/Mojo_(sauce)"
+  },
+  {
+   "label": "Los mojos canarios (Cultura Tradicional de Gran Canaria)",
+   "url": "https://culturatradicionalgc.org/mojos/"
+  },
+  {
+   "label": "Chermoula",
+   "url": "https://en.wikipedia.org/wiki/Chermoula"
+  },
+  {
+   "label": "Nar ekşisi as a dressing (Exploring the Turkish Kitchen)",
+   "url": "https://exploringtheturkishkitchen.com/index.php/turkish-ingredients-produce/117-nar-eksisi-sos-pomegranate-molasses"
+  },
+  {
+   "label": "Tahini",
+   "url": "https://en.wikipedia.org/wiki/Tahini"
+  },
+  {
+   "label": "Goma-ae and sesame dressing",
+   "url": "https://en.wikipedia.org/wiki/Goma-ae"
+  },
+  {
+   "label": "Ponzu",
+   "url": "https://en.wikipedia.org/wiki/Ponzu"
+  },
+  {
+   "label": "Eat This Word: Ponzu (James Beard Foundation)",
+   "url": "https://www.jamesbeard.org/stories/eat-this-word-ponzu"
+  },
+  {
+   "label": "Nước chấm",
+   "url": "https://en.wikipedia.org/wiki/N%C6%B0%E1%BB%9Bc_ch%E1%BA%A5m"
+  },
+  {
+   "label": "Nam chim",
+   "url": "https://en.wikipedia.org/wiki/Nam_chim"
+  },
+  {
+   "label": "Yangnyeomjang (Tasting Table)",
+   "url": "https://www.tastingtable.com/1403438/yangnyeomjang-korean-seasoning-sauce-explained/"
+  },
+  {
+   "label": "Emulsion",
+   "url": "https://en.wikipedia.org/wiki/Emulsion"
+  }
+ ],
+ "yours": [
+  "vinaigrette",
+  "dressing",
+  "salad dressing",
+  "ravigote",
+  "salmoriglio",
+  "sauce vierge",
+  "salsa verde",
+  "chimichurri",
+  "mojo",
+  "chermoula",
+  "tahini sauce",
+  "tahini dressing",
+  "tarator",
+  "goma",
+  "sesame dressing",
+  "ponzu",
+  "nuoc cham",
+  "nước chấm",
+  "nam jim"
+ ]
+}

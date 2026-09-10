@@ -1,0 +1,549 @@
+{
+ "slug": "compound-butter",
+ "name": "Compound butter",
+ "standfirst": "Butter is the constant. What separates these sixteen is the thing worked into it, whether that thing goes in raw or is cooked first, and what the butter is then asked to do — melt on a steak, be spread cold, or do the frying itself.",
+ "root": "Butter, softened",
+ "facets": [
+  {
+   "id": "aromatic",
+   "label": "Aromatic"
+  },
+  {
+   "id": "prep",
+   "label": "Worked in"
+  },
+  {
+   "id": "form",
+   "label": "Form"
+  },
+  {
+   "id": "use",
+   "label": "Used"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By what goes in",
+   "by": [
+    "aromatic",
+    "prep",
+    "use"
+   ]
+  },
+  {
+   "label": "By how it goes in",
+   "by": [
+    "prep",
+    "use",
+    "aromatic"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "aromatic"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Beurre maître d'hôtel",
+   "facets": {
+    "region": [
+     "France"
+    ],
+    "aromatic": [
+     "herb",
+     "parsley",
+     "lemon"
+    ],
+    "prep": [
+     "raw",
+     "chopped fine"
+    ],
+    "form": [
+     "chilled log",
+     "sliced into coins"
+    ],
+    "use": [
+     "melted on",
+     "grilled steak"
+    ]
+   },
+   "note": "The default. Parsley, lemon, salt, pepper — every other butter here is this same decision answered differently."
+  },
+  {
+   "name": "Beurre Colbert",
+   "parent": "Beurre maître d'hôtel",
+   "facets": {
+    "region": [
+     "France"
+    ],
+    "aromatic": [
+     "herb",
+     "parsley",
+     "lemon",
+     "tarragon",
+     "meat glaze"
+    ],
+    "prep": [
+     "raw",
+     "chopped fine",
+     "veal glaze beaten in"
+    ],
+    "form": [
+     "chilled log",
+     "sliced into coins"
+    ],
+    "use": [
+     "melted on",
+     "fried sole"
+    ]
+   },
+   "note": "Escoffier states it as arithmetic: maître d'hôtel butter plus tarragon and melted meat glaze. It descends from that butter, not from plain butter."
+  },
+  {
+   "name": "Beurre de Montpellier",
+   "facets": {
+    "region": [
+     "Languedoc"
+    ],
+    "aromatic": [
+     "herb",
+     "watercress",
+     "chervil",
+     "tarragon",
+     "anchovy",
+     "capers",
+     "egg yolk"
+    ],
+    "prep": [
+     "blanched first",
+     "pounded to a paste",
+     "sieved smooth"
+    ],
+    "form": [
+     "soft",
+     "bright green"
+    ],
+    "use": [
+     "spread cold",
+     "poached salmon"
+    ]
+   },
+   "note": "Blanching is not seasoning. Thirty seconds in boiling water fixes the chlorophyll, which is the only reason this stays green on a cold buffet."
+  },
+  {
+   "name": "Snail butter",
+   "facets": {
+    "region": [
+     "Burgundy"
+    ],
+    "aromatic": [
+     "garlic",
+     "parsley",
+     "shallot"
+    ],
+    "prep": [
+     "raw",
+     "pounded to a paste"
+    ],
+    "form": [
+     "soft",
+     "piped"
+    ],
+    "use": [
+     "baked in",
+     "the shell"
+    ]
+   },
+   "note": "Beurre d'escargot, and the only one cooked inside its serving vessel — the shell holds butter against snail while the oven melts it."
+  },
+  {
+   "name": "Kyiv butter",
+   "facets": {
+    "region": [
+     "Ukraine"
+    ],
+    "aromatic": [
+     "garlic",
+     "dill",
+     "parsley"
+    ],
+    "prep": [
+     "raw",
+     "chopped fine"
+    ],
+    "form": [
+     "frozen hard"
+    ],
+    "use": [
+     "sealed inside",
+     "a chicken cutlet"
+    ]
+   },
+   "note": "Frozen so it survives breading and the fryer. It is only a sauce for the two seconds after the cutlet is cut."
+  },
+  {
+   "name": "Café de Paris butter",
+   "facets": {
+    "region": [
+     "Switzerland"
+    ],
+    "aromatic": [
+     "anchovy",
+     "capers",
+     "mustard",
+     "tarragon",
+     "curry powder",
+     "brandy"
+    ],
+    "prep": [
+     "steeped warm",
+     "rested a day"
+    ],
+    "form": [
+     "chilled log",
+     "sliced into coins"
+    ],
+    "use": [
+     "melted on",
+     "grilled entrecôte"
+    ]
+   },
+   "note": "Geneva, 1930s, and a guarded list of twenty-odd things. The warm steep and the day's rest are what make it read as one flavour rather than a heap."
+  },
+  {
+   "name": "Anchovy butter",
+   "facets": {
+    "region": [
+     "France"
+    ],
+    "aromatic": [
+     "anchovy",
+     "lemon"
+    ],
+    "prep": [
+     "raw",
+     "pounded to a paste"
+    ],
+    "form": [
+     "chilled log",
+     "sliced into coins"
+    ],
+    "use": [
+     "spread cold",
+     "toast"
+    ]
+   },
+   "note": "Two ingredients and a mortar. The salt in the fish seasons the butter, so nothing else is added."
+  },
+  {
+   "name": "Gentleman's Relish",
+   "parent": "Anchovy butter",
+   "facets": {
+    "region": [
+     "England"
+    ],
+    "aromatic": [
+     "anchovy",
+     "mace",
+     "cayenne",
+     "black pepper"
+    ],
+    "prep": [
+     "raw",
+     "pounded to a paste",
+     "matured in the pot"
+    ],
+    "form": [
+     "potted",
+     "keeps for months"
+    ],
+    "use": [
+     "spread cold",
+     "hot buttered toast"
+    ]
+   },
+   "note": "Anchovy butter taken further — a spice mix kept secret since 1828, and time under the lid. Sold as a relish; it is a compound butter in the jar."
+  },
+  {
+   "name": "Bone marrow butter",
+   "facets": {
+    "region": [
+     "Britain"
+    ],
+    "aromatic": [
+     "bone marrow",
+     "parsley",
+     "shallot"
+    ],
+    "prep": [
+     "roasted first",
+     "beaten in warm"
+    ],
+    "form": [
+     "soft",
+     "whipped"
+    ],
+    "use": [
+     "melted on",
+     "grilled steak"
+    ]
+   },
+   "note": "One fat carrying another. Marrow has no structure of its own, so this melts to a puddle where a herb butter would hold a slick."
+  },
+  {
+   "name": "Beurre de homard",
+   "facets": {
+    "region": [
+     "France"
+    ],
+    "aromatic": [
+     "shellfish",
+     "lobster shells",
+     "coral"
+    ],
+    "prep": [
+     "roasted first",
+     "pounded with the butter",
+     "melted and strained"
+    ],
+    "form": [
+     "set hard",
+     "coral red"
+    ],
+    "use": [
+     "stirred into",
+     "a shellfish soup"
+    ]
+   },
+   "note": "The aromatic is thrown away. Shells go in for colour and scent only, and the butter is strained through muslin into iced water to set."
+  },
+  {
+   "name": "Beurre aux algues",
+   "facets": {
+    "region": [
+     "Brittany"
+    ],
+    "aromatic": [
+     "seaweed",
+     "dulse",
+     "sea lettuce",
+     "salt crystals"
+    ],
+    "prep": [
+     "raw",
+     "dried flakes rehydrated"
+    ],
+    "form": [
+     "chilled log"
+    ],
+    "use": [
+     "spread cold",
+     "sourdough"
+    ]
+   },
+   "note": "A Breton dairy answer to anchovy: the sea taste arrives as dried weed, so the butter takes on iodine and colour without taking on water."
+  },
+  {
+   "name": "Miso butter",
+   "facets": {
+    "region": [
+     "Japan"
+    ],
+    "aromatic": [
+     "fermented paste",
+     "miso"
+    ],
+    "prep": [
+     "raw",
+     "beaten smooth"
+    ],
+    "form": [
+     "soft",
+     "whipped"
+    ],
+    "use": [
+     "melted on",
+     "grilled corn"
+    ]
+   },
+   "note": "Salt and glutamate already dissolved into a paste — nothing to chop, nothing to cook, which makes it the easiest of these to improvise."
+  },
+  {
+   "name": "Harissa butter",
+   "facets": {
+    "region": [
+     "Tunisia"
+    ],
+    "aromatic": [
+     "fermented paste",
+     "harissa",
+     "garlic",
+     "caraway"
+    ],
+    "prep": [
+     "raw",
+     "beaten smooth"
+    ],
+    "form": [
+     "chilled log",
+     "sliced into coins"
+    ],
+    "use": [
+     "melted on",
+     "grilled lamb"
+    ]
+   },
+   "note": "Chilli heat is fat-soluble, so butter spreads it evenly and blunts it — the same paste stirred into a broth would be twice as sharp."
+  },
+  {
+   "name": "Niter kibbeh",
+   "facets": {
+    "region": [
+     "Ethiopia"
+    ],
+    "aromatic": [
+     "spice",
+     "koseret",
+     "besobela",
+     "fenugreek",
+     "garlic",
+     "ginger"
+    ],
+    "prep": [
+     "simmered in",
+     "strained out"
+    ],
+    "form": [
+     "clarified",
+     "keeps unrefrigerated"
+    ],
+    "use": [
+     "cooked with",
+     "as the frying fat"
+    ]
+   },
+   "note": "The one butter here that is not a garnish. With the milk solids simmered off and strained away it keeps without a fridge and carries its spice into every wat cooked in it."
+  },
+  {
+   "name": "Smen",
+   "facets": {
+    "region": [
+     "Morocco"
+    ],
+    "aromatic": [
+     "salt",
+     "wild oregano"
+    ],
+    "prep": [
+     "salted heavily",
+     "sealed and aged"
+    ],
+    "form": [
+     "potted",
+     "keeps for years"
+    ],
+    "use": [
+     "cooked with",
+     "a tagine"
+    ]
+   },
+   "note": "The aromatic is time. Months to years under salt turn butter blue-cheese pungent, and a spoonful seasons a whole couscous."
+  },
+  {
+   "name": "Honey butter",
+   "facets": {
+    "region": [
+     "United States"
+    ],
+    "aromatic": [
+     "honey",
+     "cinnamon"
+    ],
+    "prep": [
+     "raw",
+     "beaten smooth"
+    ],
+    "form": [
+     "soft",
+     "whipped"
+    ],
+    "use": [
+     "spread cold",
+     "hot cornbread"
+    ]
+   },
+   "note": "Proof that the family is a method and not a seasoning — whip anything soluble into soft butter and let it firm up again."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On the first fork",
+   "body": "Raw or cooked first is the decision the rest hang off. A raw aromatic keeps its edge and its colour, and the butter is only a carrier — parsley, garlic, miso, harissa. Cook it first and the butter becomes an extractor: shells give up colour, marrow gives up fat, spices give up oil-soluble scent, and in the two extreme cases the aromatic is strained back out and thrown away."
+  },
+  {
+   "title": "Where a butter stops and a sauce starts",
+   "body": "Beurre blanc and beurre rouge are not in this family. They are emulsions whisked to order into a hot reduction and served warm within the hour. A compound butter is solid, keeps, and travels to the plate as a slice or a spoonful. The test is whether you could still cut it tomorrow."
+  },
+  {
+   "title": "Butter that keeps",
+   "body": "Niter kibbeh and smen answer a different question from the rest. Clarifying removes the milk solids that spoil; salting and sealing lets lactic acid do the same job by fermentation. The aromatics come along for the ride, which is why both are cooked with rather than melted on — the seasoning was never the point."
+  },
+  {
+   "title": "On depth",
+   "body": "Only two dishes sit a level down, and both because a written recipe says so: Colbert is maître d'hôtel plus tarragon and meat glaze, and Gentleman's Relish is anchovy butter plus spices and a month in the pot. Everything else is one move from soft butter and belongs at the same depth, however much a neater tree would like otherwise."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Compound butter (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Compound_butter"
+  },
+  {
+   "label": "Beurre maître d'hôtel",
+   "url": "https://en.wikipedia.org/wiki/Beurre_ma%C3%AEtre_d%27h%C3%B4tel"
+  },
+  {
+   "label": "Colbert butter (Escoffier, Le Guide Culinaire)",
+   "url": "https://culinaryexplorer.app/escoffier/141-colbert-butter"
+  },
+  {
+   "label": "Café de Paris sauce",
+   "url": "https://en.wikipedia.org/wiki/Caf%C3%A9_de_Paris_sauce"
+  },
+  {
+   "label": "Gentleman's Relish",
+   "url": "https://en.wikipedia.org/wiki/Gentleman%27s_Relish"
+  },
+  {
+   "label": "Niter kibbeh",
+   "url": "https://en.wikipedia.org/wiki/Niter_kibbeh"
+  },
+  {
+   "label": "Smen",
+   "url": "https://en.wikipedia.org/wiki/Smen"
+  },
+  {
+   "label": "Escargot",
+   "url": "https://en.wikipedia.org/wiki/Escargot"
+  }
+ ],
+ "yours": [
+  "compound butter",
+  "garlic butter",
+  "herb butter",
+  "maître d'hôtel",
+  "anchovy butter",
+  "miso butter",
+  "marrow butter",
+  "café de paris",
+  "niter kibbeh"
+ ]
+}

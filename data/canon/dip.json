@@ -1,8 +1,8 @@
 {
  "slug": "dip",
  "name": "Dip",
- "standfirst": "A dip is a texture before it is a recipe: something soft enough to give way under bread and salty enough that you keep going back. Four decisions make every one of them — what gets pulped, what fat carries it, what sour cuts the fat, and how far you take the pounding. Change nothing about burnt aubergine except the fat you beat into it and you have left Beirut for Tehran.",
- "root": "Something soft or softened · broken down with salt and garlic in a mortar or a machine · slackened with a fat and cut with something sour · eaten cold with bread",
+ "standfirst": "A dip is a texture before it is a recipe: something soft enough to give way under bread and salty enough that you keep going back. Four decisions make every one of them — what gets pulped, what fat carries it, what sour cuts the fat, and how far you take the pounding. Beat chickpeas into tahini sauce and you have hummus; beat burnt aubergine into the same sauce and you have mutabbal. One decision apart.",
+ "root": "Something soft or softened · broken down with salt until it holds together · usually carried by a fat and cut by something sour · scooped up at the table with bread or rice",
  "facets": [
   {
    "id": "base",
@@ -38,8 +38,8 @@
    "label": "By smooth or chunky",
    "by": [
     "body",
-    "base",
-    "fat"
+    "acid",
+    "base"
    ]
   },
   {
@@ -55,8 +55,7 @@
    "name": "Tahini sauce",
    "facets": {
     "region": [
-     "Levant",
-     "taratur from Aleppo to Jaffa"
+     "Levant"
     ],
     "base": [
      "a nut or seed",
@@ -70,24 +69,22 @@
     ],
     "acid": [
      "lemon juice",
-     "poured in until the paste seizes solid",
-     "cold water after it to bring it back"
+     "poured in until the paste seizes solid"
     ],
     "body": [
      "taken smooth",
-     "whisked in a bowl by hand",
-     "thin enough to pour off a spoon"
+     "no motor touches it",
+     "whisked thin enough to pour"
     ]
    },
-   "note": "The plainest thing here and the one two others are built on: sesame paste, garlic crushed with salt, lemon, water. It is a sauce for fish and falafel on its own, and it is the medium that hummus and mutabbal are suspended in."
+   "note": "The plainest thing here and the one two others are built on: sesame paste, garlic crushed with salt, lemon, water. Thin enough to pour off a spoon, it is a sauce for fish and falafel on its own, and it is the medium that hummus and mutabbal are suspended in. The cold water that comes after the lemon is not an ingredient so much as a repair; see the note on what tahini does."
   },
   {
    "name": "Hummus",
    "parent": "Tahini sauce",
    "facets": {
     "region": [
-     "Levant",
-     "Beirut and Damascus and Jerusalem all claim it"
+     "Levant"
     ],
     "base": [
      "a cooked pulse",
@@ -105,19 +102,18 @@
     ],
     "body": [
      "taken smooth",
-     "run through a food mill or pounded",
-     "whipped with iced water until it lifts"
+     "no motor touches it",
+     "run through a food mill rather than a blender"
     ]
    },
-   "note": "Hummus bi tahina is the full name and it is an instruction: this is tahini sauce with chickpeas beaten into it. That is why it sits underneath rather than beside. The skins are the only thing standing between a good one and a great one."
+   "note": "Hummus bi tahina is the full name and it is an instruction: this is tahini sauce with chickpeas beaten into it. That is why it sits underneath rather than beside. The skins are the only thing standing between a good one and a great one, and a mill takes them out without beating air in."
   },
   {
    "name": "Mutabbal",
    "parent": "Tahini sauce",
    "facets": {
     "region": [
-     "Levant",
-     "Syria and Lebanon"
+     "Levant"
     ],
     "base": [
      "a cooked vegetable",
@@ -135,18 +131,17 @@
     ],
     "body": [
      "taken smooth",
-     "mashed with a fork rather than blended",
-     "kept loose enough to swirl in the dish"
+     "no motor touches it",
+     "mashed with a fork rather than blended"
     ]
    },
-   "note": "The same sauce again with smoke instead of starch under it. Mutabbal means spiced or seasoned; what defines it against its neighbour is that the tahini goes in, and what defines it against hummus is that the flame does the cooking."
+   "note": "The same sauce again with smoke instead of starch under it. Mutabbal means spiced or seasoned; what defines it against its neighbour is that the tahini goes in, and what defines it against hummus is that the flame does the cooking. Kept loose enough to swirl in the dish."
   },
   {
    "name": "Baba ganoush",
    "facets": {
     "region": [
-     "Levant",
-     "Lebanon"
+     "Levant"
     ],
     "base": [
      "a cooked vegetable",
@@ -164,11 +159,11 @@
     ],
     "body": [
      "left chunky",
-     "chopped on a board with a knife",
-     "tomato and green pepper cut through it"
+     "no motor touches it",
+     "chopped on a board with a knife"
     ]
    },
-   "note": "In the West this name has been swallowed by mutabbal and now means the tahini one. At home it is the other fork off the same burnt aubergine: no sesame, a fruit acid instead of lemon alone, and knifework instead of a mortar — a salad rather than a paste."
+   "note": "In the West this name has been swallowed by mutabbal and now means the tahini one. At home it is the other fork off the same burnt aubergine: no sesame, a fruit acid instead of lemon alone, and knifework instead of a mortar, with tomato and green pepper cut through it — a salad rather than a paste."
   },
   {
    "name": "Kashk-e bademjan",
@@ -188,28 +183,29 @@
     ],
     "acid": [
      "fermented whey",
-     "kashk stirred through and drizzled on top",
-     "sour by fermentation rather than by fruit"
+     "kashk stirred through the pot",
+     "more kashk drizzled on top"
     ],
     "body": [
      "left chunky",
-     "pounded in a mortar but stopped short of a paste",
-     "walnuts crushed in for grit"
+     "no motor touches it",
+     "pounded but stopped short of a paste"
     ]
    },
-   "note": "Aubergine again with every other decision moved. The sour is kashk — drained yogurt fermented and dried to rocks then let down with water — so the acid and a second fat arrive in the same spoonful. Frying rather than burning means it tastes of oil and onion instead of smoke."
+   "note": "Aubergine again with every other decision moved. The sour is kashk — drained yogurt fermented and dried to rocks, then let down with water — so the acid and a second fat arrive in the same spoonful, by fermentation rather than by fruit. Frying rather than burning means it tastes of oil and onion instead of smoke, and crushed walnuts go in for grit."
   },
   {
    "name": "Ajvar",
    "facets": {
     "region": [
      "Balkans",
-     "Serbia and North Macedonia"
+     "Serbia",
+     "North Macedonia"
     ],
     "base": [
      "a cooked vegetable",
      "red peppers roasted until the skins lift",
-     "aubergine for about a third of the weight"
+     "aubergine with them in some houses"
     ],
     "fat": [
      "a seed oil",
@@ -223,11 +219,11 @@
     ],
     "body": [
      "left chunky",
-     "minced through a hand grinder",
-     "cooked down until a spoon will stand in it"
+     "no motor touches it",
+     "minced through a hand grinder"
     ]
    },
-   "note": "The only one here that is cooked after it is pulped and the only one made by the bucket in September. Everything else is a dish; ajvar is a winter store that happens to be eaten with bread."
+   "note": "The only one here that is cooked after it is pulped and the only one made by the bucket in September, cooked down over hours until a spoon will stand in it. Everything else is a dish; ajvar is a winter store that happens to be eaten with bread."
   },
   {
    "name": "Nam phrik num",
@@ -252,18 +248,17 @@
     ],
     "body": [
      "left chunky",
-     "pounded in a clay mortar",
-     "loose enough to pick up with sticky rice"
+     "no motor touches it",
+     "pounded in a clay mortar"
     ]
    },
-   "note": "The proof that the fat is optional and the pounding is not. Charring the chillies and aromatics whole before they meet the pestle is the same move as burning an aubergine over a flame — sweetness and smoke bought before anything is crushed."
+   "note": "The proof that the fat is optional and the pounding is not. Charring the chillies and aromatics whole before they meet the pestle is the same move as burning an aubergine over a flame — sweetness and smoke bought before anything is crushed. It is kept loose and picked up with sticky rice rather than bread."
   },
   {
    "name": "Muhammara",
    "facets": {
     "region": [
-     "Syria",
-     "Aleppo"
+     "Levant"
     ],
     "base": [
      "a nut or seed",
@@ -281,18 +276,19 @@
     ],
     "body": [
      "left chunky",
-     "pounded in a mortar",
-     "breadcrumbs stirred in to give it body"
+     "no motor touches it",
+     "stopped while the walnut is still gritty"
     ]
    },
-   "note": "Muhammara means reddened. The walnut is the base rather than a garnish, which is why it is grainy in the mouth where its neighbours are creamy — and why the acid has to be pomegranate: lemon alone cannot get through that much oil."
+   "note": "Muhammara means reddened, and Aleppo is where it comes from. The walnut is the base rather than a garnish, which is why it is grainy in the mouth where its neighbours are creamy — and why the acid has to be pomegranate: lemon alone cannot get through that much oil. Breadcrumbs are stirred in to hold it together."
   },
   {
    "name": "Coconut chutney",
    "facets": {
     "region": [
      "South Asia",
-     "Tamil Nadu and Karnataka"
+     "Tamil Nadu",
+     "Karnataka"
     ],
     "base": [
      "a nut or seed",
@@ -302,7 +298,7 @@
     "fat": [
      "the nut's own oil",
      "coconut oil heated for the tempering",
-     "mustard seed and curry leaf fried and poured on top"
+     "mustard seed and curry leaf fried in it"
     ],
     "acid": [
      "tamarind",
@@ -310,11 +306,11 @@
     ],
     "body": [
      "taken smooth",
-     "ground on a wet stone with water",
-     "slackened to a scooping thickness"
+     "no motor touches it",
+     "ground on a wet stone with water"
     ]
    },
-   "note": "The only one whose last move happens in a hot pan after the grinding is done: seeds and leaves fried in oil and tipped over the top so they crackle. Made fresh each morning because coconut turns by evening."
+   "note": "The one here whose fat arrives only at the end and only hot, and the one where that fat is the seasoning rather than a garnish: mustard seed and curry leaf fried in coconut oil and tipped over the top so they crackle. Slackened to a scooping thickness and made fresh each morning, because coconut turns by evening."
   },
   {
    "name": "Ful medames",
@@ -338,11 +334,11 @@
     ],
     "body": [
      "left chunky",
-     "crushed against the side of the pot with a spoon",
-     "half the beans left whole"
+     "no motor touches it",
+     "crushed against the pot with a spoon"
     ]
    },
-   "note": "Breakfast rather than a mezze, and the one dip nobody finishes making in the kitchen — the oil and lemon go on in front of you, and how far it gets mashed is decided by whoever is holding the bread."
+   "note": "Breakfast rather than a mezze, eaten hot, and the one dip nobody finishes making in the kitchen — the oil and lemon go on in front of you, and how far it gets mashed is decided by whoever is holding the bread. Half the beans usually stay whole."
   },
   {
    "name": "Tzatziki",
@@ -361,23 +357,22 @@
      "olive oil poured over"
     ],
     "acid": [
-     "the yogurt's own souring",
+     "the base's own souring",
      "a spoonful of vinegar in some houses"
     ],
     "body": [
      "left chunky",
-     "stirred together by hand",
+     "no motor touches it",
      "the cucumber kept in shreds"
     ]
    },
-   "note": "The only base here that arrived already sour, so no acid needs pouring in. Wringing the cucumber is the whole technique: skip it and the salt pulls the water out on the table instead and you get soup."
+   "note": "One of two here whose sourness is the base's own — feta does the same job for tirokafteri — so the spoonful of vinegar some houses add is a lift rather than a necessity. What is singular is the cucumber. Wringing it dry is the whole technique: skip it and the salt pulls the water out on the table instead and you get soup."
   },
   {
    "name": "Tirokafteri",
    "facets": {
     "region": [
-     "Greece",
-     "Macedonia and the islands"
+     "Greece"
     ],
     "base": [
      "milk drained or soured",
@@ -390,16 +385,17 @@
      "yogurt to let it down"
     ],
     "acid": [
-     "the brine it was kept in",
+     "the base's own souring",
+     "the brine the feta came in",
      "lemon juice to lift it"
     ],
     "body": [
      "taken smooth",
-     "beaten hard until it holds air",
-     "spreadable rather than pourable"
+     "a motor does the work",
+     "beaten until it holds air"
     ]
    },
-   "note": "Whipped feta, and the beating is the point — htipiti, its other name, simply means beaten. No water and no lemon could make feta this pale; it is air, the same trick as whipping butter."
+   "note": "Whipped feta, and the beating is the point — htipiti, its other name, simply means beaten. Nothing poured in could make feta this pale; it is air, the same trick as whipping butter, which is why it ends up spreadable rather than pourable. The cheese and its brine carry the sourness."
   },
   {
    "name": "Salsa huancaína",
@@ -424,11 +420,11 @@
     ],
     "body": [
      "taken smooth",
-     "blended with soda crackers where it needs body",
-     "thin enough to pour over cold potatoes"
+     "a motor does the work",
+     "blended with soda crackers for body"
     ]
    },
-   "note": "Fresh cheese standing in for yogurt on a continent with no yogurt tradition. It is poured over boiled potatoes as often as it is scooped — the same paste asked to be a sauce, which is what happens when you keep thinning a dip."
+   "note": "Fresh cheese standing in for yogurt on a continent with no yogurt tradition. It is thinned until it will pour over cold boiled potatoes as often as it is scooped — the same paste asked to be a sauce, which is what happens when you keep slackening a dip."
   },
   {
    "name": "Skordalia",
@@ -452,18 +448,17 @@
     ],
     "body": [
      "taken smooth",
-     "the garlic pounded to a paste with salt before anything else",
-     "stiff enough to stand a spoon in"
+     "no motor touches it",
+     "the garlic pounded to paste before anything else"
     ]
    },
-   "note": "Named for the garlic and not for the potato, which tells you which one is the dish. The starch is only there to hold oil — take it away and drip the oil into the garlic alone and you have Lebanese toum instead."
+   "note": "Named for the garlic and not for the potato, which tells you which one is the dish. The starch is only there to hold oil — it is what lets the thread of oil go in without splitting, and it leaves the thing stiff enough to stand a spoon in. Take it away and drip the oil into the garlic alone and you have Lebanese toum instead."
   },
   {
    "name": "Taramasalata",
    "facets": {
     "region": [
-     "Greece",
-     "and the Greek kitchens of Istanbul"
+     "Greece"
     ],
     "base": [
      "cured fish roe",
@@ -481,11 +476,11 @@
     ],
     "body": [
      "taken smooth",
-     "beaten until it turns pale and doubles",
-     "a mousse rather than a paste"
+     "a motor does the work",
+     "beaten until it pales and doubles"
     ]
    },
-   "note": "The only savoury base here that was preserved before it was pulped, and the only one that is a true emulsion — the roe holds the oil the way an egg yolk does. The bread is a brake as much as a bulker: it stops the thing splitting."
+   "note": "The only base here that is fish, and the only one where the base itself does the emulsifying: the roe's own proteins take the oil drop by drop the way an egg yolk does, where skordalia leans on starch to hold the same thread. That is why it ends up a mousse rather than a paste. The bread is a brake as much as a bulker — it stops the thing splitting."
   },
   {
    "name": "Guacamole",
@@ -508,25 +503,25 @@
     ],
     "body": [
      "left chunky",
-     "mashed in a basalt molcajete",
-     "lumps left in on purpose"
+     "no motor touches it",
+     "mashed in a basalt molcajete"
     ]
    },
-   "note": "The only base that is neither cooked nor cured nor fermented, and the only one that brings its own fat in the flesh. Grinding the chilli and onion before the avocado goes in is the order that matters — afterwards you would only be bruising it."
+   "note": "The only one that goes in raw and has nothing poured in at all: coconut is raw too but takes hot oil over the top, and muhammara works olive oil into its walnuts. Here the fat is already in the flesh and stays there. Grinding the chilli and onion before the avocado goes in is the order that matters — afterwards you would only be bruising it, and the lumps are left in on purpose."
   }
  ],
  "notes": [
   {
    "title": "On the four decisions",
-   "body": "What is pulped sets the flavour, but it is the other three that place the dish on a map. The fat is the carrier — sesame paste, olive oil, a seed oil, the fat already inside a walnut or an avocado, or none at all. The sour is what stops the fat being dull, and it is the most local decision of the four: lemon in the Levant, lime in Mexico and northern Thailand, vinegar in the Balkans, pomegranate in Aleppo, fermented whey in Iran, and in tzatziki nothing added because the base soured itself. Burnt aubergine with tahini and lemon is mutabbal; the same aubergine fried and finished with kashk is Iranian; chopped instead of pounded with pomegranate molasses is baba ganoush. One vegetable and three countries."
+   "body": "What is pulped sets the flavour, but it is the other three that place the dish on a map. The fat is the carrier — sesame paste, olive oil, a seed oil, the fat already inside a walnut or an avocado, or none at all. The sour is what stops the fat being dull, and it is the most local decision of the four: lemon in the Levant, lime in Mexico and northern Thailand, vinegar in the Balkans, pomegranate in Aleppo, fermented whey in Iran — and in tzatziki and tirokafteri the sourness is already in the base, because milk sours itself, so the vinegar or lemon some houses add is a lift rather than the point. Burnt aubergine with tahini and lemon is mutabbal; fry that same aubergine instead and sour it with kashk and you are in Tehran; chop it rather than pound it and sour it with pomegranate molasses and it is baba ganoush. One vegetable, three decisions moved, three countries."
   },
   {
    "title": "On what tahini does",
-   "body": "Sesame paste is an emulsion looking for an excuse to break. Pour lemon juice into it and it seizes — stiffens into something like plaster — because the acid drops the pH and the protein grabs the water. Beat cold water in after that and it comes back, but paler and thicker than it started. That seizing and recovery is the texture of hummus and of mutabbal; it is why both are white rather than beige, and why neither can be made properly by simply stirring everything together at once."
+   "body": "Sesame paste is oil with solids suspended in it, and no water. Stir anything watery into it — lemon juice, or plain water, it makes no difference which — and it seizes: the paste stiffens to something like plaster as the water pulls the solids together and the whole thing flips from oil holding solids to solids holding water. Keep going with cold water and it comes back, slack again but paler and thicker than it started, because the water is now scattered through it in droplets that scatter light with it. That seizing and recovery is the texture of hummus and of mutabbal, and it is why both are pale rather than beige. It is also why neither can be made properly by stirring everything together at once."
   },
   {
    "title": "On the mortar and the machine",
-   "body": "Smooth or chunky is mostly a decision about the tool, and the tool is usually older than the recipe. A basalt molcajete crushes against a rough face and leaves lumps, which is why guacamole has them. A stone mortar and a pestle can be stopped anywhere between coarse and paste, which is how muhammara and nam phrik num stay grainy. A food mill takes the skins out and gives no air, which is what hummus wants. A blender whips air in, which is what tirokafteri and taramasalata want and what ruins hummus. The blender is the only one that changes colour as well as texture."
+   "body": "Smooth or chunky is mostly a decision about the tool, and the tool is usually older than the recipe. Only three dips here let a motor near them. A basalt molcajete crushes against a rough face and leaves lumps, which is why guacamole has them. A stone mortar can be stopped anywhere between coarse and paste, which is how muhammara and nam phrik num stay grainy. Ajvar's hand grinder is a machine with no motor in it: it minces without whipping. A food mill takes the skins out and gives no air, which is what hummus wants. A spinning blade beats air in, which is what tirokafteri and taramasalata want and what ruins hummus. Air is one of the two things that will pale a dip; water beaten into tahini is the other."
   },
   {
    "title": "On depth",
@@ -534,7 +529,7 @@
   },
   {
    "title": "On what is not here",
-   "body": "Fresh things cut with a knife are salsas, not dips: pico de gallo, Turkish ezme, Ethiopian awaze fresca. The line is that a salsa is chopped and stays wet and separate, while a dip is broken down until it holds together and holds a piece of bread up. Toum is left out for the opposite reason — it is skordalia with the starch removed, garlic and oil and nothing pulped, which puts it among the emulsified sauces with aioli. And ful medames sits at the edge of the family on purpose: it is the one that is still being made while you eat it."
+   "body": "Fresh things cut with a knife are salsas, not dips: pico de gallo, Turkish ezme, Ethiopian awaze fresca. The line is that a salsa is chopped and stays wet and separate, while a dip is broken down until it holds together and will sit on whatever you scoop it with — bread, sticky rice, a dosa, a tortilla chip. Toum is left out for the opposite reason — it is skordalia with the starch removed, garlic and oil and nothing pulped, which puts it among the emulsified sauces with aioli. And ful medames sits at the edge of the family on purpose: it is served hot, and it is the one that is still being made while you eat it."
   }
  ],
  "sources": [
@@ -610,25 +605,32 @@
  "yours": [
   "hummus",
   "houmous",
+  "hummus bi tahina",
   "tahini sauce",
   "taratur",
   "mutabbal",
+  "moutabal",
+  "mutabal",
   "baba ganoush",
   "baba ghanoush",
   "muhammara",
-  "kashk",
+  "kashk-e bademjan",
+  "kashk bademjan",
   "ajvar",
-  "nam prik",
-  "nam phrik",
+  "nam phrik num",
+  "nam prik noom",
   "coconut chutney",
   "ful medames",
+  "foul mudammas",
   "tzatziki",
   "whipped feta",
   "tirokafteri",
   "htipiti",
   "huancaina",
+  "papa a la huancaina",
   "skordalia",
   "taramasalata",
+  "tarama",
   "guacamole",
   "dip"
  ]

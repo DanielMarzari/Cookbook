@@ -10,7 +10,7 @@ export const CANON_FAMILIES: Canon[] = [
   {
     "slug": "aromatic-base",
     "name": "Aromatic base",
-    "standfirst": "Almost every cooked dish begins with something chopped going into hot fat before anything the dish is named after arrives. The vegetables barely vary — an onion and two friends — but what a kitchen does to them decides more about how the finished plate tastes than the meat does. Mirepoix and the holy trinity are the same knife and the same pan; swap the carrot for a green pepper and you are in another country. Four questions separate all of them: what goes in, what it goes into, whether you stop it before it colours or push it until the oil comes back out, and whether it was chopped at all — or pounded, or blended raw, or never fried in the first place.",
+    "standfirst": "Almost every cooked dish begins with something chopped going into hot fat before anything the dish is named after arrives. In Europe the vegetables barely vary — an onion and two friends — but what a kitchen does to them decides more about how the finished plate tastes than the meat does. Mirepoix and the holy trinity are the same knife and the same pan; swap the carrot for a green pepper and you are in another country. Four questions separate all of them: what goes in, what it goes into, whether you stop it before it colours or push it until the oil comes back out, and whether it was chopped at all — or pounded, or blended raw, or never fried in the first place.",
     "root": "Aromatics cut small and given to the pot first, before anything the dish is named after",
     "facets": [
       {
@@ -155,6 +155,7 @@ export const CANON_FAMILIES: Canon[] = [
             "cut even so nothing catches"
           ],
           "heat": [
+            "kept pale",
             "added to fat already browned",
             "the roux taken to peanut or chocolate first",
             "the vegetables stop the roux cooking"
@@ -164,7 +165,7 @@ export const CANON_FAMILIES: Canon[] = [
             "Louisiana"
           ]
         },
-        "note": "Mirepoix with the carrot swapped out — the sugar goes, a green vegetal bitterness comes in. The colour is settled before the vegetables ever appear: the flour and oil are taken to whatever shade the dish wants, and the trinity goes in cold to arrest it."
+        "note": "Mirepoix with the carrot swapped out — the sugar goes, a green vegetal bitterness comes in. The colour is settled before the vegetables ever appear: the flour and oil are taken to whatever shade the dish wants, and the trinity goes in cold to arrest it. The vegetables themselves never colour; all they do is soften and stop the roux."
       },
       {
         "name": "Sofregit",
@@ -212,8 +213,7 @@ export const CANON_FAMILIES: Canon[] = [
             "ten minutes and no more"
           ],
           "region": [
-            "Portugal",
-            "Brazil"
+            "Portugal"
           ]
         },
         "note": "The shortest of the Iberian bases and the most used: in Brazil the pot of beans and the pan of rice both start here, most days, in most houses. Ten minutes is the whole technique, which is why it survived the crossing intact when longer ones did not."
@@ -246,7 +246,7 @@ export const CANON_FAMILIES: Canon[] = [
             "Puerto Rico"
           ]
         },
-        "note": "The Iberian sofrito crossed the Atlantic and stopped being a cooked thing. It is blended raw by the litre and kept in the freezer, so the cooking happens later and briefly, when a spoonful hits the oil. Without tomato it is recaíto, named for the recao — culantro — that makes it green."
+        "note": "The Iberian sofrito crossed the Atlantic and stopped being a cooked thing. It is blended raw by the litre and kept in the freezer, so the cooking happens later and briefly, when a spoonful hits the oil. What is in the jar here is the green one, recaíto, named for the recao — culantro — that makes it; put tomato in and it is sofrito proper."
       },
       {
         "name": "Epis",
@@ -377,8 +377,7 @@ export const CANON_FAMILIES: Canon[] = [
             "the onion taken deep brown first"
           ],
           "region": [
-            "India",
-            "the north"
+            "India"
           ]
         },
         "note": "Bhunao is a verb for a state, not a duration. The onion goes dark, the tomato goes in and collapses, and the step is over when the fat visibly leaves the mass and pools at the edge of the pan — no clock is given because none is needed."
@@ -399,7 +398,7 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "form": [
             "left whole",
-            "nothing chopped at all"
+            "the slowest seed first and the leaves last"
           ],
           "heat": [
             "seconds in hot fat",
@@ -409,7 +408,7 @@ export const CANON_FAMILIES: Canon[] = [
             "India"
           ]
         },
-        "note": "The only base here that arrives last. Fat pulls the aroma out of a seed in seconds, and pouring the lot over a finished dal puts it on top rather than through it, where nothing simmers it away. Also called tadka in the west, chhaunk in the north, baghar in the Deccan, phoron in Bengal — one move, five names."
+        "note": "The only base here that arrives last. Fat pulls the aroma out of a seed in seconds, and pouring the lot over a finished dal puts it on top rather than through it, where nothing simmers it away. Also called tadka or chhaunk in the north, vaghar in Gujarat, phodni in Maharashtra, baghar in the Deccan, phoron in Bengal — one move, seven names."
       },
       {
         "name": "Obe ata",
@@ -509,11 +508,11 @@ export const CANON_FAMILIES: Canon[] = [
       },
       {
         "title": "On the oil coming back",
-        "body": "Three bases on three continents share one signal and no clock: cook until the fat pools at the edge. Water and fat cannot fry together, so as long as the base is wet it is only steaming, however hot the burner. When the water has finally gone the fat separates out and visibly returns, and only then does anything brown. Bhunao in a north Indian pan, half an hour of ata din din in palm oil, krueng cracked in coconut cream — same test, same moment, and not a thermometer between them."
+        "body": "Three bases in three kitchens share one signal and no clock: cook until the fat pools at the edge. Water and fat cannot fry together, so as long as the base is wet it is only steaming, however hot the burner. When the water has finally gone the fat separates out and visibly returns, and only then does anything brown. Bhunao in a north Indian pan, half an hour of ata din din in palm oil, krueng cracked in coconut cream — same test, same moment, and not a thermometer between them."
       },
       {
         "title": "On chopped and pounded and blended",
-        "body": "A knife opens the cells it meets. A pestle ruptures them all the way through, which is why krueng is pounded and a blender version of it tastes thinner from the same shopping. A blender does a third thing again — it shreds, and it whips in air and water. That is why every blended base here either is never cooked at all, like epis, or has to be fried far longer than its weight suggests, like obe ata and recaudo, driving off water the blender put in."
+        "body": "A knife opens the cells it meets. A pestle ruptures them all the way through, which is why krueng is pounded and a blender version of it tastes thinner from the same shopping. A blender does a third thing again — it shreds, and it whips in air and water. That is why a blended base is either never cooked at all, like epis, or fried far longer than its weight suggests, like obe ata and recaudo — with sofrito the exception that proves the rule, blended and barely cooked because it is a seasoning fired from a frozen cube rather than a base reduced in the pan, driving off water the blender put in."
       },
       {
         "title": "On when it goes in",
@@ -521,7 +520,7 @@ export const CANON_FAMILIES: Canon[] = [
       },
       {
         "title": "On refusing the fat",
-        "body": "Two entries skip the frying and they are not variations of each other. Suppengrün skips it permanently: cut big, simmered in the liquid, lifted out and binned, flavouring by extraction the way a bouquet garni does. The wat base skips it only at the start, and for the opposite reason — a dry pan browns the onion faster and harder than oil would, because there is no fat holding the temperature down and nothing to fry in until the onion's own water is gone."
+        "body": "Two entries never fry at all — and a third, the wat base, postpones the fat rather than refusing it and they are not variations of each other. Suppengrün skips it permanently: cut big, simmered in the liquid, lifted out and binned, flavouring by extraction the way a bouquet garni does. The wat base skips it only at the start, and for the opposite reason — a dry pan browns the onion faster and harder than oil would, because there is no fat holding the temperature down and nothing to fry in until the onion's own water is gone."
       }
     ],
     "sources": [
@@ -1175,8 +1174,8 @@ export const CANON_FAMILIES: Canon[] = [
   {
     "slug": "chilli-condiment",
     "name": "Chilli condiment",
-    "standfirst": "A chilli picked today is gone in a week. Every one of these is the same fruit made to keep — pounded raw with salt, fried into hot oil, fermented in a jar, or dried down on a roof — and then given company: caraway in Tunis, walnuts in Abkhazia, dried scallop in Hong Kong, fermented broad beans in Pixian. What separates them is which of those four things you do, whether you end up with a paste or an oil, and what went in besides the chilli.",
-    "root": "Chilli · salt · and one way of stopping it spoiling — oil, a ferment, or the sun",
+    "standfirst": "A chilli picked today is gone in a week. Most of these are that same fruit made to keep — pounded raw with salt, boiled with the water thrown away, dried down on a roof, fermented in a jar, or fried into hot oil — and then given company: caraway in Tunis, blue fenugreek in Abkhazia, dried scallop in Hong Kong, fermented broad beans in Pixian. Two keep nothing at all: zhoug is finished inside a fortnight, and awaze is stirred to order from a powder that did the preserving months before. What separates them is which of those six things is done to the chilli, whether you end up with a paste or an oil, and what went in besides.",
+    "root": "Chilli · salt · and usually something done to make it keep — more salt, oil, a ferment, or the sun",
     "facets": [
       {
         "id": "chilli",
@@ -1209,6 +1208,13 @@ export const CANON_FAMILIES: Canon[] = [
         ]
       },
       {
+        "label": "By the chilli itself",
+        "by": [
+          "chilli",
+          "method"
+        ]
+      },
+      {
         "label": "By region",
         "by": [
           "region",
@@ -1232,19 +1238,16 @@ export const CANON_FAMILIES: Canon[] = [
             "Java"
           ],
           "chilli": [
-            "fresh red chillies",
+            "fresh chillies",
             "seeds left in"
           ],
           "method": [
             "pounded raw",
-            "ground in a stone mortar",
-            "salted",
-            "never sees heat"
+            "ground in a stone mortar"
           ],
           "add": [
             "nothing else",
-            "salt",
-            "a splash of vinegar"
+            "salt"
           ],
           "form": [
             "a paste",
@@ -1253,29 +1256,26 @@ export const CANON_FAMILIES: Canon[] = [
             "weeks in the fridge"
           ]
         },
-        "note": "The name is the tool, not the chilli — oelek is the grinding done in a cobek with a stone pestle. It is the plainest thing in this family and the starting point for a hundred other sambals: chilli, salt, and the friction of stone."
+        "note": "The name is the method, not the chilli — ulek is the grinding, done with a stone pestle in a cobek, and it never sees heat. Chilli, salt and the friction of stone; the vinegar in the imported jars is there to make a shelf-stable product out of something Javanese cooks make fresh. It is the plainest thing in this family and the starting point for a hundred other sambals."
       },
       {
         "name": "Zhoug",
         "facets": {
           "region": [
-            "Yemen",
-            "Israel"
+            "Yemen"
           ],
           "chilli": [
-            "fresh green chillies",
-            "red ones for the red version"
+            "fresh chillies",
+            "green ones"
           ],
           "method": [
             "pounded raw",
-            "herbs and chilli in the same mortar",
-            "never sees heat"
+            "herbs and chilli in the same mortar"
           ],
           "add": [
             "garlic",
-            "coriander leaf by the bunch",
-            "cardamom",
-            "cumin"
+            "a herb",
+            "coriander leaf by the bunch"
           ],
           "form": [
             "a paste",
@@ -1284,29 +1284,26 @@ export const CANON_FAMILIES: Canon[] = [
             "a week or two"
           ]
         },
-        "note": "Also spelled s'hug or schug. The only one here where the chilli is outnumbered — it is a herb sauce that happens to be hot, which is why it will not keep: coriander leaf goes black in a fortnight and no amount of salt will stop it."
+        "note": "Also spelled s'hug or schug, and carried from Yemen to Israel, where it now sits on every hummus counter. The only one here where the chilli is outnumbered — cardamom and cumin behind a bunch of coriander leaf, a herb sauce that happens to be hot. Which is why it will not keep: the leaf goes black in a fortnight and no amount of salt will stop it. Made with red chillies it is the same sauce a different colour."
       },
       {
         "name": "Ajika",
         "facets": {
           "region": [
-            "Abkhazia",
-            "Georgia"
+            "Abkhazia"
           ],
           "chilli": [
-            "fresh red chillies",
+            "fresh chillies",
             "wilted in the sun first"
           ],
           "method": [
             "pounded raw",
-            "ground with a great deal of salt",
-            "left to mature a few days"
+            "ground with a great deal of salt"
           ],
           "add": [
             "garlic",
-            "blue fenugreek",
-            "coriander seed",
-            "walnut in some houses"
+            "a spice",
+            "blue fenugreek"
           ],
           "form": [
             "a paste",
@@ -1315,7 +1312,7 @@ export const CANON_FAMILIES: Canon[] = [
             "keeps a year"
           ]
         },
-        "note": "The word is Abkhaz for salt, which tells you what it is built on — no oil, no vinegar, no ferment, just enough salt to make the jar uninhabitable. The Megrelian and Abkhaz versions have no tomato in them; the Russian jars sold under the name usually do."
+        "note": "The word is Abkhaz for salt, which tells you what it is built on — no oil, no vinegar, no ferment, just enough salt to make the jar uninhabitable, and a few days on the counter to mature before it goes away. Coriander seed goes in beside the blue fenugreek, and walnut in some houses. The Megrelian and Abkhaz versions have no tomato in them; the Russian jars sold under the name usually do."
       },
       {
         "name": "Ají amarillo paste",
@@ -1324,18 +1321,16 @@ export const CANON_FAMILIES: Canon[] = [
             "Peru"
           ],
           "chilli": [
-            "fresh yellow ají amarillo",
+            "fresh chillies",
             "seeds and veins stripped out"
           ],
           "method": [
             "boiled first",
-            "the water changed two or three times",
-            "then blended smooth"
+            "the water changed two or three times"
           ],
           "add": [
             "nothing else",
-            "salt",
-            "oil to loosen it"
+            "salt"
           ],
           "form": [
             "a paste",
@@ -1344,7 +1339,7 @@ export const CANON_FAMILIES: Canon[] = [
             "frozen rather than shelved"
           ]
         },
-        "note": "The only one that deliberately throws heat away. Blanching in changed water leaves the colour and the fruitiness behind and takes the burn out with the water — the paste is a pigment and a flavour first and a chilli second."
+        "note": "The only one that deliberately throws heat away. Blanching in changed water leaves the colour and the fruitiness behind and takes the burn out with the water; the flesh is then blended smooth with a little oil to loosen it. The paste is a pigment and a flavour first and a chilli second — and the only one here that keeps by being frozen rather than by anything done in the jar."
       },
       {
         "name": "Harissa",
@@ -1353,19 +1348,17 @@ export const CANON_FAMILIES: Canon[] = [
             "Tunisia"
           ],
           "chilli": [
-            "dried red chillies",
+            "dried chillies",
             "baklouti soaked back to soft"
           ],
           "method": [
             "pounded raw",
-            "some houses roast the peppers first",
-            "never simmered"
+            "the spices pounded in with it"
           ],
           "add": [
             "garlic",
-            "caraway",
-            "coriander seed",
-            "olive oil"
+            "a spice",
+            "caraway"
           ],
           "form": [
             "a paste",
@@ -1374,7 +1367,7 @@ export const CANON_FAMILIES: Canon[] = [
             "months in the fridge"
           ]
         },
-        "note": "Caraway is the tell. Strip it out and you have a generic pounded chilli paste; leave it in and no other condiment in this family tastes remotely like it. The oil poured on top is a lid rather than an ingredient — the paste underneath is not an oil sauce."
+        "note": "Caraway is the tell. Strip it out and you have a generic pounded chilli paste; leave it in, with coriander seed and garlic beside it, and no other condiment in this family tastes remotely like it. Some houses roast the soaked peppers first, but nobody simmers the paste. The olive oil poured on top is a lid rather than an ingredient — what is underneath is not an oil sauce."
       },
       {
         "name": "Biber salçası",
@@ -1384,12 +1377,11 @@ export const CANON_FAMILIES: Canon[] = [
             "Hatay"
           ],
           "chilli": [
-            "fresh red peppers",
-            "hot for acı and mild for tatlı"
+            "fresh chillies",
+            "long red peppers"
           ],
           "method": [
             "dried in the sun",
-            "ground then spread on trays",
             "stirred twice a day for a week"
           ],
           "add": [
@@ -1403,14 +1395,14 @@ export const CANON_FAMILIES: Canon[] = [
             "a year in the pantry"
           ]
         },
-        "note": "The roof does the work a stove would. A week of Anatolian sun on a cloth-covered terrace takes a tray of pulped pepper down to a paste with almost no water in it — concentrated by evaporation rather than by cooking or by salt."
+        "note": "The roof does the work a stove would. The peppers are pulped, spread thin on trays and left on a cloth-covered terrace, and a week of Anatolian sun takes them down to a paste with almost no water left in it — concentrated by evaporation rather than by cooking or by salt. The same process makes the hot acı and the mild tatlı; the pepper decides which."
       },
       {
         "name": "Shatta",
         "facets": {
           "region": [
-            "Palestine",
-            "Levant"
+            "Levant",
+            "Palestine"
           ],
           "chilli": [
             "fresh chillies",
@@ -1418,14 +1410,12 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "method": [
             "fermented in salt",
-            "a few days in a warm window",
-            "then blended with oil"
+            "a few days in a warm window"
           ],
           "add": [
             "garlic",
-            "lemon",
-            "olive oil",
-            "vinegar"
+            "an acid",
+            "lemon"
           ],
           "form": [
             "a paste",
@@ -1434,7 +1424,7 @@ export const CANON_FAMILIES: Canon[] = [
             "months"
           ]
         },
-        "note": "Sits in the jar looking exactly like harissa and is made the other way round: fermented first, spiced barely at all, and with no caraway anywhere near it. The sourness is lactic rather than added — the vinegar at the end only stops the clock."
+        "note": "Sits in the jar looking exactly like harissa and is made the other way round: fermented first, spiced barely at all, and with no caraway anywhere near it. The sourness is lactic rather than added — the lemon stirred in at the end only stops the clock — and the olive oil goes over the top to seal what the ferment made."
       },
       {
         "name": "Doubanjiang",
@@ -1445,19 +1435,16 @@ export const CANON_FAMILIES: Canon[] = [
             "Pixian"
           ],
           "chilli": [
-            "fresh erjingtiao chillies",
-            "salted whole for months first"
+            "fresh chillies",
+            "erjingtiao"
           ],
           "method": [
             "fermented in salt",
-            "broad beans cultured separately",
-            "the two married and aged in open crocks",
-            "one to three years in the sun"
+            "the beans cultured with a mould starter first"
           ],
           "add": [
             "a fermented bean",
-            "broad beans",
-            "wheat flour"
+            "broad beans"
           ],
           "form": [
             "a paste",
@@ -1466,7 +1453,7 @@ export const CANON_FAMILIES: Canon[] = [
             "keeps for years"
           ]
         },
-        "note": "Two ferments, run apart and then introduced: the chilli salted and left to sour, the broad beans grown with a mould starter for six months. The crocks are opened every day to be stirred and left under the sun, which is why a three-year paste is brown rather than red — the colour is spent, the flavour is what is left."
+        "note": "Two ferments, run apart and then introduced: the erjingtiao chillies salted whole and left to sour for months, the broad beans grown with a mould starter and a little wheat flour for six. The married crocks are opened every day to be stirred and left standing in the sun for one to three years, which is why an old paste is brown rather than red — the colour is spent, the flavour is what is left."
       },
       {
         "name": "Gochujang",
@@ -1475,20 +1462,16 @@ export const CANON_FAMILIES: Canon[] = [
             "Korea"
           ],
           "chilli": [
-            "coarse chilli powder",
+            "chilli already ground",
             "sun-dried gochugaru"
           ],
           "method": [
             "fermented in salt",
-            "rice starch cooked and cooled first",
-            "aged in onggi jars on the roof",
-            "months to years"
+            "aged in onggi on the jangdokdae"
           ],
           "add": [
             "a fermented bean",
-            "soybean meju powder",
-            "glutinous rice",
-            "barley malt"
+            "soybean meju powder"
           ],
           "form": [
             "a paste",
@@ -1497,7 +1480,7 @@ export const CANON_FAMILIES: Canon[] = [
             "keeps for years"
           ]
         },
-        "note": "The sweetness is not sugar added at the end. Malt enzymes break the cooked rice starch down into sugar inside the jar while the soybean culture works on the protein — the sweet and the savoury are both made in place, which no amount of stirring honey into chilli paste will imitate."
+        "note": "The jangdokdae is the raised stone platform in the yard where the onggi stand, sited for sun — the roof is the modern apartment substitute for it, not the tradition. The sweetness is not sugar added at the end: the glutinous rice is cooked and cooled before the jar is built, and barley malt enzymes then break its starch down into sugar inside the onggi while the soybean meju culture works on the protein. The sweet and the savoury are both made in place, which no amount of stirring honey into chilli paste will imitate."
       },
       {
         "name": "Chilli oil",
@@ -1507,26 +1490,25 @@ export const CANON_FAMILIES: Canon[] = [
             "Sichuan"
           ],
           "chilli": [
-            "coarse chilli flakes",
-            "toasted and ground"
+            "chilli already ground",
+            "coarse flakes toasted first"
           ],
           "method": [
             "fried in oil",
-            "hot oil poured over the flakes",
-            "poured in stages so nothing burns"
+            "hot oil poured over the flakes"
           ],
           "add": [
             "nothing else",
-            "sometimes cassia and star anise steeped in the oil"
+            "salt"
           ],
           "form": [
             "oil alone",
             "clear red",
-            "solids strained out or left to settle",
+            "the solids strained out",
             "months"
           ]
         },
-        "note": "La you. Temperature is the entire recipe: too hot and the flakes go bitter in seconds, too cool and neither colour nor smell comes out of them. The usual answer is to pour the oil over in two or three goes at falling temperatures — one for aroma, one for colour."
+        "note": "La you. Temperature is the entire recipe: too hot and the flakes go bitter in seconds, too cool and neither colour nor smell comes out of them. The usual answer is to pour the oil over in two or three goes at falling temperatures — one for aroma, one for colour. Some versions steep cassia and star anise in the oil beforehand, but the jar that results is still chilli, salt and fat."
       },
       {
         "name": "Chilli crisp",
@@ -1537,18 +1519,17 @@ export const CANON_FAMILIES: Canon[] = [
             "Guizhou"
           ],
           "chilli": [
-            "coarse chilli flakes"
+            "chilli already ground",
+            "coarse flakes"
           ],
           "method": [
             "fried in oil",
-            "aromatics fried in until crisp",
-            "the solids left in the jar"
+            "aromatics fried in until crisp"
           ],
           "add": [
             "garlic",
-            "fried soybeans",
-            "peanuts",
-            "fermented black beans"
+            "a nut",
+            "fried soybeans"
           ],
           "form": [
             "oil with solids in it",
@@ -1557,7 +1538,7 @@ export const CANON_FAMILIES: Canon[] = [
             "months"
           ]
         },
-        "note": "Chilli oil with the frying left visible — everything that would have been strained out is kept, and more is fried in on purpose. It descends from la you rather than standing beside it, which is why it is the only dish here sitting a level down."
+        "note": "Chilli oil with the frying left visible — everything that would have been strained out is kept, and more is fried in on purpose: soybeans and peanuts taken to crisp, garlic, fermented black beans. It descends from la you rather than standing beside it, which is why it is the only dish here sitting a level down."
       },
       {
         "name": "Salsa macha",
@@ -1568,17 +1549,16 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "chilli": [
             "dried chillies",
-            "morita and árbol together"
+            "morita for the smoke"
           ],
           "method": [
             "fried in oil",
-            "chillies and nuts fried in the same pan",
-            "blended only part of the way"
+            "chillies and nuts fried in the same pan"
           ],
           "add": [
             "garlic",
-            "peanuts",
-            "sesame seeds"
+            "a nut",
+            "peanuts"
           ],
           "form": [
             "oil with solids in it",
@@ -1587,7 +1567,7 @@ export const CANON_FAMILIES: Canon[] = [
             "months"
           ]
         },
-        "note": "The same answer as chilli crisp reached in the mountains above Orizaba with no contact whatsoever. The older Veracruz versions were dry chilli-and-seed pastes with no oil at all; the oil arrived with the Spanish and turned a paste into a salsa."
+        "note": "The same answer as chilli crisp reached in the mountains above Orizaba with no contact whatsoever — peanuts and sesame seeds fried alongside morita and árbol chillies, then blended only part of the way. The older Veracruz versions were dry ground chilli-and-seed pastes with no oil at all; the oil arrived with the Spanish and turned a paste into a salsa."
       },
       {
         "name": "Nam phrik phao",
@@ -1596,19 +1576,17 @@ export const CANON_FAMILIES: Canon[] = [
             "Thailand"
           ],
           "chilli": [
-            "dried red chillies"
+            "dried chillies",
+            "long red phrik haeng"
           ],
           "method": [
             "fried in oil",
-            "everything dry-roasted in a wok first",
-            "fried down until it turns jammy"
+            "everything dry-roasted in a wok first"
           ],
           "add": [
             "garlic",
-            "shallots",
-            "dried shrimp",
-            "tamarind",
-            "palm sugar"
+            "dried seafood",
+            "dried shrimp"
           ],
           "form": [
             "oil with solids in it",
@@ -1617,7 +1595,7 @@ export const CANON_FAMILIES: Canon[] = [
             "months"
           ]
         },
-        "note": "Roasted before it is fried, which is where the darkness comes from. The tamarind and palm sugar push it past condiment into jam — it is spread on toast in Bangkok as readily as it is stirred into tom yum."
+        "note": "Roasted before it is fried, which is where the darkness comes from. Shallots go into the dry wok with the garlic and the dried shrimp; tamarind and palm sugar go in at the end and push it past condiment into jam — it is spread on toast in Bangkok as readily as it is stirred into tom yum."
       },
       {
         "name": "XO sauce",
@@ -1626,19 +1604,17 @@ export const CANON_FAMILIES: Canon[] = [
             "Hong Kong"
           ],
           "chilli": [
-            "dried chilli",
+            "dried chillies",
             "the smallest thing in the jar"
           ],
           "method": [
             "fried in oil",
-            "every ingredient shredded by hand first",
-            "fried slowly until the shreds separate"
+            "every ingredient shredded by hand first"
           ],
           "add": [
             "garlic",
-            "dried scallop",
-            "dried shrimp",
-            "Jinhua ham"
+            "dried seafood",
+            "dried scallop"
           ],
           "form": [
             "oil with solids in it",
@@ -1647,7 +1623,7 @@ export const CANON_FAMILIES: Canon[] = [
             "weeks in the fridge"
           ]
         },
-        "note": "Invented in a Tsim Sha Tsui hotel dining room in the 1980s and named after extra-old cognac purely to say expensive — there is no brandy in it. Chilli is the cheapest thing in the jar and the least of the point; the dried scallop is the point."
+        "note": "Invented in a Tsim Sha Tsui hotel dining room in the 1980s and named after extra-old cognac purely to say expensive — there is no brandy in it. Chilli is the cheapest thing in the jar and the least of the point: the dried scallop is the point, with dried shrimp and Jinhua ham shredded in behind it."
       },
       {
         "name": "Crema di peperoncino",
@@ -1657,19 +1633,16 @@ export const CANON_FAMILIES: Canon[] = [
             "Calabria"
           ],
           "chilli": [
-            "fresh red chillies",
+            "fresh chillies",
             "local Calabrian varieties"
           ],
           "method": [
             "pounded raw",
-            "minced fine",
-            "packed under olive oil",
-            "never sees heat"
+            "minced fine"
           ],
           "add": [
             "nothing else",
-            "salt",
-            "olive oil"
+            "salt"
           ],
           "form": [
             "a paste",
@@ -1678,14 +1651,13 @@ export const CANON_FAMILIES: Canon[] = [
             "a year"
           ]
         },
-        "note": "Sambal oelek with olive oil poured over it, arrived at independently at the other end of the world. The oil is doing two jobs — keeping air off the chilli and carrying it onto bread. Take the same chilli into pork fat instead and you have nduja which is a salami rather than a condiment."
+        "note": "Sambal oelek with olive oil poured over it, arrived at independently at the other end of the world — minced fine, salted, packed into a jar and covered. The oil is doing two jobs, keeping air off the chilli and carrying it onto bread. Take the same chilli into pork fat instead and you have nduja, which is a salami rather than a condiment."
       },
       {
         "name": "Awaze",
         "facets": {
           "region": [
-            "Ethiopia",
-            "Eritrea"
+            "Ethiopia"
           ],
           "chilli": [
             "chilli already ground",
@@ -1693,14 +1665,12 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "method": [
             "stirred from a dry blend",
-            "berbere loosened with tej or wine",
             "no heat at any point"
           ],
           "add": [
             "garlic",
-            "ginger",
-            "rue",
-            "tej or wine to loosen it"
+            "a spice",
+            "rue"
           ],
           "form": [
             "a paste",
@@ -1709,17 +1679,17 @@ export const CANON_FAMILIES: Canon[] = [
             "days"
           ]
         },
-        "note": "The inversion of everything else here. The keepable thing is berbere — dried chilli ground with a dozen spices, which lives in the cupboard — and awaze is what you make from it in five minutes when a sauce is needed. The preserving was done before the condiment was."
+        "note": "The inversion of everything else here. The keepable thing is berbere — dried chilli ground with a dozen spices, which lives in the cupboard — and awaze is what you make from it in five minutes when a sauce is needed: loosened with tej or wine, sharpened with garlic, ginger and rue. Eritrean kitchens make the same bowl. The preserving was done long before the condiment was."
       }
     ],
     "notes": [
       {
-        "title": "On the four ways to keep it",
-        "body": "Salt, oil, acid and fermentation are the only things standing between a jar of chilli and mould, and every dish here picks one or two. The raw pastes lean on salt and often a splash of vinegar. The oil ones work by exclusion — nothing spoils under a layer of fat. The fermented three let lactic bacteria or a mould starter acidify the jar first and then live in it. Biber salçası simply removes the water. The flavours follow from that choice rather than the other way round: harissa tastes of caraway because someone put caraway in, but doubanjiang tastes of years because it spent them."
+        "title": "On what stops it spoiling",
+        "body": "Five things are doing the work in these jars, and most dishes use two of them. Salt is under all of it, and in ajika it is the whole answer — enough of it to make the jar uninhabitable, with no oil, no vinegar and no ferment anywhere near. Oil works by exclusion, since nothing spoils under a layer of fat: that is what the film on harissa, shatta, biber salçası and crema di peperoncino is for, and what the whole medium is in the four fried ones. Fermentation acidifies the jar first and then lives in it, over a few days for shatta and over years for doubanjiang and gochujang. Poured-in acid does the same job faster and with less to show for it. And biber salçası simply removes the water. Three dishes sit outside all of it: ají amarillo paste goes in the freezer, zhoug is eaten inside a fortnight because coriander leaf will not keep however much salt you use, and awaze is mixed to order from a powder that was preserved months earlier."
       },
       {
         "title": "On paste and oil",
-        "body": "The form decides where the condiment enters the meal. The oils are finishing seasonings, spooned over food that is already cooked — chilli crisp on rice, salsa macha over a fried egg, XO on plain greens. Most of the pastes are cooking ingredients that go in near the start: doubanjiang is fried in oil before anything else touches the wok, gochujang is stirred into stew, biber salçası goes in with the onions. The exceptions are the fresh raw ones — zhoug, awaze, shatta — which stay at the table because heat would take away the only thing they have."
+        "body": "The form decides where the condiment enters the meal. The oils are finishing seasonings, spooned over food that is already cooked — chilli crisp on rice, salsa macha over a fried egg, XO on plain greens. Most of the pastes are cooking ingredients that go in near the start: doubanjiang is fried in oil before anything else touches the wok, gochujang is stirred into stew, biber salçası goes in with the onions. The exceptions are the ones eaten exactly as they are — zhoug, awaze, shatta — which stay at the table because heat would take away the only thing they have."
       },
       {
         "title": "On depth",
@@ -1727,7 +1697,7 @@ export const CANON_FAMILIES: Canon[] = [
       },
       {
         "title": "On the ones next door",
-        "body": "Thin any of the raw pastes with vinegar until it pours and you get the bottled hot sauces — sriracha is fermented chilli and garlic blended smooth and sweetened, piri-piri is the same idea with lemon, Tabasco is that plus three years in oak. They are the same family at a different viscosity. In the other direction, berbere and gochugaru are dry and so are ingredients here rather than dishes — berbere only becomes a condiment once it is wetted down into awaze."
+        "body": "Thin any of the raw pastes with vinegar until it pours and you get the bottled hot sauces — sriracha is fermented chilli and garlic blended smooth and sweetened, piri-piri is the same idea with lemon, and Tabasco is a salt-fermented mash aged three years in oak and then cut with vinegar. They are the same family at a different viscosity. In the other direction, berbere and gochugaru are dry, and so are ingredients here rather than dishes — berbere only becomes a condiment once it is wetted down into awaze."
       }
     ],
     "sources": [
@@ -1766,6 +1736,10 @@ export const CANON_FAMILIES: Canon[] = [
       {
         "label": "Gochujang (Wikipedia)",
         "url": "https://en.wikipedia.org/wiki/Gochujang"
+      },
+      {
+        "label": "Onggi and the jangdokdae (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Onggi"
       },
       {
         "label": "Chili oil (Wikipedia)",
@@ -1807,6 +1781,1202 @@ export const CANON_FAMILIES: Canon[] = [
       "salsa macha",
       "xo sauce",
       "shatta"
+    ]
+  },
+  {
+    "slug": "compound-butter",
+    "name": "Compound butter",
+    "standfirst": "Butter is the constant. What separates these sixteen is the thing worked into it, whether that thing goes in raw or is cooked first, and what the butter is then asked to do — melt on a steak, be spread cold, or do the frying itself.",
+    "root": "Butter, softened",
+    "facets": [
+      {
+        "id": "aromatic",
+        "label": "Aromatic"
+      },
+      {
+        "id": "prep",
+        "label": "Worked in"
+      },
+      {
+        "id": "form",
+        "label": "Form"
+      },
+      {
+        "id": "use",
+        "label": "Used"
+      },
+      {
+        "id": "region",
+        "label": "Region"
+      }
+    ],
+    "nestings": [
+      {
+        "label": "By what goes in",
+        "by": [
+          "aromatic",
+          "prep",
+          "use"
+        ]
+      },
+      {
+        "label": "By how it goes in",
+        "by": [
+          "prep",
+          "use",
+          "aromatic"
+        ]
+      },
+      {
+        "label": "By region",
+        "by": [
+          "region",
+          "aromatic"
+        ]
+      }
+    ],
+    "dishes": [
+      {
+        "name": "Beurre maître d'hôtel",
+        "facets": {
+          "region": [
+            "France"
+          ],
+          "aromatic": [
+            "herb",
+            "parsley",
+            "lemon"
+          ],
+          "prep": [
+            "raw",
+            "chopped fine"
+          ],
+          "form": [
+            "chilled log",
+            "sliced into coins"
+          ],
+          "use": [
+            "melted on",
+            "grilled steak"
+          ]
+        },
+        "note": "The default. Parsley, lemon, salt, pepper — every other butter here is this same decision answered differently."
+      },
+      {
+        "name": "Beurre Colbert",
+        "parent": "Beurre maître d'hôtel",
+        "facets": {
+          "region": [
+            "France"
+          ],
+          "aromatic": [
+            "herb",
+            "parsley",
+            "lemon",
+            "tarragon",
+            "meat glaze"
+          ],
+          "prep": [
+            "raw",
+            "chopped fine",
+            "veal glaze beaten in"
+          ],
+          "form": [
+            "chilled log",
+            "sliced into coins"
+          ],
+          "use": [
+            "melted on",
+            "fried sole"
+          ]
+        },
+        "note": "Escoffier states it as arithmetic: maître d'hôtel butter plus tarragon and melted meat glaze. It descends from that butter, not from plain butter."
+      },
+      {
+        "name": "Beurre de Montpellier",
+        "facets": {
+          "region": [
+            "Languedoc"
+          ],
+          "aromatic": [
+            "herb",
+            "watercress",
+            "chervil",
+            "tarragon",
+            "anchovy",
+            "capers",
+            "egg yolk"
+          ],
+          "prep": [
+            "blanched first",
+            "pounded to a paste",
+            "sieved smooth"
+          ],
+          "form": [
+            "soft",
+            "bright green"
+          ],
+          "use": [
+            "spread cold",
+            "poached salmon"
+          ]
+        },
+        "note": "Blanching is not seasoning. Thirty seconds in boiling water fixes the chlorophyll, which is the only reason this stays green on a cold buffet."
+      },
+      {
+        "name": "Snail butter",
+        "facets": {
+          "region": [
+            "Burgundy"
+          ],
+          "aromatic": [
+            "garlic",
+            "parsley",
+            "shallot"
+          ],
+          "prep": [
+            "raw",
+            "pounded to a paste"
+          ],
+          "form": [
+            "soft",
+            "piped"
+          ],
+          "use": [
+            "baked in",
+            "the shell"
+          ]
+        },
+        "note": "Beurre d'escargot, and the only one cooked inside its serving vessel — the shell holds butter against snail while the oven melts it."
+      },
+      {
+        "name": "Kyiv butter",
+        "facets": {
+          "region": [
+            "Ukraine"
+          ],
+          "aromatic": [
+            "garlic",
+            "dill",
+            "parsley"
+          ],
+          "prep": [
+            "raw",
+            "chopped fine"
+          ],
+          "form": [
+            "frozen hard"
+          ],
+          "use": [
+            "sealed inside",
+            "a chicken cutlet"
+          ]
+        },
+        "note": "Frozen so it survives breading and the fryer. It is only a sauce for the two seconds after the cutlet is cut."
+      },
+      {
+        "name": "Café de Paris butter",
+        "facets": {
+          "region": [
+            "Switzerland"
+          ],
+          "aromatic": [
+            "anchovy",
+            "capers",
+            "mustard",
+            "tarragon",
+            "curry powder",
+            "brandy"
+          ],
+          "prep": [
+            "steeped warm",
+            "rested a day"
+          ],
+          "form": [
+            "chilled log",
+            "sliced into coins"
+          ],
+          "use": [
+            "melted on",
+            "grilled entrecôte"
+          ]
+        },
+        "note": "Geneva, 1930s, and a guarded list of twenty-odd things. The warm steep and the day's rest are what make it read as one flavour rather than a heap."
+      },
+      {
+        "name": "Anchovy butter",
+        "facets": {
+          "region": [
+            "France"
+          ],
+          "aromatic": [
+            "anchovy",
+            "lemon"
+          ],
+          "prep": [
+            "raw",
+            "pounded to a paste"
+          ],
+          "form": [
+            "chilled log",
+            "sliced into coins"
+          ],
+          "use": [
+            "spread cold",
+            "toast"
+          ]
+        },
+        "note": "Two ingredients and a mortar. The salt in the fish seasons the butter, so nothing else is added."
+      },
+      {
+        "name": "Gentleman's Relish",
+        "parent": "Anchovy butter",
+        "facets": {
+          "region": [
+            "England"
+          ],
+          "aromatic": [
+            "anchovy",
+            "mace",
+            "cayenne",
+            "black pepper"
+          ],
+          "prep": [
+            "raw",
+            "pounded to a paste",
+            "matured in the pot"
+          ],
+          "form": [
+            "potted",
+            "keeps for months"
+          ],
+          "use": [
+            "spread cold",
+            "hot buttered toast"
+          ]
+        },
+        "note": "Anchovy butter taken further — a spice mix kept secret since 1828, and time under the lid. Sold as a relish; it is a compound butter in the jar."
+      },
+      {
+        "name": "Bone marrow butter",
+        "facets": {
+          "region": [
+            "Britain"
+          ],
+          "aromatic": [
+            "bone marrow",
+            "parsley",
+            "shallot"
+          ],
+          "prep": [
+            "roasted first",
+            "beaten in warm"
+          ],
+          "form": [
+            "soft",
+            "whipped"
+          ],
+          "use": [
+            "melted on",
+            "grilled steak"
+          ]
+        },
+        "note": "One fat carrying another. Marrow has no structure of its own, so this melts to a puddle where a herb butter would hold a slick."
+      },
+      {
+        "name": "Beurre de homard",
+        "facets": {
+          "region": [
+            "France"
+          ],
+          "aromatic": [
+            "shellfish",
+            "lobster shells",
+            "coral"
+          ],
+          "prep": [
+            "roasted first",
+            "pounded with the butter",
+            "melted and strained"
+          ],
+          "form": [
+            "set hard",
+            "coral red"
+          ],
+          "use": [
+            "stirred into",
+            "a shellfish soup"
+          ]
+        },
+        "note": "The aromatic is thrown away. Shells go in for colour and scent only, and the butter is strained through muslin into iced water to set."
+      },
+      {
+        "name": "Beurre aux algues",
+        "facets": {
+          "region": [
+            "Brittany"
+          ],
+          "aromatic": [
+            "seaweed",
+            "dulse",
+            "sea lettuce",
+            "salt crystals"
+          ],
+          "prep": [
+            "raw",
+            "dried flakes rehydrated"
+          ],
+          "form": [
+            "chilled log"
+          ],
+          "use": [
+            "spread cold",
+            "sourdough"
+          ]
+        },
+        "note": "A Breton dairy answer to anchovy: the sea taste arrives as dried weed, so the butter takes on iodine and colour without taking on water."
+      },
+      {
+        "name": "Miso butter",
+        "facets": {
+          "region": [
+            "Japan"
+          ],
+          "aromatic": [
+            "fermented paste",
+            "miso"
+          ],
+          "prep": [
+            "raw",
+            "beaten smooth"
+          ],
+          "form": [
+            "soft",
+            "whipped"
+          ],
+          "use": [
+            "melted on",
+            "grilled corn"
+          ]
+        },
+        "note": "Salt and glutamate already dissolved into a paste — nothing to chop, nothing to cook, which makes it the easiest of these to improvise."
+      },
+      {
+        "name": "Harissa butter",
+        "facets": {
+          "region": [
+            "Tunisia"
+          ],
+          "aromatic": [
+            "fermented paste",
+            "harissa",
+            "garlic",
+            "caraway"
+          ],
+          "prep": [
+            "raw",
+            "beaten smooth"
+          ],
+          "form": [
+            "chilled log",
+            "sliced into coins"
+          ],
+          "use": [
+            "melted on",
+            "grilled lamb"
+          ]
+        },
+        "note": "Chilli heat is fat-soluble, so butter spreads it evenly and blunts it — the same paste stirred into a broth would be twice as sharp."
+      },
+      {
+        "name": "Niter kibbeh",
+        "facets": {
+          "region": [
+            "Ethiopia"
+          ],
+          "aromatic": [
+            "spice",
+            "koseret",
+            "besobela",
+            "fenugreek",
+            "garlic",
+            "ginger"
+          ],
+          "prep": [
+            "simmered in",
+            "strained out"
+          ],
+          "form": [
+            "clarified",
+            "keeps unrefrigerated"
+          ],
+          "use": [
+            "cooked with",
+            "as the frying fat"
+          ]
+        },
+        "note": "The one butter here that is not a garnish. With the milk solids simmered off and strained away it keeps without a fridge and carries its spice into every wat cooked in it."
+      },
+      {
+        "name": "Smen",
+        "facets": {
+          "region": [
+            "Morocco"
+          ],
+          "aromatic": [
+            "salt",
+            "wild oregano"
+          ],
+          "prep": [
+            "salted heavily",
+            "sealed and aged"
+          ],
+          "form": [
+            "potted",
+            "keeps for years"
+          ],
+          "use": [
+            "cooked with",
+            "a tagine"
+          ]
+        },
+        "note": "The aromatic is time. Months to years under salt turn butter blue-cheese pungent, and a spoonful seasons a whole couscous."
+      },
+      {
+        "name": "Honey butter",
+        "facets": {
+          "region": [
+            "United States"
+          ],
+          "aromatic": [
+            "honey",
+            "cinnamon"
+          ],
+          "prep": [
+            "raw",
+            "beaten smooth"
+          ],
+          "form": [
+            "soft",
+            "whipped"
+          ],
+          "use": [
+            "spread cold",
+            "hot cornbread"
+          ]
+        },
+        "note": "Proof that the family is a method and not a seasoning — whip anything soluble into soft butter and let it firm up again."
+      }
+    ],
+    "notes": [
+      {
+        "title": "On the first fork",
+        "body": "Raw or cooked first is the decision the rest hang off. A raw aromatic keeps its edge and its colour, and the butter is only a carrier — parsley, garlic, miso, harissa. Cook it first and the butter becomes an extractor: shells give up colour, marrow gives up fat, spices give up oil-soluble scent, and in the two extreme cases the aromatic is strained back out and thrown away."
+      },
+      {
+        "title": "Where a butter stops and a sauce starts",
+        "body": "Beurre blanc and beurre rouge are not in this family. They are emulsions whisked to order into a hot reduction and served warm within the hour. A compound butter is solid, keeps, and travels to the plate as a slice or a spoonful. The test is whether you could still cut it tomorrow."
+      },
+      {
+        "title": "Butter that keeps",
+        "body": "Niter kibbeh and smen answer a different question from the rest. Clarifying removes the milk solids that spoil; salting and sealing lets lactic acid do the same job by fermentation. The aromatics come along for the ride, which is why both are cooked with rather than melted on — the seasoning was never the point."
+      },
+      {
+        "title": "On depth",
+        "body": "Only two dishes sit a level down, and both because a written recipe says so: Colbert is maître d'hôtel plus tarragon and meat glaze, and Gentleman's Relish is anchovy butter plus spices and a month in the pot. Everything else is one move from soft butter and belongs at the same depth, however much a neater tree would like otherwise."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Compound butter (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Compound_butter"
+      },
+      {
+        "label": "Beurre maître d'hôtel",
+        "url": "https://en.wikipedia.org/wiki/Beurre_ma%C3%AEtre_d%27h%C3%B4tel"
+      },
+      {
+        "label": "Colbert butter (Escoffier, Le Guide Culinaire)",
+        "url": "https://culinaryexplorer.app/escoffier/141-colbert-butter"
+      },
+      {
+        "label": "Café de Paris sauce",
+        "url": "https://en.wikipedia.org/wiki/Caf%C3%A9_de_Paris_sauce"
+      },
+      {
+        "label": "Gentleman's Relish",
+        "url": "https://en.wikipedia.org/wiki/Gentleman%27s_Relish"
+      },
+      {
+        "label": "Niter kibbeh",
+        "url": "https://en.wikipedia.org/wiki/Niter_kibbeh"
+      },
+      {
+        "label": "Smen",
+        "url": "https://en.wikipedia.org/wiki/Smen"
+      },
+      {
+        "label": "Escargot",
+        "url": "https://en.wikipedia.org/wiki/Escargot"
+      }
+    ],
+    "yours": [
+      "compound butter",
+      "garlic butter",
+      "herb butter",
+      "maître d'hôtel",
+      "anchovy butter",
+      "miso butter",
+      "marrow butter",
+      "café de paris",
+      "niter kibbeh"
+    ]
+  },
+  {
+    "slug": "cured-fish-preserve",
+    "name": "Salted and preserved fish",
+    "standfirst": "Every one of these starts from the same problem: more fish comes ashore in a week than a coast can eat, and none of it lasts three days. Salt pulls the water out. Cold air takes what the salt leaves. Smoke seals the surface. And in some places the rot is not shut out at all but let in early and steered, so that one organism gets there before the dangerous ones do. What separates them is which of those four does the work, how long it is given — and whether what comes out is dinner, or the thing you season dinner with.",
+    "root": "A fish landed faster than it can be eaten · salt · air · smoke · time",
+    "facets": [
+      {
+        "id": "preserve",
+        "label": "What keeps it"
+      },
+      {
+        "id": "fish",
+        "label": "The fish"
+      },
+      {
+        "id": "keep",
+        "label": "Kept"
+      },
+      {
+        "id": "end",
+        "label": "Ends up"
+      },
+      {
+        "id": "region",
+        "label": "Region"
+      }
+    ],
+    "nestings": [
+      {
+        "label": "By what keeps it",
+        "by": [
+          "preserve",
+          "keep",
+          "end"
+        ]
+      },
+      {
+        "label": "By food or seasoning",
+        "by": [
+          "end",
+          "preserve",
+          "fish"
+        ]
+      },
+      {
+        "label": "By region",
+        "by": [
+          "region",
+          "preserve"
+        ]
+      }
+    ],
+    "dishes": [
+      {
+        "name": "Bacalhau",
+        "facets": {
+          "region": [
+            "Portugal",
+            "Norway"
+          ],
+          "preserve": [
+            "salted",
+            "dry salt not brine",
+            "then air-dried hard"
+          ],
+          "fish": [
+            "cod",
+            "split down the backbone",
+            "head and guts out"
+          ],
+          "keep": [
+            "three weeks under salt",
+            "then weeks drying in cold air",
+            "stable at room temperature"
+          ],
+          "end": [
+            "eaten as food",
+            "soaked three days first",
+            "flakes back into fish"
+          ]
+        },
+        "note": "The salt is not seasoning and the drying is not cooking. Between them they take the water below what any spoilage bacterium can work in, and everything you afterwards do to a salt cod is an argument about how to put that water back."
+      },
+      {
+        "name": "Tørrfisk",
+        "facets": {
+          "region": [
+            "Norway",
+            "Lofoten"
+          ],
+          "preserve": [
+            "dried",
+            "no salt at all",
+            "cold wind off the sea"
+          ],
+          "fish": [
+            "cod",
+            "gutted and headed",
+            "hung in pairs by the tail"
+          ],
+          "keep": [
+            "three months on the racks",
+            "February to May",
+            "never warm enough to spoil"
+          ],
+          "end": [
+            "eaten as food",
+            "soaked or beaten soft first",
+            "hard as a board until then"
+          ]
+        },
+        "note": "Lofoten in February is a freeze-dryer — cold enough to stop rot and dry enough to pull the water out through it. Where the winter is milder you have to buy the same effect with salt instead. That purchase is exactly what bacalhau is."
+      },
+      {
+        "name": "Acciughe sotto sale",
+        "facets": {
+          "region": [
+            "Italy",
+            "Spain"
+          ],
+          "preserve": [
+            "salted",
+            "dry salt not brine",
+            "pressed under a weight",
+            "ripened a year"
+          ],
+          "fish": [
+            "anchovies",
+            "whole small fish",
+            "heads pulled off by hand"
+          ],
+          "keep": [
+            "a year in the barrel",
+            "a cool cellar",
+            "the brine that rises kept over them"
+          ],
+          "end": [
+            "eaten as food",
+            "rinsed of its salt first",
+            "and melted into sauces as seasoning"
+          ]
+        },
+        "note": "Twelve months under salt is not storage, it is the process. Enzymes already in the fish break its protein down into free amino acids — the fillet goes from salty to savoury — and it is the same reaction that makes every fish sauce on this table."
+      },
+      {
+        "name": "Colatura di alici",
+        "parent": "Acciughe sotto sale",
+        "facets": {
+          "region": [
+            "Italy",
+            "Cetara"
+          ],
+          "preserve": [
+            "salted",
+            "dry salt not brine",
+            "pressed under a weight",
+            "ripened a year",
+            "the liquid drawn off"
+          ],
+          "fish": [
+            "anchovies",
+            "whole small fish",
+            "heads pulled off by hand"
+          ],
+          "keep": [
+            "a year in the barrel",
+            "a cool cellar",
+            "tapped through a hole in the base"
+          ],
+          "end": [
+            "used as seasoning",
+            "a spoonful over hot pasta",
+            "never cooked"
+          ]
+        },
+        "note": "Anchovies under salt plus one decision: instead of eating the fillets you tap the barrel and keep what ran out of them. Rome's garum by unbroken descent — the Amalfi coast simply never stopped."
+      },
+      {
+        "name": "Garum",
+        "facets": {
+          "region": [
+            "Roman Mediterranean",
+            "Baetica"
+          ],
+          "preserve": [
+            "fermented",
+            "salt heavy enough to stop rot",
+            "guts left in",
+            "sun-warmed in open vats"
+          ],
+          "fish": [
+            "small oily fish",
+            "whole",
+            "guts and blood included"
+          ],
+          "keep": [
+            "two or three months",
+            "open to the sun",
+            "stirred as it liquefies"
+          ],
+          "end": [
+            "used as seasoning",
+            "the salt cellar of the table",
+            "cut with wine or vinegar"
+          ]
+        },
+        "note": "Salt and soy at once for a table that had neither. Small fish and fish guts left under salt in the sun until they dissolved — sneered at as a stink by Roman moralists and shipped in amphorae from Spain to Britain regardless."
+      },
+      {
+        "name": "Nước mắm",
+        "facets": {
+          "region": [
+            "Vietnam",
+            "Phú Quốc"
+          ],
+          "preserve": [
+            "fermented",
+            "salt heavy enough to stop rot",
+            "guts left in",
+            "layered in wooden vats"
+          ],
+          "fish": [
+            "anchovies",
+            "whole small fish",
+            "salted on the boat"
+          ],
+          "keep": [
+            "nine months to two years",
+            "tropical heat",
+            "the liquid drawn and poured back"
+          ],
+          "end": [
+            "used as seasoning",
+            "the salt cellar of the table",
+            "cut with lime and chilli"
+          ]
+        },
+        "note": "Not descended from garum and not its ancestor. Anchovies under salt in a wooden vat can only ever end up as this liquid — Vietnam went on making it while Europe forgot how for a thousand years."
+      },
+      {
+        "name": "Bottarga",
+        "facets": {
+          "region": [
+            "Sardinia",
+            "Sicily"
+          ],
+          "preserve": [
+            "salted",
+            "dry salt not brine",
+            "pressed under a weight",
+            "then air-dried"
+          ],
+          "fish": [
+            "grey mullet roe",
+            "the sac left whole",
+            "membrane unbroken"
+          ],
+          "keep": [
+            "a week under salt",
+            "then three weeks in the air",
+            "shaded and turned"
+          ],
+          "end": [
+            "used as seasoning",
+            "grated over pasta",
+            "or sliced thin and eaten as food"
+          ]
+        },
+        "note": "The only one here made from roe rather than flesh, and the membrane is the whole game — it holds the eggs in one slab while salt and weight take the water out. Break it and you have a wet mess going off."
+      },
+      {
+        "name": "Katsuobushi",
+        "facets": {
+          "region": [
+            "Japan",
+            "Makurazaki"
+          ],
+          "preserve": [
+            "smoked",
+            "simmered first",
+            "smoked over oak again and again",
+            "then grown with mould"
+          ],
+          "fish": [
+            "skipjack tuna",
+            "filleted into loins",
+            "bones picked out"
+          ],
+          "keep": [
+            "a month of smoke",
+            "then months of mould scraped and regrown",
+            "two years for the best"
+          ],
+          "end": [
+            "used as seasoning",
+            "shaved into paper",
+            "steeped for dashi"
+          ]
+        },
+        "note": "The hardest food in the world and the most worked: simmered, boned, smoked a dozen times over a month, then deliberately infected with a mould that is scraped off and grown back four times more. The mould eats the fat, which is why dashi comes out clear."
+      },
+      {
+        "name": "Maldive fish",
+        "facets": {
+          "region": [
+            "Maldives",
+            "Sri Lanka"
+          ],
+          "preserve": [
+            "smoked",
+            "simmered first",
+            "smoked over a low fire",
+            "then sun-dried to a stone"
+          ],
+          "fish": [
+            "skipjack tuna",
+            "cut into four loins",
+            "boiled in its own brine"
+          ],
+          "keep": [
+            "days of smoke",
+            "then weeks in the sun",
+            "keeps years in a dry room"
+          ],
+          "end": [
+            "used as seasoning",
+            "pounded to a coarse dust",
+            "cooked into curries and sambols"
+          ]
+        },
+        "note": "Katsuobushi without the mould, arrived at independently on the other side of the Indian Ocean. Same fish and the same simmer and smoke — but the equatorial sun finishes in weeks what Japan spends two years on, and the result is eaten rather than steeped and discarded."
+      },
+      {
+        "name": "Kippers",
+        "facets": {
+          "region": [
+            "Britain",
+            "Northumberland"
+          ],
+          "preserve": [
+            "smoked",
+            "brined first",
+            "cold smoke over oak",
+            "never dried hard"
+          ],
+          "fish": [
+            "herring",
+            "split down the back",
+            "opened flat in one piece"
+          ],
+          "keep": [
+            "half an hour in brine",
+            "one night in cold smoke",
+            "a week and no more"
+          ],
+          "end": [
+            "eaten as food",
+            "cooked before eating",
+            "breakfast within days"
+          ]
+        },
+        "note": "The odd one out. Half an hour of brine and a night of smoke buys days rather than years, and the smoke is kept below thirty degrees so the fish never cooks — preservation here is almost vestigial now that everyone has a fridge."
+      },
+      {
+        "name": "Surströmming",
+        "facets": {
+          "region": [
+            "Sweden",
+            "the Baltic coast"
+          ],
+          "preserve": [
+            "fermented",
+            "brine too weak to stop it",
+            "left open in the barrel",
+            "canned while still working"
+          ],
+          "fish": [
+            "Baltic herring",
+            "gutted",
+            "small and lean"
+          ],
+          "keep": [
+            "a month in the barrel",
+            "then sealed into tins",
+            "goes on fermenting on the shelf"
+          ],
+          "end": [
+            "eaten as food",
+            "opened under water outdoors",
+            "rolled into flatbread with onion"
+          ]
+        },
+        "note": "A brine deliberately too weak to sterilise. It lets one bacterium work while keeping the dangerous ones out, and canning does not stop it — the tin bulges because the fish inside is still going."
+      },
+      {
+        "name": "Hákarl",
+        "facets": {
+          "region": [
+            "Iceland"
+          ],
+          "preserve": [
+            "fermented",
+            "no salt at all",
+            "pressed under stones",
+            "then hung in the wind"
+          ],
+          "fish": [
+            "Greenland shark",
+            "cut into blocks",
+            "flesh loaded with urea"
+          ],
+          "keep": [
+            "six weeks in a gravel pit",
+            "then four months in a drying shed",
+            "open to the sea air"
+          ],
+          "end": [
+            "eaten as food",
+            "cut into small cubes",
+            "chased with brennivín"
+          ]
+        },
+        "note": "Greenland shark is poisonous fresh — its flesh carries urea and trimethylamine oxide instead of salt to stay buoyant. The pressing and the five months in the wind are a detoxification. That the result also keeps is a side effect."
+      },
+      {
+        "name": "Jeotgal",
+        "facets": {
+          "region": [
+            "Korea"
+          ],
+          "preserve": [
+            "fermented",
+            "salt heavy enough to stop rot",
+            "sealed in a crock",
+            "kept cool"
+          ],
+          "fish": [
+            "tiny shrimp or anchovy",
+            "whole",
+            "guts and all"
+          ],
+          "keep": [
+            "three months in a crock",
+            "buried or cellared",
+            "a year for the anchovy"
+          ],
+          "end": [
+            "eaten as food",
+            "served as a small side dish",
+            "and drained off as aekjeot for kimchi"
+          ]
+        },
+        "note": "The solids and the liquid are both the point. Eaten in a little dish as it is, and drained off to salt the kimchi — Korea gets both jobs out of one crock where Italy keeps its anchovies and its colatura in separate rooms."
+      },
+      {
+        "name": "Shiokara",
+        "facets": {
+          "region": [
+            "Japan"
+          ],
+          "preserve": [
+            "fermented",
+            "salt too light to keep it long",
+            "its own liver stirred back in",
+            "days not months"
+          ],
+          "fish": [
+            "squid",
+            "cut into strips",
+            "the liver kept back and mashed"
+          ],
+          "keep": [
+            "three days to a month",
+            "kept cold throughout",
+            "eaten before it goes far"
+          ],
+          "end": [
+            "eaten as food",
+            "a spoonful alongside drink",
+            "cold and never heated"
+          ]
+        },
+        "note": "Ten per cent salt keeps nothing for long, so this is a ferment you eat while it is still young. The squid's own liver goes back in to supply the enzymes — the animal is made to digest itself on a schedule."
+      },
+      {
+        "name": "Guedj",
+        "facets": {
+          "region": [
+            "Senegal",
+            "Gambia"
+          ],
+          "preserve": [
+            "fermented",
+            "left open to the air first",
+            "salted afterwards",
+            "then sun-dried hard"
+          ],
+          "fish": [
+            "catfish or capitaine",
+            "gutted",
+            "scored to the bone"
+          ],
+          "keep": [
+            "a few days before the salt goes on",
+            "then a week in the sun",
+            "keeps months in the market"
+          ],
+          "end": [
+            "used as seasoning",
+            "a knob dropped into the pot",
+            "flavours a whole cauldron of rice"
+          ]
+        },
+        "note": "Fermentation first and salt second, which is the reverse of everything on the European side of this table. It is why a pot of thieboudienne tastes of the sea long after the fish in it has been eaten."
+      },
+      {
+        "name": "Surume",
+        "facets": {
+          "region": [
+            "Japan",
+            "Korea"
+          ],
+          "preserve": [
+            "dried",
+            "no salt at all",
+            "hung in sun and sea wind"
+          ],
+          "fish": [
+            "squid",
+            "gutted and slit open",
+            "skewered flat with the tentacles on"
+          ],
+          "keep": [
+            "a week in the sun",
+            "on lines by the shore",
+            "turned as it curls"
+          ],
+          "end": [
+            "eaten as food",
+            "torn into strips",
+            "grilled to soften"
+          ]
+        },
+        "note": "Nothing but squid and air. Squid is lean enough that drying alone will hold it — no salt, no smoke, no ferment — which is why it is the cheapest preserved seafood in Asia and the one most likely to be eaten standing up with a beer."
+      }
+    ],
+    "notes": [
+      {
+        "title": "On what actually preserves",
+        "body": "Salt and drying are the same move made two ways: both take water away from the bacteria, and a cod in Lofoten and a cod in Portugal end up at the same dryness by different routes. Smoke is weaker than it looks — it dries the surface and lays down phenols on it, and on its own buys days, which is why every serious smoked fish here is salted or simmered first. Fermentation is the opposite bet entirely: rather than shutting all the microbes out, you let one in fast enough and salty enough that it holds the ground against the ones that would poison you."
+      },
+      {
+        "title": "On food and seasoning",
+        "body": "The seasoning column is not a different technique, it is the same technique taken further. An anchovy at twelve months is a fillet you eat; the liquid drained off the same barrel at the same age is colatura. What has happened in both is that protein has been broken down to free amino acids, glutamate chief among them, and past a certain point there is more savour in a spoonful than anybody wants in a mouthful. Garum, colatura, nước mắm, aekjeot and guedj are not preserved fish that failed. They are preserved fish that went all the way."
+      },
+      {
+        "title": "On depth",
+        "body": "Only colatura sits under anything, because it genuinely is the anchovies under salt plus one move: you tap the barrel instead of eating the fish. Everything else stands at the same level. Garum is not colatura's parent and nước mắm is not its child — three coasts salted small fish in wooden vessels and three coasts got the same liquid. Katsuobushi and Maldive fish are siblings by the same logic: one skipjack, one simmer, one smoke, and two islands that never compared notes."
+      },
+      {
+        "title": "On what is not here",
+        "body": "Gravlax, matjes, rollmops and mojama live in Raw and cured fish, because a cure that leaves the flesh sliceable and raw is a different problem from one meant to survive a year in a warehouse. The line runs at whether you have to reconstitute it. If the fish must be soaked, beaten, grated or cooked before it is food again, it belongs here."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Salted fish (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Salted_fish"
+      },
+      {
+        "label": "Bacalhau",
+        "url": "https://en.wikipedia.org/wiki/Bacalhau"
+      },
+      {
+        "label": "Stockfish",
+        "url": "https://en.wikipedia.org/wiki/Stockfish"
+      },
+      {
+        "label": "Colatura di alici",
+        "url": "https://en.wikipedia.org/wiki/Colatura_di_alici"
+      },
+      {
+        "label": "Garum",
+        "url": "https://en.wikipedia.org/wiki/Garum"
+      },
+      {
+        "label": "Fish sauce",
+        "url": "https://en.wikipedia.org/wiki/Fish_sauce"
+      },
+      {
+        "label": "Bottarga",
+        "url": "https://en.wikipedia.org/wiki/Bottarga"
+      },
+      {
+        "label": "Katsuobushi",
+        "url": "https://en.wikipedia.org/wiki/Katsuobushi"
+      },
+      {
+        "label": "Maldive fish",
+        "url": "https://en.wikipedia.org/wiki/Maldive_fish"
+      },
+      {
+        "label": "Kipper",
+        "url": "https://en.wikipedia.org/wiki/Kipper"
+      },
+      {
+        "label": "Surströmming",
+        "url": "https://en.wikipedia.org/wiki/Surstr%C3%B6mming"
+      },
+      {
+        "label": "Hákarl",
+        "url": "https://en.wikipedia.org/wiki/H%C3%A1karl"
+      },
+      {
+        "label": "Jeotgal",
+        "url": "https://en.wikipedia.org/wiki/Jeotgal"
+      },
+      {
+        "label": "Shiokara",
+        "url": "https://en.wikipedia.org/wiki/Shiokara"
+      },
+      {
+        "label": "Dried shredded squid",
+        "url": "https://en.wikipedia.org/wiki/Dried_shredded_squid"
+      }
+    ],
+    "yours": [
+      "salt cod",
+      "bacalhau",
+      "brandade",
+      "stockfish",
+      "anchovy",
+      "anchovies",
+      "colatura",
+      "fish sauce",
+      "nuoc mam",
+      "bottarga",
+      "katsuobushi",
+      "dashi",
+      "bonito",
+      "jeot",
+      "maldive fish",
+      "dried squid",
+      "kipper",
+      "cured fish"
     ]
   },
   {
@@ -1880,6 +3050,8 @@ export const CANON_FAMILIES: Canon[] = [
           "backbone": [
             "lemongrass",
             "galangal",
+            "garlic",
+            "shallot",
             "makrut lime zest",
             "coriander root",
             "shrimp paste"
@@ -1908,6 +3080,8 @@ export const CANON_FAMILIES: Canon[] = [
           "backbone": [
             "lemongrass",
             "galangal",
+            "garlic",
+            "shallot",
             "makrut lime zest",
             "coriander root",
             "shrimp paste"
@@ -1937,6 +3111,8 @@ export const CANON_FAMILIES: Canon[] = [
           "backbone": [
             "lemongrass",
             "galangal",
+            "garlic",
+            "shallot",
             "makrut lime zest",
             "coriander root",
             "shrimp paste",
@@ -1968,8 +3144,9 @@ export const CANON_FAMILIES: Canon[] = [
           "backbone": [
             "lemongrass",
             "galangal",
-            "shrimp paste",
+            "garlic",
             "shallot",
+            "shrimp paste",
             "roasted peanut"
           ],
           "region": [
@@ -2002,7 +3179,7 @@ export const CANON_FAMILIES: Canon[] = [
             "Cambodia"
           ]
         },
-        "note": "The Thai aromatics without the chilli and without the seeds — heat and funk arrive later, as chilli in the pot and prahok at the end. Red kroeung is this plus dried chilli added mostly for colour."
+        "note": "The Thai aromatics — lemongrass, galangal, garlic, shallot — without the chilli and without the seeds, and with fresh turmeric root and lime leaf where the Thai pastes use the zest. Heat and funk arrive later, as chilli in the pot and prahok at the end. Red kroeung is this plus dried chilli, added mostly for colour."
       },
       {
         "name": "Rempah",
@@ -2047,7 +3224,8 @@ export const CANON_FAMILIES: Canon[] = [
             "long red chilli"
           ],
           "spice": [
-            "coriander seed ground in raw"
+            "whole seeds ground raw",
+            "coriander seed"
           ],
           "backbone": [
             "lemongrass",
@@ -2069,7 +3247,8 @@ export const CANON_FAMILIES: Canon[] = [
         "facets": {
           "form": [
             "pounded to a wet paste",
-            "let down with palm vinegar"
+            "let down with acid",
+            "palm vinegar"
           ],
           "chilli": [
             "dried chilli",
@@ -2097,7 +3276,8 @@ export const CANON_FAMILIES: Canon[] = [
         "facets": {
           "form": [
             "pounded to a wet paste",
-            "let down with sour orange juice"
+            "let down with acid",
+            "sour orange juice"
           ],
           "chilli": [
             "no chilli"
@@ -2229,7 +3409,8 @@ export const CANON_FAMILIES: Canon[] = [
             "ground to a dry powder"
           ],
           "chilli": [
-            "mild dried chilli"
+            "dried chilli",
+            "mild"
           ],
           "spice": [
             "whole seeds ground raw",
@@ -2255,7 +3436,8 @@ export const CANON_FAMILIES: Canon[] = [
             "stirred into a butter-and-flour roux"
           ],
           "chilli": [
-            "mild dried chilli"
+            "dried chilli",
+            "mild"
           ],
           "spice": [
             "whole seeds ground raw",
@@ -2270,7 +3452,7 @@ export const CANON_FAMILIES: Canon[] = [
             "Japan"
           ]
         },
-        "note": "Karē rū: the tin of powder cooked into a browned flour-and-butter roux, which arrived with the British navy in the 1870s as a thickened stew. The thickening is the point — Japanese curry is a gravy, and gravy is the one thing no pounded paste makes."
+        "note": "Karē rū: the tin of powder cooked into a browned flour-and-butter roux. The dish arrived with the British navy in the 1870s as a thickened stew; the roux sold in a solid block came much later, in the twentieth century. The thickening is the point — Japanese curry is a gravy, and gravy is the one thing no pounded paste makes."
       },
       {
         "name": "Berbere",
@@ -2280,7 +3462,8 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "chilli": [
             "dried chilli",
-            "sun-dried then roasted",
+            "sun-dried",
+            "then roasted",
             "more chilli than spice"
           ],
           "spice": [
@@ -2316,7 +3499,7 @@ export const CANON_FAMILIES: Canon[] = [
       },
       {
         "title": "On the word curry",
-        "body": "The word is European and only one entry here is genuinely a British invention. Curry powder and its descendant the Japanese roux are a small family inside this one, and the roux is the only dish nested under another — it really is the powder plus a roux. Everything else has its own name in its own language and owes the tin nothing: rempah, bumbu, kroeung and recado are not versions of curry paste, they are what people did with a mortar."
+        "body": "The word is European and only one entry here is genuinely a British invention. Curry powder and its descendant the Japanese roux are a small family inside this one — the roux really is the powder plus a roux, which is why it hangs beneath it, exactly as panang hangs beneath red paste. Those two are the only nestings on the page. Everything else has its own name in its own language and owes the tin nothing: rempah, bumbu, kroeung and recado are not versions of curry paste, they are what people did with a mortar."
       }
     ],
     "sources": [
@@ -2540,8 +3723,8 @@ export const CANON_FAMILIES: Canon[] = [
   {
     "slug": "dip",
     "name": "Dip",
-    "standfirst": "A dip is a texture before it is a recipe: something soft enough to give way under bread and salty enough that you keep going back. Four decisions make every one of them — what gets pulped, what fat carries it, what sour cuts the fat, and how far you take the pounding. Change nothing about burnt aubergine except the fat you beat into it and you have left Beirut for Tehran.",
-    "root": "Something soft or softened · broken down with salt and garlic in a mortar or a machine · slackened with a fat and cut with something sour · eaten cold with bread",
+    "standfirst": "A dip is a texture before it is a recipe: something soft enough to give way under bread and salty enough that you keep going back. Four decisions make every one of them — what gets pulped, what fat carries it, what sour cuts the fat, and how far you take the pounding. Beat chickpeas into tahini sauce and you have hummus; beat burnt aubergine into the same sauce and you have mutabbal. One decision apart.",
+    "root": "Something soft or softened · broken down with salt until it holds together · usually carried by a fat and cut by something sour · scooped up at the table with bread or rice",
     "facets": [
       {
         "id": "base",
@@ -2577,8 +3760,8 @@ export const CANON_FAMILIES: Canon[] = [
         "label": "By smooth or chunky",
         "by": [
           "body",
-          "base",
-          "fat"
+          "acid",
+          "base"
         ]
       },
       {
@@ -2594,8 +3777,7 @@ export const CANON_FAMILIES: Canon[] = [
         "name": "Tahini sauce",
         "facets": {
           "region": [
-            "Levant",
-            "taratur from Aleppo to Jaffa"
+            "Levant"
           ],
           "base": [
             "a nut or seed",
@@ -2609,24 +3791,22 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "acid": [
             "lemon juice",
-            "poured in until the paste seizes solid",
-            "cold water after it to bring it back"
+            "poured in until the paste seizes solid"
           ],
           "body": [
             "taken smooth",
-            "whisked in a bowl by hand",
-            "thin enough to pour off a spoon"
+            "no motor touches it",
+            "whisked thin enough to pour"
           ]
         },
-        "note": "The plainest thing here and the one two others are built on: sesame paste, garlic crushed with salt, lemon, water. It is a sauce for fish and falafel on its own, and it is the medium that hummus and mutabbal are suspended in."
+        "note": "The plainest thing here and the one two others are built on: sesame paste, garlic crushed with salt, lemon, water. Thin enough to pour off a spoon, it is a sauce for fish and falafel on its own, and it is the medium that hummus and mutabbal are suspended in. The cold water that comes after the lemon is not an ingredient so much as a repair; see the note on what tahini does."
       },
       {
         "name": "Hummus",
         "parent": "Tahini sauce",
         "facets": {
           "region": [
-            "Levant",
-            "Beirut and Damascus and Jerusalem all claim it"
+            "Levant"
           ],
           "base": [
             "a cooked pulse",
@@ -2644,19 +3824,18 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "body": [
             "taken smooth",
-            "run through a food mill or pounded",
-            "whipped with iced water until it lifts"
+            "no motor touches it",
+            "run through a food mill rather than a blender"
           ]
         },
-        "note": "Hummus bi tahina is the full name and it is an instruction: this is tahini sauce with chickpeas beaten into it. That is why it sits underneath rather than beside. The skins are the only thing standing between a good one and a great one."
+        "note": "Hummus bi tahina is the full name and it is an instruction: this is tahini sauce with chickpeas beaten into it. That is why it sits underneath rather than beside. The skins are the only thing standing between a good one and a great one, and a mill takes them out without beating air in."
       },
       {
         "name": "Mutabbal",
         "parent": "Tahini sauce",
         "facets": {
           "region": [
-            "Levant",
-            "Syria and Lebanon"
+            "Levant"
           ],
           "base": [
             "a cooked vegetable",
@@ -2674,18 +3853,17 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "body": [
             "taken smooth",
-            "mashed with a fork rather than blended",
-            "kept loose enough to swirl in the dish"
+            "no motor touches it",
+            "mashed with a fork rather than blended"
           ]
         },
-        "note": "The same sauce again with smoke instead of starch under it. Mutabbal means spiced or seasoned; what defines it against its neighbour is that the tahini goes in, and what defines it against hummus is that the flame does the cooking."
+        "note": "The same sauce again with smoke instead of starch under it. Mutabbal means spiced or seasoned; what defines it against its neighbour is that the tahini goes in, and what defines it against hummus is that the flame does the cooking. Kept loose enough to swirl in the dish."
       },
       {
         "name": "Baba ganoush",
         "facets": {
           "region": [
-            "Levant",
-            "Lebanon"
+            "Levant"
           ],
           "base": [
             "a cooked vegetable",
@@ -2703,11 +3881,11 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "body": [
             "left chunky",
-            "chopped on a board with a knife",
-            "tomato and green pepper cut through it"
+            "no motor touches it",
+            "chopped on a board with a knife"
           ]
         },
-        "note": "In the West this name has been swallowed by mutabbal and now means the tahini one. At home it is the other fork off the same burnt aubergine: no sesame, a fruit acid instead of lemon alone, and knifework instead of a mortar — a salad rather than a paste."
+        "note": "In the West this name has been swallowed by mutabbal and now means the tahini one. At home it is the other fork off the same burnt aubergine: no sesame, a fruit acid instead of lemon alone, and knifework instead of a mortar, with tomato and green pepper cut through it — a salad rather than a paste."
       },
       {
         "name": "Kashk-e bademjan",
@@ -2727,28 +3905,29 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "acid": [
             "fermented whey",
-            "kashk stirred through and drizzled on top",
-            "sour by fermentation rather than by fruit"
+            "kashk stirred through the pot",
+            "more kashk drizzled on top"
           ],
           "body": [
             "left chunky",
-            "pounded in a mortar but stopped short of a paste",
-            "walnuts crushed in for grit"
+            "no motor touches it",
+            "pounded but stopped short of a paste"
           ]
         },
-        "note": "Aubergine again with every other decision moved. The sour is kashk — drained yogurt fermented and dried to rocks then let down with water — so the acid and a second fat arrive in the same spoonful. Frying rather than burning means it tastes of oil and onion instead of smoke."
+        "note": "Aubergine again with every other decision moved. The sour is kashk — drained yogurt fermented and dried to rocks, then let down with water — so the acid and a second fat arrive in the same spoonful, by fermentation rather than by fruit. Frying rather than burning means it tastes of oil and onion instead of smoke, and crushed walnuts go in for grit."
       },
       {
         "name": "Ajvar",
         "facets": {
           "region": [
             "Balkans",
-            "Serbia and North Macedonia"
+            "Serbia",
+            "North Macedonia"
           ],
           "base": [
             "a cooked vegetable",
             "red peppers roasted until the skins lift",
-            "aubergine for about a third of the weight"
+            "aubergine with them in some houses"
           ],
           "fat": [
             "a seed oil",
@@ -2762,11 +3941,11 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "body": [
             "left chunky",
-            "minced through a hand grinder",
-            "cooked down until a spoon will stand in it"
+            "no motor touches it",
+            "minced through a hand grinder"
           ]
         },
-        "note": "The only one here that is cooked after it is pulped and the only one made by the bucket in September. Everything else is a dish; ajvar is a winter store that happens to be eaten with bread."
+        "note": "The only one here that is cooked after it is pulped and the only one made by the bucket in September, cooked down over hours until a spoon will stand in it. Everything else is a dish; ajvar is a winter store that happens to be eaten with bread."
       },
       {
         "name": "Nam phrik num",
@@ -2791,18 +3970,17 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "body": [
             "left chunky",
-            "pounded in a clay mortar",
-            "loose enough to pick up with sticky rice"
+            "no motor touches it",
+            "pounded in a clay mortar"
           ]
         },
-        "note": "The proof that the fat is optional and the pounding is not. Charring the chillies and aromatics whole before they meet the pestle is the same move as burning an aubergine over a flame — sweetness and smoke bought before anything is crushed."
+        "note": "The proof that the fat is optional and the pounding is not. Charring the chillies and aromatics whole before they meet the pestle is the same move as burning an aubergine over a flame — sweetness and smoke bought before anything is crushed. It is kept loose and picked up with sticky rice rather than bread."
       },
       {
         "name": "Muhammara",
         "facets": {
           "region": [
-            "Syria",
-            "Aleppo"
+            "Levant"
           ],
           "base": [
             "a nut or seed",
@@ -2820,18 +3998,19 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "body": [
             "left chunky",
-            "pounded in a mortar",
-            "breadcrumbs stirred in to give it body"
+            "no motor touches it",
+            "stopped while the walnut is still gritty"
           ]
         },
-        "note": "Muhammara means reddened. The walnut is the base rather than a garnish, which is why it is grainy in the mouth where its neighbours are creamy — and why the acid has to be pomegranate: lemon alone cannot get through that much oil."
+        "note": "Muhammara means reddened, and Aleppo is where it comes from. The walnut is the base rather than a garnish, which is why it is grainy in the mouth where its neighbours are creamy — and why the acid has to be pomegranate: lemon alone cannot get through that much oil. Breadcrumbs are stirred in to hold it together."
       },
       {
         "name": "Coconut chutney",
         "facets": {
           "region": [
             "South Asia",
-            "Tamil Nadu and Karnataka"
+            "Tamil Nadu",
+            "Karnataka"
           ],
           "base": [
             "a nut or seed",
@@ -2841,7 +4020,7 @@ export const CANON_FAMILIES: Canon[] = [
           "fat": [
             "the nut's own oil",
             "coconut oil heated for the tempering",
-            "mustard seed and curry leaf fried and poured on top"
+            "mustard seed and curry leaf fried in it"
           ],
           "acid": [
             "tamarind",
@@ -2849,11 +4028,11 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "body": [
             "taken smooth",
-            "ground on a wet stone with water",
-            "slackened to a scooping thickness"
+            "no motor touches it",
+            "ground on a wet stone with water"
           ]
         },
-        "note": "The only one whose last move happens in a hot pan after the grinding is done: seeds and leaves fried in oil and tipped over the top so they crackle. Made fresh each morning because coconut turns by evening."
+        "note": "The one here whose fat arrives only at the end and only hot, and the one where that fat is the seasoning rather than a garnish: mustard seed and curry leaf fried in coconut oil and tipped over the top so they crackle. Slackened to a scooping thickness and made fresh each morning, because coconut turns by evening."
       },
       {
         "name": "Ful medames",
@@ -2877,11 +4056,11 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "body": [
             "left chunky",
-            "crushed against the side of the pot with a spoon",
-            "half the beans left whole"
+            "no motor touches it",
+            "crushed against the pot with a spoon"
           ]
         },
-        "note": "Breakfast rather than a mezze, and the one dip nobody finishes making in the kitchen — the oil and lemon go on in front of you, and how far it gets mashed is decided by whoever is holding the bread."
+        "note": "Breakfast rather than a mezze, eaten hot, and the one dip nobody finishes making in the kitchen — the oil and lemon go on in front of you, and how far it gets mashed is decided by whoever is holding the bread. Half the beans usually stay whole."
       },
       {
         "name": "Tzatziki",
@@ -2900,23 +4079,22 @@ export const CANON_FAMILIES: Canon[] = [
             "olive oil poured over"
           ],
           "acid": [
-            "the yogurt's own souring",
+            "the base's own souring",
             "a spoonful of vinegar in some houses"
           ],
           "body": [
             "left chunky",
-            "stirred together by hand",
+            "no motor touches it",
             "the cucumber kept in shreds"
           ]
         },
-        "note": "The only base here that arrived already sour, so no acid needs pouring in. Wringing the cucumber is the whole technique: skip it and the salt pulls the water out on the table instead and you get soup."
+        "note": "One of two here whose sourness is the base's own — feta does the same job for tirokafteri — so the spoonful of vinegar some houses add is a lift rather than a necessity. What is singular is the cucumber. Wringing it dry is the whole technique: skip it and the salt pulls the water out on the table instead and you get soup."
       },
       {
         "name": "Tirokafteri",
         "facets": {
           "region": [
-            "Greece",
-            "Macedonia and the islands"
+            "Greece"
           ],
           "base": [
             "milk drained or soured",
@@ -2929,16 +4107,17 @@ export const CANON_FAMILIES: Canon[] = [
             "yogurt to let it down"
           ],
           "acid": [
-            "the brine it was kept in",
+            "the base's own souring",
+            "the brine the feta came in",
             "lemon juice to lift it"
           ],
           "body": [
             "taken smooth",
-            "beaten hard until it holds air",
-            "spreadable rather than pourable"
+            "a motor does the work",
+            "beaten until it holds air"
           ]
         },
-        "note": "Whipped feta, and the beating is the point — htipiti, its other name, simply means beaten. No water and no lemon could make feta this pale; it is air, the same trick as whipping butter."
+        "note": "Whipped feta, and the beating is the point — htipiti, its other name, simply means beaten. Nothing poured in could make feta this pale; it is air, the same trick as whipping butter, which is why it ends up spreadable rather than pourable. The cheese and its brine carry the sourness."
       },
       {
         "name": "Salsa huancaína",
@@ -2963,11 +4142,11 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "body": [
             "taken smooth",
-            "blended with soda crackers where it needs body",
-            "thin enough to pour over cold potatoes"
+            "a motor does the work",
+            "blended with soda crackers for body"
           ]
         },
-        "note": "Fresh cheese standing in for yogurt on a continent with no yogurt tradition. It is poured over boiled potatoes as often as it is scooped — the same paste asked to be a sauce, which is what happens when you keep thinning a dip."
+        "note": "Fresh cheese standing in for yogurt on a continent with no yogurt tradition. It is thinned until it will pour over cold boiled potatoes as often as it is scooped — the same paste asked to be a sauce, which is what happens when you keep slackening a dip."
       },
       {
         "name": "Skordalia",
@@ -2991,18 +4170,17 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "body": [
             "taken smooth",
-            "the garlic pounded to a paste with salt before anything else",
-            "stiff enough to stand a spoon in"
+            "no motor touches it",
+            "the garlic pounded to paste before anything else"
           ]
         },
-        "note": "Named for the garlic and not for the potato, which tells you which one is the dish. The starch is only there to hold oil — take it away and drip the oil into the garlic alone and you have Lebanese toum instead."
+        "note": "Named for the garlic and not for the potato, which tells you which one is the dish. The starch is only there to hold oil — it is what lets the thread of oil go in without splitting, and it leaves the thing stiff enough to stand a spoon in. Take it away and drip the oil into the garlic alone and you have Lebanese toum instead."
       },
       {
         "name": "Taramasalata",
         "facets": {
           "region": [
-            "Greece",
-            "and the Greek kitchens of Istanbul"
+            "Greece"
           ],
           "base": [
             "cured fish roe",
@@ -3020,11 +4198,11 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "body": [
             "taken smooth",
-            "beaten until it turns pale and doubles",
-            "a mousse rather than a paste"
+            "a motor does the work",
+            "beaten until it pales and doubles"
           ]
         },
-        "note": "The only savoury base here that was preserved before it was pulped, and the only one that is a true emulsion — the roe holds the oil the way an egg yolk does. The bread is a brake as much as a bulker: it stops the thing splitting."
+        "note": "The only base here that is fish, and the only one where the base itself does the emulsifying: the roe's own proteins take the oil drop by drop the way an egg yolk does, where skordalia leans on starch to hold the same thread. That is why it ends up a mousse rather than a paste. The bread is a brake as much as a bulker — it stops the thing splitting."
       },
       {
         "name": "Guacamole",
@@ -3047,25 +4225,25 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "body": [
             "left chunky",
-            "mashed in a basalt molcajete",
-            "lumps left in on purpose"
+            "no motor touches it",
+            "mashed in a basalt molcajete"
           ]
         },
-        "note": "The only base that is neither cooked nor cured nor fermented, and the only one that brings its own fat in the flesh. Grinding the chilli and onion before the avocado goes in is the order that matters — afterwards you would only be bruising it."
+        "note": "The only one that goes in raw and has nothing poured in at all: coconut is raw too but takes hot oil over the top, and muhammara works olive oil into its walnuts. Here the fat is already in the flesh and stays there. Grinding the chilli and onion before the avocado goes in is the order that matters — afterwards you would only be bruising it, and the lumps are left in on purpose."
       }
     ],
     "notes": [
       {
         "title": "On the four decisions",
-        "body": "What is pulped sets the flavour, but it is the other three that place the dish on a map. The fat is the carrier — sesame paste, olive oil, a seed oil, the fat already inside a walnut or an avocado, or none at all. The sour is what stops the fat being dull, and it is the most local decision of the four: lemon in the Levant, lime in Mexico and northern Thailand, vinegar in the Balkans, pomegranate in Aleppo, fermented whey in Iran, and in tzatziki nothing added because the base soured itself. Burnt aubergine with tahini and lemon is mutabbal; the same aubergine fried and finished with kashk is Iranian; chopped instead of pounded with pomegranate molasses is baba ganoush. One vegetable and three countries."
+        "body": "What is pulped sets the flavour, but it is the other three that place the dish on a map. The fat is the carrier — sesame paste, olive oil, a seed oil, the fat already inside a walnut or an avocado, or none at all. The sour is what stops the fat being dull, and it is the most local decision of the four: lemon in the Levant, lime in Mexico and northern Thailand, vinegar in the Balkans, pomegranate in Aleppo, fermented whey in Iran — and in tzatziki and tirokafteri the sourness is already in the base, because milk sours itself, so the vinegar or lemon some houses add is a lift rather than the point. Burnt aubergine with tahini and lemon is mutabbal; fry that same aubergine instead and sour it with kashk and you are in Tehran; chop it rather than pound it and sour it with pomegranate molasses and it is baba ganoush. One vegetable, three decisions moved, three countries."
       },
       {
         "title": "On what tahini does",
-        "body": "Sesame paste is an emulsion looking for an excuse to break. Pour lemon juice into it and it seizes — stiffens into something like plaster — because the acid drops the pH and the protein grabs the water. Beat cold water in after that and it comes back, but paler and thicker than it started. That seizing and recovery is the texture of hummus and of mutabbal; it is why both are white rather than beige, and why neither can be made properly by simply stirring everything together at once."
+        "body": "Sesame paste is oil with solids suspended in it, and no water. Stir anything watery into it — lemon juice, or plain water, it makes no difference which — and it seizes: the paste stiffens to something like plaster as the water pulls the solids together and the whole thing flips from oil holding solids to solids holding water. Keep going with cold water and it comes back, slack again but paler and thicker than it started, because the water is now scattered through it in droplets that scatter light with it. That seizing and recovery is the texture of hummus and of mutabbal, and it is why both are pale rather than beige. It is also why neither can be made properly by stirring everything together at once."
       },
       {
         "title": "On the mortar and the machine",
-        "body": "Smooth or chunky is mostly a decision about the tool, and the tool is usually older than the recipe. A basalt molcajete crushes against a rough face and leaves lumps, which is why guacamole has them. A stone mortar and a pestle can be stopped anywhere between coarse and paste, which is how muhammara and nam phrik num stay grainy. A food mill takes the skins out and gives no air, which is what hummus wants. A blender whips air in, which is what tirokafteri and taramasalata want and what ruins hummus. The blender is the only one that changes colour as well as texture."
+        "body": "Smooth or chunky is mostly a decision about the tool, and the tool is usually older than the recipe. Only three dips here let a motor near them. A basalt molcajete crushes against a rough face and leaves lumps, which is why guacamole has them. A stone mortar can be stopped anywhere between coarse and paste, which is how muhammara and nam phrik num stay grainy. Ajvar's hand grinder is a machine with no motor in it: it minces without whipping. A food mill takes the skins out and gives no air, which is what hummus wants. A spinning blade beats air in, which is what tirokafteri and taramasalata want and what ruins hummus. Air is one of the two things that will pale a dip; water beaten into tahini is the other."
       },
       {
         "title": "On depth",
@@ -3073,7 +4251,7 @@ export const CANON_FAMILIES: Canon[] = [
       },
       {
         "title": "On what is not here",
-        "body": "Fresh things cut with a knife are salsas, not dips: pico de gallo, Turkish ezme, Ethiopian awaze fresca. The line is that a salsa is chopped and stays wet and separate, while a dip is broken down until it holds together and holds a piece of bread up. Toum is left out for the opposite reason — it is skordalia with the starch removed, garlic and oil and nothing pulped, which puts it among the emulsified sauces with aioli. And ful medames sits at the edge of the family on purpose: it is the one that is still being made while you eat it."
+        "body": "Fresh things cut with a knife are salsas, not dips: pico de gallo, Turkish ezme, Ethiopian awaze fresca. The line is that a salsa is chopped and stays wet and separate, while a dip is broken down until it holds together and will sit on whatever you scoop it with — bread, sticky rice, a dosa, a tortilla chip. Toum is left out for the opposite reason — it is skordalia with the starch removed, garlic and oil and nothing pulped, which puts it among the emulsified sauces with aioli. And ful medames sits at the edge of the family on purpose: it is served hot, and it is the one that is still being made while you eat it."
       }
     ],
     "sources": [
@@ -3149,25 +4327,32 @@ export const CANON_FAMILIES: Canon[] = [
     "yours": [
       "hummus",
       "houmous",
+      "hummus bi tahina",
       "tahini sauce",
       "taratur",
       "mutabbal",
+      "moutabal",
+      "mutabal",
       "baba ganoush",
       "baba ghanoush",
       "muhammara",
-      "kashk",
+      "kashk-e bademjan",
+      "kashk bademjan",
       "ajvar",
-      "nam prik",
-      "nam phrik",
+      "nam phrik num",
+      "nam prik noom",
       "coconut chutney",
       "ful medames",
+      "foul mudammas",
       "tzatziki",
       "whipped feta",
       "tirokafteri",
       "htipiti",
       "huancaina",
+      "papa a la huancaina",
       "skordalia",
       "taramasalata",
+      "tarama",
       "guacamole",
       "dip"
     ]
@@ -6670,9 +7855,637 @@ export const CANON_FAMILIES: Canon[] = [
     ]
   },
   {
+    "slug": "mole",
+    "name": "Mole",
+    "standfirst": "Mole is not one recipe and it is not chocolate sauce — mōlli is simply Nahuatl for sauce. What every one of these has in common is chillies ground with aromatics and given body by something that is not flour: bread, corn, a seed, a nut. Four decisions separate them — which chillies, what happens to those chillies before the grinder, what else goes in, and what carries the body — and the same four decisions, answered elsewhere in the world, produce romesco and muhammara and ají de gallina.",
+    "root": "Chillies and aromatics ground to a paste, then let down into a sauce",
+    "facets": [
+      {
+        "id": "chilli",
+        "label": "Chilli"
+      },
+      {
+        "id": "prep",
+        "label": "First move"
+      },
+      {
+        "id": "add",
+        "label": "Added"
+      },
+      {
+        "id": "body",
+        "label": "Thickener"
+      },
+      {
+        "id": "region",
+        "label": "Region"
+      }
+    ],
+    "nestings": [
+      {
+        "label": "By thickener",
+        "by": [
+          "body",
+          "add",
+          "chilli"
+        ]
+      },
+      {
+        "label": "By first move",
+        "by": [
+          "prep",
+          "add",
+          "body"
+        ]
+      },
+      {
+        "label": "By region",
+        "by": [
+          "region",
+          "body"
+        ]
+      }
+    ],
+    "dishes": [
+      {
+        "name": "Mole poblano",
+        "facets": {
+          "chilli": [
+            "dried chilli",
+            "ancho",
+            "mulato",
+            "pasilla",
+            "chipotle"
+          ],
+          "prep": [
+            "chillies fried in lard",
+            "nuts and seeds fried separately",
+            "aromatics charred on the comal"
+          ],
+          "add": [
+            "nuts and seeds",
+            "almond",
+            "sesame seed",
+            "raisin",
+            "chocolate"
+          ],
+          "body": [
+            "bread",
+            "bolillo fried in lard",
+            "toasted tortilla"
+          ],
+          "region": [
+            "Puebla"
+          ]
+        },
+        "note": "The one people mean when they say mole. Three chillies for depth and a fourth for smoke; every solid fried in lard on its own before it meets the grinder, which is why it takes a day rather than an afternoon."
+      },
+      {
+        "name": "Mole negro",
+        "facets": {
+          "chilli": [
+            "dried chilli",
+            "chilhuacle negro",
+            "mulato",
+            "pasilla oaxaqueño",
+            "guajillo"
+          ],
+          "prep": [
+            "chillies fried in lard",
+            "chilli seeds burned to smoking",
+            "aromatics charred on the comal"
+          ],
+          "add": [
+            "nuts and seeds",
+            "almond",
+            "sesame seed",
+            "plantain",
+            "chocolate"
+          ],
+          "body": [
+            "bread",
+            "bolillo fried in lard",
+            "burnt tortilla"
+          ],
+          "region": [
+            "Oaxaca"
+          ]
+        },
+        "note": "The black is not the chocolate. It is the reserved chilli seeds taken to the far side of toasted — burned until they smoke — plus a tortilla carried to charcoal, and the chilhuacle negro that Oaxaca grows and almost nowhere else does."
+      },
+      {
+        "name": "Mole coloradito",
+        "facets": {
+          "chilli": [
+            "dried chilli",
+            "ancho",
+            "guajillo",
+            "chilhuacle rojo"
+          ],
+          "prep": [
+            "chillies fried in lard",
+            "aromatics charred on the comal"
+          ],
+          "add": [
+            "nuts and seeds",
+            "almond",
+            "plantain",
+            "chocolate"
+          ],
+          "body": [
+            "bread",
+            "bolillo fried in lard"
+          ],
+          "region": [
+            "Oaxaca"
+          ]
+        },
+        "note": "Nothing is burned, so the red chillies stay red. The everyday Oaxacan mole and the one that turns into enchiladas on the second day."
+      },
+      {
+        "name": "Mole amarillo",
+        "facets": {
+          "chilli": [
+            "dried chilli",
+            "chilcostle",
+            "costeño amarillo",
+            "guajillo"
+          ],
+          "prep": [
+            "chillies toasted dry",
+            "aromatics charred on the comal"
+          ],
+          "add": [
+            "no nuts or seeds",
+            "hoja santa",
+            "miltomate"
+          ],
+          "body": [
+            "masa",
+            "slaked in cold water"
+          ],
+          "region": [
+            "Oaxaca"
+          ]
+        },
+        "note": "Thin enough to drink, because corn masa thickens without enriching. Hoja santa is obligatory in the valleys; the coast swaps in pitiona and the isthmus epazote, and it is still amarillo."
+      },
+      {
+        "name": "Mole verde",
+        "facets": {
+          "chilli": [
+            "fresh chilli",
+            "jalapeño",
+            "serrano"
+          ],
+          "prep": [
+            "chillies go in raw",
+            "nothing toasted at all",
+            "tomatillo simmered soft",
+            "herbs blended raw"
+          ],
+          "add": [
+            "no nuts or seeds",
+            "hoja santa",
+            "epazote",
+            "parsley"
+          ],
+          "body": [
+            "masa",
+            "slaked in cold water"
+          ],
+          "region": [
+            "Oaxaca"
+          ]
+        },
+        "note": "The only mole in Oaxaca where nothing meets a dry comal — heat is what kills the green. Made and eaten the same day for the same reason."
+      },
+      {
+        "name": "Chichilo negro",
+        "facets": {
+          "chilli": [
+            "dried chilli",
+            "chilhuacle negro",
+            "mulato",
+            "pasilla oaxaqueño"
+          ],
+          "prep": [
+            "chillies burned to black",
+            "chilli seeds burned to smoking",
+            "tomato charred on the comal"
+          ],
+          "add": [
+            "no nuts or seeds",
+            "avocado leaf",
+            "no chocolate"
+          ],
+          "body": [
+            "masa",
+            "burnt tortilla"
+          ],
+          "region": [
+            "Oaxaca"
+          ]
+        },
+        "note": "The funeral mole, and the austere one: no nuts, no fruit, no chocolate, beef broth instead of turkey. Everything it has comes from ash and the anise of avocado leaf, and the bitterness is the point rather than an accident."
+      },
+      {
+        "name": "Manchamanteles",
+        "facets": {
+          "chilli": [
+            "dried chilli",
+            "ancho",
+            "guajillo"
+          ],
+          "prep": [
+            "chillies fried in lard",
+            "plantain fried in lard",
+            "fruit simmered in the sauce"
+          ],
+          "add": [
+            "fruit",
+            "pineapple",
+            "plantain",
+            "apple",
+            "almond"
+          ],
+          "body": [
+            "ground nuts",
+            "almond",
+            "the fruit itself"
+          ],
+          "region": [
+            "Oaxaca"
+          ]
+        },
+        "note": "Tablecloth-stainer. The fruit is not a garnish — it cooks down into the sauce and does half the thickening, with cider vinegar holding the sweetness in check."
+      },
+      {
+        "name": "Pipián verde",
+        "facets": {
+          "chilli": [
+            "fresh chilli",
+            "serrano"
+          ],
+          "prep": [
+            "chillies go in raw",
+            "pumpkin seed toasted dry",
+            "tomatillo simmered soft"
+          ],
+          "add": [
+            "nuts and seeds",
+            "pumpkin seed",
+            "cilantro",
+            "hoja santa"
+          ],
+          "body": [
+            "ground seeds",
+            "pumpkin seed"
+          ],
+          "region": [
+            "Central Mexico"
+          ]
+        },
+        "note": "The seed is not an enrichment here, it is the sauce. Ground pepitas thicken and then split if you let them boil, so it is held below a simmer from the moment it goes into the pan."
+      },
+      {
+        "name": "Mole de olla",
+        "facets": {
+          "chilli": [
+            "dried chilli",
+            "guajillo",
+            "pasilla",
+            "chile de árbol"
+          ],
+          "prep": [
+            "chillies toasted dry",
+            "chillies soaked soft",
+            "paste stirred straight into broth"
+          ],
+          "add": [
+            "no nuts or seeds",
+            "epazote",
+            "summer vegetables",
+            "beef shin"
+          ],
+          "body": [
+            "no thickener",
+            "left as broth"
+          ],
+          "region": [
+            "Central Mexico"
+          ]
+        },
+        "note": "A mole you eat with a spoon. It proves what the word means: the chilli paste is never fried and never thickened, just loosened into the pot, and it is still a mole."
+      },
+      {
+        "name": "Adobo",
+        "facets": {
+          "chilli": [
+            "dried chilli",
+            "guajillo",
+            "ancho"
+          ],
+          "prep": [
+            "chillies toasted dry",
+            "chillies soaked soft"
+          ],
+          "add": [
+            "no nuts or seeds",
+            "vinegar",
+            "Mexican oregano",
+            "cumin"
+          ],
+          "body": [
+            "no thickener",
+            "chilli pulp alone"
+          ],
+          "region": [
+            "Mexico"
+          ]
+        },
+        "note": "The floor of the family: chilli, garlic, spice, vinegar, nothing else. Thick enough to coat meat as a marinade and thin enough to serve as sauce — the body is the chilli pulp itself."
+      },
+      {
+        "name": "Pepián",
+        "facets": {
+          "chilli": [
+            "dried chilli",
+            "chile guaque",
+            "chile pasa",
+            "chile cobán"
+          ],
+          "prep": [
+            "chillies toasted dry",
+            "seeds toasted dry",
+            "tomato charred on the comal",
+            "onion charred in its skin"
+          ],
+          "add": [
+            "nuts and seeds",
+            "pumpkin seed",
+            "sesame seed",
+            "cinnamon"
+          ],
+          "body": [
+            "ground seeds",
+            "pumpkin seed",
+            "toasted tortilla"
+          ],
+          "region": [
+            "Guatemala"
+          ]
+        },
+        "note": "Guatemala's national dish and pipián's sibling rather than its child — same answer to the thickener question, reached with different chillies and a comal that chars everything including the onion skin."
+      },
+      {
+        "name": "Romesco",
+        "facets": {
+          "chilli": [
+            "dried chilli",
+            "ñora",
+            "choricero"
+          ],
+          "prep": [
+            "chillies soaked without toasting",
+            "tomato and garlic roasted whole",
+            "bread fried in olive oil",
+            "nuts toasted dry"
+          ],
+          "add": [
+            "nuts and seeds",
+            "almond",
+            "hazelnut",
+            "sherry vinegar"
+          ],
+          "body": [
+            "bread",
+            "fried bread",
+            "ground almond"
+          ],
+          "region": [
+            "Catalonia"
+          ]
+        },
+        "note": "Catalonia arrives at mole poblano's structure independently: dried mild chilli rehydrated, aromatics roasted, fried bread and ground nuts for body. What it leaves out is the spice cabinet."
+      },
+      {
+        "name": "Muhammara",
+        "facets": {
+          "chilli": [
+            "dried chilli",
+            "Aleppo pepper"
+          ],
+          "prep": [
+            "peppers roasted whole",
+            "walnuts toasted dry",
+            "nothing cooked after"
+          ],
+          "add": [
+            "fruit",
+            "pomegranate molasses",
+            "walnut",
+            "cumin"
+          ],
+          "body": [
+            "bread",
+            "breadcrumb",
+            "ground walnut"
+          ],
+          "region": [
+            "Aleppo"
+          ]
+        },
+        "note": "The uncooked one. Bread and nut for body like romesco; fruit for sweet-sourness like manchamanteles — but the grinding is where it ends, so nothing ever meets a pan of fat."
+      },
+      {
+        "name": "Ají de gallina",
+        "facets": {
+          "chilli": [
+            "dried chilli",
+            "ají amarillo",
+            "ají panca"
+          ],
+          "prep": [
+            "chilli fried in oil",
+            "onion and garlic fried first",
+            "bread soaked in milk"
+          ],
+          "add": [
+            "nuts and seeds",
+            "walnut",
+            "pecan",
+            "parmesan"
+          ],
+          "body": [
+            "bread",
+            "white bread soaked in milk",
+            "ground walnut"
+          ],
+          "region": [
+            "Peru"
+          ]
+        },
+        "note": "Peru's version of the same trick, by way of a Spanish bread-and-almond sauce: ají amarillo fried into an onion base, bread soaked soft in milk, walnuts ground in for weight."
+      },
+      {
+        "name": "Mafé",
+        "facets": {
+          "chilli": [
+            "fresh chilli",
+            "scotch bonnet"
+          ],
+          "prep": [
+            "chillies go in raw",
+            "onion fried in oil",
+            "peanuts roasted before grinding"
+          ],
+          "add": [
+            "nuts and seeds",
+            "peanut",
+            "tomato paste"
+          ],
+          "body": [
+            "ground nuts",
+            "peanut paste"
+          ],
+          "region": [
+            "Senegal"
+          ]
+        },
+        "note": "Mandinka in origin and eaten across West Africa. Like pipián it hands the whole job to one ground seed — here the peanut, which thickens, enriches and carries the chilli at once."
+      },
+      {
+        "name": "Korma",
+        "facets": {
+          "chilli": [
+            "dried chilli",
+            "Kashmiri chilli"
+          ],
+          "prep": [
+            "chilli bloomed in ghee",
+            "onion fried to gold",
+            "nuts soaked soft"
+          ],
+          "add": [
+            "nuts and seeds",
+            "almond",
+            "cashew",
+            "yoghurt"
+          ],
+          "body": [
+            "ground nuts",
+            "cashew paste",
+            "yoghurt"
+          ],
+          "region": [
+            "North India"
+          ]
+        },
+        "note": "Mughlai, and the proof that the nut-bodied sauce does not need heat to be interesting: Kashmiri chilli is chosen for colour rather than burn, and the almond and cashew do everything the chilli does not."
+      }
+    ],
+    "notes": [
+      {
+        "title": "On the word",
+        "body": "Mōlli is Nahuatl for sauce, full stop. It carries no promise of chocolate, of chillies in the dozens, or of a day at the stove — mole de olla is a soup and is not a lesser mole for it. The elaborate ones are elaborate because a feast asked them to be, not because the word demands it."
+      },
+      {
+        "title": "On chocolate",
+        "body": "Three of the sixteen here take it, in quantities that would ruin a dessert — an ounce or two of bitter chocolate in several litres of sauce, working as a dark background note the way a bay leaf does. Amarillo, verde and chichilo have none, and chichilo gets its black from char alone."
+      },
+      {
+        "title": "On burning",
+        "body": "Oaxaca is the only tradition here that takes an ingredient deliberately past toasted. In mole negro the reserved chilli seeds are held on the comal until they smoke; in chichilo the chillies themselves go to charcoal, and a tortilla with them. The bitterness that arrives is the flavour being sought, which is why the line between negro and a ruined pan is drawn by smell and about ninety seconds."
+      },
+      {
+        "title": "On the thickener",
+        "body": "This is where the family stops being Mexican. Bread, corn masa, a ground seed or a ground nut — four answers to how a chilli sauce gets body without flour, and cooks in Catalonia, Aleppo and Lima reached the same four independently. Romesco and mole poblano are not related; they are two solutions to one problem that happen to agree."
+      },
+      {
+        "title": "On depth",
+        "body": "Nothing here is given a parent. The seven moles of Oaxaca are made by the same cooks in the same kitchens and are still siblings, not a descent line — negro is not coloradito plus burnt seeds, and poblano is not adobo plus everything. Drawing those arrows would make a tidier picture and a false one."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Mole (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Mole_(sauce)"
+      },
+      {
+        "label": "Moles oaxaqueños",
+        "url": "https://es.wikipedia.org/wiki/Moles_oaxaque%C3%B1os"
+      },
+      {
+        "label": "Chilhuacle",
+        "url": "https://en.wikipedia.org/wiki/Chilhuacle"
+      },
+      {
+        "label": "Mole amarillo (Larousse Cocina)",
+        "url": "https://laroussecocina.mx/palabra/mole-amarillo-amarillo-o-amarillito/"
+      },
+      {
+        "label": "Pipián",
+        "url": "https://es.wikipedia.org/wiki/Pipi%C3%A1n"
+      },
+      {
+        "label": "Mole de olla",
+        "url": "https://es.wikipedia.org/wiki/Mole_de_olla"
+      },
+      {
+        "label": "Pepián",
+        "url": "https://en.wikipedia.org/wiki/Pepi%C3%A1n"
+      },
+      {
+        "label": "Romesco",
+        "url": "https://en.wikipedia.org/wiki/Romesco"
+      },
+      {
+        "label": "Muhammara",
+        "url": "https://en.wikipedia.org/wiki/Muhammara"
+      },
+      {
+        "label": "Ají de gallina",
+        "url": "https://en.wikipedia.org/wiki/Aj%C3%AD_de_gallina"
+      },
+      {
+        "label": "Maafe (peanut stew)",
+        "url": "https://en.wikipedia.org/wiki/Peanut_stew"
+      },
+      {
+        "label": "Korma",
+        "url": "https://en.wikipedia.org/wiki/Korma"
+      }
+    ],
+    "yours": [
+      "mole",
+      "mole poblano",
+      "mole negro",
+      "mole verde",
+      "mole amarillo",
+      "coloradito",
+      "chichilo",
+      "manchamanteles",
+      "pipián",
+      "pipian",
+      "mole de olla",
+      "adobo",
+      "pepián",
+      "romesco",
+      "muhammara",
+      "ají de gallina",
+      "mafé",
+      "peanut stew",
+      "groundnut stew",
+      "korma",
+      "mole rojo",
+      "enmoladas"
+    ]
+  },
+  {
     "slug": "mother-sauce",
     "name": "Mother sauces",
-    "standfirst": "Five sauces that a nineteenth-century Frenchman decided everything else descends from, and four sauces from elsewhere that answer the same question without him. All of them are a liquid plus something that will not let it stay a liquid — flour cooked in fat, an egg yolk, a starch, a ground seed. The mothers are the base. The derivatives are the base plus one thing, which is why they are drawn underneath.",
+    "standfirst": "Five sauces that one French kitchen had settled on by 1907, and four sauces from elsewhere that answer the same question without it. All of them are a liquid plus something that will not let it stay a liquid — flour cooked in fat, an egg yolk, a starch, a ground seed. The mothers are the base. The derivatives are the base plus one thing, which is why they are drawn underneath.",
     "root": "A liquid · something worked into it that will hold it · cooked until it coats the back of a spoon",
     "facets": [
       {
@@ -6746,11 +8559,10 @@ export const CANON_FAMILIES: Canon[] = [
             "turns gluey if it boils hard"
           ],
           "region": [
-            "France",
-            "claimed by Tuscany as well"
+            "France"
           ]
         },
-        "note": "The plainest statement of the whole family: flour cooked in butter only until it stops smelling raw, then milk. Everything on the roux side of this page is these same two ingredients left in the pan for longer."
+        "note": "The plainest statement of the whole family: flour cooked in butter only until it stops smelling raw, then milk. Everything on the roux side of this page is these same two ingredients left in the pan for longer. Italy claims it as well, as salsa colla carried north by Catherine de' Medici's cooks — but the archives are against that story: no Italian cook has been found among her servants between her arrival in France and her death."
       },
       {
         "name": "Mornay",
@@ -6777,8 +8589,7 @@ export const CANON_FAMILIES: Canon[] = [
             "which is why it goes in off the heat"
           ],
           "region": [
-            "France",
-            "Paris"
+            "France"
           ]
         },
         "note": "Béchamel plus cheese and nothing else — it genuinely is the parent with one addition. The only rule is that the pan comes off first: held at a boil, melted cheese protein tightens and squeezes its own fat out."
@@ -6808,8 +8619,7 @@ export const CANON_FAMILIES: Canon[] = [
             "the whole point is that it stays white"
           ],
           "region": [
-            "France",
-            "Paris"
+            "France"
           ]
         },
         "note": "Béchamel plus onions cooked without a hint of browning. Escoffier's version thickens with rice simmered in the onions instead of a roux — same sauce; the starch just arrives by another route."
@@ -6898,11 +8708,10 @@ export const CANON_FAMILIES: Canon[] = [
             "no way back once it scrambles"
           ],
           "region": [
-            "France",
-            "German only in name"
+            "France"
           ]
         },
-        "note": "Carême counted this one of his four mothers. Escoffier moved it down here, on the grounds that a sauce built on velouté cannot also be its parent — and the slot it vacated went to hollandaise."
+        "note": "Carême counted this one of his four mothers. Escoffier moved it down here, on the grounds that a sauce built on velouté cannot also be its parent — and put tomate in its place at the top, with hollandaise making a fifth. It is the one sauce on this page thickened twice over, by flour and then by yolk, which is why it takes more heat than avgolemono does."
       },
       {
         "name": "Espagnole",
@@ -6923,15 +8732,14 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "break": [
             "safe at a hard boil",
-            "thickens far less than a pale roux of the same weight",
-            "so it takes a great deal more of it"
+            "bitter for good if the roux catches",
+            "greasy unless it is skimmed as it simmers"
           ],
           "region": [
-            "France",
-            "Spanish only in name"
+            "France"
           ]
         },
-        "note": "The same roux left in the pan until the flour browns. Browning breaks the starch chains, so a brown roux has perhaps a third of the thickening power of a white one — you are buying flavour and paying for it in body."
+        "note": "The same roux left in the pan until the flour browns. Browning breaks the starch chains, so a brown roux has perhaps a third of the thickening power of a white one — you are buying flavour and paying for it in body. The two things that ruin it are both patience: a roux taken one shade too far is bitter and stays bitter, and fat left unskimmed never comes back out."
       },
       {
         "name": "Demi-glace",
@@ -6988,11 +8796,10 @@ export const CANON_FAMILIES: Canon[] = [
             "so it goes in off the heat"
           ],
           "region": [
-            "France",
-            "Bordeaux"
+            "France"
           ]
         },
-        "note": "Two levels down and honestly so: it is demi-glace, which is espagnole, plus a wine reduction and marrow. Nobody makes bordelaise from scratch in an afternoon — the depth of the tree is the depth of the work."
+        "note": "Two levels down and honestly so: it is demi-glace, which is espagnole, plus a wine reduction and marrow. The name is the wine, a red from Bordeaux, and nobody makes bordelaise from scratch in an afternoon — the depth of the tree is the depth of the work."
       },
       {
         "name": "Hollandaise",
@@ -7018,8 +8825,7 @@ export const CANON_FAMILIES: Canon[] = [
             "comes back if whisked into a spoonful of cold water"
           ],
           "region": [
-            "France",
-            "Dutch only in name"
+            "France"
           ]
         },
         "note": "The other half of the family. Nothing is cooked and nothing is thickened — the yolk's lecithin coats millions of butter droplets and keeps them from finding each other. Body here is crowding; thin the crowd and the sauce is butter again."
@@ -7045,24 +8851,22 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "break": [
             "splits above about 70°C",
-            "the extra acid buys it slightly more room than hollandaise",
+            "the same ceiling as hollandaise",
             "comes back if whisked into a spoonful of cold water"
           ],
           "region": [
-            "France",
-            "named for Béarn",
-            "invented at Saint-Germain-en-Laye"
+            "France"
           ]
         },
-        "note": "Hollandaise with a vinegar reduction in place of the water and tarragon through it. The name is a nineteenth-century flourish — the sauce was made outside Paris and has nothing to do with Béarn."
+        "note": "Hollandaise with a vinegar reduction in place of the water and tarragon through it. The reduction replaces the water, not the limit: this splits at the same temperature its parent does. Named not for its cooking but for Henry IV le Béarnais, whose old residence housed the restaurant where it was made — twenty kilometres from Paris and seven hundred from Béarn."
       },
       {
         "name": "Sauce tomate",
         "facets": {
           "thicken": [
             "a roux",
-            "cooked blond in salt pork fat",
-            "the tomato's own pulp doing most of the rest"
+            "cooked blond",
+            "in salt pork fat rather than butter"
           ],
           "liquid": [
             "tomato",
@@ -7079,11 +8883,10 @@ export const CANON_FAMILIES: Canon[] = [
             "weeps water back out if it is under-reduced"
           ],
           "region": [
-            "France",
-            "Provence"
+            "France"
           ]
         },
-        "note": "The odd mother: the only one that would still be a sauce with the roux left out, because reduced tomato thickens itself. Escoffier kept the roux anyway. The Italian line of descent — amatriciana, puttanesca, vodka — has its own family in this canon."
+        "note": "The odd mother: the only one that would still be a sauce with the roux left out, because reduced tomato thickens itself. Escoffier kept the roux anyway, and cooked it in salt pork fat rather than butter. The Italian line of descent — amatriciana, puttanesca, vodka — has its own family in this canon."
       },
       {
         "name": "Gumbo roux",
@@ -7111,7 +8914,8 @@ export const CANON_FAMILIES: Canon[] = [
           "region": [
             "United States",
             "Louisiana",
-            "Cajun and Creole"
+            "Cajun",
+            "Creole"
           ]
         },
         "note": "The far end of the same dial as espagnole, forty minutes further along. At this colour the flour has almost stopped thickening and is there for flavour, which is why a gumbo needs a cupful where a béchamel needs a spoon. Butter would burn long before; oil is not a shortcut but the condition of getting there."
@@ -7122,7 +8926,7 @@ export const CANON_FAMILIES: Canon[] = [
           "thicken": [
             "a liaison",
             "egg yolk beaten with lemon juice",
-            "no fat and no flour at all"
+            "no flour anywhere"
           ],
           "liquid": [
             "a broth",
@@ -7136,16 +8940,17 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "break": [
             "curdles if it boils after the yolks",
-            "the acid makes it curdle sooner than allemande would",
-            "temper it or lose it"
+            "no starch between the yolks",
+            "so it curdles at a lower heat than allemande"
           ],
           "region": [
             "Eastern Mediterranean",
-            "Greece and Turkey",
-            "and the Sephardi kitchen"
+            "Greece",
+            "Turkey",
+            "the Sephardi kitchen"
           ]
         },
-        "note": "The same move as allemande with the roux deleted — egg yolk alone carrying a broth — and older than the French sauce by centuries. Turkish calls it terbiye and the Sephardi kitchen agristada; before lemons reached the Mediterranean the sourness came from verjuice or bitter orange."
+        "note": "The same move as allemande with the roux deleted — egg yolk alone carrying a broth, and no fat in it but the yolk's own — and older than the French sauce by centuries. Deleting the roux is what costs it heat: swollen starch granules get between the yolk proteins and slow them finding each other, so allemande will take a temperature this will not. Turkish calls it terbiye and the Sephardi kitchen agristada; before lemons reached the Mediterranean the sourness came from verjuice or bitter orange."
       },
       {
         "name": "Ankake",
@@ -7162,19 +8967,19 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "add": [
             "soy sauce",
-            "mirin",
-            "grated ginger at the end"
+            "mirin for the sweetness",
+            "ginger grated in at the end"
           ],
           "break": [
             "safe through one boil",
             "slackens again if it is held hot",
-            "clouds and slumps as it cools"
+            "potato starch loses its gloss as it cools"
           ],
           "region": [
             "Japan"
           ]
         },
-        "note": "Starch with no fat to carry it. A roux uses butter to keep the flour grains apart so they swell one at a time instead of lumping; cold water does the same job for nothing. What you lose is the flavour of cooked flour — which is exactly what this sauce is trying not to have."
+        "note": "Starch with no fat to carry it. A roux uses butter to keep the flour grains apart so they swell one at a time instead of lumping; cold water does the same job for nothing. What you lose is the flavour of cooked flour — which is exactly what this sauce is trying not to have. The two starches part company as the sauce cools: potato starch dulls and slumps, while kudzu sets, which is why the same powder makes kuzumochi and goma-dofu."
       },
       {
         "name": "Pipián verde",
@@ -7201,7 +9006,8 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "region": [
             "Mexico",
-            "Puebla and Oaxaca"
+            "Puebla",
+            "Oaxaca"
           ]
         },
         "note": "Thickened by the fat and protein of the seed itself rather than by starch or egg, and on the table long before anyone in France cooked flour in butter. The word comes from Nahuatl. Its sibling with chillies and chocolate is a mole; the thickening decision is the same one."
@@ -7210,7 +9016,7 @@ export const CANON_FAMILIES: Canon[] = [
     "notes": [
       {
         "title": "On the count of five",
-        "body": "Carême named four: béchamel, velouté, espagnole and allemande. Escoffier kept the first three, demoted allemande to a velouté derivative because it is one, and put hollandaise and tomate in the empty slots. So the number is an editorial decision about a French kitchen at a particular date, not a fact about sauces — which is why avgolemono and pipián sit at the top of this page rather than under anything."
+        "body": "Carême named four in 1833: béchamel, velouté, espagnole and allemande. Escoffier kept the first three, demoted allemande to a velouté derivative because it is one, promoted tomate, and added hollandaise — four became five, and the fifth slot is one he made. Le Guide Culinaire did the demoting in 1903; hollandaise takes its place among the basic sauces in the English edition of 1907, which is where the modern five come from. So the number is an editorial decision about a French kitchen at a particular date, not a fact about sauces — which is why avgolemono and pipián sit at the top of this page rather than under anything."
       },
       {
         "title": "On how far you cook the flour",
@@ -7218,7 +9024,11 @@ export const CANON_FAMILIES: Canon[] = [
       },
       {
         "title": "On the two ways to hold a liquid",
-        "body": "Starch swells and gets in the way — grains absorb water and crowd the space, and once they have done it they are stable to a boil. Protein does it by surrounding: egg yolk either coats droplets of fat so they cannot coalesce (hollandaise) or sets loosely into a mesh (avgolemono). Protein gives a finer sauce and takes it away above about 70°C. Read the 'how it breaks' column and the whole family sorts itself into things you can boil and things you cannot."
+        "body": "Starch swells and gets in the way — grains absorb water and crowd the space, and once they have done it they are stable to a boil. Protein does it by surrounding: egg yolk either coats droplets of fat so they cannot coalesce (hollandaise) or sets loosely into a mesh (avgolemono). Protein gives a finer sauce and takes it away above about 70°C. Allemande has both, and the starch is the reason it takes more heat than avgolemono: swollen granules sit between the yolk proteins and slow them finding each other. Read the 'how it breaks' column and the whole family sorts itself into things you can boil and things you cannot."
+      },
+      {
+        "title": "On sauces named for the wrong place",
+        "body": "Four of the French names point abroad and none of them means it. Allemande is the pale one, and the same sauce answers to parisienne. Espagnole carries a legend about Spanish cooks at Louis XIII's wedding that nobody has managed to source. Hollandaise was renamed Isigny for a while, after the Normandy butter that is actually in it. Béarnaise honours a king who came from Béarn, not a kitchen that did. The region column says France for all four, because France is where they were made — the stories live in the notes, where their standing can be stated."
       },
       {
         "title": "On depth",
@@ -7281,6 +9091,10 @@ export const CANON_FAMILIES: Canon[] = [
       {
         "label": "Le Guide Culinaire (Escoffier)",
         "url": "https://en.wikipedia.org/wiki/Le_Guide_Culinaire"
+      },
+      {
+        "label": "Kudzu (kuzu starch)",
+        "url": "https://en.wikipedia.org/wiki/Kudzu"
       }
     ],
     "yours": [
@@ -7290,9 +9104,11 @@ export const CANON_FAMILIES: Canon[] = [
       "white sauce",
       "cheese sauce",
       "mornay",
+      "soubise",
       "veloute",
       "velouté",
       "suprême",
+      "allemande",
       "espagnole",
       "demi-glace",
       "bordelaise",
@@ -7300,7 +9116,11 @@ export const CANON_FAMILIES: Canon[] = [
       "bearnaise",
       "béarnaise",
       "roux",
+      "sauce tomate",
       "avgolemono",
+      "terbiye",
+      "agristada",
+      "ankake",
       "gumbo",
       "pipián"
     ]
@@ -11526,6 +13346,656 @@ export const CANON_FAMILIES: Canon[] = [
       "vodka sauce",
       "puttanesca",
       "sugo"
+    ]
+  },
+  {
+    "slug": "vinaigrette",
+    "name": "Vinaigrette",
+    "standfirst": "Oil and something sour, beaten together and poured over something else. Four decisions separate everything here: which fat, which acid, whether anything is asked to hold the two together, and what else goes in the bowl. Dijon does the holding in Paris, bread soaked in vinegar does it in Turin and again in the Canaries, crushed sesame does it in Beirut and again in Tokyo, a spoonful of hot water does it in Sicily — and in Hanoi and Isan nobody puts fat in at all.",
+    "root": "Fat · acid · salt — and a decision about whether the two are made to stay together",
+    "facets": [
+      {
+        "id": "fat",
+        "label": "The fat"
+      },
+      {
+        "id": "acid",
+        "label": "The acid"
+      },
+      {
+        "id": "bind",
+        "label": "Held together by"
+      },
+      {
+        "id": "aroma",
+        "label": "Aromatics"
+      },
+      {
+        "id": "region",
+        "label": "Region"
+      }
+    ],
+    "nestings": [
+      {
+        "label": "By what holds it together",
+        "by": [
+          "bind",
+          "fat",
+          "acid"
+        ]
+      },
+      {
+        "label": "By the fat",
+        "by": [
+          "fat",
+          "acid",
+          "aroma"
+        ]
+      },
+      {
+        "label": "By region",
+        "by": [
+          "region",
+          "acid"
+        ]
+      }
+    ],
+    "dishes": [
+      {
+        "name": "Vinaigrette",
+        "facets": {
+          "region": [
+            "France"
+          ],
+          "fat": [
+            "olive oil",
+            "three parts to one of vinegar",
+            "neutral oil where the leaves are delicate"
+          ],
+          "acid": [
+            "wine vinegar",
+            "red or white",
+            "sherry vinegar in the south"
+          ],
+          "bind": [
+            "mustard",
+            "Dijon",
+            "whisked until it turns pale and thick",
+            "holds about an hour"
+          ],
+          "aroma": [
+            "shallot",
+            "chopped fine and left to soften in the vinegar",
+            "black pepper"
+          ]
+        },
+        "note": "The mustard is the whole trick. A teaspoon of it puts enough emulsifier in the bowl to hold three times its volume of oil against a quarter as much vinegar — without it you are shaking a jar and racing to the table. Everything else is negotiable: the oil, the vinegar, the shallot. Take the mustard out and the dressing stops being French."
+      },
+      {
+        "name": "Ravigote",
+        "parent": "Vinaigrette",
+        "facets": {
+          "region": [
+            "France"
+          ],
+          "fat": [
+            "olive oil",
+            "three parts to one of vinegar"
+          ],
+          "acid": [
+            "wine vinegar",
+            "white"
+          ],
+          "bind": [
+            "mustard",
+            "Dijon",
+            "whisked until it turns pale and thick"
+          ],
+          "aroma": [
+            "shallot",
+            "capers",
+            "parsley",
+            "chervil",
+            "tarragon"
+          ]
+        },
+        "note": "Vinaigrette plus capers and a fistful of soft herbs — it descends from the dressing rather than from the base, which is why it sits a level down. Spooned over leeks or a poached egg or calf's head. Not to be confused with the hot ravigote of the old repertoire which is a velouté and has nothing to do with this."
+      },
+      {
+        "name": "Salmoriglio",
+        "facets": {
+          "region": [
+            "Sicily",
+            "Calabria"
+          ],
+          "fat": [
+            "olive oil",
+            "green and raw",
+            "a glassful to one lemon"
+          ],
+          "acid": [
+            "lemon juice",
+            "squeezed to order"
+          ],
+          "bind": [
+            "hot water",
+            "a spoonful beaten in while everything is still warm",
+            "goes cloudy then slackens as it cools"
+          ],
+          "aroma": [
+            "oregano",
+            "dried and rubbed between the palms",
+            "garlic",
+            "parsley in Calabria"
+          ]
+        },
+        "note": "The name comes from salamoia — brine — and in Trapani the water beaten into it was once sea water off the rocks. Hot water is a feeble emulsifier and that is the point: salmoriglio is meant to stay loose, poured over swordfish the moment it leaves the grill and never asked to hold."
+      },
+      {
+        "name": "Sauce vierge",
+        "facets": {
+          "region": [
+            "Provence",
+            "France"
+          ],
+          "fat": [
+            "olive oil",
+            "green and raw",
+            "a lot of it",
+            "warmed to blood heat"
+          ],
+          "acid": [
+            "lemon juice"
+          ],
+          "bind": [
+            "nothing",
+            "left to separate on purpose",
+            "spooned so both layers land on the plate"
+          ],
+          "aroma": [
+            "tomato",
+            "peeled and diced raw",
+            "basil",
+            "coriander seed cracked not ground"
+          ]
+        },
+        "note": "Michel Guérard's invention and barely fifty years old — it reads as though it had always been there. Warm it past blood heat and the tomato weeps and the basil blackens; this is a dressing that has been shown the pan rather than cooked in it."
+      },
+      {
+        "name": "Salsa verde",
+        "facets": {
+          "region": [
+            "Piedmont",
+            "Lombardy"
+          ],
+          "fat": [
+            "olive oil",
+            "green and raw",
+            "a lot of it"
+          ],
+          "acid": [
+            "wine vinegar",
+            "red",
+            "the bread drinks most of it"
+          ],
+          "bind": [
+            "bread",
+            "crustless crumb soaked in the vinegar",
+            "squeezed out then pounded in"
+          ],
+          "aroma": [
+            "parsley",
+            "by the bunch",
+            "capers",
+            "anchovy",
+            "garlic"
+          ]
+        },
+        "note": "Bagnet verd in Piedmont where a hard-boiled yolk usually goes in as well. The bread does two jobs — it holds the oil and it holds the sauce still on a slice of boiled beef — and it is why this lands on the plate as a relish rather than a dressing."
+      },
+      {
+        "name": "Chimichurri",
+        "facets": {
+          "region": [
+            "Argentina",
+            "Uruguay"
+          ],
+          "fat": [
+            "olive oil",
+            "sunflower oil in as many kitchens"
+          ],
+          "acid": [
+            "wine vinegar",
+            "red",
+            "enough that it stings"
+          ],
+          "bind": [
+            "nothing",
+            "chopped with a knife rather than blended",
+            "shaken in the jar",
+            "left a day so the herbs bleed"
+          ],
+          "aroma": [
+            "parsley",
+            "dried oregano",
+            "garlic",
+            "ají molido"
+          ]
+        },
+        "note": "The dried oregano is what separates it from every other green herb sauce. Chimichurri is not a fresh sauce but a jar that improves for a week. Blend it and you get a smooth green emulsion tasting of nothing in particular; the knife leaves the parsley in pieces that stay parsley."
+      },
+      {
+        "name": "Mojo picón",
+        "facets": {
+          "region": [
+            "Canary Islands"
+          ],
+          "fat": [
+            "olive oil",
+            "poured into the mortar last"
+          ],
+          "acid": [
+            "wine vinegar",
+            "white",
+            "let down with water if it thickens too far"
+          ],
+          "bind": [
+            "bread",
+            "crustless crumb soaked in the vinegar",
+            "garlic worked to a cream first"
+          ],
+          "aroma": [
+            "garlic",
+            "cumin",
+            "pimienta picona",
+            "pimentón"
+          ]
+        },
+        "note": "The same solution as salsa verde reached at the other end of the Mediterranean with no traffic between them: bread soaked in the vinegar and pounded into the oil. Swap the dried red pepper for coriander leaf and the same mortar gives you mojo verde."
+      },
+      {
+        "name": "Chermoula",
+        "facets": {
+          "region": [
+            "Morocco",
+            "Algeria"
+          ],
+          "fat": [
+            "olive oil",
+            "argan oil in the Souss"
+          ],
+          "acid": [
+            "lemon juice",
+            "preserved lemon in some houses",
+            "a splash of vinegar"
+          ],
+          "bind": [
+            "nothing",
+            "stirred rather than whisked",
+            "the ground spice gives it cling"
+          ],
+          "aroma": [
+            "coriander leaf",
+            "flat parsley",
+            "garlic",
+            "cumin",
+            "sweet paprika"
+          ]
+        },
+        "note": "A marinade before it is a sauce: fish sits packed in it for an hour before it goes near charcoal and what is left in the dish is spooned back over at the table. Cumin and paprika do the work an emulsifier would — ground spice held in suspension makes a sauce that clings without ever being bound."
+      },
+      {
+        "name": "Nar ekşili sos",
+        "facets": {
+          "region": [
+            "Turkey",
+            "Gaziantep"
+          ],
+          "fat": [
+            "olive oil"
+          ],
+          "acid": [
+            "pomegranate molasses",
+            "juice boiled down to a syrup",
+            "sweet as well as sour"
+          ],
+          "bind": [
+            "nothing",
+            "the syrup carries its own body",
+            "shaken to order"
+          ],
+          "aroma": [
+            "sumac",
+            "dried mint",
+            "pul biber"
+          ]
+        },
+        "note": "The only acid here that arrives already thickened. Boiling pomegranate juice to a syrup concentrates the sugar along with the sourness, so the dressing is viscous and sweet before anything else goes in — which is why it wants sumac, a sourness with no sugar attached, to stop it reading as a glaze. Poured over gavurdağı and kısır."
+      },
+      {
+        "name": "Tarator",
+        "facets": {
+          "region": [
+            "Levant",
+            "Lebanon",
+            "Palestine"
+          ],
+          "fat": [
+            "sesame paste",
+            "tahini",
+            "milled from raw hulled seed"
+          ],
+          "acid": [
+            "lemon juice",
+            "a great deal of it",
+            "in before the water"
+          ],
+          "bind": [
+            "the paste itself",
+            "seizes solid then loosens with cold water",
+            "stays bound for days"
+          ],
+          "aroma": [
+            "garlic",
+            "crushed to a paste with salt",
+            "cumin in some houses",
+            "parsley"
+          ]
+        },
+        "note": "The seizing frightens people into throwing it away. Tahini and lemon go stiff and pale and grainy on contact — that is the emulsion forming, not breaking — and cold water a spoonful at a time takes it back to a pourable cream. Also written taratour; the Bulgarian tarator is a cold cucumber soup and unrelated."
+      },
+      {
+        "name": "Goma dare",
+        "facets": {
+          "region": [
+            "Japan"
+          ],
+          "fat": [
+            "sesame paste",
+            "neri goma",
+            "milled from toasted seed"
+          ],
+          "acid": [
+            "rice vinegar",
+            "mild",
+            "a small share of the bowl"
+          ],
+          "bind": [
+            "the paste itself",
+            "let down with dashi",
+            "stays bound"
+          ],
+          "aroma": [
+            "soy sauce",
+            "mirin",
+            "sugar",
+            "grated ginger"
+          ]
+        },
+        "note": "Tarator and goma dare are the same discovery made twice. Crushed sesame is about half oil by weight and the rest is protein and fibre that will hold that oil in water. What differs is the roast: Levantine tahini is milled from raw seed and tastes green and faintly bitter, neri goma from seed toasted nearly to burning and tastes of the toast."
+      },
+      {
+        "name": "Ponzu",
+        "facets": {
+          "region": [
+            "Japan"
+          ],
+          "fat": [
+            "no fat at all"
+          ],
+          "acid": [
+            "citrus juice",
+            "yuzu",
+            "sudachi",
+            "kabosu",
+            "rice vinegar to steady it"
+          ],
+          "bind": [
+            "nothing",
+            "meant to be thin",
+            "clear enough to see through"
+          ],
+          "aroma": [
+            "kombu",
+            "katsuobushi",
+            "steeped cold overnight",
+            "strained"
+          ]
+        },
+        "note": "Pon is the Dutch pons — punch — left behind by the only Europeans Japan traded with for two hundred years; the su on the end is vinegar. The savour comes from kombu and dried bonito rather than from fat, which is how a sauce with no oil in it still coats a slice of raw fish."
+      },
+      {
+        "name": "Ponzu shoyu",
+        "parent": "Ponzu",
+        "facets": {
+          "region": [
+            "Japan"
+          ],
+          "fat": [
+            "no fat at all"
+          ],
+          "acid": [
+            "citrus juice",
+            "yuzu",
+            "rice vinegar to steady it"
+          ],
+          "bind": [
+            "nothing",
+            "meant to be thin"
+          ],
+          "aroma": [
+            "kombu",
+            "katsuobushi",
+            "soy sauce",
+            "mirin"
+          ]
+        },
+        "note": "Ponzu plus soy sauce — and what nearly every bottle labelled ponzu actually contains. It sits a level down because it genuinely is the other one plus something: the dark colour and most of the salt arrive with the soy."
+      },
+      {
+        "name": "Nước chấm",
+        "facets": {
+          "region": [
+            "Vietnam"
+          ],
+          "fat": [
+            "no fat at all"
+          ],
+          "acid": [
+            "lime juice",
+            "rice vinegar in the north"
+          ],
+          "bind": [
+            "nothing",
+            "water lets it down almost to a drink",
+            "sugar gives it what body it has"
+          ],
+          "aroma": [
+            "fish sauce",
+            "garlic",
+            "bird chilli",
+            "palm sugar"
+          ]
+        },
+        "note": "Water is an ingredient here rather than an accident. Fish sauce and lime go in at full strength and are then diluted back to something you could swallow by the glass, because the sauce is poured over a bowl of noodles rather than tossed through leaves. The garlic is chopped rather than crushed so that it floats."
+      },
+      {
+        "name": "Nam jim jaew",
+        "facets": {
+          "region": [
+            "Isan",
+            "Thailand",
+            "Laos"
+          ],
+          "fat": [
+            "no fat at all"
+          ],
+          "acid": [
+            "lime juice",
+            "tamarind in some houses"
+          ],
+          "bind": [
+            "toasted rice powder",
+            "khao khua",
+            "grit in suspension rather than an emulsion"
+          ],
+          "aroma": [
+            "fish sauce",
+            "dried chilli flakes",
+            "palm sugar",
+            "spring onion",
+            "coriander"
+          ]
+        },
+        "note": "Sticky rice dry-toasted to dark brown and ground coarse. It thickens by absorption rather than emulsion and it is the only body the sauce has, which is why jaew is gritty on the tongue in a way nước chấm never is. Made the same day it is eaten — the powder goes soft and stale overnight."
+      },
+      {
+        "name": "Yangnyeomjang",
+        "facets": {
+          "region": [
+            "Korea"
+          ],
+          "fat": [
+            "sesame oil",
+            "toasted",
+            "a spoonful rather than a cupful"
+          ],
+          "acid": [
+            "rice vinegar",
+            "a smaller share than the soy"
+          ],
+          "bind": [
+            "nothing",
+            "stirred again at the table",
+            "the seed settles on the bottom"
+          ],
+          "aroma": [
+            "soy sauce",
+            "gochugaru",
+            "garlic",
+            "spring onion",
+            "toasted sesame seed"
+          ]
+        },
+        "note": "The one place where the fat is the seasoning rather than the body. Toasted sesame oil is too loud to pour by the cupful, so the ratio inverts — soy sauce is the bulk, vinegar the acid, and the oil goes in by the spoon for its smell. Spooned over cold tofu or steamed greens and set beside dumplings."
+      }
+    ],
+    "notes": [
+      {
+        "title": "On what holds it together",
+        "body": "Oil and vinegar separate because that is what they do; anything that keeps them mixed is a third substance with a foot in both phases. Mustard brings mucilage off the seed coat. Crushed sesame brings protein and lecithin, which is why tahini and neri goma emulsify without help from anywhere else. Bread and toasted rice bring starch that swells and traps oil in a mesh rather than truly emulsifying it. Hot water in salmoriglio brings almost nothing and buys ten minutes. And half this family declines to bother: sauce vierge and chimichurri and chermoula are meant to be seen separating in the spoon and are stirred again at the table."
+      },
+      {
+        "title": "On the fat that is not there",
+        "body": "Ponzu, nước chấm and nam jim jaew have no oil in them and are still doing a vinaigrette's job. Fat in a dressing carries aroma, coats what it touches, and blunts the acid so it does not strip the tongue. In the fish sauce sauces the blunting is done by sugar and by water — nước chấm is let down almost to a drink — and the carrying is done by glutamate, which is also why ponzu steeps kombu and bonito in the citrus for a day before anyone tastes it. Yangnyeomjang splits the difference: sesame oil by the spoonful, in for smell rather than for body."
+      },
+      {
+        "title": "On depth",
+        "body": "Only ravigote and ponzu shoyu sit under anything, because only they are genuinely another sauce on this page plus something — ravigote is vinaigrette with capers and soft herbs, ponzu shoyu is ponzu with soy sauce in it. Everything else is one decision away from oil and acid and belongs at the same depth. Tarator and goma dare both bind with crushed sesame and are not related. Salsa verde and mojo picón both bind with bread soaked in vinegar and are not related either. Two kitchens with no knowledge of each other arriving at the same answer is the ordinary case in this family rather than the interesting exception."
+      },
+      {
+        "title": "On the ones next door",
+        "body": "Keep whisking oil into egg yolk until there is no water phase left to speak of and you have left this family for mayonnaise — a sauce you spread rather than pour. Pound the herbs to a paste with cheese and nuts and you are in pesto. Gremolata is not here at all: lemon zest, parsley and garlic chopped together have no fat and no liquid acid, so nothing is dressed and nothing is emulsified — a dry garnish that happens to share three ingredients with half this page. Leche de tigre looks like a fat-free vinaigrette and is really a cure, since its job is to firm the fish rather than to season it."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Vinaigrette (Wikipedia)",
+        "url": "https://en.wikipedia.org/wiki/Vinaigrette"
+      },
+      {
+        "label": "Sauce ravigote",
+        "url": "https://en.wikipedia.org/wiki/Ravigote"
+      },
+      {
+        "label": "Salmoriglio",
+        "url": "https://en.wikipedia.org/wiki/Salmoriglio"
+      },
+      {
+        "label": "Salmoriglio: history and recipe (Forager Chef)",
+        "url": "https://foragerchef.com/bergamot-salmoriglio-sauce/"
+      },
+      {
+        "label": "Sauce vierge",
+        "url": "https://en.wikipedia.org/wiki/Sauce_vierge"
+      },
+      {
+        "label": "Salsa verde",
+        "url": "https://en.wikipedia.org/wiki/Salsa_verde"
+      },
+      {
+        "label": "Chimichurri",
+        "url": "https://en.wikipedia.org/wiki/Chimichurri"
+      },
+      {
+        "label": "Mojo (sauce)",
+        "url": "https://en.wikipedia.org/wiki/Mojo_(sauce)"
+      },
+      {
+        "label": "Los mojos canarios (Cultura Tradicional de Gran Canaria)",
+        "url": "https://culturatradicionalgc.org/mojos/"
+      },
+      {
+        "label": "Chermoula",
+        "url": "https://en.wikipedia.org/wiki/Chermoula"
+      },
+      {
+        "label": "Nar ekşisi as a dressing (Exploring the Turkish Kitchen)",
+        "url": "https://exploringtheturkishkitchen.com/index.php/turkish-ingredients-produce/117-nar-eksisi-sos-pomegranate-molasses"
+      },
+      {
+        "label": "Tahini",
+        "url": "https://en.wikipedia.org/wiki/Tahini"
+      },
+      {
+        "label": "Goma-ae and sesame dressing",
+        "url": "https://en.wikipedia.org/wiki/Goma-ae"
+      },
+      {
+        "label": "Ponzu",
+        "url": "https://en.wikipedia.org/wiki/Ponzu"
+      },
+      {
+        "label": "Eat This Word: Ponzu (James Beard Foundation)",
+        "url": "https://www.jamesbeard.org/stories/eat-this-word-ponzu"
+      },
+      {
+        "label": "Nước chấm",
+        "url": "https://en.wikipedia.org/wiki/N%C6%B0%E1%BB%9Bc_ch%E1%BA%A5m"
+      },
+      {
+        "label": "Nam chim",
+        "url": "https://en.wikipedia.org/wiki/Nam_chim"
+      },
+      {
+        "label": "Yangnyeomjang (Tasting Table)",
+        "url": "https://www.tastingtable.com/1403438/yangnyeomjang-korean-seasoning-sauce-explained/"
+      },
+      {
+        "label": "Emulsion",
+        "url": "https://en.wikipedia.org/wiki/Emulsion"
+      }
+    ],
+    "yours": [
+      "vinaigrette",
+      "dressing",
+      "salad dressing",
+      "ravigote",
+      "salmoriglio",
+      "sauce vierge",
+      "salsa verde",
+      "chimichurri",
+      "mojo",
+      "chermoula",
+      "tahini sauce",
+      "tahini dressing",
+      "tarator",
+      "goma",
+      "sesame dressing",
+      "ponzu",
+      "nuoc cham",
+      "nước chấm",
+      "nam jim"
     ]
   },
   {
