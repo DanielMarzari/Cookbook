@@ -1,8 +1,8 @@
 {
  "slug": "fresh-cheese",
  "name": "Fresh cheese",
- "standfirst": "Every one of these is milk that has been made to quit, and eaten before it has time to ripen. What separates them is what did the quitting — an acid, an enzyme, or heat applied to the whey another cheese threw away — and then four decisions about the curd: pressed or not, salted or not, stretched or not, and whether any of it will ever melt.",
- "root": "Milk · brought to the point where it curdles · the curd lifted out of the whey",
+ "standfirst": "Every one of these is milk that has been made to quit, and nearly all of them are eaten within the week — feta, which spends months in brine, is the one walking off the fresh shelf while you watch. What separates them is what did the quitting — an acid, an enzyme, or heat applied to the whey another cheese threw away — and then four decisions about the curd: pressed or not, salted or not, stretched or not, and whether any of it will ever melt.",
+ "root": "Milk — or the whey it left behind · brought to the point where it curdles · the curd lifted out",
  "facets": [
   {
    "id": "set",
@@ -72,12 +72,10 @@
      "none at all"
     ],
     "heat": [
-     "holds its shape",
-     "browns in the pan",
-     "goes springy in a gravy"
+     "holds its shape"
     ]
    },
-   "note": "Acid dropped into milk at a boil does two things at once — denatures the whey protein and strips the calcium out of the curd. Nothing is left that could ever flow, which is why paneer can be fried and simmered and still be cubes."
+   "note": "Acid dropped into milk at a boil does two things at once — denatures the whey protein and strips the calcium out of the curd. Nothing is left that could ever flow, which is why paneer browns in the pan, goes springy in a gravy, and is still cubes at the end of both."
   },
   {
    "name": "Chhena",
@@ -100,12 +98,10 @@
      "none at all"
     ],
     "heat": [
-     "holds its shape",
-     "poached in sugar syrup",
-     "cooks down into a fudge"
+     "holds its shape"
     ]
    },
-   "note": "Paneer's twin stopped one step earlier. Nobody presses it and the milk never boils hard with the acid in it — so the curd stays soft enough to knead into a paste. The north gets cubes for gravy; Bengal gets rasgulla and sandesh."
+   "note": "Paneer's twin stopped one step earlier. Nobody presses it and the milk never boils hard with the acid in it — so the curd stays soft enough to knead into a paste. The north gets cubes for gravy; Bengal poaches it in sugar syrup for rasgulla and cooks it down into a fudge for sandesh."
   },
   {
    "name": "Ricotta",
@@ -127,12 +123,10 @@
      "barely any"
     ],
     "heat": [
-     "holds its shape",
-     "sets firm when baked with egg",
-     "grains rather than runs"
+     "holds its shape"
     ]
    },
-   "note": "Not made from milk at all. Ricotta means recooked: the albumin that rennet leaves behind in the whey comes back at around 85°C as a second cheese from the same pot."
+   "note": "Not made from milk at all. Ricotta means recooked: the albumin that rennet leaves behind in the whey comes back at around 85°C as a second cheese from the same pot. Under heat it grains rather than runs, and baked with egg it sets firm enough to slice."
   },
   {
    "name": "Mizithra",
@@ -152,16 +146,13 @@
      "hung up to firm"
     ],
     "salt": [
-     "barely any",
-     "salted hard only if it is to be dried"
+     "barely any"
     ],
     "heat": [
-     "holds its shape",
-     "grated over hot pasta",
-     "browns in butter"
+     "holds its shape"
     ]
    },
-   "note": "Ricotta's sibling rather than its variation — the same whey trick reached independently, with milk added back. Left alone it is eaten within the week; salted and dried it turns into a grating cheese and stops being fresh."
+   "note": "Ricotta's sibling rather than its variation — the same whey trick reached independently, with milk added back. Warmed, it stays in grains and browns at the edges rather than running. Left alone it is eaten within the week; salted hard and dried it becomes a grating cheese and leaves this family altogether, which is why the salt column here describes only the fresh one."
   },
   {
    "name": "Queso fresco",
@@ -183,12 +174,10 @@
      "salted into the curd"
     ],
     "heat": [
-     "holds its shape",
-     "softens without running",
-     "crumbles over anything hot"
+     "holds its shape"
     ]
    },
-   "note": "The acid-set white round sold beside it is queso blanco. Set the same milk with rennet instead and you get a curd that takes salt right through and softens under heat rather than drying out."
+   "note": "The acid-set white round sold beside it is queso blanco. Set the same milk with rennet instead and you get a curd that takes salt right through and softens under heat rather than drying out — it never runs, and it crumbles over anything hot."
   },
   {
    "name": "Queso Oaxaca",
@@ -211,12 +200,10 @@
      "the stretching water salted too"
     ],
     "heat": [
-     "melts and pulls",
-     "strings when torn",
-     "the inside of a quesadilla"
+     "melts and pulls"
     ]
    },
-   "note": "Mozzarella's method arrived with Spanish dairying and was finished differently: a single ribbon coiled into a ball, so the cheese is torn off in threads rather than sliced."
+   "note": "The published account is an accident rather than a transmission: a curd left too long at Reyes Etla in 1885, rescued with hot water, and found to stretch. Whether the stretching was learned from elsewhere or arrived at cold is not settled, and the finish is Oaxacan either way — one long ribbon wound into a ball, so the cheese strings when it is torn rather than sliced. It is what melts inside a quesadilla."
   },
   {
    "name": "Mozzarella",
@@ -239,12 +226,10 @@
      "then kept in its own whey"
     ],
     "heat": [
-     "melts and pulls",
-     "weeps water onto a pizza",
-     "browns in blisters"
+     "melts and pulls"
     ]
    },
-   "note": "Mozzare means to cut off — the ball is torn from the hot rope by hand. It will only stretch inside a narrow window of acidity: a shade too sweet and it tears, a shade too sour and it dissolves into the water."
+   "note": "Mozzare means to cut off — the ball is torn from the hot rope by hand. It will only stretch inside a narrow window of acidity: a shade too sweet and it tears, a shade too sour and it dissolves into the water. On a pizza it weeps its own water and browns in blisters."
   },
   {
    "name": "Burrata",
@@ -269,12 +254,10 @@
      "salt in the cream as well"
     ],
     "heat": [
-     "melts and pulls",
-     "meant to be eaten cold",
-     "the filling runs the moment it is cut"
+     "melts and pulls"
     ]
    },
-   "note": "Genuinely mozzarella plus something, which is why it sits underneath: a mozzarella skin tied around the offcuts of the day's stretching, soaked in cream. Invented in Andria to use up scraps."
+   "note": "Genuinely mozzarella plus something, which is why it sits underneath: a mozzarella skin tied around the offcuts of the day's stretching, soaked in cream. Invented in Andria to use up scraps. The skin is the same stretched curd and melts like one, but burrata is meant cold — the filling runs the moment it is cut."
   },
   {
    "name": "Halloumi",
@@ -298,12 +281,10 @@
      "mint in the brine"
     ],
     "heat": [
-     "holds its shape",
-     "grills to a brown crust",
-     "squeaks against the teeth"
+     "holds its shape"
     ]
    },
-   "note": "Leaving out the starter keeps the curd sweet and full of calcium; cooking it in whey sets the protein hard. Two moves aimed at one thing — a cheese you can lay directly on a fire."
+   "note": "Leaving out the starter keeps the curd sweet and full of calcium; cooking it in whey sets the protein hard. Two moves aimed at one thing — a cheese you can lay directly on a fire, where it grills to a brown crust and squeaks against the teeth."
   },
   {
    "name": "Feta",
@@ -327,12 +308,10 @@
      "then months in the barrel"
     ],
     "heat": [
-     "holds its shape",
-     "softens and browns under a grill",
-     "never runs"
+     "holds its shape"
     ]
    },
-   "note": "The one here that keeps going after it is made. Two months in brine is ripening rather than draining — feta walks off the fresh shelf while you watch it, and the salt is what carries it."
+   "note": "The one here that keeps going after it is made. Two months in brine is ripening rather than draining — feta walks off the fresh shelf while you watch it, and the salt is what carries it. Under a grill it softens and browns at the edges and never runs."
   },
   {
    "name": "Labneh",
@@ -355,18 +334,16 @@
      "before it goes into the bag"
     ],
     "heat": [
-     "not cooked at all",
-     "eaten cold under olive oil",
-     "splits if you boil it"
+     "not cooked at all"
     ]
    },
-   "note": "The gentlest coagulation on the table — bacteria walking milk down to pH 4.6 over eight hours instead of acid dropped in at a boil. What drains away is whey; what stays is yogurt with the water gone."
+   "note": "The gentlest coagulation on the table — bacteria walking milk down to pH 4.6 over eight hours instead of acid dropped in at a boil. What drains away is whey; what stays is yogurt with the water gone. It is eaten cold under olive oil and splits if you boil it."
   },
   {
    "name": "Cottage cheese",
    "facets": {
     "region": [
-     "England · United States"
+     "United States"
     ],
     "set": [
      "its own souring",
@@ -382,12 +359,10 @@
      "salted into the dressing"
     ],
     "heat": [
-     "not cooked at all",
-     "eaten cold from the tub",
-     "goes grainy if it is heated"
+     "not cooked at all"
     ]
    },
-   "note": "The wash is the whole character. Rinsing the cooked curd takes the lactic acid off it and leaves grains that refuse to stick together — then cream is poured back in to hold them, and the salt goes into the cream rather than the curd."
+   "note": "An English farmhouse cheese by descent, but the dressed-curd form and the name both settled in America, which is the country in the column. The wash is the whole character: rinsing the cooked curd takes the lactic acid off it and leaves grains that refuse to stick together — then cream is poured back in to hold them, and the salt goes into the cream rather than the curd. Eaten cold from the tub; it goes grainy if it is heated."
   },
   {
    "name": "Queijo coalho",
@@ -409,12 +384,10 @@
      "salted into the curd"
     ],
     "heat": [
-     "holds its shape",
-     "grilled on a stick over charcoal",
-     "browns without running"
+     "holds its shape"
     ]
    },
-   "note": "Halloumi's problem solved again on another continent by people who had never met it: a rennet curd firm enough to face a fire on a skewer. Sold off a bucket of coals on the beach."
+   "note": "Halloumi's problem solved again on another continent by people who had never met it: a rennet curd firm enough to face a fire on a skewer. Grilled on a stick over charcoal it browns without running. Sold off a bucket of coals on the beach."
   },
   {
    "name": "Leipäjuusto",
@@ -437,12 +410,10 @@
      "barely any"
     ],
     "heat": [
-     "holds its shape",
-     "scorched into leopard spots",
-     "squeaks against the teeth"
+     "holds its shape"
     ]
    },
-   "note": "Bread cheese — pressed round like a loaf and stood by the fire until it blisters. The only one here that is browned before it ever reaches the table, and it is dunked in coffee."
+   "note": "Bread cheese — pressed round like a loaf and stood by the fire until it scorches into leopard spots. The only one here that is browned before it ever reaches the table, it squeaks against the teeth and is dunked in coffee."
   },
   {
    "name": "Wara",
@@ -452,7 +423,7 @@
      "Nigeria and Benin"
     ],
     "set": [
-     "plant sap",
+     "rennet",
      "leaves of the Sodom apple crushed into the pot",
      "milk brought to a simmer"
     ],
@@ -465,12 +436,10 @@
      "none at all"
     ],
     "heat": [
-     "holds its shape",
-     "deep-fried in slabs",
-     "crusts outside and stays soft within"
+     "holds its shape"
     ]
    },
-   "note": "Calotropis procera sap carries proteases that cut casein in the same place rennet does — a rennet with no calf behind it. Fulani women have made this on the move for centuries; it is wagashi in Benin and warankasi in Nigeria."
+   "note": "Calotropis procera sap carries proteases that cut casein in the same place rennet does — a rennet with no calf behind it, which is why it is filed under rennet here rather than off on its own. Deep-fried in slabs it crusts outside and stays soft within. Fulani women have made this on the move for centuries; it is wagashi in Benin and warankasi in Nigeria."
   },
   {
    "name": "Rubing",
@@ -481,7 +450,7 @@
     ],
     "set": [
      "a food acid",
-     "juice pressed from the năiténg vine",
+     "juice pressed from the nǎiténg vine",
      "goat milk at a simmer"
     ],
     "curd": [
@@ -493,26 +462,24 @@
      "none at all"
     ],
     "heat": [
-     "holds its shape",
-     "fried in slabs until gold",
-     "dusted with salt and chilli at the table"
+     "holds its shape"
     ]
    },
-   "note": "China's one dairy corner, made by Bai and Sani households. A climbing vine stands in for the lemon nobody had to import, and the seasoning waits until the slab is out of the pan."
+   "note": "China's one dairy corner, made by Bai and Sani households. A climbing vine stands in for the lemon nobody had to import. Fried in slabs until gold, then dusted with salt and chilli at the table — the seasoning waits until the slab is out of the pan."
   }
  ],
  "notes": [
   {
    "title": "On the three ways to break milk",
-   "body": "Acid does it by neutralising the charge that keeps casein micelles apart — they stop repelling each other and clump. Rennet does it by cutting one specific protein off the outside of the micelle, which has the same effect by a different route. Reheated whey is neither: the curd is already gone, and what sets is the whey protein left behind, which needs heat rather than a coagulant. The Sodom apple sap in wara is rennet by another name — a plant protease cutting casein at the same bond — and the năiténg vine in rubing is an acid nobody had to buy."
+   "body": "Acid does it by neutralising the charge that keeps casein micelles apart — they stop repelling each other and clump. Rennet does it by cutting one specific protein off the outside of the micelle, which has the same effect by a different route. Reheated whey is neither: the curd is already gone, and what sets is the whey protein left behind, which needs heat rather than a coagulant. The Sodom apple sap in wara is rennet by another name — a plant protease cutting casein at the same bond, so wara is filed under rennet rather than under its plant — and the nǎiténg vine in rubing is an acid nobody had to buy. Three routes, and every row here takes one of them."
   },
   {
    "title": "On melting",
-   "body": "Melting is not about acid versus rennet — it is about how much calcium is left holding the protein together. Acid at a boil strips the calcium out completely, so paneer and rubing can never flow. Rennet with no starter leaves too much of it in, so halloumi and queijo coalho grill instead of running. Mozzarella lives in the gap: rennet first, then souring to about pH 5.2, which removes just enough calcium for the network to slide when it is hot and no more. That is the whole reason it is stretched at all."
+   "body": "Melting is not about acid versus rennet — it is about how much calcium is left holding the protein together. Acid at a boil strips the calcium out completely, so paneer and rubing can never flow. Rennet with no starter leaves too much of it in, so halloumi and queijo coalho grill instead of running. Mozzarella lives in the gap: rennet first, then souring to about pH 5.2, which removes just enough calcium for the network to slide when it is hot and no more. That is the whole reason it is stretched at all. The heat column carries only that verdict — melts, holds, or never sees a pan — because what each cheese is then done to belongs in its note rather than in a column that has to fork."
   },
   {
    "title": "On pressing",
-   "body": "Pressing is not about firmness so much as about what the cheese will be asked to do. Everything pressed under a weight is going to meet direct heat — a pan, a grill, a fire, a skewer. Everything left to drain under its own weight is going to be spread or crumbled or sweetened. Paneer and chhena are the same curd and the press is the only fork between them."
+   "body": "Pressing is not about firmness so much as about what the cheese will be asked to do. Everything pressed under a weight is going to meet direct heat — a pan, a grill, a fire, a skewer. Everything left to drain under its own weight is going to be spread or crumbled or sweetened. Paneer and chhena are the same curd, and the press is the fork the diagram draws between them."
   },
   {
    "title": "On depth",

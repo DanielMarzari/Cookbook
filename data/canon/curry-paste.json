@@ -1,0 +1,575 @@
+{
+ "slug": "curry-paste",
+ "name": "Curry paste",
+ "standfirst": "Almost nobody cooks a curry from scratch at the stove. They make the base first — aromatics and spices beaten into a paste, or seeds ground to a powder — and the curry is what happens when that base meets fat and liquid. The bases look wildly unlike each other and are separated by very little: fresh chilli or dried, whether the seeds see a dry pan before the grinder, which aromatics carry the smell, and whether the thing ends up wet or dry.",
+ "root": "Aromatics and spices pounded or ground into a base, before anything else goes in the pan",
+ "facets": [
+  {
+   "id": "form",
+   "label": "Form"
+  },
+  {
+   "id": "chilli",
+   "label": "Chilli"
+  },
+  {
+   "id": "spice",
+   "label": "Dry spice"
+  },
+  {
+   "id": "backbone",
+   "label": "Backbone"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By form",
+   "by": [
+    "form",
+    "spice",
+    "chilli"
+   ]
+  },
+  {
+   "label": "By chilli",
+   "by": [
+    "chilli",
+    "spice",
+    "form"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "form"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Green curry paste",
+   "facets": {
+    "form": [
+     "pounded to a wet paste"
+    ],
+    "chilli": [
+     "fresh chilli",
+     "green bird's eye"
+    ],
+    "spice": [
+     "whole seeds toasted first",
+     "coriander seed",
+     "cumin seed"
+    ],
+    "backbone": [
+     "lemongrass",
+     "galangal",
+     "makrut lime zest",
+     "coriander root",
+     "shrimp paste"
+    ],
+    "region": [
+     "Thailand"
+    ]
+   },
+   "note": "The one Thai paste built on fresh chilli. The colour is the chilli's own and it browns within days, which is why green paste is the one nobody sensible buys in a jar."
+  },
+  {
+   "name": "Red curry paste",
+   "facets": {
+    "form": [
+     "pounded to a wet paste"
+    ],
+    "chilli": [
+     "dried chilli",
+     "soaked soft"
+    ],
+    "spice": [
+     "whole seeds toasted first",
+     "coriander seed",
+     "cumin seed"
+    ],
+    "backbone": [
+     "lemongrass",
+     "galangal",
+     "makrut lime zest",
+     "coriander root",
+     "shrimp paste"
+    ],
+    "region": [
+     "Thailand"
+    ]
+   },
+   "note": "Green paste with the chilli swapped fresh for dried, and nothing else moved. Dried chilli is deeper and less sharp, and it keeps — so this is the paste a household actually has."
+  },
+  {
+   "name": "Panang paste",
+   "parent": "Red curry paste",
+   "facets": {
+    "form": [
+     "pounded to a wet paste"
+    ],
+    "chilli": [
+     "dried chilli",
+     "soaked soft"
+    ],
+    "spice": [
+     "whole seeds toasted first",
+     "coriander seed",
+     "cumin seed"
+    ],
+    "backbone": [
+     "lemongrass",
+     "galangal",
+     "makrut lime zest",
+     "coriander root",
+     "shrimp paste",
+     "roasted peanut"
+    ],
+    "region": [
+     "Thailand"
+    ]
+   },
+   "note": "Red paste with roasted peanuts pounded into it — thicker, milder, and the reason a panang clings to the meat instead of pooling under it. It sits below red because it is genuinely red plus one thing."
+  },
+  {
+   "name": "Massaman paste",
+   "facets": {
+    "form": [
+     "pounded to a wet paste"
+    ],
+    "chilli": [
+     "dried chilli",
+     "soaked soft"
+    ],
+    "spice": [
+     "whole seeds toasted first",
+     "cinnamon",
+     "clove",
+     "green cardamom",
+     "nutmeg"
+    ],
+    "backbone": [
+     "lemongrass",
+     "galangal",
+     "shrimp paste",
+     "shallot",
+     "roasted peanut"
+    ],
+    "region": [
+     "Southern Thailand"
+    ]
+   },
+   "note": "Not red paste plus warm spices. The warm spices came first, with Muslim traders out of Persia and India, and the Thai aromatics were pounded in around them — the lineage runs the other way."
+  },
+  {
+   "name": "Kroeung",
+   "facets": {
+    "form": [
+     "pounded to a wet paste"
+    ],
+    "chilli": [
+     "no chilli"
+    ],
+    "spice": [
+     "no dry spice at all"
+    ],
+    "backbone": [
+     "lemongrass",
+     "galangal",
+     "makrut lime leaf",
+     "fresh turmeric root",
+     "garlic",
+     "shallot"
+    ],
+    "region": [
+     "Cambodia"
+    ]
+   },
+   "note": "The Thai aromatics without the chilli and without the seeds — heat and funk arrive later, as chilli in the pot and prahok at the end. Red kroeung is this plus dried chilli added mostly for colour."
+  },
+  {
+   "name": "Rempah",
+   "facets": {
+    "form": [
+     "pounded to a wet paste",
+     "fried until the oil splits"
+    ],
+    "chilli": [
+     "dried chilli",
+     "soaked soft"
+    ],
+    "spice": [
+     "whole seeds toasted first",
+     "coriander seed",
+     "fennel seed",
+     "cumin seed"
+    ],
+    "backbone": [
+     "lemongrass",
+     "galangal",
+     "shallot",
+     "garlic",
+     "candlenut",
+     "belacan"
+    ],
+    "region": [
+     "Malaysia"
+    ]
+   },
+   "note": "A rempah is not finished in the mortar. Frying it until the oil separates and pools around it — pecah minyak — is the step the whole dish rests on; a rempah that has not split tastes raw no matter how long the curry simmers."
+  },
+  {
+   "name": "Bumbu",
+   "facets": {
+    "form": [
+     "pounded to a wet paste",
+     "fried until the oil splits"
+    ],
+    "chilli": [
+     "fresh chilli",
+     "long red chilli"
+    ],
+    "spice": [
+     "coriander seed ground in raw"
+    ],
+    "backbone": [
+     "lemongrass",
+     "galangal",
+     "shallot",
+     "garlic",
+     "candlenut",
+     "fresh turmeric root",
+     "terasi"
+    ],
+    "region": [
+     "Indonesia"
+    ]
+   },
+   "note": "Its neighbour across the strait, on fresh chilli and fresh turmeric root instead of dried. Bumbu dasar is sold in colours — red, yellow, white — which are the same paste with the chilli or the turmeric left out."
+  },
+  {
+   "name": "Vindaloo masala",
+   "facets": {
+    "form": [
+     "pounded to a wet paste",
+     "let down with palm vinegar"
+    ],
+    "chilli": [
+     "dried chilli",
+     "soaked in the vinegar"
+    ],
+    "spice": [
+     "whole seeds toasted first",
+     "cumin seed",
+     "black peppercorn",
+     "clove",
+     "cinnamon"
+    ],
+    "backbone": [
+     "garlic",
+     "ginger"
+    ],
+    "region": [
+     "Goa"
+    ]
+   },
+   "note": "Portuguese carne de vinha d'alhos — meat in wine and garlic — with the wine become palm vinegar and chilli joining the garlic. The acid is structural, not a seasoning: it is what lets a wet paste keep in a hot climate."
+  },
+  {
+   "name": "Recado rojo",
+   "facets": {
+    "form": [
+     "pounded to a wet paste",
+     "let down with sour orange juice"
+    ],
+    "chilli": [
+     "no chilli"
+    ],
+    "spice": [
+     "whole seeds toasted first",
+     "black peppercorn",
+     "clove",
+     "cumin seed",
+     "Mexican oregano"
+    ],
+    "backbone": [
+     "achiote seed",
+     "garlic charred first"
+    ],
+    "region": [
+     "Yucatán"
+    ]
+   },
+   "note": "Maya achiote with the Spanish spice cabinet ground into it, sold in bricks in the market exactly as curry pastes are sold in Bangkok. Nobody copied anybody: acid plus a pounded base is what you do when there is no refrigeration."
+  },
+  {
+   "name": "Garam masala",
+   "facets": {
+    "form": [
+     "ground to a dry powder"
+    ],
+    "chilli": [
+     "no chilli"
+    ],
+    "spice": [
+     "whole seeds toasted first",
+     "cinnamon",
+     "clove",
+     "black cardamom",
+     "cumin seed"
+    ],
+    "backbone": [
+     "no fresh aromatics"
+    ],
+    "region": [
+     "North India"
+    ]
+   },
+   "note": "The only base here that goes in at the end. It is a finishing perfume, not a foundation — the actual foundation of a north Indian curry is onion and ginger and garlic cooked down in the pan, which never passes through a mortar at all."
+  },
+  {
+   "name": "Sambar podi",
+   "facets": {
+    "form": [
+     "ground to a dry powder"
+    ],
+    "chilli": [
+     "dried chilli",
+     "roasted dry"
+    ],
+    "spice": [
+     "whole seeds toasted first",
+     "coriander seed",
+     "fenugreek seed",
+     "asafoetida"
+    ],
+    "backbone": [
+     "curry leaf",
+     "toor dal roasted in",
+     "chana dal roasted in"
+    ],
+    "region": [
+     "Tamil Nadu"
+    ]
+   },
+   "note": "Lentils roasted and ground in with the spices, so the powder thickens as well as flavours. Nothing else in this family carries its own starch."
+  },
+  {
+   "name": "Roasted curry powder",
+   "facets": {
+    "form": [
+     "ground to a dry powder"
+    ],
+    "chilli": [
+     "no chilli"
+    ],
+    "spice": [
+     "whole seeds toasted first",
+     "toasted until dark brown",
+     "coriander seed",
+     "cumin seed",
+     "fennel seed"
+    ],
+    "backbone": [
+     "curry leaf",
+     "pandan leaf"
+    ],
+    "region": [
+     "Sri Lanka"
+    ]
+   },
+   "note": "Badapu thuna paha. The seeds go far past fragrant, to the colour of dark chocolate, and the curry leaf and pandan go into the pan with them. Heat is a separate powder — chilli is never blended in."
+  },
+  {
+   "name": "Unroasted curry powder",
+   "facets": {
+    "form": [
+     "ground to a dry powder"
+    ],
+    "chilli": [
+     "no chilli"
+    ],
+    "spice": [
+     "whole seeds ground raw",
+     "coriander seed",
+     "cumin seed",
+     "fennel seed"
+    ],
+    "backbone": [
+     "curry leaf",
+     "pandan leaf"
+    ],
+    "region": [
+     "Sri Lanka"
+    ]
+   },
+   "note": "The same spices in the same proportions, never roasted. It goes into white curries — fish and vegetables cooked in coconut milk that should stay pale. One decision on one morning, and the island has two cuisines."
+  },
+  {
+   "name": "Curry powder",
+   "facets": {
+    "form": [
+     "ground to a dry powder"
+    ],
+    "chilli": [
+     "mild dried chilli"
+    ],
+    "spice": [
+     "whole seeds ground raw",
+     "coriander seed",
+     "turmeric",
+     "fenugreek seed"
+    ],
+    "backbone": [
+     "no fresh aromatics"
+    ],
+    "region": [
+     "Britain"
+    ]
+   },
+   "note": "An eighteenth-century convenience: what an Indian cook ground fresh and differently for every dish, pre-blended and sold in a tin. Being identical from dish to dish is the flaw and also exactly why it travelled further than anything else here."
+  },
+  {
+   "name": "Curry roux",
+   "parent": "Curry powder",
+   "facets": {
+    "form": [
+     "ground to a dry powder",
+     "stirred into a butter-and-flour roux"
+    ],
+    "chilli": [
+     "mild dried chilli"
+    ],
+    "spice": [
+     "whole seeds ground raw",
+     "coriander seed",
+     "turmeric",
+     "fenugreek seed"
+    ],
+    "backbone": [
+     "no fresh aromatics"
+    ],
+    "region": [
+     "Japan"
+    ]
+   },
+   "note": "Karē rū: the tin of powder cooked into a browned flour-and-butter roux, which arrived with the British navy in the 1870s as a thickened stew. The thickening is the point — Japanese curry is a gravy, and gravy is the one thing no pounded paste makes."
+  },
+  {
+   "name": "Berbere",
+   "facets": {
+    "form": [
+     "ground to a dry powder"
+    ],
+    "chilli": [
+     "dried chilli",
+     "sun-dried then roasted",
+     "more chilli than spice"
+    ],
+    "spice": [
+     "whole seeds toasted first",
+     "fenugreek seed",
+     "korarima",
+     "ajwain"
+    ],
+    "backbone": [
+     "dried garlic",
+     "dried ginger",
+     "besobela"
+    ],
+    "region": [
+     "Ethiopia"
+    ]
+   },
+   "note": "The only powder here where chilli is the bulk and the spices are the seasoning. Let it down with wine or water and it becomes awaze — the same blend as a paste, which is how short the distance between the two halves of this family really is."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On paste or powder",
+   "body": "This is a storage decision before it is a flavour one. A paste can hold things that die on drying — lemongrass, galangal, fresh turmeric root, garlic, coriander root — and lasts a week. A powder can hold only what survives being dried, which means seeds and bark, and lasts a year. That is why the paste cuisines are built on stems and roots and the powder cuisines are built on seeds, and why the powders are the ones that got on ships."
+  },
+  {
+   "title": "On toasting",
+   "body": "Toasting seeds before grinding is not the same spice turned up. Raw ground seed is volatile and green and fades in the pot; toasted seed has browned, and tastes of the browning as much as of itself. Sri Lanka settles the argument by refusing to pick: the same three spices roasted dark for meat, the same three raw for anything cooked in coconut milk that should stay white."
+  },
+  {
+   "title": "On frying the paste",
+   "body": "A wet paste is unfinished until it has been fried. Malay cooks call it pecah minyak, when the oil separates and pools around the paste; Indian cooks call the equivalent bhuna; Thai cooks crack the coconut cream and fry the paste in the fat that breaks out of it. Three languages, one step, and in every one of them the cook can tell you the exact moment it happens."
+  },
+  {
+   "title": "On the word curry",
+   "body": "The word is European and only one entry here is genuinely a British invention. Curry powder and its descendant the Japanese roux are a small family inside this one, and the roux is the only dish nested under another — it really is the powder plus a roux. Everything else has its own name in its own language and owes the tin nothing: rempah, bumbu, kroeung and recado are not versions of curry paste, they are what people did with a mortar."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Thai curry",
+   "url": "https://en.wikipedia.org/wiki/Thai_curry"
+  },
+  {
+   "label": "Kroeung",
+   "url": "https://en.wikipedia.org/wiki/Kroeung"
+  },
+  {
+   "label": "Bumbu (seasoning)",
+   "url": "https://en.wikipedia.org/wiki/Bumbu_(seasoning)"
+  },
+  {
+   "label": "Pecah minyak, frying a rempah until the oil splits",
+   "url": "https://www.singaporeanmalaysianrecipes.com/pecah-minyak-rempah/"
+  },
+  {
+   "label": "Vindaloo",
+   "url": "https://en.wikipedia.org/wiki/Vindaloo"
+  },
+  {
+   "label": "Garam masala",
+   "url": "https://en.wikipedia.org/wiki/Garam_masala"
+  },
+  {
+   "label": "Sri Lankan roasted curry powder",
+   "url": "https://www.theflavorbender.com/sri-lankan-roasted-curry-powder/"
+  },
+  {
+   "label": "Curry powder",
+   "url": "https://en.wikipedia.org/wiki/Curry_powder"
+  },
+  {
+   "label": "Japanese curry",
+   "url": "https://en.wikipedia.org/wiki/Japanese_curry"
+  },
+  {
+   "label": "Recado rojo",
+   "url": "https://en.wikipedia.org/wiki/Recado_rojo"
+  },
+  {
+   "label": "Berbere",
+   "url": "https://en.wikipedia.org/wiki/Berbere"
+  }
+ ],
+ "yours": [
+  "curry paste",
+  "curry powder",
+  "masala",
+  "garam masala",
+  "rempah",
+  "bumbu",
+  "green curry",
+  "red curry",
+  "massaman",
+  "panang",
+  "vindaloo",
+  "sambar",
+  "berbere",
+  "achiote",
+  "kroeung",
+  "curry roux"
+ ]
+}

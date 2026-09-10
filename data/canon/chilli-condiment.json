@@ -1,0 +1,637 @@
+{
+ "slug": "chilli-condiment",
+ "name": "Chilli condiment",
+ "standfirst": "A chilli picked today is gone in a week. Every one of these is the same fruit made to keep — pounded raw with salt, fried into hot oil, fermented in a jar, or dried down on a roof — and then given company: caraway in Tunis, walnuts in Abkhazia, dried scallop in Hong Kong, fermented broad beans in Pixian. What separates them is which of those four things you do, whether you end up with a paste or an oil, and what went in besides the chilli.",
+ "root": "Chilli · salt · and one way of stopping it spoiling — oil, a ferment, or the sun",
+ "facets": [
+  {
+   "id": "chilli",
+   "label": "The chilli"
+  },
+  {
+   "id": "method",
+   "label": "Method"
+  },
+  {
+   "id": "add",
+   "label": "Added"
+  },
+  {
+   "id": "form",
+   "label": "Ends up"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By what happens to the chilli",
+   "by": [
+    "method",
+    "form",
+    "add"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "method"
+   ]
+  },
+  {
+   "label": "By what else is in the jar",
+   "by": [
+    "add",
+    "method"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Sambal oelek",
+   "facets": {
+    "region": [
+     "Indonesia",
+     "Java"
+    ],
+    "chilli": [
+     "fresh red chillies",
+     "seeds left in"
+    ],
+    "method": [
+     "pounded raw",
+     "ground in a stone mortar",
+     "salted",
+     "never sees heat"
+    ],
+    "add": [
+     "nothing else",
+     "salt",
+     "a splash of vinegar"
+    ],
+    "form": [
+     "a paste",
+     "coarse",
+     "no oil in it",
+     "weeks in the fridge"
+    ]
+   },
+   "note": "The name is the tool, not the chilli — oelek is the grinding done in a cobek with a stone pestle. It is the plainest thing in this family and the starting point for a hundred other sambals: chilli, salt, and the friction of stone."
+  },
+  {
+   "name": "Zhoug",
+   "facets": {
+    "region": [
+     "Yemen",
+     "Israel"
+    ],
+    "chilli": [
+     "fresh green chillies",
+     "red ones for the red version"
+    ],
+    "method": [
+     "pounded raw",
+     "herbs and chilli in the same mortar",
+     "never sees heat"
+    ],
+    "add": [
+     "garlic",
+     "coriander leaf by the bunch",
+     "cardamom",
+     "cumin"
+    ],
+    "form": [
+     "a paste",
+     "loose and green",
+     "fridge only",
+     "a week or two"
+    ]
+   },
+   "note": "Also spelled s'hug or schug. The only one here where the chilli is outnumbered — it is a herb sauce that happens to be hot, which is why it will not keep: coriander leaf goes black in a fortnight and no amount of salt will stop it."
+  },
+  {
+   "name": "Ajika",
+   "facets": {
+    "region": [
+     "Abkhazia",
+     "Georgia"
+    ],
+    "chilli": [
+     "fresh red chillies",
+     "wilted in the sun first"
+    ],
+    "method": [
+     "pounded raw",
+     "ground with a great deal of salt",
+     "left to mature a few days"
+    ],
+    "add": [
+     "garlic",
+     "blue fenugreek",
+     "coriander seed",
+     "walnut in some houses"
+    ],
+    "form": [
+     "a paste",
+     "dense",
+     "salt is the only preservative",
+     "keeps a year"
+    ]
+   },
+   "note": "The word is Abkhaz for salt, which tells you what it is built on — no oil, no vinegar, no ferment, just enough salt to make the jar uninhabitable. The Megrelian and Abkhaz versions have no tomato in them; the Russian jars sold under the name usually do."
+  },
+  {
+   "name": "Ají amarillo paste",
+   "facets": {
+    "region": [
+     "Peru"
+    ],
+    "chilli": [
+     "fresh yellow ají amarillo",
+     "seeds and veins stripped out"
+    ],
+    "method": [
+     "boiled first",
+     "the water changed two or three times",
+     "then blended smooth"
+    ],
+    "add": [
+     "nothing else",
+     "salt",
+     "oil to loosen it"
+    ],
+    "form": [
+     "a paste",
+     "smooth",
+     "milder than its colour promises",
+     "frozen rather than shelved"
+    ]
+   },
+   "note": "The only one that deliberately throws heat away. Blanching in changed water leaves the colour and the fruitiness behind and takes the burn out with the water — the paste is a pigment and a flavour first and a chilli second."
+  },
+  {
+   "name": "Harissa",
+   "facets": {
+    "region": [
+     "Tunisia"
+    ],
+    "chilli": [
+     "dried red chillies",
+     "baklouti soaked back to soft"
+    ],
+    "method": [
+     "pounded raw",
+     "some houses roast the peppers first",
+     "never simmered"
+    ],
+    "add": [
+     "garlic",
+     "caraway",
+     "coriander seed",
+     "olive oil"
+    ],
+    "form": [
+     "a paste",
+     "thick",
+     "sealed under a film of oil",
+     "months in the fridge"
+    ]
+   },
+   "note": "Caraway is the tell. Strip it out and you have a generic pounded chilli paste; leave it in and no other condiment in this family tastes remotely like it. The oil poured on top is a lid rather than an ingredient — the paste underneath is not an oil sauce."
+  },
+  {
+   "name": "Biber salçası",
+   "facets": {
+    "region": [
+     "Turkey",
+     "Hatay"
+    ],
+    "chilli": [
+     "fresh red peppers",
+     "hot for acı and mild for tatlı"
+    ],
+    "method": [
+     "dried in the sun",
+     "ground then spread on trays",
+     "stirred twice a day for a week"
+    ],
+    "add": [
+     "nothing else",
+     "salt"
+    ],
+    "form": [
+     "a paste",
+     "dense and dark",
+     "sealed under oil",
+     "a year in the pantry"
+    ]
+   },
+   "note": "The roof does the work a stove would. A week of Anatolian sun on a cloth-covered terrace takes a tray of pulped pepper down to a paste with almost no water in it — concentrated by evaporation rather than by cooking or by salt."
+  },
+  {
+   "name": "Shatta",
+   "facets": {
+    "region": [
+     "Palestine",
+     "Levant"
+    ],
+    "chilli": [
+     "fresh chillies",
+     "red or green"
+    ],
+    "method": [
+     "fermented in salt",
+     "a few days in a warm window",
+     "then blended with oil"
+    ],
+    "add": [
+     "garlic",
+     "lemon",
+     "olive oil",
+     "vinegar"
+    ],
+    "form": [
+     "a paste",
+     "loose",
+     "sealed under oil",
+     "months"
+    ]
+   },
+   "note": "Sits in the jar looking exactly like harissa and is made the other way round: fermented first, spiced barely at all, and with no caraway anywhere near it. The sourness is lactic rather than added — the vinegar at the end only stops the clock."
+  },
+  {
+   "name": "Doubanjiang",
+   "facets": {
+    "region": [
+     "China",
+     "Sichuan",
+     "Pixian"
+    ],
+    "chilli": [
+     "fresh erjingtiao chillies",
+     "salted whole for months first"
+    ],
+    "method": [
+     "fermented in salt",
+     "broad beans cultured separately",
+     "the two married and aged in open crocks",
+     "one to three years in the sun"
+    ],
+    "add": [
+     "a fermented bean",
+     "broad beans",
+     "wheat flour"
+    ],
+    "form": [
+     "a paste",
+     "dark red-brown",
+     "fried in oil before it is used",
+     "keeps for years"
+    ]
+   },
+   "note": "Two ferments, run apart and then introduced: the chilli salted and left to sour, the broad beans grown with a mould starter for six months. The crocks are opened every day to be stirred and left under the sun, which is why a three-year paste is brown rather than red — the colour is spent, the flavour is what is left."
+  },
+  {
+   "name": "Gochujang",
+   "facets": {
+    "region": [
+     "Korea"
+    ],
+    "chilli": [
+     "coarse chilli powder",
+     "sun-dried gochugaru"
+    ],
+    "method": [
+     "fermented in salt",
+     "rice starch cooked and cooled first",
+     "aged in onggi jars on the roof",
+     "months to years"
+    ],
+    "add": [
+     "a fermented bean",
+     "soybean meju powder",
+     "glutinous rice",
+     "barley malt"
+    ],
+    "form": [
+     "a paste",
+     "thick and sticky",
+     "as sweet as it is hot",
+     "keeps for years"
+    ]
+   },
+   "note": "The sweetness is not sugar added at the end. Malt enzymes break the cooked rice starch down into sugar inside the jar while the soybean culture works on the protein — the sweet and the savoury are both made in place, which no amount of stirring honey into chilli paste will imitate."
+  },
+  {
+   "name": "Chilli oil",
+   "facets": {
+    "region": [
+     "China",
+     "Sichuan"
+    ],
+    "chilli": [
+     "coarse chilli flakes",
+     "toasted and ground"
+    ],
+    "method": [
+     "fried in oil",
+     "hot oil poured over the flakes",
+     "poured in stages so nothing burns"
+    ],
+    "add": [
+     "nothing else",
+     "sometimes cassia and star anise steeped in the oil"
+    ],
+    "form": [
+     "oil alone",
+     "clear red",
+     "solids strained out or left to settle",
+     "months"
+    ]
+   },
+   "note": "La you. Temperature is the entire recipe: too hot and the flakes go bitter in seconds, too cool and neither colour nor smell comes out of them. The usual answer is to pour the oil over in two or three goes at falling temperatures — one for aroma, one for colour."
+  },
+  {
+   "name": "Chilli crisp",
+   "parent": "Chilli oil",
+   "facets": {
+    "region": [
+     "China",
+     "Guizhou"
+    ],
+    "chilli": [
+     "coarse chilli flakes"
+    ],
+    "method": [
+     "fried in oil",
+     "aromatics fried in until crisp",
+     "the solids left in the jar"
+    ],
+    "add": [
+     "garlic",
+     "fried soybeans",
+     "peanuts",
+     "fermented black beans"
+    ],
+    "form": [
+     "oil with solids in it",
+     "crunchy",
+     "spooned rather than poured",
+     "months"
+    ]
+   },
+   "note": "Chilli oil with the frying left visible — everything that would have been strained out is kept, and more is fried in on purpose. It descends from la you rather than standing beside it, which is why it is the only dish here sitting a level down."
+  },
+  {
+   "name": "Salsa macha",
+   "facets": {
+    "region": [
+     "Mexico",
+     "Veracruz"
+    ],
+    "chilli": [
+     "dried chillies",
+     "morita and árbol together"
+    ],
+    "method": [
+     "fried in oil",
+     "chillies and nuts fried in the same pan",
+     "blended only part of the way"
+    ],
+    "add": [
+     "garlic",
+     "peanuts",
+     "sesame seeds"
+    ],
+    "form": [
+     "oil with solids in it",
+     "gritty rather than crunchy",
+     "spooned rather than poured",
+     "months"
+    ]
+   },
+   "note": "The same answer as chilli crisp reached in the mountains above Orizaba with no contact whatsoever. The older Veracruz versions were dry chilli-and-seed pastes with no oil at all; the oil arrived with the Spanish and turned a paste into a salsa."
+  },
+  {
+   "name": "Nam phrik phao",
+   "facets": {
+    "region": [
+     "Thailand"
+    ],
+    "chilli": [
+     "dried red chillies"
+    ],
+    "method": [
+     "fried in oil",
+     "everything dry-roasted in a wok first",
+     "fried down until it turns jammy"
+    ],
+    "add": [
+     "garlic",
+     "shallots",
+     "dried shrimp",
+     "tamarind",
+     "palm sugar"
+    ],
+    "form": [
+     "oil with solids in it",
+     "jammy",
+     "as sweet and sour as it is hot",
+     "months"
+    ]
+   },
+   "note": "Roasted before it is fried, which is where the darkness comes from. The tamarind and palm sugar push it past condiment into jam — it is spread on toast in Bangkok as readily as it is stirred into tom yum."
+  },
+  {
+   "name": "XO sauce",
+   "facets": {
+    "region": [
+     "Hong Kong"
+    ],
+    "chilli": [
+     "dried chilli",
+     "the smallest thing in the jar"
+    ],
+    "method": [
+     "fried in oil",
+     "every ingredient shredded by hand first",
+     "fried slowly until the shreds separate"
+    ],
+    "add": [
+     "garlic",
+     "dried scallop",
+     "dried shrimp",
+     "Jinhua ham"
+    ],
+    "form": [
+     "oil with solids in it",
+     "shredded",
+     "spooned rather than poured",
+     "weeks in the fridge"
+    ]
+   },
+   "note": "Invented in a Tsim Sha Tsui hotel dining room in the 1980s and named after extra-old cognac purely to say expensive — there is no brandy in it. Chilli is the cheapest thing in the jar and the least of the point; the dried scallop is the point."
+  },
+  {
+   "name": "Crema di peperoncino",
+   "facets": {
+    "region": [
+     "Italy",
+     "Calabria"
+    ],
+    "chilli": [
+     "fresh red chillies",
+     "local Calabrian varieties"
+    ],
+    "method": [
+     "pounded raw",
+     "minced fine",
+     "packed under olive oil",
+     "never sees heat"
+    ],
+    "add": [
+     "nothing else",
+     "salt",
+     "olive oil"
+    ],
+    "form": [
+     "a paste",
+     "smooth",
+     "sealed under oil",
+     "a year"
+    ]
+   },
+   "note": "Sambal oelek with olive oil poured over it, arrived at independently at the other end of the world. The oil is doing two jobs — keeping air off the chilli and carrying it onto bread. Take the same chilli into pork fat instead and you have nduja which is a salami rather than a condiment."
+  },
+  {
+   "name": "Awaze",
+   "facets": {
+    "region": [
+     "Ethiopia",
+     "Eritrea"
+    ],
+    "chilli": [
+     "chilli already ground",
+     "berbere rather than plain chilli"
+    ],
+    "method": [
+     "stirred from a dry blend",
+     "berbere loosened with tej or wine",
+     "no heat at any point"
+    ],
+    "add": [
+     "garlic",
+     "ginger",
+     "rue",
+     "tej or wine to loosen it"
+    ],
+    "form": [
+     "a paste",
+     "loose",
+     "made fresh each time",
+     "days"
+    ]
+   },
+   "note": "The inversion of everything else here. The keepable thing is berbere — dried chilli ground with a dozen spices, which lives in the cupboard — and awaze is what you make from it in five minutes when a sauce is needed. The preserving was done before the condiment was."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On the four ways to keep it",
+   "body": "Salt, oil, acid and fermentation are the only things standing between a jar of chilli and mould, and every dish here picks one or two. The raw pastes lean on salt and often a splash of vinegar. The oil ones work by exclusion — nothing spoils under a layer of fat. The fermented three let lactic bacteria or a mould starter acidify the jar first and then live in it. Biber salçası simply removes the water. The flavours follow from that choice rather than the other way round: harissa tastes of caraway because someone put caraway in, but doubanjiang tastes of years because it spent them."
+  },
+  {
+   "title": "On paste and oil",
+   "body": "The form decides where the condiment enters the meal. The oils are finishing seasonings, spooned over food that is already cooked — chilli crisp on rice, salsa macha over a fried egg, XO on plain greens. Most of the pastes are cooking ingredients that go in near the start: doubanjiang is fried in oil before anything else touches the wok, gochujang is stirred into stew, biber salçası goes in with the onions. The exceptions are the fresh raw ones — zhoug, awaze, shatta — which stay at the table because heat would take away the only thing they have."
+  },
+  {
+   "title": "On depth",
+   "body": "Only chilli crisp sits under anything, and it earns it: it is chilli oil with the frying left in the jar rather than strained out. Everything else is one move from the base and belongs at the same depth. Sambal oelek and crema di peperoncino are the same idea — fresh chilli ground with salt and kept — reached at opposite ends of the world by people with no knowledge of each other, and so are chilli crisp and salsa macha. Harissa and shatta look identical in a jar and are not related at all. Siblings, all of them."
+  },
+  {
+   "title": "On the ones next door",
+   "body": "Thin any of the raw pastes with vinegar until it pours and you get the bottled hot sauces — sriracha is fermented chilli and garlic blended smooth and sweetened, piri-piri is the same idea with lemon, Tabasco is that plus three years in oak. They are the same family at a different viscosity. In the other direction, berbere and gochugaru are dry and so are ingredients here rather than dishes — berbere only becomes a condiment once it is wetted down into awaze."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Sambal (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Sambal"
+  },
+  {
+   "label": "Zhug (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Zhug"
+  },
+  {
+   "label": "Ajika (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Ajika"
+  },
+  {
+   "label": "Harissa (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Harissa"
+  },
+  {
+   "label": "Salça — Turkish pepper paste (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Sal%C3%A7a"
+  },
+  {
+   "label": "Shatta (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Shatta_(condiment)"
+  },
+  {
+   "label": "Doubanjiang (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Doubanjiang"
+  },
+  {
+   "label": "Sourcing Pixian doubanjiang (The Mala Market)",
+   "url": "https://blog.themalamarket.com/pixian-chili-bean-paste-douban-jiang/"
+  },
+  {
+   "label": "Gochujang (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Gochujang"
+  },
+  {
+   "label": "Chili oil (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Chili_oil"
+  },
+  {
+   "label": "Salsa macha (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Salsa_macha"
+  },
+  {
+   "label": "Nam phrik (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Nam_phrik"
+  },
+  {
+   "label": "XO sauce (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/XO_sauce"
+  },
+  {
+   "label": "Berbere (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Berbere"
+  },
+  {
+   "label": "Ají amarillo — Capsicum baccatum (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Capsicum_baccatum"
+  }
+ ],
+ "yours": [
+  "chilli oil",
+  "chili oil",
+  "chilli crisp",
+  "chilli paste",
+  "chilli sauce",
+  "hot sauce",
+  "sambal",
+  "harissa",
+  "gochujang",
+  "doubanjiang",
+  "zhoug",
+  "salsa macha",
+  "xo sauce",
+  "shatta"
+ ]
+}

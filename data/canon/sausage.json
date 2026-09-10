@@ -1,7 +1,7 @@
 {
  "slug": "sausage",
  "name": "Sausage",
- "standfirst": "Ground meat and salt, and then one decision: cook it today, hang it in cold air until it keeps for a year, or chop it with ice until it sets like a custard under heat. Everything after that — the fennel, the harissa, the pimentón, the coriander and clove — is a region answering the same question about what to put in. Fresh chorizo and dry chorizo are not one sausage at two ages. They sit in different branches and share a name.",
+ "standfirst": "Ground meat and salt, and then one decision: sell it raw and let whoever buys it do the cooking, hang it in cold air until it keeps for a year, or cook it in the making — by smoke, scald, steam or poach — so it reaches the counter already food. Everything after that — the fennel, the harissa, the pimentón, the coriander and clove — is a region answering the same question about what to put in. Fresh chorizo and dry chorizo are not one sausage at two ages. They sit in different branches and share a name.",
  "root": "Ground meat and salt, worked cold until it binds",
  "facets": [
   {
@@ -62,7 +62,7 @@
     ],
     "grind": [
      "coarse",
-     "through a wide plate"
+     "through a plate"
     ],
     "spice": [
      "fennel seed",
@@ -87,7 +87,7 @@
     ],
     "grind": [
      "coarse",
-     "chopped rather than minced"
+     "hand-chopped"
     ],
     "spice": [
      "black pepper",
@@ -98,7 +98,7 @@
      "England"
     ]
    },
-   "note": "Pepper-led rather than herb-led, which is unusual in England — Lincolnshire answers the same brief with sage. Traditional Cumberland holds a PGI, and part of what is protected is the shape: it is never twisted into links."
+   "note": "Pepper-led rather than herb-led, which is unusual in England — Lincolnshire answers the same brief with sage. The meat is chopped by hand rather than put through a mincer, so a slice reads as pieces. Traditional Cumberland holds a PGI, and part of what is protected is the shape: it is never twisted into links."
   },
   {
    "name": "Merguez",
@@ -138,8 +138,7 @@
     ],
     "grind": [
      "coarse",
-     "chopped rather than minced",
-     "fat kept under a third"
+     "hand-chopped"
     ],
     "spice": [
      "coriander seed",
@@ -154,7 +153,7 @@
    "note": "The only sausage here with a legal recipe: South African regulation sets ninety per cent meat, thirty per cent fat at most, and no mechanically recovered meat. Toasted coriander is the signature, and the vinegar is a Cape spice-route habit rather than a preservative — it goes on the braai the same day."
   },
   {
-   "name": "Chorizo fresco",
+   "name": "Chorizo mexicano",
    "facets": {
     "state": [
      "sold raw",
@@ -165,7 +164,7 @@
     ],
     "grind": [
      "fine",
-     "crumbles when it cooks"
+     "through a narrow plate"
     ],
     "spice": [
      "chilli",
@@ -177,10 +176,10 @@
      "Mexico"
     ]
    },
-   "note": "Not young Spanish chorizo. The pimentón was traded for guajillo and ancho, the vinegar was pushed up, and the drying step was dropped entirely — so it stays raw and is usually squeezed out of the casing into the pan."
+   "note": "Not young Spanish chorizo. The pimentón was traded for guajillo and ancho, the vinegar was pushed up, and the drying step was dropped entirely — so it stays raw, and it is usually squeezed out of the casing into the pan, where it crumbles instead of holding together."
   },
   {
-   "name": "Longganisa",
+   "name": "Longganisa de recado",
    "facets": {
     "state": [
      "sold raw",
@@ -191,18 +190,43 @@
     ],
     "grind": [
      "coarse",
-     "fat left in visible pieces"
+     "through a plate"
     ],
     "spice": [
      "garlic",
      "cane vinegar",
-     "sugar in the hamonado camp"
+     "black pepper"
     ],
     "region": [
      "Philippines"
     ]
    },
-   "note": "Named from Spanish longaniza and then split in two by Filipino cooks: de recado, garlicky and sour, of which Vigan is the standard, against hamonado, sugared until it caramelises in the pan. The short links are hung a day or two first, which is a brief ferment — the only fresh sausage here that sours on purpose."
+   "note": "Named from Spanish longaniza and then rebuilt around garlic: Ilocos pounds in enough of it to perfume the room it is fried in, and Vigan is the reference. The short links are hung a day or two before they are sold, which is a brief ferment — the only fresh sausage here that sours on purpose."
+  },
+  {
+   "name": "Longganisa hamonado",
+   "facets": {
+    "state": [
+     "sold raw",
+     "cooked by whoever buys it"
+    ],
+    "smoke": [
+     "no smoke"
+    ],
+    "grind": [
+     "coarse",
+     "through a plate"
+    ],
+    "spice": [
+     "sugar",
+     "garlic",
+     "soy sauce"
+    ],
+    "region": [
+     "Philippines"
+    ]
+   },
+   "note": "The sweet half of the same name, and not an older or younger version of the sour one: sugar stands where the souring would have been, so nothing is hung and nothing ferments. Pampanga is the usual reference. The sugar catches long before the meat is done, which is why these links are started in a little water and finished in the fat they render."
   },
   {
    "name": "Sai ua",
@@ -245,7 +269,7 @@
     ],
     "grind": [
      "coarse",
-     "fat cut into cubes"
+     "through a plate"
     ],
     "spice": [
      "chilli",
@@ -272,7 +296,7 @@
     ],
     "grind": [
      "fine",
-     "worked until it turns sticky"
+     "through a narrow plate"
     ],
     "spice": [
      "cumin",
@@ -284,7 +308,7 @@
      "Turkey"
     ]
    },
-   "note": "Beef, ten days to a fortnight of ferment, and then air. Dry-cured like chorizo but not eaten like it: sucuk goes in a cold pan and renders its own fat, so the drying is there to concentrate it rather than to make it ready."
+   "note": "Beef, ten days to a fortnight of ferment, and then air. The fine paste is kneaded until it turns sticky before it is stuffed, which is the whole of the bind. Dry-cured like chorizo but not eaten like it: sucuk goes in a cold pan and renders its own fat, so the drying is there to concentrate it rather than to make it ready."
   },
   {
    "name": "Lap cheong",
@@ -300,19 +324,19 @@
     ],
     "grind": [
      "coarse",
-     "lean and fat chopped separately"
+     "hand-chopped"
     ],
     "spice": [
      "sugar",
      "light soy",
-     "rose wine"
+     "mei kwei lu"
     ],
     "region": [
      "China",
      "Guangdong"
     ]
    },
-   "note": "The one dried sausage here that does not ferment. Sugar and salt take the water out on their own, so nothing sours, and the result stays hard and sweet and has to be steamed over rice before it is food. Rose-scented mei kwei lu is the perfume that makes it recognisable across a room."
+   "note": "The one dried sausage here that does not ferment. Sugar and salt take the water out on their own, so nothing sours, and the result stays hard and sweet and has to be steamed over rice before it is food. Lean and fat are cut separately by hand, which is why the fat reads as translucent beads rather than a smear. Rose-scented mei kwei lu is the perfume that makes it recognisable across a room."
   },
   {
    "name": "'Nduja",
@@ -328,8 +352,7 @@
     ],
     "grind": [
      "fine",
-     "ground twice",
-     "worked to a paste"
+     "ground twice"
     ],
     "spice": [
      "chilli",
@@ -357,7 +380,7 @@
     ],
     "grind": [
      "coarse",
-     "cut in chunks by hand"
+     "hand-chopped"
     ],
     "spice": [
      "garlic",
@@ -370,7 +393,7 @@
      "Louisiana"
     ]
    },
-   "note": "The only sausage here cooked by smoke alone — no water bath, no oven, just hours over pecan and sometimes sugarcane until it is done through and nearly dry at the edge. It shares a name with French andouille and almost nothing else, since the French one is made of tripe."
+   "note": "The only sausage here cooked by smoke alone — no water bath, no oven, just hours over pecan and sometimes sugarcane until it is done through and nearly dry at the edge. The meat is cut in chunks by hand rather than ground, so it holds its shape in a gumbo. It shares a name with French andouille and almost nothing else, since the French one is made of tripe."
   },
   {
    "name": "Kiełbasa wiejska",
@@ -385,7 +408,7 @@
     ],
     "grind": [
      "coarse",
-     "some of it ground finer to bind"
+     "through a plate"
     ],
     "spice": [
      "garlic",
@@ -423,7 +446,7 @@
      "Germany"
     ]
    },
-   "note": "Frankfurt made it from pork in a sheep casing; Vienna answered with beef in the mix and called it a Wiener, and each city named its version after the other. The seasoning is deliberately quiet because there is no texture to compete with — an emulsion is uniform all the way through."
+   "note": "Frankfurt made it from pork in a sheep casing; a Frankfurt butcher working in Vienna put beef in the mix and still called it a Frankfurter, which is what Vienna calls it to this day — while Germany calls that beef-and-pork version a Wiener. Each city ended up naming the sausage after the other. The seasoning is deliberately quiet because there is no texture to compete with — an emulsion is uniform all the way through."
   },
   {
    "name": "Mortadella",
@@ -438,7 +461,7 @@
     "grind": [
      "emulsified",
      "chopped with ice to a paste",
-     "cubes of back fat folded back in"
+     "cubes of throat fat folded back in"
     ],
     "spice": [
      "black pepper",
@@ -450,7 +473,7 @@
      "Bologna"
     ]
    },
-   "note": "The same emulsion as a frankfurter, with the fat put back by hand: cubes of neck fat folded into the paste so they stay whole and read as white polka dots. A large one steams in dry air for the better part of a day. The name may come from myrtle, which is still in the better recipes."
+   "note": "The same emulsion as a frankfurter, with the fat put back by hand: cubes of throat fat folded into the paste so they stay whole and read as white polka dots. The Mortadella Bologna PGI names that fat and no other. A large one steams in dry air for the better part of a day, and the name may come from myrtle, which is still in the better recipes."
   },
   {
    "name": "Boudin noir",
@@ -481,19 +504,19 @@
  "notes": [
   {
    "title": "On what the salt is actually for",
-   "body": "Salt here is structure, not seasoning. Above roughly two per cent it dissolves myosin out of the muscle fibres, and that dissolved protein is the glue holding one grain of meat to the next; without it a sausage is mince in a bag that falls apart in the pan. This is why every recipe in the family says work it cold and stop when it turns tacky. Let the fat climb past about fifteen degrees and it smears instead of staying in pieces, the bind breaks, and the sausage cooks out grey with a puddle of grease beside it. One rule, sixteen dishes."
+   "body": "Salt here is structure, not seasoning. Above roughly two per cent it dissolves myosin out of the muscle fibres, and that dissolved protein is the glue holding one grain of meat to the next; without it a sausage is mince in a bag that falls apart in the pan. This is why every recipe in the family says work it cold and stop when it turns tacky. Let the fat climb past about fifteen degrees and it smears instead of staying in pieces, the bind breaks, and the sausage cooks out grey with a puddle of grease beside it. One rule, seventeen dishes."
   },
   {
    "title": "On the emulsion",
-   "body": "Mortadella and the frankfurter are not fresh sausages ground finer. They are a different physical object: fat cut so small it is suspended in a gel of protein and water, chopped with ice so the bowl never warms, and the gel only sets when heat runs through it. That is the reason they cannot be sold raw — the sausage does not exist until it has been cooked. A fresh sausage is meat held together. An emulsion is meat taken apart and rebuilt, and the row of white cubes in a slice of mortadella is fat deliberately put back in afterwards, because otherwise there would be nothing to see."
+   "body": "Mortadella and the frankfurter are not fresh sausages ground finer. They are a different physical object: fat cut so small it is suspended in a gel of protein and water, chopped with ice so the bowl never warms, and the gel only sets when heat runs through it. That is the reason they cannot be sold raw — the sausage does not exist until it has been cooked. A fresh sausage is meat held together. An emulsion is meat taken apart and rebuilt, and the row of white cubes in a slice of mortadella is throat fat deliberately put back in afterwards, because otherwise there would be nothing to see."
   },
   {
    "title": "On the casing",
-   "body": "The casing is the column that is not in the table, and it decides more than it looks. Merguez goes into a narrow lamb runner so it chars before the middle can dry. Cumberland is never linked at all — it reaches the pan as one coil pinned with a skewer, and the PGI protects that shape. Mortadella needs a casing as wide as a bladder because it has to steam for most of a day. And two dishes here prove the casing can be a mould rather than part of the dish: nduja is spread on bread and Mexican chorizo is squeezed into a hot pan, and neither is ever eaten in its skin."
+   "body": "The casing is the column that is not in the table, and it decides more than it looks. Merguez goes into a narrow lamb runner so it chars before the middle can dry. Cumberland is never linked at all — it reaches the pan as one coil pinned with a skewer, and the PGI protects that shape. Mortadella needs a casing as wide as a bladder because it has to steam for most of a day. And two dishes here prove the casing can be a mould rather than part of the dish: 'nduja is spread on bread and Mexican chorizo is squeezed into a hot pan, and neither is ever eaten in its skin."
   },
   {
    "title": "On two chorizos with one name",
-   "body": "Spanish chorizo is fermented, hung for weeks and sliced cold. Mexican chorizo is raw, sharp with vinegar, and disintegrates in the pan on purpose. The second is not a younger version of the first: when the sausage crossed the Atlantic the pimentón was replaced by guajillo and ancho, the drying was abandoned, and only the name survived the trip. The table is full of the same trap. Longganisa took its name from Spanish longaniza and its garlic and cane vinegar from Ilocos. Cajun andouille shares a word with French andouille, which is made of tripe. And nduja, andouille and andouillette all descend from the same Latin inductilia — the word travelled much further than the recipe did."
+   "body": "Spanish chorizo is fermented, hung for weeks and sliced cold. Mexican chorizo is raw, sharp with vinegar, and disintegrates in the pan on purpose. The second is not a younger version of the first: when the sausage crossed the Atlantic the pimentón was replaced by guajillo and ancho, the drying was abandoned, and only the name survived the trip. Calling the Mexican one chorizo fresco would put the trap back, because in Spain that name belongs to the fresh pimentón sausage. The table is full of the same problem. Longganisa took its name from Spanish longaniza and its garlic and cane vinegar from Ilocos, then split again on its own into a sour camp and a sweet one, which is why it holds two rows here. Cajun andouille shares a word with French andouille, which is made of tripe. And 'nduja, andouille and andouillette all descend from the same Latin inductilia — the word travelled much further than the recipe did."
   },
   {
    "title": "On blood",
@@ -501,7 +524,7 @@
   },
   {
    "title": "On depth",
-   "body": "Nothing in this table is nested under anything else, and that is a claim rather than laziness. Real lineage exists in sausage, but it mostly runs out of the table: droëwors is boerewors hung until dry, chorizo fresco is a fork from Spanish chorizo rather than a stage of it, the Wiener and the Frankfurter are two cities arguing over one object. Sixteen traditions solving the problem of meat, salt and time are siblings at the same depth. Arranging them into a lineage would make the picture tidier and the claim false."
+   "body": "Nothing in this table is nested under anything else, and that is a claim rather than laziness. Real lineage exists in sausage, but it mostly runs out of the table: droëwors is boerewors hung until dry, Mexican chorizo is a fork from Spanish chorizo rather than a stage of it, the Wiener and the Frankfurter are two cities arguing over one object. The two longganisa are the same argument in miniature — hamonado is not de recado plus sugar, it is de recado with the souring taken out and the sugar put where it was, so neither can be hung under the other. Seventeen traditions solving the problem of meat, salt and time are siblings at the same depth. Arranging them into a lineage would make the picture tidier and the claim false."
   }
  ],
  "sources": [

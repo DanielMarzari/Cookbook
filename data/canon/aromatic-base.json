@@ -1,0 +1,597 @@
+{
+ "slug": "aromatic-base",
+ "name": "Aromatic base",
+ "standfirst": "Almost every cooked dish begins with something chopped going into hot fat before anything the dish is named after arrives. The vegetables barely vary — an onion and two friends — but what a kitchen does to them decides more about how the finished plate tastes than the meat does. Mirepoix and the holy trinity are the same knife and the same pan; swap the carrot for a green pepper and you are in another country. Four questions separate all of them: what goes in, what it goes into, whether you stop it before it colours or push it until the oil comes back out, and whether it was chopped at all — or pounded, or blended raw, or never fried in the first place.",
+ "root": "Aromatics cut small and given to the pot first, before anything the dish is named after",
+ "facets": [
+  {
+   "id": "aromatics",
+   "label": "Aromatics"
+  },
+  {
+   "id": "fat",
+   "label": "Fat"
+  },
+  {
+   "id": "form",
+   "label": "Form"
+  },
+  {
+   "id": "heat",
+   "label": "Heat"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By how far it is cooked",
+   "by": [
+    "heat",
+    "form",
+    "fat"
+   ]
+  },
+  {
+   "label": "By what the knife does",
+   "by": [
+    "form",
+    "heat",
+    "aromatics"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "heat"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Mirepoix",
+   "facets": {
+    "aromatics": [
+     "onion",
+     "carrot",
+     "celery"
+    ],
+    "fat": [
+     "butter"
+    ],
+    "form": [
+     "diced with a knife",
+     "sized to the cooking time"
+    ],
+    "heat": [
+     "kept pale",
+     "sweated until it turns translucent"
+    ],
+    "region": [
+     "France"
+    ]
+   },
+   "note": "Two parts onion to one carrot to one celery, by weight, and the dice is the only real decision left: large for a stock that will run four hours, small for a sauce that has twenty minutes. Cut it fine and cook it long and it disappears, which for a stock is the wrong answer — it is meant to be strained out still recognisable."
+  },
+  {
+   "name": "Soffritto",
+   "facets": {
+    "aromatics": [
+     "onion",
+     "carrot",
+     "celery"
+    ],
+    "fat": [
+     "olive oil",
+     "butter in the north"
+    ],
+    "form": [
+     "diced with a knife",
+     "cut finer than a mirepoix"
+    ],
+    "heat": [
+     "kept pale",
+     "half an hour on the lowest flame"
+    ],
+    "region": [
+     "Italy"
+    ]
+   },
+   "note": "The same three vegetables as mirepoix and the opposite intention: this one is supposed to vanish. Before it meets the fat the raw chopped mix has its own name, battuto; soffriggere means to under-fry, and the whole instruction is in the word."
+  },
+  {
+   "name": "Suppengrün",
+   "facets": {
+    "aromatics": [
+     "leek",
+     "carrot",
+     "celeriac",
+     "parsley root"
+    ],
+    "fat": [
+     "no fat"
+    ],
+    "form": [
+     "cut in large pieces",
+     "left big enough to fish back out"
+    ],
+    "heat": [
+     "never fried",
+     "simmered in the liquid",
+     "lifted out and thrown away"
+    ],
+    "region": [
+     "Germany"
+    ]
+   },
+   "note": "Sold as a bundle rather than a recipe — a leek, a carrot, a wedge of celeriac, tied together at the greengrocer. It is the one thing here that is not a base at all: it flavours by extraction and then leaves, which is a bouquet garni's job done with root vegetables."
+  },
+  {
+   "name": "Holy trinity",
+   "facets": {
+    "aromatics": [
+     "onion",
+     "celery",
+     "green bell pepper"
+    ],
+    "fat": [
+     "oil",
+     "thickened into a roux with flour"
+    ],
+    "form": [
+     "diced with a knife",
+     "cut even so nothing catches"
+    ],
+    "heat": [
+     "added to fat already browned",
+     "the roux taken to peanut or chocolate first",
+     "the vegetables stop the roux cooking"
+    ],
+    "region": [
+     "United States",
+     "Louisiana"
+    ]
+   },
+   "note": "Mirepoix with the carrot swapped out — the sugar goes, a green vegetal bitterness comes in. The colour is settled before the vegetables ever appear: the flour and oil are taken to whatever shade the dish wants, and the trinity goes in cold to arrest it."
+  },
+  {
+   "name": "Sofregit",
+   "facets": {
+    "aromatics": [
+     "onion",
+     "tomato",
+     "garlic"
+    ],
+    "fat": [
+     "olive oil"
+    ],
+    "form": [
+     "sliced thin"
+    ],
+    "heat": [
+     "taken to deep brown",
+     "an hour or more",
+     "a kilo of onion down to a cupful"
+    ],
+    "region": [
+     "Spain",
+     "Catalonia"
+    ]
+   },
+   "note": "The Castilian sofrito is the same move made in less time; Catalan cooks take it until it is nearly tarry. It is also half of a pair — sofregit opens the dish and a picada pounded from nuts and garlic closes it, and everything else happens in between."
+  },
+  {
+   "name": "Refogado",
+   "facets": {
+    "aromatics": [
+     "onion",
+     "garlic",
+     "bay leaf"
+    ],
+    "fat": [
+     "olive oil",
+     "neutral oil in Brazil"
+    ],
+    "form": [
+     "chopped fine"
+    ],
+    "heat": [
+     "taken to gold",
+     "ten minutes and no more"
+    ],
+    "region": [
+     "Portugal",
+     "Brazil"
+    ]
+   },
+   "note": "The shortest of the Iberian bases and the most used: in Brazil the pot of beans and the pan of rice both start here, most days, in most houses. Ten minutes is the whole technique, which is why it survived the crossing intact when longer ones did not."
+  },
+  {
+   "name": "Sofrito",
+   "facets": {
+    "aromatics": [
+     "onion",
+     "garlic",
+     "culantro",
+     "ají dulce",
+     "cubanelle pepper"
+    ],
+    "fat": [
+     "olive oil",
+     "annatto lard in some kitchens"
+    ],
+    "form": [
+     "blended",
+     "nothing cooked first",
+     "frozen in cubes"
+    ],
+    "heat": [
+     "kept pale",
+     "a minute in hot oil",
+     "kept green"
+    ],
+    "region": [
+     "Puerto Rico"
+    ]
+   },
+   "note": "The Iberian sofrito crossed the Atlantic and stopped being a cooked thing. It is blended raw by the litre and kept in the freezer, so the cooking happens later and briefly, when a spoonful hits the oil. Without tomato it is recaíto, named for the recao — culantro — that makes it green."
+  },
+  {
+   "name": "Epis",
+   "facets": {
+    "aromatics": [
+     "garlic",
+     "scallion",
+     "parsley",
+     "thyme",
+     "scotch bonnet"
+    ],
+    "fat": [
+     "olive oil",
+     "blended in rather than fried in"
+    ],
+    "form": [
+     "blended",
+     "nothing cooked first",
+     "loosened with vinegar and sour orange"
+    ],
+    "heat": [
+     "never fried",
+     "used raw as a marinade"
+    ],
+    "region": [
+     "Haiti"
+    ]
+   },
+   "note": "The acid is what separates it from its Spanish-speaking neighbours. Vinegar and sour orange make it a keeping paste and a marinade at once, so it seasons the meat before the pot rather than the pot before the meat."
+  },
+  {
+   "name": "Recaudo",
+   "facets": {
+    "aromatics": [
+     "tomato",
+     "onion",
+     "garlic",
+     "dried chilli"
+    ],
+    "fat": [
+     "lard",
+     "oil where lard is not used"
+    ],
+    "form": [
+     "blended",
+     "charred whole on a comal first"
+    ],
+    "heat": [
+     "taken to deep brown",
+     "poured into fat already smoking",
+     "cooked until it darkens and thickens"
+    ],
+    "region": [
+     "Mexico"
+    ]
+   },
+   "note": "The only base here that goes into the pan as a liquid. Everything is blackened dry on a comal, blended skins and all, then thrown into smoking lard where it seizes and spits and slowly tightens — freír la salsa, and the guisado is only ever as good as that step."
+  },
+  {
+   "name": "Piaz dagh",
+   "facets": {
+    "aromatics": [
+     "onion",
+     "turmeric"
+    ],
+    "fat": [
+     "oil",
+     "enough to half-submerge the onion"
+    ],
+    "form": [
+     "sliced thin"
+    ],
+    "heat": [
+     "taken to deep brown",
+     "fried in quantity and kept under its own oil"
+    ],
+    "region": [
+     "Iran"
+    ]
+   },
+   "note": "Hot onion, literally. Almost every khoresh begins with a spoonful of it, so it is made by the kilo and stored rather than started fresh — the base is a pantry item, not a first step. The turmeric goes in with the onion and colours it as much as the frying does."
+  },
+  {
+   "name": "Ginger and scallion",
+   "facets": {
+    "aromatics": [
+     "ginger",
+     "scallion",
+     "garlic"
+    ],
+    "fat": [
+     "oil",
+     "neutral and high-smoking"
+    ],
+    "form": [
+     "sliced thin",
+     "scallion cut into lengths"
+    ],
+    "heat": [
+     "seconds in hot fat",
+     "over the highest heat the burner has"
+    ],
+    "region": [
+     "China"
+    ]
+   },
+   "note": "Bào xiāng — explode the fragrance. Measured in seconds rather than minutes, and the shortest base on this table by two orders of magnitude: leave it any longer and the garlic turns acrid and the scallion goes bitter, and there is nothing to do but start again."
+  },
+  {
+   "name": "Bhuna masala",
+   "facets": {
+    "aromatics": [
+     "onion",
+     "garlic",
+     "ginger",
+     "tomato"
+    ],
+    "fat": [
+     "ghee",
+     "mustard oil in the east"
+    ],
+    "form": [
+     "chopped fine",
+     "the ginger and garlic pounded to a paste"
+    ],
+    "heat": [
+     "cooked until the oil separates out",
+     "the onion taken deep brown first"
+    ],
+    "region": [
+     "India",
+     "the north"
+    ]
+   },
+   "note": "Bhunao is a verb for a state, not a duration. The onion goes dark, the tomato goes in and collapses, and the step is over when the fat visibly leaves the mass and pools at the edge of the pan — no clock is given because none is needed."
+  },
+  {
+   "name": "Tarka",
+   "facets": {
+    "aromatics": [
+     "cumin seed",
+     "mustard seed",
+     "dried chilli",
+     "curry leaf",
+     "asafoetida"
+    ],
+    "fat": [
+     "ghee",
+     "coconut oil in the south"
+    ],
+    "form": [
+     "left whole",
+     "nothing chopped at all"
+    ],
+    "heat": [
+     "seconds in hot fat",
+     "poured over at the end"
+    ],
+    "region": [
+     "India"
+    ]
+   },
+   "note": "The only base here that arrives last. Fat pulls the aroma out of a seed in seconds, and pouring the lot over a finished dal puts it on top rather than through it, where nothing simmers it away. Also called tadka in the west, chhaunk in the north, baghar in the Deccan, phoron in Bengal — one move, five names."
+  },
+  {
+   "name": "Obe ata",
+   "facets": {
+    "aromatics": [
+     "onion",
+     "red bell pepper",
+     "scotch bonnet",
+     "tomato"
+    ],
+    "fat": [
+     "palm oil",
+     "neutral oil for lighter stews"
+    ],
+    "form": [
+     "blended",
+     "nothing cooked first",
+     "blended with as little water as possible"
+    ],
+    "heat": [
+     "cooked until the oil separates out",
+     "boiled down first to drive off the water",
+     "thirty minutes in the oil"
+    ],
+    "region": [
+     "Nigeria"
+    ]
+   },
+   "note": "Blended it is ata lilo; fried it is ata din din, and every red stew in the country comes off that one pot — jollof, buka stew, ofada. The tatashe is there for colour and body and the ata rodo for heat, which is why they are two peppers and not one."
+  },
+  {
+   "name": "Krueng gaeng",
+   "facets": {
+    "aromatics": [
+     "shallot",
+     "lemongrass",
+     "galangal",
+     "kaffir lime zest",
+     "dried chilli",
+     "shrimp paste"
+    ],
+    "fat": [
+     "coconut cream",
+     "its own oil once it splits"
+    ],
+    "form": [
+     "pounded to a paste",
+     "in a granite mortar",
+     "hardest thing first and softest last"
+    ],
+    "heat": [
+     "cooked until the oil separates out",
+     "cracked in coconut cream rather than oil"
+    ],
+    "region": [
+     "Thailand"
+    ]
+   },
+   "note": "Pounding is not chopping done slowly. A pestle ruptures cells all the way through where a blade only opens the ones it meets, which is why a blitzed paste tastes thinner from the same ingredients. The cream is boiled until it splits and the paste fries in the oil that comes out of it."
+  },
+  {
+   "name": "Wat base",
+   "facets": {
+    "aromatics": [
+     "onion",
+     "garlic",
+     "ginger"
+    ],
+    "fat": [
+     "niter kibbeh",
+     "no fat at all to begin with"
+    ],
+    "form": [
+     "chopped fine",
+     "cut small enough to melt"
+    ],
+    "heat": [
+     "taken to deep brown",
+     "started dry in a bare pan",
+     "the spiced butter added once it has collapsed"
+    ],
+    "region": [
+     "Ethiopia"
+    ]
+   },
+   "note": "Red onion in quantity, cooked in a dry pan with nothing in it. An onion is mostly water; drive that off first and it wilts and browns in its own sugars, and only then does the niter kibbeh go in — so the spiced butter is warmed through rather than fried for an hour and ruined."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On the same three vegetables",
+   "body": "Onion, carrot and celery is not a discovery, it is an inventory: three things that keep all winter in a cold cellar. Mirepoix and soffritto are the identical trio put to opposite ends. The trinity drops the carrot for green pepper, trading sweetness for a vegetal edge. Suppengrün drops the onion for a leek and the celery stalk for its root. Where the cellar held other things — shallot and galangal, tatashe and ata rodo, ginger and scallion — the base looks nothing like the European one and does exactly the same job, which is the argument that the job is real and the vegetables are incidental."
+  },
+  {
+   "title": "On pale and brown",
+   "body": "This is the fork that changes what the base is for. Kept pale, it still tastes of onion and carrot and sits underneath the dish as seasoning. Taken brown, it becomes an ingredient with no raw equivalent: sugars caramelise, Maillard runs, and a kilo of sliced onion turns into a cupful of something sweet and meaty that nothing else in the kitchen can supply. Sofregit and piaz dagh spend an hour making that ingredient deliberately. A dish built on a brown base cannot be rescued with a pale one, or the reverse — it is not a matter of degree, they are two different foods."
+  },
+  {
+   "title": "On the oil coming back",
+   "body": "Three bases on three continents share one signal and no clock: cook until the fat pools at the edge. Water and fat cannot fry together, so as long as the base is wet it is only steaming, however hot the burner. When the water has finally gone the fat separates out and visibly returns, and only then does anything brown. Bhunao in a north Indian pan, half an hour of ata din din in palm oil, krueng cracked in coconut cream — same test, same moment, and not a thermometer between them."
+  },
+  {
+   "title": "On chopped and pounded and blended",
+   "body": "A knife opens the cells it meets. A pestle ruptures them all the way through, which is why krueng is pounded and a blender version of it tastes thinner from the same shopping. A blender does a third thing again — it shreds, and it whips in air and water. That is why every blended base here either is never cooked at all, like epis, or has to be fried far longer than its weight suggests, like obe ata and recaudo, driving off water the blender put in."
+  },
+  {
+   "title": "On when it goes in",
+   "body": "Everything here happens before the dish except one. A tarka is the same move as the Chinese ginger and scallion — whole aromatics in hot fat for a few seconds — but it is poured over a finished dal at the end, so nothing ever simmers on top of it and the volatiles survive to the table. It is proof that a base is defined by position rather than content. The identical seeds in the identical ghee at the start of the pot would be a different thing, and you would not be able to hear it arrive."
+  },
+  {
+   "title": "On refusing the fat",
+   "body": "Two entries skip the frying and they are not variations of each other. Suppengrün skips it permanently: cut big, simmered in the liquid, lifted out and binned, flavouring by extraction the way a bouquet garni does. The wat base skips it only at the start, and for the opposite reason — a dry pan browns the onion faster and harder than oil would, because there is no fat holding the temperature down and nothing to fry in until the onion's own water is gone."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Mirepoix (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Mirepoix_(cuisine)"
+  },
+  {
+   "label": "Sofrito (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Sofrito"
+  },
+  {
+   "label": "Suppengrün (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Suppengr%C3%BCn"
+  },
+  {
+   "label": "Holy trinity (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Holy_trinity_(cuisine)"
+  },
+  {
+   "label": "Recaíto (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Reca%C3%ADto"
+  },
+  {
+   "label": "Picada (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Picada"
+  },
+  {
+   "label": "Obe ata (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Obe_ata"
+  },
+  {
+   "label": "Tempering spices (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Tempering_(spices)"
+  },
+  {
+   "label": "Niter kibbeh (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Niter_kibbeh"
+  },
+  {
+   "label": "Haitian cuisine (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Haitian_cuisine"
+  },
+  {
+   "label": "Piaz dagh (PersianGood)",
+   "url": "https://persiangood.com/recipes/piaz-dagh-fried-onions/"
+  },
+  {
+   "label": "Recaudo (Familia Kitchen)",
+   "url": "https://familiakitchen.com/gollitas-essential-mexican-recaudo/"
+  },
+  {
+   "label": "Southern Thai curry paste (Eating Thai Food)",
+   "url": "https://www.eatingthaifood.com/how-to-make-southern-thai-curry-paste/"
+  },
+  {
+   "label": "Doro wat and the dry onion base (Hunter Angler Gardener Cook)",
+   "url": "https://honest-food.net/doro-wat-recipe/"
+  }
+ ],
+ "yours": [
+  "mirepoix",
+  "soffritto",
+  "sofrito",
+  "sofregit",
+  "refogado",
+  "holy trinity",
+  "suppengrün",
+  "epis",
+  "recaudo",
+  "piaz dagh",
+  "fried onions",
+  "tarka",
+  "tadka",
+  "masala base",
+  "pepper stew",
+  "obe ata",
+  "curry paste",
+  "niter kibbeh",
+  "base"
+ ]
+}

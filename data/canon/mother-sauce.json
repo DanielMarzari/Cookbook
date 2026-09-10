@@ -1,0 +1,636 @@
+{
+ "slug": "mother-sauce",
+ "name": "Mother sauces",
+ "standfirst": "Five sauces that a nineteenth-century Frenchman decided everything else descends from, and four sauces from elsewhere that answer the same question without him. All of them are a liquid plus something that will not let it stay a liquid — flour cooked in fat, an egg yolk, a starch, a ground seed. The mothers are the base. The derivatives are the base plus one thing, which is why they are drawn underneath.",
+ "root": "A liquid · something worked into it that will hold it · cooked until it coats the back of a spoon",
+ "facets": [
+  {
+   "id": "thicken",
+   "label": "Thickened with"
+  },
+  {
+   "id": "liquid",
+   "label": "The liquid"
+  },
+  {
+   "id": "add",
+   "label": "Added"
+  },
+  {
+   "id": "break",
+   "label": "How it breaks"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By thickener",
+   "by": [
+    "thicken",
+    "liquid",
+    "add"
+   ]
+  },
+  {
+   "label": "By what can go wrong",
+   "by": [
+    "break",
+    "thicken",
+    "add"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "thicken"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Béchamel",
+   "facets": {
+    "thicken": [
+     "a roux",
+     "cooked white",
+     "equal weights of butter and flour"
+    ],
+    "liquid": [
+     "milk",
+     "warmed before it goes in",
+     "infused with an onion stuck with cloves and bay"
+    ],
+    "add": [
+     "nothing but seasoning",
+     "nutmeg",
+     "white pepper"
+    ],
+    "break": [
+     "safe at a simmer",
+     "skins over the moment you stop stirring",
+     "turns gluey if it boils hard"
+    ],
+    "region": [
+     "France",
+     "claimed by Tuscany as well"
+    ]
+   },
+   "note": "The plainest statement of the whole family: flour cooked in butter only until it stops smelling raw, then milk. Everything on the roux side of this page is these same two ingredients left in the pan for longer."
+  },
+  {
+   "name": "Mornay",
+   "parent": "Béchamel",
+   "facets": {
+    "thicken": [
+     "a roux",
+     "cooked white",
+     "equal weights of butter and flour"
+    ],
+    "liquid": [
+     "milk",
+     "warmed before it goes in",
+     "infused with an onion stuck with cloves and bay"
+    ],
+    "add": [
+     "cheese",
+     "gruyère and parmesan grated in off the heat",
+     "an egg yolk in the older versions"
+    ],
+    "break": [
+     "safe at a simmer",
+     "the cheese goes stringy and weeps fat if it boils",
+     "which is why it goes in off the heat"
+    ],
+    "region": [
+     "France",
+     "Paris"
+    ]
+   },
+   "note": "Béchamel plus cheese and nothing else — it genuinely is the parent with one addition. The only rule is that the pan comes off first: held at a boil, melted cheese protein tightens and squeezes its own fat out."
+  },
+  {
+   "name": "Soubise",
+   "parent": "Béchamel",
+   "facets": {
+    "thicken": [
+     "a roux",
+     "cooked white",
+     "onion purée doing half the work"
+    ],
+    "liquid": [
+     "milk",
+     "warmed before it goes in",
+     "the onions give up their own water into it"
+    ],
+    "add": [
+     "onion",
+     "sweated pale in butter until it collapses",
+     "puréed and folded back through"
+    ],
+    "break": [
+     "safe at a simmer",
+     "ruined the moment the onions take colour",
+     "the whole point is that it stays white"
+    ],
+    "region": [
+     "France",
+     "Paris"
+    ]
+   },
+   "note": "Béchamel plus onions cooked without a hint of browning. Escoffier's version thickens with rice simmered in the onions instead of a roux — same sauce; the starch just arrives by another route."
+  },
+  {
+   "name": "Velouté",
+   "facets": {
+    "thicken": [
+     "a roux",
+     "cooked blond",
+     "taken to the colour of straw"
+    ],
+    "liquid": [
+     "a white stock",
+     "veal or chicken or fish",
+     "bones that were never roasted"
+    ],
+    "add": [
+     "nothing but seasoning",
+     "white pepper",
+     "a squeeze of lemon"
+    ],
+    "break": [
+     "safe at a simmer",
+     "skins over if left still",
+     "clouds if the stock was not skimmed"
+    ],
+    "region": [
+     "France"
+    ]
+   },
+   "note": "Béchamel's fork: the same roux one shade darker and stock where the milk was. The stock brings gelatine, so a velouté sets when it cools and a béchamel does not."
+  },
+  {
+   "name": "Suprême",
+   "parent": "Velouté",
+   "facets": {
+    "thicken": [
+     "a roux",
+     "cooked blond",
+     "cream reduced in until it coats"
+    ],
+    "liquid": [
+     "a white stock",
+     "chicken",
+     "mushroom trimmings simmered in it"
+    ],
+    "add": [
+     "cream",
+     "boiled in rather than stirred in",
+     "cold butter whisked through at the end"
+    ],
+    "break": [
+     "safe at a simmer",
+     "the butter finish splits on reheating",
+     "so it is made to be served"
+    ],
+    "region": [
+     "France"
+    ]
+   },
+   "note": "Chicken velouté enriched twice — cream reduced into it and then butter beaten in off the heat. The second enrichment is an emulsion sitting on top of a starch sauce; that is what will not survive a second heating."
+  },
+  {
+   "name": "Allemande",
+   "parent": "Velouté",
+   "facets": {
+    "thicken": [
+     "a roux",
+     "cooked blond",
+     "then a liaison of egg yolk and cream"
+    ],
+    "liquid": [
+     "a white stock",
+     "veal",
+     "reduced hard before the liaison goes in"
+    ],
+    "add": [
+     "egg yolk",
+     "beaten with cream",
+     "lemon juice at the end"
+    ],
+    "break": [
+     "curdles if it boils after the yolks",
+     "the yolks must be tempered with hot sauce first",
+     "no way back once it scrambles"
+    ],
+    "region": [
+     "France",
+     "German only in name"
+    ]
+   },
+   "note": "Carême counted this one of his four mothers. Escoffier moved it down here, on the grounds that a sauce built on velouté cannot also be its parent — and the slot it vacated went to hollandaise."
+  },
+  {
+   "name": "Espagnole",
+   "facets": {
+    "thicken": [
+     "a roux",
+     "cooked brown",
+     "taken to the colour of a hazelnut shell"
+    ],
+    "liquid": [
+     "a brown stock",
+     "veal bones roasted first",
+     "mirepoix and tomato purée underneath"
+    ],
+    "add": [
+     "nothing but seasoning",
+     "the mirepoix strained out at the end"
+    ],
+    "break": [
+     "safe at a hard boil",
+     "thickens far less than a pale roux of the same weight",
+     "so it takes a great deal more of it"
+    ],
+    "region": [
+     "France",
+     "Spanish only in name"
+    ]
+   },
+   "note": "The same roux left in the pan until the flour browns. Browning breaks the starch chains, so a brown roux has perhaps a third of the thickening power of a white one — you are buying flavour and paying for it in body."
+  },
+  {
+   "name": "Demi-glace",
+   "parent": "Espagnole",
+   "facets": {
+    "thicken": [
+     "a roux",
+     "cooked brown",
+     "then boiled down by half"
+    ],
+    "liquid": [
+     "a brown stock",
+     "veal bones roasted first",
+     "a second equal measure poured into the finished espagnole"
+    ],
+    "add": [
+     "nothing but seasoning",
+     "skimmed for hours",
+     "a splash of Madeira in some houses"
+    ],
+    "break": [
+     "safe at a hard boil",
+     "goes bitter and cloudy if the skimming is skipped",
+     "sets to a jelly when cold"
+    ],
+    "region": [
+     "France"
+    ]
+   },
+   "note": "The only dish here whose addition is not an ingredient. Espagnole plus more of the same stock and several hours — the flour is skimmed away as scum and gelatine takes over the body it used to provide."
+  },
+  {
+   "name": "Bordelaise",
+   "parent": "Demi-glace",
+   "facets": {
+    "thicken": [
+     "a roux",
+     "cooked brown",
+     "then boiled down by half"
+    ],
+    "liquid": [
+     "a brown stock",
+     "veal bones roasted first",
+     "red wine reduced almost dry first"
+    ],
+    "add": [
+     "red wine",
+     "shallots boiled down in it with thyme and bay",
+     "poached marrow spooned in at the end"
+    ],
+    "break": [
+     "safe at a hard boil",
+     "the marrow melts to plain fat if it is boiled",
+     "so it goes in off the heat"
+    ],
+    "region": [
+     "France",
+     "Bordeaux"
+    ]
+   },
+   "note": "Two levels down and honestly so: it is demi-glace, which is espagnole, plus a wine reduction and marrow. Nobody makes bordelaise from scratch in an afternoon — the depth of the tree is the depth of the work."
+  },
+  {
+   "name": "Hollandaise",
+   "facets": {
+    "thicken": [
+     "an emulsion",
+     "egg yolk holding warm butter in suspension",
+     "no flour anywhere"
+    ],
+    "liquid": [
+     "clarified butter",
+     "warm and poured in a thread",
+     "a spoonful of water to start the yolks"
+    ],
+    "add": [
+     "nothing but seasoning",
+     "lemon juice",
+     "cayenne"
+    ],
+    "break": [
+     "splits above about 70°C",
+     "splits if the butter arrives faster than the yolk can take it",
+     "comes back if whisked into a spoonful of cold water"
+    ],
+    "region": [
+     "France",
+     "Dutch only in name"
+    ]
+   },
+   "note": "The other half of the family. Nothing is cooked and nothing is thickened — the yolk's lecithin coats millions of butter droplets and keeps them from finding each other. Body here is crowding; thin the crowd and the sauce is butter again."
+  },
+  {
+   "name": "Béarnaise",
+   "parent": "Hollandaise",
+   "facets": {
+    "thicken": [
+     "an emulsion",
+     "egg yolk holding warm butter in suspension",
+     "no flour anywhere"
+    ],
+    "liquid": [
+     "clarified butter",
+     "warm and poured in a thread",
+     "the reduction standing in for the water"
+    ],
+    "add": [
+     "a reduction",
+     "tarragon and shallot boiled down in vinegar",
+     "chopped tarragon and chervil stirred through at the end"
+    ],
+    "break": [
+     "splits above about 70°C",
+     "the extra acid buys it slightly more room than hollandaise",
+     "comes back if whisked into a spoonful of cold water"
+    ],
+    "region": [
+     "France",
+     "named for Béarn",
+     "invented at Saint-Germain-en-Laye"
+    ]
+   },
+   "note": "Hollandaise with a vinegar reduction in place of the water and tarragon through it. The name is a nineteenth-century flourish — the sauce was made outside Paris and has nothing to do with Béarn."
+  },
+  {
+   "name": "Sauce tomate",
+   "facets": {
+    "thicken": [
+     "a roux",
+     "cooked blond in salt pork fat",
+     "the tomato's own pulp doing most of the rest"
+    ],
+    "liquid": [
+     "tomato",
+     "let down with a white stock",
+     "salt pork and mirepoix underneath"
+    ],
+    "add": [
+     "nothing but seasoning",
+     "a pinch of sugar against the acid"
+    ],
+    "break": [
+     "safe at a hard boil",
+     "catches on the base of the pan if it is left alone",
+     "weeps water back out if it is under-reduced"
+    ],
+    "region": [
+     "France",
+     "Provence"
+    ]
+   },
+   "note": "The odd mother: the only one that would still be a sauce with the roux left out, because reduced tomato thickens itself. Escoffier kept the roux anyway. The Italian line of descent — amatriciana, puttanesca, vodka — has its own family in this canon."
+  },
+  {
+   "name": "Gumbo roux",
+   "facets": {
+    "thicken": [
+     "a roux",
+     "cooked past brown to the colour of chocolate",
+     "oil or lard rather than butter"
+    ],
+    "liquid": [
+     "a stock",
+     "shellfish or chicken or plain water",
+     "poured on hot once the roux is stopped"
+    ],
+    "add": [
+     "the trinity",
+     "onion and bell pepper and celery tipped in to arrest the roux",
+     "filé or okra later if more body is wanted"
+    ],
+    "break": [
+     "safe at a hard boil",
+     "scorches in seconds at the colour it wants",
+     "burnt flecks cannot be strained back out"
+    ],
+    "region": [
+     "United States",
+     "Louisiana",
+     "Cajun and Creole"
+    ]
+   },
+   "note": "The far end of the same dial as espagnole, forty minutes further along. At this colour the flour has almost stopped thickening and is there for flavour, which is why a gumbo needs a cupful where a béchamel needs a spoon. Butter would burn long before; oil is not a shortcut but the condition of getting there."
+  },
+  {
+   "name": "Avgolemono",
+   "facets": {
+    "thicken": [
+     "a liaison",
+     "egg yolk beaten with lemon juice",
+     "no fat and no flour at all"
+    ],
+    "liquid": [
+     "a broth",
+     "whatever the meat or the dolmades cooked in",
+     "ladled hot into the eggs before the eggs go back"
+    ],
+    "add": [
+     "lemon",
+     "beaten into the yolks from the start",
+     "dill or nothing"
+    ],
+    "break": [
+     "curdles if it boils after the yolks",
+     "the acid makes it curdle sooner than allemande would",
+     "temper it or lose it"
+    ],
+    "region": [
+     "Eastern Mediterranean",
+     "Greece and Turkey",
+     "and the Sephardi kitchen"
+    ]
+   },
+   "note": "The same move as allemande with the roux deleted — egg yolk alone carrying a broth — and older than the French sauce by centuries. Turkish calls it terbiye and the Sephardi kitchen agristada; before lemons reached the Mediterranean the sourness came from verjuice or bitter orange."
+  },
+  {
+   "name": "Ankake",
+   "facets": {
+    "thicken": [
+     "a starch slurry",
+     "potato starch or kudzu slaked in cold water",
+     "brought back to a boil to turn it clear"
+    ],
+    "liquid": [
+     "dashi",
+     "kombu and katsuobushi",
+     "no fat in it anywhere"
+    ],
+    "add": [
+     "soy sauce",
+     "mirin",
+     "grated ginger at the end"
+    ],
+    "break": [
+     "safe through one boil",
+     "slackens again if it is held hot",
+     "clouds and slumps as it cools"
+    ],
+    "region": [
+     "Japan"
+    ]
+   },
+   "note": "Starch with no fat to carry it. A roux uses butter to keep the flour grains apart so they swell one at a time instead of lumping; cold water does the same job for nothing. What you lose is the flavour of cooked flour — which is exactly what this sauce is trying not to have."
+  },
+  {
+   "name": "Pipián verde",
+   "facets": {
+    "thicken": [
+     "a paste of ground seeds",
+     "pumpkin seeds toasted then milled",
+     "let down with broth"
+    ],
+    "liquid": [
+     "a broth",
+     "chicken or pork",
+     "tomatillos blended in raw"
+    ],
+    "add": [
+     "tomatillo",
+     "serrano and coriander",
+     "a leaf of hoja santa"
+    ],
+    "break": [
+     "separates as the seed oil rises",
+     "stirred back together over a low flame",
+     "grainy for good if the seeds were milled too coarse"
+    ],
+    "region": [
+     "Mexico",
+     "Puebla and Oaxaca"
+    ]
+   },
+   "note": "Thickened by the fat and protein of the seed itself rather than by starch or egg, and on the table long before anyone in France cooked flour in butter. The word comes from Nahuatl. Its sibling with chillies and chocolate is a mole; the thickening decision is the same one."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On the count of five",
+   "body": "Carême named four: béchamel, velouté, espagnole and allemande. Escoffier kept the first three, demoted allemande to a velouté derivative because it is one, and put hollandaise and tomate in the empty slots. So the number is an editorial decision about a French kitchen at a particular date, not a fact about sauces — which is why avgolemono and pipián sit at the top of this page rather than under anything."
+  },
+  {
+   "title": "On how far you cook the flour",
+   "body": "White for béchamel; blond for velouté and tomate; brown for espagnole; past brown to chocolate in Louisiana. It is one dial with four stops. Heat browns the flour by breaking the starch chains into shorter pieces, and short pieces cannot hold water — so thickening power falls away exactly as flavour arrives. A dark roux may thicken a third as well as a pale one of the same weight. That single trade explains why béchamel is stiff and espagnole is not; and why a gumbo needs a cup of roux where a béchamel needs a spoon."
+  },
+  {
+   "title": "On the two ways to hold a liquid",
+   "body": "Starch swells and gets in the way — grains absorb water and crowd the space, and once they have done it they are stable to a boil. Protein does it by surrounding: egg yolk either coats droplets of fat so they cannot coalesce (hollandaise) or sets loosely into a mesh (avgolemono). Protein gives a finer sauce and takes it away above about 70°C. Read the 'how it breaks' column and the whole family sorts itself into things you can boil and things you cannot."
+  },
+  {
+   "title": "On depth",
+   "body": "This family really is additive, so the tree is deep where the cooking is. Mornay is béchamel plus cheese; bordelaise is demi-glace which is espagnole plus stock and time. But the four non-French sauces sit at the top level with the mothers, not underneath them. Avgolemono is not a French liaison with a Greek accent and ankake is not a fat-free velouté — they are separate answers to the question of how to make a broth cling, and hanging them under Paris would make the picture tidier and the claim false."
+  },
+  {
+   "title": "On what is one move further out",
+   "body": "Every mother carries a dozen more children than fit here. Béchamel also gives crème, mustard and Nantua (crayfish butter). Velouté gives Bercy and normande. Espagnole gives chasseur, Robert and Périgueux. Hollandaise gives maltaise (blood orange juice and zest), mousseline (whipped cream folded through) and Choron (béarnaise with tomato, which is two levels down like bordelaise). None of them changes the shape of the tree — they are all the same operation, base plus one thing, applied once more."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Mother sauce (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Mother_sauce"
+  },
+  {
+   "label": "Roux",
+   "url": "https://en.wikipedia.org/wiki/Roux"
+  },
+  {
+   "label": "Béchamel sauce",
+   "url": "https://en.wikipedia.org/wiki/B%C3%A9chamel_sauce"
+  },
+  {
+   "label": "Velouté sauce",
+   "url": "https://en.wikipedia.org/wiki/Velout%C3%A9_sauce"
+  },
+  {
+   "label": "Espagnole sauce",
+   "url": "https://en.wikipedia.org/wiki/Espagnole_sauce"
+  },
+  {
+   "label": "Demi-glace",
+   "url": "https://en.wikipedia.org/wiki/Demi-glace"
+  },
+  {
+   "label": "Hollandaise sauce",
+   "url": "https://en.wikipedia.org/wiki/Hollandaise_sauce"
+  },
+  {
+   "label": "Béarnaise sauce",
+   "url": "https://en.wikipedia.org/wiki/B%C3%A9arnaise_sauce"
+  },
+  {
+   "label": "Avgolemono",
+   "url": "https://en.wikipedia.org/wiki/Avgolemono"
+  },
+  {
+   "label": "Agristada (Sephardic egg-lemon sauce)",
+   "url": "https://reformjudaism.org/reform-jewish-life/food-recipes/agristada-sephardic-egg-lemon-sauce"
+  },
+  {
+   "label": "Gumbo",
+   "url": "https://en.wikipedia.org/wiki/Gumbo"
+  },
+  {
+   "label": "Pipián",
+   "url": "https://en.wikipedia.org/wiki/Pipi%C3%A1n"
+  },
+  {
+   "label": "Le Guide Culinaire (Escoffier)",
+   "url": "https://en.wikipedia.org/wiki/Le_Guide_Culinaire"
+  }
+ ],
+ "yours": [
+  "mother sauce",
+  "bechamel",
+  "béchamel",
+  "white sauce",
+  "cheese sauce",
+  "mornay",
+  "veloute",
+  "velouté",
+  "suprême",
+  "espagnole",
+  "demi-glace",
+  "bordelaise",
+  "hollandaise",
+  "bearnaise",
+  "béarnaise",
+  "roux",
+  "avgolemono",
+  "gumbo",
+  "pipián"
+ ]
+}
