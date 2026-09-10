@@ -1,0 +1,533 @@
+{
+ "slug": "fried-chicken",
+ "name": "Fried chicken",
+ "standfirst": "Chicken meets hot fat in every one of these. What separates them is what went into the meat beforehand, what went onto the outside, whether it goes in once or twice, and what happens in the ten seconds after it comes out.",
+ "root": "Chicken in pieces · salt · hot fat",
+ "facets": [
+  {
+   "id": "prep",
+   "label": "Before the fryer"
+  },
+  {
+   "id": "coat",
+   "label": "Coating"
+  },
+  {
+   "id": "fry",
+   "label": "The fry"
+  },
+  {
+   "id": "after",
+   "label": "After the fry"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By coating",
+   "by": [
+    "coat",
+    "fry",
+    "after"
+   ]
+  },
+  {
+   "label": "By what happens after",
+   "by": [
+    "after",
+    "coat"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "coat"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Southern fried chicken",
+   "facets": {
+    "prep": [
+     "brined",
+     "buttermilk overnight"
+    ],
+    "coat": [
+     "wheat flour",
+     "seasoned with black pepper"
+    ],
+    "fry": [
+     "fried once",
+     "in a skillet of lard"
+    ],
+    "after": [],
+    "region": [
+     "American South"
+    ]
+   },
+   "note": "The brine is the argument: salt and acid work into the meat overnight, so the flour has something already seasoned to cling to. Every other dish on this table is one substitution away from it."
+  },
+  {
+   "name": "Nashville hot chicken",
+   "parent": "Southern fried chicken",
+   "facets": {
+    "prep": [
+     "brined",
+     "buttermilk overnight"
+    ],
+    "coat": [
+     "wheat flour",
+     "seasoned with black pepper",
+     "seasoned with cayenne"
+    ],
+    "fry": [
+     "fried once",
+     "in a skillet of lard"
+    ],
+    "after": [
+     "brushed with a paste",
+     "cayenne loosened in frying fat",
+     "laid on white bread",
+     "topped with pickle chips"
+    ],
+    "region": [
+     "Nashville"
+    ]
+   },
+   "note": "Genuinely Southern fried chicken plus a step, which is why it sits a level down. The paste goes on after the crust has set, so the heat stays on the outside and the bread underneath is there to take what runs off."
+  },
+  {
+   "name": "Broasted chicken",
+   "facets": {
+    "prep": [
+     "marinated",
+     "in seasoned brine"
+    ],
+    "coat": [
+     "wheat flour",
+     "seasoned with paprika"
+    ],
+    "fry": [
+     "fried under pressure"
+    ],
+    "after": [],
+    "region": [
+     "Wisconsin"
+    ]
+   },
+   "note": "The same dredge as Southern, in a sealed fryer. Pressure raises the boiling point of the moisture inside the bird so it cooks through before the crust darkens — a machine's answer to a timing problem cooks had solved with smaller pieces."
+  },
+  {
+   "name": "Buffalo wings",
+   "facets": {
+    "prep": [
+     "left plain"
+    ],
+    "coat": [
+     "no coating"
+    ],
+    "fry": [
+     "fried once"
+    ],
+    "after": [
+     "tossed in a sauce",
+     "cayenne hot sauce",
+     "melted butter"
+    ],
+    "region": [
+     "Buffalo"
+    ]
+   },
+   "note": "Nothing done to the meat beforehand and nothing between skin and fat. The entire dish is the last column, which is what makes it the cleanest test of that column."
+  },
+  {
+   "name": "Karaage",
+   "facets": {
+    "prep": [
+     "marinated",
+     "soy and sake",
+     "ginger and garlic"
+    ],
+    "coat": [
+     "starch",
+     "potato starch"
+    ],
+    "fry": [
+     "fried twice",
+     "low then hot"
+    ],
+    "after": [
+     "finished at the table",
+     "a wedge of lemon"
+    ],
+    "region": [
+     "Japan"
+    ]
+   },
+   "note": "Starch instead of flour gives a thin shell that shatters rather than a craggy one that holds. The second fry runs hotter and drives off the moisture the first one pulled to the surface."
+  },
+  {
+   "name": "Toriten",
+   "facets": {
+    "prep": [
+     "marinated",
+     "soy and sake",
+     "ginger and garlic"
+    ],
+    "coat": [
+     "wet batter",
+     "tempura batter",
+     "kept ice cold"
+    ],
+    "fry": [
+     "fried once"
+    ],
+    "after": [
+     "finished at the table",
+     "ponzu",
+     "karashi mustard"
+    ],
+    "region": [
+     "Oita"
+    ]
+   },
+   "note": "Oita's version, and the clearest proof that the coating is a real branch: the marinade is karaage's, chip for chip. A cold batter puffs and stays pale where the same meat in starch would have shattered."
+  },
+  {
+   "name": "Chicken katsu",
+   "facets": {
+    "prep": [
+     "pounded flat"
+    ],
+    "coat": [
+     "breadcrumb",
+     "panko",
+     "through flour and egg first"
+    ],
+    "fry": [
+     "fried once",
+     "deep"
+    ],
+    "after": [
+     "finished at the table",
+     "tonkatsu sauce"
+    ],
+    "region": [
+     "Japan"
+    ]
+   },
+   "note": "Panko is torn from crustless bread rather than ground, so the crumbs are shards and the crust dries open instead of packing tight. Flour then egg then crumb is the ladder every breaded cutlet on this table climbs."
+  },
+  {
+   "name": "Yangnyeom chicken",
+   "facets": {
+    "prep": [
+     "seasoned dry",
+     "salt and ginger"
+    ],
+    "coat": [
+     "starch",
+     "potato starch"
+    ],
+    "fry": [
+     "fried twice",
+     "rested between"
+    ],
+    "after": [
+     "tossed in a sauce",
+     "gochujang",
+     "sugar and garlic"
+    ],
+    "region": [
+     "Korea"
+    ]
+   },
+   "note": "The double fry exists because of the sauce. A single-fried crust still holds water and goes soft the moment it is glazed; the rest between fries lets steam escape before the second one seals it."
+  },
+  {
+   "name": "Dakgangjeong",
+   "facets": {
+    "prep": [
+     "seasoned dry",
+     "salt and ginger"
+    ],
+    "coat": [
+     "starch",
+     "potato starch"
+    ],
+    "fry": [
+     "fried twice",
+     "rested between"
+    ],
+    "after": [
+     "tossed in a sauce",
+     "soy and garlic",
+     "syrup reduced to a hard glaze"
+    ],
+    "region": [
+     "Korea"
+    ]
+   },
+   "note": "Identical to yangnyeom until the pan of sauce, which here is boiled down until it sets like candy rather than staying wet. That single difference is why these are still crisp cold and yangnyeom is not."
+  },
+  {
+   "name": "Chicken 65",
+   "facets": {
+    "prep": [
+     "marinated",
+     "yogurt",
+     "chilli and ginger-garlic"
+    ],
+    "coat": [
+     "wet batter",
+     "cornflour and egg"
+    ],
+    "fry": [
+     "fried once"
+    ],
+    "after": [
+     "scattered over",
+     "curry leaves crackled in oil",
+     "green chilli"
+    ],
+    "region": [
+     "Tamil Nadu"
+    ]
+   },
+   "note": "Attributed to the Buhari hotel in Madras and dated to 1965 by most tellings. The yogurt is doing brine's job — salt and acid into the meat — but thick enough to stay put without a bowl."
+  },
+  {
+   "name": "Chicken pakora",
+   "facets": {
+    "prep": [
+     "marinated",
+     "lemon juice",
+     "chilli and ginger-garlic"
+    ],
+    "coat": [
+     "wet batter",
+     "gram flour",
+     "carom seed"
+    ],
+    "fry": [
+     "fried once"
+    ],
+    "after": [
+     "scattered over",
+     "chaat masala"
+    ],
+    "region": [
+     "Punjab"
+    ]
+   },
+   "note": "Gram flour binds without egg and fries darker and nuttier than wheat. It is the same batter that carries onion and potato, which is the point — the chicken is a passenger in an established coating."
+  },
+  {
+   "name": "Yánsūjī",
+   "facets": {
+    "prep": [
+     "marinated",
+     "soy and rice wine",
+     "five-spice"
+    ],
+    "coat": [
+     "starch",
+     "sweet potato starch"
+    ],
+    "fry": [
+     "fried once"
+    ],
+    "after": [
+     "scattered over",
+     "basil leaves fried crisp",
+     "white pepper salt"
+    ],
+    "region": [
+     "Taiwan"
+    ]
+   },
+   "note": "Salt-crisp chicken, sold everywhere outside Taiwan as popcorn chicken. Sweet potato starch is coarser than potato starch and fries into visible nubs rather than a smooth shell — that texture is what the night markets are actually selling."
+  },
+  {
+   "name": "Chicken schnitzel",
+   "facets": {
+    "prep": [
+     "pounded flat"
+    ],
+    "coat": [
+     "breadcrumb",
+     "fine dry crumb",
+     "through flour and egg first"
+    ],
+    "fry": [
+     "fried shallow in a pan",
+     "in clarified butter",
+     "the pan swirled so the crust lifts"
+    ],
+    "after": [
+     "finished at the table",
+     "a wedge of lemon"
+    ],
+    "region": [
+     "Austria"
+    ]
+   },
+   "note": "Wiener Schnitzel is veal by law, so done with chicken it is Schnitzel vom Huhn — and in Israel, where it arrived with Austrian immigrants and stayed, simply schnitzel. Swirling hot fat over the top floats the crust off the meat instead of pressing it on."
+  },
+  {
+   "name": "Milanesa de pollo",
+   "facets": {
+    "prep": [
+     "marinated",
+     "beaten egg",
+     "garlic and parsley"
+    ],
+    "coat": [
+     "breadcrumb",
+     "fine dry crumb"
+    ],
+    "fry": [
+     "fried shallow in a pan",
+     "in oil"
+    ],
+    "after": [
+     "finished at the table",
+     "a wedge of lemon"
+    ],
+    "region": [
+     "Argentina"
+    ]
+   },
+   "note": "The cutlet sits in beaten egg with garlic and parsley for hours before it is crumbed, so the seasoning lives in the wet layer rather than the dry one and there is no flour step at all. Not a schnitzel variant — both look back to Milan and neither descends from the other."
+  },
+  {
+   "name": "Ayam goreng kalasan",
+   "facets": {
+    "prep": [
+     "simmered first",
+     "in coconut water",
+     "with galangal and coriander seed"
+    ],
+    "coat": [
+     "no coating"
+    ],
+    "fry": [
+     "fried once"
+    ],
+    "after": [
+     "scattered over",
+     "crisp granules fried from the braising liquid"
+    ],
+    "region": [
+     "Java"
+    ]
+   },
+   "note": "The chicken is fully cooked before it meets the fryer, so the fry is only for colour and skin. The spiced braising liquid is not thrown out either — flour goes into it and it is fried again into kremes and showered over the top."
+  },
+  {
+   "name": "Chicharrón de pollo",
+   "facets": {
+    "prep": [
+     "marinated",
+     "sour orange and lime",
+     "oregano and garlic"
+    ],
+    "coat": [
+     "wheat flour",
+     "cut with cornstarch"
+    ],
+    "fry": [
+     "fried once",
+     "cut small so it fries fast"
+    ],
+    "after": [
+     "finished at the table",
+     "a squeeze of lime"
+    ],
+    "region": [
+     "Dominican Republic"
+    ]
+   },
+   "note": "Cut to bite size before it is dredged, which raises the ratio of crust to meat and shortens the fry — the same reasoning karaage and yánsūjī arrive at from the other side of the world. Cornstarch in the flour is what makes it shatter rather than crunch."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On the coating",
+   "body": "Four answers, and they are not interchangeable. Wheat flour builds a thick craggy shell that holds sauce and gravy. Pure starch — potato in Japan and Korea, sweet potato in Taiwan — makes almost no gluten and dries into a thin glassy layer that shatters. A wet batter puffs, because the water in it turns to steam and leaves the coating hollow. Breadcrumb is the only one that is already dry and already cooked, so it browns before the meat is done and therefore belongs on something pounded thin. Pick the coating and you have picked most of the dish."
+  },
+  {
+   "title": "On frying twice",
+   "body": "The second fry is not for browning. The first drives water out of the meat and up into the coating, where it would soften the crust as it cooled; a rest lets that steam leave and a hotter second fry sets what remains. That is why the twice-fried dishes are the ones that get sauced — yangnyeom and dakgangjeong are engineered to survive a wet glaze, and Buffalo wings get away with a single fry only because there is no coating there to go soft."
+  },
+  {
+   "title": "On depth",
+   "body": "Only Nashville hot chicken sits below another dish, because it genuinely is Southern fried chicken plus a paste applied afterwards. Everything else here is a sibling. Milanesa is not a schnitzel with garlic in it, karaage is not katsu without the crumb, and dakgangjeong and yangnyeom are two finishes on one fry rather than one descending from the other. Dishes from different traditions that solve the same problem belong at the same depth."
+  },
+  {
+   "title": "What is not here",
+   "body": "Pollo a la brasa is excluded: it is spit-roasted over charcoal, marinated but never fried, and it sits in this company only because it is also a whole seasoned chicken. Chicken-fried steak is beef. Roast and grilled birds with fried-chicken seasoning — jerk, tandoori, inasal — are a different family with a different first decision."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Fried chicken (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Fried_chicken"
+  },
+  {
+   "label": "Hot chicken",
+   "url": "https://en.wikipedia.org/wiki/Hot_chicken"
+  },
+  {
+   "label": "Broaster Company",
+   "url": "https://en.wikipedia.org/wiki/Broaster_Company"
+  },
+  {
+   "label": "Karaage",
+   "url": "https://en.wikipedia.org/wiki/Karaage"
+  },
+  {
+   "label": "Toriten",
+   "url": "https://en.wikipedia.org/wiki/Toriten"
+  },
+  {
+   "label": "Korean fried chicken",
+   "url": "https://en.wikipedia.org/wiki/Korean_fried_chicken"
+  },
+  {
+   "label": "Chicken 65",
+   "url": "https://en.wikipedia.org/wiki/Chicken_65"
+  },
+  {
+   "label": "Taiwanese fried chicken",
+   "url": "https://en.wikipedia.org/wiki/Taiwanese_popcorn_chicken"
+  },
+  {
+   "label": "Ayam goreng kalasan",
+   "url": "https://en.wikipedia.org/wiki/Ayam_goreng_kalasan"
+  },
+  {
+   "label": "Milanesa",
+   "url": "https://en.wikipedia.org/wiki/Milanesa"
+  }
+ ],
+ "yours": [
+  "fried chicken",
+  "hot chicken",
+  "buffalo wings",
+  "karaage",
+  "katsu",
+  "korean fried chicken",
+  "chicken 65",
+  "pakora",
+  "popcorn chicken",
+  "schnitzel",
+  "milanesa",
+  "ayam goreng"
+ ]
+}

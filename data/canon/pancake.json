@@ -1,0 +1,529 @@
+{
+ "slug": "pancake",
+ "name": "Pancake",
+ "standfirst": "Every one of these is ground starch slackened with liquid and set on direct heat. What separates them is what lifts the batter, how thickly it pours, what it lands on, and whether it ends up sweet or savoury.",
+ "root": "Ground starch · liquid · a hot surface",
+ "facets": [
+  {
+   "id": "lift",
+   "label": "Leavening"
+  },
+  {
+   "id": "batter",
+   "label": "Batter"
+  },
+  {
+   "id": "surface",
+   "label": "Cooked on"
+  },
+  {
+   "id": "register",
+   "label": "Sweet or savoury"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By leavening",
+   "by": [
+    "lift",
+    "batter",
+    "surface"
+   ]
+  },
+  {
+   "label": "By cooking surface",
+   "by": [
+    "surface",
+    "batter",
+    "register"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "lift"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "American stack",
+   "facets": {
+    "lift": [
+     "chemical leavening",
+     "baking powder"
+    ],
+    "batter": [
+     "pourable",
+     "wheat flour"
+    ],
+    "surface": [
+     "flat griddle",
+     "flipped once"
+    ],
+    "register": [
+     "sweet",
+     "maple syrup poured over"
+    ],
+    "region": [
+     "United States"
+    ]
+   },
+   "note": "The only one here that is stacked. Baking powder is what makes that possible — a chemical lift works in the minute between mixing and the griddle, so the batter can be thick and still rise."
+  },
+  {
+   "name": "Crêpe",
+   "facets": {
+    "lift": [
+     "none"
+    ],
+    "batter": [
+     "thin enough to swirl",
+     "wheat flour",
+     "rested"
+    ],
+    "surface": [
+     "flat griddle",
+     "flipped once"
+    ],
+    "register": [
+     "sweet",
+     "savoury"
+    ],
+    "region": [
+     "Brittany"
+    ]
+   },
+   "note": "Nothing lifts it, so the rest is the whole technique: an hour off the heat lets the flour drink and the gluten slacken, which is why it swirls to the edge instead of tearing."
+  },
+  {
+   "name": "Blini",
+   "facets": {
+    "lift": [
+     "yeast"
+    ],
+    "batter": [
+     "pourable",
+     "buckwheat flour"
+    ],
+    "surface": [
+     "shallow pan",
+     "flipped once"
+    ],
+    "register": [
+     "savoury",
+     "sweet"
+    ],
+    "region": [
+     "Russia"
+    ]
+   },
+   "note": "Yeast is the older lift, and it costs hours rather than minutes. What it buys is sourness, which is why buckwheat and salt fish sit on the same plate without either winning."
+  },
+  {
+   "name": "Baghrir",
+   "facets": {
+    "lift": [
+     "yeast"
+    ],
+    "batter": [
+     "thin enough to swirl",
+     "semolina"
+    ],
+    "surface": [
+     "flat griddle",
+     "one side only"
+    ],
+    "register": [
+     "sweet",
+     "drenched in honey"
+    ],
+    "region": [
+     "Morocco"
+    ]
+   },
+   "note": "The thousand holes are the point, and they only exist because it is never turned: steam escapes upward through a thin yeasted batter and leaves the top open. Flip it and you close the sponge that the honey is supposed to soak into."
+  },
+  {
+   "name": "Jianbing",
+   "facets": {
+    "lift": [
+     "none"
+    ],
+    "batter": [
+     "thin enough to swirl",
+     "millet flour"
+    ],
+    "surface": [
+     "flat griddle",
+     "spread with a scraper",
+     "flipped once"
+    ],
+    "register": [
+     "savoury"
+    ],
+    "region": [
+     "Shandong"
+    ]
+   },
+   "note": "A wooden rake rather than a wrist does the spreading, which is what lets one crêpe cover a whole edgeless griddle. An egg is broken onto the raw side and spread the same way before it is turned."
+  },
+  {
+   "name": "Jianbing guozi",
+   "parent": "Jianbing",
+   "facets": {
+    "lift": [
+     "none"
+    ],
+    "batter": [
+     "thin enough to swirl",
+     "mung bean flour"
+    ],
+    "surface": [
+     "flat griddle",
+     "spread with a scraper",
+     "flipped once"
+    ],
+    "register": [
+     "savoury",
+     "a crisp cracker folded in"
+    ],
+    "region": [
+     "Tianjin"
+    ]
+   },
+   "note": "Jianbing plus the guozi — a sheet of fried cracker or a length of youtiao laid on before folding. It descends from the Shandong pancake rather than from the base, and Tianjin swapped millet for mung bean along the way, which is why it is the softer of the two."
+  },
+  {
+   "name": "Bánh xèo",
+   "facets": {
+    "lift": [
+     "none"
+    ],
+    "batter": [
+     "thin enough to swirl",
+     "rice flour",
+     "turmeric"
+    ],
+    "surface": [
+     "shallow pan",
+     "generous oil",
+     "folded over"
+    ],
+    "register": [
+     "savoury",
+     "wrapped in lettuce at the table"
+    ],
+    "region": [
+     "Vietnam"
+    ]
+   },
+   "note": "The name is the sizzle the batter makes hitting hot fat. Coconut milk in the batter and enough oil to fry rather than griddle are what make it shatter — this is the only thin pancake here that is crisp all the way through."
+  },
+  {
+   "name": "Pajeon",
+   "facets": {
+    "lift": [
+     "none"
+    ],
+    "batter": [
+     "pourable",
+     "wheat flour"
+    ],
+    "surface": [
+     "shallow pan",
+     "generous oil",
+     "flipped once"
+    ],
+    "register": [
+     "savoury",
+     "scallions laid in whole"
+    ],
+    "region": [
+     "Korea"
+    ]
+   },
+   "note": "The scallions go in at full length and the batter is barely enough to hold them, so this is closer to a raft than a cake. Batter here is glue, not body."
+  },
+  {
+   "name": "Okonomiyaki",
+   "facets": {
+    "lift": [
+     "chemical leavening",
+     "grated yam"
+    ],
+    "batter": [
+     "thick enough to mound",
+     "wheat flour",
+     "shredded cabbage"
+    ],
+    "surface": [
+     "flat griddle",
+     "flipped once"
+    ],
+    "register": [
+     "savoury",
+     "sauce brushed on top"
+    ],
+    "region": [
+     "Osaka"
+    ]
+   },
+   "note": "Cabbage is most of the volume and the batter only binds it, which is why it mounds instead of spreading. Hiroshima builds the same parts in layers over a nest of noodles rather than mixing them."
+  },
+  {
+   "name": "Hotteok",
+   "facets": {
+    "lift": [
+     "yeast"
+    ],
+    "batter": [
+     "stiff enough to knead",
+     "wheat flour",
+     "glutinous rice flour"
+    ],
+    "surface": [
+     "flat griddle",
+     "pressed flat",
+     "flipped once"
+    ],
+    "register": [
+     "sweet",
+     "filled with brown sugar syrup"
+    ],
+    "region": [
+     "Korea"
+    ]
+   },
+   "note": "The far end of the thickness column: stiff enough to be handled, so the sugar can be sealed inside before a press flattens it on the griddle. The filling only becomes syrup once it is already shut in."
+  },
+  {
+   "name": "Apam balik",
+   "facets": {
+    "lift": [
+     "yeast",
+     "baking soda"
+    ],
+    "batter": [
+     "pourable",
+     "wheat flour"
+    ],
+    "surface": [
+     "flat griddle",
+     "one side only",
+     "folded over"
+    ],
+    "register": [
+     "sweet",
+     "filled with crushed peanuts"
+    ],
+    "region": [
+     "Malaysia"
+    ]
+   },
+   "note": "Both lifts at once — yeast for the open crumb, soda for the lacy edge. Like baghrir it is never turned, but the untouched top is a surface to fill rather than to soak."
+  },
+  {
+   "name": "Dutch baby",
+   "facets": {
+    "lift": [
+     "steam alone"
+    ],
+    "batter": [
+     "pourable",
+     "wheat flour",
+     "more egg than flour"
+    ],
+    "surface": [
+     "hot oven",
+     "preheated skillet",
+     "never turned"
+    ],
+    "register": [
+     "sweet",
+     "lemon squeezed over"
+    ],
+    "region": [
+     "United States"
+    ]
+   },
+   "note": "No leavening at all, and it climbs the highest of any of them. Water in a very eggy batter flashes to steam faster than the egg can set, so the walls are pushed up and then held there — which is also why it collapses on the way to the table."
+  },
+  {
+   "name": "Æbleskiver",
+   "facets": {
+    "lift": [
+     "chemical leavening",
+     "whipped egg white"
+    ],
+    "batter": [
+     "pourable",
+     "wheat flour"
+    ],
+    "surface": [
+     "dimpled pan",
+     "turned into a sphere"
+    ],
+    "register": [
+     "sweet",
+     "jam on the side"
+    ],
+    "region": [
+     "Denmark"
+    ]
+   },
+   "note": "A knitting needle turns each one a quarter at a time so the raw batter runs down and sets on the outside — the ball is built in three or four turns rather than one flip."
+  },
+  {
+   "name": "Poffertjes",
+   "facets": {
+    "lift": [
+     "yeast"
+    ],
+    "batter": [
+     "pourable",
+     "buckwheat flour"
+    ],
+    "surface": [
+     "dimpled pan",
+     "flipped once"
+    ],
+    "register": [
+     "sweet",
+     "buried in icing sugar"
+    ],
+    "region": [
+     "Netherlands"
+    ]
+   },
+   "note": "The same dimpled iron as æbleskiver and the opposite decision at every other column: yeast instead of egg white, buckwheat instead of wheat, and one flip, so it stays a disc."
+  },
+  {
+   "name": "Latke",
+   "facets": {
+    "lift": [
+     "none"
+    ],
+    "batter": [
+     "thick enough to mound",
+     "grated potato instead of flour"
+    ],
+    "surface": [
+     "shallow pan",
+     "deep oil",
+     "flipped once"
+    ],
+    "register": [
+     "savoury"
+    ],
+    "region": [
+     "Ashkenazi Europe"
+    ]
+   },
+   "note": "The starch is the vegetable itself — squeeze the grated potato and the starch that settles out is what binds the rest. Nothing is poured, and the oil is the whole occasion."
+  },
+  {
+   "name": "Cachapa",
+   "facets": {
+    "lift": [
+     "none"
+    ],
+    "batter": [
+     "pourable",
+     "fresh corn ground raw"
+    ],
+    "surface": [
+     "flat griddle",
+     "flipped once"
+    ],
+    "register": [
+     "sweet",
+     "savoury"
+    ],
+    "region": [
+     "Venezuela"
+    ]
+   },
+   "note": "Not corn flour but whole kernels cut from the cob and blitzed, so the batter is milk from the corn itself. It arrives sweet and gets a slab of salted queso de mano folded into it, and refuses to pick a side."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On not turning it over",
+   "body": "Baghrir and apam balik are cooked on one side only, and it is a decision rather than an omission. A thin yeasted batter lets steam escape upward and leaves the top open and porous — baghrir wants that to drink honey, apam balik wants it as a floor for peanuts and sugar before folding. Turning either one would close the surface that is the point of it."
+  },
+  {
+   "title": "On the dimpled pan",
+   "body": "Æbleskiver and poffertjes share a piece of cast iron and almost nothing else. Given the same hollows, Denmark turns each portion repeatedly until it closes into a sphere and Holland flips it once and leaves it flat. The pan is a constraint, not an answer."
+  },
+  {
+   "title": "Where the family ends",
+   "body": "Dosa and injera are batters on griddles too, but both are fermented for days and both are eaten as the bread of a meal rather than as the dish — they sit with flatbread. The line drawn here is a batter mixed and cooked in the same session, served as itself."
+  },
+  {
+   "title": "On depth",
+   "body": "Only jianbing guozi sits a level down, because it genuinely is jianbing with the guozi folded inside. The other fifteen are each one decision from the base and belong at the same depth, however tempting it is to call a crêpe the parent of everything thin."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Pancake (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Pancake"
+  },
+  {
+   "label": "Jianbing guozi",
+   "url": "https://en.wikipedia.org/wiki/Jianbing_guozi"
+  },
+  {
+   "label": "Baghrir",
+   "url": "https://en.wikipedia.org/wiki/Baghrir"
+  },
+  {
+   "label": "Okonomiyaki",
+   "url": "https://en.wikipedia.org/wiki/Okonomiyaki"
+  },
+  {
+   "label": "Bánh xèo",
+   "url": "https://en.wikipedia.org/wiki/B%C3%A1nh_x%C3%A8o"
+  },
+  {
+   "label": "Cachapa",
+   "url": "https://en.wikipedia.org/wiki/Cachapa"
+  },
+  {
+   "label": "Æbleskiver",
+   "url": "https://en.wikipedia.org/wiki/%C3%86bleskiver"
+  },
+  {
+   "label": "Apam balik",
+   "url": "https://en.wikipedia.org/wiki/Apam_balik"
+  }
+ ],
+ "yours": [
+  "pancake",
+  "pancakes",
+  "crepe",
+  "crêpe",
+  "blini",
+  "blintz",
+  "baghrir",
+  "jianbing",
+  "banh xeo",
+  "bánh xèo",
+  "pajeon",
+  "okonomiyaki",
+  "hotteok",
+  "apam balik",
+  "dutch baby",
+  "aebleskiver",
+  "æbleskiver",
+  "poffertjes",
+  "latke",
+  "cachapa"
+ ]
+}

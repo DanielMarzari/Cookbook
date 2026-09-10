@@ -1,0 +1,553 @@
+{
+ "slug": "braise",
+ "name": "Braise",
+ "standfirst": "Sixteen dishes and one method: a cut too tough to grill, a covered pot, a low fire, and hours. What separates them is what the liquid is, whether the meat browns before it goes in, whether that liquid ends up a sauce or stays a broth — and what was already frying in the pot when it arrived.",
+ "root": "Tough meat · a little liquid · low heat · hours",
+ "facets": [
+  {
+   "id": "liquid",
+   "label": "Liquid"
+  },
+  {
+   "id": "start",
+   "label": "Start"
+  },
+  {
+   "id": "finish",
+   "label": "Finish"
+  },
+  {
+   "id": "base",
+   "label": "Aromatic base"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By liquid",
+   "by": [
+    "liquid",
+    "start",
+    "finish"
+   ]
+  },
+  {
+   "label": "By what you end up with",
+   "by": [
+    "finish",
+    "start",
+    "liquid"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "liquid"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Boeuf bourguignon",
+   "facets": {
+    "region": [
+     "Burgundy"
+    ],
+    "liquid": [
+     "wine",
+     "red Burgundy"
+    ],
+    "start": [
+     "meat browned first",
+     "lardons rendered before it",
+     "dusted with flour"
+    ],
+    "finish": [
+     "reduces to a sauce",
+     "glossy from the flour"
+    ],
+    "base": [
+     "onion",
+     "carrot",
+     "garlic",
+     "bouquet garni"
+    ]
+   },
+   "note": "The flour is not a shortcut. A braise cannot thicken itself past a point, and every dish in this family answers that somehow — here with wheat."
+  },
+  {
+   "name": "Gulyás",
+   "facets": {
+    "region": [
+     "Hungary"
+    ],
+    "liquid": [
+     "water",
+     "enough to cover"
+    ],
+    "start": [
+     "meat goes in raw",
+     "onions fried first",
+     "paprika stirred in off the heat"
+    ],
+    "finish": [
+     "stays a broth",
+     "potatoes cooked in it"
+    ],
+    "base": [
+     "onion",
+     "sweet paprika",
+     "caraway"
+    ]
+   },
+   "note": "In Hungary this is a soup you eat with a spoon. What the rest of the world calls goulash is the next row down."
+  },
+  {
+   "name": "Pörkölt",
+   "facets": {
+    "region": [
+     "Hungary"
+    ],
+    "liquid": [
+     "water",
+     "barely any"
+    ],
+    "start": [
+     "meat goes in raw",
+     "onions fried first",
+     "paprika stirred in off the heat"
+    ],
+    "finish": [
+     "reduces to a sauce",
+     "clings to the meat"
+    ],
+    "base": [
+     "onion",
+     "sweet paprika",
+     "caraway"
+    ]
+   },
+   "note": "Identical to gulyás up to the moment you decide how much water goes in. Under a ladle and it becomes a sauce; over, and it stays a soup."
+  },
+  {
+   "name": "Pot roast",
+   "facets": {
+    "region": [
+     "United States"
+    ],
+    "liquid": [
+     "stock",
+     "beef stock"
+    ],
+    "start": [
+     "meat browned first",
+     "vegetables browned after"
+    ],
+    "finish": [
+     "reduces to a sauce",
+     "strained into gravy"
+    ],
+    "base": [
+     "onion",
+     "carrot",
+     "celery"
+    ]
+   },
+   "note": "The plainest version in the family — no wine, no paste, nothing fermented. All of the flavour has to come out of the browning, which is why it is the one dish here you cannot make without it."
+  },
+  {
+   "name": "Tagine",
+   "facets": {
+    "region": [
+     "Morocco"
+    ],
+    "liquid": [
+     "water",
+     "a splash only"
+    ],
+    "start": [
+     "meat goes in raw",
+     "turned in the spices cold"
+    ],
+    "finish": [
+     "reduces to a sauce",
+     "the conical lid returns the steam"
+    ],
+    "base": [
+     "onion",
+     "ginger",
+     "saffron",
+     "preserved lemon"
+    ]
+   },
+   "note": "Barely any liquid goes in because barely any gets out. The cone condenses the steam and drops it back — the pot is the recipe."
+  },
+  {
+   "name": "Doro wat",
+   "facets": {
+    "region": [
+     "Ethiopia"
+    ],
+    "liquid": [
+     "water",
+     "added a ladle at a time"
+    ],
+    "start": [
+     "meat goes in raw",
+     "onions cooked dry without fat"
+    ],
+    "finish": [
+     "reduces to a sauce",
+     "spiced butter separates on top"
+    ],
+    "base": [
+     "onion",
+     "berbere",
+     "niter kibbeh"
+    ]
+   },
+   "note": "Six onions go into a dry pot for the best part of an hour before any fat does. They give up their water and collapse to a paste, and that paste is the sauce."
+  },
+  {
+   "name": "Ghormeh sabzi",
+   "facets": {
+    "region": [
+     "Iran"
+    ],
+    "liquid": [
+     "water",
+     "enough to cover"
+    ],
+    "start": [
+     "meat browned first",
+     "herbs fried separately until dark"
+    ],
+    "finish": [
+     "reduces to a sauce",
+     "loose enough to spoon over rice",
+     "oil rises to the surface"
+    ],
+    "base": [
+     "onion",
+     "parsley",
+     "fenugreek leaf",
+     "dried lime"
+    ]
+   },
+   "note": "The herbs are fried almost to black in their own pan before they meet the meat. Stop short and the stew tastes green rather than deep."
+  },
+  {
+   "name": "Korma",
+   "facets": {
+    "region": [
+     "Mughal India"
+    ],
+    "liquid": [
+     "yoghurt",
+     "cream"
+    ],
+    "start": [
+     "meat browned first",
+     "whole spices bloomed in ghee"
+    ],
+    "finish": [
+     "reduces to a sauce",
+     "thickened with ground almonds"
+    ],
+    "base": [
+     "onion",
+     "ginger",
+     "garlic",
+     "green cardamom"
+    ]
+   },
+   "note": "The only liquid here that splits if it boils. Low heat is not patience in a korma — it is the entire constraint."
+  },
+  {
+   "name": "Rendang",
+   "facets": {
+    "region": [
+     "West Sumatra"
+    ],
+    "liquid": [
+     "coconut milk",
+     "thick"
+    ],
+    "start": [
+     "meat goes in raw",
+     "into the spice paste cold"
+    ],
+    "finish": [
+     "the liquid cooks away",
+     "the meat fries in the released oil"
+    ],
+    "base": [
+     "shallot",
+     "galangal",
+     "lemongrass",
+     "turmeric leaf"
+    ]
+   },
+   "note": "It stops being a braise before it is done. Once the coconut milk breaks the pot is frying, and that last hour is what lets it keep for a week without a fridge."
+  },
+  {
+   "name": "Massaman",
+   "facets": {
+    "region": [
+     "Thailand"
+    ],
+    "liquid": [
+     "coconut milk",
+     "tamarind water"
+    ],
+    "start": [
+     "meat goes in raw",
+     "paste fried in cracked coconut cream"
+    ],
+    "finish": [
+     "reduces to a sauce",
+     "loose enough to spoon over rice"
+    ],
+    "base": [
+     "shallot",
+     "lemongrass",
+     "cinnamon",
+     "roasted peanut"
+    ]
+   },
+   "note": "The same milk as rendang taken to the opposite end — stopped while it is still a sauce instead of driven until it fries."
+  },
+  {
+   "name": "Adobo",
+   "facets": {
+    "region": [
+     "Philippines"
+    ],
+    "liquid": [
+     "vinegar",
+     "soy sauce"
+    ],
+    "start": [
+     "meat goes in raw",
+     "marinated in the braising liquid"
+    ],
+    "finish": [
+     "reduces to a sauce",
+     "the meat fried in the last of it"
+    ],
+    "base": [
+     "garlic",
+     "bay",
+     "black peppercorn"
+    ]
+   },
+   "note": "Three aromatics and nothing else. The vinegar is not seasoning — it is what kept a pot of pork edible in the tropics before there was anywhere cold to put it."
+  },
+  {
+   "name": "Humba",
+   "parent": "Adobo",
+   "facets": {
+    "region": [
+     "Visayas"
+    ],
+    "liquid": [
+     "vinegar",
+     "soy sauce"
+    ],
+    "start": [
+     "meat goes in raw",
+     "marinated in the braising liquid"
+    ],
+    "finish": [
+     "reduces to a sauce",
+     "palm sugar takes it to a glaze"
+    ],
+    "base": [
+     "garlic",
+     "bay",
+     "black peppercorn",
+     "fermented black beans",
+     "dried banana blossom"
+    ]
+   },
+   "note": "Adobo plus palm sugar and tausi — it descends from adobo, not from the base. Its other ancestor is sitting two rows down: hong shao rou came to the Visayas with Hokkien traders and met adobo there."
+  },
+  {
+   "name": "Kare-kare",
+   "facets": {
+    "region": [
+     "Philippines"
+    ],
+    "liquid": [
+     "water",
+     "which becomes the stock"
+    ],
+    "start": [
+     "meat goes in raw",
+     "oxtail simmered plain for hours"
+    ],
+    "finish": [
+     "reduces to a sauce",
+     "ground peanuts stirred in",
+     "toasted rice stirred in"
+    ],
+    "base": [
+     "onion",
+     "garlic",
+     "annatto"
+    ]
+   },
+   "note": "Deliberately under-salted in the pot. The seasoning arrives at the table as a spoonful of bagoong beside it, so each eater decides how salty their own bowl is."
+  },
+  {
+   "name": "Hong shao rou",
+   "facets": {
+    "region": [
+     "China"
+    ],
+    "liquid": [
+     "soy sauce",
+     "Shaoxing wine"
+    ],
+    "start": [
+     "meat browned first",
+     "blanched before that",
+     "sugar caramelised in the pan"
+    ],
+    "finish": [
+     "the liquid cooks away",
+     "what is left glazes the meat"
+    ],
+    "base": [
+     "ginger",
+     "spring onion",
+     "star anise",
+     "cassia bark"
+    ]
+   },
+   "note": "The sugar is caramelised in the dry pan before anything else goes near it. The red in red-braised is caramel at least as much as it is soy."
+  },
+  {
+   "name": "Birria",
+   "facets": {
+    "region": [
+     "Jalisco"
+    ],
+    "liquid": [
+     "water",
+     "the chilli soaking liquid"
+    ],
+    "start": [
+     "meat goes in raw",
+     "marinated in the chilli paste"
+    ],
+    "finish": [
+     "stays a broth",
+     "the consomé served alongside"
+    ],
+    "base": [
+     "guajillo chilli",
+     "ancho chilli",
+     "cumin",
+     "clove"
+    ]
+   },
+   "note": "The broth is not a by-product waiting to be reduced away — it comes to the table in its own cup. Gulyás makes the same call from the other side of the world."
+  },
+  {
+   "name": "Seco de cordero",
+   "facets": {
+    "region": [
+     "Peru"
+    ],
+    "liquid": [
+     "blended coriander",
+     "chicha de jora"
+    ],
+    "start": [
+     "meat browned first",
+     "the purée poured over after"
+    ],
+    "finish": [
+     "reduces to a sauce",
+     "thick enough to be called dry"
+    ],
+    "base": [
+     "onion",
+     "garlic",
+     "ají amarillo",
+     "cumin"
+    ]
+   },
+   "note": "Seco means dry — not because it is, but because it finishes thick where the soups beside it stay loose. The braising liquid is a blender full of coriander, and beer stands in for the chicha almost everywhere now."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On the first fork",
+   "body": "Browning is not obligatory, and the split is not east against west. Six of these sear the meat before a drop of liquid arrives, and everything they taste of comes out of that crust. The other ten put raw meat into an aromatic base that has already been cooked — dry onions for doro wat, fried paprika for pörkölt, a pounded paste for rendang — because a spice paste hot enough to brown meat is a spice paste that has scorched."
+  },
+  {
+   "title": "Sauce or broth",
+   "body": "The same pot can end up in three places, and the decision is only how much liquid goes in and when you stop. Most reduce to a sauce. Gulyás and birria stay a broth on purpose and are served as one. Rendang and hong shao rou go past sauce entirely: the liquid cooks away and the meat finishes frying in what is left, which is why both keep far longer than the rest."
+  },
+  {
+   "title": "What thickens it",
+   "body": "Meat and water will not become a sauce by themselves. Every dish here answers that: flour in bourguignon, ground almonds in korma, peanuts and toasted rice in kare-kare, a collapsed kilo of onions in doro wat, and in pörkölt nothing at all except leaving the lid off. Look down the finish column and the family sorts itself into borrowers and reducers."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Braising (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Braising"
+  },
+  {
+   "label": "Pörkölt",
+   "url": "https://en.wikipedia.org/wiki/P%C3%B6rk%C3%B6lt"
+  },
+  {
+   "label": "Doro wat",
+   "url": "https://en.wikipedia.org/wiki/Doro_wat"
+  },
+  {
+   "label": "Rendang",
+   "url": "https://en.wikipedia.org/wiki/Rendang"
+  },
+  {
+   "label": "Humba",
+   "url": "https://en.wikipedia.org/wiki/Humba"
+  },
+  {
+   "label": "Birria",
+   "url": "https://en.wikipedia.org/wiki/Birria"
+  },
+  {
+   "label": "Tagine",
+   "url": "https://en.wikipedia.org/wiki/Tagine"
+  },
+  {
+   "label": "Seco de cordero (Great British Chefs)",
+   "url": "https://www.greatbritishchefs.com/recipes/seco-de-cordero-recipe"
+  }
+ ],
+ "yours": [
+  "braise",
+  "braised",
+  "stew",
+  "tagine",
+  "adobo",
+  "rendang",
+  "goulash",
+  "pörkölt",
+  "birria",
+  "pot roast",
+  "bourguignon",
+  "kare-kare",
+  "massaman",
+  "korma"
+ ]
+}

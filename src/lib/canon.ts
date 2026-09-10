@@ -22,80 +22,79 @@ const cell = (dish: CanonDish, facetId: string): string[] => dish.facets[facetId
 const joinCell = (dish: CanonDish, facetId: string): string => cell(dish, facetId).join(' · ');
 
 /**
- * Grow the tree as a trie over the chips themselves.
+ * Grow the tree by consuming chips only while they keep forking.
  *
- * Each dish becomes one path — its chips from every nested facet, in order —
- * and shared leading chips become shared branches. Doing it chip by chip rather
- * than cell by cell is what lets "poured flat" fork four dishes while "folded"
- * and "rolled in layers" stay separate beneath it; grouping on the whole cell
- * would see four different strings and flatten them.
+ * A naive trie over every chip breaks on refinement. If each dish's second chip
+ * in the first facet is unique to it — "glossy from the flour", "strained into
+ * gravy" — the trie splits every dish into its own leaf at depth two and the
+ * facets after it are never reached, so the decision the family is actually
+ * about is drawn once and then not at all.
+ *
+ * So: at each position, look at what grouping by the next chip would do. If it
+ * would break the group into singletons while dimensions remain unspent, that
+ * chip is a refinement rather than a fork — leave it in the table, skip it in
+ * the tree, and move to the next dimension. That keeps "poured flat · folded"
+ * forking eggs, because there the second chip genuinely groups.
  */
-function pathOf(dish: CanonDish, facets: string[]): string[] {
-  return facets.flatMap((f) => cell(dish, f));
-}
-
-interface Trie {
-  label: string;
-  dishes: CanonDish[];
-  kids: Map<string, Trie>;
-}
-
 function grow(dishes: CanonDish[], facets: string[], depth: number): CanonNode[] {
-  const root: Trie = { label: '', dishes: [], kids: new Map() };
-  for (const d of dishes) {
-    let at = root;
-    for (const chip of pathOf(d, facets)) {
-      if (!at.kids.has(chip)) at.kids.set(chip, { label: chip, dishes: [], kids: new Map() });
-      at = at.kids.get(chip)!;
-    }
-    at.dishes.push(d);
-  }
+  const leaf = (d: CanonDish, at: number): CanonNode => ({ label: d.name, dish: d, children: [], depth: at });
 
-  const toNodes = (t: Trie, at: number): CanonNode[] => {
+  const at = (ds: CanonDish[], fi: number, ci: number, d: number): CanonNode[] => {
+    if (ds.length === 0) return [];
+    if (ds.length === 1) return [leaf(ds[0], d)];
+    if (fi >= facets.length) return ds.map((x) => leaf(x, d));
+
+    const chipAt = (x: CanonDish) => cell(x, facets[fi])[ci];
+    // This dimension is spent for these dishes — move to the next one.
+    if (ds.every((x) => chipAt(x) === undefined)) return at(ds, fi + 1, 0, d);
+
+    const groups = new Map<string, CanonDish[]>();
+    for (const x of ds) {
+      const k = chipAt(x) ?? '';
+      if (!groups.has(k)) groups.set(k, []);
+      groups.get(k)!.push(x);
+    }
+
+    // Splits nothing: keep reading this dimension rather than drawing a fork
+    // with one branch.
+    if (groups.size === 1) {
+      const label = [...groups.keys()][0];
+      const below = at(ds, fi, ci + 1, d);
+      if (!label) return below;
+      return below.length === 1 && below[0].dish
+        ? [{ ...below[0], label: `${label} — ${below[0].label}`, depth: d }]
+        : [{ label, children: below, depth: d }];
+    }
+
+    // Splits into singletons while dimensions remain: refinement, not a fork.
+    const everyoneAlone = [...groups.values()].every((g) => g.length === 1);
+    const moreFacets = fi + 1 < facets.length;
+    const moreChips = ds.some((x) => chipAt(x) !== undefined && cell(x, facets[fi])[ci + 1] !== undefined);
+    if (everyoneAlone && moreFacets && !moreChips) return at(ds, fi + 1, 0, d);
+
     const out: CanonNode[] = [];
-    for (const kid of t.kids.values()) {
-      const children = toNodes(kid, at + 1);
-      const leaves = kid.dishes.map((d) => ({ label: d.name, dish: d, children: [], depth: at + 1 }));
-      // A chip that leads to exactly one dish and nothing else is not a fork —
-      // show the dish, not a branch with one thing on it.
-      if (children.length === 0 && leaves.length === 1) {
-        out.push({ ...leaves[0], depth: at });
-        continue;
+    for (const [label, members] of groups) {
+      const below = at(members, fi, ci + 1, d + 1);
+      if (below.length === 1 && below[0].dish) {
+        out.push({ ...below[0], label: label ? `${label} — ${below[0].label}` : below[0].label, depth: d });
+      } else {
+        out.push({ label: label || '—', children: below, depth: d });
       }
-      out.push({ label: kid.label, children: [...leaves, ...children], depth: at });
     }
     return out;
   };
 
-  // Collapse a chain of single-child forks into one label, so a dish reached by
-  // three chips nobody else shares doesn't sit under three empty levels.
-  const collapse = (nodes: CanonNode[]): CanonNode[] =>
-    nodes.map((n) => {
-      let node = { ...n, children: collapse(n.children) };
-      while (!node.dish && node.children.length === 1 && !node.children[0].dish) {
-        const only = node.children[0];
-        node = { ...only, label: `${node.label} · ${only.label}` };
-      }
-      if (!node.dish && node.children.length === 1 && node.children[0].dish) {
-        const only = node.children[0];
-        return { ...only, label: `${node.label} — ${only.label}` };
-      }
-      return node;
-    });
-
-  return collapse(toNodes(root, depth));
+  return at(dishes, 0, 0, depth);
 }
 
 /**
- * Lineage, where the data says lineage rather than facets.
+ * Lineage, where the data says descent rather than facets.
  *
- * An additive family branches by descent: every sauce is the base plus
- * something, and one of them is another sauce plus something. That relationship
- * lives in `parent` because no grouping of columns can find it.
+ * Vodka sauce IS rosa plus two things, and no grouping of columns finds that,
+ * so it lives in `parent` and is read here.
  */
 function byLineage(dishes: CanonDish[], depth = 0): CanonNode[] {
-  const childrenOf = (name?: string) =>
-    dishes.filter((d) => (d.parent ?? undefined) === name);
+  const childrenOf = (name?: string) => dishes.filter((d) => (d.parent ?? undefined) === name);
   const build = (d: CanonDish, at: number): CanonNode => ({
     label: d.name,
     dish: d,

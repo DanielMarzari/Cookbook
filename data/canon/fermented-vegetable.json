@@ -1,0 +1,557 @@
+{
+ "slug": "fermented-vegetable",
+ "name": "Fermented vegetables",
+ "standfirst": "Every one of these is a raw vegetable kept from the air until the bacteria already on its skin turn it sour. What separates them is how the salt gets in, what goes in with it, how cold it is kept and for how long — and whether you stop while it still cracks.",
+ "root": "Raw vegetable · packed away from the air · the lactic bacteria already on it",
+ "facets": [
+  {
+   "id": "salt",
+   "label": "Salt"
+  },
+  {
+   "id": "add",
+   "label": "Added"
+  },
+  {
+   "id": "keep",
+   "label": "Kept"
+  },
+  {
+   "id": "end",
+   "label": "Ends up"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By how the salt goes in",
+   "by": [
+    "salt",
+    "add",
+    "keep"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "salt"
+   ]
+  },
+  {
+   "label": "By what it becomes",
+   "by": [
+    "end",
+    "salt",
+    "keep"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Sauerkraut",
+   "facets": {
+    "region": [
+     "Germany · Alsace"
+    ],
+    "salt": [
+     "dry-salted",
+     "pressed under a weight"
+    ],
+    "add": [
+     "nothing but salt"
+    ],
+    "keep": [
+     "cool cellar",
+     "four to six weeks"
+    ],
+    "end": [
+     "goes soft",
+     "sharply sour",
+     "keeps through winter"
+    ]
+   },
+   "note": "No brine is poured in. The salt pulls one out of the cabbage, and the weight holds the cabbage under it — that is the whole trick."
+  },
+  {
+   "name": "Suan cai",
+   "facets": {
+    "region": [
+     "Northeast China"
+    ],
+    "salt": [
+     "dry-salted",
+     "pressed under a stone",
+     "topped up with water"
+    ],
+    "add": [
+     "nothing but salt"
+    ],
+    "keep": [
+     "cold from the start",
+     "the whole winter"
+    ],
+    "end": [
+     "goes soft",
+     "very sour",
+     "cooked rather than eaten raw"
+    ]
+   },
+   "note": "Whole napa heads rather than shreds, and cold enough that the ferment takes all winter instead of a month. Sauerkraut reached independently."
+  },
+  {
+   "name": "Ogórki kiszone",
+   "facets": {
+    "region": [
+     "Poland"
+    ],
+    "salt": [
+     "submerged in brine",
+     "weighted under the surface"
+    ],
+    "add": [
+     "garlic",
+     "dill",
+     "a horseradish leaf"
+    ],
+    "keep": [
+     "room temperature",
+     "a few days",
+     "then moved somewhere cold"
+    ],
+    "end": [
+     "goes soft",
+     "sour all the way through",
+     "cloudy brine"
+    ]
+   },
+   "note": "The horseradish leaf is not seasoning. Its tannins slow the enzymes that soften the cucumber — the one ingredient here whose job is texture."
+  },
+  {
+   "name": "Kimchi",
+   "facets": {
+    "region": [
+     "Korea"
+    ],
+    "salt": [
+     "salted and rinsed first",
+     "drained overnight"
+    ],
+    "add": [
+     "chilli paste",
+     "gochugaru",
+     "garlic",
+     "salted shrimp"
+    ],
+    "keep": [
+     "cool cellar",
+     "started at room temperature",
+     "months"
+    ],
+    "end": [
+     "goes soft",
+     "sour and fizzy",
+     "better after a month"
+    ]
+   },
+   "note": "The only one salted twice over: brined to draw water out, rinsed so it is not inedible, then packed with a paste that ferments alongside it."
+  },
+  {
+   "name": "Dongchimi",
+   "facets": {
+    "region": [
+     "Korea"
+    ],
+    "salt": [
+     "submerged in brine",
+     "a weak brine"
+    ],
+    "add": [
+     "garlic",
+     "ginger",
+     "whole chillies",
+     "asian pear"
+    ],
+    "keep": [
+     "cold from the start",
+     "buried in an onggi jar",
+     "a month"
+    ],
+    "end": [
+     "stays crunchy",
+     "clean and fizzy",
+     "the broth is the point"
+    ]
+   },
+   "note": "Not kimchi minus the paste — it is older than chilli in Korea. The liquid is strained off for cold noodle broth."
+  },
+  {
+   "name": "Pao cai",
+   "facets": {
+    "region": [
+     "Sichuan"
+    ],
+    "salt": [
+     "submerged in brine",
+     "never touched with an oily hand"
+    ],
+    "add": [
+     "a starter",
+     "brine from the last jar",
+     "dried chilli",
+     "sichuan peppercorn",
+     "a splash of baijiu"
+    ],
+    "keep": [
+     "room temperature",
+     "a water-sealed jar",
+     "three days"
+    ],
+    "end": [
+     "stays crunchy",
+     "barely sour",
+     "eaten within the week"
+    ]
+   },
+   "note": "The jar has a water moat round its lid: gas escapes, air never gets back in. The old brine is kept going for decades and inoculates each new batch."
+  },
+  {
+   "name": "Zha cai",
+   "facets": {
+    "region": [
+     "Fuling · Chongqing"
+    ],
+    "salt": [
+     "dry-salted",
+     "salted and pressed three times",
+     "air-dried first"
+    ],
+    "add": [
+     "chilli paste",
+     "sichuan peppercorn"
+    ],
+    "keep": [
+     "room temperature",
+     "sealed in earthenware",
+     "three to six months"
+    ],
+    "end": [
+     "stays crunchy",
+     "salty more than sour",
+     "keeps a year"
+    ]
+   },
+   "note": "The knobbed stem of a mustard plant, not a leaf. Pressing it three times is what leaves it crunchy after half a year in the jar."
+  },
+  {
+   "name": "Nukazuke",
+   "facets": {
+    "region": [
+     "Japan"
+    ],
+    "salt": [
+     "dry-salted",
+     "buried in a wet rice-bran bed"
+    ],
+    "add": [
+     "a starter",
+     "a bran bed kept alive for years",
+     "kombu",
+     "dried chilli"
+    ],
+    "keep": [
+     "room temperature",
+     "turned by hand every day",
+     "overnight"
+    ],
+    "end": [
+     "stays crunchy",
+     "barely sour",
+     "eaten the next morning"
+    ]
+   },
+   "note": "The bed is the dish and the vegetable is a guest — cucumbers go in at night and come out at breakfast, and the nukadoko is fed and stirred forever."
+  },
+  {
+   "name": "Dưa cải chua",
+   "facets": {
+    "region": [
+     "Vietnam"
+    ],
+    "salt": [
+     "submerged in brine",
+     "wilted in the sun first"
+    ],
+    "add": [
+     "a starter",
+     "water from rinsing rice",
+     "a spoon of sugar"
+    ],
+    "keep": [
+     "warm kitchen",
+     "two to three days"
+    ],
+    "end": [
+     "stays crunchy",
+     "sharply sour",
+     "yellows as it goes"
+    ]
+   },
+   "note": "Mustard greens, wilted a few hours so they bend into the jar. The rice water and the sugar are both there to get the bacteria moving before anything else does."
+  },
+  {
+   "name": "Torshi left",
+   "facets": {
+    "region": [
+     "Iraq · Levant"
+    ],
+    "salt": [
+     "submerged in brine"
+    ],
+    "add": [
+     "garlic",
+     "beetroot for colour"
+    ],
+    "keep": [
+     "room temperature",
+     "two weeks"
+    ],
+    "end": [
+     "stays crunchy",
+     "sour",
+     "stained pink"
+    ]
+   },
+   "note": "Turnip. The beetroot is one slice and it is there entirely for the colour. The Persian sense of torshi usually means vinegar instead — this is the salt-brine branch."
+  },
+  {
+   "name": "Şalgam suyu",
+   "facets": {
+    "region": [
+     "Adana"
+    ],
+    "salt": [
+     "submerged in brine"
+    ],
+    "add": [
+     "a starter",
+     "a bulgur sourdough",
+     "black carrot",
+     "chilli"
+    ],
+    "keep": [
+     "room temperature",
+     "two weeks"
+    ],
+    "end": [
+     "you drink the liquid",
+     "the vegetable is only the flavouring"
+    ]
+   },
+   "note": "The turnip and black carrot are strained out and the brine is served cold beside kebab. The one entry here where the pickle is thrown away."
+  },
+  {
+   "name": "Kanji",
+   "facets": {
+    "region": [
+     "Punjab"
+    ],
+    "salt": [
+     "submerged in brine"
+    ],
+    "add": [
+     "ground mustard seed",
+     "black carrot",
+     "chilli powder"
+    ],
+    "keep": [
+     "in the sun",
+     "four to six days"
+    ],
+    "end": [
+     "you drink the liquid",
+     "the carrot is eaten after"
+    ]
+   },
+   "note": "Black carrot fermented into a sour drink, set out in the winter sun to keep the jar warm — the same answer Adana arrived at, with mustard doing the work of the bulgur."
+  },
+  {
+   "name": "Gajar gobhi shalgam achar",
+   "facets": {
+    "region": [
+     "Punjab"
+    ],
+    "salt": [
+     "dry-salted",
+     "blanched and sun-dried first"
+    ],
+    "add": [
+     "ground mustard seed",
+     "mustard oil",
+     "jaggery",
+     "turmeric"
+    ],
+    "keep": [
+     "in the sun",
+     "a jar on the roof",
+     "two to three weeks"
+    ],
+    "end": [
+     "goes soft",
+     "keeps a year under oil"
+    ]
+   },
+   "note": "The winter pickle. Oil on top does what a brine does elsewhere — seals the surface — and the jaggery gives the bacteria something to eat."
+  },
+  {
+   "name": "Curtido",
+   "facets": {
+    "region": [
+     "El Salvador"
+    ],
+    "salt": [
+     "dry-salted",
+     "cabbage scalded first"
+    ],
+    "add": [
+     "oregano",
+     "carrot",
+     "onion"
+    ],
+    "keep": [
+     "warm kitchen",
+     "two to three days"
+    ],
+    "end": [
+     "stays crunchy",
+     "lightly sour",
+     "piled on pupusas"
+    ]
+   },
+   "note": "Three days, not three weeks, so it is a relish rather than a preserve. The scald is argued over — skip it and the ferment starts faster."
+  },
+  {
+   "name": "Gundruk",
+   "facets": {
+    "region": [
+     "Nepal"
+    ],
+    "salt": [
+     "no salt at all",
+     "crushed to bruise the leaves"
+    ],
+    "add": [
+     "nothing at all"
+    ],
+    "keep": [
+     "warm kitchen",
+     "sealed in an earthen pot",
+     "a week"
+    ],
+    "end": [
+     "dried for storage",
+     "sour when soaked back"
+    ]
+   },
+   "note": "No salt anywhere in it. Bruising the leaves floods the pot with their own juice fast enough that nothing else gets a foothold — then it is sun-dried and keeps for a year."
+  },
+  {
+   "name": "Gari",
+   "facets": {
+    "region": [
+     "West Africa"
+    ],
+    "salt": [
+     "no salt at all",
+     "grated to a mash"
+    ],
+    "add": [
+     "nothing at all"
+    ],
+    "keep": [
+     "room temperature",
+     "pressed in a sack",
+     "three to five days"
+    ],
+    "end": [
+     "dried for storage",
+     "toasted to stop it",
+     "keeps for months"
+    ]
+   },
+   "note": "Cassava, and the ferment is not for flavour — it breaks down the cyanide that makes the raw root poisonous. Toasting on a hot pan ends it."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On salt",
+   "body": "Salt ferments nothing. It pulls water out of the vegetable into a brine that lactobacillus tolerates and most spoilage organisms do not — it is a doorman, not a cook. Brining and dry-salting are two routes to the same brine: one you mix, the other the cabbage makes. Gundruk and gari dismiss the doorman entirely and rely on speed and an airtight pot instead."
+  },
+  {
+   "title": "On where you stop",
+   "body": "Crunch is pectin, and pectin is lost to warmth and time rather than to salt. The same jar of cucumbers is a crisp half-sour at three days on the counter and a soft full-sour at three weeks, with nothing added in between. Everything in the crunchy column is cold, or fast, or both."
+  },
+  {
+   "title": "On depth",
+   "body": "Nothing here sits under anything else. Kimchi is not dongchimi with chilli paste added — dongchimi is older than chilli in Korea, and both descend from the same salted radish. Sauerkraut and suan cai are one idea arrived at twice by people who never met. Siblings, all of them."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Fermented foods (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Fermentation_in_food_processing"
+  },
+  {
+   "label": "Kimchi",
+   "url": "https://en.wikipedia.org/wiki/Kimchi"
+  },
+  {
+   "label": "Sauerkraut",
+   "url": "https://en.wikipedia.org/wiki/Sauerkraut"
+  },
+  {
+   "label": "Tsukemono",
+   "url": "https://en.wikipedia.org/wiki/Tsukemono"
+  },
+  {
+   "label": "Zha cai",
+   "url": "https://en.wikipedia.org/wiki/Zha_cai"
+  },
+  {
+   "label": "Gundruk",
+   "url": "https://en.wikipedia.org/wiki/Gundruk"
+  },
+  {
+   "label": "Şalgam (turnip water)",
+   "url": "https://en.wikipedia.org/wiki/Turnip_water"
+  },
+  {
+   "label": "Torshi",
+   "url": "https://en.wikipedia.org/wiki/Torshi"
+  },
+  {
+   "label": "Curtido",
+   "url": "https://en.wikipedia.org/wiki/Curtido"
+  },
+  {
+   "label": "Garri",
+   "url": "https://en.wikipedia.org/wiki/Garri"
+  }
+ ],
+ "yours": [
+  "kimchi",
+  "sauerkraut",
+  "kraut",
+  "pickle",
+  "pickled",
+  "ferment",
+  "brine",
+  "curtido",
+  "achar",
+  "tsukemono",
+  "torshi"
+ ]
+}
