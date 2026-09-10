@@ -20,7 +20,10 @@ const VIEWS: { id: View; label: string; blurb: string }[] = [
  */
 export default function CanonViews({ canon }: { canon: Canon }) {
   const [view, setView] = useState<View>('table');
-  const tree = useMemo(() => canonTree(canon), [canon]);
+  // Which reading of the tree — by technique, by region, and so on.
+  const [nesting, setNesting] = useState(0);
+  const tree = useMemo(() => canonTree(canon, nesting), [canon, nesting]);
+  const lineage = canon.dishes.some((d) => d.parent);
   const active = VIEWS.find((v) => v.id === view)!;
 
   return (
@@ -40,6 +43,24 @@ export default function CanonViews({ canon }: { canon: Canon }) {
         ))}
       </div>
       <p className="text-[13px] text-text-secondary leading-[1.6] max-w-[68ch] mb-5">{active.blurb}</p>
+
+      {view !== 'table' && canon.nestings.length > 1 && !lineage && (
+        <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-5">
+          <span className="text-[10.5px] uppercase tracking-[0.12em] text-text-secondary">Nest</span>
+          {canon.nestings.map((n, i) => (
+            <button
+              key={n.label}
+              onClick={() => setNesting(i)}
+              aria-pressed={nesting === i}
+              className={`text-[12.5px] transition-colors ${
+                nesting === i ? 'text-text underline underline-offset-4' : 'text-text-secondary hover:text-text'
+              }`}
+            >
+              {n.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       {view === 'table' && <FacetTable canon={canon} />}
       {view === 'outline' && <Outline canon={canon} tree={tree} />}

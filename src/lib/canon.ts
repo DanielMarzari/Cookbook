@@ -105,9 +105,10 @@ function byLineage(dishes: CanonDish[], depth = 0): CanonNode[] {
   return childrenOf(undefined).map((d) => build(d, depth));
 }
 
-export function canonTree(canon: Canon): CanonNode[] {
+export function canonTree(canon: Canon, nesting = 0): CanonNode[] {
   if (canon.dishes.some((d) => d.parent)) return byLineage(canon.dishes);
-  return grow(canon.dishes, canon.nestBy, 0);
+  const order = canon.nestings[nesting]?.by ?? canon.nestings[0].by;
+  return grow(canon.dishes, order, 0);
 }
 
 /**
@@ -118,8 +119,8 @@ export function canonTree(canon: Canon): CanonNode[] {
  * different dish from its siblings rather than the same one. Derived rather
  * than authored, so it stays true when a dish is added.
  */
-export function keyChips(canon: Canon, dish: CanonDish, facetId: string): Set<string> {
-  const order = canon.nestBy;
+export function keyChips(canon: Canon, dish: CanonDish, facetId: string, nesting = 0): Set<string> {
+  const order = canon.nestings[nesting]?.by ?? canon.nestings[0].by;
   const idx = order.indexOf(facetId);
   const earlier = idx === -1 ? order : order.slice(0, idx);
 

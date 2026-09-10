@@ -41,8 +41,14 @@ export interface Canon {
   /** What every dish here starts from. */
   root: string;
   facets: Facet[];
-  /** Facet ids, in the order the tree should fork. */
-  nestBy: string[];
+  /**
+   * The ways this family can be read as a tree.
+   *
+   * More than one order is often defensible — filled doughs group by how they
+   * are cooked, and equally by where they come from, and neither reading is the
+   * true one. The first is the default; the rest are offered as a switch.
+   */
+  nestings: { label: string; by: string[] }[];
   dishes: CanonDish[];
   notes: { title: string; body: string }[];
   sources: { label: string; url: string }[];
@@ -61,51 +67,55 @@ const egg: Canon = {
     { id: 'added', label: 'Added' },
     { id: 'method', label: 'Method' },
     { id: 'done', label: 'Doneness' },
+    { id: 'region', label: 'Region' },
   ],
-  nestBy: ['state', 'method', 'done'],
+  nestings: [
+    { label: 'By technique', by: ['state', 'method', 'done'] },
+    { label: 'By region', by: ['region', 'state'] },
+  ],
   dishes: [
-    { name: 'Soft-boiled', facets: { state: ['in its shell'], added: [], method: ['simmered'], done: ['6 minutes'] } },
-    { name: 'Hard-boiled', facets: { state: ['in its shell'], added: [], method: ['simmered'], done: ['10 minutes'] } },
+    { name: 'Soft-boiled', facets: { region: [], state: ['in its shell'], added: [], method: ['simmered'], done: ['6 minutes'] } },
+    { name: 'Hard-boiled', facets: { region: [], state: ['in its shell'], added: [], method: ['simmered'], done: ['10 minutes'] } },
     {
       name: 'Poached',
-      facets: { state: ['cracked out whole'], added: [], method: ['slid into still water'], done: ['white just set'] },
+      facets: { region: [], state: ['cracked out whole'], added: [], method: ['slid into still water'], done: ['white just set'] },
     },
     {
       name: 'Sunny side up',
-      facets: { state: ['cracked out whole'], added: [], method: ['fried in fat', 'basted'], done: ['yolk liquid'] },
+      facets: { region: ['United States'], state: ['cracked out whole'], added: [], method: ['fried in fat', 'basted'], done: ['yolk liquid'] },
     },
     {
       name: 'Over easy',
-      facets: { state: ['cracked out whole'], added: [], method: ['fried in fat', 'flipped'], done: ['yolk liquid'] },
+      facets: { region: ['United States'], state: ['cracked out whole'], added: [], method: ['fried in fat', 'flipped'], done: ['yolk liquid'] },
     },
     {
       name: 'Over hard',
-      facets: { state: ['cracked out whole'], added: [], method: ['fried in fat', 'flipped'], done: ['yolk set'] },
+      facets: { region: ['United States'], state: ['cracked out whole'], added: [], method: ['fried in fat', 'flipped'], done: ['yolk set'] },
     },
     {
       name: 'Scrambled, French',
-      facets: { state: ['beaten'], added: ['butter'], method: ['stirred in the pan', 'constantly', 'low heat'], done: ['barely set'] },
+      facets: { region: ['France'], state: ['beaten'], added: ['butter'], method: ['stirred in the pan', 'constantly', 'low heat'], done: ['barely set'] },
       note: 'Small curd, almost a sauce. The heat is the whole technique.',
     },
     {
       name: 'Scrambled, American',
-      facets: { state: ['beaten'], added: ['milk'], method: ['stirred in the pan', 'in folds', 'higher heat'], done: ['firm curds'] },
+      facets: { region: ['United States'], state: ['beaten'], added: ['milk'], method: ['stirred in the pan', 'in folds', 'higher heat'], done: ['firm curds'] },
     },
     {
       name: 'French omelette',
-      facets: { state: ['beaten'], added: [], method: ['poured flat', 'folded'], done: ['no colour'] },
+      facets: { region: ['France'], state: ['beaten'], added: [], method: ['poured flat', 'folded'], done: ['no colour'] },
     },
     {
       name: 'Tamagoyaki',
-      facets: { state: ['beaten'], added: ['dashi', 'sugar'], method: ['poured flat', 'rolled in layers'], done: ['just set'] },
+      facets: { region: ['Japan'], state: ['beaten'], added: ['dashi', 'sugar'], method: ['poured flat', 'rolled in layers'], done: ['just set'] },
     },
     {
       name: 'Omurice',
-      facets: { state: ['beaten'], added: [], method: ['poured flat', 'draped over rice'], done: ['just set'] },
+      facets: { region: ['Japan'], state: ['beaten'], added: [], method: ['poured flat', 'draped over rice'], done: ['just set'] },
     },
     {
       name: 'Frittata',
-      facets: { state: ['beaten'], added: ['cream'], method: ['poured flat', 'finished in the oven'], done: ['cooked through'] },
+      facets: { region: ['Italy'], state: ['beaten'], added: ['cream'], method: ['poured flat', 'finished in the oven'], done: ['cooked through'] },
     },
   ],
   notes: [
@@ -133,20 +143,21 @@ const tomatoSauce: Canon = {
     { id: 'add', label: 'Added' },
     { id: 'fat', label: 'Fat' },
     { id: 'method', label: 'Method' },
+    { id: 'region', label: 'Region' },
   ],
-  nestBy: ['add', 'method'],
+  nestings: [{ label: 'By addition', by: ['add', 'method'] }],
   dishes: [
-    { name: 'Rosa', facets: { add: ['cream'], fat: ['olive oil'], method: ['reduced'] } },
+    { name: 'Rosa', facets: { region: ['Italy'], add: ['cream'], fat: ['olive oil'], method: ['reduced'] } },
     {
       name: 'Vodka',
       parent: 'Rosa',
-      facets: { add: ['cream', 'vodka'], fat: ['pancetta'], method: ['reduced'] },
+      facets: { region: ['Italy / United States'], add: ['cream', 'vodka'], fat: ['pancetta'], method: ['reduced'] },
       note: 'Rosa with vodka and pancetta — it descends from rosa, not from the base.',
     },
-    { name: 'Amatriciana', facets: { add: ['pecorino'], fat: ['guanciale'], method: ['rendered first'] } },
-    { name: 'Arrabbiata', facets: { add: ['dried chilli'], fat: ['olive oil'], method: ['reduced'] } },
-    { name: 'Puttanesca', facets: { add: ['olives', 'capers', 'anchovy'], fat: ['olive oil'], method: ['reduced'] } },
-    { name: 'alla Norma', facets: { add: ['ricotta salata'], fat: ['olive oil'], method: ['fried eggplant folded in'] } },
+    { name: 'Amatriciana', facets: { region: ['Lazio'], add: ['pecorino'], fat: ['guanciale'], method: ['rendered first'] } },
+    { name: 'Arrabbiata', facets: { region: ['Lazio'], add: ['dried chilli'], fat: ['olive oil'], method: ['reduced'] } },
+    { name: 'Puttanesca', facets: { region: ['Campania'], add: ['olives', 'capers', 'anchovy'], fat: ['olive oil'], method: ['reduced'] } },
+    { name: 'alla Norma', facets: { region: ['Sicily'], add: ['ricotta salata'], fat: ['olive oil'], method: ['fried eggplant folded in'] } },
   ],
   notes: [
     {
@@ -173,23 +184,27 @@ const custard: Canon = {
     { id: 'cook', label: 'Cooked' },
     { id: 'set', label: 'Set by' },
     { id: 'finish', label: 'Finish' },
+    { id: 'region', label: 'Region' },
   ],
-  nestBy: ['cook', 'set', 'finish'],
+  nestings: [
+    { label: 'By technique', by: ['cook', 'set', 'finish'] },
+    { label: 'By region', by: ['region', 'cook'] },
+  ],
   dishes: [
     {
       name: 'Pastry cream',
-      facets: { cook: ['on the stove', 'stirred'], set: ['starch'], finish: [] },
+      facets: { region: ['France'], cook: ['on the stove', 'stirred'], set: ['starch'], finish: [] },
       note: 'Stirred, so it thickens rather than sets. Everything below is left alone instead.',
     },
-    { name: 'Panna cotta', facets: { cook: ['warmed only'], set: ['gelatin'], finish: [] } },
-    { name: 'Pot de crème', facets: { cook: ['baked in a water bath'], set: ['egg alone'], finish: [] } },
+    { name: 'Panna cotta', facets: { region: ['Piedmont'], cook: ['warmed only'], set: ['gelatin'], finish: [] } },
+    { name: 'Pot de crème', facets: { region: ['France'], cook: ['baked in a water bath'], set: ['egg alone'], finish: [] } },
     {
       name: 'Crème caramel',
-      facets: { cook: ['baked in a water bath'], set: ['egg alone'], finish: ['caramel in the mould'] },
+      facets: { region: ['France'], cook: ['baked in a water bath'], set: ['egg alone'], finish: ['caramel in the mould'] },
     },
     {
       name: 'Crème brûlée',
-      facets: { cook: ['baked in a water bath'], set: ['egg alone'], finish: ['sugar burnt on top'] },
+      facets: { region: ['France'], cook: ['baked in a water bath'], set: ['egg alone'], finish: ['sugar burnt on top'] },
       note: 'The crust goes on after the custard is cold, and cracks under a spoon. Without it this is a pot de crème.',
     },
   ],
@@ -208,7 +223,107 @@ const custard: Canon = {
   yours: ['custard', 'brulee', 'brûlée', 'panna cotta', 'flan', 'pastry cream'],
 };
 
-export const CANON: Canon[] = [egg, tomatoSauce, custard];
+const filledDough: Canon = {
+  slug: 'dough-with-filling',
+  name: 'Dough with filling',
+  standfirst:
+    'Wrap something in a sheet of dough, close it, and apply heat. Nearly every cuisine arrived at this independently — which is why the category is dough-with-filling rather than "dumpling", a word that quietly makes one tradition the default.',
+  root: 'A sheet of dough, closed around a filling',
+  facets: [
+    { id: 'dough', label: 'Dough' },
+    { id: 'filling', label: 'Filling' },
+    { id: 'close', label: 'Closed' },
+    { id: 'cook', label: 'Cooked' },
+    { id: 'region', label: 'Region' },
+  ],
+  nestings: [
+    { label: 'By cooking', by: ['cook', 'dough', 'close'] },
+    { label: 'By dough', by: ['dough', 'cook'] },
+    { label: 'By region', by: ['region', 'cook'] },
+  ],
+  dishes: [
+    {
+      name: 'Jiaozi',
+      facets: { dough: ['wheat', 'unleavened'], filling: ['pork', 'chive'], close: ['pleated crescent'], cook: ['boiled'], region: ['China'] },
+    },
+    {
+      name: 'Gyoza',
+      facets: { dough: ['wheat', 'unleavened', 'thinner wrapper'], filling: ['pork', 'cabbage'], close: ['pleated crescent'], cook: ['pan-fried', 'then steamed'], region: ['Japan'] },
+      note: 'Jiaozi with a thinner wrapper and a crisp base — the same parcel, finished differently.',
+    },
+    {
+      name: 'Xiao long bao',
+      facets: { dough: ['wheat', 'unleavened'], filling: ['pork', 'set aspic'], close: ['twisted knot'], cook: ['steamed'], region: ['Jiangnan'] },
+      note: 'The aspic melts into soup inside the parcel. The filling is the technique.',
+    },
+    {
+      name: 'Momo',
+      facets: { dough: ['wheat', 'unleavened'], filling: ['minced meat', 'aromatics'], close: ['pleated purse'], cook: ['steamed'], region: ['Tibet', 'Nepal'] },
+    },
+    {
+      name: 'Manti',
+      facets: { dough: ['wheat', 'unleavened'], filling: ['lamb', 'onion'], close: ['pinched parcel'], cook: ['steamed'], region: ['Anatolia', 'Central Asia'] },
+    },
+    {
+      name: 'Khinkali',
+      facets: { dough: ['wheat', 'unleavened'], filling: ['meat', 'broth'], close: ['twisted knot'], cook: ['boiled'], region: ['Georgia'] },
+    },
+    {
+      name: 'Pelmeni',
+      facets: { dough: ['wheat', 'unleavened'], filling: ['minced meat'], close: ['sealed round'], cook: ['boiled'], region: ['Russia', 'Siberia'] },
+    },
+    {
+      name: 'Pierogi',
+      facets: { dough: ['wheat', 'unleavened'], filling: ['potato', 'curd cheese'], close: ['crimped half-moon'], cook: ['boiled', 'then pan-fried'], region: ['Poland'] },
+    },
+    {
+      name: 'Ravioli',
+      facets: { dough: ['egg pasta'], filling: ['ricotta', 'greens'], close: ['sealed flat'], cook: ['boiled'], region: ['Italy'] },
+    },
+    {
+      name: 'Empanada',
+      facets: { dough: ['wheat', 'enriched with fat'], filling: ['beef', 'olive', 'egg'], close: ['crimped repulgue'], cook: ['baked'], region: ['Argentina', 'Spain'] },
+    },
+    {
+      name: 'Jamaican patty',
+      facets: { dough: ['wheat', 'flaky', 'turmeric'], filling: ['spiced beef'], close: ['crimped half-moon'], cook: ['baked'], region: ['Jamaica'] },
+      note: 'The same half-moon as a pierogi, on laminated pastry — the dough is what makes it its own thing.',
+    },
+    {
+      name: 'Samosa',
+      facets: { dough: ['wheat', 'unleavened'], filling: ['potato', 'pea', 'spice'], close: ['folded cone'], cook: ['deep-fried'], region: ['South Asia'] },
+    },
+    {
+      name: 'Empanada frita',
+      facets: { dough: ['wheat', 'enriched with fat'], filling: ['cheese', 'beef'], close: ['crimped repulgue'], cook: ['deep-fried'], region: ['Latin America'] },
+    },
+    {
+      name: 'Fried wonton',
+      facets: { dough: ['wheat', 'unleavened', 'thinner wrapper'], filling: ['pork', 'shrimp'], close: ['gathered purse'], cook: ['deep-fried'], region: ['China'] },
+    },
+  ],
+  notes: [
+    {
+      title: 'On the category',
+      body:
+        'Calling these all dumplings makes gyoza and pierogi look like variations of one another. They are not — they are separate answers to the same problem, arrived at independently. Dough-with-filling names the problem instead of picking a winner, which is why every one of these sits at the same depth.',
+    },
+    {
+      title: 'On what actually varies',
+      body:
+        'Filling varies most and matters least; almost any of these parcels tolerates almost any filling. The dough and the closing are what make a shape recognisable, and how it is cooked is what makes it a different eating experience — which is why cooking is the default nesting.',
+    },
+  ],
+  sources: [
+    { label: 'Dumpling (Wikipedia)', url: 'https://en.wikipedia.org/wiki/Dumpling' },
+    { label: 'Empanada', url: 'https://en.wikipedia.org/wiki/Empanada' },
+    { label: 'Jamaican patty', url: 'https://en.wikipedia.org/wiki/Jamaican_patty' },
+    { label: 'Xiaolongbao', url: 'https://en.wikipedia.org/wiki/Xiaolongbao' },
+  ],
+  yours: ['empanada', 'pierogi', 'dumpling', 'gyoza', 'ravioli', 'samosa', 'patty', 'wonton'],
+};
+
+export const CANON: Canon[] = [egg, filledDough, tomatoSauce, custard];
 
 export function getCanon(slug: string): Canon | undefined {
   return CANON.find((c) => c.slug === slug);
