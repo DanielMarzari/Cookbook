@@ -1,8 +1,8 @@
 {
  "slug": "wrapped-parcel",
  "name": "Wrapped in a leaf",
- "standfirst": "A leaf is the oldest cooking vessel there is. Close one around a filling and it does four jobs at once — holds a shapeless paste until it sets, keeps the water out while letting the steam in, survives fire, and gives back its own flavour. Every warm country worked this out, and the leaf it had to hand is most of what separates the results.",
- "root": "A filling closed inside a leaf or husk and cooked in it",
+ "standfirst": "A leaf is the oldest cooking vessel there is. Close one around a paste, a handful of grain or a loose filling and it does four jobs at once — holds a shapeless paste until it sets, keeps the water out while letting the steam in, survives fire, and gives back its own flavour. Every warm country worked this out, and the leaf it had to hand is most of what separates the results.",
+ "root": "A body closed inside a leaf or husk and cooked in it",
  "facets": [
   {
    "id": "wrapper",
@@ -99,7 +99,7 @@
      "Andes"
     ]
    },
-   "note": "One substitution away from a tamal: fresh corn ground raw instead of dried corn nixtamalised. Sweeter and wetter, and wrapped in this season's green husk rather than last season's dried one."
+   "note": "The same problem as a tamal, answered with this season's corn: fresh kernels milled raw rather than dried corn nixtamalised. Sweeter and wetter, wrapped in a green husk rather than last season's dried one, and tied shut at both ends rather than tucked under."
   },
   {
    "name": "Hallaca",
@@ -110,7 +110,7 @@
     ],
     "body": [
      "a paste",
-     "nixtamalised masa",
+     "precooked corn flour",
      "coloured with annatto",
      "a stewed guiso laid on it"
     ],
@@ -127,7 +127,7 @@
      "Venezuela"
     ]
    },
-   "note": "The guiso is stewed the day before and laid on the masa rather than mixed through it, so the parcel keeps two layers apart until you untie it. Tied tight enough to be boiled rather than steamed."
+   "note": "The dough is masarepa — corn flour cooked and dried before it ever reaches the kitchen, the same dough as an arepa, kneaded with broth and annatto lard rather than limed at home. The guiso is stewed the day before and laid on it rather than mixed through, so the parcel keeps two layers apart until you untie it. Tied tight enough to be boiled rather than steamed."
   },
   {
    "name": "Mucbipollo",
@@ -152,6 +152,7 @@
      "hours over hot stones"
     ],
     "region": [
+     "Mesoamerica",
      "Yucatán"
     ]
    },
@@ -209,6 +210,7 @@
      "hours under water"
     ],
     "region": [
+     "China",
      "Southern China"
     ]
    },
@@ -236,6 +238,7 @@
      "in a bamboo basket"
     ],
     "region": [
+     "China",
      "Guangdong"
     ]
    },
@@ -268,7 +271,7 @@
      "Vietnam"
     ]
    },
-   "note": "Layered rice, bean, pork, bean, rice, so the cut face reads as rings. The stiff midrib of the dong leaf is what lets it hold a square with no mould, and it is the only parcel here that is finished after it leaves the pot — pressed under a board to drive the water out."
+   "note": "Layered rice, bean, pork, bean, rice, so the cut face reads as rings. The stiff midrib of the dong leaf is what lets it hold a square with no mould, and it is the only one here still being shaped after the heat is off — pressed under a board to drive the water out."
   },
   {
    "name": "Lontong",
@@ -292,11 +295,10 @@
      "hours under water"
     ],
     "region": [
-     "Indonesia",
-     "Malaysia"
+     "Indonesia"
     ]
    },
-   "note": "No filling at all — here the leaf is purely a mould. Rice boiled with nowhere to expand compacts into a cake dense enough to slice, which is what makes it a vehicle for satay sauce rather than a bowl of rice."
+   "note": "No filling at all — here the leaf is purely a mould. Rice boiled with nowhere to expand compacts into a cake dense enough to slice, which is what makes it a vehicle for satay sauce rather than a bowl of rice. Indonesian and just as much Malaysian, under the same name."
   },
   {
    "name": "Pepes ikan",
@@ -320,6 +322,7 @@
      "then finished over coals"
     ],
     "region": [
+     "Indonesia",
      "West Java"
     ]
    },
@@ -347,11 +350,10 @@
      "over coals"
     ],
     "region": [
-     "Malay peninsula",
-     "Singapore"
+     "Malay peninsula"
     ]
    },
-   "note": "Pepes with one decision changed: pound the fish to a paste instead of leaving it in pieces, and go straight to the coals. The paste needs containing where the pieces did not — and it sets into a slab you can pick up by the leaf."
+   "note": "The same leaf and the same flat pinned packet as pepes ikan, arrived at separately: here the fish is pounded to a paste with coconut milk, and the coals do all the cooking rather than finishing it. The paste needs containing where the pieces did not — and it sets into a slab you can pick up by the leaf. Singapore grills it as its own, not as a borrowing."
   },
   {
    "name": "Dolma",
@@ -376,12 +378,10 @@
      "weighted with a plate"
     ],
     "region": [
-     "Anatolia",
-     "Levant",
-     "Balkans"
+     "Eastern Mediterranean"
     ]
    },
-   "note": "The one wrapper here you are certainly meant to eat, which is why it is brined rather than merely softened. Nothing ties it shut; a plate laid over the pan does the work a string does elsewhere."
+   "note": "One of the wrappers here you are meant to eat, and the only one brined rather than merely softened for it. Nothing ties it shut; a plate laid over the pan does the work a string does elsewhere. Anatolia, the Levant and the Balkans all claim it, each under its own name."
   },
   {
    "name": "Moin moin",
@@ -456,11 +456,10 @@
     ],
     "cook": [
      "steamed",
-     "then sliced and fried"
+     "fried in slices"
     ],
     "region": [
-     "Gujarat",
-     "Konkan"
+     "Gujarat"
     ]
    },
    "note": "Inside out. The paste is spread onto stacked leaves and the whole stack rolled up, so the wrapper runs through every slice instead of being thrown away. Patrode in the Konkan, alu vadi in Maharashtra."
@@ -483,24 +482,24 @@
     ],
     "cook": [
      "buried",
-     "in an imu",
+     "in an earth oven",
      "hours over hot stones"
     ],
     "region": [
      "Hawaiʻi"
     ]
    },
-   "note": "Two leaves doing two jobs: the lūʻau leaves inside collapse into the pork and are eaten, the ti leaf outside is structure and is not. The imu is the same idea as the pib, half a world east."
+   "note": "Two leaves doing two jobs: the lūʻau leaves inside collapse into the pork and are eaten, the ti leaf outside is structure and is not. The imu is the same idea as the pib, an ocean west."
   }
  ],
  "notes": [
   {
    "title": "The leaf is equipment",
-   "body": "It is tempting to read the wrapper as packaging. It is not — it is the pot. It holds a paste that has no shape of its own, it lets steam in and keeps boiling water out, it takes direct fire without burning what it holds, and it seasons. That last job is why the same glutinous rice becomes zongzi in bamboo and lo mai gai in lotus: nothing about the filling changed."
+   "body": "It is tempting to read the wrapper as packaging. It is not — it is the pot. It holds a paste that has no shape of its own, it lets steam in and keeps boiling water out, it takes direct fire without burning what it holds, and it seasons. That last job is why the same glutinous rice reads as zongzi in bamboo and as lo mai gai in lotus: nothing about the grain changed, and the leaf is doing the seasoning."
   },
   {
    "title": "Paste or grain or pieces",
-   "body": "The fork that decides everything downstream. A paste has to be contained until heat sets it, so paste parcels are folded tight and usually tied — untie a raw one and it runs. Whole grains need packing and a long wet cook to fuse. A loose filling only needs holding, which is why a vine leaf rolled into a cigar with nothing to close it is enough for dolma, and would be nowhere near enough for a tamal."
+   "body": "The fork that decides everything downstream. A paste has to be contained until heat sets it, so paste parcels are folded tight and usually tied — untie a raw one and it runs. Whole grains need packing and a long wet cook to fuse. A loose filling only needs holding, which is why a vine leaf rolled into a cigar with nothing to close it is enough for dolma, and would be nowhere near enough for a tamal. Some parcels have no filling at all: lontong, kenkey and jianshui zong are a body and a wrapper and nothing else, and the leaf is working purely as a mould."
   },
   {
    "title": "On depth",

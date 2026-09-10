@@ -1,7 +1,7 @@
 {
  "slug": "soup",
  "name": "Soup",
- "standfirst": "Water, something to flavour it, and one decision that splits the family before any other: whether you can see through it. Consommé spends an entire technique taking things out until nothing is left but flavour. Egusi spends its technique on ground seed until the bowl is thick enough to eat with your hands. After that it is only ever three more questions — what does the thickening, whether it arrives hot or cold, and whether it opens the meal or is the meal. None of these is a version of any other.",
+ "standfirst": "Water, something to flavour it, and one decision that splits the family before any other: whether anything thickens it. Not whether you can see through it: that is a different question, and it gets three of these bowls wrong. Consommé spends an entire technique taking things out until nothing is left but flavour. Egusi spends its technique on ground seed until the bowl is thick enough to eat with your hands. After that it is only ever four more questions — what the liquid is, what does the thickening, whether it arrives hot or cold, and whether it opens the meal or is the meal. None of these is a version of any other.",
  "root": "Water, something to flavour it, and heat — where the liquid is the dish",
  "facets": [
   {
@@ -35,6 +35,14 @@
    ]
   },
   {
+   "label": "By what the liquid is",
+   "by": [
+    "base",
+    "body",
+    "served"
+   ]
+  },
+  {
    "label": "By what it is for",
    "by": [
     "role",
@@ -60,7 +68,7 @@
      "aromatic vegetables"
     ],
     "body": [
-     "clear",
+     "unthickened",
      "clarified with an egg-white raft"
     ],
     "served": [
@@ -79,26 +87,25 @@
    "name": "Miso shiru",
    "facets": {
     "base": [
-     "dashi",
+     "fish stock",
      "kombu",
      "katsuobushi"
     ],
     "body": [
-     "clear",
+     "unthickened",
      "clouded by miso in suspension"
     ],
     "served": [
      "hot"
     ],
     "role": [
-     "part of the meal",
-     "alongside rice"
+     "part of the meal"
     ],
     "region": [
      "Japan"
     ]
    },
-   "note": "The miso is whisked in off the boil and never simmered — heat it and the aroma and the live culture go together. Not a course but one of several bowls that arrive at once."
+   "note": "The stock is dashi and takes twenty minutes: kombu drawn out before it boils, katsuobushi steeped and strained. The miso is whisked in off the boil and never simmered — heat it and the aroma and the live culture go together. Nothing thickens it; the cloud is miso held in suspension, and it settles if the bowl stands. Not a course but one of several bowls that arrive at once."
   },
   {
    "name": "Tom yum",
@@ -110,21 +117,20 @@
      "soured with lime juice"
     ],
     "body": [
-     "clear",
+     "unthickened",
      "slicked with chilli jam"
     ],
     "served": [
      "hot"
     ],
     "role": [
-     "part of the meal",
-     "alongside rice"
+     "part of the meal"
     ],
     "region": [
      "Thailand"
     ]
    },
-   "note": "Clear in its older reading — nam sai — where sour and heat do the work a thickener does elsewhere. The orange on top is fat from chilli jam and not body."
+   "note": "Nothing thickens it — in the older reading, nam sai, sour and heat do the work a thickener does elsewhere. The orange on top is fat from chilli jam and not body."
   },
   {
    "name": "Sinigang",
@@ -135,21 +141,19 @@
      "soured with tamarind"
     ],
     "body": [
-     "clear",
-     "left unthickened"
+     "unthickened"
     ],
     "served": [
      "hot"
     ],
     "role": [
-     "part of the meal",
-     "alongside rice"
+     "part of the meal"
     ],
     "region": [
      "Philippines"
     ]
    },
-   "note": "Sourness is the structure, not a seasoning: tamarind most often, but guava, green mango or kamias depending on the house and the month. A sour broth first and a pork dish second."
+   "note": "Sourness is the structure, not a seasoning: tamarind most often, but guava, green mango or kamias depending on the house and the month. Nothing is added to bind it — a sour broth first and a pork dish second."
   },
   {
    "name": "Sopa de lima",
@@ -160,8 +164,7 @@
      "soured with lima agria"
     ],
     "body": [
-     "clear",
-     "left unthickened"
+     "unthickened"
     ],
     "served": [
      "hot",
@@ -171,11 +174,34 @@
      "a starter"
     ],
     "region": [
-     "Mexico",
-     "Yucatán"
+     "Mexico"
     ]
    },
-   "note": "The lima agria is floral and faintly bitter rather than sharp, which is why a Persian lime does not stand in cleanly. The fried tortilla goes in a few strips at a time so it never has time to soften."
+   "note": "Yucatecan, and the lima agria is floral and faintly bitter rather than sharp, which is why a Persian lime does not stand in cleanly. The broth is left as it comes off the bones; the fried tortilla goes in a few strips at a time so it never has time to soften."
+  },
+  {
+   "name": "Borscht",
+   "facets": {
+    "base": [
+     "meat stock",
+     "beetroot",
+     "soured with fermented beet kvas"
+    ],
+    "body": [
+     "unthickened"
+    ],
+    "served": [
+     "hot",
+     "smetana stirred in at the table"
+    ],
+    "role": [
+     "the meal"
+    ],
+    "region": [
+     "Ukraine"
+    ]
+   },
+   "note": "The sour is the point and traditionally it is not vinegar but beet kvas, fermented weeks ahead. Nothing thickens it: the roots go in grated so they cook fast and stay distinct, and the liquid stays a broth you could pour — what richness the bowl has arrives at the table in a spoon of smetana, so the last decision about it belongs to whoever is eating. A Ukrainian table calls it persha strava, the first course, but it is filed here as the meal because the pot is cooked in quantity and eaten with bread as supper for days after."
   },
   {
    "name": "Avgolemono",
@@ -202,6 +228,31 @@
    "note": "The thickener is a sauce in its own right: eggs and lemon whisked together, tempered with hot broth, returned off the heat. Let it boil and it scrambles, and there is no recovering it."
   },
   {
+   "name": "Suan la tang",
+   "facets": {
+    "base": [
+     "meat stock",
+     "pork",
+     "white pepper",
+     "soured with black vinegar"
+    ],
+    "body": [
+     "thickened",
+     "a starch slurry stirred in"
+    ],
+    "served": [
+     "hot"
+    ],
+    "role": [
+     "part of the meal"
+    ],
+    "region": [
+     "China"
+    ]
+   },
+   "note": "Starch added as starch: cornflour slaked in cold water and stirred into simmering stock, where it sets the broth without clouding it. You can still see the spoon through it and it is still thickened, which is the case that decides what this family forks on. The heat is white pepper rather than chilli and the sour is black vinegar, both going in off the heat so neither cooks away."
+  },
+  {
    "name": "Harira",
    "facets": {
     "base": [
@@ -211,21 +262,21 @@
     ],
     "body": [
      "thickened",
-     "lentils and chickpeas",
+     "the pulses cooked to collapse",
      "a flour-and-water tadouira poured in at the end"
     ],
     "served": [
      "hot"
     ],
     "role": [
-     "the meal",
+     "a starter",
      "eaten to break the fast"
     ],
     "region": [
      "Morocco"
     ]
    },
-   "note": "Harira means silk, and the tadouira is what earns the name — flour whisked cold into water and streamed into the simmering pot. The pulses have already done half the thickening before it arrives."
+   "note": "Harira means silk, and the tadouira is what earns the name — flour whisked cold into water and streamed into the simmering pot. The lentils and chickpeas have already done half the thickening before it arrives. At iftar it is what the fast is broken with, dates alongside it and the rest of the meal after, so it opens rather than ends."
   },
   {
    "name": "Minestrone",
@@ -237,7 +288,7 @@
     ],
     "body": [
      "thickened",
-     "beans cooked to collapse",
+     "the pulses cooked to collapse",
      "starch from the pasta"
     ],
     "served": [
@@ -250,33 +301,7 @@
      "Italy"
     ]
    },
-   "note": "There is no recipe, only a season. Cook whatever the garden has for long enough and the beans fall apart and the pasta gives up its starch: the soup thickens itself and nothing is added to make it do so."
-  },
-  {
-   "name": "Borscht",
-   "facets": {
-    "base": [
-     "meat stock",
-     "beetroot",
-     "soured with fermented beet kvas"
-    ],
-    "body": [
-     "thickened",
-     "grated root vegetables",
-     "potato"
-    ],
-    "served": [
-     "hot",
-     "smetana stirred in at the table"
-    ],
-    "role": [
-     "the meal"
-    ],
-    "region": [
-     "Ukraine"
-    ]
-   },
-   "note": "The sour is the point and traditionally it is not vinegar but beet kvas, fermented weeks ahead. The smetana goes in at the table, so the last decision about the bowl belongs to whoever is eating it."
+   "note": "There is no recipe, only a season. Cook whatever the garden has for long enough and the beans fall apart and the pasta gives up its starch: the soup thickens itself and nothing is added to make it do so. A formal Italian table serves it as a primo, but a bowl carrying both beans and pasta is supper on its own, which is how it is filed here."
   },
   {
    "name": "Dal",
@@ -295,8 +320,7 @@
      "a tarka poured over at the end"
     ],
     "role": [
-     "part of the meal",
-     "alongside rice"
+     "part of the meal"
     ],
     "region": [
      "India"
@@ -370,17 +394,17 @@
     ],
     "served": [
      "hot",
-     "cream and capers added at the table"
+     "cream stirred in at the table",
+     "capers added at the table"
     ],
     "role": [
      "the meal"
     ],
     "region": [
-     "Colombia",
-     "Bogotá"
+     "Colombia"
     ]
    },
-   "note": "Three potatoes doing three jobs: papa criolla falls apart and thickens the pot while pastusa and sabanera hold their shape. Without guascas this is chicken and potato soup with a different name."
+   "note": "Bogotá's bowl, and three potatoes doing three jobs: papa criolla falls apart and thickens the pot while pastusa and sabanera hold their shape. Without guascas this is chicken and potato soup with a different name. The cream and the capers are two separate decisions taken at the table — one enriches, the other cuts."
   },
   {
    "name": "Gazpacho",
@@ -392,7 +416,7 @@
     ],
     "body": [
      "thickened",
-     "stale bread",
+     "stale bread blended in",
      "olive oil emulsified in"
     ],
     "served": [
@@ -402,8 +426,7 @@
      "a starter"
     ],
     "region": [
-     "Spain",
-     "Andalusia"
+     "Spain"
     ]
    },
    "note": "Nothing is cooked at any point. Bread and oil do the thickening and the vinegar does the seasoning; the tomato is the newcomer, and the older Andalusian gazpachos are white and contain none."
@@ -453,21 +476,25 @@
      "a starter"
     ],
     "region": [
-     "France",
+     "United States",
      "New York"
     ]
    },
-   "note": "Parmentier sieved finer, enriched with cream and chilled — put together in a New York hotel by a French chef remembering the soup his mother cooled with milk. It genuinely descends from parmentier; nothing else in this table descends from anything."
+   "note": "Parmentier sieved finer, enriched with cream and chilled — put together in a New York hotel by a French chef remembering the soup his mother cooled with milk. It is filed where it was made rather than where its parent comes from. It genuinely descends from parmentier; nothing else in this table descends from anything."
   }
  ],
  "notes": [
   {
-   "title": "On clear and thick",
-   "body": "The family forks once, early, and everything else follows: can you see through it. Clear is the expensive answer. Consommé spends hours and a raft of egg white removing solids that were already in the pot, and tom yum and sinigang get their weight from acid and heat because nothing has been added to give them any. Thick is the domestic answer, and almost always the answer given by a soup that has to be the whole meal — something in the bowl is asked to fall apart."
+   "title": "On thickened and not",
+   "body": "The family forks once, early, and everything else follows: does anything thicken it. Transparency is the tempting test and the wrong one — miso clouds a bowl that nothing has thickened, tom yum carries a slick of chilli jam on a liquid with no body at all, and suan la tang is thickened with cornflour and still lets you see the spoon. Unthickened is the expensive answer: consommé spends hours and a raft of egg white taking out solids that were already in the pot, and tom yum, sinigang and borscht get their weight from acid because nothing has been added to give them any. Thickened is the domestic answer, and almost always the answer given by a soup that has to be the whole meal — something in the bowl is asked to fall apart."
   },
   {
    "title": "On what does the thickening",
-   "body": "Ground melon seed, collapsed lentils, stale bread, a flour slurry whisked in at the end, an egg beaten with lemon, a potato chosen because it disintegrates, a roux, the starch shed by pasta. Only two bowls here reach for flour as flour — harira's tadouira and the roux in a chowder. Everywhere else the thickener is something that was going in anyway and is simply cooked past the point where it keeps its shape. That is the whole trick, and it is why most of these soups have no thickening step you could point at in the method."
+   "body": "Ground melon seed, pulses cooked to collapse, stale bread, a cornflour slurry, a flour-and-water tadouira streamed in at the end, an egg beaten with lemon, a potato chosen because it disintegrates, a roux, the starch shed by pasta. Only three bowls here reach for a thickener as a thickener — harira's tadouira, the roux in a chowder, the slurry in suan la tang — and only the last of those is starch arriving as starch rather than as flour. Everywhere else the thickener is something that was going in anyway and is simply cooked past the point where it keeps its shape. That is the whole trick, and it is why most of these soups have no thickening step you could point at in the method."
+  },
+  {
+   "title": "On what the liquid is",
+   "body": "Most of these begin with a stock, which is to say the flavouring was made somewhere else and brought to the pot — meat, shellfish, or a dashi of kombu and katsuobushi that takes twenty minutes rather than a morning. Two do not. Dal is pulses and water and gazpacho is raw vegetables and their own juice, so in both the liquid and the ingredient are the same thing and there is nothing to make in advance. Minestrone, parmentier and vichyssoise sit between: plain water that becomes stock while the soup cooks."
   },
   {
    "title": "On cold",
@@ -475,7 +502,7 @@
   },
   {
    "title": "On starter or meal",
-   "body": "Whether soup opens the meal or is the meal is a fact about the table, not about the soup. The French order that puts it first is a nineteenth-century service convention, and it does not travel: dal and miso shiru are neither starter nor meal but one component of a set, arriving with everything else and eaten in alternation with rice. Egusi is thick enough to be a sauce and is eaten with the hands by way of a swallow. Harira opens a meal and is substantial enough to end one. The same pot changes category by crossing a border."
+   "body": "Whether soup opens the meal or is the meal is a fact about the table, not about the soup. The French order that puts it first is a nineteenth-century service convention, and it does not travel: miso shiru, tom yum, sinigang and dal are neither starter nor meal but one component of a set, arriving with everything else and eaten in alternation with rice or bread. Harira is filed as a starter for a different reason again — at iftar it is what the fast is broken with, dates alongside it, and the eating goes on long after the bowl. Egusi is thick enough to be a sauce and is eaten with the hands by way of a swallow. Minestrone and borscht are filed against their own home service, where each is a first course — a primo, a persha strava — because the pot in both cases is cooked in quantity to be supper, and the formal order is the exception rather than the rule. The same pot changes category by crossing a border."
   },
   {
    "title": "On what is not here",
@@ -502,6 +529,10 @@
   {
    "label": "Sinigang (Wikipedia)",
    "url": "https://en.wikipedia.org/wiki/Sinigang"
+  },
+  {
+   "label": "Hot and sour soup (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Hot_and_sour_soup"
   },
   {
    "label": "Egusi (Wikipedia)",
@@ -548,6 +579,9 @@
   "egusi",
   "ajiaco",
   "sinigang",
+  "sopa de lima",
+  "suan la tang",
+  "hot and sour",
   "vichyssoise",
   "potage"
  ]

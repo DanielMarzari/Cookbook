@@ -30,8 +30,8 @@
    "label": "By thickener",
    "by": [
     "body",
-    "add",
-    "chilli"
+    "chilli",
+    "add"
    ]
   },
   {
@@ -62,9 +62,10 @@
      "chipotle"
     ],
     "prep": [
-     "chillies fried in lard",
-     "nuts and seeds fried separately",
-     "aromatics charred on the comal"
+     "chillies fried in fat",
+     "in lard",
+     "aromatics charred on the comal",
+     "nuts and seeds fried separately"
     ],
     "add": [
      "nuts and seeds",
@@ -79,6 +80,7 @@
      "toasted tortilla"
     ],
     "region": [
+     "Mexico",
      "Puebla"
     ]
    },
@@ -95,9 +97,10 @@
      "guajillo"
     ],
     "prep": [
-     "chillies fried in lard",
-     "chilli seeds burned to smoking",
-     "aromatics charred on the comal"
+     "chillies fried in fat",
+     "in lard",
+     "aromatics charred on the comal",
+     "chilli seeds burned to smoking"
     ],
     "add": [
      "nuts and seeds",
@@ -112,6 +115,7 @@
      "burnt tortilla"
     ],
     "region": [
+     "Mexico",
      "Oaxaca"
     ]
    },
@@ -127,7 +131,8 @@
      "chilhuacle rojo"
     ],
     "prep": [
-     "chillies fried in lard",
+     "chillies fried in fat",
+     "in lard",
      "aromatics charred on the comal"
     ],
     "add": [
@@ -141,6 +146,7 @@
      "bolillo fried in lard"
     ],
     "region": [
+     "Mexico",
      "Oaxaca"
     ]
    },
@@ -169,6 +175,7 @@
      "slaked in cold water"
     ],
     "region": [
+     "Mexico",
      "Oaxaca"
     ]
    },
@@ -184,8 +191,8 @@
     ],
     "prep": [
      "chillies go in raw",
+     "tomatillos blended in raw",
      "nothing toasted at all",
-     "tomatillo simmered soft",
      "herbs blended raw"
     ],
     "add": [
@@ -199,6 +206,7 @@
      "slaked in cold water"
     ],
     "region": [
+     "Mexico",
      "Oaxaca"
     ]
    },
@@ -228,6 +236,7 @@
      "burnt tortilla"
     ],
     "region": [
+     "Mexico",
      "Oaxaca"
     ]
    },
@@ -242,8 +251,9 @@
      "guajillo"
     ],
     "prep": [
-     "chillies fried in lard",
-     "plantain fried in lard",
+     "chillies fried in fat",
+     "in lard",
+     "aromatics charred on the comal",
      "fruit simmered in the sauce"
     ],
     "add": [
@@ -259,6 +269,7 @@
      "the fruit itself"
     ],
     "region": [
+     "Mexico",
      "Oaxaca"
     ]
    },
@@ -273,8 +284,8 @@
     ],
     "prep": [
      "chillies go in raw",
-     "pumpkin seed toasted dry",
-     "tomatillo simmered soft"
+     "tomatillos blended in raw",
+     "pumpkin seed toasted dry"
     ],
     "add": [
      "nuts and seeds",
@@ -287,7 +298,8 @@
      "pumpkin seed"
     ],
     "region": [
-     "Central Mexico"
+     "Mexico",
+     "Puebla"
     ]
    },
    "note": "The seed is not an enrichment here, it is the sauce. Ground pepitas thicken and then split if you let them boil, so it is held below a simmer from the moment it goes into the pan."
@@ -317,6 +329,7 @@
      "left as broth"
     ],
     "region": [
+     "Mexico",
      "Central Mexico"
     ]
    },
@@ -408,17 +421,19 @@
      "ground almond"
     ],
     "region": [
+     "Spain",
      "Catalonia"
     ]
    },
-   "note": "Catalonia arrives at mole poblano's structure independently: dried mild chilli rehydrated, aromatics roasted, fried bread and ground nuts for body. What it leaves out is the spice cabinet."
+   "note": "The same bread-and-ground-almond logic mole poblano's Spanish half was built on: dried mild chilli rehydrated, aromatics roasted, fried bread and ground nuts for body. Not poblano's ancestor — ñora is a New World pepper too, and romesco in this form is no older than the exchange — but both stand on the same medieval Iberian sauce. What it leaves out is the spice cabinet."
   },
   {
    "name": "Muhammara",
    "facets": {
     "chilli": [
      "dried chilli",
-     "Aleppo pepper"
+     "Aleppo pepper",
+     "roasted red pepper"
     ],
     "prep": [
      "peppers roasted whole",
@@ -437,6 +452,7 @@
      "ground walnut"
     ],
     "region": [
+     "Syria",
      "Aleppo"
     ]
    },
@@ -446,12 +462,12 @@
    "name": "Ají de gallina",
    "facets": {
     "chilli": [
-     "dried chilli",
-     "ají amarillo",
-     "ají panca"
+     "fresh chilli",
+     "ají amarillo paste"
     ],
     "prep": [
-     "chilli fried in oil",
+     "chillies fried in fat",
+     "in oil",
      "onion and garlic fried first",
      "bread soaked in milk"
     ],
@@ -507,7 +523,8 @@
      "Kashmiri chilli"
     ],
     "prep": [
-     "chilli bloomed in ghee",
+     "chillies fried in fat",
+     "in ghee",
      "onion fried to gold",
      "nuts soaked soft"
     ],
@@ -523,6 +540,7 @@
      "yoghurt"
     ],
     "region": [
+     "India",
      "North India"
     ]
    },
@@ -544,7 +562,7 @@
   },
   {
    "title": "On the thickener",
-   "body": "This is where the family stops being Mexican. Bread, corn masa, a ground seed or a ground nut — four answers to how a chilli sauce gets body without flour, and cooks in Catalonia, Aleppo and Lima reached the same four independently. Romesco and mole poblano are not related; they are two solutions to one problem that happen to agree."
+   "body": "This is where the family stops being Mexican. Bread, corn masa, a ground seed or a ground nut — four answers to how a chilli sauce gets body without flour, and the four recur in Catalonia, Aleppo, Lima and Dakar. Some of that agreement is genuine convergence: nobody carried the pipián to Senegal, and mafé hands the whole job to a ground seed on its own. Romesco and mole poblano are the other case, and contact is the honest half of it — the bread-and-ground-almond sauce is medieval Iberian and sailed west with the Spanish, which is where poblano's almonds, sesame, cinnamon, raisins, fried bolillo and lard come from, and ají de gallina inherits the same sauce more plainly still. What did not sail was the rest of it: the chillies, the comal, the word."
   },
   {
    "title": "On depth",

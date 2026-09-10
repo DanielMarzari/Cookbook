@@ -94,7 +94,7 @@
     "prep": [
      "raw",
      "chopped fine",
-     "veal glaze beaten in"
+     "meat glaze beaten in"
     ],
     "form": [
      "chilled log",
@@ -105,7 +105,7 @@
      "fried sole"
     ]
    },
-   "note": "Escoffier states it as arithmetic: maître d'hôtel butter plus tarragon and melted meat glaze. It descends from that butter, not from plain butter."
+   "note": "Escoffier states it as arithmetic: maître d'hôtel butter plus tarragon and melted meat glaze — glace de viande, not a stock. It descends from that butter, not from plain butter."
   },
   {
    "name": "Beurre de Montpellier",
@@ -258,8 +258,7 @@
     ],
     "prep": [
      "raw",
-     "pounded to a paste",
-     "matured in the pot"
+     "pounded to a paste"
     ],
     "form": [
      "potted",
@@ -270,13 +269,13 @@
      "hot buttered toast"
     ]
    },
-   "note": "Anchovy butter taken further — a spice mix kept secret since 1828, and time under the lid. Sold as a relish; it is a compound butter in the jar."
+   "note": "Anchovy butter taken further by the spice tin: anchovy at three fifths of the jar by weight, butter, and a mix kept secret since John Osborn made the first pot in 1828. Sold as a relish; it is a compound butter under the lid."
   },
   {
    "name": "Bone marrow butter",
    "facets": {
     "region": [
-     "Britain"
+     "England"
     ],
     "aromatic": [
      "bone marrow",
@@ -296,7 +295,7 @@
      "grilled steak"
     ]
    },
-   "note": "One fat carrying another. Marrow has no structure of its own, so this melts to a puddle where a herb butter would hold a slick."
+   "note": "One fat carrying another. Marrow has no structure of its own, so this melts to a puddle where a herb butter would hold a slick. The marrow-and-parsley pairing is a London chophouse habit."
   },
   {
    "name": "Beurre de homard",
@@ -312,7 +311,8 @@
     "prep": [
      "roasted first",
      "pounded with the butter",
-     "melted and strained"
+     "melted gently",
+     "strained into iced water"
     ],
     "form": [
      "set hard",
@@ -323,7 +323,7 @@
      "a shellfish soup"
     ]
    },
-   "note": "The aromatic is thrown away. Shells go in for colour and scent only, and the butter is strained through muslin into iced water to set."
+   "note": "The aromatic is thrown away. Shells go in for colour and scent only, and the butter is poured through muslin into iced water, where it sets hard and coral red."
   },
   {
    "name": "Beurre aux algues",
@@ -374,13 +374,13 @@
      "grilled corn"
     ]
    },
-   "note": "Salt and glutamate already dissolved into a paste — nothing to chop, nothing to cook, which makes it the easiest of these to improvise."
+   "note": "Salt and glutamate already dissolved into a paste — nothing to chop, nothing to cook, which makes it the easiest of these to improvise. Hokkaido eats it on grilled corn."
   },
   {
    "name": "Harissa butter",
    "facets": {
     "region": [
-     "Tunisia"
+     "modern kitchens"
     ],
     "aromatic": [
      "fermented paste",
@@ -401,13 +401,14 @@
      "grilled lamb"
     ]
    },
-   "note": "Chilli heat is fat-soluble, so butter spreads it evenly and blunts it — the same paste stirred into a broth would be twice as sharp."
+   "note": "Chilli heat is fat-soluble, so butter spreads it evenly and blunts it — the same paste stirred into a broth would be twice as sharp. The paste is Tunisian; the butter is not. Tunisia cooks in olive oil, and this is a modern kitchen borrowing a jar, which is why recipe sites label it Tunisian and Moroccan by turns and neither is a home."
   },
   {
    "name": "Niter kibbeh",
    "facets": {
     "region": [
-     "Ethiopia"
+     "Ethiopia",
+     "Eritrea"
     ],
     "aromatic": [
      "spice",
@@ -430,7 +431,7 @@
      "as the frying fat"
     ]
    },
-   "note": "The one butter here that is not a garnish. With the milk solids simmered off and strained away it keeps without a fridge and carries its spice into every wat cooked in it."
+   "note": "The one butter here that is not a garnish — tesmi in Tigrinya, and as Eritrean as it is Ethiopian. With the milk solids simmered off and strained away it keeps without a fridge and carries its spice into every wat cooked in it."
   },
   {
    "name": "Smen",
@@ -443,8 +444,10 @@
      "wild oregano"
     ],
     "prep": [
+     "clarified first",
      "salted heavily",
-     "sealed and aged"
+     "sealed in the pot",
+     "left to age"
     ],
     "form": [
      "potted",
@@ -455,7 +458,7 @@
      "a tagine"
     ]
    },
-   "note": "The aromatic is time. Months to years under salt turn butter blue-cheese pungent, and a spoonful seasons a whole couscous."
+   "note": "The aromatic is time. The butter is boiled and skimmed clear before anything else happens; then months to years under salt turn it blue-cheese pungent, and a spoonful seasons a whole couscous."
   },
   {
    "name": "Honey butter",
@@ -494,11 +497,11 @@
   },
   {
    "title": "Butter that keeps",
-   "body": "Niter kibbeh and smen answer a different question from the rest. Clarifying removes the milk solids that spoil; salting and sealing lets lactic acid do the same job by fermentation. The aromatics come along for the ride, which is why both are cooked with rather than melted on — the seasoning was never the point."
+   "body": "Niter kibbeh and smen answer a different question from the rest, and they start the same way: melt the butter and take out the milk solids, which are the part that spoils. Niter kibbeh stops there — the spices simmer in the fat and are strained away with the solids, and what is left keeps on a shelf because there is nothing in it left to go off. Smen is then packed with salt and shut in a pot, and lactic fermentation does the rest, which is why it goes somewhere in flavour that a clarified butter never does. Both are cooked with rather than melted on: the seasoning was never the point."
   },
   {
    "title": "On depth",
-   "body": "Only two dishes sit a level down, and both because a written recipe says so: Colbert is maître d'hôtel plus tarragon and meat glaze, and Gentleman's Relish is anchovy butter plus spices and a month in the pot. Everything else is one move from soft butter and belongs at the same depth, however much a neater tree would like otherwise."
+   "body": "Only two dishes sit a level down, and for different reasons. Colbert is the arithmetic case — Escoffier writes it as maître d'hôtel butter plus tarragon and melted meat glaze, so the descent is stated in the recipe. Gentleman's Relish has no such recipe to quote: the formula has been a trade secret since 1828. It is read as an anchovy butter from what is in the jar — anchovy pounded into butter, spread cold on toast — with a spice mix on top of it. Everything else is one move from soft butter and belongs at the same depth, however much a neater tree would like otherwise."
   }
  ],
  "sources": [
@@ -531,6 +534,10 @@
    "url": "https://en.wikipedia.org/wiki/Smen"
   },
   {
+   "label": "Harissa",
+   "url": "https://en.wikipedia.org/wiki/Harissa"
+  },
+  {
    "label": "Escargot",
    "url": "https://en.wikipedia.org/wiki/Escargot"
   }
@@ -544,6 +551,7 @@
   "miso butter",
   "marrow butter",
   "café de paris",
-  "niter kibbeh"
+  "niter kibbeh",
+  "tesmi"
  ]
 }
