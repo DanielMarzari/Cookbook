@@ -1,0 +1,170 @@
+{
+ "slug": "tomato-sauce",
+ "name": "Tomato sauce",
+ "standfirst": "One base — tomato, garlic, onion and basil softened in olive oil — and a short list of additions, each of which lands you somewhere with its own name.",
+ "root": "Tomato · garlic · onion · basil, softened in olive oil",
+ "facets": [
+  {
+   "id": "add",
+   "label": "Added"
+  },
+  {
+   "id": "fat",
+   "label": "Fat"
+  },
+  {
+   "id": "method",
+   "label": "Method"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By addition",
+   "by": [
+    "add",
+    "method"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Rosa",
+   "facets": {
+    "region": [
+     "Italy"
+    ],
+    "add": [
+     "cream"
+    ],
+    "fat": [
+     "olive oil"
+    ],
+    "method": [
+     "reduced"
+    ]
+   }
+  },
+  {
+   "name": "Vodka",
+   "parent": "Rosa",
+   "facets": {
+    "region": [
+     "Italy / United States"
+    ],
+    "add": [
+     "cream",
+     "vodka"
+    ],
+    "fat": [
+     "pancetta"
+    ],
+    "method": [
+     "reduced"
+    ]
+   },
+   "note": "Rosa with vodka and pancetta — it descends from rosa, not from the base."
+  },
+  {
+   "name": "Amatriciana",
+   "facets": {
+    "region": [
+     "Lazio"
+    ],
+    "add": [
+     "pecorino"
+    ],
+    "fat": [
+     "guanciale"
+    ],
+    "method": [
+     "rendered first"
+    ]
+   }
+  },
+  {
+   "name": "Arrabbiata",
+   "facets": {
+    "region": [
+     "Lazio"
+    ],
+    "add": [
+     "dried chilli"
+    ],
+    "fat": [
+     "olive oil"
+    ],
+    "method": [
+     "reduced"
+    ]
+   }
+  },
+  {
+   "name": "Puttanesca",
+   "facets": {
+    "region": [
+     "Campania"
+    ],
+    "add": [
+     "olives",
+     "capers",
+     "anchovy"
+    ],
+    "fat": [
+     "olive oil"
+    ],
+    "method": [
+     "reduced"
+    ]
+   }
+  },
+  {
+   "name": "alla Norma",
+   "facets": {
+    "region": [
+     "Sicily"
+    ],
+    "add": [
+     "ricotta salata"
+    ],
+    "fat": [
+     "olive oil"
+    ],
+    "method": [
+     "fried eggplant folded in"
+    ]
+   }
+  }
+ ],
+ "notes": [
+  {
+   "title": "On depth",
+   "body": "Only vodka sits a level down, because it is genuinely rosa plus two things. The other five are each one move from the base and belong at the same depth — arranging them otherwise makes the picture tidier and the claim false."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Tomato sauce (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Tomato_sauce"
+  },
+  {
+   "label": "Amatriciana",
+   "url": "https://en.wikipedia.org/wiki/Sugo_all%27amatriciana"
+  },
+  {
+   "label": "Pasta alla Norma",
+   "url": "https://en.wikipedia.org/wiki/Pasta_alla_Norma"
+  }
+ ],
+ "yours": [
+  "tomato sauce",
+  "marinara",
+  "arrabbiata",
+  "vodka sauce",
+  "puttanesca",
+  "sugo"
+ ]
+}

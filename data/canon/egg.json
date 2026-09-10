@@ -1,0 +1,305 @@
+{
+ "slug": "egg",
+ "name": "Egg",
+ "standfirst": "Twelve dishes out of one egg. Almost nothing is added — what separates them is the state the egg is in when it meets heat, and where you stop.",
+ "root": "Egg",
+ "facets": [
+  {
+   "id": "state",
+   "label": "State"
+  },
+  {
+   "id": "added",
+   "label": "Added"
+  },
+  {
+   "id": "method",
+   "label": "Method"
+  },
+  {
+   "id": "done",
+   "label": "Doneness"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By technique",
+   "by": [
+    "state",
+    "method",
+    "done"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "state"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Soft-boiled",
+   "facets": {
+    "region": [],
+    "state": [
+     "in its shell"
+    ],
+    "added": [],
+    "method": [
+     "simmered"
+    ],
+    "done": [
+     "6 minutes"
+    ]
+   }
+  },
+  {
+   "name": "Hard-boiled",
+   "facets": {
+    "region": [],
+    "state": [
+     "in its shell"
+    ],
+    "added": [],
+    "method": [
+     "simmered"
+    ],
+    "done": [
+     "10 minutes"
+    ]
+   }
+  },
+  {
+   "name": "Poached",
+   "facets": {
+    "region": [],
+    "state": [
+     "cracked out whole"
+    ],
+    "added": [],
+    "method": [
+     "slid into still water"
+    ],
+    "done": [
+     "white just set"
+    ]
+   }
+  },
+  {
+   "name": "Sunny side up",
+   "facets": {
+    "region": [
+     "United States"
+    ],
+    "state": [
+     "cracked out whole"
+    ],
+    "added": [],
+    "method": [
+     "fried in fat",
+     "basted"
+    ],
+    "done": [
+     "yolk liquid"
+    ]
+   }
+  },
+  {
+   "name": "Over easy",
+   "facets": {
+    "region": [
+     "United States"
+    ],
+    "state": [
+     "cracked out whole"
+    ],
+    "added": [],
+    "method": [
+     "fried in fat",
+     "flipped"
+    ],
+    "done": [
+     "yolk liquid"
+    ]
+   }
+  },
+  {
+   "name": "Over hard",
+   "facets": {
+    "region": [
+     "United States"
+    ],
+    "state": [
+     "cracked out whole"
+    ],
+    "added": [],
+    "method": [
+     "fried in fat",
+     "flipped"
+    ],
+    "done": [
+     "yolk set"
+    ]
+   }
+  },
+  {
+   "name": "Scrambled, French",
+   "facets": {
+    "region": [
+     "France"
+    ],
+    "state": [
+     "beaten"
+    ],
+    "added": [
+     "butter"
+    ],
+    "method": [
+     "stirred in the pan",
+     "constantly",
+     "low heat"
+    ],
+    "done": [
+     "barely set"
+    ]
+   },
+   "note": "Small curd, almost a sauce. The heat is the whole technique."
+  },
+  {
+   "name": "Scrambled, American",
+   "facets": {
+    "region": [
+     "United States"
+    ],
+    "state": [
+     "beaten"
+    ],
+    "added": [
+     "milk"
+    ],
+    "method": [
+     "stirred in the pan",
+     "in folds",
+     "higher heat"
+    ],
+    "done": [
+     "firm curds"
+    ]
+   }
+  },
+  {
+   "name": "French omelette",
+   "facets": {
+    "region": [
+     "France"
+    ],
+    "state": [
+     "beaten"
+    ],
+    "added": [],
+    "method": [
+     "poured flat",
+     "folded"
+    ],
+    "done": [
+     "no colour"
+    ]
+   }
+  },
+  {
+   "name": "Tamagoyaki",
+   "facets": {
+    "region": [
+     "Japan"
+    ],
+    "state": [
+     "beaten"
+    ],
+    "added": [
+     "dashi",
+     "sugar"
+    ],
+    "method": [
+     "poured flat",
+     "rolled in layers"
+    ],
+    "done": [
+     "just set"
+    ]
+   }
+  },
+  {
+   "name": "Omurice",
+   "facets": {
+    "region": [
+     "Japan"
+    ],
+    "state": [
+     "beaten"
+    ],
+    "added": [],
+    "method": [
+     "poured flat",
+     "draped over rice"
+    ],
+    "done": [
+     "just set"
+    ]
+   }
+  },
+  {
+   "name": "Frittata",
+   "facets": {
+    "region": [
+     "Italy"
+    ],
+    "state": [
+     "beaten"
+    ],
+    "added": [
+     "cream"
+    ],
+    "method": [
+     "poured flat",
+     "finished in the oven"
+    ],
+    "done": [
+     "cooked through"
+    ]
+   }
+  }
+ ],
+ "notes": [
+  {
+   "title": "On the first fork",
+   "body": "Beaten or not is the decision everything else hangs off. An unbeaten egg keeps its two textures and the dishes differ by where it cooks; a beaten egg is one material, and the dishes differ by whether you keep it moving or let it set flat."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Egg as food (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Egg_as_food"
+  },
+  {
+   "label": "Omurice",
+   "url": "https://en.wikipedia.org/wiki/Omurice"
+  },
+  {
+   "label": "Tamagoyaki",
+   "url": "https://en.wikipedia.org/wiki/Tamagoyaki"
+  }
+ ],
+ "yours": [
+  "egg",
+  "omelet",
+  "omelette",
+  "frittata",
+  "scrambl"
+ ]
+}

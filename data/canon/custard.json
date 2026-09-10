@@ -1,0 +1,153 @@
+{
+ "slug": "custard",
+ "name": "Custard",
+ "standfirst": "Cream, egg yolk and sugar go into all of these. What separates them is how it is cooked, what sets it, and what happens to the surface.",
+ "root": "Cream · egg yolk · sugar",
+ "facets": [
+  {
+   "id": "cook",
+   "label": "Cooked"
+  },
+  {
+   "id": "set",
+   "label": "Set by"
+  },
+  {
+   "id": "finish",
+   "label": "Finish"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By technique",
+   "by": [
+    "cook",
+    "set",
+    "finish"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "cook"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Pastry cream",
+   "facets": {
+    "region": [
+     "France"
+    ],
+    "cook": [
+     "on the stove",
+     "stirred"
+    ],
+    "set": [
+     "starch"
+    ],
+    "finish": []
+   },
+   "note": "Stirred, so it thickens rather than sets. Everything below is left alone instead."
+  },
+  {
+   "name": "Panna cotta",
+   "facets": {
+    "region": [
+     "Piedmont"
+    ],
+    "cook": [
+     "warmed only"
+    ],
+    "set": [
+     "gelatin"
+    ],
+    "finish": []
+   }
+  },
+  {
+   "name": "Pot de crème",
+   "facets": {
+    "region": [
+     "France"
+    ],
+    "cook": [
+     "baked in a water bath"
+    ],
+    "set": [
+     "egg alone"
+    ],
+    "finish": []
+   }
+  },
+  {
+   "name": "Crème caramel",
+   "facets": {
+    "region": [
+     "France"
+    ],
+    "cook": [
+     "baked in a water bath"
+    ],
+    "set": [
+     "egg alone"
+    ],
+    "finish": [
+     "caramel in the mould"
+    ]
+   }
+  },
+  {
+   "name": "Crème brûlée",
+   "facets": {
+    "region": [
+     "France"
+    ],
+    "cook": [
+     "baked in a water bath"
+    ],
+    "set": [
+     "egg alone"
+    ],
+    "finish": [
+     "sugar burnt on top"
+    ]
+   },
+   "note": "The crust goes on after the custard is cold, and cracks under a spoon. Without it this is a pot de crème."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On the surface",
+   "body": "Pot de crème, crème caramel and crème brûlée are the same baked custard. All three differ only in the last column — nothing, caramel underneath, or burnt sugar on top — which is as small as a defining difference gets."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Custard (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Custard"
+  },
+  {
+   "label": "Crème brûlée",
+   "url": "https://en.wikipedia.org/wiki/Cr%C3%A8me_br%C3%BBl%C3%A9e"
+  },
+  {
+   "label": "Panna cotta",
+   "url": "https://en.wikipedia.org/wiki/Panna_cotta"
+  }
+ ],
+ "yours": [
+  "custard",
+  "brulee",
+  "brûlée",
+  "panna cotta",
+  "flan",
+  "pastry cream"
+ ]
+}

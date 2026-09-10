@@ -1,0 +1,411 @@
+{
+ "slug": "dough-with-filling",
+ "name": "Dough with filling",
+ "standfirst": "Wrap something in a sheet of dough, close it, and apply heat. Nearly every cuisine arrived at this independently — which is why the category is dough-with-filling rather than \"dumpling\", a word that quietly makes one tradition the default.",
+ "root": "A sheet of dough, closed around a filling",
+ "facets": [
+  {
+   "id": "dough",
+   "label": "Dough"
+  },
+  {
+   "id": "filling",
+   "label": "Filling"
+  },
+  {
+   "id": "close",
+   "label": "Closed"
+  },
+  {
+   "id": "cook",
+   "label": "Cooked"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By cooking",
+   "by": [
+    "cook",
+    "dough",
+    "close"
+   ]
+  },
+  {
+   "label": "By dough",
+   "by": [
+    "dough",
+    "cook"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "cook"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Jiaozi",
+   "facets": {
+    "dough": [
+     "wheat",
+     "unleavened"
+    ],
+    "filling": [
+     "pork",
+     "chive"
+    ],
+    "close": [
+     "pleated crescent"
+    ],
+    "cook": [
+     "boiled"
+    ],
+    "region": [
+     "China"
+    ]
+   }
+  },
+  {
+   "name": "Gyoza",
+   "facets": {
+    "dough": [
+     "wheat",
+     "unleavened",
+     "thinner wrapper"
+    ],
+    "filling": [
+     "pork",
+     "cabbage"
+    ],
+    "close": [
+     "pleated crescent"
+    ],
+    "cook": [
+     "pan-fried",
+     "then steamed"
+    ],
+    "region": [
+     "Japan"
+    ]
+   },
+   "note": "Jiaozi with a thinner wrapper and a crisp base — the same parcel, finished differently."
+  },
+  {
+   "name": "Xiao long bao",
+   "facets": {
+    "dough": [
+     "wheat",
+     "unleavened"
+    ],
+    "filling": [
+     "pork",
+     "set aspic"
+    ],
+    "close": [
+     "twisted knot"
+    ],
+    "cook": [
+     "steamed"
+    ],
+    "region": [
+     "Jiangnan"
+    ]
+   },
+   "note": "The aspic melts into soup inside the parcel. The filling is the technique."
+  },
+  {
+   "name": "Momo",
+   "facets": {
+    "dough": [
+     "wheat",
+     "unleavened"
+    ],
+    "filling": [
+     "minced meat",
+     "aromatics"
+    ],
+    "close": [
+     "pleated purse"
+    ],
+    "cook": [
+     "steamed"
+    ],
+    "region": [
+     "Tibet",
+     "Nepal"
+    ]
+   }
+  },
+  {
+   "name": "Manti",
+   "facets": {
+    "dough": [
+     "wheat",
+     "unleavened"
+    ],
+    "filling": [
+     "lamb",
+     "onion"
+    ],
+    "close": [
+     "pinched parcel"
+    ],
+    "cook": [
+     "steamed"
+    ],
+    "region": [
+     "Anatolia",
+     "Central Asia"
+    ]
+   }
+  },
+  {
+   "name": "Khinkali",
+   "facets": {
+    "dough": [
+     "wheat",
+     "unleavened"
+    ],
+    "filling": [
+     "meat",
+     "broth"
+    ],
+    "close": [
+     "twisted knot"
+    ],
+    "cook": [
+     "boiled"
+    ],
+    "region": [
+     "Georgia"
+    ]
+   }
+  },
+  {
+   "name": "Pelmeni",
+   "facets": {
+    "dough": [
+     "wheat",
+     "unleavened"
+    ],
+    "filling": [
+     "minced meat"
+    ],
+    "close": [
+     "sealed round"
+    ],
+    "cook": [
+     "boiled"
+    ],
+    "region": [
+     "Russia",
+     "Siberia"
+    ]
+   }
+  },
+  {
+   "name": "Pierogi",
+   "facets": {
+    "dough": [
+     "wheat",
+     "unleavened"
+    ],
+    "filling": [
+     "potato",
+     "curd cheese"
+    ],
+    "close": [
+     "crimped half-moon"
+    ],
+    "cook": [
+     "boiled",
+     "then pan-fried"
+    ],
+    "region": [
+     "Poland"
+    ]
+   }
+  },
+  {
+   "name": "Ravioli",
+   "facets": {
+    "dough": [
+     "egg pasta"
+    ],
+    "filling": [
+     "ricotta",
+     "greens"
+    ],
+    "close": [
+     "sealed flat"
+    ],
+    "cook": [
+     "boiled"
+    ],
+    "region": [
+     "Italy"
+    ]
+   }
+  },
+  {
+   "name": "Empanada",
+   "facets": {
+    "dough": [
+     "wheat",
+     "enriched with fat"
+    ],
+    "filling": [
+     "beef",
+     "olive",
+     "egg"
+    ],
+    "close": [
+     "crimped repulgue"
+    ],
+    "cook": [
+     "baked"
+    ],
+    "region": [
+     "Argentina",
+     "Spain"
+    ]
+   }
+  },
+  {
+   "name": "Jamaican patty",
+   "facets": {
+    "dough": [
+     "wheat",
+     "flaky",
+     "turmeric"
+    ],
+    "filling": [
+     "spiced beef"
+    ],
+    "close": [
+     "crimped half-moon"
+    ],
+    "cook": [
+     "baked"
+    ],
+    "region": [
+     "Jamaica"
+    ]
+   },
+   "note": "The same half-moon as a pierogi, on laminated pastry — the dough is what makes it its own thing."
+  },
+  {
+   "name": "Samosa",
+   "facets": {
+    "dough": [
+     "wheat",
+     "unleavened"
+    ],
+    "filling": [
+     "potato",
+     "pea",
+     "spice"
+    ],
+    "close": [
+     "folded cone"
+    ],
+    "cook": [
+     "deep-fried"
+    ],
+    "region": [
+     "South Asia"
+    ]
+   }
+  },
+  {
+   "name": "Empanada frita",
+   "facets": {
+    "dough": [
+     "wheat",
+     "enriched with fat"
+    ],
+    "filling": [
+     "cheese",
+     "beef"
+    ],
+    "close": [
+     "crimped repulgue"
+    ],
+    "cook": [
+     "deep-fried"
+    ],
+    "region": [
+     "Latin America"
+    ]
+   }
+  },
+  {
+   "name": "Fried wonton",
+   "facets": {
+    "dough": [
+     "wheat",
+     "unleavened",
+     "thinner wrapper"
+    ],
+    "filling": [
+     "pork",
+     "shrimp"
+    ],
+    "close": [
+     "gathered purse"
+    ],
+    "cook": [
+     "deep-fried"
+    ],
+    "region": [
+     "China"
+    ]
+   }
+  }
+ ],
+ "notes": [
+  {
+   "title": "On the category",
+   "body": "Calling these all dumplings makes gyoza and pierogi look like variations of one another. They are not — they are separate answers to the same problem, arrived at independently. Dough-with-filling names the problem instead of picking a winner, which is why every one of these sits at the same depth."
+  },
+  {
+   "title": "On what actually varies",
+   "body": "Filling varies most and matters least; almost any of these parcels tolerates almost any filling. The dough and the closing are what make a shape recognisable, and how it is cooked is what makes it a different eating experience — which is why cooking is the default nesting."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Dumpling (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Dumpling"
+  },
+  {
+   "label": "Empanada",
+   "url": "https://en.wikipedia.org/wiki/Empanada"
+  },
+  {
+   "label": "Jamaican patty",
+   "url": "https://en.wikipedia.org/wiki/Jamaican_patty"
+  },
+  {
+   "label": "Xiaolongbao",
+   "url": "https://en.wikipedia.org/wiki/Xiaolongbao"
+  }
+ ],
+ "yours": [
+  "empanada",
+  "pierogi",
+  "dumpling",
+  "gyoza",
+  "ravioli",
+  "samosa",
+  "patty",
+  "wonton"
+ ]
+}
