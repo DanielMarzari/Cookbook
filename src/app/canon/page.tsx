@@ -15,9 +15,9 @@ export default function CanonIndexPage() {
           What a dish is
         </h1>
         <p className="max-w-2xl text-[15px] leading-relaxed text-text-secondary">
-          Strip a dish back until only the load-bearing parts are left. Everything above the line can be
-          swapped without leaving the family; one change below it and you have made something else — which is
-          fine, as long as you know you did it.
+          Strip a dish back to the decisions that actually separate it from its neighbours. Change a chip and
+          you have a variation; change the chip a neighbour is named for and you have quietly made that
+          neighbour instead — which is fine, as long as you know you did it.
         </p>
       </div>
 
@@ -35,7 +35,7 @@ export default function CanonIndexPage() {
               {c.standfirst}
             </p>
             <p className="text-[11px] uppercase tracking-[0.12em] text-text-secondary mt-2.5">
-              {c.gates.length} conditions · {c.family.filter((f) => f.verdict === "in").length} in the family
+              {c.dishes.length} dishes · {c.facets.length} dimensions
             </p>
           </Link>
         ))}

@@ -1,0 +1,304 @@
+<title>Eight Flowcharts for One Dish</title>
+<style>
+  :root {
+    --ground: #ffffff;
+    --wash:   #fafafa;
+    --ink:    #111111;
+    --muted:  #767676;
+    --rule:   #e8e8e8;
+    --hair:   #cfcfcf;
+    --leaves: #a0522d;
+    --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #121212; --wash: #191919; --ink: #ededed;
+      --muted: #9a9a9a; --rule: #2c2c2c; --hair: #3f3f3f; --leaves: #cf8a68;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #121212; --wash: #191919; --ink: #ededed;
+    --muted: #9a9a9a; --rule: #2c2c2c; --hair: #3f3f3f; --leaves: #cf8a68;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 56px 24px 100px; }
+  .lede { max-width: 62ch; display: flex; flex-direction: column; gap: 14px; margin-bottom: 52px; }
+  h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; margin: 0; text-wrap: balance; }
+  .lede p { margin: 0; font-size: 15px; color: var(--muted); }
+  .lab { font-size: 11px; text-transform: uppercase; letter-spacing: 0.13em; color: var(--muted); }
+
+  .grid { display: flex; flex-direction: column; gap: 52px; }
+  .opt { display: flex; flex-direction: column; gap: 12px; }
+  .opt > header { display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--ink); padding-bottom: 7px; }
+  .opt > header h2 { margin: 0; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; }
+  .opt > header .n { font-size: 11px; letter-spacing: 0.13em; color: var(--muted); }
+  .why { font-size: 13px; color: var(--muted); margin: 0; max-width: 66ch; }
+  .fig { border: 1px solid var(--rule); background: var(--wash); padding: 20px 16px; overflow-x: auto; }
+  svg { display: block; width: 100%; height: auto; min-width: 520px; }
+
+  /* diagram vocabulary — one set of rules, eight arrangements */
+  .node   { fill: var(--ground); stroke: var(--ink); stroke-width: 1.25; }
+  .nodeIn { fill: var(--ink); stroke: var(--ink); stroke-width: 1.25; }
+  .ghost  { fill: none; stroke: var(--hair); stroke-width: 1; stroke-dasharray: 4 3; }
+  .flow   { stroke: var(--ink); stroke-width: 1.25; fill: none; }
+  .exit   { stroke: var(--leaves); stroke-width: 1; fill: none; stroke-dasharray: 4 3; }
+  text    { font-family: var(--sans); }
+  .t      { fill: var(--ink); font-size: 13px; }
+  .tIn    { fill: var(--ground); font-size: 13px; }
+  .k      { fill: var(--muted); font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; }
+  .m      { fill: var(--muted); font-size: 11.5px; }
+  .x      { fill: var(--leaves); font-size: 11.5px; }
+</style>
+
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--ink)"></path>
+    </marker>
+    <marker id="arx" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="var(--leaves)"></path>
+    </marker>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <div class="lede">
+    <p class="lab">Canon · flowchart directions</p>
+    <h1>Eight flowcharts for one dish</h1>
+    <p>Ice cream in every one, because its exits are dishes people already order by name: leave the dairy out and it is sorbet, skip the churn and it is semifreddo, pull the fat and air down and it is gelato. Same three conditions and same three exits throughout — what changes is the shape of the thinking.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- 01 DECISION LADDER -->
+    <section class="opt">
+      <header><span class="n">01</span><h2>Decision ladder</h2></header>
+      <p class="why">Straight down the middle, one condition at a time. Failing a condition doesn’t end the chart — it exits sideways into the dish you actually made.</p>
+      <div class="fig">
+        <svg viewBox="0 0 660 320" role="img" aria-label="A vertical ladder of three conditions for ice cream. Dairy and sweetened, otherwise sorbet. Churned while freezing, otherwise semifreddo. Rich and aerated, otherwise gelato. All three holding gives ice cream.">
+          <line class="flow" x1="180" y1="46" x2="180" y2="86" marker-end="url(#ar)"></line>
+          <rect class="node" x="60" y="16" width="240" height="30"></rect>
+          <text class="t" x="72" y="36">Dairy, sweetened</text>
+          <path class="exit" d="M300 31 H430" marker-end="url(#arx)"></path>
+          <text class="x" x="438" y="35">sorbet</text>
+
+          <line class="flow" x1="180" y1="146" x2="180" y2="186" marker-end="url(#ar)"></line>
+          <rect class="node" x="60" y="116" width="240" height="30"></rect>
+          <text class="t" x="72" y="136">Churned while freezing</text>
+          <path class="exit" d="M300 131 H430" marker-end="url(#arx)"></path>
+          <text class="x" x="438" y="135">semifreddo</text>
+
+          <line class="flow" x1="180" y1="246" x2="180" y2="272" marker-end="url(#ar)"></line>
+          <rect class="node" x="60" y="216" width="240" height="30"></rect>
+          <text class="t" x="72" y="236">Rich, and full of air</text>
+          <path class="exit" d="M300 231 H430" marker-end="url(#arx)"></path>
+          <text class="x" x="438" y="235">gelato</text>
+
+          <rect class="nodeIn" x="60" y="272" width="240" height="32"></rect>
+          <text class="tIn" x="72" y="293">Ice cream</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 02 BRANCHING TREE -->
+    <section class="opt">
+      <header><span class="n">02</span><h2>Branching tree</h2></header>
+      <p class="why">Reads as descent: every dish here is the same base with one decision taken differently. The neighbours are cousins, not failures.</p>
+      <div class="fig">
+        <svg viewBox="0 0 660 300" role="img" aria-label="A tree descending from a sweetened dairy base. Branches peel off to sorbet, semifreddo and gelato; the trunk continues to ice cream.">
+          <rect class="node" x="40" y="16" width="200" height="30"></rect>
+          <text class="t" x="52" y="36">Sweetened dairy base</text>
+
+          <path class="flow" d="M140 46 V262" marker-end="url(#ar)"></path>
+          <path class="exit" d="M140 92 C 210 92 240 78 300 78" marker-end="url(#arx)"></path>
+          <text class="x" x="308" y="82">sorbet</text>
+          <text class="m" x="308" y="96">— no dairy at all</text>
+
+          <path class="exit" d="M140 162 C 210 162 240 148 300 148" marker-end="url(#arx)"></path>
+          <text class="x" x="308" y="152">semifreddo</text>
+          <text class="m" x="308" y="166">— never churned</text>
+
+          <path class="exit" d="M140 226 C 210 226 240 212 300 212" marker-end="url(#arx)"></path>
+          <text class="x" x="308" y="216">gelato</text>
+          <text class="m" x="308" y="230">— less fat, less air</text>
+
+          <rect class="nodeIn" x="40" y="262" width="200" height="32"></rect>
+          <text class="tIn" x="52" y="283">Ice cream</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 03 TRACK WITH SIDINGS -->
+    <section class="opt">
+      <header><span class="n">03</span><h2>Track and sidings</h2></header>
+      <p class="why">Horizontal, so it fits above a recipe rather than beside it. Stations are the conditions; the sidings are where you end up if you get off early.</p>
+      <div class="fig">
+        <svg viewBox="0 0 660 190" role="img" aria-label="A horizontal track with three stations — dairy, churned, rich and aerated — ending at ice cream, with sidings dropping to sorbet, semifreddo and gelato.">
+          <line class="flow" x1="40" y1="60" x2="600" y2="60" marker-end="url(#ar)"></line>
+          <circle class="node" cx="110" cy="60" r="7"></circle>
+          <circle class="node" cx="270" cy="60" r="7"></circle>
+          <circle class="node" cx="430" cy="60" r="7"></circle>
+          <rect class="nodeIn" x="520" y="44" width="110" height="32"></rect>
+          <text class="tIn" x="536" y="65">Ice cream</text>
+
+          <text class="k" x="110" y="40" text-anchor="middle">Dairy</text>
+          <text class="k" x="270" y="40" text-anchor="middle">Churned</text>
+          <text class="k" x="430" y="40" text-anchor="middle">Rich &amp; airy</text>
+
+          <path class="exit" d="M110 67 V118" marker-end="url(#arx)"></path>
+          <text class="x" x="110" y="136" text-anchor="middle">sorbet</text>
+          <path class="exit" d="M270 67 V118" marker-end="url(#arx)"></path>
+          <text class="x" x="270" y="136" text-anchor="middle">semifreddo</text>
+          <path class="exit" d="M430 67 V118" marker-end="url(#arx)"></path>
+          <text class="x" x="430" y="136" text-anchor="middle">gelato</text>
+
+          <text class="m" x="40" y="168">Every station has to be passed, in order, to arrive.</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 04 FUNNEL -->
+    <section class="opt">
+      <header><span class="n">04</span><h2>Funnel</h2></header>
+      <p class="why">Starts at everything frozen and sweet and narrows. What each stage strains out is named on the way past — the width does the arguing.</p>
+      <div class="fig">
+        <svg viewBox="0 0 660 300" role="img" aria-label="A funnel narrowing from all frozen desserts through dairy, churning and richness, down to ice cream, with sorbet, semifreddo and gelato falling out at the sides.">
+          <path class="ghost" d="M110 20 H470 L410 90 H170 Z"></path>
+          <text class="k" x="290" y="44" text-anchor="middle">Frozen and sweet</text>
+
+          <path class="node" d="M170 90 H410 L370 160 H210 Z"></path>
+          <text class="t" x="290" y="126" text-anchor="middle">Dairy</text>
+          <path class="exit" d="M410 100 H500" marker-end="url(#arx)"></path>
+          <text class="x" x="508" y="104">sorbet</text>
+
+          <path class="node" d="M210 160 H370 L340 224 H240 Z"></path>
+          <text class="t" x="290" y="194" text-anchor="middle">Churned</text>
+          <path class="exit" d="M370 170 H500" marker-end="url(#arx)"></path>
+          <text class="x" x="508" y="174">semifreddo</text>
+
+          <path class="nodeIn" d="M240 224 H340 L340 282 H240 Z"></path>
+          <text class="tIn" x="290" y="258" text-anchor="middle">Ice cream</text>
+          <path class="exit" d="M340 240 H500" marker-end="url(#arx)"></path>
+          <text class="x" x="508" y="244">gelato</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 05 NESTED SETS -->
+    <section class="opt">
+      <header><span class="n">05</span><h2>Nested sets</h2></header>
+      <p class="why">Not a flow but a containment: each condition is a boundary, and the neighbours sit in the ring where they stopped. Shows at a glance that gelato is closer in than sorbet.</p>
+      <div class="fig">
+        <svg viewBox="0 0 660 300" role="img" aria-label="Three nested rectangles. Sorbet sits in the outer frozen-dessert ring, semifreddo in the dairy ring, gelato in the churned ring, and ice cream in the centre.">
+          <rect class="ghost" x="60" y="20" width="440" height="260"></rect>
+          <text class="k" x="76" y="40">Frozen dessert</text>
+          <text class="x" x="76" y="60">sorbet</text>
+
+          <rect class="ghost" x="110" y="72" width="340" height="180"></rect>
+          <text class="k" x="126" y="92">+ dairy</text>
+          <text class="x" x="126" y="112">semifreddo</text>
+
+          <rect class="ghost" x="160" y="124" width="240" height="100"></rect>
+          <text class="k" x="176" y="144">+ churned</text>
+          <text class="x" x="176" y="164">gelato</text>
+
+          <rect class="nodeIn" x="210" y="176" width="140" height="32"></rect>
+          <text class="tIn" x="280" y="197" text-anchor="middle">Ice cream</text>
+
+          <text class="m" x="520" y="150">Each ring adds</text>
+          <text class="m" x="520" y="167">one condition.</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 06 HUB -->
+    <section class="opt">
+      <header><span class="n">06</span><h2>Hub and spokes</h2></header>
+      <p class="why">The dish in the middle, held up by three conditions. Pull any spoke and you fall to the dish named just beyond it. No implied order, which is honest — these don’t really happen in sequence.</p>
+      <div class="fig">
+        <svg viewBox="0 0 660 300" role="img" aria-label="Ice cream at the centre with three spokes to its conditions — dairy, churned, rich and aerated — each leading outward to sorbet, semifreddo and gelato.">
+          <circle class="nodeIn" cx="330" cy="150" r="52"></circle>
+          <text class="tIn" x="330" y="146" text-anchor="middle">Ice</text>
+          <text class="tIn" x="330" y="163" text-anchor="middle">cream</text>
+
+          <line class="flow" x1="330" y1="98" x2="330" y2="62"></line>
+          <text class="k" x="330" y="50" text-anchor="middle">Dairy</text>
+          <path class="exit" d="M330 38 V22" marker-end="url(#arx)"></path>
+          <text class="x" x="330" y="16" text-anchor="middle">sorbet</text>
+
+          <line class="flow" x1="286" y1="178" x2="196" y2="234"></line>
+          <text class="k" x="180" y="252" text-anchor="end">Churned</text>
+          <path class="exit" d="M172 258 L146 274" marker-end="url(#arx)"></path>
+          <text class="x" x="138" y="284" text-anchor="end">semifreddo</text>
+
+          <line class="flow" x1="374" y1="178" x2="464" y2="234"></line>
+          <text class="k" x="480" y="252">Rich &amp; airy</text>
+          <path class="exit" d="M488 258 L514 274" marker-end="url(#arx)"></path>
+          <text class="x" x="522" y="284">gelato</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 07 FORKS -->
+    <section class="opt">
+      <header><span class="n">07</span><h2>Forks in a path</h2></header>
+      <p class="why">A journey with three chances to turn off. The forks rise above the line so the main path stays the strongest thing on the page.</p>
+      <div class="fig">
+        <svg viewBox="0 0 660 210" role="img" aria-label="A left to right path with three upward forks to sorbet, semifreddo and gelato, continuing to ice cream at the right.">
+          <path class="exit" d="M130 130 C 150 130 150 76 190 76" marker-end="url(#arx)"></path>
+          <text class="x" x="198" y="80">sorbet</text>
+          <path class="exit" d="M290 130 C 310 130 310 76 350 76" marker-end="url(#arx)"></path>
+          <text class="x" x="358" y="80">semifreddo</text>
+          <path class="exit" d="M450 130 C 470 130 470 76 510 76" marker-end="url(#arx)"></path>
+          <text class="x" x="518" y="80">gelato</text>
+
+          <line class="flow" x1="40" y1="130" x2="470" y2="130" marker-end="url(#ar)"></line>
+          <circle class="node" cx="130" cy="130" r="6"></circle>
+          <circle class="node" cx="290" cy="130" r="6"></circle>
+          <circle class="node" cx="450" cy="130" r="6"></circle>
+          <rect class="nodeIn" x="500" y="114" width="120" height="32"></rect>
+          <text class="tIn" x="516" y="135">Ice cream</text>
+
+          <text class="k" x="130" y="158" text-anchor="middle">Dairy</text>
+          <text class="k" x="290" y="158" text-anchor="middle">Churned</text>
+          <text class="k" x="450" y="158" text-anchor="middle">Rich &amp; airy</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 08 MAP -->
+    <section class="opt">
+      <header><span class="n">08</span><h2>Territory</h2></header>
+      <p class="why">Two dials that actually vary — fat and air — with the region that counts as ice cream boxed on it. The only one that shows how <em>close</em> a neighbour is, and where your own version sits.</p>
+      <div class="fig">
+        <svg viewBox="0 0 660 300" role="img" aria-label="A plot of fat against air. Gelato sits low on both, semifreddo high fat with no churn, sorbet at the origin, and a boxed region in the upper right is ice cream.">
+          <line class="flow" x1="90" y1="256" x2="600" y2="256" marker-end="url(#ar)"></line>
+          <line class="flow" x1="90" y1="256" x2="90" y2="26" marker-end="url(#ar)"></line>
+          <text class="k" x="600" y="278" text-anchor="end">Air churned in →</text>
+          <text class="k" x="78" y="34" text-anchor="end" transform="rotate(-90 78 34)">Fat →</text>
+
+          <rect class="ghost" x="330" y="60" width="230" height="120"></rect>
+          <text class="k" x="344" y="80">Ice cream</text>
+          <circle class="nodeIn" cx="430" cy="128" r="7"></circle>
+          <text class="t" x="444" y="132">custard style</text>
+          <circle class="nodeIn" cx="360" cy="152" r="7"></circle>
+          <text class="t" x="374" y="156">Philadelphia</text>
+
+          <circle class="node" cx="200" cy="196" r="7"></circle>
+          <text class="x" x="214" y="200">gelato</text>
+          <circle class="node" cx="128" cy="96" r="7"></circle>
+          <text class="x" x="142" y="100">semifreddo</text>
+          <circle class="node" cx="128" cy="236" r="7"></circle>
+          <text class="x" x="142" y="240">sorbet</text>
+        </svg>
+      </div>
+    </section>
+
+  </div>
+</div>

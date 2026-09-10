@@ -1,0 +1,182 @@
+<title>Every Egg, One Technique Apart</title>
+<style>
+  :root{
+    --ground:#ffffff; --wash:#fafafa; --ink:#111111; --muted:#767676;
+    --rule:#e8e8e8; --hair:#cfcfcf;
+    --sans:"Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#121212; --wash:#191919; --ink:#ededed; --muted:#9a9a9a;
+      --rule:#2c2c2c; --hair:#3f3f3f;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#121212; --wash:#191919; --ink:#ededed; --muted:#9a9a9a;
+    --rule:#2c2c2c; --hair:#3f3f3f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
+       font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1060px;margin:0 auto;padding:56px 24px 100px}
+  .lede{max-width:64ch;display:flex;flex-direction:column;gap:14px;margin-bottom:40px}
+  h1{font-size:clamp(28px,4.6vw,42px);line-height:1.06;letter-spacing:-.02em;font-weight:400;margin:0;text-wrap:balance}
+  .lede p{margin:0;font-size:15px;color:var(--muted)}
+  .lab{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--muted)}
+
+  .truth{border:1px solid var(--ink);padding:18px 20px;display:flex;flex-direction:column;gap:8px;margin-bottom:44px}
+  .truth p{margin:0;font-size:13.5px;color:var(--muted);max-width:74ch}
+  .truth strong{color:var(--ink);font-weight:500}
+
+  .grid{display:flex;flex-direction:column;gap:50px}
+  .opt{display:flex;flex-direction:column;gap:12px}
+  .opt>header{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--ink);padding-bottom:7px}
+  .opt>header h2{margin:0;font-size:15px;font-weight:500;letter-spacing:-.01em}
+  .opt>header .n{font-size:11px;letter-spacing:.13em;color:var(--muted)}
+  .why{font-size:13.5px;color:var(--muted);margin:0;max-width:70ch}
+  .fig{border:1px solid var(--rule);background:var(--wash);padding:22px 18px;overflow-x:auto}
+
+  /* One grid for the whole table so the facet columns line up across every row.
+     Each column is a dimension with its own small vocabulary; a cell holds as
+     many chips as that dimension actually needs. */
+  .facets{display:grid;grid-template-columns:auto auto auto auto 1fr;min-width:820px}
+  .cell{padding:9px 16px 9px 0;border-bottom:1px solid var(--rule);
+        display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+  .head{padding:0 16px 7px 0;border-bottom:1px solid var(--ink);font-size:10.5px;
+        text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+  .head.r,.cell.name{justify-content:flex-end;text-align:right;padding-right:0}
+  .chip{font-size:11.5px;border:1px solid var(--hair);color:var(--muted);padding:1px 8px;white-space:nowrap}
+  .chip.key{border-color:var(--ink);color:var(--ink)}
+  .chip.none{border-style:dashed}
+  .dish{font-size:14px;white-space:nowrap}
+
+  .outline{font-size:14px;line-height:2;margin:0;white-space:pre;overflow-x:auto}
+  .outline .t{color:var(--hair)}
+  .outline .a{color:var(--muted);font-size:12.5px}
+  .outline .d{color:var(--ink)}
+</style>
+
+<div class="wrap">
+  <div class="lede">
+    <p class="lab">Canon · branching on technique</p>
+    <h1>Every egg, one technique apart</h1>
+    <p>Twelve dishes out of one egg. Almost nothing is added — what separates them is what state the egg is in when it meets heat, and what you do to it after that.</p>
+  </div>
+
+  <div class="truth">
+    <p class="lab">The dimensions</p>
+    <p><strong>State</strong> — in its shell, cracked out whole, or beaten. This is the first real fork and everything downstream depends on it. <strong>Added</strong> — usually nothing; the handful that do take something take very little. <strong>Method</strong> — one chip per move, so “fried in fat” and “flipped” stay separate things you either did or didn’t. <strong>Doneness</strong> — where you stopped, which is the whole difference between over easy and over hard.</p>
+  </div>
+
+  <div class="grid">
+
+    <section class="opt">
+      <header><span class="n">01</span><h2>Faceted chips</h2></header>
+      <p class="why">Read down a column and you get that dimension’s whole vocabulary — three states, five additions, nine moves. Read across and you get a dish. Two rows that differ in one chip are two dishes that differ in one decision: over easy and over hard differ only in <em>Doneness</em>.</p>
+      <div class="fig">
+        <div class="facets">
+          <div class="head">State</div><div class="head">Added</div><div class="head">Method</div><div class="head">Doneness</div><div class="head r">It is</div>
+
+          <div class="cell"><span class="chip key">in its shell</span></div>
+          <div class="cell"><span class="chip none">none</span></div>
+          <div class="cell"><span class="chip">simmered</span></div>
+          <div class="cell"><span class="chip key">6 minutes</span></div>
+          <div class="cell name"><span class="dish">Soft-boiled</span></div>
+
+          <div class="cell"><span class="chip key">in its shell</span></div>
+          <div class="cell"><span class="chip none">none</span></div>
+          <div class="cell"><span class="chip">simmered</span></div>
+          <div class="cell"><span class="chip key">10 minutes</span></div>
+          <div class="cell name"><span class="dish">Hard-boiled</span></div>
+
+          <div class="cell"><span class="chip key">cracked out whole</span></div>
+          <div class="cell"><span class="chip none">none</span></div>
+          <div class="cell"><span class="chip">slid into still water</span></div>
+          <div class="cell"><span class="chip">white just set</span></div>
+          <div class="cell name"><span class="dish">Poached</span></div>
+
+          <div class="cell"><span class="chip key">cracked out whole</span></div>
+          <div class="cell"><span class="chip none">none</span></div>
+          <div class="cell"><span class="chip">fried in fat</span><span class="chip key">basted</span></div>
+          <div class="cell"><span class="chip">yolk liquid</span></div>
+          <div class="cell name"><span class="dish">Sunny side up</span></div>
+
+          <div class="cell"><span class="chip key">cracked out whole</span></div>
+          <div class="cell"><span class="chip none">none</span></div>
+          <div class="cell"><span class="chip">fried in fat</span><span class="chip key">flipped</span></div>
+          <div class="cell"><span class="chip key">yolk liquid</span></div>
+          <div class="cell name"><span class="dish">Over easy</span></div>
+
+          <div class="cell"><span class="chip key">cracked out whole</span></div>
+          <div class="cell"><span class="chip none">none</span></div>
+          <div class="cell"><span class="chip">fried in fat</span><span class="chip key">flipped</span></div>
+          <div class="cell"><span class="chip key">yolk set</span></div>
+          <div class="cell name"><span class="dish">Over hard</span></div>
+
+          <div class="cell"><span class="chip key">beaten</span></div>
+          <div class="cell"><span class="chip">butter</span></div>
+          <div class="cell"><span class="chip">low heat</span><span class="chip key">stirred constantly</span></div>
+          <div class="cell"><span class="chip key">barely set</span></div>
+          <div class="cell name"><span class="dish">Scrambled, French</span></div>
+
+          <div class="cell"><span class="chip key">beaten</span></div>
+          <div class="cell"><span class="chip">milk</span></div>
+          <div class="cell"><span class="chip">higher heat</span><span class="chip key">pushed in folds</span></div>
+          <div class="cell"><span class="chip key">firm curds</span></div>
+          <div class="cell name"><span class="dish">Scrambled, American</span></div>
+
+          <div class="cell"><span class="chip key">beaten</span></div>
+          <div class="cell"><span class="chip none">none</span></div>
+          <div class="cell"><span class="chip">poured flat</span><span class="chip key">folded</span></div>
+          <div class="cell"><span class="chip key">no colour</span></div>
+          <div class="cell name"><span class="dish">French omelette</span></div>
+
+          <div class="cell"><span class="chip key">beaten</span></div>
+          <div class="cell"><span class="chip">dashi</span><span class="chip">sugar</span></div>
+          <div class="cell"><span class="chip">poured flat</span><span class="chip key">rolled in layers</span></div>
+          <div class="cell"><span class="chip">just set</span></div>
+          <div class="cell name"><span class="dish">Tamagoyaki</span></div>
+
+          <div class="cell"><span class="chip key">beaten</span></div>
+          <div class="cell"><span class="chip none">none</span></div>
+          <div class="cell"><span class="chip">poured flat</span><span class="chip key">draped over rice</span></div>
+          <div class="cell"><span class="chip">just set</span></div>
+          <div class="cell name"><span class="dish">Omurice</span></div>
+
+          <div class="cell"><span class="chip key">beaten</span></div>
+          <div class="cell"><span class="chip">cream</span></div>
+          <div class="cell"><span class="chip">poured flat</span><span class="chip key">finished in the oven</span></div>
+          <div class="cell"><span class="chip key">cooked through</span></div>
+          <div class="cell name"><span class="dish">Frittata</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="opt">
+      <header><span class="n">02</span><h2>Outline</h2></header>
+      <p class="why">The same twelve, nested by the dimension that forks first. The table lets you compare any two rows; this one tells you which decision you are standing at.</p>
+      <div class="fig">
+        <p class="outline"><span class="d">Egg</span>
+<span class="t">├─</span> <span class="a">in its shell</span>
+<span class="t">│  ├─</span> <span class="a">simmered 6 minutes</span>  <span class="d">Soft-boiled</span>
+<span class="t">│  └─</span> <span class="a">simmered 10 minutes</span>  <span class="d">Hard-boiled</span>
+<span class="t">├─</span> <span class="a">cracked out whole</span>
+<span class="t">│  ├─</span> <span class="a">slid into still water</span>  <span class="d">Poached</span>
+<span class="t">│  └─</span> <span class="a">fried in fat</span>
+<span class="t">│     ├─</span> <span class="a">basted, yolk liquid</span>  <span class="d">Sunny side up</span>
+<span class="t">│     ├─</span> <span class="a">flipped, yolk liquid</span>  <span class="d">Over easy</span>
+<span class="t">│     └─</span> <span class="a">flipped, yolk set</span>  <span class="d">Over hard</span>
+<span class="t">└─</span> <span class="a">beaten</span>
+<span class="t">   ├─</span> <span class="a">stirred constantly</span>
+<span class="t">   │  ├─</span> <span class="a">butter, barely set</span>  <span class="d">Scrambled, French</span>
+<span class="t">   │  └─</span> <span class="a">milk, firm curds</span>  <span class="d">Scrambled, American</span>
+<span class="t">   └─</span> <span class="a">poured flat, left to set</span>
+<span class="t">      ├─</span> <span class="a">folded, no colour</span>  <span class="d">French omelette</span>
+<span class="t">      ├─</span> <span class="a">dashi and sugar, rolled in layers</span>  <span class="d">Tamagoyaki</span>
+<span class="t">      ├─</span> <span class="a">draped over fried rice</span>  <span class="d">Omurice</span>
+<span class="t">      └─</span> <span class="a">cream, finished in the oven</span>  <span class="d">Frittata</span></p>
+      </div>
+    </section>
+
+  </div>
+</div>

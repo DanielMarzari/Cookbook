@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { CANON, getCanon } from '@/data/canon';
-import CanonLine from '@/components/CanonLine';
+import CanonViews from '@/components/canon/CanonViews';
 import { getDb } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
@@ -53,67 +53,29 @@ export default async function CanonPage({ params }: { params: Promise<{ slug: st
         <p className="max-w-[68ch] text-[15px] leading-relaxed text-text-secondary mb-10">{canon.standfirst}</p>
       </div>
 
-      <CanonLine canon={canon} />
+      <CanonViews canon={canon} />
 
-      <p className="text-[12.5px] leading-[1.6] text-text-secondary max-w-[68ch] mt-5 pt-4 border-t border-border">
-        Every condition has to hold at once. Anything feeding in from the left can be swapped without leaving
-        the family; anything on the right is a single change that puts the dish somewhere else.
-      </p>
-
-      <section className="mt-14">
-        <h2 className="text-[12px] uppercase tracking-[0.13em] text-text-secondary mb-4">Where the family sits</h2>
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-left min-w-[560px]">
-            <thead>
-              <tr>
-                {['Dish', 'What carries it', 'Body from', 'Verdict'].map((h) => (
-                  <th
-                    key={h}
-                    scope="col"
-                    className="text-[11px] uppercase tracking-[0.12em] text-text-secondary font-normal pb-2.5 pr-5 border-b border-text"
-                  >
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {canon.family.map((f) => (
-                <tr key={f.name}>
-                  <td className="text-[14px] text-text py-3 pr-5 border-b border-border align-top whitespace-nowrap">
-                    {f.name}
-                  </td>
-                  <td className="text-[13.5px] text-text-secondary py-3 pr-5 border-b border-border align-top">
-                    {f.carries}
-                  </td>
-                  <td className="text-[13.5px] text-text-secondary py-3 pr-5 border-b border-border align-top">
-                    {f.body}
-                  </td>
-                  <td className="py-3 pr-5 border-b border-border align-top">
-                    <span
-                      className={`text-[11px] uppercase tracking-[0.1em] ${
-                        f.verdict === 'in' ? 'text-text border-b border-text' : 'text-[#a0522d]'
-                      }`}
-                    >
-                      {f.verdict}
-                    </span>
-                    {f.note && (
-                      <span className="block text-[12.5px] text-text-secondary mt-1 max-w-[34ch]">{f.note}</span>
-                    )}
-                  </td>
-                </tr>
+      {canon.dishes.some((d) => d.note) && (
+        <section className="mt-14">
+          <h2 className="text-[12px] uppercase tracking-[0.13em] text-text-secondary mb-4">Worth knowing</h2>
+          <div className="flex flex-col gap-2.5">
+            {canon.dishes
+              .filter((d) => d.note)
+              .map((d) => (
+                <p key={d.name} className="text-[13.5px] leading-[1.6] text-text-secondary max-w-[70ch]">
+                  <span className="text-text">{d.name}.</span> {d.note}
+                </p>
               ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
       {mine.length > 0 && (
         <section className="mt-14">
           <h2 className="text-[12px] uppercase tracking-[0.13em] text-text-secondary mb-3">Yours in this family</h2>
           <p className="text-[13px] text-text-secondary leading-[1.6] max-w-[62ch] mb-3">
-            Worth reading against the conditions above — a branch that breaks one of them isn&rsquo;t a
-            variation of this dish, it&rsquo;s the start of another.
+            Read these against the table — a branch that changes one chip is a variation, and one that
+            changes the chip a neighbour is named for has quietly become that neighbour.
           </p>
           <div className="flex flex-wrap gap-x-5 gap-y-2">
             {mine.map((r) => (

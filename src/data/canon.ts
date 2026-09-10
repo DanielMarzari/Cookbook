@@ -1,332 +1,214 @@
 /**
- * What a dish actually is, once you strip the variations away.
+ * What a dish is, as a small set of decisions.
  *
- * Most recipes answer "how do I make this". These answer the prior question:
- * what has to be true for it to still be the thing at all. A gazpacho survives
- * losing its tomatoes; it does not survive being served hot. Knowing which is
- * which is the difference between varying a dish and quietly inventing another
- * one.
+ * A recipe tells you how to make one thing. This answers the prior question:
+ * which decisions actually separate this dish from its neighbours, and which
+ * are yours to change. Twelve egg dishes come out of one egg and a pan — what
+ * differs is the state it is in when it meets heat, and where you stop.
  *
- * Each entry is a short chain of conditions that must all hold. Feeding each
- * condition is a slot you can swap freely, and hanging off it is the single
- * change that puts the dish in a different family — named, so the exit is as
- * legible as the rule.
+ * The authored form is a table: named dimensions across the top, one row per
+ * dish. The tree views are DERIVED from it (see lib/canon.ts) by nesting on the
+ * dimensions in order, so the table and the outline can never disagree — there
+ * is only one place to be wrong.
  */
 
-export interface Gate {
-  /** Short tag for the condition — RAW, SEASONING, BODY. */
+export interface Facet {
+  id: string;
+  /** Column heading, and the label the tree uses when it forks here. */
   label: string;
-  /** The condition itself, in a line. */
-  statement: string;
-  /** The variable part feeding this condition. Swap anything here freely. */
-  slot?: {
-    name: string;
-    options: string[];
-  };
-  /** The one change that takes the dish out of the family. */
-  breaks: {
-    /** What it becomes instead. */
-    becomes: string;
-    /** Why that is a different dish and not a variation. */
-    why: string;
-  };
 }
 
-export interface FamilyMember {
+export interface CanonDish {
   name: string;
-  /** What carries the flavour — the axis people think defines the dish. */
-  carries: string;
-  /** Where the body or structure comes from. */
-  body: string;
-  verdict: 'in' | 'out';
-  /** The interesting part: why it passes, or which gate it fails. */
+  /**
+   * Name of the dish this one descends from.
+   *
+   * Only for families where lineage is real rather than derivable — vodka sauce
+   * IS rosa plus two things, and no arrangement of facet columns can discover
+   * that. Where it is absent the tree is grown from the facets instead.
+   */
+  parent?: string;
+  /** facet id -> the chips in that cell. Several chips means several moves. */
+  facets: Record<string, string[]>;
+  /** A line of why, shown when this dish is the one you're looking at. */
   note?: string;
-}
-
-export interface CanonNote {
-  title: string;
-  body: string;
 }
 
 export interface Canon {
   slug: string;
   name: string;
-  /** One line on the shelf, and under the title. */
   standfirst: string;
-  /** What you have if every gate holds. */
-  terminal: string;
-  /** The punchline under it — usually the assumption being dismantled. */
-  terminalNote: string;
-  gates: Gate[];
-  family: FamilyMember[];
-  notes: CanonNote[];
+  /** What every dish here starts from. */
+  root: string;
+  facets: Facet[];
+  /** Facet ids, in the order the tree should fork. */
+  nestBy: string[];
+  dishes: CanonDish[];
+  notes: { title: string; body: string }[];
   sources: { label: string; url: string }[];
-  /** Title fragments that match your own recipes, so the page can show which
-   *  of yours sit inside the family. Matched case-insensitively. */
+  /** Title fragments matching your own recipes. */
   yours?: string[];
 }
 
-const gazpacho: Canon = {
-  slug: 'gazpacho',
-  name: 'Gazpacho',
+const egg: Canon = {
+  slug: 'egg',
+  name: 'Egg',
   standfirst:
-    'Gazpacho survives losing its tomatoes, swapping them for almonds and green grapes, and being thickened with nothing but a vegetable’s own starch. It does not survive being served hot.',
-  terminal: 'Still gazpacho',
-  terminalNote: 'Tomato nowhere required',
-  gates: [
-    {
-      label: 'Raw',
-      statement: 'An uncooked fruit or vegetable',
-      slot: { name: 'The base', options: ['tomato', 'melon', 'corn', 'beet', 'almond & grape'] },
-      breaks: {
-        becomes: 'Cooked and served hot → a stew',
-        why: 'gazpacho manchego is gazpacho in name only',
-      },
-    },
-    {
-      label: 'Seasoning',
-      statement: 'Garlic, olive oil, acid, salt',
-      slot: { name: 'The acid', options: ['sherry vinegar', 'wine vinegar', 'citrus', 'verjus'] },
-      breaks: {
-        becomes: 'No fat, no acid → vegetable juice',
-        why: 'the oil and the vinegar are structural, not seasoning',
-      },
-    },
-    {
-      label: 'Body',
-      statement: 'Bulked to a pourable body',
-      slot: { name: 'The thickener', options: ['stale bread', 'almonds', 'its own starch'] },
-      breaks: {
-        becomes: 'Bodied with dairy → a chilled cream soup',
-        why: 'vichyssoise territory, a different family entirely',
-      },
-    },
-    {
-      label: 'Service',
-      statement: 'Blended, and served cold',
-      slot: { name: 'Texture & garnish', options: ['silky or rustic', 'jamón', 'egg', 'diced raw veg'] },
-      breaks: {
-        becomes: 'Left chunky → a salsa or a salad',
-        why: 'it has to pour',
-      },
-    },
+    'Twelve dishes out of one egg. Almost nothing is added — what separates them is the state the egg is in when it meets heat, and where you stop.',
+  root: 'Egg',
+  facets: [
+    { id: 'state', label: 'State' },
+    { id: 'added', label: 'Added' },
+    { id: 'method', label: 'Method' },
+    { id: 'done', label: 'Doneness' },
   ],
-  family: [
-    { name: 'Gazpacho andaluz', carries: 'Tomato, pepper, cucumber', body: 'Stale bread', verdict: 'in' },
+  nestBy: ['state', 'method', 'done'],
+  dishes: [
+    { name: 'Soft-boiled', facets: { state: ['in its shell'], added: [], method: ['simmered'], done: ['6 minutes'] } },
+    { name: 'Hard-boiled', facets: { state: ['in its shell'], added: [], method: ['simmered'], done: ['10 minutes'] } },
     {
-      name: 'Ajoblanco',
-      carries: 'Almonds and green grapes',
-      body: 'Almonds and bread',
-      verdict: 'in',
-      note: 'and older than the tomato version',
+      name: 'Poached',
+      facets: { state: ['cracked out whole'], added: [], method: ['slid into still water'], done: ['white just set'] },
     },
     {
-      name: 'Salmorejo',
-      carries: 'Tomato, heavily',
-      body: 'Much more bread',
-      verdict: 'in',
-      note: 'thick enough to coat a spoon',
+      name: 'Sunny side up',
+      facets: { state: ['cracked out whole'], added: [], method: ['fried in fat', 'basted'], done: ['yolk liquid'] },
     },
-    { name: 'Porra antequerana', carries: 'Tomato and garlic', body: 'Bread, thicker still', verdict: 'in' },
     {
-      name: 'Gazpacho manchego',
-      carries: 'Game meat and flatbread',
-      body: 'Cooked down, served hot',
-      verdict: 'out',
-      note: 'fails the first gate',
+      name: 'Over easy',
+      facets: { state: ['cracked out whole'], added: [], method: ['fried in fat', 'flipped'], done: ['yolk liquid'] },
+    },
+    {
+      name: 'Over hard',
+      facets: { state: ['cracked out whole'], added: [], method: ['fried in fat', 'flipped'], done: ['yolk set'] },
+    },
+    {
+      name: 'Scrambled, French',
+      facets: { state: ['beaten'], added: ['butter'], method: ['stirred in the pan', 'constantly', 'low heat'], done: ['barely set'] },
+      note: 'Small curd, almost a sauce. The heat is the whole technique.',
+    },
+    {
+      name: 'Scrambled, American',
+      facets: { state: ['beaten'], added: ['milk'], method: ['stirred in the pan', 'in folds', 'higher heat'], done: ['firm curds'] },
+    },
+    {
+      name: 'French omelette',
+      facets: { state: ['beaten'], added: [], method: ['poured flat', 'folded'], done: ['no colour'] },
+    },
+    {
+      name: 'Tamagoyaki',
+      facets: { state: ['beaten'], added: ['dashi', 'sugar'], method: ['poured flat', 'rolled in layers'], done: ['just set'] },
+    },
+    {
+      name: 'Omurice',
+      facets: { state: ['beaten'], added: [], method: ['poured flat', 'draped over rice'], done: ['just set'] },
+    },
+    {
+      name: 'Frittata',
+      facets: { state: ['beaten'], added: ['cream'], method: ['poured flat', 'finished in the oven'], done: ['cooked through'] },
     },
   ],
   notes: [
     {
-      title: 'On the tomato',
+      title: 'On the first fork',
       body:
-        'Red gazpacho is a nineteenth-century development. The dish it descends from — traceable to medieval Andalusia, and plausibly to a Roman ancestor — was stale bread, garlic, olive oil, vinegar, salt and water, pounded in a mortar. Tomatoes joined the newest and most famous version; they were never the definition.',
-    },
-    {
-      title: 'On charring',
-      body:
-        'Cooking the base is the one gate a modern corn gazpacho leans on. Charring kernels and roasting tomatoes is a concentration step, not a simmer, and the soup is still assembled cold in the blender — but it is the gate to watch. Cook the base into a pot of soup and chill it afterwards and you have a chilled purée, not a gazpacho.',
+        'Beaten or not is the decision everything else hangs off. An unbeaten egg keeps its two textures and the dishes differ by where it cooks; a beaten egg is one material, and the dishes differ by whether you keep it moving or let it set flat.',
     },
   ],
   sources: [
-    { label: 'Gazpacho (Wikipedia)', url: 'https://en.wikipedia.org/wiki/Gazpacho' },
-    { label: 'Ajoblanco', url: 'https://en.wikipedia.org/wiki/Ajoblanco' },
-    { label: 'Salmorejo', url: 'https://en.wikipedia.org/wiki/Salmorejo' },
-    { label: 'Britannica', url: 'https://www.britannica.com/topic/gazpacho' },
-    { label: 'Foods & Wines from Spain', url: 'https://www.foodswinesfromspain.com/en/food/articles/2018/august/the-gazpacho-and-salmorejo-tour' },
+    { label: 'Egg as food (Wikipedia)', url: 'https://en.wikipedia.org/wiki/Egg_as_food' },
+    { label: 'Omurice', url: 'https://en.wikipedia.org/wiki/Omurice' },
+    { label: 'Tamagoyaki', url: 'https://en.wikipedia.org/wiki/Tamagoyaki' },
   ],
-  yours: ['gazpacho', 'salmorejo', 'ajoblanco'],
+  yours: ['egg', 'omelet', 'omelette', 'frittata', 'scrambl'],
 };
 
-const salsa: Canon = {
-  slug: 'salsa',
-  name: 'Salsa',
+const tomatoSauce: Canon = {
+  slug: 'tomato-sauce',
+  name: 'Tomato sauce',
   standfirst:
-    'A salsa can be raw or charred, red or green, smooth or chunky, and need contain no tomato and no chilli heat. What it cannot do is stop being a condiment and become the dish.',
-  terminal: 'Still salsa',
-  terminalNote: 'It accompanies; it is not the plate',
-  gates: [
+    'One base — tomato, garlic, onion and basil softened in olive oil — and a short list of additions, each of which lands you somewhere with its own name.',
+  root: 'Tomato · garlic · onion · basil, softened in olive oil',
+  facets: [
+    { id: 'add', label: 'Added' },
+    { id: 'fat', label: 'Fat' },
+    { id: 'method', label: 'Method' },
+  ],
+  nestBy: ['add', 'method'],
+  dishes: [
+    { name: 'Rosa', facets: { add: ['cream'], fat: ['olive oil'], method: ['reduced'] } },
     {
-      label: 'Component',
-      statement: 'Built from distinct pieces, not a purée of one thing',
-      slot: { name: 'The body', options: ['tomato', 'tomatillo', 'stone fruit', 'roasted chilli', 'corn'] },
-      breaks: {
-        becomes: 'One ingredient, blended smooth → a purée or a hot sauce',
-        why: 'a bottled hot sauce is an extraction; a salsa is an assembly',
-      },
+      name: 'Vodka',
+      parent: 'Rosa',
+      facets: { add: ['cream', 'vodka'], fat: ['pancetta'], method: ['reduced'] },
+      note: 'Rosa with vodka and pancetta — it descends from rosa, not from the base.',
     },
+    { name: 'Amatriciana', facets: { add: ['pecorino'], fat: ['guanciale'], method: ['rendered first'] } },
+    { name: 'Arrabbiata', facets: { add: ['dried chilli'], fat: ['olive oil'], method: ['reduced'] } },
+    { name: 'Puttanesca', facets: { add: ['olives', 'capers', 'anchovy'], fat: ['olive oil'], method: ['reduced'] } },
+    { name: 'alla Norma', facets: { add: ['ricotta salata'], fat: ['olive oil'], method: ['fried eggplant folded in'] } },
+  ],
+  notes: [
     {
-      label: 'Acid',
-      statement: 'Sharp enough to cut what it is served with',
-      slot: { name: 'The acid', options: ['lime', 'tomatillo itself', 'vinegar', 'bitter orange'] },
-      breaks: {
-        becomes: 'No acid → a relish or a chutney',
-        why: 'sweet-and-spiced without sharpness belongs to another tradition',
-      },
-    },
-    {
-      label: 'Aromatics',
-      statement: 'Allium and chilli, raw or charred',
-      slot: { name: 'The aromatics', options: ['white onion', 'garlic', 'serrano', 'chipotle', 'cilantro'] },
-      breaks: {
-        becomes: 'Neither onion nor chilli → a dressed fruit salad',
-        why: 'pico de gallo without them is just diced tomato',
-      },
-    },
-    {
-      label: 'Role',
-      statement: 'Served alongside, uncooked after assembly',
-      slot: { name: 'The texture', options: ['minced', 'chunky', 'molcajete-rough', 'loose'] },
-      breaks: {
-        becomes: 'Simmered as the cooking medium → a braise or an enchilada sauce',
-        why: 'salsa roja cooked down to nap a dish has become the sauce, not the condiment',
-      },
+      title: 'On depth',
+      body:
+        'Only vodka sits a level down, because it is genuinely rosa plus two things. The other five are each one move from the base and belong at the same depth — arranging them otherwise makes the picture tidier and the claim false.',
     },
   ],
-  family: [
-    { name: 'Pico de gallo', carries: 'Raw tomato, onion, serrano', body: 'Nothing — just drained', verdict: 'in' },
-    { name: 'Salsa verde', carries: 'Tomatillo, raw or boiled', body: 'The tomatillo pectin', verdict: 'in' },
+  sources: [
+    { label: 'Tomato sauce (Wikipedia)', url: 'https://en.wikipedia.org/wiki/Tomato_sauce' },
+    { label: 'Amatriciana', url: 'https://en.wikipedia.org/wiki/Sugo_all%27amatriciana' },
+    { label: 'Pasta alla Norma', url: 'https://en.wikipedia.org/wiki/Pasta_alla_Norma' },
+  ],
+  yours: ['tomato sauce', 'marinara', 'arrabbiata', 'vodka sauce', 'puttanesca', 'sugo'],
+};
+
+const custard: Canon = {
+  slug: 'custard',
+  name: 'Custard',
+  standfirst:
+    'Cream, egg yolk and sugar go into all of these. What separates them is how it is cooked, what sets it, and what happens to the surface.',
+  root: 'Cream · egg yolk · sugar',
+  facets: [
+    { id: 'cook', label: 'Cooked' },
+    { id: 'set', label: 'Set by' },
+    { id: 'finish', label: 'Finish' },
+  ],
+  nestBy: ['cook', 'set', 'finish'],
+  dishes: [
     {
-      name: 'Salsa macha',
-      carries: 'Dried chilli, nuts, seeds',
-      body: 'Oil',
-      verdict: 'in',
-      note: 'oil-based and still an assembly of pieces',
+      name: 'Pastry cream',
+      facets: { cook: ['on the stove', 'stirred'], set: ['starch'], finish: [] },
+      note: 'Stirred, so it thickens rather than sets. Everything below is left alone instead.',
+    },
+    { name: 'Panna cotta', facets: { cook: ['warmed only'], set: ['gelatin'], finish: [] } },
+    { name: 'Pot de crème', facets: { cook: ['baked in a water bath'], set: ['egg alone'], finish: [] } },
+    {
+      name: 'Crème caramel',
+      facets: { cook: ['baked in a water bath'], set: ['egg alone'], finish: ['caramel in the mould'] },
     },
     {
-      name: 'Guacamole',
-      carries: 'Avocado',
-      body: 'The avocado itself',
-      verdict: 'out',
-      note: 'one ingredient carries both flavour and body — a different form',
-    },
-    {
-      name: 'Enchilada sauce',
-      carries: 'Dried chilli, cooked',
-      body: 'Thickened and simmered',
-      verdict: 'out',
-      note: 'fails the last gate — it is the cooking medium',
+      name: 'Crème brûlée',
+      facets: { cook: ['baked in a water bath'], set: ['egg alone'], finish: ['sugar burnt on top'] },
+      note: 'The crust goes on after the custard is cold, and cracks under a spoon. Without it this is a pot de crème.',
     },
   ],
   notes: [
     {
-      title: 'On heat',
+      title: 'On the surface',
       body:
-        'Chilli heat is the most commonly assumed requirement and is not one. Plenty of regional salsas run mild to the point of sweetness; what does not vary is the acid. A salsa that is not sharp has stopped doing its job on the plate.',
+        'Pot de crème, crème caramel and crème brûlée are the same baked custard. All three differ only in the last column — nothing, caramel underneath, or burnt sugar on top — which is as small as a defining difference gets.',
     },
   ],
   sources: [
-    { label: 'Salsa (Wikipedia)', url: 'https://en.wikipedia.org/wiki/Salsa_(sauce)' },
-    { label: 'Pico de gallo', url: 'https://en.wikipedia.org/wiki/Pico_de_gallo' },
-    { label: 'Salsa macha', url: 'https://en.wikipedia.org/wiki/Salsa_macha' },
+    { label: 'Custard (Wikipedia)', url: 'https://en.wikipedia.org/wiki/Custard' },
+    { label: 'Crème brûlée', url: 'https://en.wikipedia.org/wiki/Cr%C3%A8me_br%C3%BBl%C3%A9e' },
+    { label: 'Panna cotta', url: 'https://en.wikipedia.org/wiki/Panna_cotta' },
   ],
-  yours: ['salsa', 'pico de gallo', 'chimichurri'],
+  yours: ['custard', 'brulee', 'brûlée', 'panna cotta', 'flan', 'pastry cream'],
 };
 
-const carbonara: Canon = {
-  slug: 'carbonara',
-  name: 'Carbonara',
-  standfirst:
-    'Carbonara tolerates a different cut of pork, a different cheese, a different pasta shape, and a good deal of argument about pepper. The one thing it cannot survive is cream — because cream is doing the job the eggs are supposed to do.',
-  terminal: 'Still carbonara',
-  terminalNote: 'The sauce is an emulsion, not a cream',
-  gates: [
-    {
-      label: 'Emulsion',
-      statement: 'Egg and cheese, brought together with starchy water off the heat',
-      slot: { name: 'The egg', options: ['whole eggs', 'yolks only', 'a mix'] },
-      breaks: {
-        becomes: 'Cream instead → pasta alla panna',
-        why: 'the technique is the dish; cream removes the reason for it',
-      },
-    },
-    {
-      label: 'Cured pork',
-      statement: 'Rendered cured pork, and its fat kept',
-      slot: { name: 'The pork', options: ['guanciale', 'pancetta', 'bacon at a pinch'] },
-      breaks: {
-        becomes: 'No pork fat → cacio e pepe with egg',
-        why: 'the rendered fat is a third of the sauce',
-      },
-    },
-    {
-      label: 'Cheese',
-      statement: 'A hard, salty sheep or cow cheese, grated fine',
-      slot: { name: 'The cheese', options: ['pecorino romano', 'parmigiano', 'a blend'] },
-      breaks: {
-        becomes: 'A melting cheese → a baked pasta',
-        why: 'it has to dissolve into the emulsion, not stretch',
-      },
-    },
-    {
-      label: 'Heat',
-      statement: 'Finished off direct heat so the egg thickens but never sets',
-      slot: { name: 'The pasta', options: ['spaghetti', 'rigatoni', 'bucatini'] },
-      breaks: {
-        becomes: 'Egg scrambles → pasta with scrambled egg',
-        why: 'not a variation, just the failure mode',
-      },
-    },
-  ],
-  family: [
-    { name: 'Carbonara', carries: 'Guanciale, pecorino, black pepper', body: 'Egg emulsion', verdict: 'in' },
-    {
-      name: 'Cacio e pepe',
-      carries: 'Pecorino and pepper',
-      body: 'Cheese and starch emulsion',
-      verdict: 'out',
-      note: 'no egg, no pork — the neighbouring dish, not a variation',
-    },
-    {
-      name: 'Gricia',
-      carries: 'Guanciale and pecorino',
-      body: 'Fat and starch',
-      verdict: 'out',
-      note: 'carbonara without the egg — literally the parent dish',
-    },
-    {
-      name: 'Pasta alla panna',
-      carries: 'Cream and ham',
-      body: 'Cream',
-      verdict: 'out',
-      note: 'fails the first gate, which is the one everyone argues about',
-    },
-  ],
-  notes: [
-    {
-      title: 'On the argument',
-      body:
-        'Carbonara is young — the first printed recipes are post-war, and early ones are inconsistent about nearly everything including cream. The rule against cream is a modern codification rather than an ancient one. It is still the right rule, because it is the one that preserves the technique that makes the dish worth making.',
-    },
-  ],
-  sources: [
-    { label: 'Carbonara (Wikipedia)', url: 'https://en.wikipedia.org/wiki/Carbonara' },
-    { label: 'Cacio e pepe', url: 'https://en.wikipedia.org/wiki/Cacio_e_pepe' },
-  ],
-  yours: ['carbonara', 'cacio e pepe', 'gricia'],
-};
-
-export const CANON: Canon[] = [gazpacho, salsa, carbonara];
+export const CANON: Canon[] = [egg, tomatoSauce, custard];
 
 export function getCanon(slug: string): Canon | undefined {
   return CANON.find((c) => c.slug === slug);

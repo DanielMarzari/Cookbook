@@ -1,0 +1,184 @@
+<title>Three Views of One Sauce Tree</title>
+<style>
+  :root{
+    --ground:#ffffff; --wash:#fafafa; --ink:#111111; --muted:#767676;
+    --rule:#e8e8e8; --hair:#cfcfcf;
+    --sans:"Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#121212; --wash:#191919; --ink:#ededed; --muted:#9a9a9a;
+      --rule:#2c2c2c; --hair:#3f3f3f;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#121212; --wash:#191919; --ink:#ededed; --muted:#9a9a9a;
+    --rule:#2c2c2c; --hair:#3f3f3f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
+       font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1000px;margin:0 auto;padding:56px 24px 100px}
+  .lede{max-width:64ch;display:flex;flex-direction:column;gap:14px;margin-bottom:44px}
+  h1{font-size:clamp(28px,4.6vw,42px);line-height:1.06;letter-spacing:-.02em;font-weight:400;margin:0;text-wrap:balance}
+  .lede p{margin:0;font-size:15px;color:var(--muted)}
+  .lab{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:var(--muted)}
+
+  .truth{border:1px solid var(--ink);padding:18px 20px;display:flex;flex-direction:column;gap:8px;margin-bottom:44px}
+  .truth p{margin:0;font-size:13.5px;color:var(--muted);max-width:70ch}
+  .truth strong{color:var(--ink);font-weight:500}
+
+  .grid{display:flex;flex-direction:column;gap:50px}
+  .opt{display:flex;flex-direction:column;gap:12px}
+  .opt>header{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--ink);padding-bottom:7px}
+  .opt>header h2{margin:0;font-size:15px;font-weight:500;letter-spacing:-.01em}
+  .opt>header .n{font-size:11px;letter-spacing:.13em;color:var(--muted)}
+  .why{font-size:13.5px;color:var(--muted);margin:0;max-width:66ch}
+  .fig{border:1px solid var(--rule);background:var(--wash);padding:22px 18px;overflow-x:auto}
+  svg{display:block;width:100%;height:auto;min-width:620px}
+
+  .base{fill:var(--ink);stroke:var(--ink);stroke-width:1.25}
+  .dish{fill:var(--ground);stroke:var(--ink);stroke-width:1.25}
+  .edge{stroke:var(--hair);stroke-width:1.25;fill:none}
+  text{font-family:var(--sans)}
+  .tb{fill:var(--ground);font-size:13.5px}
+  .tbs{fill:var(--ground);font-size:10.5px;opacity:.82}
+  .td{fill:var(--ink);font-size:13px}
+  .ta{fill:var(--muted);font-size:10.5px}
+
+  .chips{display:flex;flex-direction:column}
+  .chiprow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:11px 0;border-bottom:1px solid var(--rule)}
+  .chiprow:first-child{border-top:1px solid var(--rule)}
+  .chiprow.deep{padding-left:26px;border-left:1px solid var(--hair)}
+  .chip{font-size:11.5px;border:1px solid var(--hair);color:var(--muted);padding:1px 7px;white-space:nowrap}
+  .chip.add{border-color:var(--ink);color:var(--ink)}
+  .chip.inherit{border-style:dashed}
+  .arrow{color:var(--muted);font-size:12px;margin:0 2px}
+  .name{font-size:14px;margin-left:auto;padding-left:14px;white-space:nowrap}
+
+  .outline{font-size:14px;line-height:2.05;margin:0;white-space:pre;overflow-x:auto}
+  .outline .t{color:var(--hair)}
+  .outline .a{color:var(--muted);font-size:12.5px}
+  .outline .d{color:var(--ink)}
+</style>
+
+<svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" fill="var(--hair)"></path>
+  </marker>
+</defs></svg>
+
+<div class="wrap">
+  <div class="lede">
+    <p class="lab">Canon · one model, three renderings</p>
+    <h1>Three views of one sauce tree</h1>
+    <p>Chips, outline and staircase are not three designs — they are three ways of drawing the same nested tree. Author the tree once and the app can render whichever suits the space.</p>
+  </div>
+
+  <div class="truth">
+    <p class="lab">The tree, stated once</p>
+    <p><strong>Base:</strong> tomato · garlic · onion · basil, softened in olive oil. <strong>Five children:</strong> rosa, amatriciana, arrabbiata, puttanesca, alla norma — each one addition away from the base, so each sits at the same depth. <strong>One grandchild:</strong> vodka, which is rosa plus vodka and pancetta, so it hangs off rosa and nothing else.</p>
+    <p>The previous staircase put puttanesca and alla norma a level deeper than arrabbiata. That was layout convenience, not structure, and it is fixed here — depth now means only one thing: how many additions from the base.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- 01 STAIRCASE -->
+    <section class="opt">
+      <header><span class="n">01</span><h2>Staircase</h2></header>
+      <p class="why">Five children on one rail at one indent. Vodka is the only thing set deeper, because it is the only thing that descends from another sauce rather than from the base.</p>
+      <div class="fig">
+        <svg viewBox="0 0 880 450" role="img" aria-label="A staircase tree. The base has five children at equal depth: rosa, amatriciana, arrabbiata, puttanesca and alla norma. Vodka sauce sits one level deeper, descending from rosa.">
+          <rect class="base" x="20" y="14" width="260" height="44"></rect>
+          <text class="tb" x="34" y="36">Tomato · garlic · onion · basil</text>
+          <text class="tbs" x="34" y="50">softened in olive oil</text>
+
+          <!-- the base rail: every child hangs off this one line -->
+          <path class="edge" d="M60 58 V396"></path>
+
+          <path class="edge" d="M60 96 H150" marker-end="url(#a)"></path>
+          <rect class="dish" x="150" y="76" width="230" height="40"></rect>
+          <text class="td" x="163" y="94">Rosa</text>
+          <text class="ta" x="163" y="108">+ cream</text>
+
+          <!-- rosa's own rail, the only second level -->
+          <path class="edge" d="M190 116 V156 H290" marker-end="url(#a)"></path>
+          <rect class="dish" x="290" y="136" width="250" height="40"></rect>
+          <text class="td" x="303" y="154">Vodka</text>
+          <text class="ta" x="303" y="168">+ vodka, pancetta</text>
+
+          <path class="edge" d="M60 216 H150" marker-end="url(#a)"></path>
+          <rect class="dish" x="150" y="196" width="230" height="40"></rect>
+          <text class="td" x="163" y="214">Amatriciana</text>
+          <text class="ta" x="163" y="228">+ guanciale, pecorino</text>
+
+          <path class="edge" d="M60 276 H150" marker-end="url(#a)"></path>
+          <rect class="dish" x="150" y="256" width="230" height="40"></rect>
+          <text class="td" x="163" y="274">Arrabbiata</text>
+          <text class="ta" x="163" y="288">+ dried chilli</text>
+
+          <path class="edge" d="M60 336 H150" marker-end="url(#a)"></path>
+          <rect class="dish" x="150" y="316" width="230" height="40"></rect>
+          <text class="td" x="163" y="334">Puttanesca</text>
+          <text class="ta" x="163" y="348">+ olives, capers, anchovy</text>
+
+          <path class="edge" d="M60 396 H150" marker-end="url(#a)"></path>
+          <rect class="dish" x="150" y="376" width="230" height="40"></rect>
+          <text class="td" x="163" y="394">alla Norma</text>
+          <text class="ta" x="163" y="408">+ fried eggplant, ricotta salata</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 02 CHIPS -->
+    <section class="opt">
+      <header><span class="n">02</span><h2>Accumulating chips</h2></header>
+      <p class="why">The base is carried into every row so you can see it survives. Vodka is indented and shows cream as an inherited chip — dashed, because it came from rosa rather than from you.</p>
+      <div class="fig">
+        <div class="chips">
+          <div class="chiprow">
+            <span class="chip">tomato</span><span class="chip">garlic</span><span class="chip">onion</span><span class="chip">basil</span>
+            <span class="chip add">+ cream</span><span class="arrow">→</span><span class="name">Rosa</span>
+          </div>
+          <div class="chiprow deep">
+            <span class="chip">tomato</span><span class="chip">garlic</span><span class="chip">onion</span><span class="chip">basil</span>
+            <span class="chip inherit">cream</span>
+            <span class="chip add">+ vodka</span><span class="chip add">+ pancetta</span><span class="arrow">→</span><span class="name">Vodka</span>
+          </div>
+          <div class="chiprow">
+            <span class="chip">tomato</span><span class="chip">garlic</span><span class="chip">onion</span><span class="chip">basil</span>
+            <span class="chip add">+ guanciale</span><span class="chip add">+ pecorino</span><span class="arrow">→</span><span class="name">Amatriciana</span>
+          </div>
+          <div class="chiprow">
+            <span class="chip">tomato</span><span class="chip">garlic</span><span class="chip">onion</span><span class="chip">basil</span>
+            <span class="chip add">+ dried chilli</span><span class="arrow">→</span><span class="name">Arrabbiata</span>
+          </div>
+          <div class="chiprow">
+            <span class="chip">tomato</span><span class="chip">garlic</span><span class="chip">onion</span><span class="chip">basil</span>
+            <span class="chip add">+ olives</span><span class="chip add">+ capers</span><span class="chip add">+ anchovy</span><span class="arrow">→</span><span class="name">Puttanesca</span>
+          </div>
+          <div class="chiprow">
+            <span class="chip">tomato</span><span class="chip">garlic</span><span class="chip">onion</span><span class="chip">basil</span>
+            <span class="chip add">+ fried eggplant</span><span class="chip add">+ ricotta salata</span><span class="arrow">→</span><span class="name">alla Norma</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 OUTLINE -->
+    <section class="opt">
+      <header><span class="n">03</span><h2>Outline</h2></header>
+      <p class="why">No drawing at all. Costs nothing to render, reads on a phone, and nests as deep as the sauce actually goes — the one that will not fight you when a dish has fifteen children.</p>
+      <div class="fig">
+        <p class="outline"><span class="d">Tomato · garlic · onion · basil, softened in olive oil</span>
+<span class="t">├─</span> <span class="a">+ cream</span>  <span class="d">Rosa</span>
+<span class="t">│  └─</span> <span class="a">+ vodka, pancetta</span>  <span class="d">Vodka</span>
+<span class="t">├─</span> <span class="a">+ guanciale, pecorino</span>  <span class="d">Amatriciana</span>
+<span class="t">├─</span> <span class="a">+ dried chilli</span>  <span class="d">Arrabbiata</span>
+<span class="t">├─</span> <span class="a">+ olives, capers, anchovy</span>  <span class="d">Puttanesca</span>
+<span class="t">└─</span> <span class="a">+ fried eggplant, ricotta salata</span>  <span class="d">alla Norma</span></p>
+      </div>
+    </section>
+
+  </div>
+</div>

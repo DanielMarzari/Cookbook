@@ -1,0 +1,182 @@
+<title>Where Crème Brûlée Stops Being Crème Brûlée</title>
+<style>
+  :root {
+    --ground: #ffffff;
+    --wash:   #fafafa;
+    --ink:    #111111;
+    --muted:  #767676;
+    --rule:   #e8e8e8;
+    --hair:   #cfcfcf;
+    --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #121212; --wash: #191919; --ink: #ededed;
+      --muted: #9a9a9a; --rule: #2c2c2c; --hair: #3f3f3f;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #121212; --wash: #191919; --ink: #ededed;
+    --muted: #9a9a9a; --rule: #2c2c2c; --hair: #3f3f3f;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 56px 24px 100px; }
+  .lede { max-width: 62ch; display: flex; flex-direction: column; gap: 14px; margin-bottom: 46px; }
+  h1 { font-size: clamp(28px, 4.6vw, 42px); line-height: 1.06; letter-spacing: -0.02em; font-weight: 400; margin: 0; text-wrap: balance; }
+  .lede p { margin: 0; font-size: 15px; color: var(--muted); }
+  .lab { font-size: 11px; text-transform: uppercase; letter-spacing: 0.13em; color: var(--muted); }
+
+  section { display: flex; flex-direction: column; gap: 14px; margin-bottom: 56px; }
+  section > header { display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--ink); padding-bottom: 7px; }
+  section > header h2 { margin: 0; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; }
+  section > header .n { font-size: 11px; letter-spacing: 0.13em; color: var(--muted); }
+  .why { font-size: 13.5px; color: var(--muted); margin: 0; max-width: 66ch; }
+  .fig { border: 1px solid var(--rule); background: var(--wash); padding: 22px 16px; overflow-x: auto; }
+  svg { display: block; width: 100%; height: auto; min-width: 660px; }
+
+  .q      { fill: var(--ground); stroke: var(--ink); stroke-width: 1.25; }
+  .leaf   { fill: var(--ground); stroke: var(--hair); stroke-width: 1.25; }
+  .isit   { fill: var(--ink); stroke: var(--ink); stroke-width: 1.25; }
+  .edge   { stroke: var(--ink); stroke-width: 1.25; fill: none; }
+  .edgeAlt{ stroke: var(--hair); stroke-width: 1.25; fill: none; }
+  text    { font-family: var(--sans); }
+  .tq     { fill: var(--ink); font-size: 13.5px; }
+  .tl     { fill: var(--ink); font-size: 13.5px; }
+  .tw     { fill: var(--ground); font-size: 14px; }
+  .lbl    { fill: var(--muted); font-size: 11px; }
+  .sub    { fill: var(--muted); font-size: 11px; }
+
+  .coda { border-top: 1px solid var(--ink); padding-top: 20px; display: flex; flex-direction: column; gap: 12px; max-width: 68ch; }
+  .coda p { margin: 0; font-size: 14px; color: var(--muted); }
+  .coda strong { color: var(--ink); font-weight: 500; }
+</style>
+
+<div class="wrap">
+  <div class="lede">
+    <p class="lab">Canon · decision tree</p>
+    <h1>Where crème brûlée stops being crème brûlée</h1>
+    <p>Each step states what the dish does at that moment, in the order you do it. Keep going down the spine and you arrive at the dish. Step off at any point and you have made something else — and that something else has a name, a recipe, and a tree of its own. Nothing here is a failure; the branches are just other desserts.</p>
+  </div>
+
+  <section>
+    <header><span class="n">01</span><h2>Crème brûlée</h2></header>
+    <p class="why">Four things have to be true. Miss the last one — sugar on the surface, burnt after the custard is cold — and you have a pot de crème, which is a perfectly good thing that is not this.</p>
+    <div class="fig">
+      <svg viewBox="0 0 900 520" role="img" aria-label="A decision tree for crème brûlée. Starting from a custard of cream, yolk and sugar: if it is thickened with starch on the stove it becomes pastry cream; if set with gelatin it becomes panna cotta; if the caramel goes in the mould first it becomes crème caramel; if there is no sugar crust it is a pot de crème; burning sugar on top of the cold custard gives crème brûlée.">
+        <!-- root -->
+        <rect class="q" x="470" y="16" width="290" height="38"></rect>
+        <text class="tq" x="486" y="34">Cream, egg yolk, sugar</text>
+        <text class="sub" x="486" y="48">the custard everything here starts from</text>
+
+        <!-- spine -->
+        <path class="edge" d="M615 54 V112" marker-end="url(#a1)"></path>
+        <path class="edge" d="M615 168 V226" marker-end="url(#a1)"></path>
+        <path class="edge" d="M615 282 V340" marker-end="url(#a1)"></path>
+        <path class="edge" d="M615 396 V446" marker-end="url(#a1)"></path>
+
+        <!-- Q1 -->
+        <rect class="q" x="470" y="112" width="290" height="56"></rect>
+        <text class="tq" x="486" y="136">Baked gently, in a water bath</text>
+        <text class="sub" x="486" y="154">set by heat alone, never stirred</text>
+        <path class="edgeAlt" d="M470 140 H330" marker-end="url(#a2)"></path>
+        <text class="lbl" x="400" y="132" text-anchor="middle">thickened on the stove</text>
+        <rect class="leaf" x="60" y="122" width="270" height="36"></rect>
+        <text class="tl" x="76" y="145">Pastry cream</text>
+
+        <!-- Q2 -->
+        <rect class="q" x="470" y="226" width="290" height="56"></rect>
+        <text class="tq" x="486" y="250">Set by egg alone</text>
+        <text class="sub" x="486" y="268">no gelatin, no starch</text>
+        <path class="edgeAlt" d="M470 254 H330" marker-end="url(#a2)"></path>
+        <text class="lbl" x="400" y="246" text-anchor="middle">set with gelatin</text>
+        <rect class="leaf" x="60" y="236" width="270" height="36"></rect>
+        <text class="tl" x="76" y="259">Panna cotta</text>
+
+        <!-- Q3 -->
+        <rect class="q" x="470" y="340" width="290" height="56"></rect>
+        <text class="tq" x="486" y="364">Sugar burnt on top, after chilling</text>
+        <text class="sub" x="486" y="382">a hard crust you crack with a spoon</text>
+        <path class="edgeAlt" d="M470 368 H330" marker-end="url(#a2)"></path>
+        <text class="lbl" x="400" y="360" text-anchor="middle">caramel in the mould first</text>
+        <rect class="leaf" x="60" y="350" width="270" height="36"></rect>
+        <text class="tl" x="76" y="373">Crème caramel</text>
+
+        <path class="edgeAlt" d="M470 380 C 420 380 400 424 330 424" marker-end="url(#a2)"></path>
+        <text class="lbl" x="400" y="440" text-anchor="middle">no crust at all</text>
+        <rect class="leaf" x="60" y="406" width="270" height="36"></rect>
+        <text class="tl" x="76" y="429">Pot de crème</text>
+
+        <!-- the dish -->
+        <rect class="isit" x="470" y="446" width="290" height="44"></rect>
+        <text class="tw" x="486" y="473">Crème brûlée</text>
+
+        <defs>
+          <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="var(--ink)"></path>
+          </marker>
+          <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="var(--hair)"></path>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  </section>
+
+  <section>
+    <header><span class="n">02</span><h2>The same tree, on ice cream</h2></header>
+    <p class="why">Same shape: a base, then the three things that separate it from its neighbours. Every leaf is a dessert you could order by name.</p>
+    <div class="fig">
+      <svg viewBox="0 0 900 410" role="img" aria-label="A decision tree for ice cream. From a sweetened base: no dairy gives sorbet; not churned gives semifreddo; lower fat and less air gives gelato; otherwise ice cream.">
+        <rect class="q" x="470" y="16" width="290" height="38"></rect>
+        <text class="tq" x="486" y="34">A sweetened base</text>
+        <text class="sub" x="486" y="48">flavoured liquid, about to be frozen</text>
+
+        <path class="edge" d="M615 54 V108" marker-end="url(#a1)"></path>
+        <path class="edge" d="M615 164 V218" marker-end="url(#a1)"></path>
+        <path class="edge" d="M615 274 V332" marker-end="url(#a1)"></path>
+
+        <rect class="q" x="470" y="108" width="290" height="56"></rect>
+        <text class="tq" x="486" y="132">Dairy in the base</text>
+        <text class="sub" x="486" y="150">cream, milk, or both</text>
+        <path class="edgeAlt" d="M470 136 H330" marker-end="url(#a2)"></path>
+        <text class="lbl" x="400" y="128" text-anchor="middle">fruit and water only</text>
+        <rect class="leaf" x="60" y="118" width="270" height="36"></rect>
+        <text class="tl" x="76" y="141">Sorbet</text>
+
+        <rect class="q" x="470" y="218" width="290" height="56"></rect>
+        <text class="tq" x="486" y="242">Churned as it freezes</text>
+        <text class="sub" x="486" y="260">so air works its way in</text>
+        <path class="edgeAlt" d="M470 246 H330" marker-end="url(#a2)"></path>
+        <text class="lbl" x="400" y="238" text-anchor="middle">folded, then frozen still</text>
+        <rect class="leaf" x="60" y="228" width="270" height="36"></rect>
+        <text class="tl" x="76" y="251">Semifreddo</text>
+
+        <rect class="q" x="470" y="332" width="290" height="56"></rect>
+        <text class="tq" x="486" y="356">Rich, and generously aerated</text>
+        <text class="sub" x="486" y="374">served hard, straight from the freezer</text>
+        <path class="edgeAlt" d="M470 360 H330" marker-end="url(#a2)"></path>
+        <text class="lbl" x="400" y="352" text-anchor="middle">leaner, denser, warmer</text>
+        <rect class="leaf" x="60" y="342" width="270" height="36"></rect>
+        <text class="tl" x="76" y="365">Gelato</text>
+
+        <rect class="isit" x="790" y="332" width="100" height="56"></rect>
+        <text class="tw" x="806" y="358">Ice</text>
+        <text class="tw" x="806" y="376">cream</text>
+        <path class="edge" d="M760 360 H786" marker-end="url(#a1)"></path>
+      </svg>
+    </div>
+  </section>
+
+  <div class="coda">
+    <p class="lab">Why this shape</p>
+    <p><strong>Every leaf is another dish’s tree.</strong> Panna cotta is a dead end here, but it has its own page where the spine reads “set with gelatin” and crème brûlée is the branch. The whole canon is one graph, entered from whichever dish you happened to look up.</p>
+    <p><strong>The path is the definition.</strong> Read only the boxes down the middle and you have the essence — a baked custard, set by egg, burnt sugar on top. The branches are what makes it legible: you understand a dish by what it is <em>not</em> quite.</p>
+    <p><strong>Your own recipe walks the path.</strong> A branch of your crème brûlée that swaps vanilla for cardamom never leaves the spine, so it is still the dish. One that sets with gelatin lands on panna cotta — and the app can tell you so, because it knows which fork you took.</p>
+  </div>
+</div>
