@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import type { Canon, CanonDish } from '@/data/canon';
-import { canonTree, keyChips, type CanonNode } from '@/lib/canon';
+import { canonTree, keyChips, nestingsFor, type CanonNode } from '@/lib/canon';
 
 type View = 'table' | 'outline' | 'staircase';
 
@@ -23,7 +23,7 @@ export default function CanonViews({ canon }: { canon: Canon }) {
   // Which reading of the tree — by technique, by region, and so on.
   const [nesting, setNesting] = useState(0);
   const tree = useMemo(() => canonTree(canon, nesting), [canon, nesting]);
-  const lineage = canon.dishes.some((d) => d.parent);
+  const nestings = useMemo(() => nestingsFor(canon), [canon]);
   const active = VIEWS.find((v) => v.id === view)!;
 
   return (
@@ -44,10 +44,10 @@ export default function CanonViews({ canon }: { canon: Canon }) {
       </div>
       <p className="text-[13px] text-text-secondary leading-[1.6] max-w-[68ch] mb-5">{active.blurb}</p>
 
-      {view !== 'table' && canon.nestings.length > 1 && !lineage && (
+      {view !== 'table' && nestings.length > 1 && (
         <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-5">
           <span className="text-[10.5px] uppercase tracking-[0.12em] text-text-secondary">Nest</span>
-          {canon.nestings.map((n, i) => (
+          {nestings.map((n, i) => (
             <button
               key={n.label}
               onClick={() => setNesting(i)}

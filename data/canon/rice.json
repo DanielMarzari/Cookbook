@@ -1,0 +1,540 @@
+{
+ "slug": "rice",
+ "name": "Cooked rice",
+ "standfirst": "One grain and one pot, and four decisions that separate every rice dish on earth: how much liquid, what happens to the grain before it meets that liquid, whether it is stirred or left alone, and whether you want the bottom to catch. Answer them one way and you have risotto. Answer them another and you have biryani. None of these is a variation on any of the others — they are separate answers to the same grain.",
+ "root": "Rice, water and heat",
+ "facets": [
+  {
+   "id": "grain",
+   "label": "Grain"
+  },
+  {
+   "id": "prep",
+   "label": "Prepared"
+  },
+  {
+   "id": "liquid",
+   "label": "Liquid"
+  },
+  {
+   "id": "cook",
+   "label": "Cooked"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By liquid",
+   "by": [
+    "liquid",
+    "cook",
+    "prep"
+   ]
+  },
+  {
+   "label": "By handling",
+   "by": [
+    "cook",
+    "prep",
+    "grain"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "liquid"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Gohan",
+   "facets": {
+    "grain": [
+     "short-grain japonica"
+    ],
+    "prep": [
+     "washed",
+     "soaked"
+    ],
+    "liquid": [
+     "measured liquid",
+     "water"
+    ],
+    "cook": [
+     "left alone",
+     "lid on",
+     "rested off the heat"
+    ],
+    "region": [
+     "Japan"
+    ]
+   },
+   "note": "The plainest possible answer and the most exacting one: the water is measured against the grain rather than the pot, and the lid is not lifted to check."
+  },
+  {
+   "name": "Boiled rice",
+   "facets": {
+    "grain": [
+     "long-grain"
+    ],
+    "prep": [
+     "washed"
+    ],
+    "liquid": [
+     "excess water",
+     "salted"
+    ],
+    "cook": [
+     "drained",
+     "returned to the pot",
+     "dried off the heat"
+    ],
+    "region": [
+     "South Asia",
+     "Caribbean"
+    ]
+   },
+   "note": "Cooked like pasta, in far more water than the grain can take, and poured off when it is done. Most of the world's rice is cooked this way and it is the least written about."
+  },
+  {
+   "name": "Khao niao",
+   "facets": {
+    "grain": [
+     "glutinous rice"
+    ],
+    "prep": [
+     "washed",
+     "soaked overnight"
+    ],
+    "liquid": [
+     "steam only",
+     "water kept below the grain"
+    ],
+    "cook": [
+     "steamed over water",
+     "in a bamboo basket",
+     "flipped once"
+    ],
+    "region": [
+     "Laos",
+     "Northeast Thailand"
+    ]
+   },
+   "note": "No liquid ever touches the grain. The overnight soak does what boiling would do, and steam only finishes it — which is why it can be picked up and eaten with the fingers."
+  },
+  {
+   "name": "Congee",
+   "facets": {
+    "grain": [
+     "jasmine rice"
+    ],
+    "prep": [
+     "washed"
+    ],
+    "liquid": [
+     "far more liquid than grain",
+     "water"
+    ],
+    "cook": [
+     "stirred as it thickens",
+     "simmered until the grain collapses"
+    ],
+    "region": [
+     "China"
+    ]
+   },
+   "note": "Ten times the water and enough time, and the starch leaves the grain entirely. The rice thickens what it was cooked in until there is no longer a distinction between the two."
+  },
+  {
+   "name": "Kheer",
+   "facets": {
+    "grain": [
+     "broken basmati"
+    ],
+    "prep": [
+     "washed"
+    ],
+    "liquid": [
+     "far more liquid than grain",
+     "whole milk"
+    ],
+    "cook": [
+     "stirred as it thickens",
+     "reduced",
+     "sweetened late"
+    ],
+    "region": [
+     "South Asia"
+    ]
+   },
+   "note": "Congee's decisions taken in milk. Rice pudding is a porridge in every language that has one — the sugar arrives at the end and changes nothing about the method."
+  },
+  {
+   "name": "Nasi lemak",
+   "facets": {
+    "grain": [
+     "long-grain"
+    ],
+    "prep": [
+     "washed",
+     "soaked"
+    ],
+    "liquid": [
+     "measured liquid",
+     "coconut milk"
+    ],
+    "cook": [
+     "left alone",
+     "lid on",
+     "pandan in the pot"
+    ],
+    "region": [
+     "Malaysia",
+     "Singapore"
+    ]
+   },
+   "note": "The absorption method with the water swapped out. Fat in the cooking liquid coats every grain from the inside, which is a different thing from stirring fat in afterwards."
+  },
+  {
+   "name": "Pulao",
+   "facets": {
+    "grain": [
+     "basmati"
+    ],
+    "prep": [
+     "washed",
+     "soaked",
+     "toasted in ghee"
+    ],
+    "liquid": [
+     "measured liquid",
+     "stock"
+    ],
+    "cook": [
+     "left alone",
+     "lid on",
+     "rested off the heat"
+    ],
+    "region": [
+     "South Asia"
+    ]
+   },
+   "note": "Toasting the grain in fat before the liquid arrives seals the outside of each one. That single step is what keeps the grains separate, and it is what makes a pilaf a pilaf."
+  },
+  {
+   "name": "Plov",
+   "facets": {
+    "grain": [
+     "medium-grain",
+     "devzira"
+    ],
+    "prep": [
+     "washed",
+     "soaked in salted water"
+    ],
+    "liquid": [
+     "measured liquid",
+     "the zirvak broth"
+    ],
+    "cook": [
+     "left alone",
+     "lid on",
+     "rice sits on top of the base"
+    ],
+    "region": [
+     "Uzbekistan"
+    ]
+   },
+   "note": "The rice never meets a spoon. Meat and carrot are cooked down into a zirvak first, the rice is laid over it, and everything above cooks in the steam coming up through it."
+  },
+  {
+   "name": "Risotto",
+   "facets": {
+    "grain": [
+     "short-grain",
+     "arborio"
+    ],
+    "prep": [
+     "not washed",
+     "toasted in butter"
+    ],
+    "liquid": [
+     "added a ladle at a time",
+     "hot stock"
+    ],
+    "cook": [
+     "stirred constantly",
+     "uncovered",
+     "finished with butter"
+    ],
+    "region": [
+     "Northern Italy"
+    ]
+   },
+   "note": "The stirring is not fussiness. Grains rubbing against each other shed starch into the stock, so the sauce is made out of the rice rather than added to it — which is also why the rice is never washed."
+  },
+  {
+   "name": "Paella",
+   "facets": {
+    "grain": [
+     "short-grain",
+     "bomba"
+    ],
+    "prep": [
+     "not washed",
+     "toasted in the sofrito"
+    ],
+    "liquid": [
+     "measured liquid",
+     "stock",
+     "poured in once"
+    ],
+    "cook": [
+     "left alone",
+     "uncovered",
+     "spread thin",
+     "crust wanted"
+    ],
+    "region": [
+     "Valencia"
+    ]
+   },
+   "note": "Risotto's opposite instruction given to a similarly starchy grain: spread one layer deep and never touched, so the starch stays where it is and the bottom is allowed to catch into socarrat."
+  },
+  {
+   "name": "Chelow",
+   "facets": {
+    "grain": [
+     "long-grain",
+     "aromatic"
+    ],
+    "prep": [
+     "washed",
+     "soaked in salted water",
+     "parboiled"
+    ],
+    "liquid": [
+     "excess water",
+     "heavily salted"
+    ],
+    "cook": [
+     "drained",
+     "steamed under a cloth",
+     "crust wanted"
+    ],
+    "region": [
+     "Iran"
+    ]
+   },
+   "note": "Two stages that most cuisines keep apart: boiled like pasta and drained while still firm, then piled back over butter and steamed dry until a slab of tahdig forms underneath."
+  },
+  {
+   "name": "Biryani",
+   "facets": {
+    "grain": [
+     "long-grain",
+     "basmati"
+    ],
+    "prep": [
+     "washed",
+     "soaked",
+     "parboiled"
+    ],
+    "liquid": [
+     "excess water",
+     "whole spices in the water"
+    ],
+    "cook": [
+     "drained",
+     "layered with the masala",
+     "sealed with dough",
+     "steamed on low heat"
+    ],
+    "region": [
+     "South Asia"
+    ]
+   },
+   "note": "The argument with pulao is a method argument, not a spice one. Pulao cooks rice and meat together in one measured liquid; biryani cooks them separately and only then puts them in the same pot."
+  },
+  {
+   "name": "Jollof rice",
+   "facets": {
+    "grain": [
+     "long-grain"
+    ],
+    "prep": [
+     "washed"
+    ],
+    "liquid": [
+     "measured liquid",
+     "tomato and pepper stew"
+    ],
+    "cook": [
+     "left alone",
+     "lid on",
+     "sealed with foil",
+     "crust wanted"
+    ],
+    "region": [
+     "Nigeria",
+     "Ghana"
+    ]
+   },
+   "note": "The liquid is the entire dish. A reduced tomato-and-pepper base goes in as the cooking water, so nothing is seasoned afterwards. Parboiled long-grain is usual, because it survives the braise without breaking."
+  },
+  {
+   "name": "Thieboudienne",
+   "facets": {
+    "grain": [
+     "broken rice"
+    ],
+    "prep": [
+     "washed"
+    ],
+    "liquid": [
+     "measured liquid",
+     "the strained fish broth"
+    ],
+    "cook": [
+     "left alone",
+     "lid on",
+     "crust wanted"
+    ],
+    "region": [
+     "Senegal"
+    ]
+   },
+   "note": "The dish jollof descends from, and not a version of it. Broken rice, the broth the fish and vegetables were cooked in, and the xoon underneath — the crust the cook keeps back for herself."
+  },
+  {
+   "name": "Arroz con gandules",
+   "facets": {
+    "grain": [
+     "medium-grain"
+    ],
+    "prep": [
+     "washed",
+     "turned in the sofrito"
+    ],
+    "liquid": [
+     "measured liquid",
+     "sofrito broth"
+    ],
+    "cook": [
+     "left alone",
+     "lid on",
+     "turned once",
+     "crust wanted"
+    ],
+    "region": [
+     "Puerto Rico"
+    ]
+   },
+   "note": "Uncovered until the liquid is gone, one turn of the spoon, then the lid goes on and stays on. The pegao at the bottom is scraped up and fought over."
+  },
+  {
+   "name": "Bibimbap",
+   "facets": {
+    "grain": [
+     "short-grain japonica"
+    ],
+    "prep": [
+     "washed",
+     "soaked"
+    ],
+    "liquid": [
+     "measured liquid",
+     "water"
+    ],
+    "cook": [
+     "left alone",
+     "lid on",
+     "topped",
+     "mixed at the table"
+    ],
+    "region": [
+     "Korea"
+    ]
+   },
+   "note": "Nothing at all is done to the rice. The dish happens on top of plain bap and is not assembled until it reaches the eater — and in a hot stone bowl the base scorches into nurungji while they eat."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On washing",
+   "body": "Rinsing rice washes off loose surface starch, and that one decision splits the family in two. Where the ideal is separate grains — pilaf, biryani, chelow — the rice is washed, often soaked, and sometimes sealed in fat as well. Where the ideal is a bound, creamy dish — risotto, paella, congee — the starch is kept and put to work. It is the same choice that separates a sauced pasta from a soup."
+  },
+  {
+   "title": "On stirring",
+   "body": "Risotto is stirred constantly so the grains abrade each other and give up starch. Plov is never stirred at all, so the grains swell whole and stay loose. Same pot, same heat, opposite instruction, and the reason is the same in both cases: agitation is how you decide whether the starch stays in the grain or ends up in the liquid."
+  },
+  {
+   "title": "On the crust",
+   "body": "Socarrat, tahdig, pegao, xoon, nurungji, the scorched bottom of party jollof, the lacquered base of Cantonese clay-pot rice. A great deal of the world cooks rice specifically so that some of it burns, and nowhere is this an accident. Whether the pot is left long enough to catch is a decision like any other, and in six of these dishes it is the point."
+  },
+  {
+   "title": "On one word travelling",
+   "body": "Pilaf, pilav, pulao, plov, polow, pilau, pelau: a single Persian word carried along trade routes from Anatolia to the Caribbean. What travelled with it was a method, not a menu — toast or coat the grain in fat, add a measured amount of liquid, cover it, and do not touch it again. The meat and the spices changed in every country it reached."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Pilaf (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Pilaf"
+  },
+  {
+   "label": "Risotto",
+   "url": "https://en.wikipedia.org/wiki/Risotto"
+  },
+  {
+   "label": "Paella",
+   "url": "https://en.wikipedia.org/wiki/Paella"
+  },
+  {
+   "label": "Biryani",
+   "url": "https://en.wikipedia.org/wiki/Biryani"
+  },
+  {
+   "label": "Congee",
+   "url": "https://en.wikipedia.org/wiki/Congee"
+  },
+  {
+   "label": "Thieboudienne",
+   "url": "https://en.wikipedia.org/wiki/Thieboudienne"
+  },
+  {
+   "label": "Jollof rice",
+   "url": "https://en.wikipedia.org/wiki/Jollof_rice"
+  },
+  {
+   "label": "Uzbek plov",
+   "url": "https://en.wikipedia.org/wiki/Uzbek_plov"
+  },
+  {
+   "label": "Tahdig",
+   "url": "https://en.wikipedia.org/wiki/Tahdig"
+  },
+  {
+   "label": "Around the World in Bottom Pot (Kitchen Butterfly)",
+   "url": "https://www.kitchenbutterfly.com/2016/around-the-world-in-bottom-pot/"
+  }
+ ],
+ "yours": [
+  "rice",
+  "risotto",
+  "paella",
+  "biryani",
+  "pilaf",
+  "pulao",
+  "congee",
+  "jollof",
+  "bibimbap",
+  "nasi",
+  "arroz"
+ ]
+}

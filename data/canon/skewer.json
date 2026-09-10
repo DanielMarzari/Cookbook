@@ -1,0 +1,580 @@
+{
+ "slug": "skewer",
+ "name": "Food on a skewer",
+ "standfirst": "A stick does two things a grill cannot: it turns a handful of small pieces as one, and it holds them at a fixed distance from the coals. Every fire-using culture worked this out independently, which is why the family is enormous and the differences between its members are narrow — what goes on the meat before the fire, what the fire is made of, and whether the sauce arrives during the cooking or after it.",
+ "root": "Small pieces of food threaded onto a stick and cooked over fire",
+ "facets": [
+  {
+   "id": "thread",
+   "label": "On the stick"
+  },
+  {
+   "id": "prep",
+   "label": "Before the fire"
+  },
+  {
+   "id": "fire",
+   "label": "Fire"
+  },
+  {
+   "id": "sauce",
+   "label": "Sauce"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By marinade",
+   "by": [
+    "prep",
+    "sauce",
+    "fire"
+   ]
+  },
+  {
+   "label": "By fire",
+   "by": [
+    "fire",
+    "thread"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "prep"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Yakitori",
+   "facets": {
+    "thread": [
+     "cubes of meat",
+     "chicken thigh",
+     "spring onion between",
+     "thin bamboo"
+    ],
+    "prep": [
+     "no marinade",
+     "raw onto the stick"
+    ],
+    "fire": [
+     "charcoal",
+     "binchōtan",
+     "narrow trough grill"
+    ],
+    "sauce": [
+     "during the cooking",
+     "dipped in tare",
+     "dipped again between turns"
+    ],
+    "region": [
+     "Japan"
+    ]
+   },
+   "note": "Nothing goes on the chicken beforehand. The flavour is built in layers on the grill — dip, cook, dip again — so the saucing and the cooking are the same act."
+  },
+  {
+   "name": "Satay",
+   "facets": {
+    "thread": [
+     "cubes of meat",
+     "chicken",
+     "thin bamboo"
+    ],
+    "prep": [
+     "wet marinade",
+     "turmeric",
+     "lemongrass",
+     "palm sugar"
+    ],
+    "fire": [
+     "charcoal",
+     "coconut shell",
+     "fanned by hand"
+    ],
+    "sauce": [
+     "after the cooking",
+     "peanut sauce alongside"
+    ],
+    "region": [
+     "Indonesia",
+     "Malaysia"
+    ]
+   },
+   "note": "The opposite pole from yakitori: everything happens before the fire or after it. The peanut sauce never touches the coals."
+  },
+  {
+   "name": "Souvlaki",
+   "facets": {
+    "thread": [
+     "cubes of meat",
+     "pork",
+     "thin bamboo"
+    ],
+    "prep": [
+     "wet marinade",
+     "olive oil",
+     "lemon",
+     "oregano"
+    ],
+    "fire": [
+     "charcoal",
+     "open grill"
+    ],
+    "sauce": [
+     "after the cooking",
+     "tzatziki alongside"
+    ],
+    "region": [
+     "Greece"
+    ]
+   }
+  },
+  {
+   "name": "Şiş kebap",
+   "facets": {
+    "thread": [
+     "cubes of meat",
+     "lamb",
+     "tail fat between",
+     "flat metal skewer"
+    ],
+    "prep": [
+     "wet marinade",
+     "olive oil",
+     "onion juice",
+     "pepper paste"
+    ],
+    "fire": [
+     "charcoal",
+     "mangal",
+     "skewers on rails"
+    ],
+    "sauce": [
+     "after the cooking",
+     "sumac onion alongside"
+    ],
+    "region": [
+     "Turkey"
+    ]
+   }
+  },
+  {
+   "name": "Shashlik",
+   "facets": {
+    "thread": [
+     "cubes of meat",
+     "lamb",
+     "onion between",
+     "long metal shampur"
+    ],
+    "prep": [
+     "wet marinade",
+     "vinegar",
+     "raw onion",
+     "overnight"
+    ],
+    "fire": [
+     "wood embers",
+     "mangal",
+     "no flame"
+    ],
+    "sauce": [
+     "after the cooking",
+     "tkemali alongside"
+    ],
+    "region": [
+     "Caucasus",
+     "Russia"
+    ]
+   },
+   "note": "The acid does the work. A night in vinegar and onion is a tenderiser as much as a seasoning, which is why the meat can be older and the fire brisk."
+  },
+  {
+   "name": "Adana kebabı",
+   "facets": {
+    "thread": [
+     "ground meat",
+     "hand-minced lamb",
+     "tail fat",
+     "pressed onto a flat blade"
+    ],
+    "prep": [
+     "seasoned into the mince",
+     "hot red pepper",
+     "salt"
+    ],
+    "fire": [
+     "charcoal",
+     "mangal",
+     "skewers on rails",
+     "turned constantly"
+    ],
+    "sauce": [
+     "after the cooking",
+     "sumac onion alongside",
+     "butter into the flatbread"
+    ],
+    "region": [
+     "Turkey"
+    ]
+   },
+   "note": "The flat blade is not decoration. Ground meat spins loose on a round rod and drops into the fire; a wide blade grips it."
+  },
+  {
+   "name": "Seekh kebab",
+   "facets": {
+    "thread": [
+     "ground meat",
+     "minced lamb",
+     "pressed onto a metal rod"
+    ],
+    "prep": [
+     "seasoned into the mince",
+     "ginger",
+     "garlic",
+     "garam masala"
+    ],
+    "fire": [
+     "clay oven",
+     "tandoor",
+     "hung vertically"
+    ],
+    "sauce": [
+     "after the cooking",
+     "green chutney alongside"
+    ],
+    "region": [
+     "South Asia"
+    ]
+   },
+   "note": "Same ground-meat problem as Adana, solved in a vertical oven instead of over an open trough — so the mince has to bind well enough to hang."
+  },
+  {
+   "name": "Chicken tikka",
+   "facets": {
+    "thread": [
+     "cubes of meat",
+     "boneless chicken",
+     "long metal rod"
+    ],
+    "prep": [
+     "wet marinade",
+     "yoghurt",
+     "Kashmiri chilli",
+     "ginger"
+    ],
+    "fire": [
+     "clay oven",
+     "tandoor",
+     "hung vertically"
+    ],
+    "sauce": [
+     "during the cooking",
+     "brushed with ghee"
+    ],
+    "region": [
+     "Punjab"
+    ]
+   },
+   "note": "Yoghurt is the marinade that clings. It holds spice against the meat in a fire hot enough to burn a thin oil marinade straight off."
+  },
+  {
+   "name": "Chuanr",
+   "facets": {
+    "thread": [
+     "cubes of meat",
+     "lamb",
+     "fat between",
+     "flat metal skewer"
+    ],
+    "prep": [
+     "no marinade",
+     "salted"
+    ],
+    "fire": [
+     "charcoal",
+     "narrow trough grill",
+     "skewers on rails"
+    ],
+    "sauce": [
+     "during the cooking",
+     "cumin dusted on",
+     "chilli flakes dusted on"
+    ],
+    "region": [
+     "Xinjiang",
+     "China"
+    ]
+   },
+   "note": "Seasoning arrives as dust on the fire rather than as a soak beforehand — the cumin that misses the meat hits the coals and comes back as smoke."
+  },
+  {
+   "name": "Anticucho",
+   "facets": {
+    "thread": [
+     "cubes of offal",
+     "beef heart",
+     "thin bamboo"
+    ],
+    "prep": [
+     "wet marinade",
+     "ají panca",
+     "red wine vinegar",
+     "cumin"
+    ],
+    "fire": [
+     "charcoal",
+     "open grill",
+     "street brazier"
+    ],
+    "sauce": [
+     "during the cooking",
+     "basted with the marinade",
+     "ají alongside"
+    ],
+    "region": [
+     "Peru"
+    ]
+   },
+   "note": "The cheapest cut in the family, and the one that most needs the acid. Heart is lean and firm; the vinegar marinade is doing structural work before it is doing flavour."
+  },
+  {
+   "name": "Churrasco",
+   "facets": {
+    "thread": [
+     "whole cuts",
+     "picanha",
+     "folded onto a sword skewer"
+    ],
+    "prep": [
+     "no marinade",
+     "coarse salt only"
+    ],
+    "fire": [
+     "wood embers",
+     "open pit",
+     "turned slowly"
+    ],
+    "sauce": [
+     "after the cooking",
+     "vinagrete alongside"
+    ],
+    "region": [
+     "Brazil"
+    ]
+   },
+   "note": "The only one here not cut down to a bite. A folded whole cut is sliced off as its outside browns and the rest goes back to the fire."
+  },
+  {
+   "name": "Sosatie",
+   "facets": {
+    "thread": [
+     "cubes of meat",
+     "lamb",
+     "dried apricot between",
+     "thin bamboo"
+    ],
+    "prep": [
+     "wet marinade",
+     "curry powder",
+     "apricot jam",
+     "overnight"
+    ],
+    "fire": [
+     "wood embers",
+     "braai",
+     "moderate heat"
+    ],
+    "sauce": [
+     "during the cooking",
+     "basted with the boiled marinade"
+    ],
+    "region": [
+     "South Africa"
+    ]
+   },
+   "note": "The name descends from sate by way of the Cape's Malay kitchens. The marinade is boiled down afterwards and becomes the basting sauce — one liquid doing both jobs."
+  },
+  {
+   "name": "Suya",
+   "facets": {
+    "thread": [
+     "strips of meat",
+     "beef",
+     "thin flat skewer"
+    ],
+    "prep": [
+     "dry rub",
+     "yaji",
+     "ground peanut",
+     "cayenne"
+    ],
+    "fire": [
+     "wood embers",
+     "open grill",
+     "skewers leaned around the fire"
+    ],
+    "sauce": [
+     "during the cooking",
+     "yaji dusted on",
+     "yaji dusted again after"
+    ],
+    "region": [
+     "Nigeria"
+    ]
+   },
+   "note": "The same spice three times — rubbed in before the fire, thrown on during it, dusted over at the table. Thin strips exist so the rub has more surface to sit on."
+  },
+  {
+   "name": "Arrosticini",
+   "facets": {
+    "thread": [
+     "cubes of meat",
+     "castrato mutton",
+     "fat between",
+     "thin wooden skewer"
+    ],
+    "prep": [
+     "no marinade",
+     "salted at the fire"
+    ],
+    "fire": [
+     "charcoal",
+     "narrow trough grill",
+     "turned by hand"
+    ],
+    "sauce": [
+     "none"
+    ],
+    "region": [
+     "Abruzzo"
+    ]
+   },
+   "note": "The floor of the family. No marinade and no sauce — the whole dish is sheep fat rendering onto charcoal at the distance the trough fixes for you."
+  },
+  {
+   "name": "Espetada",
+   "facets": {
+    "thread": [
+     "cubes of meat",
+     "beef",
+     "bay laurel stick"
+    ],
+    "prep": [
+     "dry rub",
+     "coarse salt",
+     "crushed garlic",
+     "bay leaf"
+    ],
+    "fire": [
+     "wood embers",
+     "open grill",
+     "no flame"
+    ],
+    "sauce": [
+     "during the cooking",
+     "garlic butter dripped over"
+    ],
+    "region": [
+     "Madeira"
+    ]
+   },
+   "note": "Here the skewer is an ingredient. A green laurel branch heats through and pushes its oil into the meat from the inside out."
+  },
+  {
+   "name": "Brochette",
+   "facets": {
+    "thread": [
+     "cubes of meat",
+     "beef",
+     "vegetables between",
+     "metal skewer"
+    ],
+    "prep": [
+     "wet marinade",
+     "oil",
+     "thyme",
+     "black pepper"
+    ],
+    "fire": [
+     "gas",
+     "overhead grill"
+    ],
+    "sauce": [
+     "after the cooking",
+     "herb butter alongside"
+    ],
+    "region": [
+     "France"
+    ]
+   },
+   "note": "The word is only French for skewer, which is how a generic became a dish name. It is also the one here that need not meet live fire at all."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On what the stick is actually for",
+   "body": "Two jobs, and the second is the one people forget. A skewer makes a handful of small pieces turnable as a single object, and it fixes their height above the coals. That second job is why the narrow trough grill keeps being reinvented — the Japanese konro, the Xinjiang charcoal channel and the Abruzzese canala are the same idea three times over: a gutter exactly as wide as the skewers, so the meat sits over the fire and the wood sits off it."
+  },
+  {
+   "title": "On during or after",
+   "body": "Sauce during the cooking is a construction method. Tare, a boiled-down sosatie marinade and an anticucho basting all carry sugar, which browns beautifully and then burns, so they go on late and in thin coats and the skewer goes back for another. Sauce after the cooking leaves the char alone and hands the seasoning to the eater — satay's peanut sauce is not grill flavour at all, it is a second dish served against the first. Suya is the family's answer to why choose: yaji before, yaji during, yaji again at the table."
+  },
+  {
+   "title": "On calling it all kebab",
+   "body": "Yakitori is not a Japanese kebab and anticucho is not a Peruvian one. These are separate answers to the same problem, reached by people who had a fire, a knife and something small to cook, and each tradition named its own. That is why nothing here is nested under anything else."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Yakitori",
+   "url": "https://en.wikipedia.org/wiki/Yakitori"
+  },
+  {
+   "label": "Satay",
+   "url": "https://en.wikipedia.org/wiki/Satay"
+  },
+  {
+   "label": "Sosatie",
+   "url": "https://en.wikipedia.org/wiki/Sosatie"
+  },
+  {
+   "label": "Espetada",
+   "url": "https://en.wikipedia.org/wiki/Espetada"
+  },
+  {
+   "label": "Arrosticini",
+   "url": "https://en.wikipedia.org/wiki/Arrosticini"
+  },
+  {
+   "label": "Suya",
+   "url": "https://en.wikipedia.org/wiki/Suya"
+  },
+  {
+   "label": "Anticucho",
+   "url": "https://en.wikipedia.org/wiki/Anticucho"
+  },
+  {
+   "label": "Adana kebabı",
+   "url": "https://en.wikipedia.org/wiki/Adana_kebab%C4%B1"
+  }
+ ],
+ "yours": [
+  "kebab",
+  "skewer",
+  "satay",
+  "yakitori",
+  "souvlaki",
+  "brochette",
+  "tikka",
+  "anticucho",
+  "grilled lamb"
+ ]
+}

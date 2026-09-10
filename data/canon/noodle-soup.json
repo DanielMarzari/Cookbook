@@ -1,0 +1,621 @@
+{
+ "slug": "noodle-soup",
+ "name": "Noodle soup",
+ "standfirst": "Boil noodles, pour hot broth over them, put something on top. Every noodle-eating culture arrived at this, and then argued about the broth — whether to keep it clear, boil it cloudy, cut it with coconut, or make it sour. The second argument is quieter: whether the cook finishes the bowl, or you do.",
+ "root": "Noodles in a bowl, with hot broth poured over",
+ "facets": [
+  {
+   "id": "broth",
+   "label": "Broth"
+  },
+  {
+   "id": "noodle",
+   "label": "Noodle"
+  },
+  {
+   "id": "top",
+   "label": "On top"
+  },
+  {
+   "id": "finish",
+   "label": "At the table"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By broth",
+   "by": [
+    "broth",
+    "noodle",
+    "top"
+   ]
+  },
+  {
+   "label": "By noodle",
+   "by": [
+    "noodle",
+    "broth"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "broth"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Shoyu ramen",
+   "facets": {
+    "broth": [
+     "clear",
+     "chicken bones",
+     "soy tare"
+    ],
+    "noodle": [
+     "wheat",
+     "alkaline",
+     "wavy"
+    ],
+    "top": [
+     "chashu pork",
+     "menma",
+     "nori",
+     "spring onion"
+    ],
+    "finish": [
+     "arrives finished"
+    ],
+    "region": [
+     "Japan",
+     "Tokyo"
+    ]
+   },
+   "note": "The seasoning goes into the empty bowl before the broth does. By the time it reaches you the decision has been made."
+  },
+  {
+   "name": "Tonkotsu ramen",
+   "facets": {
+    "broth": [
+     "emulsified",
+     "pork bones",
+     "boiled hard for hours"
+    ],
+    "noodle": [
+     "wheat",
+     "alkaline",
+     "thin",
+     "straight"
+    ],
+    "top": [
+     "chashu pork",
+     "wood ear",
+     "pickled ginger",
+     "sesame"
+    ],
+    "finish": [
+     "arrives finished",
+     "a second helping of noodles"
+    ],
+    "region": [
+     "Japan",
+     "Fukuoka"
+    ]
+   },
+   "note": "Same bones as a clear stock, held at a rolling boil instead of a simmer. The noodle is thin because the broth clings to it."
+  },
+  {
+   "name": "Wonton noodle soup",
+   "facets": {
+    "broth": [
+     "clear",
+     "pork bones",
+     "dried flounder",
+     "dried shrimp"
+    ],
+    "noodle": [
+     "wheat",
+     "alkaline",
+     "duck egg",
+     "very thin"
+    ],
+    "top": [
+     "prawn wontons",
+     "yellow chives",
+     "choy sum"
+    ],
+    "finish": [
+     "arrives finished",
+     "pickled green chilli alongside"
+    ],
+    "region": [
+     "China",
+     "Guangdong"
+    ]
+   },
+   "note": "The dried seafood does the work a long meat stock would do elsewhere — depth without cloudiness."
+  },
+  {
+   "name": "Lanzhou beef lamian",
+   "facets": {
+    "broth": [
+     "clear",
+     "beef bones",
+     "skimmed until transparent"
+    ],
+    "noodle": [
+     "wheat",
+     "hand-pulled",
+     "gauge to order"
+    ],
+    "top": [
+     "sliced beef",
+     "white radish",
+     "coriander",
+     "chilli oil"
+    ],
+    "finish": [
+     "finished by the eater",
+     "black vinegar",
+     "more chilli oil"
+    ],
+    "region": [
+     "China",
+     "Gansu"
+    ]
+   },
+   "note": "Judged on the clarity of the broth, which is why the beef is sliced thin and added at the end rather than stewed in it."
+  },
+  {
+   "name": "Niurou mian",
+   "facets": {
+    "broth": [
+     "clear",
+     "beef bones",
+     "soy-braised",
+     "doubanjiang"
+    ],
+    "noodle": [
+     "wheat",
+     "machine-cut",
+     "thick"
+    ],
+    "top": [
+     "braised beef shin",
+     "pickled mustard greens",
+     "spring onion"
+    ],
+    "finish": [
+     "finished by the eater",
+     "black vinegar",
+     "chilli bean paste"
+    ],
+    "region": [
+     "Taiwan"
+    ]
+   },
+   "note": "Taiwan's braised beef noodle soup. The beef and the broth are cooked together, so the broth is dark where Lanzhou's is clear."
+  },
+  {
+   "name": "Kalguksu",
+   "facets": {
+    "broth": [
+     "clear",
+     "dried anchovy",
+     "kelp",
+     "clouded by noodle starch"
+    ],
+    "noodle": [
+     "wheat",
+     "knife-cut",
+     "floury"
+    ],
+    "top": [
+     "courgette",
+     "potato",
+     "seasoned soy dressing"
+    ],
+    "finish": [
+     "finished by the eater",
+     "fresh kimchi alongside"
+    ],
+    "region": [
+     "Korea"
+    ]
+   },
+   "note": "The noodles are boiled in the soup rather than beside it, so the flour on them thickens it. The noodle is an ingredient in the broth."
+  },
+  {
+   "name": "Phở bò",
+   "facets": {
+    "broth": [
+     "clear",
+     "beef bones",
+     "charred aromatics",
+     "star anise"
+    ],
+    "noodle": [
+     "rice",
+     "flat",
+     "fresh"
+    ],
+    "top": [
+     "rare beef slices",
+     "brisket",
+     "spring onion"
+    ],
+    "finish": [
+     "finished by the eater",
+     "herb plate",
+     "lime",
+     "chilli sauce"
+    ],
+    "region": [
+     "Vietnam",
+     "Hanoi"
+    ]
+   },
+   "note": "The rare beef is cooked by the broth as it is poured. Everything else happens at your end of the table."
+  },
+  {
+   "name": "Bún bò Huế",
+   "facets": {
+    "broth": [
+     "clear",
+     "beef bones",
+     "lemongrass",
+     "fermented shrimp paste"
+    ],
+    "noodle": [
+     "rice",
+     "round",
+     "thick"
+    ],
+    "top": [
+     "beef shank",
+     "pork knuckle",
+     "cubed pork blood",
+     "annatto chilli oil"
+    ],
+    "finish": [
+     "finished by the eater",
+     "shredded banana blossom",
+     "lime",
+     "raw chilli"
+    ],
+    "region": [
+     "Vietnam",
+     "Huế"
+    ]
+   },
+   "note": "Not a spicy phở. Different bone stock, different noodle, and a shrimp paste that phở would never allow."
+  },
+  {
+   "name": "Curry laksa",
+   "facets": {
+    "broth": [
+     "coconut",
+     "prawn stock",
+     "rempah paste"
+    ],
+    "noodle": [
+     "rice",
+     "thick",
+     "round",
+     "yellow wheat mixed in"
+    ],
+    "top": [
+     "prawns",
+     "tofu puffs",
+     "cockles",
+     "bean sprouts"
+    ],
+    "finish": [
+     "finished by the eater",
+     "sambal",
+     "lime"
+    ],
+    "region": [
+     "Malaysia",
+     "Singapore"
+    ]
+   },
+   "note": "Two noodles in one bowl on purpose — the rice noodle carries the broth, the wheat noodle stays springy in it."
+  },
+  {
+   "name": "Asam laksa",
+   "facets": {
+    "broth": [
+     "sour",
+     "mackerel",
+     "tamarind",
+     "dried garcinia"
+    ],
+    "noodle": [
+     "rice",
+     "thick",
+     "round"
+    ],
+    "top": [
+     "flaked mackerel",
+     "cucumber",
+     "pineapple",
+     "torch ginger bud"
+    ],
+    "finish": [
+     "finished by the eater",
+     "thick prawn paste",
+     "mint",
+     "raw onion"
+    ],
+    "region": [
+     "Malaysia",
+     "Penang"
+    ]
+   },
+   "note": "Shares a name with curry laksa and almost nothing else. No coconut at all: the richness is replaced by sourness and raw fruit."
+  },
+  {
+   "name": "Khao soi",
+   "facets": {
+    "broth": [
+     "coconut",
+     "chicken stock",
+     "curry paste"
+    ],
+    "noodle": [
+     "wheat",
+     "egg",
+     "boiled soft"
+    ],
+    "top": [
+     "braised chicken leg",
+     "the same noodle fried crisp",
+     "shallot"
+    ],
+    "finish": [
+     "finished by the eater",
+     "pickled mustard greens",
+     "shallot",
+     "lime"
+    ],
+    "region": [
+     "Thailand",
+     "Chiang Mai"
+    ]
+   },
+   "note": "The only bowl here that serves its noodle twice, once soft and once fried, so the texture changes as you eat."
+  },
+  {
+   "name": "Mohinga",
+   "facets": {
+    "broth": [
+     "thickened",
+     "catfish",
+     "toasted rice flour",
+     "banana stem"
+    ],
+    "noodle": [
+     "rice",
+     "thin",
+     "round"
+    ],
+    "top": [
+     "split pea fritter",
+     "boiled egg",
+     "coriander",
+     "fried garlic"
+    ],
+    "finish": [
+     "finished by the eater",
+     "lime",
+     "fish sauce",
+     "chilli flakes"
+    ],
+    "region": [
+     "Myanmar"
+    ]
+   },
+   "note": "Thickened with toasted rice flour rather than fat or coconut — a third way to make a broth cling."
+  },
+  {
+   "name": "Soto ayam",
+   "facets": {
+    "broth": [
+     "clear",
+     "chicken",
+     "turmeric",
+     "lemongrass"
+    ],
+    "noodle": [
+     "mung bean starch",
+     "glass noodle",
+     "soaked soft"
+    ],
+    "top": [
+     "shredded chicken",
+     "boiled egg",
+     "fried shallots",
+     "bean sprouts"
+    ],
+    "finish": [
+     "finished by the eater",
+     "sambal",
+     "lime",
+     "kecap manis"
+    ],
+    "region": [
+     "Indonesia",
+     "Java"
+    ]
+   },
+   "note": "The only noodle here made from neither wheat nor rice. Glass noodles are soaked, not boiled, so they never cloud the broth."
+  },
+  {
+   "name": "Ash reshteh",
+   "facets": {
+    "broth": [
+     "thickened",
+     "chickpeas",
+     "lentils",
+     "herbs"
+    ],
+    "noodle": [
+     "wheat",
+     "flat",
+     "salted dough"
+    ],
+    "top": [
+     "kashk",
+     "fried mint",
+     "fried onion"
+    ],
+    "finish": [
+     "arrives finished",
+     "extra kashk"
+    ],
+    "region": [
+     "Iran"
+    ]
+   },
+   "note": "No stock at all. The pulses are the body of the soup, and the noodles are salted so they season it as they cook."
+  },
+  {
+   "name": "Chicken noodle soup",
+   "facets": {
+    "broth": [
+     "clear",
+     "whole chicken",
+     "onion",
+     "carrot"
+    ],
+    "noodle": [
+     "wheat",
+     "egg",
+     "ribbon"
+    ],
+    "top": [
+     "poached chicken",
+     "carrot",
+     "celery",
+     "dill"
+    ],
+    "finish": [
+     "arrives finished",
+     "black pepper"
+    ],
+    "region": [
+     "Ashkenazi Europe",
+     "United States"
+    ]
+   },
+   "note": "The plainest bowl in the family, and the clearest statement of the base: a gently simmered bird, an egg noodle, and nothing hiding."
+  },
+  {
+   "name": "Yaka mein",
+   "facets": {
+    "broth": [
+     "clear",
+     "beef bones",
+     "soy sauce",
+     "creole seasoning"
+    ],
+    "noodle": [
+     "wheat",
+     "spaghetti"
+    ],
+    "top": [
+     "stewed beef",
+     "half a boiled egg",
+     "spring onion"
+    ],
+    "finish": [
+     "finished by the eater",
+     "hot sauce",
+     "soy sauce",
+     "ketchup"
+    ],
+    "region": [
+     "United States",
+     "New Orleans"
+    ]
+   },
+   "note": "A Chinese-American noodle soup that stayed in Black New Orleans and kept going. Spaghetti is not a substitution here; it is the noodle."
+  }
+ ],
+ "notes": [
+  {
+   "title": "Clear or cloudy is one decision",
+   "body": "A pot of bones held just under a simmer and skimmed stays transparent — that is Lanzhou beef lamian, and phở. The same bones at a hard rolling boil for eight or twelve hours drive fat and gelatine into suspension until the broth turns opaque and coats the noodle — that is tonkotsu. Nothing else changes. Emulsified broth is not a richer recipe than clear broth; it is a hotter one."
+  },
+  {
+   "title": "Who finishes the bowl",
+   "body": "A ramen bowl arrives with its seasoning already decided — the tare went into the empty bowl before the broth did, and reaching for the chilli is a comment on the cook. A bowl of phở arrives deliberately incomplete, with herbs, lime and chilli on a plate beside it, and assembling it is the last step of the recipe rather than a garnish. Neither bowl is more finished than the other. They put the seasoning decision in different hands."
+  },
+  {
+   "title": "The noodle is chosen for how it behaves in liquid",
+   "body": "Alkaline wheat noodles resist going soft, which is why they can sit in boiling broth and be eaten slowly. Rice noodles absorb and go slippery, which is why phở is eaten fast. Knife-cut kalguksu noodles are floury on purpose and cloud the broth they cook in. And glass noodles are soaked rather than boiled, so they add nothing to the soup at all — which is exactly what a clear turmeric broth wants."
+  },
+  {
+   "title": "Why nothing here has a parent",
+   "body": "Every bowl in this family sits at the same depth, because none of them is another one plus a step. Khao soi is not laksa with different noodles and asam laksa is not curry laksa with the coconut taken out — they are separate answers to the same problem, arrived at independently, that happen to share a word. Lineage exists inside each tradition, not between them."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Ramen (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Ramen"
+  },
+  {
+   "label": "Phở",
+   "url": "https://en.wikipedia.org/wiki/Pho"
+  },
+  {
+   "label": "Laksa",
+   "url": "https://en.wikipedia.org/wiki/Laksa"
+  },
+  {
+   "label": "Khao soi",
+   "url": "https://en.wikipedia.org/wiki/Khao_soi"
+  },
+  {
+   "label": "Mohinga",
+   "url": "https://en.wikipedia.org/wiki/Mohinga"
+  },
+  {
+   "label": "Beef noodle soup",
+   "url": "https://en.wikipedia.org/wiki/Beef_noodle_soup"
+  },
+  {
+   "label": "Kalguksu",
+   "url": "https://en.wikipedia.org/wiki/Kalguksu"
+  },
+  {
+   "label": "Ash-e reshteh",
+   "url": "https://en.wikipedia.org/wiki/Ash_reshteh"
+  },
+  {
+   "label": "Yaka mein",
+   "url": "https://en.wikipedia.org/wiki/Yaka_mein"
+  }
+ ],
+ "yours": [
+  "noodle soup",
+  "ramen",
+  "pho",
+  "laksa",
+  "khao soi",
+  "beef noodle",
+  "wonton",
+  "kalguksu",
+  "soto",
+  "mohinga",
+  "broth bowl"
+ ]
+}

@@ -1,0 +1,529 @@
+{
+ "slug": "flatbread",
+ "name": "Flatbread",
+ "standfirst": "Ground grain, water, and something hot to press it against. Every settled agricultural people arrived at this, which is what makes the family so legible: change the leavening, change the grain, or change the surface, and you land in a different country without changing the idea.",
+ "root": "Ground grain and water, flattened, cooked against direct heat",
+ "facets": [
+  {
+   "id": "leaven",
+   "label": "Leavening"
+  },
+  {
+   "id": "grain",
+   "label": "Grain"
+  },
+  {
+   "id": "flatten",
+   "label": "Flattened"
+  },
+  {
+   "id": "cook",
+   "label": "Cooked"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By leavening",
+   "by": [
+    "leaven",
+    "cook",
+    "grain"
+   ]
+  },
+  {
+   "label": "By heat",
+   "by": [
+    "cook",
+    "leaven"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "cook"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Chapati",
+   "facets": {
+    "leaven": [
+     "unleavened"
+    ],
+    "grain": [
+     "wheat",
+     "wholemeal atta"
+    ],
+    "flatten": [
+     "rolled thin"
+    ],
+    "cook": [
+     "griddle",
+     "dry tawa"
+    ],
+    "region": [
+     "South Asia",
+     "East Africa"
+    ]
+   },
+   "note": "Pressed at the edges on the tawa — or finished a second over the open flame, when it is called a phulka — the two skins separate and it balloons. That puff is steam. It is the only leavening the bread ever gets."
+  },
+  {
+   "name": "Paratha",
+   "parent": "Chapati",
+   "facets": {
+    "leaven": [
+     "unleavened"
+    ],
+    "grain": [
+     "wheat",
+     "wholemeal atta"
+    ],
+    "flatten": [
+     "rolled thin",
+     "smeared with fat",
+     "folded",
+     "rolled again"
+    ],
+    "cook": [
+     "griddle",
+     "shallow-fried in ghee"
+    ],
+    "region": [
+     "South Asia"
+    ]
+   },
+   "note": "Chapati dough plus fat folded back into it. The ghee keeps the sheets from fusing, so the bread comes off the tawa in leaves rather than as one skin."
+  },
+  {
+   "name": "Puri",
+   "facets": {
+    "leaven": [
+     "unleavened"
+    ],
+    "grain": [
+     "wheat",
+     "wholemeal atta"
+    ],
+    "flatten": [
+     "rolled thin",
+     "kept small"
+    ],
+    "cook": [
+     "deep-fried"
+    ],
+    "region": [
+     "South Asia"
+    ]
+   },
+   "note": "The chapati's dough sent to a different heat. Submerged in hot oil the outside sets before any steam can escape, so it inflates into a sphere in about four seconds."
+  },
+  {
+   "name": "Naan",
+   "facets": {
+    "leaven": [
+     "yeast"
+    ],
+    "grain": [
+     "wheat",
+     "white maida"
+    ],
+    "flatten": [
+     "stretched by hand",
+     "pulled to a teardrop"
+    ],
+    "cook": [
+     "tandoor",
+     "slapped on the wall"
+    ],
+    "region": [
+     "South Asia",
+     "Central Asia",
+     "Iran"
+    ]
+   },
+   "note": "Yoghurt in the dough softens it and sours it; yeast does the lifting. Slapped wet-side onto the clay it hangs there while it bakes, which is why one end is drawn long."
+  },
+  {
+   "name": "Lavash",
+   "facets": {
+    "leaven": [
+     "unleavened"
+    ],
+    "grain": [
+     "wheat",
+     "white flour"
+    ],
+    "flatten": [
+     "rolled thin",
+     "stretched over a cushion"
+    ],
+    "cook": [
+     "tandoor",
+     "slapped on the wall"
+    ],
+    "region": [
+     "Armenia",
+     "Caucasus",
+     "Iran"
+    ]
+   },
+   "note": "The same clay wall as naan with the yeast taken out. Rolled thin enough that it dries to a cracker and keeps for months; sprinkled with water it comes back soft."
+  },
+  {
+   "name": "Sangak",
+   "facets": {
+    "leaven": [
+     "sourdough"
+    ],
+    "grain": [
+     "wheat",
+     "wholemeal"
+    ],
+    "flatten": [
+     "stretched by hand",
+     "spread on a long peel"
+    ],
+    "cook": [
+     "oven",
+     "on a bed of hot pebbles"
+    ],
+    "region": [
+     "Iran"
+    ]
+   },
+   "note": "Sang is pebble. The stones hold far more heat than a flat floor and dimple the underside as it bakes; you pick the strays out at the table."
+  },
+  {
+   "name": "Pita",
+   "facets": {
+    "leaven": [
+     "yeast"
+    ],
+    "grain": [
+     "wheat",
+     "white flour"
+    ],
+    "flatten": [
+     "rolled thin",
+     "rested before baking"
+    ],
+    "cook": [
+     "oven",
+     "very hot floor"
+    ],
+    "region": [
+     "Levant",
+     "Eastern Mediterranean"
+    ]
+   },
+   "note": "The pocket is not an ingredient. A thin round hitting a very hot floor sets both faces before the steam between them can escape, and the bread blows itself apart into two layers."
+  },
+  {
+   "name": "Matzo",
+   "facets": {
+    "leaven": [
+     "unleavened",
+     "no fermentation at all"
+    ],
+    "grain": [
+     "wheat",
+     "white flour"
+    ],
+    "flatten": [
+     "rolled thin",
+     "docked with holes"
+    ],
+    "cook": [
+     "oven",
+     "very hot floor"
+    ],
+    "region": [
+     "Jewish diaspora"
+    ]
+   },
+   "note": "The only bread here defined by a clock: eighteen minutes from water meeting flour to leaving the oven, before wild yeast can take hold. The docking holes are there to stop it doing what a pita does."
+  },
+  {
+   "name": "Injera",
+   "facets": {
+    "leaven": [
+     "fermented batter",
+     "wild ersho starter"
+    ],
+    "grain": [
+     "teff"
+    ],
+    "flatten": [
+     "poured as batter",
+     "swirled from the outside in"
+    ],
+    "cook": [
+     "griddle",
+     "clay mitad",
+     "lidded",
+     "one side only"
+    ],
+    "region": [
+     "Ethiopia",
+     "Eritrea"
+    ]
+   },
+   "note": "Days of fermentation give both the sourness and the gas. The bubbles that break through the top are the eyes, and they are what the stew soaks into. It is the plate as much as the bread."
+  },
+  {
+   "name": "Dosa",
+   "facets": {
+    "leaven": [
+     "fermented batter",
+     "wild fermentation overnight"
+    ],
+    "grain": [
+     "rice",
+     "urad dal"
+    ],
+    "flatten": [
+     "poured as batter",
+     "spread in a spiral"
+    ],
+    "cook": [
+     "griddle",
+     "oiled",
+     "one side only"
+    ],
+    "region": [
+     "South India",
+     "Sri Lanka"
+    ]
+   },
+   "note": "The same solution as injera, reached independently: let wild fermentation do the leavening, then pour rather than roll. Rice and lentils ground together supply the protein that wheat would otherwise have brought."
+  },
+  {
+   "name": "Corn tortilla",
+   "facets": {
+    "leaven": [
+     "unleavened"
+    ],
+    "grain": [
+     "maize",
+     "nixtamalised"
+    ],
+    "flatten": [
+     "pressed",
+     "between two plates"
+    ],
+    "cook": [
+     "griddle",
+     "dry comal",
+     "turned three times"
+    ],
+    "region": [
+     "Mesoamerica",
+     "Mexico"
+    ]
+   },
+   "note": "Nixtamalisation — simmering the maize in lime water — is the only step in this table that changes the grain's chemistry. It lets the dough cohere without gluten and frees the niacin that would otherwise be locked away."
+  },
+  {
+   "name": "Flour tortilla",
+   "facets": {
+    "leaven": [
+     "chemical",
+     "a little baking powder"
+    ],
+    "grain": [
+     "wheat",
+     "white flour"
+    ],
+    "flatten": [
+     "rolled thin",
+     "rested"
+    ],
+    "cook": [
+     "griddle",
+     "dry comal"
+    ],
+    "region": [
+     "Northern Mexico",
+     "US Southwest"
+    ]
+   },
+   "note": "Where wheat grew better than maize, the same comal took a different dough. Lard is what lets it fold instead of crack, and it is the only bread here leavened out of a tin."
+  },
+  {
+   "name": "Arepa",
+   "facets": {
+    "leaven": [
+     "unleavened"
+    ],
+    "grain": [
+     "maize",
+     "precooked masarepa"
+    ],
+    "flatten": [
+     "patted by hand",
+     "kept thick"
+    ],
+    "cook": [
+     "griddle",
+     "budare",
+     "finished in the oven"
+    ],
+    "region": [
+     "Venezuela",
+     "Colombia"
+    ]
+   },
+   "note": "Alone in this table it is made thick on purpose, so it can be split and filled — a flatbread that behaves like a roll. Precooked maize flour turned a day of pounding into five minutes and is why the habit survived."
+  },
+  {
+   "name": "Laobing",
+   "facets": {
+    "leaven": [
+     "unleavened"
+    ],
+    "grain": [
+     "wheat",
+     "white flour"
+    ],
+    "flatten": [
+     "rolled thin",
+     "smeared with fat",
+     "coiled",
+     "flattened again"
+    ],
+    "cook": [
+     "griddle",
+     "shallow-fried in oil"
+    ],
+    "region": [
+     "Northern China"
+    ]
+   },
+   "note": "Oil brushed between the turns keeps the coil from welding into one mass, so a single sheet fries up as dozens. Chewy centre, blistered crust, the size of a pizza."
+  },
+  {
+   "name": "Msemen",
+   "facets": {
+    "leaven": [
+     "unleavened"
+    ],
+    "grain": [
+     "wheat",
+     "fine semolina"
+    ],
+    "flatten": [
+     "stretched by hand",
+     "smeared with fat",
+     "folded into a square"
+    ],
+    "cook": [
+     "griddle",
+     "shallow-fried in oil"
+    ],
+    "region": [
+     "Morocco",
+     "Maghreb"
+    ]
+   },
+   "note": "Pulled translucent on an oiled surface, then folded in thirds and in thirds again — nine layers with fat between every one. Paratha and laobing do the same thing, and none of the three learned it from the others."
+  },
+  {
+   "name": "Socca",
+   "facets": {
+    "leaven": [
+     "unleavened",
+     "rested but not fermented"
+    ],
+    "grain": [
+     "chickpea"
+    ],
+    "flatten": [
+     "poured as batter",
+     "into a hot pan"
+    ],
+    "cook": [
+     "oven",
+     "wood-fired",
+     "in a copper pan"
+    ],
+    "region": [
+     "Nice",
+     "Liguria"
+    ]
+   },
+   "note": "No grain in it at all — chickpea flour, water, olive oil. Called farinata a few miles east along the same coast, and sold by the wedge off a barrow in both."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On leavening",
+   "body": "Unleavened is a decision, not an absence. There are five answers in this table and each carries a cost: nothing at all is instant and keeps badly; yeast buys lift and softness for an hour's waiting; sourdough buys flavour and keeping for a day's; a fermented batter buys both plus a sourness the others cannot reach, and needs a starter kept alive; a tin of baking powder buys tenderness with no time at all, which is why it is the newest entry here."
+  },
+  {
+   "title": "On the puff",
+   "body": "Chapati, pita and puri look unrelated and share one mechanism. Roll a dough thin, hit it with heat fast enough that both surfaces set before the water inside has finished turning to steam, and the trapped steam splits it into two skins. Griddle, oven floor and deep fat are three ways of buying that speed. Matzo is docked with holes precisely to prevent it, and injera is poured too wet and cooked too gently for it ever to happen."
+  },
+  {
+   "title": "On the fire",
+   "body": "The surface is the sharpest fork in the family. A griddle cooks one face at a time and asks for a thin bread you can flip. A tandoor cooks by radiation and contact at once at around 400C, so the bread is stuck to the wall and off again in ninety seconds — you cannot make naan properly in a domestic oven, and that is why. An oven surrounds the bread, which is what lets sangak be thick and pita puff evenly. Hot fat is an oven that touches every surface at the same instant."
+  },
+  {
+   "title": "On the grain",
+   "body": "Wheat dominates the table because wheat has gluten and gluten lets you roll a sheet thin without it tearing. Everywhere wheat did not grow, someone found another route to the same flat bread: nixtamalise maize and it coheres without gluten; ferment teff or rice and lentils and you can pour what you could never have rolled; grind chickpeas and skip the grain question entirely. The grain is the constraint, and the technique is the answer to it."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Flatbread (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Flatbread"
+  },
+  {
+   "label": "Injera",
+   "url": "https://en.wikipedia.org/wiki/Injera"
+  },
+  {
+   "label": "Nixtamalization",
+   "url": "https://en.wikipedia.org/wiki/Nixtamalization"
+  },
+  {
+   "label": "Sangak",
+   "url": "https://en.wikipedia.org/wiki/Sangak"
+  },
+  {
+   "label": "Lavash",
+   "url": "https://en.wikipedia.org/wiki/Lavash"
+  },
+  {
+   "label": "Laobing",
+   "url": "https://en.wikipedia.org/wiki/Laobing"
+  },
+  {
+   "label": "Arepa",
+   "url": "https://en.wikipedia.org/wiki/Arepa"
+  }
+ ],
+ "yours": [
+  "flatbread",
+  "roti",
+  "chapati",
+  "paratha",
+  "naan",
+  "tortilla",
+  "pita",
+  "puri",
+  "dosa",
+  "injera",
+  "arepa",
+  "lavash",
+  "matzo",
+  "socca",
+  "farinata"
+ ]
+}

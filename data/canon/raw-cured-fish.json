@@ -1,0 +1,525 @@
+{
+ "slug": "raw-cured-fish",
+ "name": "Raw and cured fish",
+ "standfirst": "No pan, no fire. The fish is changed by a knife and by whatever you lay on it — acid, salt, sugar, time — and every coast stopped at a different point along that line. Crudo and ceviche are about ninety seconds apart. Ceviche and gravlax are three days apart. Everything here is one of those decisions.",
+ "root": "A fish that never meets heat",
+ "facets": [
+  {
+   "id": "acid",
+   "label": "Acid"
+  },
+  {
+   "id": "cure",
+   "label": "Cure"
+  },
+  {
+   "id": "cut",
+   "label": "Cut"
+  },
+  {
+   "id": "dress",
+   "label": "Dressed"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By acid",
+   "by": [
+    "acid",
+    "cure",
+    "cut"
+   ]
+  },
+  {
+   "label": "By cure",
+   "by": [
+    "cure",
+    "cut"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "acid"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Sashimi",
+   "facets": {
+    "acid": [
+     "no acid"
+    ],
+    "cure": [
+     "no cure"
+    ],
+    "cut": [
+     "sliced across the grain",
+     "thick rectangles"
+    ],
+    "dress": [
+     "soy sauce",
+     "wasabi",
+     "shredded daikon"
+    ],
+    "region": [
+     "Japan"
+    ]
+   },
+   "note": "The zero point of the family: nothing is done to the fish but the cut. Which means the cut carries the whole dish — angle, thickness, and which muscle you took it from."
+  },
+  {
+   "name": "Crudo",
+   "facets": {
+    "acid": [
+     "citrus juice",
+     "dressed at the plate"
+    ],
+    "cure": [
+     "salted at the plate"
+    ],
+    "cut": [
+     "sliced across the grain",
+     "paper-thin"
+    ],
+    "dress": [
+     "olive oil"
+    ],
+    "region": [
+     "Italy"
+    ]
+   },
+   "note": "Sashimi's Mediterranean sibling, not its descendant. Salt and lemon arrive seconds before the fork does, so they season rather than cure."
+  },
+  {
+   "name": "Poke",
+   "facets": {
+    "acid": [
+     "no acid"
+    ],
+    "cure": [
+     "salted at the plate"
+    ],
+    "cut": [
+     "cut in cubes"
+    ],
+    "dress": [
+     "limu seaweed",
+     "inamona",
+     "soy sauce"
+    ],
+    "region": [
+     "Hawaii"
+    ]
+   },
+   "note": "Older than the soy-and-sesame bowl it became: sea salt, limu, and inamona — roasted kukui nut — on cubed aku. The cube is the point. It is fish cut to be eaten with the fingers."
+  },
+  {
+   "name": "Hoe",
+   "facets": {
+    "acid": [
+     "no acid"
+    ],
+    "cure": [
+     "no cure"
+    ],
+    "cut": [
+     "sliced across the grain",
+     "thin ribbons"
+    ],
+    "dress": [
+     "chogochujang",
+     "ssam leaves",
+     "raw garlic"
+    ],
+    "region": [
+     "Korea"
+    ]
+   },
+   "note": "Korean raw fish, cut thinner and chewier than sashimi and built for wrapping. The vinegar is in the dipping sauce, so it meets the fish for one second per bite — a sauce, never a cure."
+  },
+  {
+   "name": "Hoe-deopbap",
+   "parent": "Hoe",
+   "facets": {
+    "acid": [
+     "no acid"
+    ],
+    "cure": [
+     "no cure"
+    ],
+    "cut": [
+     "cut in cubes"
+    ],
+    "dress": [
+     "chogochujang",
+     "hot rice",
+     "shredded vegetables"
+    ],
+    "region": [
+     "Korea"
+    ]
+   },
+   "note": "Hoe put over rice and stirred. Once it goes in a bowl with a spoon the ribbon stops working, so the fish is cubed — the vessel changed the cut."
+  },
+  {
+   "name": "Yusheng",
+   "facets": {
+    "acid": [
+     "citrus juice",
+     "dressed at the plate"
+    ],
+    "cure": [
+     "no cure"
+    ],
+    "cut": [
+     "sliced across the grain",
+     "paper-thin"
+    ],
+    "dress": [
+     "plum sauce",
+     "shredded vegetables",
+     "tossed at the table"
+    ],
+    "region": [
+     "Singapore",
+     "Malaysia"
+    ]
+   },
+   "note": "Teochew raw fish rebuilt as a Lunar New Year ritual: everyone stands and tosses it as high as they can. The only dish here whose serving move is the dish."
+  },
+  {
+   "name": "Ceviche",
+   "facets": {
+    "acid": [
+     "citrus juice",
+     "minutes in the acid"
+    ],
+    "cure": [
+     "salted at the plate"
+    ],
+    "cut": [
+     "cut in cubes"
+    ],
+    "dress": [
+     "red onion",
+     "ají limo",
+     "sweet potato alongside"
+    ],
+    "region": [
+     "Peru"
+    ]
+   },
+   "note": "The lime is a clock. Modern Lima counts in single minutes; the older style left it far longer and ate the fish opaque all the way through."
+  },
+  {
+   "name": "Tiradito",
+   "parent": "Ceviche",
+   "facets": {
+    "acid": [
+     "citrus juice",
+     "dressed at the plate"
+    ],
+    "cure": [
+     "salted at the plate"
+    ],
+    "cut": [
+     "sliced across the grain",
+     "thin ribbons"
+    ],
+    "dress": [
+     "ají amarillo cream",
+     "no onion"
+    ],
+    "region": [
+     "Peru"
+    ]
+   },
+   "note": "Ceviche cut by a Japanese hand: sliced instead of cubed, sauce poured over at the last second instead of marinated in, onion dropped entirely. Three changes, one of them the knife."
+  },
+  {
+   "name": "Aguachile",
+   "facets": {
+    "acid": [
+     "citrus juice",
+     "dressed at the plate"
+    ],
+    "cure": [
+     "salted at the plate"
+    ],
+    "cut": [
+     "sliced across the grain",
+     "paper-thin"
+    ],
+    "dress": [
+     "chile blitzed with lime",
+     "cucumber",
+     "red onion"
+    ],
+    "region": [
+     "Mexico"
+    ]
+   },
+   "note": "Sinaloa's answer, and the fastest thing here — the chile water hits the plate and you eat. Classically butterflied shrimp; fish is cut thin for the same reason, so the liquid never gets time to go past the surface."
+  },
+  {
+   "name": "Kinilaw",
+   "facets": {
+    "acid": [
+     "vinegar",
+     "minutes in the acid"
+    ],
+    "cure": [
+     "salted at the plate"
+    ],
+    "cut": [
+     "cut in cubes"
+    ],
+    "dress": [
+     "ginger",
+     "chilli",
+     "onion"
+    ],
+    "region": [
+     "Philippines"
+    ]
+   },
+   "note": "Not ceviche with a different passport. Coconut or cane vinegar rather than citrus, and fish bones found with tabon-tabon husks in Butuan put the technique roughly a thousand years back — centuries before any Spanish ship."
+  },
+  {
+   "name": "Kokoda",
+   "facets": {
+    "acid": [
+     "citrus juice",
+     "hours in the acid"
+    ],
+    "cure": [
+     "salted at the plate"
+    ],
+    "cut": [
+     "cut in cubes"
+    ],
+    "dress": [
+     "coconut cream",
+     "chilli",
+     "tomato"
+    ],
+    "region": [
+     "Fiji"
+    ]
+   },
+   "note": "Cured long, then drained and drowned in coconut cream — the fat is what stops the acid. Traditionally walu in lime and seawater; the coconut milk only arrived in the 1930s."
+  },
+  {
+   "name": "Shime saba",
+   "facets": {
+    "acid": [
+     "vinegar",
+     "hours in the acid"
+    ],
+    "cure": [
+     "packed in salt",
+     "drawn for an hour"
+    ],
+    "cut": [
+     "cured whole",
+     "sliced thick"
+    ],
+    "dress": [
+     "grated ginger",
+     "soy sauce"
+    ],
+    "region": [
+     "Japan"
+    ]
+   },
+   "note": "Salt first to pull water out, vinegar second to go into the space it left. Do it the other way round and the vinegar sits on wet flesh and does nothing. This is the hinge of the whole family."
+  },
+  {
+   "name": "Rollmops",
+   "facets": {
+    "acid": [
+     "vinegar",
+     "days in the acid"
+    ],
+    "cure": [
+     "brined in salt",
+     "sugared"
+    ],
+    "cut": [
+     "cured whole",
+     "rolled around a pickle"
+    ],
+    "dress": [
+     "onion",
+     "gherkin",
+     "mustard seed"
+    ],
+    "region": [
+     "Germany"
+    ]
+   },
+   "note": "The far end of the acid axis: days, not minutes, until the bones dissolve and the fillet will hold a curl. Ceviche and this are the same decision taken to opposite extremes."
+  },
+  {
+   "name": "Matjes",
+   "facets": {
+    "acid": [
+     "no acid"
+    ],
+    "cure": [
+     "brined in salt",
+     "ripened for days"
+    ],
+    "cut": [
+     "cured whole",
+     "left in one piece"
+    ],
+    "dress": [
+     "raw onion",
+     "chopped pickle"
+    ],
+    "region": [
+     "Netherlands"
+    ]
+   },
+   "note": "Gibbed rather than gutted — the pancreas is deliberately left in so its enzymes soften the flesh from inside during the brine. The only dish here cured by the fish itself."
+  },
+  {
+   "name": "Gravlax",
+   "facets": {
+    "acid": [
+     "no acid"
+    ],
+    "cure": [
+     "packed in salt",
+     "sugared",
+     "drawn for days"
+    ],
+    "cut": [
+     "cured whole",
+     "sliced paper-thin",
+     "on the slant"
+    ],
+    "dress": [
+     "dill",
+     "mustard and dill sauce"
+    ],
+    "region": [
+     "Sweden",
+     "Norway"
+    ]
+   },
+   "note": "Sugar is not there for sweetness. It holds water in the flesh that salt alone would strip, which is why gravlax stays supple where a straight salt cure goes firm."
+  },
+  {
+   "name": "Mojama",
+   "facets": {
+    "acid": [
+     "no acid"
+    ],
+    "cure": [
+     "packed in salt",
+     "air-dried for weeks"
+    ],
+    "cut": [
+     "cured whole",
+     "sliced paper-thin"
+    ],
+    "dress": [
+     "olive oil",
+     "almonds"
+    ],
+    "region": [
+     "Spain"
+    ]
+   },
+   "note": "Salt and then wind, until a tuna loin is dense enough to shave like ham. Phoenician in origin, and the same logic as prosciutto applied to a fish."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On what acid actually does",
+   "body": "Acid unwinds protein the way heat does, which is why ceviche turns opaque. What it does not do is travel. Heat conducts through a piece of fish; acid only works where it is touching, creeping inward a millimetre at a time. That single fact explains the whole acid column: if you want the fish cured through you cube it and wait, and if you want it barely touched you slice it thin and pour the sauce as it leaves the kitchen. Cut and time are the same dial read from two ends."
+  },
+  {
+   "title": "On cutting before or after",
+   "body": "Look down the Cut column and it splits cleanly. Everything uncured is cut first and dressed second — the knife makes the dish. Everything cured is cured whole and cut last, because salt needs a solid piece to draw against and a sliced fillet would simply go to pieces in the box. Gravlax, mojama, shime saba and matjes are not slow versions of sashimi; they are a different order of operations."
+  },
+  {
+   "title": "On smoke",
+   "body": "Cold-smoked salmon — lox, or Nova — is gravlax's near-twin: the same salt cure, then smoke where the dill would be, and the fish still never gets warm enough to cook. It is missing from the table because smoke would be a column with one entry in it. But it is the obvious next decision, and worth knowing that it sits one step off gravlax rather than anywhere near the raw end of the family."
+  },
+  {
+   "title": "On the Pacific and the ninth name",
+   "body": "Kokoda is also ʻota ʻika in Tonga, oka iʻa in Samoa and poisson cru in Tahiti — one dish under four flags, and the Tongan version is a national dish. They are listed once here rather than four times, but none of them is a variation of the others. The same warning applies across the table: kinilaw is not Filipino ceviche and tiradito is not Peruvian sashimi. Only tiradito genuinely descends from its neighbour, because Peru is where both parents were standing."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Sashimi (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Sashimi"
+  },
+  {
+   "label": "Ceviche",
+   "url": "https://en.wikipedia.org/wiki/Ceviche"
+  },
+  {
+   "label": "Tiradito",
+   "url": "https://en.wikipedia.org/wiki/Tiradito"
+  },
+  {
+   "label": "Kinilaw",
+   "url": "https://en.wikipedia.org/wiki/Kinilaw"
+  },
+  {
+   "label": "ʻOta ʻika",
+   "url": "https://en.wikipedia.org/wiki/%27Ota_%27ika"
+  },
+  {
+   "label": "Poke",
+   "url": "https://en.wikipedia.org/wiki/Poke_(dish)"
+  },
+  {
+   "label": "Hoe (dish)",
+   "url": "https://en.wikipedia.org/wiki/Hoe_(dish)"
+  },
+  {
+   "label": "Yusheng",
+   "url": "https://en.wikipedia.org/wiki/Yusheng"
+  },
+  {
+   "label": "Gravlax",
+   "url": "https://en.wikipedia.org/wiki/Gravlax"
+  },
+  {
+   "label": "Soused herring",
+   "url": "https://en.wikipedia.org/wiki/Soused_herring"
+  },
+  {
+   "label": "Mojama",
+   "url": "https://en.wikipedia.org/wiki/Mojama"
+  },
+  {
+   "label": "Aguachile",
+   "url": "https://en.wikipedia.org/wiki/Aguachile"
+  }
+ ],
+ "yours": [
+  "ceviche",
+  "sashimi",
+  "poke",
+  "crudo",
+  "tiradito",
+  "gravlax",
+  "cured salmon",
+  "kinilaw",
+  "raw fish"
+ ]
+}

@@ -105,9 +105,27 @@ function byLineage(dishes: CanonDish[], depth = 0): CanonNode[] {
   return childrenOf(undefined).map((d) => build(d, depth));
 }
 
+/** Marker for the reading that follows authored descent rather than facets. */
+export const LINEAGE = '__lineage__';
+
+/**
+ * The readings available for a family.
+ *
+ * Lineage is offered alongside the facet nestings rather than replacing them.
+ * Making one `parent` link switch the whole family to descent would cost a
+ * family with fifteen siblings and one real child its other two readings, which
+ * is a steep price for one true fact.
+ */
+export function nestingsFor(canon: Canon): { label: string; by: string[] }[] {
+  const hasLineage = canon.dishes.some((d) => d.parent);
+  return hasLineage ? [...canon.nestings, { label: 'By descent', by: [LINEAGE] }] : canon.nestings;
+}
+
 export function canonTree(canon: Canon, nesting = 0): CanonNode[] {
-  if (canon.dishes.some((d) => d.parent)) return byLineage(canon.dishes);
-  const order = canon.nestings[nesting]?.by ?? canon.nestings[0].by;
+  const order = nestingsFor(canon)[nesting]?.by ?? canon.nestings[0].by;
+  if (order[0] === LINEAGE) return byLineage(canon.dishes);
+  // A dish with a parent is shown where its facets put it in the other
+  // readings — descent is one way to look at the family, not the only one.
   return grow(canon.dishes, order, 0);
 }
 
