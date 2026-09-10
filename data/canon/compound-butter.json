@@ -252,9 +252,7 @@
     ],
     "aromatic": [
      "anchovy",
-     "mace",
-     "cayenne",
-     "black pepper"
+     "secret spice mix"
     ],
     "prep": [
      "raw",
@@ -339,7 +337,7 @@
     ],
     "prep": [
      "raw",
-     "dried flakes rehydrated"
+     "dried flakes crumbled in"
     ],
     "form": [
      "chilled log"
@@ -407,8 +405,7 @@
    "name": "Niter kibbeh",
    "facets": {
     "region": [
-     "Ethiopia",
-     "Eritrea"
+     "Horn of Africa"
     ],
     "aromatic": [
      "spice",

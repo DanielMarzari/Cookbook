@@ -2037,9 +2037,7 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "aromatic": [
             "anchovy",
-            "mace",
-            "cayenne",
-            "black pepper"
+            "secret spice mix"
           ],
           "prep": [
             "raw",
@@ -2124,7 +2122,7 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "prep": [
             "raw",
-            "dried flakes rehydrated"
+            "dried flakes crumbled in"
           ],
           "form": [
             "chilled log"
@@ -2192,8 +2190,7 @@ export const CANON_FAMILIES: Canon[] = [
         "name": "Niter kibbeh",
         "facets": {
           "region": [
-            "Ethiopia",
-            "Eritrea"
+            "Horn of Africa"
           ],
           "aromatic": [
             "spice",
@@ -2343,7 +2340,7 @@ export const CANON_FAMILIES: Canon[] = [
   {
     "slug": "cured-fish-preserve",
     "name": "Salted and preserved fish",
-    "standfirst": "Every one of these starts from the same problem: more fish comes ashore in a week than a coast can eat, and none of it lasts three days. Salt pulls the water out. Cold air takes what the salt leaves. Smoke seals the surface. And in some places the rot is not shut out at all but let in early and steered, so that one organism gets there before the dangerous ones do. What separates them is which of those four does the work, how long it is given — and whether what comes out is dinner, or the thing you season dinner with.",
+    "standfirst": "Every one of these starts from the same problem: more fish comes ashore in a week than a coast can eat, and none of it lasts three days. Salt pulls the water out. Cold air takes what the salt leaves. Smoke dries the surface and coats it in phenols. And in some places the rot is not shut out at all but let in early and steered — with salt heavy enough that only the halophiles can work, with a brine deliberately too weak, or with a bed of cooked rice to feed the organism you want — so that it gets there before the dangerous ones do. What separates them is which of those does the work, how long it is given, and whether what comes out is dinner or the thing you season dinner with.",
     "root": "A fish landed faster than it can be eaten · salt · air · smoke · time",
     "facets": [
       {
@@ -2397,8 +2394,7 @@ export const CANON_FAMILIES: Canon[] = [
         "name": "Bacalhau",
         "facets": {
           "region": [
-            "Portugal",
-            "Norway"
+            "Portugal"
           ],
           "preserve": [
             "salted",
@@ -2407,8 +2403,8 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "fish": [
             "cod",
-            "split down the backbone",
-            "head and guts out"
+            "gutted",
+            "split down the back"
           ],
           "keep": [
             "three weeks under salt",
@@ -2417,11 +2413,11 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "end": [
             "eaten as food",
-            "soaked three days first",
-            "flakes back into fish"
+            "soaked back first",
+            "three days of changed water"
           ]
         },
-        "note": "The salt is not seasoning and the drying is not cooking. Between them they take the water below what any spoilage bacterium can work in, and everything you afterwards do to a salt cod is an argument about how to put that water back."
+        "note": "The salt is not seasoning and the drying is not cooking. Between them they take the water below what any spoilage bacterium can work in, and everything you afterwards do to a salt cod is an argument about how to put that water back. Portugal eats more of it than anyone and lands almost none: the cod comes down from Norway and Iceland."
       },
       {
         "name": "Tørrfisk",
@@ -2437,8 +2433,8 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "fish": [
             "cod",
-            "gutted and headed",
-            "hung in pairs by the tail"
+            "gutted",
+            "hung whole in pairs"
           ],
           "keep": [
             "three months on the racks",
@@ -2447,29 +2443,58 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "end": [
             "eaten as food",
-            "soaked or beaten soft first",
-            "hard as a board until then"
+            "soaked back first",
+            "beaten soft with a mallet"
           ]
         },
         "note": "Lofoten in February is a freeze-dryer — cold enough to stop rot and dry enough to pull the water out through it. Where the winter is milder you have to buy the same effect with salt instead. That purchase is exactly what bacalhau is."
+      },
+      {
+        "name": "Haam yu",
+        "facets": {
+          "region": [
+            "China",
+            "Guangdong"
+          ],
+          "preserve": [
+            "salted",
+            "dry salt not brine",
+            "then sun-dried hard"
+          ],
+          "fish": [
+            "mackerel",
+            "split down the back",
+            "laid open in one piece"
+          ],
+          "keep": [
+            "days under salt",
+            "then days on the roof",
+            "hangs unwrapped in the shop"
+          ],
+          "end": [
+            "eaten as food",
+            "cooked first",
+            "steamed on top of pork"
+          ]
+        },
+        "note": "The salted branch is not a European invention. South China has dry-salted and sun-dried its mackerel and threadfin for as long as Portugal has salted cod, and the result is not soaked back at all: a thumb-sized piece is laid on a pork patty and steamed, and it salts the whole dish from there. Written 咸鱼, xiányú in Mandarin."
       },
       {
         "name": "Acciughe sotto sale",
         "facets": {
           "region": [
             "Italy",
-            "Spain"
+            "Liguria"
           ],
           "preserve": [
             "salted",
             "dry salt not brine",
-            "pressed under a weight",
-            "ripened a year"
+            "pressed under a weight"
           ],
           "fish": [
             "anchovies",
-            "whole small fish",
-            "heads pulled off by hand"
+            "heads pulled off by hand",
+            "the gut comes away with the head"
           ],
           "keep": [
             "a year in the barrel",
@@ -2478,11 +2503,11 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "end": [
             "eaten as food",
-            "rinsed of its salt first",
-            "and melted into sauces as seasoning"
+            "soaked back first",
+            "then filleted by hand"
           ]
         },
-        "note": "Twelve months under salt is not storage, it is the process. Enzymes already in the fish break its protein down into free amino acids — the fillet goes from salty to savoury — and it is the same reaction that makes every fish sauce on this table."
+        "note": "Twelve months under salt is not storage, it is the process. Enzymes already in the fish break its protein down into free amino acids — the fillet goes from salty to savoury — and it is the same reaction that makes every fish sauce on this table. Rinsed and filleted it goes into the pan as an ingredient rather than a condiment; the condiment is what runs out of the same barrel. Spain salts the same fish on the Cantabrian coast."
       },
       {
         "name": "Colatura di alici",
@@ -2496,13 +2521,12 @@ export const CANON_FAMILIES: Canon[] = [
             "salted",
             "dry salt not brine",
             "pressed under a weight",
-            "ripened a year",
             "the liquid drawn off"
           ],
           "fish": [
             "anchovies",
-            "whole small fish",
-            "heads pulled off by hand"
+            "heads pulled off by hand",
+            "the gut comes away with the head"
           ],
           "keep": [
             "a year in the barrel",
@@ -2511,11 +2535,42 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "end": [
             "used as seasoning",
-            "a spoonful over hot pasta",
-            "never cooked"
+            "kept as a liquid",
+            "a spoonful over hot pasta"
           ]
         },
-        "note": "Anchovies under salt plus one decision: instead of eating the fillets you tap the barrel and keep what ran out of them. Rome's garum by unbroken descent — the Amalfi coast simply never stopped."
+        "note": "Anchovies under salt plus one decision: instead of eating the fillets you tap the barrel and keep what ran out of them. Rome tapped the same liquid off the same coast — though with the guts left in, which is not what happens here. Whether the line ever actually broke is a story Cetara tells better than the record does: the first hard evidence is a Cistercian house on this coast in the thirteenth century, and everything before that is a gap."
+      },
+      {
+        "name": "Bottarga",
+        "facets": {
+          "region": [
+            "Italy",
+            "Sardinia"
+          ],
+          "preserve": [
+            "salted",
+            "dry salt not brine",
+            "pressed under a weight",
+            "then air-dried"
+          ],
+          "fish": [
+            "grey mullet roe",
+            "the sac lifted out whole",
+            "salted inside its membrane"
+          ],
+          "keep": [
+            "a week under salt",
+            "then three weeks in the air",
+            "shaded and turned"
+          ],
+          "end": [
+            "used as seasoning",
+            "kept as a dry solid",
+            "grated over pasta"
+          ]
+        },
+        "note": "The only one here made from roe rather than flesh, and the membrane is the whole game — it holds the eggs in one slab while salt and weight take the water out. Break it and you have a wet mess going off. Sardinia's is grey mullet; Sicily cures tuna roe the same way and gets something coarser and darker."
       },
       {
         "name": "Garum",
@@ -2532,18 +2587,18 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "fish": [
             "small oily fish",
-            "whole",
-            "guts and blood included"
+            "left whole",
+            "guts and all"
           ],
           "keep": [
-            "two or three months",
+            "two to three months",
             "open to the sun",
             "stirred as it liquefies"
           ],
           "end": [
             "used as seasoning",
-            "the salt cellar of the table",
-            "cut with wine or vinegar"
+            "kept as a liquid",
+            "cut with wine before use"
           ]
         },
         "note": "Salt and soy at once for a table that had neither. Small fish and fish guts left under salt in the sun until they dissolved — sneered at as a stink by Roman moralists and shipped in amphorae from Spain to Britain regardless."
@@ -2563,52 +2618,295 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "fish": [
             "anchovies",
-            "whole small fish",
-            "salted on the boat"
+            "left whole",
+            "guts and all"
           ],
           "keep": [
             "nine months to two years",
             "tropical heat",
-            "the liquid drawn and poured back"
+            "the liquid poured back over the top"
           ],
           "end": [
             "used as seasoning",
-            "the salt cellar of the table",
-            "cut with lime and chilli"
+            "kept as a liquid",
+            "let down into nước chấm"
           ]
         },
-        "note": "Not descended from garum and not its ancestor. Anchovies under salt in a wooden vat can only ever end up as this liquid — Vietnam went on making it while Europe forgot how for a thousand years."
+        "note": "Not descended from garum and not its ancestor. Anchovies salted whole in a wooden vat can only ever end up as this liquid — Vietnam went on making it while Europe forgot how for a thousand years."
       },
       {
-        "name": "Bottarga",
+        "name": "Jeotgal",
         "facets": {
           "region": [
-            "Sardinia",
-            "Sicily"
+            "Korea"
           ],
           "preserve": [
-            "salted",
-            "dry salt not brine",
-            "pressed under a weight",
-            "then air-dried"
+            "fermented",
+            "salt heavy enough to stop rot",
+            "sealed in a crock",
+            "under its own brine"
           ],
           "fish": [
-            "grey mullet roe",
-            "the sac left whole",
-            "membrane unbroken"
+            "anchovies",
+            "left whole",
+            "guts and all"
           ],
           "keep": [
-            "a week under salt",
-            "then three weeks in the air",
-            "shaded and turned"
+            "three months in the crock",
+            "a year for the best",
+            "buried below the frost"
+          ],
+          "end": [
+            "eaten as food",
+            "eaten as it is",
+            "a small dish beside rice"
+          ]
+        },
+        "note": "Anchovy jeot is one crock doing two jobs. The solids come out to be eaten in a little dish beside the rice, and the liquid is drawn off separately and given its own name. Shrimp jeot — saeujeot — is the other common one, and that goes into the kimchi whole."
+      },
+      {
+        "name": "Aekjeot",
+        "parent": "Jeotgal",
+        "facets": {
+          "region": [
+            "Korea"
+          ],
+          "preserve": [
+            "fermented",
+            "salt heavy enough to stop rot",
+            "sealed in a crock",
+            "the liquid drawn off"
+          ],
+          "fish": [
+            "anchovies",
+            "left whole",
+            "guts and all"
+          ],
+          "keep": [
+            "a year in the crock",
+            "the solids lifted out first",
+            "the liquid keeps for years"
           ],
           "end": [
             "used as seasoning",
-            "grated over pasta",
-            "or sliced thin and eaten as food"
+            "kept as a liquid",
+            "stirred into kimchi paste"
           ]
         },
-        "note": "The only one here made from roe rather than flesh, and the membrane is the whole game — it holds the eggs in one slab while salt and weight take the water out. Break it and you have a wet mess going off."
+        "note": "Jeotgal plus one decision, and it is colatura's decision exactly: leave the fillets and keep what ran out of them. Korea does not treat the two as rival products the way Italy does — one crock in the yard yields the side dish and the salt for the kimchi both."
+      },
+      {
+        "name": "Belacan",
+        "facets": {
+          "region": [
+            "Malaysia"
+          ],
+          "preserve": [
+            "fermented",
+            "salt heavy enough to stop rot",
+            "pounded to a paste",
+            "then sun-dried in blocks"
+          ],
+          "fish": [
+            "tiny shrimp",
+            "left whole",
+            "shell and all"
+          ],
+          "keep": [
+            "salted for a day",
+            "then weeks drying in the sun",
+            "pounded down between dryings"
+          ],
+          "end": [
+            "used as seasoning",
+            "kept as a paste",
+            "toasted before it goes in"
+          ]
+        },
+        "note": "The same bet as a fish sauce, made with something too small to fillet and then stopped short of liquid. Krill and tiny shrimp are salted, left to break down, and pounded and dried in the sun over weeks until the mass will hold a brick shape. Indonesia calls it terasi and Thailand kapi. The block is always toasted before use, which is the smell that gives a street away."
+      },
+      {
+        "name": "Funazushi",
+        "facets": {
+          "region": [
+            "Japan",
+            "Shiga"
+          ],
+          "preserve": [
+            "fermented",
+            "salt heavy enough to stop rot",
+            "then packed in cooked rice",
+            "weighted under a lid"
+          ],
+          "fish": [
+            "nigorobuna carp",
+            "gutted through the gills",
+            "the roe left in"
+          ],
+          "keep": [
+            "a year under salt",
+            "then a year packed in rice",
+            "some barrels run to three"
+          ],
+          "end": [
+            "eaten as food",
+            "eaten as it is",
+            "sliced thin across the belly"
+          ]
+        },
+        "note": "The rice is not there to be eaten, it is there to be eaten by lactobacilli, which turn its starch into acid until the barrel is too sour for anything dangerous to live in. That is a different way of steering a ferment from every other one here: not how much salt you use but what you feed the microbe you want. Sushi began at this lake as a way of keeping a carp for a year, and the rice was thrown away."
+      },
+      {
+        "name": "Guedj",
+        "facets": {
+          "region": [
+            "Senegal"
+          ],
+          "preserve": [
+            "fermented",
+            "salt heavy enough to stop rot",
+            "salt only after it has started",
+            "then sun-dried hard"
+          ],
+          "fish": [
+            "catfish",
+            "gutted",
+            "scored to the bone"
+          ],
+          "keep": [
+            "a few days before the salt",
+            "then a week in the sun",
+            "keeps months in the market"
+          ],
+          "end": [
+            "used as seasoning",
+            "kept as a dry solid",
+            "a knob dropped in the pot"
+          ]
+        },
+        "note": "Fermentation first and salt second, which is the reverse of the European side of this table: the fish is left to start on its own for a few days and only then buried in salt and dried hard. It is why a pot of thieboudienne tastes of the sea long after the fish in it has been eaten. Capitaine is used as often as catfish, and the Gambia makes the same thing."
+      },
+      {
+        "name": "Fesikh",
+        "facets": {
+          "region": [
+            "Egypt"
+          ],
+          "preserve": [
+            "fermented",
+            "salt heavy enough to stop rot",
+            "salt only after it has started",
+            "then sealed in the barrel"
+          ],
+          "fish": [
+            "grey mullet",
+            "left ungutted",
+            "fat from the brackish water"
+          ],
+          "keep": [
+            "days in the sun to start",
+            "then forty days in the barrel",
+            "opened in spring"
+          ],
+          "end": [
+            "eaten as food",
+            "eaten as it is",
+            "torn up with raw onion"
+          ]
+        },
+        "note": "Guedj's move made into dinner rather than a seasoning: mullet left in the sun until it has begun, then packed in salt in a barrel that is sealed and not opened for six weeks. Eaten once a year at Sham el-Nessim, and the one dish here that reliably sends people to hospital — the salt has to be heavy enough and the barrel tight enough, or botulinum gets the room instead of the halophiles."
+      },
+      {
+        "name": "Surströmming",
+        "facets": {
+          "region": [
+            "Sweden",
+            "the Baltic coast"
+          ],
+          "preserve": [
+            "fermented",
+            "salt too weak to stop it",
+            "left open in the barrel",
+            "canned while still working"
+          ],
+          "fish": [
+            "Baltic herring",
+            "gutted",
+            "small and lean"
+          ],
+          "keep": [
+            "a month in the barrel",
+            "then sealed into tins",
+            "goes on fermenting on the shelf"
+          ],
+          "end": [
+            "eaten as food",
+            "eaten as it is",
+            "rolled into flatbread"
+          ]
+        },
+        "note": "A brine deliberately too weak to sterilise. It lets one bacterium work while keeping the dangerous ones out, and canning does not stop it — the tin bulges because the fish inside is still going. Open it under water and outdoors, then roll it into thin flatbread with onion and potato."
+      },
+      {
+        "name": "Shiokara",
+        "facets": {
+          "region": [
+            "Japan",
+            "Hokkaido"
+          ],
+          "preserve": [
+            "fermented",
+            "salt too weak to stop it",
+            "its own liver stirred back in",
+            "days not months"
+          ],
+          "fish": [
+            "squid",
+            "cut into strips",
+            "the liver lifted out whole"
+          ],
+          "keep": [
+            "three days to a month",
+            "kept cold throughout",
+            "eaten before it goes far"
+          ],
+          "end": [
+            "eaten as food",
+            "eaten as it is",
+            "a spoonful alongside drink"
+          ]
+        },
+        "note": "Ten per cent salt keeps nothing for long, so this is a ferment you eat while it is still young. The squid's own liver goes back in to supply the enzymes — the animal is made to digest itself on a schedule, and the cold of a Hokkaido winter is doing as much of the work as the salt."
+      },
+      {
+        "name": "Hákarl",
+        "facets": {
+          "region": [
+            "Iceland"
+          ],
+          "preserve": [
+            "fermented",
+            "no salt at all",
+            "pressed under stones",
+            "then hung in the wind"
+          ],
+          "fish": [
+            "Greenland shark",
+            "cut into blocks",
+            "flesh loaded with urea"
+          ],
+          "keep": [
+            "six weeks in a gravel pit",
+            "then four months in a drying shed",
+            "open to the sea air"
+          ],
+          "end": [
+            "eaten as food",
+            "eaten as it is",
+            "cut into small cubes"
+          ]
+        },
+        "note": "Greenland shark is poisonous fresh — its flesh carries urea and trimethylamine oxide instead of salt, to stay in balance with the sea it swims in. The pressing and the five months in the wind are a detoxification: the urea breaks down to ammonia and blows off, and the TMAO that would otherwise turn to trimethylamine in your gut goes with it. That the result also keeps is a side effect. Chased with brennivín, by long habit."
       },
       {
         "name": "Katsuobushi",
@@ -2635,18 +2933,17 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "end": [
             "used as seasoning",
-            "shaved into paper",
-            "steeped for dashi"
+            "kept as a dry solid",
+            "shaved thin for dashi"
           ]
         },
-        "note": "The hardest food in the world and the most worked: simmered, boned, smoked a dozen times over a month, then deliberately infected with a mould that is scraped off and grown back four times more. The mould eats the fat, which is why dashi comes out clear."
+        "note": "The hardest food in the world and the most worked: simmered, boned, smoked a dozen times over a month, then deliberately infected with a mould that is scraped off and grown back four times more. The mould eats the fat, which is why dashi comes out clear. It sits under smoke because the smoke does the drying, but the mould is a ferment — this is the one dish here that is two techniques at once."
       },
       {
         "name": "Maldive fish",
         "facets": {
           "region": [
-            "Maldives",
-            "Sri Lanka"
+            "Maldives"
           ],
           "preserve": [
             "smoked",
@@ -2656,8 +2953,8 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "fish": [
             "skipjack tuna",
-            "cut into four loins",
-            "boiled in its own brine"
+            "filleted into loins",
+            "cut into four"
           ],
           "keep": [
             "days of smoke",
@@ -2666,11 +2963,11 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "end": [
             "used as seasoning",
-            "pounded to a coarse dust",
-            "cooked into curries and sambols"
+            "kept as a dry solid",
+            "pounded to a coarse dust"
           ]
         },
-        "note": "Katsuobushi without the mould, arrived at independently on the other side of the Indian Ocean. Same fish and the same simmer and smoke — but the equatorial sun finishes in weeks what Japan spends two years on, and the result is eaten rather than steeped and discarded."
+        "note": "Katsuobushi without the mould, arrived at independently on the other side of the Indian Ocean. Same fish, the same simmer in salted water, the same smoke — but the equatorial sun finishes in weeks what Japan spends two years on, and the result is pounded into the food rather than steeped and thrown away. Sri Lanka buys most of it and cooks it into everything."
       },
       {
         "name": "Kippers",
@@ -2688,7 +2985,7 @@ export const CANON_FAMILIES: Canon[] = [
           "fish": [
             "herring",
             "split down the back",
-            "opened flat in one piece"
+            "laid open in one piece"
           ],
           "keep": [
             "half an hour in brine",
@@ -2697,211 +2994,89 @@ export const CANON_FAMILIES: Canon[] = [
           ],
           "end": [
             "eaten as food",
-            "cooked before eating",
-            "breakfast within days"
+            "cooked first",
+            "grilled for breakfast"
           ]
         },
         "note": "The odd one out. Half an hour of brine and a night of smoke buys days rather than years, and the smoke is kept below thirty degrees so the fish never cooks — preservation here is almost vestigial now that everyone has a fridge."
       },
       {
-        "name": "Surströmming",
+        "name": "Smoke-dried salmon",
         "facets": {
           "region": [
-            "Sweden",
-            "the Baltic coast"
+            "Pacific Northwest"
           ],
           "preserve": [
-            "fermented",
-            "brine too weak to stop it",
-            "left open in the barrel",
-            "canned while still working"
-          ],
-          "fish": [
-            "Baltic herring",
-            "gutted",
-            "small and lean"
-          ],
-          "keep": [
-            "a month in the barrel",
-            "then sealed into tins",
-            "goes on fermenting on the shelf"
-          ],
-          "end": [
-            "eaten as food",
-            "opened under water outdoors",
-            "rolled into flatbread with onion"
-          ]
-        },
-        "note": "A brine deliberately too weak to sterilise. It lets one bacterium work while keeping the dangerous ones out, and canning does not stop it — the tin bulges because the fish inside is still going."
-      },
-      {
-        "name": "Hákarl",
-        "facets": {
-          "region": [
-            "Iceland"
-          ],
-          "preserve": [
-            "fermented",
+            "smoked",
             "no salt at all",
-            "pressed under stones",
-            "then hung in the wind"
+            "cold smoke for a week",
+            "dried hard through"
           ],
           "fish": [
-            "Greenland shark",
-            "cut into blocks",
-            "flesh loaded with urea"
+            "salmon",
+            "filleted off the bone",
+            "cut into thin strips"
           ],
           "keep": [
-            "six weeks in a gravel pit",
-            "then four months in a drying shed",
-            "open to the sea air"
+            "a day of drying first",
+            "then a week in the smokehouse",
+            "keeps through the winter"
           ],
           "end": [
             "eaten as food",
-            "cut into small cubes",
-            "chased with brennivín"
+            "eaten as it is",
+            "torn off in dry strips"
           ]
         },
-        "note": "Greenland shark is poisonous fresh — its flesh carries urea and trimethylamine oxide instead of salt to stay buoyant. The pressing and the five months in the wind are a detoxification. That the result also keeps is a side effect."
-      },
-      {
-        "name": "Jeotgal",
-        "facets": {
-          "region": [
-            "Korea"
-          ],
-          "preserve": [
-            "fermented",
-            "salt heavy enough to stop rot",
-            "sealed in a crock",
-            "kept cool"
-          ],
-          "fish": [
-            "tiny shrimp or anchovy",
-            "whole",
-            "guts and all"
-          ],
-          "keep": [
-            "three months in a crock",
-            "buried or cellared",
-            "a year for the anchovy"
-          ],
-          "end": [
-            "eaten as food",
-            "served as a small side dish",
-            "and drained off as aekjeot for kimchi"
-          ]
-        },
-        "note": "The solids and the liquid are both the point. Eaten in a little dish as it is, and drained off to salt the kimchi — Korea gets both jobs out of one crock where Italy keeps its anchovies and its colatura in separate rooms."
-      },
-      {
-        "name": "Shiokara",
-        "facets": {
-          "region": [
-            "Japan"
-          ],
-          "preserve": [
-            "fermented",
-            "salt too light to keep it long",
-            "its own liver stirred back in",
-            "days not months"
-          ],
-          "fish": [
-            "squid",
-            "cut into strips",
-            "the liver kept back and mashed"
-          ],
-          "keep": [
-            "three days to a month",
-            "kept cold throughout",
-            "eaten before it goes far"
-          ],
-          "end": [
-            "eaten as food",
-            "a spoonful alongside drink",
-            "cold and never heated"
-          ]
-        },
-        "note": "Ten per cent salt keeps nothing for long, so this is a ferment you eat while it is still young. The squid's own liver goes back in to supply the enzymes — the animal is made to digest itself on a schedule."
-      },
-      {
-        "name": "Guedj",
-        "facets": {
-          "region": [
-            "Senegal",
-            "Gambia"
-          ],
-          "preserve": [
-            "fermented",
-            "left open to the air first",
-            "salted afterwards",
-            "then sun-dried hard"
-          ],
-          "fish": [
-            "catfish or capitaine",
-            "gutted",
-            "scored to the bone"
-          ],
-          "keep": [
-            "a few days before the salt goes on",
-            "then a week in the sun",
-            "keeps months in the market"
-          ],
-          "end": [
-            "used as seasoning",
-            "a knob dropped into the pot",
-            "flavours a whole cauldron of rice"
-          ]
-        },
-        "note": "Fermentation first and salt second, which is the reverse of everything on the European side of this table. It is why a pot of thieboudienne tastes of the sea long after the fish in it has been eaten."
+        "note": "Salt was scarce on this coast and never needed. Salmon split thin, dried a day in the air and then held for a week in the cool smoke of a cedar smokehouse comes out hard as bark and carries a village through the winter between runs. It is the only one here that is smoke and nothing else, which is possible only because the strips are cut thin enough for the smoke to reach the middle before the middle goes off."
       },
       {
         "name": "Surume",
         "facets": {
           "region": [
             "Japan",
-            "Korea"
+            "Hokkaido"
           ],
           "preserve": [
             "dried",
             "no salt at all",
-            "hung in sun and sea wind"
+            "sun rather than cold"
           ],
           "fish": [
             "squid",
-            "gutted and slit open",
-            "skewered flat with the tentacles on"
+            "slit open flat",
+            "tentacles left on"
           ],
           "keep": [
-            "a week in the sun",
+            "a week outdoors",
             "on lines by the shore",
             "turned as it curls"
           ],
           "end": [
             "eaten as food",
-            "torn into strips",
-            "grilled to soften"
+            "cooked first",
+            "grilled until it gives"
           ]
         },
-        "note": "Nothing but squid and air. Squid is lean enough that drying alone will hold it — no salt, no smoke, no ferment — which is why it is the cheapest preserved seafood in Asia and the one most likely to be eaten standing up with a beer."
+        "note": "Nothing but squid and air. Squid is lean enough that drying alone will hold it — no salt, no smoke, no ferment — which is why it is among the cheapest preserved seafood in Asia and the one most likely to be eaten standing up with a beer. Hakodate hangs the most of it; Korea dries the same squid and calls it ojingeo."
       }
     ],
     "notes": [
       {
         "title": "On what actually preserves",
-        "body": "Salt and drying are the same move made two ways: both take water away from the bacteria, and a cod in Lofoten and a cod in Portugal end up at the same dryness by different routes. Smoke is weaker than it looks — it dries the surface and lays down phenols on it, and on its own buys days, which is why every serious smoked fish here is salted or simmered first. Fermentation is the opposite bet entirely: rather than shutting all the microbes out, you let one in fast enough and salty enough that it holds the ground against the ones that would poison you."
+        "body": "Salt and drying are the same move made two ways: both take water away from the bacteria, and a cod in Lofoten and a cod in Portugal end up at the same dryness by different routes. Smoke is weaker than it looks — it dries the surface and lays down phenols on it, and on its own buys days, which is why every smoked fish here is brined, simmered or air-dried before it goes near the fire. Fermentation is the opposite bet entirely: rather than shutting all the microbes out, you let one in and rig the room in its favour. Salt heavy enough that only halophiles can work is the usual rig; a brine deliberately too weak is Sweden's; a bed of cooked rice, whose starch the lactobacilli turn to acid, is Shiga's; and Iceland uses no salt at all, letting the shark's own ammonia hold the pit against everything else. Katsuobushi runs two techniques at once — the smoke dries it, and then a mould is grown on it on purpose, which is a ferment under another name."
       },
       {
         "title": "On food and seasoning",
-        "body": "The seasoning column is not a different technique, it is the same technique taken further. An anchovy at twelve months is a fillet you eat; the liquid drained off the same barrel at the same age is colatura. What has happened in both is that protein has been broken down to free amino acids, glutamate chief among them, and past a certain point there is more savour in a spoonful than anybody wants in a mouthful. Garum, colatura, nước mắm, aekjeot and guedj are not preserved fish that failed. They are preserved fish that went all the way."
+        "body": "The seasoning column is not a different technique, it is the same technique taken further. An anchovy at twelve months is a fillet you eat; the liquid drained off the same barrel at the same age is colatura, and a Korean crock gives up jeotgal and aekjeot in exactly the same way. What has happened in both is that protein has been broken down to free amino acids, glutamate chief among them, and past a certain point there is more savour in a spoonful than anybody wants in a mouthful. Garum, colatura, nước mắm, aekjeot, belacan and guedj are not preserved fish that failed. They are preserved fish that went all the way."
       },
       {
         "title": "On depth",
-        "body": "Only colatura sits under anything, because it genuinely is the anchovies under salt plus one move: you tap the barrel instead of eating the fish. Everything else stands at the same level. Garum is not colatura's parent and nước mắm is not its child — three coasts salted small fish in wooden vessels and three coasts got the same liquid. Katsuobushi and Maldive fish are siblings by the same logic: one skipjack, one simmer, one smoke, and two islands that never compared notes."
+        "body": "Two dishes sit under another, and for the same reason: each is the same barrel plus one decision. Colatura is the anchovies under salt with the liquid tapped off instead of the fillets lifted out; aekjeot is that decision made in a Korean crock. Everything else stands at the same level. Garum is not colatura's parent and nước mắm is not its child — several coasts salted small fish in wooden vessels, and several coasts got the same liquid. Katsuobushi and Maldive fish are siblings by the same logic: one skipjack, one simmer, one smoke, and two islands that never compared notes."
       },
       {
         "title": "On what is not here",
-        "body": "Gravlax, matjes, rollmops and mojama live in Raw and cured fish, because a cure that leaves the flesh sliceable and raw is a different problem from one meant to survive a year in a warehouse. The line runs at whether you have to reconstitute it. If the fish must be soaked, beaten, grated or cooked before it is food again, it belongs here."
+        "body": "Gravlax, matjes, rollmops and mojama live in Raw and cured fish. The line runs at whether what you are holding is still, in any useful sense, fish. A gravlax is fresh salmon with a cure on it: you slice it and eat it. Nothing here is that. It is board-hard, or smoke-hard, or has been worked on by microbes for a season — soak it, beat it, grate it, grill it, or open the tin outdoors, but you do not simply slice it and hand it round."
       }
     ],
     "sources": [
@@ -2964,6 +3139,22 @@ export const CANON_FAMILIES: Canon[] = [
       {
         "label": "Dried shredded squid",
         "url": "https://en.wikipedia.org/wiki/Dried_shredded_squid"
+      },
+      {
+        "label": "Narezushi",
+        "url": "https://en.wikipedia.org/wiki/Narezushi"
+      },
+      {
+        "label": "Shrimp paste",
+        "url": "https://en.wikipedia.org/wiki/Shrimp_paste"
+      },
+      {
+        "label": "Feseekh",
+        "url": "https://en.wikipedia.org/wiki/Feseekh"
+      },
+      {
+        "label": "Smoked salmon",
+        "url": "https://en.wikipedia.org/wiki/Smoked_salmon"
       }
     ],
     "yours": [
@@ -2981,10 +3172,20 @@ export const CANON_FAMILIES: Canon[] = [
       "dashi",
       "bonito",
       "jeot",
+      "aekjeot",
       "maldive fish",
       "dried squid",
       "kipper",
-      "cured fish"
+      "cured fish",
+      "salt fish",
+      "haam yu",
+      "belacan",
+      "terasi",
+      "shrimp paste",
+      "funazushi",
+      "narezushi",
+      "fesikh",
+      "guedj"
     ]
   },
   {
@@ -13016,7 +13217,7 @@ export const CANON_FAMILIES: Canon[] = [
           "body": [
             "thickened",
             "a flour roux",
-            "potato"
+            "starch from the potato"
           ],
           "served": [
             "hot",
@@ -13119,10 +13320,11 @@ export const CANON_FAMILIES: Canon[] = [
           "body": [
             "thickened",
             "the vegetables puréed",
-            "cream"
+            "cream blended in"
           ],
           "served": [
-            "cold"
+            "cold",
+            "chives snipped over at the end"
           ],
           "role": [
             "a starter"
@@ -13132,7 +13334,7 @@ export const CANON_FAMILIES: Canon[] = [
             "New York"
           ]
         },
-        "note": "Parmentier sieved finer, enriched with cream and chilled — put together in a New York hotel by a French chef remembering the soup his mother cooled with milk. It is filed where it was made rather than where its parent comes from. It genuinely descends from parmentier; nothing else in this table descends from anything."
+        "note": "Parmentier sieved finer, enriched with cream and chilled, chives snipped over at the end — put together in a New York hotel by a French chef remembering the soup his mother cooled with milk. It is filed where it was made rather than where its parent comes from. It genuinely descends from parmentier; nothing else in this table descends from anything."
       }
     ],
     "notes": [
@@ -13142,7 +13344,7 @@ export const CANON_FAMILIES: Canon[] = [
       },
       {
         "title": "On what does the thickening",
-        "body": "Ground melon seed, pulses cooked to collapse, stale bread, a cornflour slurry, a flour-and-water tadouira streamed in at the end, an egg beaten with lemon, a potato chosen because it disintegrates, a roux, the starch shed by pasta. Only three bowls here reach for a thickener as a thickener — harira's tadouira, the roux in a chowder, the slurry in suan la tang — and only the last of those is starch arriving as starch rather than as flour. Everywhere else the thickener is something that was going in anyway and is simply cooked past the point where it keeps its shape. That is the whole trick, and it is why most of these soups have no thickening step you could point at in the method."
+        "body": "Ground melon seed, pulses cooked to collapse, stale bread, a cornflour slurry, a flour-and-water tadouira streamed in at the end, an egg beaten with lemon, a potato chosen because it disintegrates, leek and potato pushed through a sieve, a roux, the starch shed by pasta. Only three bowls here reach for a thickener as a thickener — harira's tadouira, the roux in a chowder, the slurry in suan la tang — and only the last of those is starch arriving as starch rather than as flour. Everywhere else the thickener is something that was going in anyway and is simply cooked past the point where it keeps its shape. That is the whole trick, and it is why most of these soups have no thickening step you could point at in the method."
       },
       {
         "title": "On what the liquid is",
@@ -13154,7 +13356,7 @@ export const CANON_FAMILIES: Canon[] = [
       },
       {
         "title": "On starter or meal",
-        "body": "Whether soup opens the meal or is the meal is a fact about the table, not about the soup. The French order that puts it first is a nineteenth-century service convention, and it does not travel: miso shiru, tom yum, sinigang and dal are neither starter nor meal but one component of a set, arriving with everything else and eaten in alternation with rice or bread. Harira is filed as a starter for a different reason again — at iftar it is what the fast is broken with, dates alongside it, and the eating goes on long after the bowl. Egusi is thick enough to be a sauce and is eaten with the hands by way of a swallow. Minestrone and borscht are filed against their own home service, where each is a first course — a primo, a persha strava — because the pot in both cases is cooked in quantity to be supper, and the formal order is the exception rather than the rule. The same pot changes category by crossing a border."
+        "body": "Whether soup opens the meal or is the meal is a fact about the table, not about the soup. The French order that puts it first is a nineteenth-century service convention, and it does not travel: miso shiru, tom yum, sinigang, suan la tang and dal are neither starter nor meal but one component of a set, arriving with everything else and eaten in alternation with rice or bread. Harira is filed as a starter for a different reason again — at iftar it is what the fast is broken with, dates alongside it, and the eating goes on long after the bowl. Egusi is thick enough to be a sauce and is eaten with the hands by way of a swallow. Minestrone and borscht are filed against their own home service, where each is a first course — a primo, a persha strava — because the pot in both cases is cooked in quantity to be supper, and the formal order is the exception rather than the rule. The same pot changes category by crossing a border."
       },
       {
         "title": "On what is not here",
