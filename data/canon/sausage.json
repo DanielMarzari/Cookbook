@@ -1,0 +1,585 @@
+{
+ "slug": "sausage",
+ "name": "Sausage",
+ "standfirst": "Ground meat and salt, and then one decision: cook it today, hang it in cold air until it keeps for a year, or chop it with ice until it sets like a custard under heat. Everything after that — the fennel, the harissa, the pimentón, the coriander and clove — is a region answering the same question about what to put in. Fresh chorizo and dry chorizo are not one sausage at two ages. They sit in different branches and share a name.",
+ "root": "Ground meat and salt, worked cold until it binds",
+ "facets": [
+  {
+   "id": "state",
+   "label": "State"
+  },
+  {
+   "id": "smoke",
+   "label": "Smoke"
+  },
+  {
+   "id": "grind",
+   "label": "Grind"
+  },
+  {
+   "id": "spice",
+   "label": "Spice"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By state",
+   "by": [
+    "state",
+    "smoke",
+    "grind"
+   ]
+  },
+  {
+   "label": "By grind",
+   "by": [
+    "grind",
+    "state"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "state"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Salsiccia",
+   "facets": {
+    "state": [
+     "sold raw",
+     "cooked by whoever buys it"
+    ],
+    "smoke": [
+     "no smoke"
+    ],
+    "grind": [
+     "coarse",
+     "through a wide plate"
+    ],
+    "spice": [
+     "fennel seed",
+     "black pepper",
+     "garlic"
+    ],
+    "region": [
+     "Italy"
+    ]
+   },
+   "note": "The plainest thing in the family and the reason it is the base: pork, salt, pepper and one aromatic. The fennel is doing what the coriander does in boerewors and the marjoram does in kiełbasa — it is the single seed a region agreed on."
+  },
+  {
+   "name": "Cumberland",
+   "facets": {
+    "state": [
+     "sold raw",
+     "cooked by whoever buys it"
+    ],
+    "smoke": [
+     "no smoke"
+    ],
+    "grind": [
+     "coarse",
+     "chopped rather than minced"
+    ],
+    "spice": [
+     "black pepper",
+     "white pepper",
+     "nutmeg"
+    ],
+    "region": [
+     "England"
+    ]
+   },
+   "note": "Pepper-led rather than herb-led, which is unusual in England — Lincolnshire answers the same brief with sage. Traditional Cumberland holds a PGI, and part of what is protected is the shape: it is never twisted into links."
+  },
+  {
+   "name": "Merguez",
+   "facets": {
+    "state": [
+     "sold raw",
+     "cooked by whoever buys it"
+    ],
+    "smoke": [
+     "no smoke"
+    ],
+    "grind": [
+     "fine",
+     "through a narrow plate"
+    ],
+    "spice": [
+     "chilli",
+     "harissa",
+     "cumin",
+     "garlic"
+    ],
+    "region": [
+     "Maghreb"
+    ]
+   },
+   "note": "Lamb and beef rather than pork, so the whole family works where pork does not. The narrow lamb casing is the dish as much as the harissa: thin enough that it chars before the inside can dry, which is why merguez is grilled hot and eaten in three bites."
+  },
+  {
+   "name": "Boerewors",
+   "facets": {
+    "state": [
+     "sold raw",
+     "cooked by whoever buys it"
+    ],
+    "smoke": [
+     "no smoke"
+    ],
+    "grind": [
+     "coarse",
+     "chopped rather than minced",
+     "fat kept under a third"
+    ],
+    "spice": [
+     "coriander seed",
+     "clove",
+     "nutmeg",
+     "brown vinegar"
+    ],
+    "region": [
+     "South Africa"
+    ]
+   },
+   "note": "The only sausage here with a legal recipe: South African regulation sets ninety per cent meat, thirty per cent fat at most, and no mechanically recovered meat. Toasted coriander is the signature, and the vinegar is a Cape spice-route habit rather than a preservative — it goes on the braai the same day."
+  },
+  {
+   "name": "Chorizo fresco",
+   "facets": {
+    "state": [
+     "sold raw",
+     "cooked by whoever buys it"
+    ],
+    "smoke": [
+     "no smoke"
+    ],
+    "grind": [
+     "fine",
+     "crumbles when it cooks"
+    ],
+    "spice": [
+     "chilli",
+     "guajillo",
+     "vinegar",
+     "Mexican oregano"
+    ],
+    "region": [
+     "Mexico"
+    ]
+   },
+   "note": "Not young Spanish chorizo. The pimentón was traded for guajillo and ancho, the vinegar was pushed up, and the drying step was dropped entirely — so it stays raw and is usually squeezed out of the casing into the pan."
+  },
+  {
+   "name": "Longganisa",
+   "facets": {
+    "state": [
+     "sold raw",
+     "left to sour for a day or two"
+    ],
+    "smoke": [
+     "no smoke"
+    ],
+    "grind": [
+     "coarse",
+     "fat left in visible pieces"
+    ],
+    "spice": [
+     "garlic",
+     "cane vinegar",
+     "sugar in the hamonado camp"
+    ],
+    "region": [
+     "Philippines"
+    ]
+   },
+   "note": "Named from Spanish longaniza and then split in two by Filipino cooks: de recado, garlicky and sour, of which Vigan is the standard, against hamonado, sugared until it caramelises in the pan. The short links are hung a day or two first, which is a brief ferment — the only fresh sausage here that sours on purpose."
+  },
+  {
+   "name": "Sai ua",
+   "facets": {
+    "state": [
+     "sold raw",
+     "cooked by whoever buys it"
+    ],
+    "smoke": [
+     "no smoke"
+    ],
+    "grind": [
+     "coarse",
+     "hand-chopped"
+    ],
+    "spice": [
+     "chilli",
+     "lemongrass",
+     "kaffir lime leaf",
+     "turmeric"
+    ],
+    "region": [
+     "Thailand",
+     "Lanna north"
+    ]
+   },
+   "note": "A curry paste used as a sausage seasoning: lemongrass, galangal, turmeric, kaffir lime and shallot pounded together, then worked through fatty pork. The seasoning is wet and fresh rather than dry and ground, which is exactly why it will not keep — it is coiled and grilled over coals the same day."
+  },
+  {
+   "name": "Chorizo",
+   "facets": {
+    "state": [
+     "hung until it keeps",
+     "fermented first",
+     "eaten without cooking"
+    ],
+    "smoke": [
+     "no smoke",
+     "smoke arrives in the pimentón"
+    ],
+    "grind": [
+     "coarse",
+     "fat cut into cubes"
+    ],
+    "spice": [
+     "chilli",
+     "pimentón",
+     "garlic",
+     "oregano"
+    ],
+    "region": [
+     "Spain"
+    ]
+   },
+   "note": "Most Spanish chorizo is never near a fire. The smoke you taste came in with the paprika, which was dried over oak in La Vera before it was ever ground — flavour bought in as an ingredient rather than made in the smokehouse. Asturias is the exception and smokes the sausage itself."
+  },
+  {
+   "name": "Sucuk",
+   "facets": {
+    "state": [
+     "hung until it keeps",
+     "fermented first",
+     "fried before eating"
+    ],
+    "smoke": [
+     "no smoke"
+    ],
+    "grind": [
+     "fine",
+     "worked until it turns sticky"
+    ],
+    "spice": [
+     "cumin",
+     "fenugreek",
+     "garlic",
+     "red pepper flakes"
+    ],
+    "region": [
+     "Turkey"
+    ]
+   },
+   "note": "Beef, ten days to a fortnight of ferment, and then air. Dry-cured like chorizo but not eaten like it: sucuk goes in a cold pan and renders its own fat, so the drying is there to concentrate it rather than to make it ready."
+  },
+  {
+   "name": "Lap cheong",
+   "facets": {
+    "state": [
+     "hung until it keeps",
+     "cured with sugar instead",
+     "cooked before eating"
+    ],
+    "smoke": [
+     "no smoke",
+     "sun and wind instead"
+    ],
+    "grind": [
+     "coarse",
+     "lean and fat chopped separately"
+    ],
+    "spice": [
+     "sugar",
+     "light soy",
+     "rose wine"
+    ],
+    "region": [
+     "China",
+     "Guangdong"
+    ]
+   },
+   "note": "The one dried sausage here that does not ferment. Sugar and salt take the water out on their own, so nothing sours, and the result stays hard and sweet and has to be steamed over rice before it is food. Rose-scented mei kwei lu is the perfume that makes it recognisable across a room."
+  },
+  {
+   "name": "'Nduja",
+   "facets": {
+    "state": [
+     "hung until it keeps",
+     "fermented first",
+     "eaten without cooking"
+    ],
+    "smoke": [
+     "cold-smoked",
+     "over oak"
+    ],
+    "grind": [
+     "fine",
+     "ground twice",
+     "worked to a paste"
+    ],
+    "spice": [
+     "chilli",
+     "peperoncino by the handful",
+     "salt"
+    ],
+    "region": [
+     "Italy",
+     "Calabria"
+    ]
+   },
+   "note": "A cured salame that never firms up, because roughly a quarter of it is chilli and most of the rest is soft fat. Spilinga is the town that owns it. It proves that curing and slicing are separable moves: this one cures for months and is still spread with a knife."
+  },
+  {
+   "name": "Andouille",
+   "facets": {
+    "state": [
+     "cooked in the making",
+     "cooked through by the smoke"
+    ],
+    "smoke": [
+     "hot-smoked",
+     "over pecan",
+     "twice"
+    ],
+    "grind": [
+     "coarse",
+     "cut in chunks by hand"
+    ],
+    "spice": [
+     "garlic",
+     "cayenne",
+     "black pepper",
+     "thyme"
+    ],
+    "region": [
+     "United States",
+     "Louisiana"
+    ]
+   },
+   "note": "The only sausage here cooked by smoke alone — no water bath, no oven, just hours over pecan and sometimes sugarcane until it is done through and nearly dry at the edge. It shares a name with French andouille and almost nothing else, since the French one is made of tripe."
+  },
+  {
+   "name": "Kiełbasa wiejska",
+   "facets": {
+    "state": [
+     "cooked in the making",
+     "scalded in hot water"
+    ],
+    "smoke": [
+     "hot-smoked",
+     "over alder"
+    ],
+    "grind": [
+     "coarse",
+     "some of it ground finer to bind"
+    ],
+    "spice": [
+     "garlic",
+     "marjoram",
+     "black pepper"
+    ],
+    "region": [
+     "Poland"
+    ]
+   },
+   "note": "Marjoram and garlic are the whole seasoning, and the trick is in the grind: part of the meat is put through a fine plate and worked into a sticky paste that glues the coarse chunks together. Smoke first, then a gentle scald that finishes it without splitting the casing."
+  },
+  {
+   "name": "Frankfurter",
+   "facets": {
+    "state": [
+     "cooked in the making",
+     "scalded in hot water"
+    ],
+    "smoke": [
+     "cold-smoked",
+     "over beech"
+    ],
+    "grind": [
+     "emulsified",
+     "chopped with ice to a paste",
+     "no particle left visible"
+    ],
+    "spice": [
+     "white pepper",
+     "mace",
+     "coriander seed"
+    ],
+    "region": [
+     "Germany"
+    ]
+   },
+   "note": "Frankfurt made it from pork in a sheep casing; Vienna answered with beef in the mix and called it a Wiener, and each city named its version after the other. The seasoning is deliberately quiet because there is no texture to compete with — an emulsion is uniform all the way through."
+  },
+  {
+   "name": "Mortadella",
+   "facets": {
+    "state": [
+     "cooked in the making",
+     "steamed for hours"
+    ],
+    "smoke": [
+     "no smoke"
+    ],
+    "grind": [
+     "emulsified",
+     "chopped with ice to a paste",
+     "cubes of back fat folded back in"
+    ],
+    "spice": [
+     "black pepper",
+     "myrtle berries",
+     "pistachio"
+    ],
+    "region": [
+     "Italy",
+     "Bologna"
+    ]
+   },
+   "note": "The same emulsion as a frankfurter, with the fat put back by hand: cubes of neck fat folded into the paste so they stay whole and read as white polka dots. A large one steams in dry air for the better part of a day. The name may come from myrtle, which is still in the better recipes."
+  },
+  {
+   "name": "Boudin noir",
+   "facets": {
+    "state": [
+     "cooked in the making",
+     "poached before it is sold"
+    ],
+    "smoke": [
+     "no smoke"
+    ],
+    "grind": [
+     "nothing minced",
+     "diced back fat"
+    ],
+    "spice": [
+     "onion",
+     "quatre épices",
+     "thyme"
+    ],
+    "region": [
+     "France"
+    ]
+   },
+   "note": "No grinder touches this one. Blood is already a liquid protein, so it sets by itself once it is poached — the sausage that needs no bind at all. Onions cooked down in fat carry the sweetness, and you fry it a second time at home until the skin blisters."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On what the salt is actually for",
+   "body": "Salt here is structure, not seasoning. Above roughly two per cent it dissolves myosin out of the muscle fibres, and that dissolved protein is the glue holding one grain of meat to the next; without it a sausage is mince in a bag that falls apart in the pan. This is why every recipe in the family says work it cold and stop when it turns tacky. Let the fat climb past about fifteen degrees and it smears instead of staying in pieces, the bind breaks, and the sausage cooks out grey with a puddle of grease beside it. One rule, sixteen dishes."
+  },
+  {
+   "title": "On the emulsion",
+   "body": "Mortadella and the frankfurter are not fresh sausages ground finer. They are a different physical object: fat cut so small it is suspended in a gel of protein and water, chopped with ice so the bowl never warms, and the gel only sets when heat runs through it. That is the reason they cannot be sold raw — the sausage does not exist until it has been cooked. A fresh sausage is meat held together. An emulsion is meat taken apart and rebuilt, and the row of white cubes in a slice of mortadella is fat deliberately put back in afterwards, because otherwise there would be nothing to see."
+  },
+  {
+   "title": "On the casing",
+   "body": "The casing is the column that is not in the table, and it decides more than it looks. Merguez goes into a narrow lamb runner so it chars before the middle can dry. Cumberland is never linked at all — it reaches the pan as one coil pinned with a skewer, and the PGI protects that shape. Mortadella needs a casing as wide as a bladder because it has to steam for most of a day. And two dishes here prove the casing can be a mould rather than part of the dish: nduja is spread on bread and Mexican chorizo is squeezed into a hot pan, and neither is ever eaten in its skin."
+  },
+  {
+   "title": "On two chorizos with one name",
+   "body": "Spanish chorizo is fermented, hung for weeks and sliced cold. Mexican chorizo is raw, sharp with vinegar, and disintegrates in the pan on purpose. The second is not a younger version of the first: when the sausage crossed the Atlantic the pimentón was replaced by guajillo and ancho, the drying was abandoned, and only the name survived the trip. The table is full of the same trap. Longganisa took its name from Spanish longaniza and its garlic and cane vinegar from Ilocos. Cajun andouille shares a word with French andouille, which is made of tripe. And nduja, andouille and andouillette all descend from the same Latin inductilia — the word travelled much further than the recipe did."
+  },
+  {
+   "title": "On blood",
+   "body": "Blood is a whole branch sitting in one seat. Boudin noir stands here for morcilla de Burgos, which is bulked with rice; for Korean sundae, bulked with glass noodles; for black pudding with its oatmeal, for Polish kaszanka with its buckwheat, for German Blutwurst with neither. What separates them is not the blood, which behaves the same everywhere — it is the starch each region had to hand. They are siblings, and none of them is a version of any of the others."
+  },
+  {
+   "title": "On depth",
+   "body": "Nothing in this table is nested under anything else, and that is a claim rather than laziness. Real lineage exists in sausage, but it mostly runs out of the table: droëwors is boerewors hung until dry, chorizo fresco is a fork from Spanish chorizo rather than a stage of it, the Wiener and the Frankfurter are two cities arguing over one object. Sixteen traditions solving the problem of meat, salt and time are siblings at the same depth. Arranging them into a lineage would make the picture tidier and the claim false."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Sausage (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Sausage"
+  },
+  {
+   "label": "Boerewors",
+   "url": "https://en.wikipedia.org/wiki/Boerewors"
+  },
+  {
+   "label": "Merguez",
+   "url": "https://en.wikipedia.org/wiki/Merguez"
+  },
+  {
+   "label": "Chorizo",
+   "url": "https://en.wikipedia.org/wiki/Chorizo"
+  },
+  {
+   "label": "'Nduja",
+   "url": "https://en.wikipedia.org/wiki/'Nduja"
+  },
+  {
+   "label": "Mortadella",
+   "url": "https://en.wikipedia.org/wiki/Mortadella"
+  },
+  {
+   "label": "Chinese sausage",
+   "url": "https://en.wikipedia.org/wiki/Chinese_sausage"
+  },
+  {
+   "label": "Longganisa",
+   "url": "https://en.wikipedia.org/wiki/Longaniza"
+  },
+  {
+   "label": "Andouille",
+   "url": "https://en.wikipedia.org/wiki/Andouille"
+  },
+  {
+   "label": "Sai oua",
+   "url": "https://en.wikipedia.org/wiki/Sai_oua"
+  },
+  {
+   "label": "Sujuk",
+   "url": "https://en.wikipedia.org/wiki/Sujuk"
+  },
+  {
+   "label": "Kielbasa",
+   "url": "https://en.wikipedia.org/wiki/Kielbasa"
+  },
+  {
+   "label": "Blood sausage",
+   "url": "https://en.wikipedia.org/wiki/Blood_sausage"
+  },
+  {
+   "label": "Cumberland sausage",
+   "url": "https://en.wikipedia.org/wiki/Cumberland_sausage"
+  },
+  {
+   "label": "Frankfurter Würstchen",
+   "url": "https://en.wikipedia.org/wiki/Frankfurter_W%C3%BCrstchen"
+  }
+ ],
+ "yours": [
+  "sausage",
+  "salsiccia",
+  "chorizo",
+  "merguez",
+  "boerewors",
+  "nduja",
+  "mortadella",
+  "kielbasa",
+  "longganisa",
+  "andouille",
+  "blood sausage",
+  "black pudding",
+  "lap cheong",
+  "hot dog"
+ ]
+}

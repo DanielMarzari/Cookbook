@@ -1,8 +1,8 @@
 {
  "slug": "pancake",
  "name": "Pancake",
- "standfirst": "Every one of these is ground starch slackened with liquid and set on direct heat. What separates them is what lifts the batter, how thickly it pours, what it lands on, and whether it ends up sweet or savoury.",
- "root": "Ground starch · liquid · a hot surface",
+ "standfirst": "Every one of these is starch and liquid meeting a hot surface. Fourteen work from a flour — wheat, buckwheat, semolina, rice, millet, mung bean — and two take the starch straight out of the vegetable, grated or ground raw. Fifteen cook over the flame on a griddle or in a pan; the sixteenth goes into a hot skillet and then into the oven. What separates them is what lifts the batter, how loose or stiff it is, what it lands on, and whether it ends up sweet or savoury.",
+ "root": "Starch, ground or grated · liquid · a hot pan or griddle",
  "facets": [
   {
    "id": "lift",
@@ -92,8 +92,7 @@
      "flipped once"
     ],
     "register": [
-     "sweet",
-     "savoury"
+     "either way"
     ],
     "region": [
      "Brittany"
@@ -116,8 +115,7 @@
      "flipped once"
     ],
     "register": [
-     "savoury",
-     "sweet"
+     "either way"
     ],
     "region": [
      "Russia"
@@ -161,8 +159,8 @@
     ],
     "surface": [
      "flat griddle",
-     "spread with a scraper",
-     "flipped once"
+     "flipped once",
+     "spread with a scraper"
     ],
     "register": [
      "savoury"
@@ -186,8 +184,8 @@
     ],
     "surface": [
      "flat griddle",
-     "spread with a scraper",
-     "flipped once"
+     "flipped once",
+     "spread with a scraper"
     ],
     "register": [
      "savoury",
@@ -208,11 +206,13 @@
     "batter": [
      "thin enough to swirl",
      "rice flour",
+     "coconut milk",
      "turmeric"
     ],
     "surface": [
      "shallow pan",
      "generous oil",
+     "one side only",
      "folded over"
     ],
     "register": [
@@ -223,7 +223,7 @@
      "Vietnam"
     ]
    },
-   "note": "The name is the sizzle the batter makes hitting hot fat. Coconut milk in the batter and enough oil to fry rather than griddle are what make it shatter — this is the only thin pancake here that is crisp all the way through."
+   "note": "The name is the sizzle the batter makes hitting hot fat. Coconut milk in the batter and enough oil to fry rather than griddle are what make it shatter, and a lid cooks the top so the underside never has to leave the oil — this is the only thin pancake here that is crisp all the way through."
   },
   {
    "name": "Pajeon",
@@ -254,7 +254,7 @@
    "name": "Okonomiyaki",
    "facets": {
     "lift": [
-     "chemical leavening",
+     "air beaten in",
      "grated yam"
     ],
     "batter": [
@@ -274,7 +274,7 @@
      "Osaka"
     ]
    },
-   "note": "Cabbage is most of the volume and the batter only binds it, which is why it mounds instead of spreading. Hiroshima builds the same parts in layers over a nest of noodles rather than mixing them."
+   "note": "Cabbage is most of the volume and the batter only binds it, which is why it mounds instead of spreading. Nothing ferments or fizzes here: grated nagaimo holds the air that is beaten into the batter, and that is the whole of the lift. Hiroshima builds the same parts in layers over a nest of noodles rather than mixing them."
   },
   {
    "name": "Hotteok",
@@ -289,8 +289,8 @@
     ],
     "surface": [
      "flat griddle",
-     "pressed flat",
-     "flipped once"
+     "flipped once",
+     "pressed flat"
     ],
     "register": [
      "sweet",
@@ -352,13 +352,13 @@
      "United States"
     ]
    },
-   "note": "No leavening at all, and it climbs the highest of any of them. Water in a very eggy batter flashes to steam faster than the egg can set, so the walls are pushed up and then held there — which is also why it collapses on the way to the table."
+   "note": "Nothing is added to lift it, and it climbs the highest of any of them. Water in a very eggy batter flashes to steam faster than the egg can set, so the walls are pushed up and then held there — which is also why it collapses on the way to the table."
   },
   {
    "name": "Æbleskiver",
    "facets": {
     "lift": [
-     "chemical leavening",
+     "air beaten in",
      "whipped egg white"
     ],
     "batter": [
@@ -377,7 +377,7 @@
      "Denmark"
     ]
    },
-   "note": "A knitting needle turns each one a quarter at a time so the raw batter runs down and sets on the outside — the ball is built in three or four turns rather than one flip."
+   "note": "The whites go in beaten and folded, so the lift is air that is already in the batter before it meets the iron. A knitting needle then turns each one a quarter at a time so the raw batter runs down and sets on the outside — the ball is built in three or four turns rather than one flip."
   },
   {
    "name": "Poffertjes",
@@ -442,8 +442,7 @@
      "flipped once"
     ],
     "register": [
-     "sweet",
-     "savoury"
+     "either way"
     ],
     "region": [
      "Venezuela"
@@ -455,7 +454,11 @@
  "notes": [
   {
    "title": "On not turning it over",
-   "body": "Baghrir and apam balik are cooked on one side only, and it is a decision rather than an omission. A thin yeasted batter lets steam escape upward and leaves the top open and porous — baghrir wants that to drink honey, apam balik wants it as a floor for peanuts and sugar before folding. Turning either one would close the surface that is the point of it."
+   "body": "Three of these are cooked on one side only, and in each case it is a decision rather than an omission. Baghrir and apam balik leave the top bare: a thin yeasted batter lets steam escape upward and sets the surface open and porous, which baghrir wants so it can drink honey and apam balik wants as a floor for peanuts and sugar before folding. Bánh xèo reaches the same rule from the other end — a lid cooks the top with trapped steam so the underside can stay down in the oil until it shatters. Turn any of the three and you undo the thing the single side was for. The Dutch baby is never turned either, but nothing turns it because nothing has to: in the oven the heat is already on every side at once."
+  },
+  {
+   "title": "On what lifts it",
+   "body": "Four answers, and only one of them is a packet. Yeast is the oldest and the slowest, and it pays in sourness as well as rise. Chemical leavening works in the minute between the bowl and the griddle, which is what a thick American stack needs. Air can simply be beaten in and held there — by whipped whites in æbleskiver, by the mucilage of grated yam in okonomiyaki — and it is a lift with no flavour of its own. And the water already in the batter will do the job unaided if the oven is hot enough and the batter eggy enough, which is the whole trick of the Dutch baby. Seven of the sixteen use none of them and are none the worse for it."
   },
   {
    "title": "On the dimpled pan",

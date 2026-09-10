@@ -1,0 +1,554 @@
+{
+ "slug": "soup",
+ "name": "Soup",
+ "standfirst": "Water, something to flavour it, and one decision that splits the family before any other: whether you can see through it. Consommé spends an entire technique taking things out until nothing is left but flavour. Egusi spends its technique on ground seed until the bowl is thick enough to eat with your hands. After that it is only ever three more questions — what does the thickening, whether it arrives hot or cold, and whether it opens the meal or is the meal. None of these is a version of any other.",
+ "root": "Water, something to flavour it, and heat — where the liquid is the dish",
+ "facets": [
+  {
+   "id": "base",
+   "label": "Base"
+  },
+  {
+   "id": "body",
+   "label": "Body"
+  },
+  {
+   "id": "served",
+   "label": "Served"
+  },
+  {
+   "id": "role",
+   "label": "Role"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By body",
+   "by": [
+    "body",
+    "served",
+    "base"
+   ]
+  },
+  {
+   "label": "By what it is for",
+   "by": [
+    "role",
+    "served",
+    "body"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "body"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Consommé",
+   "facets": {
+    "base": [
+     "meat stock",
+     "beef shin",
+     "aromatic vegetables"
+    ],
+    "body": [
+     "clear",
+     "clarified with an egg-white raft"
+    ],
+    "served": [
+     "hot"
+    ],
+    "role": [
+     "a starter"
+    ],
+    "region": [
+     "France"
+    ]
+   },
+   "note": "The only dish here whose whole technique is subtraction. A raft of egg white and minced meat rises through the stock and takes every particle with it; what is left has all the flavour and nothing to carry it."
+  },
+  {
+   "name": "Miso shiru",
+   "facets": {
+    "base": [
+     "dashi",
+     "kombu",
+     "katsuobushi"
+    ],
+    "body": [
+     "clear",
+     "clouded by miso in suspension"
+    ],
+    "served": [
+     "hot"
+    ],
+    "role": [
+     "part of the meal",
+     "alongside rice"
+    ],
+    "region": [
+     "Japan"
+    ]
+   },
+   "note": "The miso is whisked in off the boil and never simmered — heat it and the aroma and the live culture go together. Not a course but one of several bowls that arrive at once."
+  },
+  {
+   "name": "Tom yum",
+   "facets": {
+    "base": [
+     "shellfish stock",
+     "prawn heads",
+     "galangal",
+     "soured with lime juice"
+    ],
+    "body": [
+     "clear",
+     "slicked with chilli jam"
+    ],
+    "served": [
+     "hot"
+    ],
+    "role": [
+     "part of the meal",
+     "alongside rice"
+    ],
+    "region": [
+     "Thailand"
+    ]
+   },
+   "note": "Clear in its older reading — nam sai — where sour and heat do the work a thickener does elsewhere. The orange on top is fat from chilli jam and not body."
+  },
+  {
+   "name": "Sinigang",
+   "facets": {
+    "base": [
+     "meat stock",
+     "pork belly",
+     "soured with tamarind"
+    ],
+    "body": [
+     "clear",
+     "left unthickened"
+    ],
+    "served": [
+     "hot"
+    ],
+    "role": [
+     "part of the meal",
+     "alongside rice"
+    ],
+    "region": [
+     "Philippines"
+    ]
+   },
+   "note": "Sourness is the structure, not a seasoning: tamarind most often, but guava, green mango or kamias depending on the house and the month. A sour broth first and a pork dish second."
+  },
+  {
+   "name": "Sopa de lima",
+   "facets": {
+    "base": [
+     "meat stock",
+     "chicken",
+     "soured with lima agria"
+    ],
+    "body": [
+     "clear",
+     "left unthickened"
+    ],
+    "served": [
+     "hot",
+     "tortilla strips added at the table"
+    ],
+    "role": [
+     "a starter"
+    ],
+    "region": [
+     "Mexico",
+     "Yucatán"
+    ]
+   },
+   "note": "The lima agria is floral and faintly bitter rather than sharp, which is why a Persian lime does not stand in cleanly. The fried tortilla goes in a few strips at a time so it never has time to soften."
+  },
+  {
+   "name": "Avgolemono",
+   "facets": {
+    "base": [
+     "meat stock",
+     "chicken",
+     "rice"
+    ],
+    "body": [
+     "thickened",
+     "egg beaten with lemon"
+    ],
+    "served": [
+     "hot"
+    ],
+    "role": [
+     "a starter"
+    ],
+    "region": [
+     "Greece"
+    ]
+   },
+   "note": "The thickener is a sauce in its own right: eggs and lemon whisked together, tempered with hot broth, returned off the heat. Let it boil and it scrambles, and there is no recovering it."
+  },
+  {
+   "name": "Harira",
+   "facets": {
+    "base": [
+     "meat stock",
+     "lamb",
+     "tomato"
+    ],
+    "body": [
+     "thickened",
+     "lentils and chickpeas",
+     "a flour-and-water tadouira poured in at the end"
+    ],
+    "served": [
+     "hot"
+    ],
+    "role": [
+     "the meal",
+     "eaten to break the fast"
+    ],
+    "region": [
+     "Morocco"
+    ]
+   },
+   "note": "Harira means silk, and the tadouira is what earns the name — flour whisked cold into water and streamed into the simmering pot. The pulses have already done half the thickening before it arrives."
+  },
+  {
+   "name": "Minestrone",
+   "facets": {
+    "base": [
+     "vegetable water",
+     "soffritto",
+     "parmesan rind"
+    ],
+    "body": [
+     "thickened",
+     "beans cooked to collapse",
+     "starch from the pasta"
+    ],
+    "served": [
+     "hot"
+    ],
+    "role": [
+     "the meal"
+    ],
+    "region": [
+     "Italy"
+    ]
+   },
+   "note": "There is no recipe, only a season. Cook whatever the garden has for long enough and the beans fall apart and the pasta gives up its starch: the soup thickens itself and nothing is added to make it do so."
+  },
+  {
+   "name": "Borscht",
+   "facets": {
+    "base": [
+     "meat stock",
+     "beetroot",
+     "soured with fermented beet kvas"
+    ],
+    "body": [
+     "thickened",
+     "grated root vegetables",
+     "potato"
+    ],
+    "served": [
+     "hot",
+     "smetana stirred in at the table"
+    ],
+    "role": [
+     "the meal"
+    ],
+    "region": [
+     "Ukraine"
+    ]
+   },
+   "note": "The sour is the point and traditionally it is not vinegar but beet kvas, fermented weeks ahead. The smetana goes in at the table, so the last decision about the bowl belongs to whoever is eating it."
+  },
+  {
+   "name": "Dal",
+   "facets": {
+    "base": [
+     "pulses and water",
+     "split lentils",
+     "turmeric"
+    ],
+    "body": [
+     "thickened",
+     "the pulses cooked to collapse"
+    ],
+    "served": [
+     "hot",
+     "a tarka poured over at the end"
+    ],
+    "role": [
+     "part of the meal",
+     "alongside rice"
+    ],
+    "region": [
+     "India"
+    ]
+   },
+   "note": "The pulses are the liquid and the thickener in one — nothing is added to bind it. The tarka arrives last: whole spices bloomed in hot fat and tipped over the surface still crackling."
+  },
+  {
+   "name": "Egusi soup",
+   "facets": {
+    "base": [
+     "meat stock",
+     "palm oil",
+     "smoked fish"
+    ],
+    "body": [
+     "thickened",
+     "ground melon seed"
+    ],
+    "served": [
+     "hot"
+    ],
+    "role": [
+     "the meal",
+     "scooped up with pounded yam"
+    ],
+    "region": [
+     "Nigeria"
+    ]
+   },
+   "note": "Thick enough to be a sauce and eaten as one: a ball of swallow is dipped into it rather than a spoon lifted out of it. The ground seed thickens and enriches in a single move, which is what oil and flour do separately elsewhere."
+  },
+  {
+   "name": "Clam chowder",
+   "facets": {
+    "base": [
+     "shellfish stock",
+     "clam liquor",
+     "milk"
+    ],
+    "body": [
+     "thickened",
+     "a flour roux",
+     "potato"
+    ],
+    "served": [
+     "hot",
+     "crackers crushed in at the table"
+    ],
+    "role": [
+     "the meal"
+    ],
+    "region": [
+     "United States",
+     "New England"
+    ]
+   },
+   "note": "Three thickeners for one bowl — roux, potato starch and the crackers the eater adds — which is exactly why the argument about how thick it should be has never been settled."
+  },
+  {
+   "name": "Ajiaco",
+   "facets": {
+    "base": [
+     "meat stock",
+     "chicken",
+     "guascas"
+    ],
+    "body": [
+     "thickened",
+     "papa criolla dissolving into it"
+    ],
+    "served": [
+     "hot",
+     "cream and capers added at the table"
+    ],
+    "role": [
+     "the meal"
+    ],
+    "region": [
+     "Colombia",
+     "Bogotá"
+    ]
+   },
+   "note": "Three potatoes doing three jobs: papa criolla falls apart and thickens the pot while pastusa and sabanera hold their shape. Without guascas this is chicken and potato soup with a different name."
+  },
+  {
+   "name": "Gazpacho",
+   "facets": {
+    "base": [
+     "raw vegetables",
+     "tomato",
+     "soured with sherry vinegar"
+    ],
+    "body": [
+     "thickened",
+     "stale bread",
+     "olive oil emulsified in"
+    ],
+    "served": [
+     "cold"
+    ],
+    "role": [
+     "a starter"
+    ],
+    "region": [
+     "Spain",
+     "Andalusia"
+    ]
+   },
+   "note": "Nothing is cooked at any point. Bread and oil do the thickening and the vinegar does the seasoning; the tomato is the newcomer, and the older Andalusian gazpachos are white and contain none."
+  },
+  {
+   "name": "Potage parmentier",
+   "facets": {
+    "base": [
+     "vegetable water",
+     "leek",
+     "potato"
+    ],
+    "body": [
+     "thickened",
+     "the vegetables puréed"
+    ],
+    "served": [
+     "hot"
+    ],
+    "role": [
+     "a starter"
+    ],
+    "region": [
+     "France"
+    ]
+   },
+   "note": "The plainest thickening available: cook a starchy vegetable in its own liquid until it will go through a sieve. Leek and potato need nothing added to hold the soup together."
+  },
+  {
+   "name": "Vichyssoise",
+   "parent": "Potage parmentier",
+   "facets": {
+    "base": [
+     "vegetable water",
+     "leek",
+     "potato"
+    ],
+    "body": [
+     "thickened",
+     "the vegetables puréed",
+     "cream"
+    ],
+    "served": [
+     "cold"
+    ],
+    "role": [
+     "a starter"
+    ],
+    "region": [
+     "France",
+     "New York"
+    ]
+   },
+   "note": "Parmentier sieved finer, enriched with cream and chilled — put together in a New York hotel by a French chef remembering the soup his mother cooled with milk. It genuinely descends from parmentier; nothing else in this table descends from anything."
+  }
+ ],
+ "notes": [
+  {
+   "title": "On clear and thick",
+   "body": "The family forks once, early, and everything else follows: can you see through it. Clear is the expensive answer. Consommé spends hours and a raft of egg white removing solids that were already in the pot, and tom yum and sinigang get their weight from acid and heat because nothing has been added to give them any. Thick is the domestic answer, and almost always the answer given by a soup that has to be the whole meal — something in the bowl is asked to fall apart."
+  },
+  {
+   "title": "On what does the thickening",
+   "body": "Ground melon seed, collapsed lentils, stale bread, a flour slurry whisked in at the end, an egg beaten with lemon, a potato chosen because it disintegrates, a roux, the starch shed by pasta. Only two bowls here reach for flour as flour — harira's tadouira and the roux in a chowder. Everywhere else the thickener is something that was going in anyway and is simply cooked past the point where it keeps its shape. That is the whole trick, and it is why most of these soups have no thickening step you could point at in the method."
+  },
+  {
+   "title": "On cold",
+   "body": "Two bowls here are cold, and neither is a hot soup that was left to cool. Chilling flattens salt and mutes aroma, so a cold soup is seasoned harder and carries more acid and more fat than the same bowl would hot. Gazpacho was never heated at all and is built around vinegar and olive oil. Vichyssoise is parmentier deliberately rebalanced for the cold with cream and a finer sieve. Chill an ordinary leek and potato soup and you get neither of them — you get an underseasoned one."
+  },
+  {
+   "title": "On starter or meal",
+   "body": "Whether soup opens the meal or is the meal is a fact about the table, not about the soup. The French order that puts it first is a nineteenth-century service convention, and it does not travel: dal and miso shiru are neither starter nor meal but one component of a set, arriving with everything else and eaten in alternation with rice. Egusi is thick enough to be a sauce and is eaten with the hands by way of a swallow. Harira opens a meal and is substantial enough to end one. The same pot changes category by crossing a border."
+  },
+  {
+   "title": "On what is not here",
+   "body": "Noodle soups have their own family, because a noodle changes what the broth is for — it stops being the dish and becomes the medium for something else, and every decision reorganises around the noodle. At the other edge, when the liquid is only what the solid parts are sitting in, you have left soup and arrived at stew. The test both ways is the same: whether the liquid is the thing you came for."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Consommé (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Consomm%C3%A9"
+  },
+  {
+   "label": "Culture of Ukrainian borscht cooking (UNESCO)",
+   "url": "https://ich.unesco.org/en/USL/culture-of-ukrainian-borscht-cooking-01852"
+  },
+  {
+   "label": "Harira (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Harira"
+  },
+  {
+   "label": "Tom yum (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Tom_yum"
+  },
+  {
+   "label": "Sinigang (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Sinigang"
+  },
+  {
+   "label": "Egusi (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Egusi"
+  },
+  {
+   "label": "Gazpacho (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Gazpacho"
+  },
+  {
+   "label": "Vichyssoise (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Vichyssoise"
+  },
+  {
+   "label": "Ajiaco (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Ajiaco"
+  },
+  {
+   "label": "Clam chowder (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Clam_chowder"
+  },
+  {
+   "label": "Avgolemono (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Avgolemono"
+  },
+  {
+   "label": "Sopa de lima (MexConnect)",
+   "url": "https://www.mexconnect.com/articles/2278-yucatecan-lime-soup-sopa-de-lima/"
+  }
+ ],
+ "yours": [
+  "soup",
+  "broth",
+  "consommé",
+  "minestrone",
+  "borscht",
+  "miso",
+  "tom yum",
+  "gazpacho",
+  "avgolemono",
+  "harira",
+  "chowder",
+  "dal",
+  "egusi",
+  "ajiaco",
+  "sinigang",
+  "vichyssoise",
+  "potage"
+ ]
+}

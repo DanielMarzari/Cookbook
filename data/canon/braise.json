@@ -1,8 +1,8 @@
 {
  "slug": "braise",
  "name": "Braise",
- "standfirst": "Sixteen dishes and one method: a cut too tough to grill, a covered pot, a low fire, and hours. What separates them is what the liquid is, whether the meat browns before it goes in, whether that liquid ends up a sauce or stays a broth — and what was already frying in the pot when it arrived.",
- "root": "Tough meat · a little liquid · low heat · hours",
+ "standfirst": "Sixteen dishes and one method: a cut that will not cook fast, a covered pot, a low fire, and hours. What separates them is what the liquid is, whether the meat browns before it goes in, whether that liquid ends up a sauce or stays a broth — and what was already frying in the pot when it arrived.",
+ "root": "A cut that needs time · liquid in a covered pot · low heat · hours",
  "facets": [
   {
    "id": "liquid",
@@ -55,6 +55,7 @@
    "name": "Boeuf bourguignon",
    "facets": {
     "region": [
+     "France",
      "Burgundy"
     ],
     "liquid": [
@@ -228,23 +229,24 @@
     ],
     "finish": [
      "reduces to a sauce",
-     "loose enough to spoon over rice",
      "oil rises to the surface"
     ],
     "base": [
      "onion",
      "parsley",
+     "leek",
      "fenugreek leaf",
      "dried lime"
     ]
    },
-   "note": "The herbs are fried almost to black in their own pan before they meet the meat. Stop short and the stew tastes green rather than deep."
+   "note": "The herbs — parsley, leek and fenugreek in roughly that order of volume — are fried almost to black in their own pan before they meet the meat. Stop short and the stew tastes green rather than deep."
   },
   {
    "name": "Korma",
    "facets": {
     "region": [
-     "Mughal India"
+     "India",
+     "the Mughal court"
     ],
     "liquid": [
      "yoghurt",
@@ -265,12 +267,13 @@
      "green cardamom"
     ]
    },
-   "note": "The only liquid here that splits if it boils. Low heat is not patience in a korma — it is the entire constraint."
+   "note": "The only liquid here that must not split. Rendang's breaks on purpose and the dish is built on it; yoghurt breaking is the end of a korma, which is why low heat here is not patience but the entire constraint."
   },
   {
    "name": "Rendang",
    "facets": {
     "region": [
+     "Indonesia",
      "West Sumatra"
     ],
     "liquid": [
@@ -337,7 +340,7 @@
     ],
     "finish": [
      "reduces to a sauce",
-     "the meat fried in the last of it"
+     "the pork fat renders into it"
     ],
     "base": [
      "garlic",
@@ -352,7 +355,7 @@
    "parent": "Adobo",
    "facets": {
     "region": [
-     "Visayas"
+     "Philippines"
     ],
     "liquid": [
      "vinegar",
@@ -374,7 +377,7 @@
      "dried banana blossom"
     ]
    },
-   "note": "Adobo plus palm sugar and tausi — it descends from adobo, not from the base. Its other ancestor is sitting two rows down: hong shao rou came to the Visayas with Hokkien traders and met adobo there."
+   "note": "Adobo plus palm sugar and tausi — it descends from adobo, not from the base. Its other ancestor is Hokkien: hong bak, the red-braised pork that came to the Visayas with Fujianese traders and met adobo there. Cooks in the Visayas make both and will tell you which house makes which."
   },
   {
    "name": "Kare-kare",
@@ -384,7 +387,7 @@
     ],
     "liquid": [
      "water",
-     "which becomes the stock"
+     "enough to cover the oxtail"
     ],
     "start": [
      "meat goes in raw",
@@ -392,13 +395,13 @@
     ],
     "finish": [
      "reduces to a sauce",
-     "ground peanuts stirred in",
-     "toasted rice stirred in"
+     "ground peanuts stirred in"
     ],
     "base": [
      "onion",
      "garlic",
-     "annatto"
+     "annatto",
+     "toasted ground rice"
     ]
    },
    "note": "Deliberately under-salted in the pot. The seasoning arrives at the table as a spoonful of bagoong beside it, so each eater decides how salty their own bowl is."
@@ -435,6 +438,7 @@
    "name": "Birria",
    "facets": {
     "region": [
+     "Mexico",
      "Jalisco"
     ],
     "liquid": [
@@ -489,15 +493,15 @@
  "notes": [
   {
    "title": "On the first fork",
-   "body": "Browning is not obligatory, and the split is not east against west. Six of these sear the meat before a drop of liquid arrives, and everything they taste of comes out of that crust. The other ten put raw meat into an aromatic base that has already been cooked — dry onions for doro wat, fried paprika for pörkölt, a pounded paste for rendang — because a spice paste hot enough to brown meat is a spice paste that has scorched."
+   "body": "Browning is not obligatory, and the split is not east against west. Six of these sear the meat before a drop of liquid arrives — bourguignon, pot roast, ghormeh sabzi, korma, seco and hong shao rou — and much of what they taste of comes out of that crust. The other ten skip the sear, for two different reasons. Four put raw meat into a base that has already been cooked: fried onions for gulyás and pörkölt, dry onions for doro wat, cracked coconut cream for massaman. Five go in on something raw and cold — the spices of a tagine, rendang's pounded paste, the vinegar of adobo and humba, birria's chilli marinade — because a paste hot enough to brown meat is a paste that has scorched. Kare-kare is the tenth and a case of its own: oxtail into plain water for hours, and everything else added at the end."
   },
   {
    "title": "Sauce or broth",
-   "body": "The same pot can end up in three places, and the decision is only how much liquid goes in and when you stop. Most reduce to a sauce. Gulyás and birria stay a broth on purpose and are served as one. Rendang and hong shao rou go past sauce entirely: the liquid cooks away and the meat finishes frying in what is left, which is why both keep far longer than the rest."
+   "body": "The same pot can end up in three places, and the decision is only how much liquid goes in and when you stop. Twelve reduce to a sauce. Gulyás and birria stay a broth on purpose and are served as one. Rendang and hong shao rou go past sauce entirely: the liquid cooks away and the meat finishes in what is left — frying in released oil, glazing in caramel and soy — which is why both keep far longer than the rest."
   },
   {
    "title": "What thickens it",
-   "body": "Meat and water will not become a sauce by themselves. Every dish here answers that: flour in bourguignon, ground almonds in korma, peanuts and toasted rice in kare-kare, a collapsed kilo of onions in doro wat, and in pörkölt nothing at all except leaving the lid off. Look down the finish column and the family sorts itself into borrowers and reducers."
+   "body": "Meat and water will not become a sauce by themselves, and the answers divide into borrowing and reducing. The borrowers bring something starchy or ground: flour in bourguignon, ground almonds in korma, ground peanuts and toasted rice in kare-kare, and the pot roast's liquid strained off and thickened separately as gravy. The rest build the body out of the aromatics, or never add much water to begin with — a collapsed kilo of onions in doro wat, the fried onions of pörkölt doing the same work more quietly, a tagine that starts with a splash because its lid hands the splash back, and seco reduced until it earns its name. Read the finish column against the aromatic base beside it and the family sorts itself."
   }
  ],
  "sources": [
@@ -530,6 +534,10 @@
    "url": "https://en.wikipedia.org/wiki/Tagine"
   },
   {
+   "label": "Ghormeh sabzi",
+   "url": "https://en.wikipedia.org/wiki/Ghormeh_sabzi"
+  },
+  {
    "label": "Seco de cordero (Great British Chefs)",
    "url": "https://www.greatbritishchefs.com/recipes/seco-de-cordero-recipe"
   }
@@ -542,12 +550,19 @@
   "adobo",
   "rendang",
   "goulash",
+  "gulyas",
+  "gulyás",
   "pörkölt",
   "birria",
   "pot roast",
   "bourguignon",
   "kare-kare",
   "massaman",
-  "korma"
+  "korma",
+  "doro wat",
+  "ghormeh sabzi",
+  "hong shao",
+  "humba",
+  "seco de cordero"
  ]
 }

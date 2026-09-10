@@ -1,0 +1,569 @@
+{
+ "slug": "wrapped-parcel",
+ "name": "Wrapped in a leaf",
+ "standfirst": "A leaf is the oldest cooking vessel there is. Close one around a filling and it does four jobs at once — holds a shapeless paste until it sets, keeps the water out while letting the steam in, survives fire, and gives back its own flavour. Every warm country worked this out, and the leaf it had to hand is most of what separates the results.",
+ "root": "A filling closed inside a leaf or husk and cooked in it",
+ "facets": [
+  {
+   "id": "wrapper",
+   "label": "Wrapper"
+  },
+  {
+   "id": "body",
+   "label": "Body"
+  },
+  {
+   "id": "close",
+   "label": "Closed"
+  },
+  {
+   "id": "cook",
+   "label": "Cooked"
+  },
+  {
+   "id": "region",
+   "label": "Region"
+  }
+ ],
+ "nestings": [
+  {
+   "label": "By wrapper",
+   "by": [
+    "wrapper",
+    "body",
+    "cook"
+   ]
+  },
+  {
+   "label": "By cooking",
+   "by": [
+    "cook",
+    "body"
+   ]
+  },
+  {
+   "label": "By region",
+   "by": [
+    "region",
+    "wrapper"
+   ]
+  }
+ ],
+ "dishes": [
+  {
+   "name": "Tamal",
+   "facets": {
+    "wrapper": [
+     "corn husk",
+     "dried"
+    ],
+    "body": [
+     "a paste",
+     "nixtamalised masa",
+     "beaten with lard"
+    ],
+    "close": [
+     "folded",
+     "one end tucked under"
+    ],
+    "cook": [
+     "steamed",
+     "stood upright in a pot"
+    ],
+    "region": [
+     "Mesoamerica"
+    ]
+   },
+   "note": "The clearest statement of the problem: a corn paste that cannot hold its own shape until heat has set it, and a husk that holds it while that happens."
+  },
+  {
+   "name": "Humita",
+   "facets": {
+    "wrapper": [
+     "corn husk",
+     "green"
+    ],
+    "body": [
+     "a paste",
+     "fresh corn milled raw"
+    ],
+    "close": [
+     "folded",
+     "tied at both ends"
+    ],
+    "cook": [
+     "steamed",
+     "stood upright in a pot"
+    ],
+    "region": [
+     "Andes"
+    ]
+   },
+   "note": "One substitution away from a tamal: fresh corn ground raw instead of dried corn nixtamalised. Sweeter and wetter, and wrapped in this season's green husk rather than last season's dried one."
+  },
+  {
+   "name": "Hallaca",
+   "facets": {
+    "wrapper": [
+     "banana leaf",
+     "wilted over flame"
+    ],
+    "body": [
+     "a paste",
+     "nixtamalised masa",
+     "coloured with annatto",
+     "a stewed guiso laid on it"
+    ],
+    "close": [
+     "folded",
+     "squared into a rectangle",
+     "tied crosswise with twine"
+    ],
+    "cook": [
+     "boiled",
+     "hours under water"
+    ],
+    "region": [
+     "Venezuela"
+    ]
+   },
+   "note": "The guiso is stewed the day before and laid on the masa rather than mixed through it, so the parcel keeps two layers apart until you untie it. Tied tight enough to be boiled rather than steamed."
+  },
+  {
+   "name": "Mucbipollo",
+   "facets": {
+    "wrapper": [
+     "banana leaf",
+     "several layers"
+    ],
+    "body": [
+     "a paste",
+     "nixtamalised masa",
+     "coloured with annatto",
+     "a thickened kol poured in"
+    ],
+    "close": [
+     "gathered",
+     "lashed shut with fibre"
+    ],
+    "cook": [
+     "buried",
+     "in an earth oven",
+     "hours over hot stones"
+    ],
+    "region": [
+     "Yucatán"
+    ]
+   },
+   "note": "Mucbil means buried. Made once a year for Hanal Pixán and lowered into a pib — a pit of fire-heated stones, covered over with earth for three or four hours."
+  },
+  {
+   "name": "Zongzi",
+   "facets": {
+    "wrapper": [
+     "bamboo leaf",
+     "two overlapped"
+    ],
+    "body": [
+     "whole grains",
+     "glutinous rice",
+     "pork belly",
+     "salted duck yolk"
+    ],
+    "close": [
+     "folded",
+     "cornered into a pyramid",
+     "tied with twine"
+    ],
+    "cook": [
+     "boiled",
+     "hours under water"
+    ],
+    "region": [
+     "China"
+    ]
+   },
+   "note": "Whole grains rather than a paste — glutinous rice packed tight enough that hours of boiling fuse it into one sliceable mass without ever being ground."
+  },
+  {
+   "name": "Jianshui zong",
+   "parent": "Zongzi",
+   "facets": {
+    "wrapper": [
+     "bamboo leaf",
+     "two overlapped"
+    ],
+    "body": [
+     "whole grains",
+     "glutinous rice",
+     "lye water stirred through",
+     "left unfilled"
+    ],
+    "close": [
+     "folded",
+     "cornered into a pyramid",
+     "tied with twine"
+    ],
+    "cook": [
+     "boiled",
+     "hours under water"
+    ],
+    "region": [
+     "Southern China"
+    ]
+   },
+   "note": "A zongzi with alkaline water worked into the rice and the filling left out. It comes out amber and springy and is eaten cold with sugar or syrup — it descends from zongzi, not from the leaf."
+  },
+  {
+   "name": "Lo mai gai",
+   "facets": {
+    "wrapper": [
+     "lotus leaf",
+     "one large round"
+    ],
+    "body": [
+     "whole grains",
+     "glutinous rice",
+     "chicken",
+     "cured sausage"
+    ],
+    "close": [
+     "folded",
+     "squared into a parcel"
+    ],
+    "cook": [
+     "steamed",
+     "in a bamboo basket"
+    ],
+    "region": [
+     "Guangdong"
+    ]
+   },
+   "note": "The same rice as a zongzi in a different leaf: lotus scents it like tea where bamboo scents it like cut grass. Steamed rather than boiled, because a single round leaf folds shut but does not seal."
+  },
+  {
+   "name": "Bánh chưng",
+   "facets": {
+    "wrapper": [
+     "dong leaf",
+     "four squared off"
+    ],
+    "body": [
+     "whole grains",
+     "glutinous rice",
+     "mung bean paste",
+     "pork belly"
+    ],
+    "close": [
+     "folded",
+     "boxed into a square",
+     "tied with split bamboo"
+    ],
+    "cook": [
+     "boiled",
+     "hours under water",
+     "pressed under weight after"
+    ],
+    "region": [
+     "Vietnam"
+    ]
+   },
+   "note": "Layered rice, bean, pork, bean, rice, so the cut face reads as rings. The stiff midrib of the dong leaf is what lets it hold a square with no mould, and it is the only parcel here that is finished after it leaves the pot — pressed under a board to drive the water out."
+  },
+  {
+   "name": "Lontong",
+   "facets": {
+    "wrapper": [
+     "banana leaf",
+     "wilted over flame"
+    ],
+    "body": [
+     "whole grains",
+     "plain rice",
+     "left unfilled"
+    ],
+    "close": [
+     "rolled",
+     "into a cylinder",
+     "pinned with bamboo slivers"
+    ],
+    "cook": [
+     "boiled",
+     "hours under water"
+    ],
+    "region": [
+     "Indonesia",
+     "Malaysia"
+    ]
+   },
+   "note": "No filling at all — here the leaf is purely a mould. Rice boiled with nowhere to expand compacts into a cake dense enough to slice, which is what makes it a vehicle for satay sauce rather than a bowl of rice."
+  },
+  {
+   "name": "Pepes ikan",
+   "facets": {
+    "wrapper": [
+     "banana leaf",
+     "wilted over flame"
+    ],
+    "body": [
+     "loose filling",
+     "fish",
+     "ground bumbu"
+    ],
+    "close": [
+     "folded",
+     "flattened into a packet",
+     "pinned with bamboo slivers"
+    ],
+    "cook": [
+     "steamed",
+     "then finished over coals"
+    ],
+    "region": [
+     "West Java"
+    ]
+   },
+   "note": "A loose filling only needs holding, so the packet is flat and pinned rather than tied. Steamed to cook it through, then laid on coals so the leaf scorches and gives its smoke back."
+  },
+  {
+   "name": "Otak-otak",
+   "facets": {
+    "wrapper": [
+     "banana leaf",
+     "wilted over flame"
+    ],
+    "body": [
+     "a paste",
+     "pounded fish",
+     "coconut milk"
+    ],
+    "close": [
+     "folded",
+     "flattened into a packet",
+     "pinned with bamboo slivers"
+    ],
+    "cook": [
+     "grilled",
+     "over coals"
+    ],
+    "region": [
+     "Malay peninsula",
+     "Singapore"
+    ]
+   },
+   "note": "Pepes with one decision changed: pound the fish to a paste instead of leaving it in pieces, and go straight to the coals. The paste needs containing where the pieces did not — and it sets into a slab you can pick up by the leaf."
+  },
+  {
+   "name": "Dolma",
+   "facets": {
+    "wrapper": [
+     "grape leaf",
+     "brined"
+    ],
+    "body": [
+     "loose filling",
+     "raw rice",
+     "herbs",
+     "olive oil"
+    ],
+    "close": [
+     "rolled",
+     "into a cigar"
+    ],
+    "cook": [
+     "simmered",
+     "in oil and lemon",
+     "weighted with a plate"
+    ],
+    "region": [
+     "Anatolia",
+     "Levant",
+     "Balkans"
+    ]
+   },
+   "note": "The one wrapper here you are certainly meant to eat, which is why it is brined rather than merely softened. Nothing ties it shut; a plate laid over the pan does the work a string does elsewhere."
+  },
+  {
+   "name": "Moin moin",
+   "facets": {
+    "wrapper": [
+     "uma leaf",
+     "wilted over flame"
+    ],
+    "body": [
+     "a paste",
+     "milled black-eyed peas",
+     "boiled egg set into it"
+    ],
+    "close": [
+     "folded",
+     "cupped into a cone"
+    ],
+    "cook": [
+     "steamed",
+     "stood upright in a pot"
+    ],
+    "region": [
+     "Nigeria"
+    ]
+   },
+   "note": "A bean paste where the Americas use a corn one, set by heat in exactly the same way. Ewé eran is chosen for what it gives back, which is the argument against the tin can that keeps replacing it."
+  },
+  {
+   "name": "Kenkey",
+   "facets": {
+    "wrapper": [
+     "corn husk",
+     "dried"
+    ],
+    "body": [
+     "a paste",
+     "fermented maize dough",
+     "half of it cooked first",
+     "left unfilled"
+    ],
+    "close": [
+     "gathered",
+     "balled",
+     "tied with husk strips"
+    ],
+    "cook": [
+     "boiled",
+     "hours under water"
+    ],
+    "region": [
+     "Ghana"
+    ]
+   },
+   "note": "Ga kenkey, in dried maize husks — the same wrapper as a tamal, an ocean away. The dough is soured for days, then half of it is cooked into a stiff paste and kneaded back through the raw half; that is what sets it in the husk. Fanti kenkey answers the same question with plantain leaves and no salt."
+  },
+  {
+   "name": "Patra",
+   "facets": {
+    "wrapper": [
+     "colocasia leaf",
+     "veins shaved flat"
+    ],
+    "body": [
+     "a paste",
+     "gram flour",
+     "tamarind",
+     "spread on the leaf"
+    ],
+    "close": [
+     "rolled",
+     "into a spiral"
+    ],
+    "cook": [
+     "steamed",
+     "then sliced and fried"
+    ],
+    "region": [
+     "Gujarat",
+     "Konkan"
+    ]
+   },
+   "note": "Inside out. The paste is spread onto stacked leaves and the whole stack rolled up, so the wrapper runs through every slice instead of being thrown away. Patrode in the Konkan, alu vadi in Maharashtra."
+  },
+  {
+   "name": "Laulau",
+   "facets": {
+    "wrapper": [
+     "ti leaf",
+     "taro leaf inside"
+    ],
+    "body": [
+     "loose filling",
+     "pork",
+     "salted butterfish"
+    ],
+    "close": [
+     "gathered",
+     "knotted with ti-leaf strips"
+    ],
+    "cook": [
+     "buried",
+     "in an imu",
+     "hours over hot stones"
+    ],
+    "region": [
+     "Hawaiʻi"
+    ]
+   },
+   "note": "Two leaves doing two jobs: the lūʻau leaves inside collapse into the pork and are eaten, the ti leaf outside is structure and is not. The imu is the same idea as the pib, half a world east."
+  }
+ ],
+ "notes": [
+  {
+   "title": "The leaf is equipment",
+   "body": "It is tempting to read the wrapper as packaging. It is not — it is the pot. It holds a paste that has no shape of its own, it lets steam in and keeps boiling water out, it takes direct fire without burning what it holds, and it seasons. That last job is why the same glutinous rice becomes zongzi in bamboo and lo mai gai in lotus: nothing about the filling changed."
+  },
+  {
+   "title": "Paste or grain or pieces",
+   "body": "The fork that decides everything downstream. A paste has to be contained until heat sets it, so paste parcels are folded tight and usually tied — untie a raw one and it runs. Whole grains need packing and a long wet cook to fuse. A loose filling only needs holding, which is why a vine leaf rolled into a cigar with nothing to close it is enough for dolma, and would be nowhere near enough for a tamal."
+  },
+  {
+   "title": "On depth",
+   "body": "Only jianshui zong sits a level down, because it genuinely is a zongzi with lye stirred through and the filling left out. Tamal, hallaca, mucbipollo, humita and kenkey are all corn-paste parcels, and none of them descends from another — they are separate answers to the same problem and belong at the same depth. Calling any of them a version of the tamal makes the picture tidier and the claim false."
+  }
+ ],
+ "sources": [
+  {
+   "label": "Tamale (Wikipedia)",
+   "url": "https://en.wikipedia.org/wiki/Tamale"
+  },
+  {
+   "label": "Zongzi",
+   "url": "https://en.wikipedia.org/wiki/Zongzi"
+  },
+  {
+   "label": "Hallaca",
+   "url": "https://en.wikipedia.org/wiki/Hallaca"
+  },
+  {
+   "label": "Bánh chưng",
+   "url": "https://en.wikipedia.org/wiki/B%C3%A1nh_ch%C6%B0ng"
+  },
+  {
+   "label": "Dolma",
+   "url": "https://en.wikipedia.org/wiki/Dolma"
+  },
+  {
+   "label": "Kenkey",
+   "url": "https://en.wikipedia.org/wiki/Kenkey"
+  },
+  {
+   "label": "Moin moin",
+   "url": "https://en.wikipedia.org/wiki/Moin_moin"
+  },
+  {
+   "label": "Patrode",
+   "url": "https://en.wikipedia.org/wiki/Patrode"
+  },
+  {
+   "label": "Laulau",
+   "url": "https://en.wikipedia.org/wiki/Laulau"
+  },
+  {
+   "label": "Otak-otak",
+   "url": "https://en.wikipedia.org/wiki/Otak-otak"
+  },
+  {
+   "label": "Mukbilpollo or pib (Yucatán Today)",
+   "url": "https://yucatantoday.com/en/blog/the-recipe-of-mukbilpollo-or-pib-yucateco"
+  }
+ ],
+ "yours": [
+  "tamale",
+  "tamal",
+  "dolma",
+  "sarma",
+  "zongzi",
+  "banana leaf",
+  "otak-otak",
+  "pepes",
+  "lontong",
+  "laulau",
+  "moin moin"
+ ]
+}

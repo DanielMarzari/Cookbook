@@ -1,8 +1,8 @@
 {
  "slug": "fermented-vegetable",
  "name": "Fermented vegetables",
- "standfirst": "Every one of these is a raw vegetable kept from the air until the bacteria already on its skin turn it sour. What separates them is how the salt gets in, what goes in with it, how cold it is kept and for how long — and whether you stop while it still cracks.",
- "root": "Raw vegetable · packed away from the air · the lactic bacteria already on it",
+ "standfirst": "Every one of these is a vegetable held under brine, or under its own juice, until lactic bacteria turn it sour — the wild ones that came in on it, or the ones handed over in a starter. What separates them is how the salt gets in, what goes in with it, how cold it is kept and for how long — and whether you stop while it still cracks.",
+ "root": "Raw or barely scalded vegetable · held under brine or packed tight · lactic bacteria, wild or from a starter",
  "facets": [
   {
    "id": "salt",
@@ -55,7 +55,8 @@
    "name": "Sauerkraut",
    "facets": {
     "region": [
-     "Germany · Alsace"
+     "Germany",
+     "Alsace"
     ],
     "salt": [
      "dry-salted",
@@ -80,11 +81,12 @@
    "name": "Suan cai",
    "facets": {
     "region": [
-     "Northeast China"
+     "China",
+     "Northeast"
     ],
     "salt": [
      "dry-salted",
-     "pressed under a stone",
+     "pressed under a weight",
      "topped up with water"
     ],
     "add": [
@@ -100,7 +102,7 @@
      "cooked rather than eaten raw"
     ]
    },
-   "note": "Whole napa heads rather than shreds, and cold enough that the ferment takes all winter instead of a month. Sauerkraut reached independently."
+   "note": "Whole napa heads rather than shreds, held down by a stone and topped up with water, and cold enough that the ferment takes all winter instead of a month. Sauerkraut reached independently."
   },
   {
    "name": "Ogórki kiszone",
@@ -110,7 +112,7 @@
     ],
     "salt": [
      "submerged in brine",
-     "weighted under the surface"
+     "pressed under a weight"
     ],
     "add": [
      "garlic",
@@ -128,7 +130,7 @@
      "cloudy brine"
     ]
    },
-   "note": "The horseradish leaf is not seasoning. Its tannins slow the enzymes that soften the cucumber — the one ingredient here whose job is texture."
+   "note": "The horseradish leaf is not seasoning. Its tannins slow the enzymes that soften the cucumber — the one ingredient here whose job is texture. What it buys is weeks rather than crunch: the cucumber goes soft in the end, only later than it would have."
   },
   {
    "name": "Kimchi",
@@ -137,13 +139,14 @@
      "Korea"
     ],
     "salt": [
-     "salted and rinsed first",
+     "submerged in brine",
+     "rinsed after salting",
      "drained overnight"
     ],
     "add": [
-     "chilli paste",
      "gochugaru",
      "garlic",
+     "ginger",
      "salted shrimp"
     ],
     "keep": [
@@ -157,7 +160,7 @@
      "better after a month"
     ]
    },
-   "note": "The only one salted twice over: brined to draw water out, rinsed so it is not inedible, then packed with a paste that ferments alongside it."
+   "note": "The only one salted twice over: brined to draw water out, rinsed so it is not inedible, then packed with a seasoning of chilli powder, garlic and salted shrimp that ferments alongside it."
   },
   {
    "name": "Dongchimi",
@@ -192,6 +195,7 @@
    "name": "Pao cai",
    "facets": {
     "region": [
+     "China",
      "Sichuan"
     ],
     "salt": [
@@ -222,12 +226,13 @@
    "name": "Zha cai",
    "facets": {
     "region": [
-     "Fuling · Chongqing"
+     "China",
+     "Chongqing"
     ],
     "salt": [
      "dry-salted",
-     "salted and pressed three times",
-     "air-dried first"
+     "wilted first",
+     "pressed three times"
     ],
     "add": [
      "chilli paste",
@@ -244,7 +249,7 @@
      "keeps a year"
     ]
    },
-   "note": "The knobbed stem of a mustard plant, not a leaf. Pressing it three times is what leaves it crunchy after half a year in the jar."
+   "note": "The knobbed stem of a mustard plant, not a leaf, grown at Fuling on the Yangtze. It is hung to wilt before any salt goes near it, and pressing it three times is what leaves it crunchy after half a year in the jar."
   },
   {
    "name": "Nukazuke",
@@ -283,7 +288,7 @@
     ],
     "salt": [
      "submerged in brine",
-     "wilted in the sun first"
+     "wilted first"
     ],
     "add": [
      "a starter",
@@ -306,7 +311,8 @@
    "name": "Torshi left",
    "facets": {
     "region": [
-     "Iraq · Levant"
+     "Iraq",
+     "Levant"
     ],
     "salt": [
      "submerged in brine"
@@ -331,6 +337,7 @@
    "name": "Şalgam suyu",
    "facets": {
     "region": [
+     "Turkey",
      "Adana"
     ],
     "salt": [
@@ -339,7 +346,7 @@
     "add": [
      "a starter",
      "a bulgur sourdough",
-     "black carrot",
+     "turnip for aroma",
      "chilli"
     ],
     "keep": [
@@ -348,15 +355,17 @@
     ],
     "end": [
      "you drink the liquid",
-     "the vegetable is only the flavouring"
+     "the black carrot does the fermenting",
+     "a slice goes back in the glass"
     ]
    },
-   "note": "The turnip and black carrot are strained out and the brine is served cold beside kebab. The one entry here where the pickle is thrown away."
+   "note": "The name says turnip, but the black carrot is what ferments and the turnip goes in beside it for aroma. The brine is served cold beside kebab, and a slice of the carrot goes into the glass as it is poured, often with garlic or chilli."
   },
   {
    "name": "Kanji",
    "facets": {
     "region": [
+     "India",
      "Punjab"
     ],
     "salt": [
@@ -376,17 +385,19 @@
      "the carrot is eaten after"
     ]
    },
-   "note": "Black carrot fermented into a sour drink, set out in the winter sun to keep the jar warm — the same answer Adana arrived at, with mustard doing the work of the bulgur."
+   "note": "Black carrot fermented into a sour drink, set out in the winter sun to keep the jar warm — the same answer Adana arrived at, except that nothing is added to start it. The mustard keeps the competition down and the carrots bring their own bacteria."
   },
   {
    "name": "Gajar gobhi shalgam achar",
    "facets": {
     "region": [
+     "India",
      "Punjab"
     ],
     "salt": [
      "dry-salted",
-     "blanched and sun-dried first"
+     "wilted first",
+     "blanched before drying"
     ],
     "add": [
      "ground mustard seed",
@@ -404,7 +415,7 @@
      "keeps a year under oil"
     ]
    },
-   "note": "The winter pickle. Oil on top does what a brine does elsewhere — seals the surface — and the jaggery gives the bacteria something to eat."
+   "note": "The winter pickle: the vegetables are dipped in boiling water and dried in the sun before any salt goes near them. Oil on top does what a brine does elsewhere — seals the surface — and the jaggery gives the bacteria something to eat."
   },
   {
    "name": "Curtido",
@@ -414,7 +425,7 @@
     ],
     "salt": [
      "dry-salted",
-     "cabbage scalded first"
+     "scalded first"
     ],
     "add": [
      "oregano",
@@ -488,15 +499,15 @@
  "notes": [
   {
    "title": "On salt",
-   "body": "Salt ferments nothing. It pulls water out of the vegetable into a brine that lactobacillus tolerates and most spoilage organisms do not — it is a doorman, not a cook. Brining and dry-salting are two routes to the same brine: one you mix, the other the cabbage makes. Gundruk and gari dismiss the doorman entirely and rely on speed and an airtight pot instead."
+   "body": "Salt ferments nothing. It pulls water out of the vegetable into a brine that lactobacillus tolerates and most spoilage organisms do not — it is a doorman, not a cook. Brining and dry-salting are two routes to the same brine: one you mix, the other the cabbage makes. Gundruk and gari dismiss the doorman entirely and rely on speed instead, and on shutting the air out by sealing the pot or pressing the mash dry."
   },
   {
    "title": "On where you stop",
-   "body": "Crunch is pectin, and pectin is lost to warmth and time rather than to salt. The same jar of cucumbers is a crisp half-sour at three days on the counter and a soft full-sour at three weeks, with nothing added in between. Everything in the crunchy column is cold, or fast, or both."
+   "body": "Crunch is pectin, and pectin is lost to warmth and time rather than to salt. The same jar of cucumbers is a crisp half-sour at three days on the counter and a soft full-sour at three weeks, with nothing added in between. The crunchy column is mostly cold, or quick, or both. The exceptions are zha cai and the turnip in torshi left, both dense stem-and-root rather than leaf, which is why they hold where a cabbage would collapse — which is neither: it is wilted and then pressed three times over until there is too little water left in it to soften."
   },
   {
    "title": "On depth",
-   "body": "Nothing here sits under anything else. Kimchi is not dongchimi with chilli paste added — dongchimi is older than chilli in Korea, and both descend from the same salted radish. Sauerkraut and suan cai are one idea arrived at twice by people who never met. Siblings, all of them."
+   "body": "Nothing here sits under anything else. Kimchi is not dongchimi with chilli paste added — dongchimi is older than chilli in Korea, and both descend from the same habit of salting vegetables down for the winter. Sauerkraut and suan cai are one idea arrived at twice by people who never met. Siblings, all of them."
   }
  ],
  "sources": [

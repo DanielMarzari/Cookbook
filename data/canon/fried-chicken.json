@@ -1,8 +1,8 @@
 {
  "slug": "fried-chicken",
  "name": "Fried chicken",
- "standfirst": "Chicken meets hot fat in every one of these. What separates them is what went into the meat beforehand, what went onto the outside, whether it goes in once or twice, and what happens in the ten seconds after it comes out.",
- "root": "Chicken in pieces · salt · hot fat",
+ "standfirst": "Chicken meets hot fat in every one of these. What separates them is what went into the meat beforehand, what went onto the outside, how it meets the fat — once, twice, under pressure, or shallow in a pan — and what happens in the ten seconds after it comes out.",
+ "root": "Chicken, in pieces or pounded flat · salt · hot fat",
  "facets": [
   {
    "id": "prep",
@@ -65,7 +65,9 @@
      "fried once",
      "in a skillet of lard"
     ],
-    "after": [],
+    "after": [
+     "nothing after the fry"
+    ],
     "region": [
      "American South"
     ]
@@ -96,7 +98,7 @@
      "topped with pickle chips"
     ],
     "region": [
-     "Nashville"
+     "American South"
     ]
    },
    "note": "Genuinely Southern fried chicken plus a step, which is why it sits a level down. The paste goes on after the crust has set, so the heat stays on the outside and the bread underneath is there to take what runs off."
@@ -115,12 +117,14 @@
     "fry": [
      "fried under pressure"
     ],
-    "after": [],
+    "after": [
+     "nothing after the fry"
+    ],
     "region": [
      "Wisconsin"
     ]
    },
-   "note": "The same dredge as Southern, in a sealed fryer. Pressure raises the boiling point of the moisture inside the bird so it cooks through before the crust darkens — a machine's answer to a timing problem cooks had solved with smaller pieces."
+   "note": "The same wheat-flour dredge as Southern, paprika in place of the pepper, in a sealed fryer. Pressure raises the boiling point of the moisture inside the bird so it cooks through before the crust darkens — a machine's answer to a timing problem cooks had solved with smaller pieces."
   },
   {
    "name": "Buffalo wings",
@@ -193,10 +197,10 @@
      "karashi mustard"
     ],
     "region": [
-     "Oita"
+     "Japan"
     ]
    },
-   "note": "Oita's version, and the clearest proof that the coating is a real branch: the marinade is karaage's, chip for chip. A cold batter puffs and stays pale where the same meat in starch would have shattered."
+   "note": "Japan's other answer, this one from Oita, and the clearest proof that the coating is a real branch: the marinade is karaage's, chip for chip. A cold batter puffs and stays pale where the same meat in starch would have shattered."
   },
   {
    "name": "Chicken katsu",
@@ -206,8 +210,8 @@
     ],
     "coat": [
      "breadcrumb",
-     "panko",
-     "through flour and egg first"
+     "through flour and egg first",
+     "panko"
     ],
     "fry": [
      "fried once",
@@ -221,7 +225,7 @@
      "Japan"
     ]
    },
-   "note": "Panko is torn from crustless bread rather than ground, so the crumbs are shards and the crust dries open instead of packing tight. Flour then egg then crumb is the ladder every breaded cutlet on this table climbs."
+   "note": "Panko is torn from crustless bread rather than ground, so the crumbs are shards and the crust dries open instead of packing tight. Flour then egg then crumb is the ladder every breaded cutlet here climbs but one — the milanesa goes straight from egg to crumb."
   },
   {
    "name": "Yangnyeom chicken",
@@ -296,10 +300,10 @@
      "green chilli"
     ],
     "region": [
-     "Tamil Nadu"
+     "India"
     ]
    },
-   "note": "Attributed to the Buhari hotel in Madras and dated to 1965 by most tellings. The yogurt is doing brine's job — salt and acid into the meat — but thick enough to stay put without a bowl."
+   "note": "Attributed to the Buhari Hotel in Madras and dated to 1965 by most tellings. The yogurt is doing brine's job — salt and acid into the meat — but thick enough to stay put without a bowl."
   },
   {
    "name": "Chicken pakora",
@@ -322,10 +326,10 @@
      "chaat masala"
     ],
     "region": [
-     "Punjab"
+     "India"
     ]
    },
-   "note": "Gram flour binds without egg and fries darker and nuttier than wheat. It is the same batter that carries onion and potato, which is the point — the chicken is a passenger in an established coating."
+   "note": "Gram flour binds without egg and fries darker and nuttier than wheat. It is the Punjabi batter that already carries onion and potato, which is the point — the chicken is a passenger in an established coating."
   },
   {
    "name": "Yánsūjī",
@@ -361,8 +365,8 @@
     ],
     "coat": [
      "breadcrumb",
-     "fine dry crumb",
-     "through flour and egg first"
+     "through flour and egg first",
+     "fine dry crumb"
     ],
     "fry": [
      "fried shallow in a pan",
@@ -377,7 +381,7 @@
      "Austria"
     ]
    },
-   "note": "Wiener Schnitzel is veal by law, so done with chicken it is Schnitzel vom Huhn — and in Israel, where it arrived with Austrian immigrants and stayed, simply schnitzel. Swirling hot fat over the top floats the crust off the meat instead of pressing it on."
+   "note": "Wiener Schnitzel is veal by law, so the chicken version is a Hühnerschnitzel — and in Israel, where it arrived with Central European Jewish immigrants and stayed, simply schnitzel, as often turkey as chicken. Swirling hot fat over the top floats the crust off the meat instead of pressing it on."
   },
   {
    "name": "Milanesa de pollo",
@@ -403,10 +407,10 @@
      "Argentina"
     ]
    },
-   "note": "The cutlet sits in beaten egg with garlic and parsley for hours before it is crumbed, so the seasoning lives in the wet layer rather than the dry one and there is no flour step at all. Not a schnitzel variant — both look back to Milan and neither descends from the other."
+   "note": "The cutlet sits in beaten egg with garlic and parsley for hours before it is crumbed, so the seasoning lives in the wet layer rather than the dry one and there is no flour step at all. Not a schnitzel variant — the milanesa came from the cotoletta alla milanese with Italian immigrants, while Vienna's Milanese origin is a story Vienna tells rather than a documented descent. Neither descends from the other."
   },
   {
-   "name": "Ayam goreng kalasan",
+   "name": "Ayam goreng Kalasan",
    "facets": {
     "prep": [
      "simmered first",
@@ -459,11 +463,11 @@
  "notes": [
   {
    "title": "On the coating",
-   "body": "Four answers, and they are not interchangeable. Wheat flour builds a thick craggy shell that holds sauce and gravy. Pure starch — potato in Japan and Korea, sweet potato in Taiwan — makes almost no gluten and dries into a thin glassy layer that shatters. A wet batter puffs, because the water in it turns to steam and leaves the coating hollow. Breadcrumb is the only one that is already dry and already cooked, so it browns before the meat is done and therefore belongs on something pounded thin. Pick the coating and you have picked most of the dish."
+   "body": "Four answers, and they are not interchangeable. Wheat flour builds a thick craggy shell that holds sauce and gravy. Pure starch — potato in Japan and Korea, sweet potato in Taiwan — makes almost no gluten and dries into a thin glassy layer that shatters. A wet batter puffs, because the water in it turns to steam and leaves the coating hollow. Breadcrumb is the only one that is already dry and already cooked, so it browns before the meat is done and therefore belongs on something pounded thin. Two rows decline the question altogether and go into the fat bare — Buffalo wings because the sauce is the dish, ayam goreng Kalasan because the chicken is already cooked. Pick the coating and you have picked most of the dish."
   },
   {
    "title": "On frying twice",
-   "body": "The second fry is not for browning. The first drives water out of the meat and up into the coating, where it would soften the crust as it cooled; a rest lets that steam leave and a hotter second fry sets what remains. That is why the twice-fried dishes are the ones that get sauced — yangnyeom and dakgangjeong are engineered to survive a wet glaze, and Buffalo wings get away with a single fry only because there is no coating there to go soft."
+   "body": "The second fry is not for browning. The first drives water out of the meat and up into the coating, where it would soften the crust as it cooled; a rest lets that steam leave and a hotter second fry sets what remains. So every dish here that meets a wet sauce after the fryer either goes in twice — yangnyeom and dakgangjeong are engineered to survive a glaze — or has no coating to lose, which is how Buffalo wings get away with a single fry. The converse does not hold: karaage fries twice for its own crust and goes out with a lemon wedge."
   },
   {
    "title": "On depth",
@@ -508,12 +512,32 @@
    "url": "https://en.wikipedia.org/wiki/Taiwanese_popcorn_chicken"
   },
   {
-   "label": "Ayam goreng kalasan",
+   "label": "Ayam goreng Kalasan",
    "url": "https://en.wikipedia.org/wiki/Ayam_goreng_kalasan"
   },
   {
    "label": "Milanesa",
    "url": "https://en.wikipedia.org/wiki/Milanesa"
+  },
+  {
+   "label": "Buffalo wing",
+   "url": "https://en.wikipedia.org/wiki/Buffalo_wing"
+  },
+  {
+   "label": "Tonkatsu",
+   "url": "https://en.wikipedia.org/wiki/Tonkatsu"
+  },
+  {
+   "label": "Schnitzel",
+   "url": "https://en.wikipedia.org/wiki/Schnitzel"
+  },
+  {
+   "label": "Pakora",
+   "url": "https://en.wikipedia.org/wiki/Pakora"
+  },
+  {
+   "label": "Chicharrón",
+   "url": "https://en.wikipedia.org/wiki/Chicharr%C3%B3n"
   }
  ],
  "yours": [
@@ -528,6 +552,11 @@
   "popcorn chicken",
   "schnitzel",
   "milanesa",
-  "ayam goreng"
+  "ayam goreng",
+  "toriten",
+  "broasted",
+  "yangnyeom",
+  "dakgangjeong",
+  "chicharrón de pollo"
  ]
 }

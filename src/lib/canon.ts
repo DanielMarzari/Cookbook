@@ -74,11 +74,18 @@ function grow(dishes: CanonDish[], facets: string[], depth: number): CanonNode[]
 
     const out: CanonNode[] = [];
     for (const [label, members] of groups) {
+      // Some dishes simply have nothing at this position. They are not a group
+      // called "—" sitting beside their siblings; they belong at this level, so
+      // splice them in rather than nesting them under an empty label.
+      if (!label) {
+        out.push(...at(members, fi, ci + 1, d));
+        continue;
+      }
       const below = at(members, fi, ci + 1, d + 1);
       if (below.length === 1 && below[0].dish) {
-        out.push({ ...below[0], label: label ? `${label} — ${below[0].label}` : below[0].label, depth: d });
+        out.push({ ...below[0], label: `${label} — ${below[0].label}`, depth: d });
       } else {
-        out.push({ label: label || '—', children: below, depth: d });
+        out.push({ label, children: below, depth: d });
       }
     }
     return out;

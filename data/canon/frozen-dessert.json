@@ -1,8 +1,8 @@
 {
  "slug": "frozen-dessert",
  "name": "Frozen dessert",
- "standfirst": "All of these are a sweetened liquid taken below freezing. What separates them is whether there is dairy in it, whether an egg was cooked into it first, whether it moves while it freezes — and how much air ends up trapped inside.",
- "root": "A sweetened liquid · taken below freezing",
+ "standfirst": "All of these are a liquid taken below freezing — sweetened before the cold in most of them, after it in the shaved-ice ones. What separates them is whether there is dairy in it, whether an egg was cooked into it first, whether it moves while it freezes — and how much air ends up trapped inside.",
+ "root": "A liquid taken below freezing · sweetened before or after",
  "facets": [
   {
    "id": "base",
@@ -95,7 +95,6 @@
   },
   {
    "name": "Frozen custard",
-   "parent": "French ice cream",
    "facets": {
     "base": [
      "cream base"
@@ -114,7 +113,7 @@
      "Midwestern United States"
     ]
    },
-   "note": "French ice cream with the air taken out and the hardening step skipped. American law will only let you call it custard at 1.4 percent egg yolk solids or more."
+   "note": "The same custard as French ice cream with the air left out and the hardening step skipped. American law does not separate the two: 21 CFR 135.110 says anything at 1.4 percent egg yolk solids or more may be called frozen custard or french ice cream, so the fork drawn here is a kitchen one — overrun and serving temperature — not a legal one. The stand was a Coney Island invention of 1919 and only became a Wisconsin institution afterwards."
   },
   {
    "name": "Soft serve",
@@ -140,7 +139,7 @@
    "note": "Sits beside frozen custard in the same machine and makes the opposite choice: less fat and much more air. Served at about −4°C rather than −18°C, which is why it curls."
   },
   {
-   "name": "Gelato",
+   "name": "Gelato (crema)",
    "facets": {
     "base": [
      "milk base"
@@ -159,7 +158,29 @@
      "Italy"
     ]
    },
-   "note": "Less fat than ice cream and much less air, served warm enough to be soft. Less fat means less coating on the tongue, so the flavour arrives faster and leaves sooner."
+   "note": "Less fat than ice cream and much less air, served warm enough to be soft. Less fat means less coating on the tongue, so the flavour arrives faster and leaves sooner. The yolks are the northern convention, not the whole country — see the Sicilian row."
+  },
+  {
+   "name": "Gelato (Sicilian)",
+   "facets": {
+    "base": [
+     "milk base"
+    ],
+    "body": [
+     "cornstarch"
+    ],
+    "freeze": [
+     "churned while freezing",
+     "held warmer than ice cream"
+    ],
+    "air": [
+     "a little beaten in"
+    ],
+    "region": [
+     "Sicily"
+    ]
+   },
+   "note": "Body from starch cooked into the milk rather than from yolks, which is the older Sicilian way and lighter in a Sicilian summer. Nothing coats the tongue, so a pistachio or a lemon tastes of itself rather than of custard."
   },
   {
    "name": "Semifreddo",
@@ -214,7 +235,7 @@
      "goat milk"
     ],
     "body": [
-     "salep root",
+     "salep (orchid tuber)",
      "mastic gum"
     ],
     "freeze": [
@@ -228,7 +249,7 @@
      "Turkey"
     ]
    },
-   "note": "Maraş dondurma. Flour from wild orchid tubers and resin from mastic trees make it elastic enough to cut with a knife, and slow enough to melt that it can be sold from an unrefrigerated cart."
+   "note": "Maraş dondurma. Flour milled from wild orchid tubers and resin from the mastic tree make it elastic enough to cut with a knife: it is sold on a stick, sliced rather than scooped, and eaten with a fork. The vendor's long-handled paddles are what keep it workable, worked constantly in a chilled churn."
   },
   {
    "name": "Frozen yogurt",
@@ -319,7 +340,7 @@
      "Sicily"
     ]
    },
-   "note": "The same syrup as sorbet, left alone and broken up by hand every half hour. Crystals are the point rather than the failure."
+   "note": "The same syrup as sorbet, left alone and broken up by hand every half hour. Crystals are the point rather than the failure — though Palermo and Messina rake to something much smoother than Catania does."
   },
   {
    "name": "Helado de paila",
@@ -342,7 +363,7 @@
      "Ecuador"
     ]
    },
-   "note": "A copper bowl set on ice and salt and spun by hand with a wooden paddle. Ibarra has done it since 1897, originally with ice carried down from the glacier on Imbabura."
+   "note": "A copper bowl set on ice and salt and spun by hand with a wooden paddle. Rosalía Suárez has been credited with it in Ibarra since 1897, originally with ice carried down from the glacier on Imbabura."
   },
   {
    "name": "Faloodeh",
@@ -369,10 +390,36 @@
    "note": "Shiraz's answer, and one of the oldest in the family: cold starch vermicelli set through a half-frozen syrup, so every spoonful is chewy and icy at the same time."
   },
   {
+   "name": "Kakigori",
+   "facets": {
+    "base": [
+     "plain water",
+     "sweetened after freezing",
+     "syrup poured over"
+    ],
+    "body": [
+     "nothing added"
+    ],
+    "freeze": [
+     "frozen solid first",
+     "shaved into flakes"
+    ],
+    "air": [
+     "none"
+    ],
+    "region": [
+     "Japan"
+    ]
+   },
+   "note": "Water ice planed into flakes fine enough to melt on contact, sweetened only once it is in the bowl. The oldest move on this branch — shaved ice with sweet syrup is described in The Pillow Book a thousand years ago — and the one Japanese migrants carried to Manila in the 1920s and 30s."
+  },
+  {
    "name": "Halo-halo",
    "facets": {
     "base": [
-     "plain water"
+     "plain water",
+     "sweetened after freezing",
+     "sweets layered underneath"
     ],
     "body": [
      "nothing added"
@@ -388,10 +435,10 @@
      "Philippines"
     ]
    },
-   "note": "The ice itself is bare — everything that makes it a dessert is spooned in afterwards: ube, sweet beans, leche flan, and evaporated milk poured over the top. The name means mix-mix."
+   "note": "The ice itself is bare; everything that makes it a dessert is in the glass around it — ube, sweet beans, leche flan, evaporated milk poured over the top. The name means mix-mix, and the mixing is the instruction. The shaving came from Japan by way of the prewar mongo-ya stalls in Manila; what the Philippines added was everything underneath."
   },
   {
-   "name": "Bingsu",
+   "name": "Bingsu (milk snow)",
    "facets": {
     "base": [
      "milk base"
@@ -410,25 +457,29 @@
      "Korea"
     ]
    },
-   "note": "Halo-halo's move applied to dairy instead of water: freeze the milk into a block and shave it. You get creaminess without ever churning, in ribbons rather than a scoop."
+   "note": "Uyu bingsu, the café version of the 2000s: sweetened milk frozen into a block and shaved, so it comes out creamy in ribbons without ever being churned. The older patbingsu shaves plain water ice instead and puts the sweetness in the red bean, tteok and condensed milk on top. Neither this nor halo-halo invented the shaving; both sit downstream of kakigori."
   }
  ],
  "notes": [
   {
    "title": "On moving while it freezes",
-   "body": "This is the largest fork in the family. Movement keeps ice crystals small, and small crystals are what the word creamy actually describes. Leave the mix still and you need another answer to the same problem: accept the crystals and make them the point (granita), trap the air beforehand in whipped cream and meringue (semifreddo), or boil the milk down until there is too little free water for crystals to grow at all (kulfi)."
+   "body": "This is the largest fork in the family. Movement keeps ice crystals small, and small crystals are what the word creamy actually describes. Leave the mix still and you need another answer to the same problem: accept the crystals and make them the point (granita), trap the air beforehand in whipped cream and meringue (semifreddo), or boil the milk down until there is too little free water for crystals to grow at all (kulfi). Or refuse the question — freeze the liquid to a solid block and cut the crystals afterwards with a blade, which is what kakigori, halo-halo and bingsu do."
   },
   {
    "title": "On air",
-   "body": "Air is the invisible ingredient, and the trade has a name — overrun, how much the mix expands in the machine. American ice cream may nearly double in volume so long as a gallon still weighs 4.5 pounds. Gelato takes far less, which is why a small cup of it is surprisingly heavy. Frozen custard takes almost none. Same cream, same sugar, three desserts, and most of the difference is nothing."
+   "body": "Air is the invisible ingredient, and the trade has a name — overrun, how much the mix expands in the machine. American ice cream may nearly double in volume so long as a gallon still weighs 4.5 pounds and carries 1.6 pounds of total solids. Gelato takes far less, which is why a small cup of it is surprisingly heavy. Frozen custard takes almost none. Same cream, same sugar, three desserts, and most of the difference is nothing."
   },
   {
-   "title": "On giving water a body",
-   "body": "Frozen sugar-water has nothing holding it together, and four traditions answer that four different ways: egg yolk in France, salep and mastic in Maraş, starch noodles set through the syrup in Shiraz, and in North India no additive at all — just milk boiled down until its own solids do the work. These are siblings solving one problem, not versions of each other."
+   "title": "On what holds it together",
+   "body": "Take the dairy fat out, or never put it in, and something else has to hold the thing together. The traditions here answer five ways: egg yolk in France, cornstarch in Sicily, salep and mastic in Maraş, starch noodles set through the syrup in Shiraz, and in North India no additive at all — milk boiled down until its own solids do the work. Sorbet, which really is frozen sugar-water, answers with the sugar itself: enough of it and the syrup never sets hard, too little and it sets like a rock. Granita declines the question and lets the crystals stand; halo-halo declines it too and builds the dessert around the ice instead. These are siblings solving one problem, not versions of each other."
   },
   {
    "title": "On the word sherbet",
-   "body": "In American law sherbet is sorbet with 1 to 2 percent milkfat, and it is the only dish here whose lineage is a legal definition. In Britain sherbet is a fizzy sweet powder with nothing to do with any of this. Across much of the rest of the anglophone world it is simply what sorbet is called. Three things, one word — all of them descended from the Arabic sharbat."
+   "body": "In American law sherbet is sorbet with 1 to 2 percent milkfat — one of two rows here drawn by a legal line rather than a kitchen one, frozen custard being the other at 1.4 percent egg yolk solids. In Britain sherbet is a fizzy sweet powder with nothing to do with any of this. Across much of the rest of the anglophone world it is simply what sorbet is called. Three things, one word — all of them descended from the Arabic sharbat."
+  },
+  {
+   "title": "On shaved ice",
+   "body": "The three shaved-ice rows are one technique in three places, and the ancestor is kakigori: freeze first, then make the texture with a blade. It reached Manila with Japanese migrants in the 1920s and 30s, where the mongo-ya stalls sold shaved ice over sweetened mung beans and halo-halo grew out of it. Korea's bingsu has its own long line in shaved ice, and the milk-snow version is recent enough to be a café invention. None of the three is a variant of another; the family resemblance is the blade."
   }
  ],
  "sources": [
@@ -438,11 +489,11 @@
   },
   {
    "label": "21 CFR 135.110 — Ice cream and frozen custard",
-   "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-135/subpart-B/section-135.110"
+   "url": "https://www.law.cornell.edu/cfr/text/21/135.110"
   },
   {
    "label": "21 CFR 135.140 — Sherbet",
-   "url": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-135/subpart-B/section-135.140"
+   "url": "https://www.law.cornell.edu/cfr/text/21/135.140"
   },
   {
    "label": "Gelato",
@@ -459,6 +510,10 @@
   {
    "label": "Faloodeh",
    "url": "https://en.wikipedia.org/wiki/Faloodeh"
+  },
+  {
+   "label": "Kakigori",
+   "url": "https://en.wikipedia.org/wiki/Kakigori"
   },
   {
    "label": "Halo-halo",
@@ -487,7 +542,10 @@
   "soft serve",
   "faloodeh",
   "halo-halo",
+  "kakigori",
   "dondurma",
-  "bingsu"
+  "bingsu",
+  "helado de paila",
+  "paila"
  ]
 }
