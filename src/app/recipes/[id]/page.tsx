@@ -642,6 +642,13 @@ export default function RecipeDetailPage() {
         />
       )}
 
+      {/* Cooking journal — above the flavour analysis, because what happened the
+          last time you made it is worth more than a computed profile, and it was
+          buried under two sections nobody scrolls past. */}
+      <div className="pt-14">
+        <CookLogSection recipeId={recipe.id} />
+      </div>
+
       {/* Flavour profile & cohesion (from the Flavor Lab) */}
       <RecipeFlavorCard recipeId={version?.id ?? recipe.id} />
 
@@ -656,10 +663,6 @@ export default function RecipeDetailPage() {
         </div>
       )}
 
-      {/* Cooking journal */}
-      <div className="pt-14">
-        <CookLogSection recipeId={recipe.id} />
-      </div>
     </div>
   );
 }

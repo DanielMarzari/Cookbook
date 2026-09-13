@@ -94,7 +94,10 @@ export default function CookLogSection({ recipeId }: { recipeId: string }) {
     try {
       const created = await api.cookLogs.create({
         recipe_id: recipeId,
-        cooked_at: new Date(cookedAt).toISOString(),
+        // Store the day, not an instant. Converting to an ISO timestamp makes
+        // it UTC midnight, which is the previous day in every timezone west of
+        // Greenwich — so a cook logged today comes back as yesterday.
+        cooked_at: cookedAt,
         rating: rating || undefined,
         notes: notes.trim() || undefined,
         photo_url: photo || undefined,
@@ -123,8 +126,16 @@ export default function CookLogSection({ recipeId }: { recipeId: string }) {
     }
   };
 
-  const fmtDate = (iso: string) =>
-    new Date(iso).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+  const fmtDate = (value: string) =>
+    (() => {
+      // A logged cook is a day, not a moment. Read the date parts directly and
+      // build a local date, so the label never drifts backwards by a timezone.
+      const [y, m, d] = value.slice(0, 10).split('-').map(Number);
+      const local = new Date(y, (m || 1) - 1, d || 1);
+      return Number.isNaN(local.getTime())
+        ? value
+        : local.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+    })();
 
   return (
     <div className="bg-surface rounded-2xl p-6 border border-border shadow-warm mb-8">
