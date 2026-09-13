@@ -349,6 +349,8 @@ export const api = {
       return fetchJson<CookLog[]>(`/api/cook-logs${params}`);
     },
     create: (data: Partial<CookLog>) => fetchJson<CookLog>('/api/cook-logs', { method: 'POST', body: data }),
+    update: (data: Partial<CookLog> & { id: string }) =>
+      fetchJson<CookLog>('/api/cook-logs', { method: 'PUT', body: data }),
     delete: (id: string) => fetch(`/api/cook-logs?id=${id}`, { method: 'DELETE' }),
   },
 

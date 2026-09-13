@@ -2,6 +2,33 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { CookLog } from '@/lib/types';
 
+/** Adjustments are stored as a JSON string; hand callers the array. */
+type Row = Omit<CookLog, 'adjustments'> & { adjustments: string | null };
+function hydrate(row: Row): CookLog {
+  let adjustments: CookLog['adjustments'];
+  try {
+    adjustments = row.adjustments ? JSON.parse(row.adjustments) : undefined;
+  } catch {
+    adjustments = undefined; // a malformed row shouldn't take the page down
+  }
+  return { ...row, adjustments };
+}
+
+/** Keep only well-formed adjustments, so a bad payload can't poison the row. */
+function serialiseAdjustments(input: unknown): string | null {
+  if (!Array.isArray(input)) return null;
+  const clean = input
+    .filter((a): a is Record<string, unknown> => Boolean(a) && typeof a === 'object')
+    .map((a) => ({
+      name: String(a.name ?? '').trim(),
+      unit: String(a.unit ?? ''),
+      was: Number(a.was),
+      used: Number(a.used),
+    }))
+    .filter((a) => a.name && Number.isFinite(a.was) && Number.isFinite(a.used) && a.was !== a.used);
+  return clean.length ? JSON.stringify(clean) : null;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const db = getDb();
@@ -16,7 +43,7 @@ export async function GET(request: NextRequest) {
     }
     query += ' ORDER BY cooked_at DESC, created_at DESC';
 
-    const logs = db.prepare(query).all(...params) as CookLog[];
+    const logs = (db.prepare(query).all(...params) as Row[]).map(hydrate);
     return NextResponse.json(logs);
   } catch (error) {
     console.error('Error fetching cook logs:', error);
@@ -38,8 +65,8 @@ export async function POST(request: NextRequest) {
     const cookedAt = body.cooked_at || now;
 
     db.prepare(`
-      INSERT INTO cook_logs (id, recipe_id, cooked_at, rating, notes, photo_url, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
+      INSERT INTO cook_logs (id, recipe_id, cooked_at, rating, notes, photo_url, adjustments, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
       id,
       body.recipe_id,
@@ -47,13 +74,53 @@ export async function POST(request: NextRequest) {
       body.rating ?? null,
       body.notes || null,
       body.photo_url || null,
+      serialiseAdjustments(body.adjustments),
       now
     );
 
-    return NextResponse.json({ id, ...body, cooked_at: cookedAt, created_at: now });
+    const created = db.prepare('SELECT * FROM cook_logs WHERE id = ?').get(id) as Row;
+    return NextResponse.json(hydrate(created));
   } catch (error) {
     console.error('Error creating cook log:', error);
     return NextResponse.json({ error: 'Failed to create cook log' }, { status: 500 });
+  }
+}
+
+/**
+ * Edit an entry.
+ *
+ * A cook log is a record of something that happened, and the first thing anyone
+ * wants after writing one down is to correct it — a wrong date, a rating they
+ * revised after eating it cold the next day.
+ */
+export async function PUT(request: NextRequest) {
+  try {
+    const db = getDb();
+    const body = await request.json();
+    if (!body.id) return NextResponse.json({ error: 'id required' }, { status: 400 });
+
+    const existing = db.prepare('SELECT * FROM cook_logs WHERE id = ?').get(body.id) as Row | undefined;
+    if (!existing) return NextResponse.json({ error: 'not found' }, { status: 404 });
+
+    db.prepare(`
+      UPDATE cook_logs
+         SET cooked_at = ?, rating = ?, notes = ?, photo_url = ?, adjustments = ?
+       WHERE id = ?
+    `).run(
+      body.cooked_at ?? existing.cooked_at,
+      body.rating ?? null,
+      body.notes || null,
+      // Undefined means "not editing the photo"; null means "remove it".
+      body.photo_url === undefined ? existing.photo_url : body.photo_url || null,
+      body.adjustments === undefined ? existing.adjustments : serialiseAdjustments(body.adjustments),
+      body.id
+    );
+
+    const updated = db.prepare('SELECT * FROM cook_logs WHERE id = ?').get(body.id) as Row;
+    return NextResponse.json(hydrate(updated));
+  } catch (error) {
+    console.error('Error updating cook log:', error);
+    return NextResponse.json({ error: 'Failed to update cook log' }, { status: 500 });
   }
 }
 

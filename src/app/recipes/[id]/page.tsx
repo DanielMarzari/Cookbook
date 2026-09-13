@@ -646,7 +646,10 @@ export default function RecipeDetailPage() {
           last time you made it is worth more than a computed profile, and it was
           buried under two sections nobody scrolls past. */}
       <div className="pt-14">
-        <CookLogSection recipeId={recipe.id} />
+        <CookLogSection
+          recipeId={recipe.id}
+          ingredients={shownIngredients as RecipeIngredient[]}
+        />
       </div>
 
       {/* Flavour profile & cohesion (from the Flavor Lab) */}

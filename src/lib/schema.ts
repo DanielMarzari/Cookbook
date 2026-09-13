@@ -220,6 +220,10 @@ CREATE TABLE IF NOT EXISTS cook_logs (
   rating INTEGER,
   notes TEXT,
   photo_url TEXT,
+  -- What you'd change next time, as JSON: [{name, unit, was, used}]. Kept on
+  -- the log rather than on the recipe, so trying something is not the same as
+  -- deciding it.
+  adjustments TEXT,
   created_at TEXT,
   FOREIGN KEY (recipe_id) REFERENCES recipes(id)
 );

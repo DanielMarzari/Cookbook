@@ -184,6 +184,16 @@ export interface GroceryListItem {
 }
 
 // A cooking journal entry for a recipe
+/** One ingredient you'd measure differently next time. */
+export interface CookAdjustment {
+  name: string;
+  unit: string;
+  /** What the recipe says. Kept so the suggestion still reads if the recipe moves. */
+  was: number;
+  /** What you actually used, or would use next time. */
+  used: number;
+}
+
 export interface CookLog {
   id: string;
   recipe_id: string;
@@ -191,6 +201,8 @@ export interface CookLog {
   rating?: number;
   notes?: string;
   photo_url?: string;
+  /** Quantities you'd change, recorded against this cook rather than the recipe. */
+  adjustments?: CookAdjustment[];
   created_at: string;
 }
 

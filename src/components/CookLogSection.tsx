@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { Star, Camera, Trash2, Plus, Loader, X } from 'lucide-react';
+import { Star, Camera, Trash2, Plus, Loader, X, Pencil, SlidersHorizontal } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { toast } from '@/lib/toast';
 import { fileToResizedDataUrl } from '@/lib/photo';
-import { CookLog } from '@/lib/types';
+import { CookAdjustment, CookLog, RecipeIngredient } from '@/lib/types';
 
 function StarRating({
   value,
@@ -40,7 +40,21 @@ function StarRating({
   );
 }
 
-export default function CookLogSection({ recipeId }: { recipeId: string }) {
+/**
+ * Logging a cook, including what you'd measure differently next time.
+ *
+ * The adjustments live on the entry rather than on the recipe, because trying
+ * something once is not the same as deciding it. The recipe stays as written
+ * until you say otherwise; the log just remembers that last time you used less
+ * sugar and liked it.
+ */
+export default function CookLogSection({
+  recipeId,
+  ingredients = [],
+}: {
+  recipeId: string;
+  ingredients?: RecipeIngredient[];
+}) {
   const [logs, setLogs] = useState<CookLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [adding, setAdding] = useState(false);
@@ -53,6 +67,11 @@ export default function CookLogSection({ recipeId }: { recipeId: string }) {
   const [photo, setPhoto] = useState<string | null>(null);
   const [photoBusy, setPhotoBusy] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  // id of the entry being edited, or null when the form is writing a new one
+  const [editingId, setEditingId] = useState<string | null>(null);
+  // ingredient name -> what you'd use next time, as typed
+  const [amounts, setAmounts] = useState<Record<string, string>>({});
+  const [showAmounts, setShowAmounts] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -72,7 +91,36 @@ export default function CookLogSection({ recipeId }: { recipeId: string }) {
     setNotes('');
     setPhoto(null);
     setAdding(false);
+    setEditingId(null);
+    setAmounts({});
+    setShowAmounts(false);
   };
+
+  /** Load an existing entry back into the form. */
+  const startEdit = (log: CookLog) => {
+    setEditingId(log.id);
+    setCookedAt(log.cooked_at.slice(0, 10));
+    setRating(log.rating ?? 0);
+    setNotes(log.notes ?? '');
+    setPhoto(log.photo_url ?? null);
+    const next: Record<string, string> = {};
+    for (const a of log.adjustments ?? []) next[a.name] = String(a.used);
+    setAmounts(next);
+    setShowAmounts((log.adjustments ?? []).length > 0);
+    setAdding(true);
+  };
+
+  /** Only the ingredients you actually changed become adjustments. */
+  const collectAdjustments = (): CookAdjustment[] =>
+    ingredients
+      .map((ing) => {
+        const typed = amounts[ing.name];
+        if (typed === undefined || typed.trim() === '') return null;
+        const used = Number(typed);
+        if (!Number.isFinite(used) || used === ing.quantity) return null;
+        return { name: ing.name, unit: ing.unit, was: ing.quantity, used };
+      })
+      .filter((a): a is CookAdjustment => a !== null);
 
   const handlePhoto = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -92,8 +140,7 @@ export default function CookLogSection({ recipeId }: { recipeId: string }) {
   const handleSave = async () => {
     setSaving(true);
     try {
-      const created = await api.cookLogs.create({
-        recipe_id: recipeId,
+      const payload = {
         // Store the day, not an instant. Converting to an ISO timestamp makes
         // it UTC midnight, which is the previous day in every timezone west of
         // Greenwich — so a cook logged today comes back as yesterday.
@@ -101,13 +148,22 @@ export default function CookLogSection({ recipeId }: { recipeId: string }) {
         rating: rating || undefined,
         notes: notes.trim() || undefined,
         photo_url: photo || undefined,
-      });
-      setLogs((prev) => [created, ...prev]);
-      toast.success('Cook logged');
+        adjustments: collectAdjustments(),
+      };
+
+      if (editingId) {
+        const updated = await api.cookLogs.update({ id: editingId, ...payload });
+        setLogs((prev) => prev.map((l) => (l.id === editingId ? updated : l)));
+        toast.success('Entry updated');
+      } else {
+        const created = await api.cookLogs.create({ recipe_id: recipeId, ...payload });
+        setLogs((prev) => [created, ...prev]);
+        toast.success('Cook logged');
+      }
       resetForm();
     } catch (err) {
       console.error('Error saving cook log:', err);
-      toast.error('Failed to log cook');
+      toast.error(editingId ? 'Failed to update entry' : 'Failed to log cook');
     } finally {
       setSaving(false);
     }
@@ -205,13 +261,65 @@ export default function CookLogSection({ recipeId }: { recipeId: string }) {
             )}
           </div>
 
+          {ingredients.length > 0 && (
+            <div className="border-t border-border pt-3">
+              <button
+                onClick={() => setShowAmounts((v) => !v)}
+                className="flex items-center gap-1.5 text-sm text-text-secondary hover:text-text transition-colors"
+                aria-expanded={showAmounts}
+              >
+                <SlidersHorizontal size={15} />
+                Measure something differently
+              </button>
+
+              {showAmounts && (
+                <div className="mt-3">
+                  <p className="text-[12.5px] text-text-secondary mb-2 max-w-[60ch]">
+                    Only fill in what you&rsquo;d change. This is kept against this cook — the recipe stays
+                    exactly as written until you decide otherwise.
+                  </p>
+                  <div className="flex flex-col gap-1.5">
+                    {ingredients.map((ing) => {
+                      const typed = amounts[ing.name] ?? '';
+                      const changed = typed.trim() !== '' && Number(typed) !== ing.quantity;
+                      return (
+                        <div key={ing.id} className="flex items-center gap-2.5 text-sm">
+                          <span className="flex-1 min-w-0 truncate text-text">{ing.name}</span>
+                          <span className="text-text-secondary tabular-nums whitespace-nowrap">
+                            {ing.quantity} {ing.unit}
+                          </span>
+                          <span aria-hidden className="text-text-secondary">&rarr;</span>
+                          <input
+                            type="number"
+                            inputMode="decimal"
+                            step="any"
+                            min="0"
+                            value={typed}
+                            onChange={(e) => setAmounts((a) => ({ ...a, [ing.name]: e.target.value }))}
+                            placeholder={String(ing.quantity)}
+                            aria-label={`Amount of ${ing.name} to use next time`}
+                            className={`w-24 px-2 py-1 border text-sm tabular-nums focus:outline-none focus:border-text ${
+                              changed ? 'border-text text-text' : 'border-border text-text-secondary'
+                            }`}
+                          />
+                          <span className="w-14 text-text-secondary text-[12.5px] truncate">{ing.unit}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
           <div className="flex items-center gap-2">
             <button
               onClick={handleSave}
               disabled={saving}
               className="px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:bg-primary-dark transition-colors disabled:opacity-50 flex items-center gap-1.5"
             >
-              {saving && <Loader size={16} className="animate-spin" />} Save
+              {saving && <Loader size={16} className="animate-spin" />}
+              {editingId ? 'Save changes' : 'Save'}
             </button>
             <button
               onClick={resetForm}
@@ -239,16 +347,36 @@ export default function CookLogSection({ recipeId }: { recipeId: string }) {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-sm font-medium text-text">{fmtDate(log.cooked_at)}</span>
-                  <button
-                    onClick={() => handleDelete(log.id)}
-                    className="p-1 text-text-secondary hover:text-red-500 transition-colors flex-shrink-0"
-                    aria-label="Delete entry"
-                  >
-                    <Trash2 size={16} />
-                  </button>
+                  <span className="flex items-center gap-1 flex-shrink-0">
+                    <button
+                      onClick={() => startEdit(log)}
+                      className="p-1 text-text-secondary hover:text-text transition-colors"
+                      aria-label="Edit entry"
+                    >
+                      <Pencil size={15} />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(log.id)}
+                      className="p-1 text-text-secondary hover:text-red-500 transition-colors"
+                      aria-label="Delete entry"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                  </span>
                 </div>
                 {log.rating ? <div className="mt-1"><StarRating value={log.rating} readOnly size={16} /></div> : null}
                 {log.notes && <p className="text-sm text-text-secondary mt-1 whitespace-pre-wrap">{log.notes}</p>}
+                {log.adjustments && log.adjustments.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+                    {log.adjustments.map((a) => (
+                      <span key={a.name} className="text-[12.5px] text-text-secondary tabular-nums">
+                        {a.name}{' '}
+                        <span className="line-through">{a.was} {a.unit}</span>{' '}
+                        <span className="text-text">{a.used} {a.unit}</span>
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             </li>
           ))}

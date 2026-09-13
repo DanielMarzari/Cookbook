@@ -135,6 +135,7 @@ export function getDb(): Database.Database {
     // Add columns introduced after a table already existed. CREATE TABLE
     // IF NOT EXISTS won't alter an existing table, so migrate explicitly.
     ensureColumn(db, 'recipes', 'image_position', 'TEXT');
+    ensureColumn(db, 'cook_logs', 'adjustments', 'TEXT');
     ensureColumn(db, 'recipes', 'image_zoom', 'REAL');
     ensureColumn(db, 'recipes', 'notes', 'TEXT');
     ensureColumn(db, 'recipe_ingredients', 'section', 'TEXT');
