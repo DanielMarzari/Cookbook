@@ -19,13 +19,29 @@ function serialiseAdjustments(input: unknown): string | null {
   if (!Array.isArray(input)) return null;
   const clean = input
     .filter((a): a is Record<string, unknown> => Boolean(a) && typeof a === 'object')
-    .map((a) => ({
-      name: String(a.name ?? '').trim(),
-      unit: String(a.unit ?? ''),
-      was: Number(a.was),
-      used: Number(a.used),
-    }))
-    .filter((a) => a.name && Number.isFinite(a.was) && Number.isFinite(a.used) && a.was !== a.used);
+    .map((a) => {
+      const unit = String(a.unit ?? '');
+      const usedUnit = String(a.usedUnit ?? '') || unit;
+      return {
+        name: String(a.name ?? '').trim(),
+        unit,
+        was: Number(a.was),
+        used: Number(a.used),
+        // Only carry the second unit when it actually differs, so a row doesn't
+        // claim a change that isn't one.
+        ...(usedUnit !== unit ? { usedUnit } : {}),
+      };
+    })
+    // Zero is a real answer — it means you left the ingredient out — so the test
+    // is whether anything differs, not whether an amount was given.
+    .filter(
+      (a) =>
+        a.name &&
+        Number.isFinite(a.was) &&
+        Number.isFinite(a.used) &&
+        a.used >= 0 &&
+        (a.was !== a.used || Boolean(a.usedUnit)),
+    );
   return clean.length ? JSON.stringify(clean) : null;
 }
 

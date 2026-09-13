@@ -10,23 +10,30 @@ import { formatTime } from '@/lib/utils';
 import { framingStyle } from '@/lib/image';
 import BranchCollage, { BranchTicks, type VariationThumb } from '@/components/BranchCollage';
 
-type RecipeStatus = 'new' | 'testing' | 'approved' | 'signature' | 'archived';
+type RecipeStatus = 'new' | 'testing' | 'approved' | 'archived';
 
 const STATUS_ICONS: Record<RecipeStatus, typeof Sparkles> = {
   new: Sparkles,
   testing: FlaskConical,
   approved: CheckCircle,
-  signature: Award,
   archived: Archive,
 };
 
+/**
+ * What each status means, spelled out.
+ *
+ * The button cycles, so the only way to know what you are about to pick is to
+ * be told — the icon alone cannot distinguish "still working on it" from "tried
+ * it, didn't like it".
+ */
 const STATUS_LABELS: Record<RecipeStatus, string> = {
-  new: 'New',
-  testing: 'Testing',
-  approved: 'Approved',
-  signature: 'Signature',
-  archived: "Tried, didn't like",
+  new: 'New — not cooked yet',
+  testing: "Testing — still working out what it wants",
+  approved: 'Approved — this one works',
+  archived: "Tried, didn't like — kept, but not coming back to it",
 };
+
+const STATUS_ORDER: RecipeStatus[] = ['new', 'testing', 'approved', 'archived'];
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -41,6 +48,7 @@ export default function RecipeCard({
 }: RecipeCardProps) {
   const [isFavorite, setIsFavorite] = useState(recipe.is_favorite);
   const [status, setStatus] = useState<RecipeStatus>(recipe.status || 'new');
+  const [isSignature, setIsSignature] = useState(Boolean(recipe.is_signature));
 
   const handleToggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -51,8 +59,7 @@ export default function RecipeCard({
 
   const handleCycleStatus = async (e: React.MouseEvent) => {
     e.preventDefault();
-    const statuses: RecipeStatus[] = ['new', 'testing', 'approved', 'signature', 'archived'];
-    const nextStatus = statuses[(statuses.indexOf(status) + 1) % statuses.length];
+    const nextStatus = STATUS_ORDER[(STATUS_ORDER.indexOf(status) + 1) % STATUS_ORDER.length];
     try {
       await api.recipes.update(recipe.id, { status: nextStatus });
       setStatus(nextStatus);
@@ -64,10 +71,23 @@ export default function RecipeCard({
 
   if (!recipe.id) return null;
 
+  const handleToggleSignature = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const next = !isSignature;
+    setIsSignature(next);
+    try {
+      await api.recipes.update(recipe.id, { is_signature: next });
+    } catch (error) {
+      console.error('Error updating signature:', error);
+      setIsSignature(!next); // put the pip back if it didn't stick
+    }
+  };
+
   const StatusIcon = STATUS_ICONS[status];
   const tagParts = [
     (recipe.cuisine_type || 'other').toLowerCase(),
-    ...(status === 'signature' ? ['signature'] : []),
+    ...(isSignature ? ['signature'] : []),
   ];
   const variations: VariationThumb[] =
     ((recipe as unknown as { variations?: VariationThumb[] }).variations) || [];
@@ -107,20 +127,51 @@ export default function RecipeCard({
             </div>
           )}
 
+          {/* Signature sits apart from the status controls, top left, because it
+              answers a different question and should not look like one of them.
+              It stays visible when set — the point of a signature dish is that
+              you can see which ones they are without hovering. */}
+          <button
+            onClick={handleToggleSignature}
+            aria-pressed={isSignature}
+            aria-label={
+              isSignature ? 'Signature dish — click to unmark' : 'Mark as a signature dish'
+            }
+            title={
+              isSignature
+                ? 'Signature dish — one of your best'
+                : 'Mark as a signature dish — one of your best'
+            }
+            className={`absolute top-3 left-3 p-2 border cursor-pointer transition-opacity ${
+              isSignature
+                ? 'bg-text border-text opacity-100'
+                : 'bg-white/95 border-border opacity-0 group-hover:opacity-100 focus-within:opacity-100 hover:bg-white'
+            }`}
+          >
+            <Award
+              size={15}
+              strokeWidth={1.8}
+              className={isSignature ? 'text-white' : 'text-text'}
+            />
+          </button>
+
           {/* Quiet controls — surface on hover / focus */}
           <div className="absolute top-3 right-3 flex items-center gap-1.5 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity">
             <button
               onClick={handleCycleStatus}
               className="p-2 bg-white/95 border border-border cursor-pointer hover:bg-white"
-              aria-label="Cycle recipe status"
-              title={STATUS_LABELS[status]}
+              aria-label={`Recipe status: ${STATUS_LABELS[status]}. Click to change.`}
+              title={`${STATUS_LABELS[status]}\nClick for: ${
+                STATUS_LABELS[STATUS_ORDER[(STATUS_ORDER.indexOf(status) + 1) % STATUS_ORDER.length]]
+              }`}
             >
               <StatusIcon size={15} strokeWidth={1.8} className="text-text" />
             </button>
             <button
               onClick={handleToggleFavorite}
               className="p-2 bg-white/95 border border-border cursor-pointer hover:bg-white"
-              aria-label="Toggle favorite"
+              aria-label={isFavorite ? 'Remove from favourites' : 'Add to favourites'}
+              title={isFavorite ? 'In your favourites' : 'Add to favourites'}
             >
               <Heart
                 size={15}

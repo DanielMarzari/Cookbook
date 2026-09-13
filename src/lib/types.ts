@@ -106,7 +106,15 @@ export interface Recipe {
   source_featured?: number | null; // joined from sources: does its source lead the shelf
   source_label?: string | null; // joined from sources: its display name
   source?: Source | null; // the full source row, on single-recipe reads
-  status?: 'new' | 'testing' | 'approved' | 'signature' | 'archived';
+  status?: 'new' | 'testing' | 'approved' | 'archived';
+  /**
+   * A dish you'd cook for someone you want to impress.
+   *
+   * Its own flag rather than a status, because it answers a different question.
+   * A signature dish can still be in testing — you are allowed to be working on
+   * your best recipe.
+   */
+  is_signature?: boolean;
   image_rotation?: number;
   image_position?: string; // CSS object-position for the main photo, e.g. "50% 30%"
   image_zoom?: number; // scale factor for the main photo, default 1
@@ -187,11 +195,14 @@ export interface GroceryListItem {
 /** One ingredient you'd measure differently next time. */
 export interface CookAdjustment {
   name: string;
+  /** The unit the recipe uses. Kept so the change still reads if the recipe moves. */
   unit: string;
-  /** What the recipe says. Kept so the suggestion still reads if the recipe moves. */
+  /** What the recipe says. */
   was: number;
-  /** What you actually used, or would use next time. */
+  /** What you actually used, or would use next time. Zero means you left it out. */
   used: number;
+  /** The unit you measured in, when it differs from the recipe's. */
+  usedUnit?: string;
 }
 
 export interface CookLog {

@@ -8,6 +8,18 @@ const DB_PATH = process.env.DATABASE_PATH || path.join(process.cwd(), 'cookbook.
 let db: Database.Database | null = null;
 
 /** Add a column to an existing table if it isn't already present. */
+/**
+ * Signature used to be a status, which forced a choice it had no business
+ * forcing: marking a dish as your best meant it could no longer be in testing.
+ * Rows that picked it keep the mark and fall back to approved, which is what
+ * calling something your signature implied anyway.
+ */
+function migrateSignatureStatus(db: Database.Database): void {
+  const stranded = db.prepare("SELECT COUNT(*) AS n FROM recipes WHERE status = 'signature'").get() as { n: number };
+  if (!stranded.n) return;
+  db.prepare("UPDATE recipes SET is_signature = 1, status = 'approved' WHERE status = 'signature'").run();
+}
+
 function ensureColumn(db: Database.Database, table: string, column: string, type: string): void {
   const cols = db.prepare(`PRAGMA table_info(${table})`).all() as { name: string }[];
   if (!cols.some((c) => c.name === column)) {
@@ -136,6 +148,8 @@ export function getDb(): Database.Database {
     // IF NOT EXISTS won't alter an existing table, so migrate explicitly.
     ensureColumn(db, 'recipes', 'image_position', 'TEXT');
     ensureColumn(db, 'cook_logs', 'adjustments', 'TEXT');
+    ensureColumn(db, 'recipes', 'is_signature', 'INTEGER DEFAULT 0');
+    migrateSignatureStatus(db);
     ensureColumn(db, 'recipes', 'image_zoom', 'REAL');
     ensureColumn(db, 'recipes', 'notes', 'TEXT');
     ensureColumn(db, 'recipe_ingredients', 'section', 'TEXT');

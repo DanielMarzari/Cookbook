@@ -7,6 +7,7 @@ import { api } from '@/lib/api-client';
 import { toast } from '@/lib/toast';
 import { fileToResizedDataUrl } from '@/lib/photo';
 import { CookAdjustment, CookLog, RecipeIngredient } from '@/lib/types';
+import { UNITS } from '@/lib/constants';
 
 function StarRating({
   value,
@@ -71,6 +72,8 @@ export default function CookLogSection({
   const [editingId, setEditingId] = useState<string | null>(null);
   // ingredient name -> what you'd use next time, as typed
   const [amounts, setAmounts] = useState<Record<string, string>>({});
+  // ingredient name -> the unit you'd measure it in, when not the recipe's
+  const [units, setUnits] = useState<Record<string, string>>({});
   const [showAmounts, setShowAmounts] = useState(false);
 
   useEffect(() => {
@@ -93,6 +96,7 @@ export default function CookLogSection({
     setAdding(false);
     setEditingId(null);
     setAmounts({});
+    setUnits({});
     setShowAmounts(false);
   };
 
@@ -104,8 +108,13 @@ export default function CookLogSection({
     setNotes(log.notes ?? '');
     setPhoto(log.photo_url ?? null);
     const next: Record<string, string> = {};
-    for (const a of log.adjustments ?? []) next[a.name] = String(a.used);
+    const nextUnits: Record<string, string> = {};
+    for (const a of log.adjustments ?? []) {
+      next[a.name] = String(a.used);
+      if (a.usedUnit) nextUnits[a.name] = a.usedUnit;
+    }
     setAmounts(next);
+    setUnits(nextUnits);
     setShowAmounts((log.adjustments ?? []).length > 0);
     setAdding(true);
   };
@@ -115,10 +124,25 @@ export default function CookLogSection({
     ingredients
       .map((ing) => {
         const typed = amounts[ing.name];
-        if (typed === undefined || typed.trim() === '') return null;
+        const unit = units[ing.name] || ing.unit;
+        const unitChanged = unit !== ing.unit;
+        if (typed === undefined || typed.trim() === '') {
+          // A unit change on its own still counts — same amount, different scale.
+          return unitChanged
+            ? { name: ing.name, unit: ing.unit, was: ing.quantity, used: ing.quantity, usedUnit: unit }
+            : null;
+        }
         const used = Number(typed);
-        if (!Number.isFinite(used) || used === ing.quantity) return null;
-        return { name: ing.name, unit: ing.unit, was: ing.quantity, used };
+        // Zero is not "nothing entered" — it means you left the ingredient out.
+        if (!Number.isFinite(used) || used < 0) return null;
+        if (used === ing.quantity && !unitChanged) return null;
+        return {
+          name: ing.name,
+          unit: ing.unit,
+          was: ing.quantity,
+          used,
+          ...(unitChanged ? { usedUnit: unit } : {}),
+        };
       })
       .filter((a): a is CookAdjustment => a !== null);
 
@@ -298,11 +322,36 @@ export default function CookLogSection({
                             onChange={(e) => setAmounts((a) => ({ ...a, [ing.name]: e.target.value }))}
                             placeholder={String(ing.quantity)}
                             aria-label={`Amount of ${ing.name} to use next time`}
-                            className={`w-24 px-2 py-1 border text-sm tabular-nums focus:outline-none focus:border-text ${
+                            className={`w-20 px-2 py-1 border text-sm tabular-nums focus:outline-none focus:border-text ${
                               changed ? 'border-text text-text' : 'border-border text-text-secondary'
                             }`}
                           />
-                          <span className="w-14 text-text-secondary text-[12.5px] truncate">{ing.unit}</span>
+                          <select
+                            value={units[ing.name] || ing.unit}
+                            onChange={(e) => setUnits((u) => ({ ...u, [ing.name]: e.target.value }))}
+                            aria-label={`Unit for ${ing.name}`}
+                            className={`w-24 px-1 py-1 border text-[12.5px] bg-transparent focus:outline-none focus:border-text ${
+                              (units[ing.name] || ing.unit) !== ing.unit
+                                ? 'border-text text-text'
+                                : 'border-border text-text-secondary'
+                            }`}
+                          >
+                            {[ing.unit, ...UNITS.filter((u) => u !== ing.unit)]
+                              .filter(Boolean)
+                              .map((u) => (
+                                <option key={u} value={u}>
+                                  {u}
+                                </option>
+                              ))}
+                          </select>
+                          <button
+                            type="button"
+                            onClick={() => setAmounts((a) => ({ ...a, [ing.name]: '0' }))}
+                            className="text-[12px] text-text-secondary hover:text-text transition-colors whitespace-nowrap"
+                            title={`Leave ${ing.name} out next time`}
+                          >
+                            leave out
+                          </button>
                         </div>
                       );
                     })}
@@ -371,8 +420,16 @@ export default function CookLogSection({
                     {log.adjustments.map((a) => (
                       <span key={a.name} className="text-[12.5px] text-text-secondary tabular-nums">
                         {a.name}{' '}
-                        <span className="line-through">{a.was} {a.unit}</span>{' '}
-                        <span className="text-text">{a.used} {a.unit}</span>
+                        <span className="line-through">
+                          {a.was} {a.unit}
+                        </span>{' '}
+                        {a.used === 0 ? (
+                          <span className="text-text">left out</span>
+                        ) : (
+                          <span className="text-text">
+                            {a.used} {a.usedUnit || a.unit}
+                          </span>
+                        )}
                       </span>
                     ))}
                   </div>
