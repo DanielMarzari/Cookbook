@@ -114,9 +114,33 @@ export function lead(text: string, max = 200, min = 90): string {
  * different genus somewhere else — and that reads as a paragraph, not a label.
  */
 export function shortScientific(scientific: string): string {
-  // Split only at a real sentence break — "Castanea spp." and "(Nutt.) Nees" are part of
-  // the name, not the end of it.
-  const binomial = scientific.split(/;|\s[—-]\s|(?<=\.)\s+(?=[A-Z])/)[0].trim();
+  // Cut at the first real break, where "real" means outside any bracket. Several
+  // entries carry a synonym in parentheses — "Rhus typhina (syn. R. hirta)" — and
+  // splitting on the period inside it leaves the label hanging at "(syn.", which
+  // is worse than the long name it was meant to shorten. "Castanea spp." and
+  // "(Nutt.) Nees" are part of the name too, so a period only ends it when a
+  // capital follows at bracket depth zero.
+  let depth = 0;
+  let cut = scientific.length;
+  for (let i = 0; i < scientific.length; i++) {
+    const c = scientific[i];
+    if (c === '(' || c === '[') depth++;
+    else if (c === ')' || c === ']') depth = Math.max(0, depth - 1);
+    else if (depth === 0) {
+      if (c === ';') { cut = i; break; }
+      const rest = scientific.slice(i);
+      if (/^\s[—-]\s/.test(rest)) { cut = i; break; }
+      if (c === '.' && /^\.\s+[A-Z]/.test(rest)) { cut = i + 1; break; }
+    }
+  }
+  const binomial = scientific
+    .slice(0, cut)
+    .trim()
+    // The family in brackets is true but not what the row is for.
+    .replace(/\s*\([A-Z][a-z]+aceae\)\s*\.?$/, '')
+    // A trailing full stop is punctuation; "spp." and "L." keep their own.
+    .replace(/(?<=[a-z]{5}|\))\.$/, '')
+    .trim();
   return binomial.length > 3 && binomial.length <= 60 ? binomial : lead(scientific, 60, 0);
 }
 
