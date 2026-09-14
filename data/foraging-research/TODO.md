@@ -1,53 +1,69 @@
 # Foraging verification — where this stands
 
-`src/data/foraging-species.ts` is generated from `approved.json`. **Nothing goes in
-it that hasn't been approved by an independent confirm pass.** The failure mode here
-is someone eating the wrong thing, so an unverified entry is worse than no entry.
+`src/data/foraging-species.ts` is generated from `approved.json` by
+`scripts/build-foraging.mjs`. **Nothing goes in it that hasn't been approved by an
+independent confirm pass.** The failure mode here is someone eating the wrong
+thing, so an unverified entry is worse than no entry.
 
-## Done — 20 species live
+## Done — 37 species live
 
-117 lookalikes, 31 of them deadly, 15 species rated `expert`.
+220 lookalikes, 64 of them deadly.
 
-Chestnut · Burdock root · Jerusalem artichoke · Sassafras · Elderberry ·
-Common chickweed · Dandelion · Ostrich fern fiddleheads · Garlic mustard · Ramps ·
-Stinging nettle · Wild garlic · Common blue violet · Chicken of the Woods ·
-Hen of the Woods · Giant Puffball · Morel · Oyster Mushroom · Golden Chanterelle ·
-Lion's Mane
+Acorns (white oak group) · American persimmon · Beach plum · Black walnut ·
+Blackberry, dewberry & black raspberry · Bull kelp · Burdock root · Chestnut ·
+Chicken of the Woods · Common blue violet · Common chickweed · Common juniper ·
+Dandelion · Elderberry · Garlic mustard · Giant Puffball · Glasswort ·
+Golden Chanterelle · Hen of the Woods · Jerusalem artichoke · Lion's Mane ·
+Morel · Mulberry · Ostrich fern fiddleheads · Oyster Mushroom · Pawpaw ·
+Prickly pear · Ramps · Sassafras · Serviceberry · Shagbark hickory nut ·
+Spicebush · Staghorn Sumac · Stinging nettle · Wild bergamot · Wild blueberry ·
+Wild garlic
 
-## Left to do
+That is every species the research set started with, bar one.
 
-**1. Three nuts — corrected, not yet confirmed.** In `corrected-pass1.json`, need
-the confirm pass only (~1 agent each):
+## Withheld — bayberry & wax myrtle
 
-    Shagbark hickory nut · Acorns (white oak group) · Black walnut
+Blocked by three independent reviewers over three revision rounds, each of which
+found new safety-critical gaps rather than clearing the last set. Kept in full in
+`withheld.json` with all three reviews, so the work is recoverable — but it does
+not ship in this state.
 
-Run: `Workflow({scriptPath: <forage-confirm-pass1-*.js>, args: [<names>]})`
-The script confirms first and only revises what gets blocked, so approved entries
-cost one agent. Batches of 5 ran ~5-7 agents / 260-400k tokens.
-
-**2. Fifteen never reviewed.** In `todo.json` — these have only the raw research,
-which had a ~100% defect rate, so they need the full correct-then-confirm loop
-(~10-20 agents per batch of 5):
-
-    Blackberry & black raspberry · Wild blueberry · Pawpaw · Serviceberry ·
-    Mulberry · American persimmon · Beach plum · Glasswort/Sea Beans · Bull Kelp ·
-    Staghorn Sumac · Spicebush · Wild Bergamot · Prickly Pear · Common Juniper ·
-    Bayberry/Wax Myrtle
+The load-bearing problem is that bayberry has no reliable leaf-in-hand test.
+Everything that identifies it — aromatic, alternate, leathery, resin-dotted,
+multi-stemmed — is equally true of sweet gale (`Myrica gale`), which shares its
+ground and is contraindicated in pregnancy; and Pacific ngaio (`Myoporum laetum`),
+a hepatotoxic California hedge plant, has the gland dots that were supposed to be
+the confirmatory character. Anyone picking this up again should start from the
+third reviewer's suggestion: stop treating pond edges, swale bottoms, bog margins
+and salt-marsh rims as picking ground, and confine the entry to dry back-dune,
+pine-barren and sandhill plants.
 
 ## Gotchas that cost real tokens to learn
 
 - The `Lookalike` key is **`danger`**, not `severity`, and the union is
   `deadly | toxic | unpalatable` — there is no `harmless`. Getting this wrong makes
   `ForageSection` find zero deadly lookalikes and silently drop the warning banner.
+  The build script now rejects this instead of shipping it.
 - `months` is **0-indexed** (0 = January).
 - `regions` must be real `RegionId`s (`northeast southeast midwest southcentral
   mountain west`) or `'all'` — prose region names get dropped on normalization.
-- If any lookalike is `deadly`, `caution` must be `expert`. Applied as a rule.
+- If any lookalike is `deadly`, `caution` must be `expert`. Enforced by the build.
+- **`months` × `regions` is a filter, not a description.** `forageFor()` lists a
+  species to a reader in that region in that month, so a month in the array is a
+  claim that someone in *every* listed region can go out and find it then. A
+  year-round array was what blocked bayberry first time: it would have offered a
+  bare northeastern shrub in January, when its evergreen deadly lookalikes are the
+  only thing in leaf. Range nuance belongs in habitat prose.
 - Entry prose runs long (habitat averages ~2,200 chars). The row shows `lead()`;
   the full text appears on open. Don't shorten the source text to fit the UI.
+- Reviewers overstate. One claimed the corpus treats poison sumac as a mandatory
+  lookalike everywhere on wet ground; it is named in three entries, which are the
+  three where it is genuinely confusable. Check a claim about the corpus against
+  the corpus.
 
 ## Provenance
 
-`raw.json` original research → `to-verify.json` → `corrected-pass1.json` /
-`corrected-batch1.json` → `approved.json` (source of truth) → generated TS.
-`review/` and `confirm-batch*.json` hold reviewer verdicts and blocking lists.
+`raw.json` original research → `to-verify.json` → per-species files in `drafts/` →
+`corrected-pass1.json` / `corrected-batch1.json` → `approved.json` (source of truth)
+→ `node scripts/build-foraging.mjs` → generated TS. `review/` and `confirm-batch*.json`
+hold reviewer verdicts and blocking lists; `withheld.json` holds what did not pass.
