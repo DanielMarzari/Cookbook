@@ -305,6 +305,30 @@ export default function AddRecipePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Came from a saved Instagram post? The caption was stashed on the way here.
+  useEffect(() => {
+    const raw = sessionStorage.getItem('cookbookInstagram');
+    if (!raw) return;
+    sessionStorage.removeItem('cookbookInstagram');
+    try {
+      const { text, user, url } = JSON.parse(raw);
+      if (!text) return;
+      setPasteText(text);
+      setActiveTab('paste');
+      toast.success(`Caption from @${user} — extracting the recipe…`);
+      // Credit the post once the parse has finished writing the form.
+      handlePasteText(text).then(() => {
+        setFormData((prev) => ({
+          ...prev,
+          source_url: url || prev.source_url,
+          source_name: prev.source_name || 'Instagram',
+          source_author: prev.source_author || `@${user}`,
+        }));
+      });
+    } catch { /* ignore */ }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Pre-fill ingredients handed over from the Flavor Lab ("Draft a recipe").
   useEffect(() => {
     const q = new URLSearchParams(window.location.search).get('ingredients');
