@@ -62,14 +62,32 @@
   .sheet { background: var(--ground); border: 1px solid var(--hair); padding: 42px 34px; max-width: 430px; margin: 0 auto; }
 
   /* — Engraved — */
-  .ae-engraved { font-family: Didot, "Bodoni MT", "Playfair Display", Georgia, serif; text-align: center; color: var(--ink); }
-  .ae-engraved .hd { font-size: 10.5px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--muted); }
+  /* Didot is all hairline. Reversed out of a dark ground those strokes thin to
+     nothing, so dark mode gets a moderate-contrast face and a little more room
+     — the same card, optically compensated, rather than one that only works in
+     one theme. */
+  .ae-engraved {
+    --eng: Didot, "Bodoni MT", "Playfair Display", Georgia, serif;
+    --eng-dish: 17px; --eng-sub: 12px; --eng-track: 0.34em;
+    font-family: var(--eng); text-align: center; color: var(--ink);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .ae-engraved {
+      --eng: "Iowan Old Style", "Hoefler Text", Palatino, Georgia, serif;
+      --eng-dish: 18px; --eng-sub: 12.5px; --eng-track: 0.28em;
+    }
+  }
+  :root[data-theme="dark"] .ae-engraved {
+    --eng: "Iowan Old Style", "Hoefler Text", Palatino, Georgia, serif;
+    --eng-dish: 18px; --eng-sub: 12.5px; --eng-track: 0.28em;
+  }
+  .ae-engraved .hd { font-size: 10.5px; letter-spacing: var(--eng-track); text-transform: uppercase; color: var(--muted); }
   .ae-engraved .dt { font-size: 10.5px; letter-spacing: 0.2em; color: var(--muted); margin-top: 5px; }
   .ae-engraved .ruleline { border: 0; border-top: 1px solid var(--ink); width: 46px; margin: 18px auto 24px; }
   .ae-engraved .crs { margin-bottom: 21px; }
   .ae-engraved .cn { font-size: 9.5px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
-  .ae-engraved .dish { font-size: 17px; line-height: 1.35; }
-  .ae-engraved .sub { font-size: 12px; font-style: italic; color: var(--muted); display: block; margin-top: 2px; }
+  .ae-engraved .dish { font-size: var(--eng-dish); line-height: 1.38; }
+  .ae-engraved .sub { font-size: var(--eng-sub); font-style: italic; color: var(--muted); display: block; margin-top: 2px; }
   .ae-engraved .orr { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); margin: 7px 0; }
 
   /* — Typewriter — */
@@ -288,33 +306,39 @@
         <hr class="ruleline">
 
         <div class="crs">
-          <span class="cn">Per cominciare</span>
-          <div class="dish">Epityrum<span class="mk">V GF</span><span class="sub">green olive, fennel, cumin</span></div>
-          <div class="dish">Za'atar and olive focaccia<span class="mk">V S</span></div>
+          <span class="cn">Antipasto</span>
+          <div class="dish">Epityrum<span class="mk">V GF</span><span class="sub">oliva verde, finocchio, cumino</span></div>
+          <div class="dish">Datteri ripieni<span class="mk">VG GF N</span><span class="sub">pinoli, pepe, miele</span></div>
+        </div>
+
+        <div class="crs">
+          <span class="cn">Primo</span>
+          <div class="dish">Manicotti<span class="mk">VG D</span><span class="sub">ricotta, pomodoro, basilico</span></div>
         </div>
 
         <div class="crs">
           <span class="cn">Secondo</span>
-          <div class="dish">Dates with pine nut and pepper<span class="mk">VG GF N</span></div>
-          <div class="orr">oppure</div>
-          <div class="dish">Mushrooms in honey and thyme<span class="mk">VG GF</span></div>
+          <div class="dish">Braciole<span class="mk">D</span><span class="sub">manzo arrotolato, pomodoro lento</span></div>
         </div>
 
         <div class="crs">
-          <span class="cn">Principale</span>
-          <div class="dish">Braciole<span class="mk">D</span><span class="sub">rolled beef, slow tomato</span></div>
-          <div class="orr">oppure</div>
-          <div class="dish">Vori vori de carne<span class="mk">D GF</span><span class="sub">beef broth, cornmeal dumpling</span></div>
+          <span class="cn">Contorno</span>
+          <div class="dish">Funghi al miele e timo<span class="mk">VG GF</span></div>
         </div>
 
         <div class="crs">
           <span class="cn">Dolce</span>
-          <div class="dish">Globi<span class="mk">VG D</span><span class="sub">fried fresh cheese, honey, poppy</span></div>
-          <div class="dish">Alfajores<span class="mk">VG D N</span></div>
+          <div class="dish">Globi<span class="mk">VG D</span><span class="sub">ricotta fritta, miele, papavero</span></div>
+          <div class="dish">Biscotti arcobaleno<span class="mk">VG D N</span></div>
         </div>
 
-        <div class="key">V VEGAN · VG VEGETARIAN · GF NO GLUTEN · D DAIRY · N NUTS · S SESAME</div>
+        <div class="key">V VEGANO · VG VEGETARIANO · GF SENZA GLUTINE · D LATTICINI · N FRUTTA A GUSCIO</div>
       </div>
+      <p class="why" style="text-align:left">Not a translation of the other three. Picking this
+         aesthetic picks a <b style="color:var(--ink);font-weight:500">course grammar</b> too —
+         antipasto, primo, secondo, contorno, dolce is a different shape of meal, not the same
+         meal in Italian. Six dishes here, all from your own Italian and Roman recipes, and the
+         choice points are gone because an Italian menu does not offer them.</p>
     </div>
 
   </div>

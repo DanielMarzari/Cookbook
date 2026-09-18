@@ -1,0 +1,347 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Having People Over</title>
+<style>
+  :root {
+    --ground: #ffffff; --wash: #fafafa; --ink: #111111; --muted: #767676;
+    --rule: #e8e8e8; --hair: #d8d8d8; --flag: #a0522d; --flagbg: #f6efe9;
+    --ok: #4a6b52; --okbg: #eef2ee;
+    --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --serif: "Iowan Old Style", "Hoefler Text", Palatino, Georgia, serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #121212; --wash: #191919; --ink: #ededed; --muted: #9a9a9a;
+      --rule: #2c2c2c; --hair: #3a3a3a; --flag: #c98060; --flagbg: #241b16;
+      --ok: #8fb098; --okbg: #1a211c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #121212; --wash: #191919; --ink: #ededed; --muted: #9a9a9a;
+    --rule: #2c2c2c; --hair: #3a3a3a; --flag: #c98060; --flagbg: #241b16;
+    --ok: #8fb098; --okbg: #1a211c;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--sans);
+         font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 56px 24px 100px; }
+
+  .lede { max-width: 64ch; display: flex; flex-direction: column; gap: 14px; margin-bottom: 52px; }
+  h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; margin: 0; text-wrap: balance; }
+  .lede p { margin: 0; font-size: 15px; color: var(--muted); }
+  .lab { font-size: 11px; text-transform: uppercase; letter-spacing: 0.13em; color: var(--muted); }
+
+  .grid { display: flex; flex-direction: column; gap: 50px; }
+  .opt { display: flex; flex-direction: column; gap: 13px; }
+  .opt > header { display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--ink); padding-bottom: 7px; }
+  .opt > header h3 { margin: 0; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; }
+  .opt > header .n { font-size: 11px; letter-spacing: 0.13em; color: var(--muted); }
+  .why { font-size: 13px; color: var(--muted); margin: 0; max-width: 66ch; }
+  .frame { border: 1px solid var(--rule); background: var(--wash); padding: 26px 24px; overflow-x: auto; }
+  .catch { font-size: 12.5px; margin: 0; max-width: 66ch; }
+  .catch b { font-weight: 500; color: var(--flag); }
+  .catch b.good { color: var(--ok); }
+
+  .tbl { display: grid; font-size: 11.5px; }
+  .tbl > div { padding: 7px 7px 7px 0; border-bottom: 1px solid var(--rule); }
+  .tbl .hd { border-bottom: 1px solid var(--ink); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .tbl .rw { color: var(--muted); }
+  .tbl .c { text-align: center; }
+  .tbl .short { color: var(--flag); background: var(--flagbg); }
+  .tbl .fine { color: var(--ok); }
+
+  /* 01 who you've fed */
+  .fed { grid-template-columns: 120px 1fr 92px 96px; min-width: 540px; }
+  .fed .warn { color: var(--flag); }
+
+  /* 02 run sheet */
+  .run { font-family: var(--serif); max-width: 460px; margin: 0 auto; }
+  .run .ttl { font-family: var(--sans); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); text-align: center; }
+  .run hr { border: 0; border-top: 1px solid var(--ink); width: 40px; margin: 14px auto 20px; }
+  .run .row { display: grid; grid-template-columns: 62px 1fr; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--rule); align-items: baseline; }
+  .run .tm { font-family: var(--sans); font-size: 11px; letter-spacing: 0.06em; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .run .do { font-size: 14px; line-height: 1.4; }
+  .run .do em { font-style: italic; color: var(--muted); font-size: 12.5px; }
+  .run .row.door { border-bottom: 1px solid var(--ink); border-top: 1px solid var(--ink); }
+  .run .row.door .do { letter-spacing: 0.04em; }
+
+  /* 03 what you own */
+  .own { grid-template-columns: 148px 74px 74px 1fr; min-width: 520px; }
+
+  /* 04 the shop */
+  .shop { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 22px 30px; font-size: 12.5px; }
+  .shop h4 { margin: 0 0 8px; font-size: 9.5px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--ink); padding-bottom: 5px; font-weight: 400; }
+  .shop ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+  .shop li { display: flex; justify-content: space-between; gap: 10px; line-height: 1.4; }
+  .shop li span { color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .shop li.have { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--hair); }
+
+  /* 05 drinks */
+  .drink { grid-template-columns: 1fr 96px 90px 104px; min-width: 520px; }
+
+  /* 06 invitation */
+  .invite { font-family: var(--serif); max-width: 360px; margin: 0 auto; text-align: center; border: 1px solid var(--hair); background: var(--ground); padding: 34px 28px; }
+  .invite .k { font-family: var(--sans); font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .invite .big { font-size: 22px; line-height: 1.25; margin: 12px 0 4px; }
+  .invite .when { font-size: 13px; color: var(--muted); font-style: italic; }
+  .invite hr { border: 0; border-top: 1px solid var(--hair); margin: 20px 0; }
+  .invite .ask { font-family: var(--sans); font-size: 11.5px; color: var(--ink); line-height: 1.55; }
+  .invite .chips { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-top: 11px; }
+  .invite .chip { font-family: var(--sans); font-size: 10px; letter-spacing: 0.07em; border: 1px solid var(--hair); padding: 3px 8px; color: var(--muted); }
+
+  /* 07 after */
+  .after { display: flex; flex-direction: column; gap: 10px; font-size: 12.5px; }
+  .after .ln { display: grid; grid-template-columns: 104px 1fr; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--rule); }
+  .after .k2 { font-size: 9.5px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+  .after .v2 { line-height: 1.5; }
+  .after .v2 em { font-style: normal; color: var(--muted); }
+  .after .pre { color: var(--ok); }
+
+  .more { margin-top: 56px; border-top: 1px solid var(--ink); padding-top: 22px; }
+  .more h2 { font-size: 15px; font-weight: 500; margin: 0 0 14px; }
+  .more ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px 30px; }
+  .more li { font-size: 12.5px; line-height: 1.55; color: var(--muted); }
+  .more li b { color: var(--ink); font-weight: 500; display: block; font-size: 13px; }
+</style>
+
+<div class="wrap">
+
+  <div class="lede">
+    <span class="lab">Mockup · Hosting</span>
+    <h1>Having people over</h1>
+    <p>The menu is the part that gets designed. Everything that makes the night go is
+       somewhere else — in your head, on a torn envelope, or forgotten until someone
+       asks for a fork you don't have. Seven of those, made into something.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- 01 -->
+    <section class="opt">
+      <header><span class="n">01</span><h3>What you've fed them before</h3></header>
+      <p class="why">The cook log already knows what you made and when. Attach who was there
+         and it answers the question every host asks and no one can remember the answer to.
+         This is the only thing here the cookbook can do that a notepad can't.</p>
+      <div class="frame">
+        <div class="tbl fed">
+          <div class="hd rw">Guest</div><div class="hd">Has had</div><div class="hd c">Times</div><div class="hd c">Last</div>
+
+          <div class="rw">Ana</div><div class="warn">Braciole</div><div class="c warn">3</div><div class="c warn">Mar 2026</div>
+          <div class="rw"></div><div>Manicotti</div><div class="c">1</div><div class="c">Nov 2025</div>
+          <div class="rw">Josh</div><div>Vori vori de carne</div><div class="c">1</div><div class="c">Jun 2026</div>
+          <div class="rw">Mira</div><div class="fine">— nothing on record</div><div class="c fine">first time</div><div class="c">—</div>
+          <div class="rw">Sam</div><div>Alfajores</div><div class="c">2</div><div class="c">Aug 2026</div>
+          <div class="rw"></div><div>Epityrum</div><div class="c">1</div><div class="c">Aug 2026</div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>Ana is about to be served braciole for the fourth time.</b>
+         Also the opposite, which is the more useful half — <b class="good">Mira has never eaten
+         here</b>, so this is the night to cook something you are sure of rather than something new.</p>
+    </section>
+
+    <!-- 02 -->
+    <section class="opt">
+      <header><span class="n">02</span><h3>The run sheet</h3></header>
+      <p class="why">One page, counting down to the doorbell, built backwards from when you
+         want to sit. Printable, and the only document you look at on the day — the recipes
+         have already been read by then.</p>
+      <div class="frame">
+        <div class="run">
+          <div class="ttl">Saturday · eight at the table</div>
+          <hr>
+          <div class="row"><span class="tm">Thu</span><span class="do">Braise the braciole <em>— it is better on day three</em></span></div>
+          <div class="row"><span class="tm">Fri</span><span class="do">Alfajores; dulce de leche <em>— keeps a week</em></span></div>
+          <div class="row"><span class="tm">10:00</span><span class="do">Focaccia dough, first rise</span></div>
+          <div class="row"><span class="tm">14:00</span><span class="do">Beef stock on. Drain the ricotta.</span></div>
+          <div class="row"><span class="tm">15:30</span><span class="do">Pound the epityrum <em>— wants two hours to sit</em></span></div>
+          <div class="row"><span class="tm">16:00</span><span class="do">Focaccia in at 220°</span></div>
+          <div class="row"><span class="tm">16:45</span><span class="do">Oven down to 160°. Braciole in to come up.</span></div>
+          <div class="row"><span class="tm">17:30</span><span class="do">Stuff the dates. Toast all the nuts at once.</span></div>
+          <div class="row"><span class="tm">18:00</span><span class="do">Lay the table. Wine open, whites in.</span></div>
+          <div class="row"><span class="tm">18:40</span><span class="do">Shower. <em>Yes, this is on the sheet.</em></span></div>
+          <div class="row door"><span class="tm">19:00</span><span class="do">DOOR</span></div>
+          <div class="row"><span class="tm">19:40</span><span class="do">Mushrooms on as they sit down</span></div>
+          <div class="row"><span class="tm">20:30</span><span class="do">Fry the globi <em>— last thing, needs both hands</em></span></div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>the two hours you didn't know you needed.</b> Built from the
+         recipe steps, so moving a dish in or out of the menu moves the sheet — which is the
+         difference between this and a list you typed once.</p>
+    </section>
+
+    <!-- 03 -->
+    <section class="opt">
+      <header><span class="n">03</span><h3>Do you own enough</h3></header>
+      <p class="why">Counts what the menu needs against what is in your cupboards. The most
+         boring view here and probably the one that saves the evening, because nobody
+         discovers they are two forks short at 14:00.</p>
+      <div class="frame">
+        <div class="tbl own">
+          <div class="hd rw">Thing</div><div class="hd c">Need</div><div class="hd c">Own</div><div class="hd">Note</div>
+
+          <div class="rw">Dinner plates</div><div class="c">8</div><div class="c">12</div><div class="fine">fine</div>
+          <div class="rw">Small plates</div><div class="c">16</div><div class="c">8</div><div class="short">two courses on small plates — wash between, or use the side plates</div>
+          <div class="rw">Forks</div><div class="c">16</div><div class="c">14</div><div class="short">short by 2</div>
+          <div class="rw">Soup bowls</div><div class="c">8</div><div class="c">6</div><div class="short">vori vori — short by 2</div>
+          <div class="rw">Wine glasses</div><div class="c">8</div><div class="c">10</div><div class="fine">fine</div>
+          <div class="rw">Serving dishes</div><div class="c">5</div><div class="c">7</div><div class="fine">fine</div>
+          <div class="rw">Oven shelves</div><div class="c">2 at once</div><div class="c">3</div><div class="fine">fine</div>
+          <div class="rw">Chairs</div><div class="c">8</div><div class="c">6</div><div class="short">two short — the desk chair and the stool</div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>forks, bowls and chairs.</b> None of it is a cooking problem
+         and all of it is a dinner problem. Worth knowing on Wednesday, not Saturday.</p>
+    </section>
+
+    <!-- 04 -->
+    <section class="opt">
+      <header><span class="n">04</span><h3>The shop</h3></header>
+      <p class="why">Every recipe in the menu, scaled to eight, merged so an ingredient wanted
+         by three courses is one line — then sorted by where it sits in the shop rather than
+         by which dish asked for it. Struck-through is what you already have.</p>
+      <div class="frame">
+        <div class="shop">
+          <div>
+            <h4>Butcher</h4>
+            <ul>
+              <li>Flank steak, butterflied <span>1.4 kg</span></li>
+              <li>Beef shin, on the bone <span>900 g</span></li>
+              <li>Pancetta <span>150 g</span></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Produce</h4>
+            <ul>
+              <li>Green olives, unpitted <span>500 g</span></li>
+              <li>Chestnut mushrooms <span>800 g</span></li>
+              <li>Medjool dates <span>24</span></li>
+              <li>Flat parsley <span>2 bunches</span></li>
+              <li>Thyme <span>1 bunch</span></li>
+              <li>Fennel bulb <span>1</span></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Dairy</h4>
+            <ul>
+              <li>Ricotta <span>1 kg</span></li>
+              <li>Parmigiano <span>250 g</span></li>
+              <li>Butter <span>250 g</span></li>
+              <li class="have">Eggs <span>12</span></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Dry &amp; pantry</h4>
+            <ul>
+              <li>Pine nuts <span>150 g</span></li>
+              <li>Walnuts <span>200 g</span></li>
+              <li>Cornmeal, fine <span>400 g</span></li>
+              <li class="have">Flour, 00 <span>1 kg</span></li>
+              <li class="have">Honey <span>400 g</span></li>
+              <li class="have">Olive oil <span>500 ml</span></li>
+              <li class="have">Cumin seed <span>—</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>one honey line instead of three.</b> The merge is the whole
+         feature — three courses each wanting 120g of honey is one jar, and reading it off three
+         recipes is how you end up with four.</p>
+    </section>
+
+    <!-- 05 -->
+    <section class="opt">
+      <header><span class="n">05</span><h3>What to pour</h3></header>
+      <p class="why">Quantity first, pairing second — running out is the failure, and the maths
+         is unintuitive at eight people over four hours. The non-alcoholic column is a column,
+         not a footnote, because somebody always isn't drinking.</p>
+      <div class="frame">
+        <div class="tbl drink">
+          <div class="hd rw">Moment</div><div class="hd c">Pours</div><div class="hd c">Bottles</div><div class="hd">Alongside</div>
+
+          <div class="rw">Arrival</div><div class="c">8</div><div class="c">2 sparkling</div><div>Blood orange &amp; soda</div>
+          <div class="rw">Through the antipasto</div><div class="c">10</div><div class="c">2 white</div><div>The same, taller</div>
+          <div class="rw">Primo &amp; secondo</div><div class="c">20</div><div class="c">4 red</div><div>Chinotto, or a dark verjus</div>
+          <div class="rw">Dolce</div><div class="c">6</div><div class="c">1 sweet</div><div>Coffee, and one more</div>
+          <div class="rw">Total</div><div class="c">44</div><div class="c">9 bottles</div><div class="short">buy 11 — two spare is the rule</div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>nine bottles, which is more than it feels like.</b> Five pours
+         a bottle, eight people, four hours. The last row is the one people get wrong.</p>
+    </section>
+
+    <!-- 06 -->
+    <section class="opt">
+      <header><span class="n">06</span><h3>The invitation, which asks the right question</h3></header>
+      <p class="why">Sent in the menu's own aesthetic, and carrying the one question that
+         otherwise gets asked at the table. The replies land straight in the diet matrix, so
+         the menu is checked against real answers rather than your memory of them.</p>
+      <div class="frame">
+        <div class="invite">
+          <div class="k">You are asked to</div>
+          <div class="big">Dinner</div>
+          <div class="when">Saturday the fourteenth, seven o'clock</div>
+          <hr>
+          <div class="ask">Before I shop — is there anything you don't eat?</div>
+          <div class="chips">
+            <span class="chip">No meat</span>
+            <span class="chip">No dairy</span>
+            <span class="chip">No gluten</span>
+            <span class="chip">No nuts</span>
+            <span class="chip">No shellfish</span>
+            <span class="chip">Alcohol — none</span>
+            <span class="chip">Something else</span>
+            <span class="chip">I eat anything</span>
+          </div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>the gap between what people tell you and what they tell a
+         form.</b> Tapping a chip is easier than composing a sentence about your own diet, so
+         you find out about the tree nuts on Tuesday instead of at the table.</p>
+    </section>
+
+    <!-- 07 -->
+    <section class="opt">
+      <header><span class="n">07</span><h3>Afterwards, mostly written already</h3></header>
+      <p class="why">You built the cook log so a dish could be logged without editing the
+         recipe. This is the same move for a whole evening: the parts the cookbook already
+         knows are filled in, and you add only the part it can't know.</p>
+      <div class="frame">
+        <div class="after">
+          <div class="ln"><span class="k2">Date</span><span class="v2 pre">14 September 2026</span></div>
+          <div class="ln"><span class="k2">At the table</span><span class="v2 pre">Ana, Josh, Mira, Sam, and two more</span></div>
+          <div class="ln"><span class="k2">Served</span><span class="v2 pre">Epityrum · Focaccia · Dates · Manicotti · Braciole · Funghi · Globi</span></div>
+          <div class="ln"><span class="k2">Poured</span><span class="v2 pre">9 bottles, 2 back in the rack</span></div>
+          <div class="ln"><span class="k2">Timing</span><span class="v2 pre">sat at 19:40, sweet at 21:55</span></div>
+          <div class="ln"><span class="k2">Yours to add</span><span class="v2"><em>The globi went cold waiting on the plates. Fry them
+            between courses next time, or serve them in the pan. Mira asked for the epityrum recipe.</em></span></div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>next time.</b> Everything above the last line is already in
+         the cookbook, so the log costs one sentence — and the next dinner's view 01 is built
+         out of it.</p>
+    </section>
+
+  </div>
+
+  <div class="more">
+    <h2>Other things in this direction, not drawn</h2>
+    <ul>
+      <li><b>Who sits where</b> Seating is the one hosting decision with no data behind it and
+        real consequences. Worth a sketch of the table you can drag names onto — and it would
+        remember last time, so the same two people aren't paired every dinner.</li>
+      <li><b>Hand this to a helper</b> The run sheet, filtered to the jobs someone else can do
+        without asking you a question. Printed, it is the difference between help and company.</li>
+      <li><b>Scale with a spine</b> Eight people is not four people doubled — a braise scales
+        cleanly, a custard doesn't, a fried thing gets worse. Flag which recipes lie when
+        multiplied.</li>
+      <li><b>Leftovers, planned</b> What Sunday looks like, decided on Thursday. Buying the
+        bigger shin because it makes a second meal is a different shop.</li>
+      <li><b>The same night again</b> A menu you've cooked, saved whole — courses, run sheet,
+        shop and all — so the second time is an evening rather than a project.</li>
+      <li><b>Music as long as dinner</b> Slight, but the run sheet already knows you sit at 19:40
+        and reach sweet around 21:55, which is a length.</li>
+    </ul>
+  </div>
+
+</div>
