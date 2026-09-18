@@ -1,0 +1,560 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Menu, and What the Chef Sees</title>
+<style>
+  :root {
+    --ground: #ffffff;
+    --wash:   #fafafa;
+    --ink:    #111111;
+    --muted:  #767676;
+    --rule:   #e8e8e8;
+    --hair:   #d8d8d8;
+    --flag:   #a0522d;
+    --flagbg: #f6efe9;
+    --ok:     #4a6b52;
+    --okbg:   #eef2ee;
+    --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #121212; --wash: #191919; --ink: #ededed; --muted: #9a9a9a;
+      --rule: #2c2c2c; --hair: #3a3a3a; --flag: #c98060; --flagbg: #241b16;
+      --ok: #8fb098; --okbg: #1a211c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #121212; --wash: #191919; --ink: #ededed; --muted: #9a9a9a;
+    --rule: #2c2c2c; --hair: #3a3a3a; --flag: #c98060; --flagbg: #241b16;
+    --ok: #8fb098; --okbg: #1a211c;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ground); color: var(--ink);
+    font-family: var(--sans); font-size: 16px; line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 56px 24px 100px; }
+
+  .lede { max-width: 64ch; display: flex; flex-direction: column; gap: 14px; margin-bottom: 44px; }
+  h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; margin: 0; text-wrap: balance; }
+  .lede p { margin: 0; font-size: 15px; color: var(--muted); }
+  .lab { font-size: 11px; text-transform: uppercase; letter-spacing: 0.13em; color: var(--muted); }
+
+  .part { margin-top: 20px; margin-bottom: 34px; }
+  .part h2 { font-size: 22px; font-weight: 400; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .part p { font-size: 14px; color: var(--muted); margin: 0; max-width: 66ch; }
+  .part .bar { height: 1px; background: var(--ink); margin-top: 20px; }
+
+  .grid { display: flex; flex-direction: column; gap: 50px; }
+  .opt { display: flex; flex-direction: column; gap: 13px; }
+  .opt > header { display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--ink); padding-bottom: 7px; }
+  .opt > header h3 { margin: 0; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; }
+  .opt > header .n { font-size: 11px; letter-spacing: 0.13em; color: var(--muted); }
+  .why { font-size: 13px; color: var(--muted); margin: 0; max-width: 66ch; }
+  .frame { border: 1px solid var(--rule); background: var(--wash); padding: 28px 24px; overflow-x: auto; }
+  .catch { font-size: 12.5px; margin: 0; max-width: 66ch; }
+  .catch b { font-weight: 500; color: var(--flag); }
+
+  /* ════ PART A — the printout ═══════════════════════════════
+     Each aesthetic is fully scoped under its own class so the
+     serif one cannot leak into the typewriter one. */
+  .sheet { background: var(--ground); border: 1px solid var(--hair); padding: 42px 34px; max-width: 430px; margin: 0 auto; }
+
+  /* — Engraved — */
+  .ae-engraved { font-family: Didot, "Bodoni MT", "Playfair Display", Georgia, serif; text-align: center; color: var(--ink); }
+  .ae-engraved .hd { font-size: 10.5px; letter-spacing: 0.34em; text-transform: uppercase; color: var(--muted); }
+  .ae-engraved .dt { font-size: 10.5px; letter-spacing: 0.2em; color: var(--muted); margin-top: 5px; }
+  .ae-engraved .ruleline { border: 0; border-top: 1px solid var(--ink); width: 46px; margin: 18px auto 24px; }
+  .ae-engraved .crs { margin-bottom: 21px; }
+  .ae-engraved .cn { font-size: 9.5px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 6px; }
+  .ae-engraved .dish { font-size: 17px; line-height: 1.35; }
+  .ae-engraved .sub { font-size: 12px; font-style: italic; color: var(--muted); display: block; margin-top: 2px; }
+  .ae-engraved .orr { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); margin: 7px 0; }
+
+  /* — Typewriter — */
+  .ae-typed { font-family: "Courier New", Courier, monospace; text-align: left; color: var(--ink); }
+  .ae-typed .hd { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .ae-typed .dt { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .ae-typed .ruleline { border: 0; border-top: 1px dashed var(--hair); margin: 18px 0 20px; }
+  .ae-typed .crs { margin-bottom: 18px; }
+  .ae-typed .cn { font-size: 10.5px; color: var(--muted); display: block; margin-bottom: 4px; }
+  .ae-typed .dish { font-size: 13.5px; line-height: 1.5; }
+  .ae-typed .sub { font-size: 11.5px; color: var(--muted); display: block; }
+  .ae-typed .orr { font-size: 11px; color: var(--muted); margin: 5px 0 5px 14px; }
+
+  /* — Modern — */
+  .ae-modern { font-family: var(--sans); text-align: left; color: var(--ink); }
+  .ae-modern .hd { font-size: 11px; letter-spacing: 0.17em; text-transform: uppercase; color: var(--muted); }
+  .ae-modern .dt { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .ae-modern .ruleline { border: 0; border-top: 1px solid var(--ink); margin: 16px 0 22px; }
+  .ae-modern .crs { margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
+  .ae-modern .crs:last-of-type { border-bottom: 0; }
+  .ae-modern .cn { font-size: 9.5px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 7px; }
+  .ae-modern .dish { font-size: 15px; line-height: 1.4; letter-spacing: -0.01em; }
+  .ae-modern .sub { font-size: 12px; color: var(--muted); display: block; margin-top: 1px; }
+  .ae-modern .orr { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin: 8px 0; }
+
+  /* — Trattoria — */
+  .ae-tratt { font-family: Palatino, "Palatino Linotype", Georgia, serif; text-align: center; color: var(--ink); }
+  .ae-tratt .hd { font-size: 21px; font-style: italic; }
+  .ae-tratt .dt { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 6px; }
+  .ae-tratt .ruleline { border: 0; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--ink); height: 3px; width: 100%; margin: 16px 0 22px; }
+  .ae-tratt .crs { margin-bottom: 19px; }
+  .ae-tratt .cn { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 5px; }
+  .ae-tratt .dish { font-size: 16px; line-height: 1.4; }
+  .ae-tratt .sub { font-size: 12.5px; font-style: italic; color: var(--muted); display: block; }
+  .ae-tratt .orr { font-size: 12px; font-style: italic; color: var(--muted); margin: 6px 0; }
+
+  /* diet marks — shared across every aesthetic */
+  .mk { font-size: 8.5px; letter-spacing: 0.08em; color: var(--muted); vertical-align: super; margin-left: 3px; white-space: nowrap; }
+  .key { margin-top: 26px; padding-top: 13px; border-top: 1px solid var(--rule); font-size: 9.5px; letter-spacing: 0.07em; color: var(--muted); line-height: 1.8; text-align: left; }
+
+  .sheets { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 26px; }
+  .sheetwrap { display: flex; flex-direction: column; gap: 10px; }
+  .sheetwrap .nm { font-size: 11px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--muted); text-align: center; }
+
+  /* ════ PART B — chef views ═════════════════════════════════ */
+  svg { display: block; max-width: 100%; }
+  text { font-family: var(--sans); fill: var(--ink); }
+  .tx-s { font-size: 9.5px; fill: var(--muted); letter-spacing: 0.07em; }
+  .tx-n { font-size: 11px; fill: var(--ink); }
+
+  .tbl { display: grid; font-size: 11.5px; }
+  .tbl > div { padding: 7px 6px; border-bottom: 1px solid var(--rule); }
+  .tbl .hd { border-bottom: 1px solid var(--ink); font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .tbl .rw { color: var(--muted); font-size: 11px; }
+  .tbl .c { text-align: center; }
+  .tbl .yes { color: var(--ok); }
+  .tbl .no  { background: var(--flagbg); color: var(--flag); }
+  .tbl .alt { color: var(--muted); }
+
+  .diet { grid-template-columns: 124px repeat(5, minmax(56px, 1fr)); min-width: 520px; }
+  .mise { grid-template-columns: 1fr 150px 70px; min-width: 480px; }
+  .mise .win { color: var(--ok); }
+  .res  { grid-template-columns: 82px 1fr; min-width: 540px; }
+  .res .track { display: flex; align-items: center; gap: 3px; height: 17px; }
+  .res .blk { height: 15px; font-size: 9.5px; color: var(--ground); background: var(--ink); display: flex; align-items: center; justify-content: center; padding: 0 6px; white-space: nowrap; }
+  .res .blk.clash { background: var(--flag); }
+  .res .gap { flex: none; }
+
+  .fam { display: flex; flex-direction: column; gap: 11px; font-size: 12.5px; }
+  .fam .card2 { border: 1px solid var(--rule); background: var(--ground); padding: 12px 14px; }
+  .fam .card2.hit { border-color: var(--flag); background: var(--flagbg); }
+  .fam .card2 .t { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .fam .card2.hit .t { color: var(--flag); }
+  .fam .card2 .b { margin-top: 5px; line-height: 1.5; }
+
+  .foot { margin-top: 56px; border-top: 1px solid var(--rule); padding-top: 18px; font-size: 13px; color: var(--muted); max-width: 66ch; }
+  .foot b { color: var(--ink); font-weight: 500; }
+</style>
+
+<div class="wrap">
+
+  <div class="lede">
+    <span class="lab">Mockup · Menu planner</span>
+    <h1>The menu, and what the chef sees</h1>
+    <p>Two sides of the same evening. The guest gets a printed card — choices where there
+       are choices, dietary marks where they matter, in whatever aesthetic suits the night.
+       You get the views that tell you whether the menu actually works before anyone sits down.</p>
+  </div>
+
+  <!-- ══════════ PART A ══════════ -->
+  <div class="part">
+    <h2>A · The printout</h2>
+    <p>One menu, four aesthetics. Same courses, same marks, same two choice points — the only
+       thing that changes is the voice. You pick it per dinner, and it prints.</p>
+    <div class="bar"></div>
+  </div>
+
+  <div class="sheets">
+
+    <div class="sheetwrap">
+      <div class="nm">Engraved</div>
+      <div class="sheet ae-engraved">
+        <div class="hd">Dinner</div>
+        <div class="dt">XIV September</div>
+        <hr class="ruleline">
+
+        <div class="crs">
+          <span class="cn">To begin</span>
+          <div class="dish">Epityrum<span class="mk">V GF</span><span class="sub">green olive, fennel, cumin</span></div>
+          <div class="dish">Za'atar and olive focaccia<span class="mk">V S</span></div>
+        </div>
+
+        <div class="crs">
+          <span class="cn">Second</span>
+          <div class="dish">Dates with pine nut and pepper<span class="mk">VG GF N</span></div>
+          <div class="orr">or</div>
+          <div class="dish">Mushrooms in honey and thyme<span class="mk">VG GF</span></div>
+        </div>
+
+        <div class="crs">
+          <span class="cn">Main</span>
+          <div class="dish">Braciole<span class="mk">D</span><span class="sub">rolled beef, slow tomato</span></div>
+          <div class="orr">or</div>
+          <div class="dish">Vori vori de carne<span class="mk">D GF</span><span class="sub">beef broth, cornmeal dumpling</span></div>
+        </div>
+
+        <div class="crs">
+          <span class="cn">Sweet</span>
+          <div class="dish">Globi<span class="mk">VG D</span><span class="sub">fried fresh cheese, honey, poppy</span></div>
+          <div class="dish">Alfajores<span class="mk">VG D N</span></div>
+        </div>
+
+        <div class="key">V VEGAN · VG VEGETARIAN · GF NO GLUTEN · D DAIRY · N NUTS · S SESAME</div>
+      </div>
+    </div>
+
+    <div class="sheetwrap">
+      <div class="nm">Typewriter</div>
+      <div class="sheet ae-typed">
+        <div class="hd">DINNER — 14 SEPT</div>
+        <div class="dt">seven courses, two choices</div>
+        <hr class="ruleline">
+
+        <div class="crs">
+          <span class="cn">to begin</span>
+          <div class="dish">Epityrum<span class="mk">V GF</span><span class="sub">green olive, fennel, cumin</span></div>
+          <div class="dish">Za'atar and olive focaccia<span class="mk">V S</span></div>
+        </div>
+
+        <div class="crs">
+          <span class="cn">second</span>
+          <div class="dish">Dates with pine nut and pepper<span class="mk">VG GF N</span></div>
+          <div class="orr">— or —</div>
+          <div class="dish">Mushrooms in honey and thyme<span class="mk">VG GF</span></div>
+        </div>
+
+        <div class="crs">
+          <span class="cn">main</span>
+          <div class="dish">Braciole<span class="mk">D</span><span class="sub">rolled beef, slow tomato</span></div>
+          <div class="orr">— or —</div>
+          <div class="dish">Vori vori de carne<span class="mk">D GF</span><span class="sub">beef broth, cornmeal dumpling</span></div>
+        </div>
+
+        <div class="crs">
+          <span class="cn">sweet</span>
+          <div class="dish">Globi<span class="mk">VG D</span><span class="sub">fried fresh cheese, honey, poppy</span></div>
+          <div class="dish">Alfajores<span class="mk">VG D N</span></div>
+        </div>
+
+        <div class="key">V vegan · VG vegetarian · GF no gluten · D dairy · N nuts · S sesame</div>
+      </div>
+    </div>
+
+    <div class="sheetwrap">
+      <div class="nm">Modern</div>
+      <div class="sheet ae-modern">
+        <div class="hd">Dinner</div>
+        <div class="dt">14 September</div>
+        <hr class="ruleline">
+
+        <div class="crs">
+          <span class="cn">To begin</span>
+          <div class="dish">Epityrum<span class="mk">V GF</span><span class="sub">green olive, fennel, cumin</span></div>
+          <div class="dish">Za'atar and olive focaccia<span class="mk">V S</span></div>
+        </div>
+
+        <div class="crs">
+          <span class="cn">Second</span>
+          <div class="dish">Dates, pine nut, pepper<span class="mk">VG GF N</span></div>
+          <div class="orr">or</div>
+          <div class="dish">Mushrooms, honey, thyme<span class="mk">VG GF</span></div>
+        </div>
+
+        <div class="crs">
+          <span class="cn">Main</span>
+          <div class="dish">Braciole<span class="mk">D</span><span class="sub">rolled beef, slow tomato</span></div>
+          <div class="orr">or</div>
+          <div class="dish">Vori vori de carne<span class="mk">D GF</span><span class="sub">beef broth, cornmeal dumpling</span></div>
+        </div>
+
+        <div class="crs">
+          <span class="cn">Sweet</span>
+          <div class="dish">Globi<span class="mk">VG D</span><span class="sub">fried fresh cheese, honey, poppy</span></div>
+          <div class="dish">Alfajores<span class="mk">VG D N</span></div>
+        </div>
+
+        <div class="key">V VEGAN · VG VEGETARIAN · GF NO GLUTEN · D DAIRY · N NUTS · S SESAME</div>
+      </div>
+    </div>
+
+    <div class="sheetwrap">
+      <div class="nm">Trattoria</div>
+      <div class="sheet ae-tratt">
+        <div class="hd">La Cena</div>
+        <div class="dt">Quattordici Settembre</div>
+        <hr class="ruleline">
+
+        <div class="crs">
+          <span class="cn">Per cominciare</span>
+          <div class="dish">Epityrum<span class="mk">V GF</span><span class="sub">green olive, fennel, cumin</span></div>
+          <div class="dish">Za'atar and olive focaccia<span class="mk">V S</span></div>
+        </div>
+
+        <div class="crs">
+          <span class="cn">Secondo</span>
+          <div class="dish">Dates with pine nut and pepper<span class="mk">VG GF N</span></div>
+          <div class="orr">oppure</div>
+          <div class="dish">Mushrooms in honey and thyme<span class="mk">VG GF</span></div>
+        </div>
+
+        <div class="crs">
+          <span class="cn">Principale</span>
+          <div class="dish">Braciole<span class="mk">D</span><span class="sub">rolled beef, slow tomato</span></div>
+          <div class="orr">oppure</div>
+          <div class="dish">Vori vori de carne<span class="mk">D GF</span><span class="sub">beef broth, cornmeal dumpling</span></div>
+        </div>
+
+        <div class="crs">
+          <span class="cn">Dolce</span>
+          <div class="dish">Globi<span class="mk">VG D</span><span class="sub">fried fresh cheese, honey, poppy</span></div>
+          <div class="dish">Alfajores<span class="mk">VG D N</span></div>
+        </div>
+
+        <div class="key">V VEGAN · VG VEGETARIAN · GF NO GLUTEN · D DAIRY · N NUTS · S SESAME</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════════ PART B ══════════ -->
+  <div class="part" style="margin-top:60px">
+    <h2>B · What the chef sees</h2>
+    <p>Six more views, all answering a question the card cannot. Lanes from the last mockup
+       catches repetition; these catch the other ways an evening goes wrong.</p>
+    <div class="bar"></div>
+  </div>
+
+  <div class="grid">
+
+    <!-- 01 -->
+    <section class="opt">
+      <header><span class="n">01</span><h3>Who can eat what</h3></header>
+      <p class="why">The marks on the card, turned back on the guest list. You enter who is
+         coming and what they don't eat; this says whether every person has a plate at every
+         course. It is the one view that has a wrong answer rather than an opinion.</p>
+      <div class="frame">
+        <div class="tbl diet">
+          <div class="hd rw">Guest</div>
+          <div class="hd c">Begin</div><div class="hd c">Second</div><div class="hd c">Main</div>
+          <div class="hd c">Sweet</div><div class="hd c">Covered</div>
+
+          <div class="rw">Dan</div>
+          <div class="c yes">both</div><div class="c yes">either</div><div class="c yes">either</div><div class="c yes">both</div><div class="c yes">all</div>
+
+          <div class="rw">Ana · vegetarian</div>
+          <div class="c yes">both</div><div class="c yes">either</div><div class="c no">neither</div><div class="c yes">both</div><div class="c no">gap at main</div>
+
+          <div class="rw">Josh · no gluten</div>
+          <div class="c alt">epityrum only</div><div class="c yes">either</div><div class="c alt">vori vori</div><div class="c alt">alfajores</div><div class="c yes">all</div>
+
+          <div class="rw">Mira · vegan</div>
+          <div class="c yes">both</div><div class="c no">neither</div><div class="c no">neither</div><div class="c no">neither</div><div class="c no">3 gaps</div>
+
+          <div class="rw">Sam · tree nuts</div>
+          <div class="c yes">both</div><div class="c alt">mushrooms</div><div class="c yes">either</div><div class="c alt">globi</div><div class="c yes">all</div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>Mira eats one course out of four, and Ana has nothing at the
+         main.</b> Both choice points are choices between two things that fail the same way —
+         which is the real bug, and it is invisible on the card.</p>
+    </section>
+
+    <!-- 02 -->
+    <section class="opt">
+      <header><span class="n">02</span><h3>Prep, pooled</h3></header>
+      <p class="why">Not a schedule — a merge. Every course broken into its actual prep steps,
+         then the steps that are the same job collapsed together. The payoff is finding you
+         are doing one thing three times.</p>
+      <div class="frame">
+        <div class="tbl mise">
+          <div class="hd">Job</div><div class="hd">Serves</div><div class="hd c">Times</div>
+
+          <div class="win">Toast nuts — pine, walnut, almond</div><div class="rw">Dates · Alfajores</div><div class="c win">2 → 1</div>
+          <div class="win">Warm honey with thyme</div><div class="rw">Mushrooms · Globi</div><div class="c win">2 → 1</div>
+          <div class="win">Beef stock on</div><div class="rw">Vori vori · Braciole</div><div class="c win">2 → 1</div>
+          <div>Pound the olive relish</div><div class="rw">Epityrum</div><div class="c">1</div>
+          <div>Focaccia dough, long rise</div><div class="rw">Focaccia</div><div class="c">1</div>
+          <div>Fresh cheese, drained</div><div class="rw">Globi</div><div class="c">1</div>
+          <div>Dulce de leche</div><div class="rw">Alfajores</div><div class="c">1</div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>three jobs doing double duty</b> — one nut pan, one honey pot,
+         one stock. Also the reverse: the focaccia rise and the dulce de leche are the only two
+         jobs that cannot be hurried, so they set when you have to start.</p>
+    </section>
+
+    <!-- 03 -->
+    <section class="opt">
+      <header><span class="n">03</span><h3>Contention</h3></header>
+      <p class="why">Not "when is each dish made" but "what does it need, and does something
+         else need it at the same moment." Home kitchens have one oven and four burners, and
+         that — rather than flavour — is what actually breaks a menu.</p>
+      <div class="frame">
+        <div class="tbl res">
+          <div class="hd rw">Resource</div><div class="hd">4pm ····· 6pm ····· 7pm ····· service</div>
+
+          <div class="rw">Oven</div>
+          <div><div class="track">
+            <span class="gap" style="width:4%"></span><div class="blk" style="width:26%">focaccia 220°</div>
+            <span class="gap" style="width:6%"></span><div class="blk clash" style="width:22%">braciole 160°</div>
+            <span class="gap" style="width:4%"></span><div class="blk clash" style="width:18%">alfajores 180°</div>
+          </div></div>
+
+          <div class="rw">Burners</div>
+          <div><div class="track">
+            <span class="gap" style="width:4%"></span><div class="blk" style="width:20%">stock</div>
+            <span class="gap" style="width:30%"></span><div class="blk" style="width:16%">mushrooms</div>
+            <span class="gap" style="width:2%"></span><div class="blk clash" style="width:14%">fry globi</div>
+          </div></div>
+
+          <div class="rw">Fridge</div>
+          <div><div class="track">
+            <span class="gap" style="width:4%"></span><div class="blk" style="width:62%">dates, cheese, dough, relish</div>
+          </div></div>
+
+          <div class="rw">Counter</div>
+          <div><div class="track">
+            <span class="gap" style="width:30%"></span><div class="blk" style="width:28%">shaping · plating</div>
+          </div></div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>the oven is asked for three different temperatures in two
+         hours</b>, and the last two overlap. The fix is a menu decision, not a timing one —
+         move the alfajores to the day before, or the braciole.</p>
+    </section>
+
+    <!-- 04 -->
+    <section class="opt">
+      <header><span class="n">04</span><h3>Bridges</h3></header>
+      <p class="why">What carries one course into the next. A menu that reads as a menu rather
+         than a sequence of dinners has a thread running through it — a repeated note, a
+         technique echo, a colour. A thin link is a jolt at the table.</p>
+      <div class="frame">
+        <svg viewBox="0 0 700 150" width="700" role="img" aria-label="Link strength between adjacent courses, with a weak link between second and main">
+          <line x1="62"  y1="62" x2="222" y2="62" stroke="var(--ink)"  stroke-width="4"/>
+          <line x1="222" y1="62" x2="382" y2="62" stroke="var(--flag)" stroke-width="1" stroke-dasharray="4 4"/>
+          <line x1="382" y1="62" x2="542" y2="62" stroke="var(--ink)"  stroke-width="2.5"/>
+          <line x1="542" y1="62" x2="660" y2="62" stroke="var(--ink)"  stroke-width="4"/>
+
+          <circle cx="62"  cy="62" r="7" fill="var(--ground)" stroke="var(--ink)" stroke-width="1.5"/>
+          <circle cx="222" cy="62" r="7" fill="var(--ground)" stroke="var(--ink)" stroke-width="1.5"/>
+          <circle cx="382" cy="62" r="7" fill="var(--ground)" stroke="var(--ink)" stroke-width="1.5"/>
+          <circle cx="542" cy="62" r="7" fill="var(--ground)" stroke="var(--ink)" stroke-width="1.5"/>
+          <circle cx="660" cy="62" r="7" fill="var(--ground)" stroke="var(--ink)" stroke-width="1.5"/>
+
+          <text class="tx-n" x="62"  y="94" text-anchor="middle">Epityrum</text>
+          <text class="tx-n" x="222" y="94" text-anchor="middle">Dates</text>
+          <text class="tx-n" x="382" y="94" text-anchor="middle">Braciole</text>
+          <text class="tx-n" x="542" y="94" text-anchor="middle">Globi</text>
+          <text class="tx-n" x="660" y="94" text-anchor="middle">Alfajores</text>
+
+          <text class="tx-s" x="142" y="50" text-anchor="middle">olive oil · pepper</text>
+          <text class="tx-s" x="302" y="50" text-anchor="middle" fill="var(--flag)">nothing shared</text>
+          <text class="tx-s" x="462" y="50" text-anchor="middle">fried · rich</text>
+          <text class="tx-s" x="601" y="50" text-anchor="middle">honey · caramel</text>
+
+          <text class="tx-s" x="302" y="122" text-anchor="middle" fill="var(--flag)">↑ the jolt</text>
+        </svg>
+      </div>
+      <p class="catch">Catches: <b>one dead link.</b> Dates to braciole shares no ingredient, no
+         technique and no temperature — it is where the meal changes subject. Either bridge it
+         or make the break deliberate and put a pause there.</p>
+    </section>
+
+    <!-- 05 -->
+    <section class="opt">
+      <header><span class="n">05</span><h3>The whole meal, at once</h3></header>
+      <p class="why">Every course summed into one shape. Not for fixing a single plate — for
+         answering "what kind of dinner is this," and noticing when the answer is narrower
+         than you meant it to be.</p>
+      <div class="frame">
+        <svg viewBox="0 0 400 210" width="400" role="img" aria-label="Six-axis balance of the menu, heavy on sweet and rich, almost no acid or bitter">
+          <g stroke="var(--rule)" fill="none">
+            <polygon points="200,28 262.4,64 262.4,136 200,172 137.6,136 137.6,64"/>
+            <polygon points="200,46 246.8,73 246.8,127 200,154 153.2,127 153.2,73"/>
+            <polygon points="200,64 231.2,82 231.2,118 200,136 168.8,118 168.8,82"/>
+            <polygon points="200,82 215.6,91 215.6,109 200,118 184.4,109 184.4,91"/>
+          </g>
+          <g stroke="var(--hair)">
+            <line x1="200" y1="100" x2="200" y2="28"/>
+            <line x1="200" y1="100" x2="262.4" y2="64"/>
+            <line x1="200" y1="100" x2="262.4" y2="136"/>
+            <line x1="200" y1="100" x2="200" y2="172"/>
+            <line x1="200" y1="100" x2="137.6" y2="136"/>
+            <line x1="200" y1="100" x2="137.6" y2="64"/>
+          </g>
+
+          <polygon points="200,42.4 212.5,92.8 256.1,132.4 200,136 181.3,110.8 193.8,96.4"
+                   fill="var(--flagbg)" stroke="var(--flag)" stroke-width="1.5"/>
+          <g fill="var(--flag)">
+            <circle cx="200"   cy="42.4"  r="3"/>
+            <circle cx="212.5" cy="92.8"  r="3"/>
+            <circle cx="256.1" cy="132.4" r="3"/>
+            <circle cx="200"   cy="136"   r="3"/>
+            <circle cx="181.3" cy="110.8" r="3"/>
+            <circle cx="193.8" cy="96.4"  r="3"/>
+          </g>
+
+          <text class="tx-s" x="200" y="18"  text-anchor="middle">RICH</text>
+          <text class="tx-s" x="272" y="58"  text-anchor="start">ACID</text>
+          <text class="tx-s" x="272" y="146" text-anchor="start">SWEET</text>
+          <text class="tx-s" x="200" y="190" text-anchor="middle">HERBAL</text>
+          <text class="tx-s" x="128" y="146" text-anchor="end">SPICED</text>
+          <text class="tx-s" x="128" y="58"  text-anchor="end">BITTER</text>
+        </svg>
+      </div>
+      <p class="catch">Catches: <b>a menu that is basically rich and sweet.</b> Acid and bitter
+         are almost at the centre, and those are the two that make a long dinner survivable.
+         One sharp course anywhere in the back half changes the shape.</p>
+    </section>
+
+    <!-- 06 -->
+    <section class="opt">
+      <header><span class="n">06</span><h3>Same dish twice</h3></header>
+      <p class="why">Runs the menu against the canon families. Two courses out of one family
+         are the same dish in different clothes, however far apart they look on the card —
+         and this is the only check here that needs the cookbook to already know something.</p>
+      <div class="frame">
+        <div class="fam">
+          <div class="card2 hit">
+            <div class="t">Collision · dough with filling</div>
+            <div class="b"><b>Vori vori</b> and <b>braciole</b> are both a wrapped or bound starch
+              around a savoury filling, simmered in their own liquid. Different continents, same
+              move — and they sit next to each other.</div>
+          </div>
+          <div class="card2">
+            <div class="t">Clear · fried sweet</div>
+            <div class="b"><b>Globi</b> is the only fried thing in the menu, and the only
+              dough-in-hot-fat. Nothing shadows it.</div>
+          </div>
+          <div class="card2">
+            <div class="t">Clear · pounded raw</div>
+            <div class="b"><b>Epityrum</b> is alone in the dip family. The za'atar beside it is a
+              dry blend, not a second pounded relish.</div>
+          </div>
+          <div class="card2 hit">
+            <div class="t">Thin · nothing raw, nothing cold after the first course</div>
+            <div class="b">Six of seven courses are cooked and hot. The family spread is narrow
+              even where no two dishes collide outright.</div>
+          </div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>braciole and vori vori are the same idea</b> — which the lanes
+         view half-found by spotting beef twice, and this one names.</p>
+    </section>
+
+  </div>
+
+  <div class="foot">
+    <p><b>Where each of these gets its data.</b> Diet marks come off the recipe ingredients, so
+    the card and view 01 cannot disagree. Prep pooling and contention come from the instruction
+    steps already stored per recipe. Bridges and the balance wheel read <b>note_profiles</b> and
+    the <b>ingredient_cooccur</b> corpus behind the dish score. Same dish twice reads the canon
+    families. The chef views are checks on one authored thing — the list of recipes you picked —
+    so none of them can contradict the card.</p>
+  </div>
+
+</div>
