@@ -9,14 +9,18 @@ import {
   useSyncExternalStore,
 } from 'react';
 import { Search } from 'lucide-react';
-import InstagramEmbed from '@/components/InstagramEmbed';
+import { useRouter } from 'next/navigation';
+import InspirationCard from '@/components/InspirationCard';
 import CaptionImport from '@/components/CaptionImport';
+import IdeaBoard from '@/components/inspiration/IdeaBoard';
 import {
   INSPIRATION_POSTS,
   SAVED_COLLECTION_URL,
   accountsByWeight,
+  permalinkFor,
   type InspirationPost,
 } from '@/data/inspiration';
+import { mediaFor } from '@/data/inspiration-media';
 
 // Reveal the wall a screenful at a time; 142 embeds at once is a lot of iframes.
 // Divisible by every column count, so a batch never lands lopsided.
@@ -55,9 +59,29 @@ function useColumnCount() {
 export default function InspirationPage() {
   const [query, setQuery] = useState('');
   const [account, setAccount] = useState<string | null>(null);
+  // Two things live under Inspiration: the wall you scroll, and the short list
+  // you actually mean to cook. They answer different questions, so they are a
+  // switch rather than two screens.
+  const [view, setView] = useState<'wall' | 'board'>('wall');
   const [shown, setShown] = useState(PAGE);
   const [importing, setImporting] = useState<InspirationPost | null>(null);
   const sentinel = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  // With the caption stored, "Cook it" is one click; without it, we still have
+  // to ask, because the caption is sitting inside a frame we cannot read.
+  const handleImport = (post: InspirationPost) => {
+    const caption = mediaFor(post.code)?.caption?.trim();
+    if (!caption) {
+      setImporting(post);
+      return;
+    }
+    sessionStorage.setItem(
+      'cookbookInstagram',
+      JSON.stringify({ text: caption, user: post.user, url: permalinkFor(post) })
+    );
+    router.push('/add-recipe');
+  };
 
   const accounts = useMemo(() => accountsByWeight(INSPIRATION_POSTS), []);
   const regulars = useMemo(
@@ -132,8 +156,26 @@ export default function InspirationPage() {
           from {accounts.length} kitchens.
         </p>
 
+        {/* Wall, or the things you've pinned out of it */}
+        <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2 border-b border-border pb-2.5 mb-6">
+          {([['wall', 'The wall'], ['board', 'Want to try']] as const).map(([id, label]) => (
+            <button
+              key={id}
+              onClick={() => setView(id)}
+              aria-pressed={view === id}
+              className={`text-[12px] uppercase tracking-[0.12em] pb-0.5 border-b transition-colors ${
+                view === id
+                  ? 'text-text border-text'
+                  : 'text-text-secondary border-transparent hover:text-text'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
         {/* Search by handle */}
-        <div className="relative max-w-md mb-5">
+        <div className={`relative max-w-md mb-5 ${view === 'board' ? 'hidden' : ''}`}>
           <Search
             className="absolute left-0 top-1/2 -translate-y-1/2 text-text-secondary"
             size={16}
@@ -149,7 +191,7 @@ export default function InspirationPage() {
         </div>
 
         {/* The accounts saved more than once, as underlined text links */}
-        <div className="flex flex-wrap items-baseline gap-x-5 gap-y-2 text-sm">
+        <div className={`flex flex-wrap items-baseline gap-x-5 gap-y-2 text-sm ${view === 'board' ? 'hidden' : ''}`}>
           <button
             onClick={() => setAccount(null)}
             className={`lowercase underline-offset-4 decoration-1 cursor-pointer ${
@@ -175,7 +217,9 @@ export default function InspirationPage() {
         </div>
       </div>
 
-      {filtered.length === 0 ? (
+      {view === 'board' ? (
+        <IdeaBoard />
+      ) : filtered.length === 0 ? (
         <div className="flex items-center justify-center h-96">
           <p className="text-text-secondary text-sm">
             Nothing saved from an account by that name.
@@ -198,7 +242,7 @@ export default function InspirationPage() {
                 style={{ marginTop: i * COLUMN_OFFSET }}
               >
                 {column.map((post) => (
-                  <InstagramEmbed key={post.code} post={post} onImport={setImporting} />
+                  <InspirationCard key={post.code} post={post} onImport={handleImport} />
                 ))}
               </div>
             ))}

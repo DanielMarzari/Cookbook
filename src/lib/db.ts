@@ -3,6 +3,7 @@ import path from 'path';
 import { SCHEMA_SQL } from './schema';
 import { CHARCUTERIE_SCHEMA_SQL } from './charcuterie/schema';
 import { EVENTS_SCHEMA_SQL } from './events/schema';
+import { IDEAS_SCHEMA_SQL } from './ideas/schema';
 import { purgeExpiredArchives } from './archive';
 
 const DB_PATH = process.env.DATABASE_PATH || path.join(process.cwd(), 'cookbook.db');
@@ -147,6 +148,8 @@ export function getDb(): Database.Database {
     db.exec(CHARCUTERIE_SCHEMA_SQL);
     // Dinners: the invitation, the guest list and the printed card.
     db.exec(EVENTS_SCHEMA_SQL);
+    // The want-to-try board.
+    db.exec(IDEAS_SCHEMA_SQL);
     // Add columns introduced after a table already existed. CREATE TABLE
     // IF NOT EXISTS won't alter an existing table, so migrate explicitly.
     ensureColumn(db, 'recipes', 'image_position', 'TEXT');
