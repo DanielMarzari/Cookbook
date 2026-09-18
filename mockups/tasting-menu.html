@@ -1,0 +1,389 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Six Ways to Plan a Tasting Menu</title>
+<style>
+  :root {
+    --ground: #ffffff;
+    --wash:   #fafafa;
+    --ink:    #111111;
+    --muted:  #767676;
+    --rule:   #e8e8e8;
+    --hair:   #d8d8d8;
+    --flag:   #a0522d;
+    --flagbg: #f6efe9;
+    --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #121212;
+      --wash:   #191919;
+      --ink:    #ededed;
+      --muted:  #9a9a9a;
+      --rule:   #2c2c2c;
+      --hair:   #3a3a3a;
+      --flag:   #c98060;
+      --flagbg: #241b16;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #121212;
+    --wash:   #191919;
+    --ink:    #ededed;
+    --muted:  #9a9a9a;
+    --rule:   #2c2c2c;
+    --hair:   #3a3a3a;
+    --flag:   #c98060;
+    --flagbg: #241b16;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 56px 24px 100px; }
+
+  .lede { max-width: 64ch; display: flex; flex-direction: column; gap: 14px; margin-bottom: 18px; }
+  h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; margin: 0; text-wrap: balance; }
+  .lede p { margin: 0; font-size: 15px; color: var(--muted); }
+  .lab { font-size: 11px; text-transform: uppercase; letter-spacing: 0.13em; color: var(--muted); }
+
+  /* ── the menu under test ─────────────────────────────────── */
+  .source { border: 1px solid var(--rule); background: var(--wash); padding: 22px 22px 18px; margin-bottom: 56px; }
+  .source h2 { margin: 0 0 4px; font-size: 14px; font-weight: 500; }
+  .source > p { margin: 0 0 16px; font-size: 13px; color: var(--muted); max-width: 66ch; }
+  .courses { display: grid; grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); gap: 0; border-top: 1px solid var(--ink); }
+  .courses > div { padding: 10px 12px 12px 0; border-bottom: 1px solid var(--rule); }
+  .courses .n { font-size: 10.5px; letter-spacing: 0.13em; color: var(--muted); display: block; }
+  .courses .t { font-size: 13.5px; line-height: 1.3; display: block; margin-top: 3px; }
+  .courses .m { font-size: 11.5px; color: var(--muted); display: block; margin-top: 4px; }
+
+  .grid { display: flex; flex-direction: column; gap: 52px; }
+  .opt { display: flex; flex-direction: column; gap: 13px; }
+  .opt > header { display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--ink); padding-bottom: 7px; }
+  .opt > header h2 { margin: 0; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; }
+  .opt > header .n { font-size: 11px; letter-spacing: 0.13em; color: var(--muted); }
+  .why { font-size: 13px; color: var(--muted); margin: 0; max-width: 66ch; }
+  .frame { border: 1px solid var(--rule); background: var(--wash); padding: 26px 24px; overflow-x: auto; }
+  .catch { font-size: 12.5px; margin: 0; max-width: 66ch; color: var(--ink); }
+  .catch b { font-weight: 500; color: var(--flag); }
+
+  svg { display: block; max-width: 100%; }
+  .ax { stroke: var(--hair); stroke-width: 1; }
+  .gl { stroke: var(--rule); stroke-width: 1; }
+  .ln { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+  .pt { fill: var(--ground); stroke: var(--ink); stroke-width: 1.5; }
+  .pt-f { fill: var(--flag); stroke: var(--flag); }
+  text { font-family: var(--sans); fill: var(--ink); }
+  .tx-s { font-size: 10px; fill: var(--muted); letter-spacing: 0.06em; }
+  .tx-n { font-size: 11px; fill: var(--ink); }
+
+  /* ── 02 lanes ────────────────────────────────────────────── */
+  .lanes { display: grid; grid-template-columns: 96px repeat(7, minmax(58px, 1fr)); font-size: 11px; min-width: 620px; }
+  .lanes > div { padding: 7px 6px; border-bottom: 1px solid var(--rule); }
+  .lanes .hd { border-bottom: 1px solid var(--ink); font-size: 10px; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; }
+  .lanes .rw { color: var(--muted); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; }
+  .lanes .cel { text-align: center; color: var(--ink); }
+  .lanes .rep { background: var(--flagbg); color: var(--flag); }
+  .lanes .nil { color: var(--hair); }
+
+  /* ── 03 card ─────────────────────────────────────────────── */
+  .card { max-width: 380px; margin: 8px auto; text-align: center; }
+  .card .ttl { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .card ol { list-style: none; margin: 22px 0 0; padding: 0; display: flex; flex-direction: column; gap: 17px; }
+  .card li { font-size: 14.5px; line-height: 1.45; }
+  .card li span { display: block; font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .card .sep { width: 26px; height: 1px; background: var(--hair); margin: 4px auto; border: 0; }
+
+  /* ── 04 timeline ─────────────────────────────────────────── */
+  .tl { display: grid; grid-template-columns: 150px 1fr; gap: 0 14px; font-size: 12px; min-width: 560px; }
+  .tl > div { padding: 6px 0; border-bottom: 1px solid var(--rule); display: flex; align-items: center; }
+  .tl .hd { border-bottom: 1px solid var(--ink); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .bar { height: 15px; display: flex; align-items: center; justify-content: center; font-size: 10px; letter-spacing: 0.06em; color: var(--ground); background: var(--ink); white-space: nowrap; padding: 0 7px; }
+  .bar.late { background: var(--flag); }
+  .bar.soft { background: transparent; color: var(--muted); border: 1px dashed var(--hair); }
+
+  /* ── 05 matrix ───────────────────────────────────────────── */
+  .mx { display: grid; grid-template-columns: 116px repeat(7, minmax(40px, 1fr)); font-size: 11px; min-width: 560px; }
+  .mx > div { padding: 6px 4px; border-bottom: 1px solid var(--rule); text-align: center; }
+  .mx .hd { border-bottom: 1px solid var(--ink); font-size: 10px; color: var(--muted); }
+  .mx .rw { text-align: left; color: var(--muted); font-size: 11px; }
+  .mx .rw.hot { color: var(--flag); }
+  .mx .d::after { content: "●"; font-size: 8px; }
+  .mx .d.hot::after { color: var(--flag); }
+
+  /* ── 06 spine ────────────────────────────────────────────── */
+  .spine { display: flex; flex-direction: column; gap: 2px; }
+  .spine .row { display: flex; align-items: baseline; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--rule); }
+  .spine .ct { font-size: 10px; letter-spacing: 0.12em; color: var(--muted); width: 22px; flex: none; }
+  .spine .bar2 { height: 9px; background: var(--ink); flex: none; }
+  .spine .nm { font-size: 13px; }
+  .spine .nm em { font-style: normal; color: var(--muted); font-size: 11.5px; }
+  /* On a phone the bar and the name cannot share a line without one of them
+     losing. Stack them instead of scrolling — this is the view whose whole
+     claim is that it works in a kitchen. */
+  @media (max-width: 560px) {
+    .spine .row { display: grid; grid-template-columns: 22px 1fr; column-gap: 10px; row-gap: 3px; align-items: center; }
+    .spine .ct   { grid-area: 1 / 1 / 3 / 2; }
+    .spine .nm   { grid-area: 1 / 2 / 2 / 3; }
+    .spine .bar2 { grid-area: 2 / 2 / 3 / 3; }
+  }
+
+  .foot { margin-top: 58px; border-top: 1px solid var(--rule); padding-top: 18px; font-size: 13px; color: var(--muted); max-width: 66ch; }
+  .foot b { color: var(--ink); font-weight: 500; }
+</style>
+
+<div class="wrap">
+
+  <div class="lede">
+    <span class="lab">Mockup · Tasting menu</span>
+    <h1>Six ways to plan a tasting menu</h1>
+    <p>A menu is not a list of good dishes. It is a sequence, and the sequence can be wrong
+       even when every dish in it is right. Each view below is the same seven courses — built
+       from recipes already in the cookbook — drawn so a different kind of mistake becomes
+       visible.</p>
+  </div>
+
+  <div class="source">
+    <h2>The menu under test</h2>
+    <p>Seven courses, all from your own recipes. It has three real problems, and none of
+       them are visible when you write it out as a list — which is how menus get written.</p>
+    <div class="courses">
+      <div><span class="n">I</span><span class="t">Epityrum</span><span class="m">Olive relish · cold · Roman</span></div>
+      <div><span class="n">II</span><span class="t">Stuffed dates</span><span class="m">Date, honey, pepper · room</span></div>
+      <div><span class="n">III</span><span class="t">Honey mushrooms</span><span class="m">Glazed · hot · Roman</span></div>
+      <div><span class="n">IV</span><span class="t">Vori vori de carne</span><span class="m">Beef, corn dumpling · hot</span></div>
+      <div><span class="n">V</span><span class="t">Braciole</span><span class="m">Braised beef · hot · Italian</span></div>
+      <div><span class="n">VI</span><span class="t">Globi</span><span class="m">Fried cheese, honey · hot</span></div>
+      <div><span class="n">VII</span><span class="t">Alfajores</span><span class="m">Dulce de leche · cold</span></div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <!-- 01 ─────────────────────────────────────────────────── -->
+    <section class="opt">
+      <header><span class="n">01</span><h2>The arc</h2></header>
+      <p class="why">Richness plotted across the meal. A tasting menu is supposed to climb, peak
+         once, and come down — so the shape itself is the thing you are designing, and a bad
+         menu has a bad silhouette.</p>
+      <div class="frame">
+        <svg viewBox="0 0 700 250" width="700" role="img" aria-label="Richness across seven courses, rising to the braciole and plateauing">
+          <line class="ax" x1="42" y1="196" x2="676" y2="196"/>
+          <line class="gl" x1="42" y1="40"  x2="676" y2="40"/>
+          <line class="gl" x1="42" y1="118" x2="676" y2="118"/>
+          <text class="tx-s" x="0" y="44">RICH</text>
+          <text class="tx-s" x="0" y="200">LIGHT</text>
+
+          <!-- plateau marker behind the line -->
+          <rect x="331" y="30" width="205" height="166" fill="var(--flagbg)"/>
+          <text class="tx-s" x="352" y="26" fill="var(--flag)">NO DESCENT — IV THROUGH VI ALL SIT HIGH</text>
+
+          <polyline class="ln" points="70,178 160,165 250,122 340,104 430,48 520,74 610,96"/>
+          <circle class="pt" cx="70"  cy="178" r="4.5"/>
+          <circle class="pt" cx="160" cy="165" r="4.5"/>
+          <circle class="pt" cx="250" cy="122" r="4.5"/>
+          <circle class="pt pt-f" cx="340" cy="104" r="4.5"/>
+          <circle class="pt pt-f" cx="430" cy="48"  r="4.5"/>
+          <circle class="pt pt-f" cx="520" cy="74"  r="4.5"/>
+          <circle class="pt" cx="610" cy="96"  r="4.5"/>
+
+          <text class="tx-s" x="70"  y="216" text-anchor="middle">I</text>
+          <text class="tx-s" x="160" y="216" text-anchor="middle">II</text>
+          <text class="tx-s" x="250" y="216" text-anchor="middle">III</text>
+          <text class="tx-s" x="340" y="216" text-anchor="middle">IV</text>
+          <text class="tx-s" x="430" y="216" text-anchor="middle">V</text>
+          <text class="tx-s" x="520" y="216" text-anchor="middle">VI</text>
+          <text class="tx-s" x="610" y="216" text-anchor="middle">VII</text>
+          <text class="tx-n" x="70"  y="234" text-anchor="middle">Epityrum</text>
+          <text class="tx-n" x="160" y="234" text-anchor="middle">Dates</text>
+          <text class="tx-n" x="250" y="234" text-anchor="middle">Mushrooms</text>
+          <text class="tx-n" x="340" y="234" text-anchor="middle">Vori vori</text>
+          <text class="tx-n" x="430" y="234" text-anchor="middle">Braciole</text>
+          <text class="tx-n" x="520" y="234" text-anchor="middle">Globi</text>
+          <text class="tx-n" x="610" y="234" text-anchor="middle">Alfajores</text>
+        </svg>
+      </div>
+      <p class="catch">Catches: <b>the menu never comes down.</b> Courses IV to VI sit in the top
+         third with nothing light between them, so the braciole reads as one more heavy plate
+         rather than the peak.</p>
+    </section>
+
+    <!-- 02 ─────────────────────────────────────────────────── -->
+    <section class="opt">
+      <header><span class="n">02</span><h2>Lanes</h2></header>
+      <p class="why">One row per dimension, one column per course. Repetition is the commonest
+         way a menu fails, and in this form it is a literal pattern — the same value twice in a
+         row, side by side, where you cannot miss it.</p>
+      <div class="frame">
+        <div class="lanes">
+          <div class="hd"></div>
+          <div class="hd cel">I</div><div class="hd cel">II</div><div class="hd cel">III</div>
+          <div class="hd cel">IV</div><div class="hd cel">V</div><div class="hd cel">VI</div><div class="hd cel">VII</div>
+
+          <div class="rw">Temperature</div>
+          <div class="cel">cold</div><div class="cel">room</div><div class="cel">hot</div>
+          <div class="cel rep">hot</div><div class="cel rep">hot</div><div class="cel rep">hot</div><div class="cel">cold</div>
+
+          <div class="rw">Sweet</div>
+          <div class="cel nil">—</div><div class="cel rep">honey</div><div class="cel rep">honey</div>
+          <div class="cel nil">—</div><div class="cel nil">—</div><div class="cel rep">honey</div><div class="cel">caramel</div>
+
+          <div class="rw">Protein</div>
+          <div class="cel nil">—</div><div class="cel nil">—</div><div class="cel nil">—</div>
+          <div class="cel rep">beef</div><div class="cel rep">beef</div><div class="cel">cheese</div><div class="cel nil">—</div>
+
+          <div class="rw">Acid</div>
+          <div class="cel">vinegar</div><div class="cel nil">—</div><div class="cel nil">—</div>
+          <div class="cel nil">—</div><div class="cel">tomato</div><div class="cel nil">—</div><div class="cel nil">—</div>
+
+          <div class="rw">Technique</div>
+          <div class="cel">pounded</div><div class="cel">stuffed</div><div class="cel">glazed</div>
+          <div class="cel">simmered</div><div class="cel">braised</div><div class="cel">fried</div><div class="cel">baked</div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>honey three times, beef back to back, five courses with no acid.</b>
+         Technique is the one row doing its job — seven courses, seven methods.</p>
+    </section>
+
+    <!-- 03 ─────────────────────────────────────────────────── -->
+    <section class="opt">
+      <header><span class="n">03</span><h2>The card</h2></header>
+      <p class="why">What the table actually reads. Not a planning tool — the output — but worth
+         designing alongside the others, because a menu that plans well and reads badly is still
+         a menu you have to hand someone.</p>
+      <div class="frame">
+        <div class="card">
+          <div class="ttl">A Roman-ish Evening</div>
+          <ol>
+            <li>Epityrum<span>green olive, fennel, cumin</span></li>
+            <li>Dates stuffed with pine nut and pepper<span>rolled in honey</span></li>
+            <li>Mushrooms in honey and thyme<span>hot from the pan</span></li>
+            <hr class="sep">
+            <li>Vori vori de carne<span>beef broth, cornmeal dumpling</span></li>
+            <li>Braciole<span>rolled beef, slow tomato</span></li>
+            <hr class="sep">
+            <li>Globi<span>fried fresh cheese, honey, poppy</span></li>
+            <li>Alfajores<span>dulce de leche, coconut</span></li>
+          </ol>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>nothing — and that is the point.</b> Read as a card the menu is
+         handsome, which is exactly why the other five views exist.</p>
+    </section>
+
+    <!-- 04 ─────────────────────────────────────────────────── -->
+    <section class="opt">
+      <header><span class="n">04</span><h2>The kitchen</h2></header>
+      <p class="why">The same seven courses against when the work actually happens. A menu is
+         also a labour plan, and the constraint that sinks a dinner at home is almost never
+         flavour — it is four things wanting the stove at once.</p>
+      <div class="frame">
+        <div class="tl">
+          <div class="hd">Course</div><div class="hd">Days ahead · Morning · Service</div>
+
+          <div>I · Epityrum</div>
+          <div><div class="bar" style="width:22%">2 days ahead — improves</div></div>
+
+          <div>II · Stuffed dates</div>
+          <div><div class="bar" style="width:36%">morning</div></div>
+
+          <div>III · Honey mushrooms</div>
+          <div><div class="bar late" style="margin-left:62%; width:20%">à la minute</div></div>
+
+          <div>IV · Vori vori</div>
+          <div><div class="bar" style="width:30%">broth ahead</div><div class="bar late" style="margin-left:26%; width:18%">dumplings</div></div>
+
+          <div>V · Braciole</div>
+          <div><div class="bar" style="width:46%">braised the day before, reheats</div></div>
+
+          <div>VI · Globi</div>
+          <div><div class="bar late" style="margin-left:62%; width:22%">fried to order</div></div>
+
+          <div>VII · Alfajores</div>
+          <div><div class="bar soft" style="width:30%">bake ahead, keeps a week</div></div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>three courses finish at the stove during service</b>, and two of
+         them are fried or dumpling work that cannot wait. Swap one for something that reheats
+         and the evening stops being a shift.</p>
+    </section>
+
+    <!-- 05 ─────────────────────────────────────────────────── -->
+    <section class="opt">
+      <header><span class="n">05</span><h2>The pantry grid</h2></header>
+      <p class="why">Ingredients down, courses across. Answers a narrower question than lanes —
+         not "does this repeat" but "what is this menu actually made of" — and a row with three
+         marks in it is a menu with a tic.</p>
+      <div class="frame">
+        <div class="mx">
+          <div class="hd rw">Ingredient</div>
+          <div class="hd">I</div><div class="hd">II</div><div class="hd">III</div>
+          <div class="hd">IV</div><div class="hd">V</div><div class="hd">VI</div><div class="hd">VII</div>
+
+          <div class="rw hot">Honey</div>
+          <div></div><div class="d hot"></div><div class="d hot"></div><div></div><div></div><div class="d hot"></div><div></div>
+
+          <div class="rw hot">Beef</div>
+          <div></div><div></div><div></div><div class="d hot"></div><div class="d hot"></div><div></div><div></div>
+
+          <div class="rw">Olive oil</div>
+          <div class="d"></div><div></div><div class="d"></div><div></div><div class="d"></div><div></div><div></div>
+
+          <div class="rw">Black pepper</div>
+          <div class="d"></div><div class="d"></div><div></div><div></div><div class="d"></div><div></div><div></div>
+
+          <div class="rw">Fresh cheese</div>
+          <div></div><div></div><div></div><div></div><div></div><div class="d"></div><div></div>
+
+          <div class="rw">Vinegar</div>
+          <div class="d"></div><div></div><div></div><div></div><div></div><div></div><div></div>
+
+          <div class="rw">Cornmeal</div>
+          <div></div><div></div><div></div><div class="d"></div><div></div><div></div><div></div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>honey is the menu's accent, used three times without being
+         chosen.</b> Also shows the opposite problem — vinegar appears once, in the first course,
+         and never returns.</p>
+    </section>
+
+    <!-- 06 ─────────────────────────────────────────────────── -->
+    <section class="opt">
+      <header><span class="n">06</span><h2>The spine</h2></header>
+      <p class="why">The arc turned on its side so it reads as a list. Loses the curve, keeps the
+         proportion, and it is the only one of these six that works on a phone in a kitchen —
+         which is where you would actually be holding it.</p>
+      <div class="frame">
+        <div class="spine">
+          <div class="row"><span class="ct">I</span><span class="bar2" style="width:9%"></span><span class="nm">Epityrum <em>· cold, sharp</em></span></div>
+          <div class="row"><span class="ct">II</span><span class="bar2" style="width:14%"></span><span class="nm">Stuffed dates <em>· room</em></span></div>
+          <div class="row"><span class="ct">III</span><span class="bar2" style="width:29%"></span><span class="nm">Honey mushrooms <em>· hot</em></span></div>
+          <div class="row"><span class="ct">IV</span><span class="bar2" style="width:38%"></span><span class="nm">Vori vori <em>· hot, beef</em></span></div>
+          <div class="row"><span class="ct">V</span><span class="bar2" style="width:62%"></span><span class="nm">Braciole <em>· hot, beef</em></span></div>
+          <div class="row"><span class="ct">VI</span><span class="bar2" style="width:48%"></span><span class="nm">Globi <em>· hot, fried</em></span></div>
+          <div class="row"><span class="ct">VII</span><span class="bar2" style="width:34%"></span><span class="nm">Alfajores <em>· cold</em></span></div>
+        </div>
+      </div>
+      <p class="catch">Catches: <b>the same plateau as the arc</b>, without the drawing. The step
+         from IV to V is the only real climb in the menu, and it arrives after four courses of
+         steady build rather than off a dip.</p>
+    </section>
+
+  </div>
+
+  <div class="foot">
+    <p><b>What the real thing would know.</b> None of the above is hand-entered. Richness, acid
+    and the ingredient grid come from the flavour data already loaded — <b>note_profiles</b> and
+    the <b>ingredient_cooccur</b> corpus behind the dish score. Seasonality comes from the
+    seasonal tables, so a menu can be checked against the month you are cooking it in. Canon
+    families give the one check none of these views show: two courses out of the same family are
+    the same dish twice, however different they look on the card.</p>
+  </div>
+
+</div>
