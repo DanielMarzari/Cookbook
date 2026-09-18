@@ -1,3 +1,18 @@
+/**
+ * What kind of cooking this is — a second axis, independent of where it comes
+ * from.
+ *
+ * Cuisine answers "whose tradition is this"; craft answers "what am I doing".
+ * They are separate questions and a single list conflates them: baking is not a
+ * nationality, and filing it beside Italian and Jewish would make one of those
+ * the default for bread. Kept deliberately short — five drawers you can hold in
+ * your head, not a taxonomy. Custom values work the same way cuisines do: any
+ * craft written on a recipe joins the row.
+ */
+export const DEFAULT_CRAFTS = [
+  'Baking', 'Sweets', 'Mains', 'Sides', 'Condiments',
+];
+
 export const DEFAULT_CUISINES = [
   'American', 'Brazilian', 'Caribbean', 'Chinese', 'Ethiopian',
   'Filipino', 'French', 'German', 'Greek', 'Indian',

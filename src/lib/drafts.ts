@@ -23,6 +23,7 @@ export interface DraftPayload {
   description?: string;
   notes?: string;
   cuisine_type?: string;
+  craft?: string | null;
   difficulty?: string;
   source_url?: string;
   source_name?: string;
@@ -80,6 +81,7 @@ export function applyPayload(db: DB, recipeId: string, payload: DraftPayload): v
   put('description', payload.description);
   put('notes', payload.notes);
   put('cuisine_type', payload.cuisine_type);
+  put('craft', payload.craft);
   put('difficulty', payload.difficulty);
   put('source_url', payload.source_url);
   put('source_name', payload.source_name);
@@ -143,6 +145,7 @@ export function snapshotRecipe(db: DB, recipeId: string): DraftPayload | null {
     description: (r.description as string) ?? undefined,
     notes: (r.notes as string) ?? undefined,
     cuisine_type: (r.cuisine_type as string) ?? undefined,
+    craft: (r.craft as string) ?? undefined,
     difficulty: (r.difficulty as string) ?? undefined,
     source_url: (r.source_url as string) ?? undefined,
     source_name: (r.source_name as string) ?? undefined,

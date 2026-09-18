@@ -48,6 +48,7 @@ export const api = {
       const params = new URLSearchParams();
       if (filters?.search) params.append('search', filters.search);
       if (filters?.cuisine) params.append('cuisine', filters.cuisine);
+      if (filters?.craft) params.append('craft', filters.craft);
       if (filters?.difficulty) params.append('difficulty', filters.difficulty);
       if (filters?.maxTime) params.append('maxTime', filters.maxTime);
       const queryString = params.toString();

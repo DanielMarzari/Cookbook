@@ -4,18 +4,20 @@ import { useState } from 'react';
 import { useCookbookStore } from '@/lib/store';
 import { Search } from 'lucide-react';
 import { useCuisines } from '@/lib/useCuisines';
+import { useCrafts } from '@/lib/useCrafts';
 
 const difficulties = ['Easy', 'Medium', 'Hard'];
 
 export default function FilterBar() {
   const { cuisines } = useCuisines();
+  const { crafts } = useCrafts();
   const filters = useCookbookStore((state) => state.filters);
   const setFilters = useCookbookStore((state) => state.setFilters);
   const resetFilters = useCookbookStore((state) => state.resetFilters);
   const [moreOpen, setMoreOpen] = useState(false);
 
   const hasActiveFilters =
-    filters.search || filters.cuisine || filters.difficulty || filters.maxTime;
+    filters.search || filters.cuisine || filters.craft || filters.difficulty || filters.maxTime;
 
   return (
     <div className="space-y-5">
@@ -82,6 +84,28 @@ export default function FilterBar() {
             reset
           </button>
         )}
+      </div>
+
+      {/* The craft axis. A row of its own rather than more names in the line
+          above, because "Baking" is not a nationality and putting it there
+          would quietly make one tradition the default for bread. The two
+          combine: Jewish + baking is the challah and none of the rest. */}
+      <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2 text-sm">
+        <span className="text-[12.5px] text-text-secondary">kind —</span>
+        {crafts.map((craft) => {
+          const on = filters.craft === craft.toLowerCase();
+          return (
+            <button
+              key={craft}
+              onClick={() => setFilters({ craft: on ? null : craft.toLowerCase() })}
+              className={`lowercase transition-colors underline-offset-4 decoration-1 cursor-pointer ${
+                on ? 'text-text underline' : 'text-text-secondary hover:text-text hover:underline'
+              }`}
+            >
+              {craft}
+            </button>
+          );
+        })}
       </div>
 
       {/* Secondary filters, tucked away */}

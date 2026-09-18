@@ -13,6 +13,7 @@ import { fileToResizedDataUrl } from '@/lib/photo';
 import { toast } from '@/lib/toast';
 import { UNITS, DEFAULT_CUISINES, MEAL_TYPES } from '@/lib/constants';
 import { useCuisines } from '@/lib/useCuisines';
+import { useCrafts } from '@/lib/useCrafts';
 import { usePrompt } from '@/components/Prompt';
 
 
@@ -38,6 +39,7 @@ export default function EditRecipePage() {
   const router = useRouter();
   const id = params.id as string;
   const { cuisines } = useCuisines();
+  const { crafts } = useCrafts();
   const ask = usePrompt();
 
   const [loading, setLoading] = useState(true);
@@ -53,6 +55,7 @@ export default function EditRecipePage() {
   const [yieldQuantity, setYieldQuantity] = useState(0);
   const [yieldUnit, setYieldUnit] = useState('');
   const [cuisineType, setCuisineType] = useState('');
+  const [craft, setCraft] = useState('');
   const [mealType, setMealType] = useState('');
   const [sourceId, setSourceId] = useState('');
   const [sourceList, setSourceList] = useState<{ id: string; name: string; featured: number }[]>([]);
@@ -90,6 +93,7 @@ export default function EditRecipePage() {
         setYieldQuantity(recipe.yield_quantity || 0);
         setYieldUnit(recipe.yield_unit || '');
         setCuisineType(recipe.cuisine_type || '');
+        setCraft(recipe.craft || '');
         setMealType(recipe.meal_type || '');
         setSourceId(recipe.source_id || '');
         // If the cuisine is custom (not in defaults), pre-populate the custom input
@@ -290,7 +294,7 @@ export default function EditRecipePage() {
         // Staged: the recipe on disk is deliberately left alone.
         await api.recipes.saveDraft(id, {
           title, description, notes, servings,
-          cuisine_type: cuisineType, difficulty,
+          cuisine_type: cuisineType, craft: craft || null, difficulty,
           source_url: sourceUrl, source_name: sourceName, source_author: sourceAuthor,
           image_url: imageUrl, image_rotation: imageRotation,
           image_position: imagePosition, image_zoom: imageZoom,
@@ -310,7 +314,7 @@ export default function EditRecipePage() {
       }
 
       await api.recipes.update(id, {
-        title, description, notes, cuisine_type: cuisineType, difficulty,
+        title, description, notes, cuisine_type: cuisineType, craft: craft || null, difficulty,
         yield_quantity: yieldQuantity || undefined, yield_unit: yieldUnit || undefined,
         meal_type: mealType || undefined, source_id: sourceId || undefined,
         prep_time_minutes: prepTime, cook_time_minutes: cookTime,
@@ -360,14 +364,14 @@ export default function EditRecipePage() {
     } finally {
       setSaving(false);
     }
-  }, [id, target, title, description, notes, yieldQuantity, yieldUnit, mealType, sourceId, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients]);
+  }, [id, target, title, description, notes, yieldQuantity, yieldUnit, mealType, sourceId, cuisineType, craft, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients]);
 
   useEffect(() => {
     if (!initialLoadDone.current) return;
     if (autosaveTimer.current) clearTimeout(autosaveTimer.current);
     autosaveTimer.current = setTimeout(doAutosave, 1500);
     return () => { if (autosaveTimer.current) clearTimeout(autosaveTimer.current); };
-  }, [target, title, description, notes, yieldQuantity, yieldUnit, mealType, sourceId, cuisineType, difficulty, prepTime, cookTime, servings, imageUrl, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients, doAutosave]);
+  }, [target, title, description, notes, yieldQuantity, yieldUnit, mealType, sourceId, cuisineType, craft, difficulty, prepTime, cookTime, servings, imageUrl, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients, doAutosave]);
 
   const handleRotateImage = async () => {
     const newRotation = (imageRotation + 90) % 360;
@@ -603,6 +607,19 @@ export default function EditRecipePage() {
                     className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   >
                     {cuisines.map((c) => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+                  {/* What kind of cooking, as opposed to whose tradition. Blank
+                      is a real answer: plenty of recipes are one or the other
+                      and not both. */}
+                  <select
+                    value={craft}
+                    onChange={(e) => setCraft(e.target.value)}
+                    className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                  >
+                    <option value="">Kind — none</option>
+                    {crafts.map((c) => (
                       <option key={c} value={c}>{c}</option>
                     ))}
                   </select>

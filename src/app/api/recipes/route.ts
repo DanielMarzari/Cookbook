@@ -39,6 +39,14 @@ export async function GET(request: NextRequest) {
       params.push(cuisine);
     }
 
+    const craft = searchParams.get('craft');
+    if (craft) {
+      // The second axis. Combines with cuisine rather than replacing it, so
+      // "Jewish" and "Baking" together give you the challah and not the rest.
+      query += ' AND LOWER(craft) = LOWER(?)';
+      params.push(craft);
+    }
+
     const difficulty = searchParams.get('difficulty');
     if (difficulty) {
       query += ' AND difficulty = ?';
@@ -96,8 +104,8 @@ export async function POST(request: NextRequest) {
         difficulty, prep_time_minutes, cook_time_minutes, total_time_minutes,
         servings, instructions, source_url, source_name, source_author,
         source_type, is_favorite, status, image_rotation, image_position, image_zoom,
-        notes, yield_quantity, yield_unit, meal_type, is_mine, source_id, created_at, updated_at
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        notes, yield_quantity, yield_unit, meal_type, craft, is_mine, source_id, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `);
 
     const id = `recipe_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
@@ -129,6 +137,7 @@ export async function POST(request: NextRequest) {
       body.yield_quantity || null,
       body.yield_unit || null,
       body.meal_type || null,
+      body.craft || null,
       body.is_mine ? 1 : 0,
       body.source_id || null,
       now,

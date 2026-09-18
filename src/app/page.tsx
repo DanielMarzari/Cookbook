@@ -34,6 +34,7 @@ export default function RecipesPage() {
         const data = await api.recipes.list({
           search: filters.search || undefined,
           cuisine: filters.cuisine || undefined,
+          craft: filters.craft || undefined,
           difficulty: filters.difficulty || undefined,
           maxTime: filters.maxTime || undefined,
         });
@@ -61,7 +62,7 @@ export default function RecipesPage() {
   };
 
   const hasActiveFilters =
-    filters.search || filters.cuisine || filters.difficulty || filters.maxTime;
+    filters.search || filters.cuisine || filters.craft || filters.difficulty || filters.maxTime;
 
   // A branch is not its own recipe any more.
   //

@@ -102,6 +102,7 @@ export interface Recipe {
   variation_of_label?: string | null; // the short label for a branch, e.g. "honey"
   variation_count?: number; // bases only: how many variations hang off this recipe
   meal_type?: string | null; // breakfast / dinner / hors d'oeuvre …
+  craft?: string | null;     // Baking / Sweets / Mains — what kind of cooking, not where from
   source_id?: string | null; // which source this came from (controlled vocabulary)
   source_featured?: number | null; // joined from sources: does its source lead the shelf
   source_label?: string | null; // joined from sources: its display name
@@ -230,6 +231,8 @@ export interface MealPlanEntry {
 export interface RecipeFilters {
   search: string;
   cuisine: string | null;
+  /** The craft axis — baking, sweets, mains. Combines with cuisine. */
+  craft: string | null;
   dietary: string[];
   difficulty: string | null;
   maxTime: number | null;

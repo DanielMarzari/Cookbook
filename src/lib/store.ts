@@ -33,6 +33,7 @@ interface CookbookStore {
 const defaultFilters: RecipeFilters = {
   search: '',
   cuisine: null,
+  craft: null,
   dietary: [],
   difficulty: null,
   maxTime: null,
