@@ -42,3 +42,4 @@ npm-debug.log*
 supabase/.temp/
 yarn-debug.log*
 yarn-error.log*
+public/media/
