@@ -325,7 +325,7 @@
    "note": "The same milk as rendang taken to the opposite end — stopped while it is still a sauce instead of driven until it fries."
   },
   {
-   "name": "Adobo",
+   "name": "Adobo (Filipino)",
    "facets": {
     "region": [
      "Philippines"
@@ -352,7 +352,7 @@
   },
   {
    "name": "Humba",
-   "parent": "Adobo",
+   "parent": "Adobo (Filipino)",
    "facets": {
     "region": [
      "Philippines"

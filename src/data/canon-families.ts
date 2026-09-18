@@ -930,7 +930,7 @@ export const CANON_FAMILIES: Canon[] = [
         "note": "The same milk as rendang taken to the opposite end — stopped while it is still a sauce instead of driven until it fries."
       },
       {
-        "name": "Adobo",
+        "name": "Adobo (Filipino)",
         "facets": {
           "region": [
             "Philippines"
@@ -957,7 +957,7 @@ export const CANON_FAMILIES: Canon[] = [
       },
       {
         "name": "Humba",
-        "parent": "Adobo",
+        "parent": "Adobo (Filipino)",
         "facets": {
           "region": [
             "Philippines"
@@ -8401,7 +8401,7 @@ export const CANON_FAMILIES: Canon[] = [
         "note": "A mole you eat with a spoon. It proves what the word means: the chilli paste is never fried and never thickened, just loosened into the pot, and it is still a mole."
       },
       {
-        "name": "Adobo",
+        "name": "Adobo (Mexican)",
         "facets": {
           "chilli": [
             "dried chilli",

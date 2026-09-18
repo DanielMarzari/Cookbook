@@ -83,8 +83,10 @@ for (const c of families) {
 }
 const shared = [...appearances.entries()].filter(([, fams]) => fams.length > 1);
 if (shared.length) {
-  console.log(`\n${shared.length} dishes appear in more than one family — check they agree:`);
+  console.log(`\n${shared.length} dishes are read by more than one family:`);
   for (const [name, fams] of shared) console.log(`  ${name}: ${fams.join(', ')}`);
+  console.log('  (expected — each family asks its own questions of the same dish.');
+  console.log('   What is not expected is two different dishes sharing a bare name.)');
 }
 
 const header = `import type { Canon } from './canon';
