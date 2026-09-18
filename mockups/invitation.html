@@ -1,0 +1,462 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>You're Invited</title>
+<style>
+  :root {
+    --ground: #ffffff; --wash: #fafafa; --ink: #111111; --muted: #767676;
+    --rule: #e8e8e8; --hair: #d8d8d8; --flag: #a0522d; --flagbg: #f6efe9;
+    --ok: #4a6b52; --okbg: #eef2ee;
+    --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --serif: "Iowan Old Style", "Hoefler Text", Palatino, Georgia, serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #121212; --wash: #191919; --ink: #ededed; --muted: #9a9a9a;
+      --rule: #2c2c2c; --hair: #3a3a3a; --flag: #c98060; --flagbg: #241b16;
+      --ok: #8fb098; --okbg: #1a211c;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #121212; --wash: #191919; --ink: #ededed; --muted: #9a9a9a;
+    --rule: #2c2c2c; --hair: #3a3a3a; --flag: #c98060; --flagbg: #241b16;
+    --ok: #8fb098; --okbg: #1a211c;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--sans);
+         font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 56px 24px 100px; }
+
+  .lede { max-width: 64ch; display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+  h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; margin: 0; text-wrap: balance; }
+  .lede p { margin: 0; font-size: 15px; color: var(--muted); }
+  .lab { font-size: 11px; text-transform: uppercase; letter-spacing: 0.13em; color: var(--muted); }
+
+  .link { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; border: 1px solid var(--rule);
+          background: var(--wash); padding: 11px 14px; font-size: 12.5px; color: var(--muted);
+          margin: 26px 0 44px; max-width: 560px; }
+  /* A URL is one long unbreakable token; without this it drives the whole page
+     sideways on a phone, which is the width the guest actually opens it at. */
+  .link code { font-family: ui-monospace, Menlo, monospace; font-size: 12px; color: var(--ink);
+               overflow-wrap: anywhere; min-width: 0; }
+  .link .cp { margin-left: auto; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+              border: 1px solid var(--hair); padding: 4px 9px; cursor: pointer; background: none; color: var(--muted); }
+  .link .cp:hover { color: var(--ink); border-color: var(--ink); }
+
+  .cols { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 40px; align-items: start; }
+  @media (max-width: 860px) { .cols { grid-template-columns: minmax(0,1fr); } }
+
+  .colhd { font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+           border-bottom: 1px solid var(--ink); padding-bottom: 7px; margin-bottom: 18px; }
+
+  /* ═══ the guest's page ═════════════════════════════════════ */
+  .page { border: 1px solid var(--hair); background: var(--ground); }
+  .page .top { padding: 40px 30px 34px; text-align: center; border-bottom: 1px solid var(--rule); font-family: var(--serif); }
+  .page .k { font-family: var(--sans); font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .page .big { font-size: 30px; line-height: 1.15; margin: 11px 0 6px; }
+  .page .when { font-size: 14px; color: var(--muted); font-style: italic; }
+  .page .host { font-family: var(--sans); font-size: 11.5px; color: var(--muted); margin-top: 14px; }
+
+  .blk { padding: 24px 30px; border-bottom: 1px solid var(--rule); }
+  .blk:last-child { border-bottom: 0; }
+  .blk h4 { margin: 0 0 12px; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+
+  /* what to expect */
+  .expect { display: flex; flex-direction: column; gap: 9px; font-size: 13px; }
+  .expect .r { display: grid; grid-template-columns: 96px 1fr; gap: 12px; align-items: baseline; }
+  .expect .r span:first-child { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+  /* the menu, in the night's chosen style */
+  .mini { font-family: var(--serif); text-align: center; }
+  .mini .crs { margin-bottom: 15px; }
+  .mini .crs:last-child { margin-bottom: 0; }
+  .mini .cn { font-family: var(--sans); font-size: 8.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 4px; }
+  .mini .d { font-size: 14.5px; line-height: 1.35; }
+  .mini .d.dim { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--hair); }
+  .mini .d.pick { color: var(--ok); }
+  .mini .s { font-size: 11px; font-style: italic; color: var(--muted); display: block; }
+  .mini .or { font-family: var(--sans); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin: 4px 0; }
+
+  /* the ask */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-size: 11.5px; letter-spacing: 0.02em; border: 1px solid var(--hair); background: none; color: var(--muted);
+          padding: 6px 11px; cursor: pointer; font-family: inherit; transition: none; }
+  .chip:hover { border-color: var(--ink); color: var(--ink); }
+  .chip[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--ground); }
+  .freetext { margin-top: 10px; width: 100%; border: 1px solid var(--hair); background: var(--ground); color: var(--ink);
+              font-family: inherit; font-size: 12.5px; padding: 9px 11px; resize: vertical; min-height: 54px; }
+  .freetext::placeholder { color: var(--hair); }
+
+  /* rsvp */
+  .rsvp { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .rsvp button { font-size: 12.5px; border: 1px solid var(--hair); background: none; color: var(--ink);
+                 padding: 9px 16px; cursor: pointer; font-family: inherit; }
+  .rsvp button[aria-pressed="true"] { border-color: var(--ink); background: var(--ink); color: var(--ground); }
+  .rsvp .plus { margin-left: auto; font-size: 11.5px; color: var(--muted); display: flex; align-items: center; gap: 7px; }
+  .rsvp .plus button { padding: 3px 10px; font-size: 13px; line-height: 1.2; }
+  .rsvp .plus b { font-weight: 400; color: var(--ink); min-width: 14px; text-align: center; font-variant-numeric: tabular-nums; }
+
+  /* calendar */
+  .cal { display: flex; flex-wrap: wrap; gap: 8px; }
+  .cal a { font-size: 11.5px; letter-spacing: 0.04em; border: 1px solid var(--hair); color: var(--ink);
+           padding: 8px 14px; text-decoration: none; display: inline-block; }
+  .cal a:hover { border-color: var(--ink); }
+
+  .practical { font-size: 12.5px; color: var(--muted); line-height: 1.7; }
+  .practical b { color: var(--ink); font-weight: 400; }
+
+  .sent { margin-top: 14px; font-size: 12px; color: var(--ok); min-height: 1.4em; }
+
+  /* ═══ the host's side ══════════════════════════════════════ */
+  .hostpane { display: flex; flex-direction: column; gap: 26px; }
+  .panel { border: 1px solid var(--rule); background: var(--wash); padding: 20px 20px 18px; }
+  .panel h4 { margin: 0 0 13px; font-size: 9.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 400; }
+  .panel .why { font-size: 12.5px; color: var(--muted); margin: 0 0 14px; }
+
+  .tbl { display: grid; font-size: 11.5px; }
+  .tbl > div { padding: 7px 8px 7px 0; border-bottom: 1px solid var(--rule); }
+  .tbl .hd { border-bottom: 1px solid var(--ink); font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .tbl .rw { color: var(--muted); }
+  .replies { grid-template-columns: 96px 66px 1fr; }
+  .replies .yes { color: var(--ok); }
+  .replies .no { color: var(--muted); }
+  .replies .wait { color: var(--hair); }
+  .replies .you { color: var(--ink); }
+
+  .cover { grid-template-columns: 96px repeat(4, minmax(46px, 1fr)); }
+  .cover .c { text-align: center; }
+  .cover .gap { background: var(--flagbg); color: var(--flag); }
+  .cover .fine { color: var(--ok); }
+
+  .alert { border: 1px solid var(--flag); background: var(--flagbg); color: var(--flag); padding: 11px 13px;
+           font-size: 12px; line-height: 1.5; }
+  .alert.none { border-color: var(--rule); background: var(--okbg); color: var(--ok); }
+
+  .foot { margin-top: 54px; border-top: 1px solid var(--ink); padding-top: 20px; font-size: 13px; color: var(--muted); max-width: 68ch; }
+  .foot b { color: var(--ink); font-weight: 500; }
+</style>
+
+<div class="wrap">
+
+  <div class="lede">
+    <span class="lab">Mockup · Invitation</span>
+    <h1>You're invited</h1>
+    <p>One link, sent to eight people. They see the night, the menu, and one question; they
+       answer it in two taps and put it in their calendar. You get the answers back where the
+       menu is checked against them — so the dietary problem surfaces on Tuesday rather than
+       at the table.</p>
+  </div>
+
+  <div class="link">
+    <span>The link you send</span>
+    <code>cookbook.danmarzari.com/e/sept14-dinner</code>
+    <button class="cp" id="cp">Copy</button>
+  </div>
+
+  <div class="cols">
+
+    <!-- ═══ guest ═══ -->
+    <div>
+      <div class="colhd">What the guest opens</div>
+      <div class="page">
+
+        <div class="top">
+          <div class="k">You are asked to</div>
+          <div class="big">Dinner</div>
+          <div class="when">Saturday the fourteenth, seven o'clock</div>
+          <div class="host">Dan is cooking · 8 at the table</div>
+        </div>
+
+        <div class="blk">
+          <h4>What to expect</h4>
+          <div class="expect">
+            <div class="r"><span>Shape</span><span>Seven small courses, Roman and Italian</span></div>
+            <div class="r"><span>Sitting</span><span>Drinks at seven, at the table by twenty to eight</span></div>
+            <div class="r"><span>Until</span><span>Sweet things around ten. No one is rushing you out</span></div>
+            <div class="r"><span>Dress</span><span>Whatever you'd wear to a friend's kitchen</span></div>
+            <div class="r"><span>Bring</span><span>Nothing. Wine if you want to, it won't be needed</span></div>
+          </div>
+        </div>
+
+        <div class="blk">
+          <h4>What's being served</h4>
+          <div class="mini" id="mini"></div>
+        </div>
+
+        <div class="blk">
+          <h4>Before I shop — anything you don't eat?</h4>
+          <div class="chips" id="chips"></div>
+          <textarea class="freetext" id="ft" placeholder="Anything else I should know? (Allergy, dislike, medication, fasting — whatever it is.)"></textarea>
+        </div>
+
+        <div class="blk">
+          <h4>Can you come?</h4>
+          <div class="rsvp">
+            <button id="r-yes" aria-pressed="false">Yes</button>
+            <button id="r-no" aria-pressed="false">Can't make it</button>
+            <span class="plus">Bringing
+              <button id="minus">−</button><b id="plusN">0</b><button id="plusB">+</button>
+            </span>
+          </div>
+          <div class="sent" id="sent"></div>
+        </div>
+
+        <div class="blk">
+          <h4>Put it in your calendar</h4>
+          <div class="cal">
+            <a id="gcal" href="#" target="_blank" rel="noopener noreferrer">Google Calendar</a>
+            <a id="ical" href="#" download="dinner-14-september.ics">Apple Calendar</a>
+            <a id="ocal" href="#" target="_blank" rel="noopener noreferrer">Outlook</a>
+          </div>
+        </div>
+
+        <div class="blk">
+          <h4>Getting there</h4>
+          <p class="practical">
+            <b>14 Ossington Avenue, buzzer 3.</b> Street parking is free after six and there is
+            usually room on Argyle. The 505 stops at the corner. Two cats, both friendly, both
+            liars about having been fed.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══ host ═══ -->
+    <div class="hostpane">
+      <div class="colhd">What you see, as they answer</div>
+
+      <div class="panel">
+        <h4>Replies</h4>
+        <p class="why">Live as they come in. Tap chips on the left and this is the row that moves.</p>
+        <div class="tbl replies" id="replies"></div>
+      </div>
+
+      <div class="panel">
+        <h4>The menu, re-checked</h4>
+        <p class="why">Every answer runs straight back through the diet matrix. The menu isn't
+           re-planned for you — you are told what it now fails to feed.</p>
+        <div class="tbl cover" id="cover"></div>
+      </div>
+
+      <div class="panel" style="background:none;border:0;padding:0">
+        <div id="alert" class="alert none">Nothing to fix yet.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <p><b>The loop is the feature.</b> The invitation asks the one question that otherwise gets
+    asked across a table with the food already on it, and the answer lands where it can do
+    something — in the check that knows Mira can't eat four of these courses. Everything else
+    on the page is there so people actually reach the question: the menu, because it is the
+    reason to come; the shape of the evening, because "seven courses" and "drinks and a bite"
+    are different nights and guests dress for the wrong one; and the calendar button, because
+    an invitation nobody diarises is a text you have to send again on Friday.</p>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  const MENU = [
+    { cn: 'To begin', d: [
+      { t: 'Epityrum', s: 'green olive, fennel, cumin', has: [] },
+      { t: "Za'atar and olive focaccia", has: ['gluten', 'sesame'] } ] },
+    { cn: 'Second', d: [
+      { t: 'Dates with pine nut and pepper', has: ['nuts', 'honey'] },
+      { or: true },
+      { t: 'Mushrooms in honey and thyme', has: ['honey'] } ] },
+    { cn: 'Main', d: [
+      { t: 'Braciole', s: 'rolled beef, slow tomato', has: ['meat', 'dairy', 'gluten'] },
+      { or: true },
+      { t: 'Vori vori de carne', s: 'beef broth, cornmeal dumpling', has: ['meat', 'dairy'] } ] },
+    { cn: 'Sweet', d: [
+      { t: 'Globi', s: 'fried fresh cheese, honey, poppy', has: ['dairy', 'gluten', 'honey'] },
+      { t: 'Alfajores', has: ['dairy', 'nuts', 'gluten'] } ] },
+  ];
+
+  // A chip is a rule about ingredients, so the page can actually reason about
+  // it rather than just recording a label.
+  const CHIPS = [
+    { id: 'meat',    label: 'No meat',      blocks: ['meat'] },
+    { id: 'vegan',   label: 'Vegan',        blocks: ['meat', 'dairy', 'honey'] },
+    { id: 'dairy',   label: 'No dairy',     blocks: ['dairy'] },
+    { id: 'gluten',  label: 'No gluten',    blocks: ['gluten'] },
+    { id: 'nuts',    label: 'No nuts',      blocks: ['nuts'] },
+    { id: 'sesame',  label: 'No sesame',    blocks: ['sesame'] },
+    { id: 'alcohol', label: 'Not drinking', blocks: [] },
+    { id: 'none',    label: 'I eat anything', blocks: [] },
+  ];
+
+  const picked = new Set();
+  let rsvp = null, plus = 0;
+
+  const el = (id) => document.getElementById(id);
+
+  /* ── chips ─────────────────────────────────────────────── */
+  el('chips').innerHTML = CHIPS.map(c =>
+    `<button class="chip" data-id="${c.id}" aria-pressed="false">${c.label}</button>`).join('');
+
+  el('chips').addEventListener('click', (e) => {
+    const b = e.target.closest('.chip');
+    if (!b) return;
+    const id = b.dataset.id;
+    if (picked.has(id)) picked.delete(id);
+    else {
+      picked.add(id);
+      // "I eat anything" is a claim about everything else, so it clears them.
+      if (id === 'none') CHIPS.forEach(c => { if (c.id !== 'none') picked.delete(c.id); });
+      else picked.delete('none');
+    }
+    render();
+  });
+
+  /* ── rsvp ──────────────────────────────────────────────── */
+  el('r-yes').onclick = () => { rsvp = rsvp === 'yes' ? null : 'yes'; render(); };
+  el('r-no').onclick  = () => { rsvp = rsvp === 'no'  ? null : 'no';  render(); };
+  el('plusB').onclick = () => { plus = Math.min(3, plus + 1); render(); };
+  el('minus').onclick = () => { plus = Math.max(0, plus - 1); render(); };
+
+  /* ── calendar links ────────────────────────────────────── */
+  const START = '20260914T230000Z', END = '20260915T030000Z'; // 19:00–23:00 local
+  const TITLE = 'Dinner at Dan\'s';
+  const LOC = '14 Ossington Avenue, buzzer 3';
+  const DESC = 'Seven small courses, Roman and Italian. Drinks at seven, at the table by 7:40.';
+
+  el('gcal').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    + '&text=' + encodeURIComponent(TITLE)
+    + '&dates=' + START + '/' + END
+    + '&details=' + encodeURIComponent(DESC)
+    + '&location=' + encodeURIComponent(LOC);
+
+  el('ocal').href = 'https://outlook.live.com/calendar/0/action/compose?rru=addevent'
+    + '&subject=' + encodeURIComponent(TITLE)
+    + '&startdt=2026-09-14T19:00:00&enddt=2026-09-14T23:00:00'
+    + '&body=' + encodeURIComponent(DESC)
+    + '&location=' + encodeURIComponent(LOC);
+
+  const ics = ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Cookbook//Invitation//EN','BEGIN:VEVENT',
+    'UID:sept14-dinner@cookbook.danmarzari.com','DTSTAMP:' + START,'DTSTART:' + START,'DTEND:' + END,
+    'SUMMARY:' + TITLE,'DESCRIPTION:' + DESC,'LOCATION:' + LOC,'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  el('ical').href = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
+
+  el('cp').onclick = () => {
+    navigator.clipboard?.writeText('https://cookbook.danmarzari.com/e/sept14-dinner');
+    el('cp').textContent = 'Copied';
+    setTimeout(() => { el('cp').textContent = 'Copy'; }, 1600);
+  };
+
+  /* ── render ────────────────────────────────────────────── */
+  function blocked() {
+    const b = new Set();
+    CHIPS.forEach(c => { if (picked.has(c.id)) c.blocks.forEach(x => b.add(x)); });
+    return b;
+  }
+
+  function canEat(dish, bl) { return !dish.has.some(h => bl.has(h)); }
+
+  function render() {
+    const bl = blocked();
+    const any = picked.size > 0 && !picked.has('none');
+
+    CHIPS.forEach(c => {
+      const b = el('chips').querySelector(`[data-id="${c.id}"]`);
+      b.setAttribute('aria-pressed', picked.has(c.id) ? 'true' : 'false');
+    });
+    el('r-yes').setAttribute('aria-pressed', rsvp === 'yes' ? 'true' : 'false');
+    el('r-no').setAttribute('aria-pressed', rsvp === 'no' ? 'true' : 'false');
+    el('plusN').textContent = plus;
+
+    el('sent').textContent = rsvp === 'yes'
+      ? `Thank you — Dan can see you're coming${plus ? ' with ' + plus + ' more' : ''}.`
+      : rsvp === 'no' ? 'Noted, and no explanation needed.' : '';
+
+    // the menu, marked up for this guest
+    el('mini').innerHTML = MENU.map(c => {
+      const lines = c.d.map(d => {
+        if (d.or) return '<div class="or">or</div>';
+        const okDish = canEat(d, bl);
+        const cls = !any ? '' : (okDish ? ' pick' : ' dim');
+        const sub = d.s ? `<span class="s">${d.s}</span>` : '';
+        return `<div class="d${cls}">${d.t}${sub}</div>`;
+      }).join('');
+      return `<div class="crs"><span class="cn">${c.cn}</span>${lines}</div>`;
+    }).join('');
+
+    // host — replies
+    const mine = rsvp === 'yes' ? 'yes' : rsvp === 'no' ? 'no' : null;
+    const note = picked.has('none') ? 'eats anything'
+      : (picked.size ? CHIPS.filter(c => picked.has(c.id)).map(c => c.label.replace(/^No /, 'no ')).join(', ')
+                     : '—');
+    const rows = [
+      ['Ana', 'yes', 'vegetarian'],
+      ['Josh', 'yes', 'no gluten'],
+      ['Mira', 'yes', 'vegan'],
+      ['Sam', 'yes', 'no tree nuts'],
+      ['Priya', null, ''],
+      ['You', mine, note],
+    ];
+    el('replies').innerHTML =
+      '<div class="hd rw">Guest</div><div class="hd">RSVP</div><div class="hd">Won\'t eat</div>'
+      + rows.map(([n, r, w]) => {
+        const you = n === 'You' ? ' you' : '';
+        const rr = r === 'yes' ? `<div class="yes${you}">coming${n === 'You' && plus ? ' +' + plus : ''}</div>`
+                 : r === 'no' ? `<div class="no${you}">can't</div>`
+                 : '<div class="wait">waiting</div>';
+        return `<div class="rw${you}">${n}</div>${rr}<div class="${you.trim()}">${w || '—'}</div>`;
+      }).join('');
+
+    // host — coverage, counting the standing guests plus this one
+    const GUESTS = [
+      { n: 'Ana', bl: new Set(['meat']) },
+      { n: 'Josh', bl: new Set(['gluten']) },
+      { n: 'Mira', bl: new Set(['meat', 'dairy', 'honey']) },
+      { n: 'Sam', bl: new Set(['nuts']) },
+    ];
+    if (rsvp === 'yes' && any) GUESTS.push({ n: 'You', bl });
+
+    const head = '<div class="hd rw">Guest</div>'
+      + MENU.map(c => `<div class="hd c">${c.cn}</div>`).join('');
+    // A gap is one guest at one course. Counting the cells and calling the
+    // total "courses" overstates it the moment two people are stuck.
+    const hungry = new Set(), badCourse = new Set();
+    const body = GUESTS.map(g => {
+      const cells = MENU.map((c, ci) => {
+        const opts = c.d.filter(d => !d.or);
+        const n = opts.filter(d => canEat(d, g.bl)).length;
+        if (n === 0) { hungry.add(g.n); badCourse.add(ci); return '<div class="c gap">none</div>'; }
+        return `<div class="c fine">${n === opts.length ? 'all' : n}</div>`;
+      }).join('');
+      return `<div class="rw">${g.n}</div>${cells}`;
+    }).join('');
+    el('cover').innerHTML = head + body;
+
+    // A choice point that fails is worse than a single dish that fails: it looks
+    // on the card like the guest was given an option. Say so only when true.
+    const choicePoints = MENU.map((c, i) => c.d.some(d => d.or) ? i : -1).filter(i => i >= 0);
+    const deadChoices = choicePoints.filter(i => badCourse.has(i));
+
+    const a = el('alert');
+    if (badCourse.size === 0) {
+      a.className = 'alert none';
+      a.textContent = 'Everyone has a plate at every course.';
+    } else {
+      a.className = 'alert';
+      const who = hungry.size === 1 ? [...hungry][0] + ' has' : hungry.size + ' guests have';
+      const where = badCourse.size === 1
+        ? 'nothing at ' + MENU[[...badCourse][0]].cn.toLowerCase()
+        : 'nothing at ' + badCourse.size + ' of the ' + MENU.length + ' courses';
+      const tail = deadChoices.length === choicePoints.length && choicePoints.length > 1
+        ? ' Both choice points are a choice between two dishes that fail the same way, so the card offers an option that isn\'t one.'
+        : deadChoices.length
+          ? ' One of those is a choice point, which reads on the card as an option and is not.'
+          : '';
+      a.textContent = who + ' ' + where + '.' + tail;
+    }
+  }
+
+  render();
+})();
+</script>

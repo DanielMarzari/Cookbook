@@ -1,0 +1,277 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Twelve Menu Styles</title>
+<style>
+  :root {
+    --ground: #ffffff; --wash: #fafafa; --ink: #111111; --muted: #767676;
+    --rule: #e8e8e8; --hair: #d8d8d8; --flag: #a0522d;
+    --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #121212; --wash: #191919; --ink: #ededed; --muted: #9a9a9a;
+      --rule: #2c2c2c; --hair: #3a3a3a; --flag: #c98060;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #121212; --wash: #191919; --ink: #ededed; --muted: #9a9a9a;
+    --rule: #2c2c2c; --hair: #3a3a3a; --flag: #c98060;
+  }
+
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font-family: var(--sans);
+         font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 56px 24px 100px; }
+
+  .lede { max-width: 64ch; display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+  h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.05; letter-spacing: -0.02em; font-weight: 400; margin: 0; text-wrap: balance; }
+  .lede p { margin: 0; font-size: 15px; color: var(--muted); }
+  .lab { font-size: 11px; text-transform: uppercase; letter-spacing: 0.13em; color: var(--muted); }
+
+  .sec { margin: 44px 0 26px; }
+  .sec h2 { font-size: 20px; font-weight: 400; margin: 0 0 7px; letter-spacing: -0.01em; }
+  .sec p { font-size: 14px; color: var(--muted); margin: 0; max-width: 66ch; }
+  .sec .bar { height: 1px; background: var(--ink); margin-top: 18px; }
+
+  /* ═══ the card: ONE component, twelve token sets ═══════════
+     Every style below sets the same dozen custom properties.
+     Nothing here is per-style markup — which is how it would
+     be built, and why adding a thirteenth is ten lines. */
+  .card {
+    --face-d: var(--sans);   /* the name at the top */
+    --face-b: var(--sans);   /* everything else */
+    --align: center;
+    --dish: 15px;  --dish-lh: 1.4;
+    --sub: 11.5px; --sub-style: italic;
+    --cn-size: 9.5px; --cn-track: 0.2em; --cn-case: uppercase;
+    --hd-size: 20px; --hd-track: 0.02em; --hd-case: none; --hd-style: normal;
+    --gap: 19px;
+    --or-style: italic; --or-case: lowercase; --or-track: 0.02em;
+    --pad: 38px 30px;
+
+    font-family: var(--face-b);
+    text-align: var(--align);
+    color: var(--ink);
+    background: var(--ground);
+    border: 1px solid var(--hair);
+    padding: var(--pad);
+  }
+  .card .hd { font-family: var(--face-d); font-size: var(--hd-size); letter-spacing: var(--hd-track);
+              text-transform: var(--hd-case); font-style: var(--hd-style); line-height: 1.15; }
+  .card .dt { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-top: 7px; }
+  .card .rl { border: 0; border-top: 1px solid currentColor; opacity: 0.45; width: 44px; margin: 17px auto 22px; }
+  .card[data-align="left"] .rl { margin-left: 0; width: 100%; opacity: 0.25; }
+  .card .crs { margin-bottom: var(--gap); }
+  .card .cn { font-size: var(--cn-size); letter-spacing: var(--cn-track); text-transform: var(--cn-case);
+              color: var(--muted); display: block; margin-bottom: 6px; }
+  .card .dish { font-size: var(--dish); line-height: var(--dish-lh); }
+  .card .sub { font-size: var(--sub); font-style: var(--sub-style); color: var(--muted); display: block; margin-top: 1px; }
+  .card .orr { font-size: 10.5px; font-style: var(--or-style); text-transform: var(--or-case);
+               letter-spacing: var(--or-track); color: var(--muted); margin: 6px 0; }
+  .card .mk { font-size: 8px; letter-spacing: 0.08em; color: var(--muted); vertical-align: super; margin-left: 3px; font-style: normal; }
+  .card .key { margin-top: 22px; padding-top: 11px; border-top: 1px solid currentColor;
+               border-color: color-mix(in srgb, currentColor 18%, transparent);
+               font-size: 8.5px; letter-spacing: 0.08em; color: var(--muted); text-align: left; line-height: 1.75; }
+
+  /* ── the twelve ───────────────────────────────────────────── */
+  .s-engraved { --face-d: Didot,"Bodoni MT",Georgia,serif; --face-b: Didot,"Bodoni MT",Georgia,serif;
+    --hd-size: 13px; --hd-track: 0.34em; --hd-case: uppercase; --dish: 16px; --cn-track: 0.26em; }
+  .s-copper { --face-d: Copperplate,"Copperplate Gothic Light",Georgia,serif; --face-b: Baskerville,Georgia,serif;
+    --hd-size: 15px; --hd-track: 0.2em; --hd-case: uppercase; --dish: 15px; --cn-track: 0.24em; }
+  .s-oldstyle { --face-d: "Iowan Old Style","Hoefler Text",Georgia,serif; --face-b: "Iowan Old Style","Hoefler Text",Georgia,serif;
+    --hd-size: 25px; --dish: 16px; --cn-track: 0.17em; --gap: 21px; }
+  .s-trattoria { --face-d: Palatino,"Palatino Linotype",Georgia,serif; --face-b: Palatino,"Palatino Linotype",Georgia,serif;
+    --hd-size: 23px; --hd-style: italic; --dish: 15.5px; }
+  .s-bistro { --face-d: Optima,"Gill Sans","Gill Sans MT",sans-serif; --face-b: Optima,"Gill Sans","Gill Sans MT",sans-serif;
+    --hd-size: 24px; --dish: 15px; --sub-style: normal; --cn-track: 0.22em; }
+  .s-typed { --face-d: "Courier New",Courier,monospace; --face-b: "Courier New",Courier,monospace;
+    --align: left; --hd-size: 13px; --hd-track: 0.12em; --hd-case: uppercase; --dish: 12.5px; --sub: 11px;
+    --sub-style: normal; --cn-track: 0.04em; --cn-case: lowercase; --or-style: normal; --gap: 16px; }
+  .s-modern { --face-d: var(--sans); --face-b: var(--sans); --align: left;
+    --hd-size: 13px; --hd-track: 0.16em; --hd-case: uppercase; --dish: 14.5px; --sub-style: normal;
+    --cn-track: 0.14em; --or-case: uppercase; --or-style: normal; --or-track: 0.14em; }
+  .s-geometric { --face-d: Futura,"Avenir Next",Avenir,sans-serif; --face-b: Futura,"Avenir Next",Avenir,sans-serif;
+    --hd-size: 17px; --hd-track: 0.3em; --hd-case: uppercase; --dish: 14px; --sub-style: normal;
+    --cn-track: 0.26em; --gap: 22px; }
+  .s-script { --face-d: "Snell Roundhand","Apple Chancery",cursive; --face-b: Baskerville,Georgia,serif;
+    --hd-size: 33px; --dish: 15.5px; --cn-track: 0.2em; --gap: 20px; }
+  .s-slab { --face-d: "American Typewriter",Rockwell,Georgia,serif; --face-b: "American Typewriter",Rockwell,Georgia,serif;
+    --hd-size: 20px; --hd-track: 0.06em; --hd-case: uppercase; --dish: 14px; --sub-style: normal; }
+  .s-quiet { --face-d: "Helvetica Neue",Helvetica,sans-serif; --face-b: "Helvetica Neue",Helvetica,sans-serif;
+    --hd-size: 10.5px; --hd-track: 0.42em; --hd-case: uppercase; --dish: 12.5px; --sub: 10.5px;
+    --sub-style: normal; --cn-size: 8.5px; --cn-track: 0.3em; --gap: 27px; --pad: 50px 34px; }
+  .s-hand { --face-d: "Bradley Hand","Marker Felt",cursive; --face-b: "Bradley Hand","Marker Felt",cursive;
+    --hd-size: 27px; --dish: 15.5px; --sub-style: normal; --cn-track: 0.1em; --or-style: normal; }
+
+  .styles { display: grid; grid-template-columns: repeat(auto-fit, minmax(258px, 1fr)); gap: 24px; }
+  .sw { display: flex; flex-direction: column; gap: 9px; }
+  .sw .nm { font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); text-align: center; }
+  .sw .nm b { color: var(--ink); font-weight: 400; }
+
+  /* ═══ stock: the paper under the type ══════════════════════ */
+  .stocks { display: grid; grid-template-columns: repeat(auto-fit, minmax(214px, 1fr)); gap: 22px; }
+  .card[data-stock="plain"] { }
+  .card[data-stock="cream"] { background: #fbf7ef; color: #1a1712; border-color: #e6ddcb; }
+  .card[data-stock="grey"]  { background: #f1f0ed; color: #1a1a18; border-color: #dedcd6; }
+  .card[data-stock="laid"]  {
+    background: #fdfbf6 repeating-linear-gradient(90deg, rgba(0,0,0,.022) 0 1px, transparent 1px 4px);
+    color: #191712; border-color: #e7e0d2;
+  }
+  .card[data-stock="frame"] { background: #fffdf9; color: #15130f; border: 1px solid #cfc6b4; outline: 3px solid #fffdf9; box-shadow: 0 0 0 4px #cfc6b4; }
+  .card[data-stock="deckle"]{
+    background: #fdfaf4; color: #17150f; border: 0;
+    box-shadow: 0 0 0 1px #e2d9c7;
+    mask-image: radial-gradient(circle at 50% 0, #000 98%, transparent 100%),
+                linear-gradient(#000,#000);
+    mask-composite: intersect;
+  }
+  /* Tinted stocks are paper, not theme — they keep their own ink in dark mode
+     so the preview shows the printed card rather than a recoloured one. */
+  .card[data-stock]:not([data-stock="plain"]) .sub,
+  .card[data-stock]:not([data-stock="plain"]) .cn,
+  .card[data-stock]:not([data-stock="plain"]) .dt,
+  .card[data-stock]:not([data-stock="plain"]) .orr,
+  .card[data-stock]:not([data-stock="plain"]) .mk,
+  .card[data-stock]:not([data-stock="plain"]) .key { color: #7b7466; }
+
+  .note { font-size: 12.5px; color: var(--muted); margin: 14px 0 0; max-width: 66ch; }
+  .note b { color: var(--ink); font-weight: 500; }
+
+  .print { margin-top: 50px; border-top: 1px solid var(--ink); padding-top: 20px; font-size: 13px; color: var(--muted); max-width: 68ch; }
+  .print b { color: var(--ink); font-weight: 500; }
+
+  /* Printing is the point of this page, so it has real print rules rather
+     than whatever the browser decides. One card per sheet, trimmed to A5. */
+  @media print {
+    body { background: #fff; color: #000; }
+    .lede, .sec, .note, .print, .sw .nm { display: none; }
+    .styles, .stocks { display: block; }
+    .card { border: 0; box-shadow: none; page-break-after: always; width: 148mm; height: 210mm;
+            padding: 24mm 18mm; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; }
+  }
+</style>
+
+<div class="wrap">
+
+  <div class="lede">
+    <span class="lab">Mockup · Menu styles</span>
+    <h1>Twelve menu styles</h1>
+    <p>One card, twelve typographic identities — pick by the vibe of the night rather than by
+       what the app happens to look like. Under this there is a single component and twelve sets
+       of custom properties, so a thirteenth is about ten lines and none of them can drift apart.</p>
+  </div>
+
+  <div class="sec">
+    <h2>The styles</h2>
+    <p>Same menu in all twelve. Only the type changes — face, case, tracking, alignment, the rule,
+       and how much air sits between courses.</p>
+    <div class="bar"></div>
+  </div>
+
+  <div class="styles" id="styles"></div>
+
+  <div class="sec">
+    <h2>The paper under it</h2>
+    <p>A second axis, independent of the type: leave it plain, or put it on a stock. These preview
+       as the printed card rather than as a page element, so a tinted sheet stays tinted in dark
+       mode instead of pretending to be a dark card.</p>
+    <div class="bar"></div>
+  </div>
+
+  <div class="stocks" id="stocks"></div>
+
+  <p class="note"><b>On cardstock.</b> The print rules here set one card per sheet at A5 with a
+     24mm head margin, which is the size that reads at a place setting and trims out of an A4
+     sheet with one cut. Anything heavier than about 250gsm needs the plain or cream stock —
+     the laid and deckle treatments are printed texture, and on a paper that already has tooth
+     they fight it.</p>
+
+  <div class="print">
+    <p><b>What is actually here.</b> Twelve style classes, six stocks, one card component and a
+    print stylesheet. The two axes are independent — any style on any stock is 72 combinations
+    without writing any of them. Try File → Print to see the trim.</p>
+  </div>
+
+</div>
+
+<script>
+  // One menu, rendered into every skin. Writing the markup twelve times would
+  // guarantee they drift; this way a change to a course changes every card.
+  const MENU = {
+    name: 'Dinner',
+    date: 'Saturday the fourteenth',
+    courses: [
+      { cn: 'To begin', dishes: [
+        { t: 'Epityrum', s: 'green olive, fennel, cumin', m: 'V GF' },
+        { t: "Za'atar and olive focaccia", m: 'V S' } ] },
+      { cn: 'Second', dishes: [
+        { t: 'Dates with pine nut and pepper', m: 'VG GF N' },
+        { or: true },
+        { t: 'Mushrooms in honey and thyme', m: 'VG GF' } ] },
+      { cn: 'Main', dishes: [
+        { t: 'Braciole', s: 'rolled beef, slow tomato', m: 'D' },
+        { or: true },
+        { t: 'Vori vori de carne', s: 'beef broth, cornmeal dumpling', m: 'D GF' } ] },
+      { cn: 'Sweet', dishes: [
+        { t: 'Globi', s: 'fried fresh cheese, honey, poppy', m: 'VG D' },
+        { t: 'Alfajores', m: 'VG D N' } ] },
+    ],
+    key: 'V VEGAN · VG VEGETARIAN · GF NO GLUTEN · D DAIRY · N NUTS · S SESAME',
+  };
+
+  const STYLES = [
+    ['s-engraved',  'Engraved',   'formal, hairline'],
+    ['s-copper',    'Copperplate','stamped, official'],
+    ['s-oldstyle',  'Old style',  'bookish, warm'],
+    ['s-trattoria', 'Trattoria',  'italian, familiar'],
+    ['s-bistro',    'Bistro',     'french, humanist'],
+    ['s-typed',     'Typewriter', 'casual, zine'],
+    ['s-modern',    'Modern',     'the house voice'],
+    ['s-geometric', 'Geometric',  'bauhaus, wide'],
+    ['s-script',    'Script',     'celebration'],
+    ['s-slab',      'Slab',       'american, sturdy'],
+    ['s-quiet',     'Quiet',      'sparse, all air'],
+    ['s-hand',      'Hand',       'supper club'],
+  ];
+
+  const STOCKS = [
+    ['plain',  'Plain'],
+    ['cream',  'Cream'],
+    ['grey',   'Grey'],
+    ['laid',   'Laid'],
+    ['frame',  'Framed'],
+    ['deckle', 'Deckle'],
+  ];
+
+  function cardHTML() {
+    const courses = MENU.courses.map(c => {
+      const lines = c.dishes.map(d => {
+        if (d.or) return '<div class="orr">or</div>';
+        const sub = d.s ? `<span class="sub">${d.s}</span>` : '';
+        const mk  = d.m ? `<span class="mk">${d.m}</span>` : '';
+        return `<div class="dish">${d.t}${mk}${sub}</div>`;
+      }).join('');
+      return `<div class="crs"><span class="cn">${c.cn}</span>${lines}</div>`;
+    }).join('');
+    return `<div class="hd">${MENU.name}</div><div class="dt">${MENU.date}</div>`
+         + `<hr class="rl">${courses}<div class="key">${MENU.key}</div>`;
+  }
+
+  const body = cardHTML();
+
+  document.getElementById('styles').innerHTML = STYLES.map(([cls, name, note]) => {
+    const align = (cls === 's-typed' || cls === 's-modern') ? 'left' : 'center';
+    return `<div class="sw">
+      <div class="nm"><b>${name}</b> · ${note}</div>
+      <div class="card ${cls}" data-align="${align}">${body}</div>
+    </div>`;
+  }).join('');
+
+  // The stock axis is shown on one style so the paper is the only variable.
+  document.getElementById('stocks').innerHTML = STOCKS.map(([id, name]) =>
+    `<div class="sw">
+      <div class="nm"><b>${name}</b></div>
+      <div class="card s-oldstyle" data-stock="${id}" data-align="center">${body}</div>
+    </div>`
+  ).join('');
+</script>
