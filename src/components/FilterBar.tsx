@@ -17,7 +17,7 @@ export default function FilterBar() {
   const [moreOpen, setMoreOpen] = useState(false);
 
   const hasActiveFilters =
-    filters.search || filters.cuisine || filters.craft || filters.difficulty || filters.maxTime;
+    filters.search || filters.cuisine || filters.craft || filters.mine || filters.difficulty || filters.maxTime;
 
   return (
     <div className="space-y-5">
@@ -49,6 +49,17 @@ export default function FilterBar() {
           }`}
         >
           All
+        </button>
+        {/* Not a nationality, but the same question — whose is this — so it
+            sits at the head of that row rather than in a filter of its own. */}
+        <button
+          onClick={() => setFilters({ mine: !filters.mine })}
+          aria-pressed={filters.mine}
+          className={`lowercase transition-colors underline-offset-4 decoration-1 cursor-pointer ${
+            filters.mine ? 'text-text underline' : 'text-text-secondary hover:text-text hover:underline'
+          }`}
+        >
+          Mine
         </button>
         {cuisines.map((cuisine) => (
           <button

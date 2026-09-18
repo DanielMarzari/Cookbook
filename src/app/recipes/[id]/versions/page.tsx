@@ -12,6 +12,7 @@ import { titleCaseIngredient } from '@/lib/utils';
 import type { DraftPayload } from '@/lib/drafts';
 import { usePrompt } from '@/components/Prompt';
 import BranchDialog, { type BranchCandidate } from '@/components/BranchDialog';
+import RecipeMarks from '@/components/RecipeMarks';
 
 type Family = Awaited<ReturnType<typeof api.recipes.family>>;
 
@@ -81,9 +82,14 @@ export default function RecipeVersionsPage() {
   }
 
   const versions = [
-    { id: family.base.id, title: family.base.title, image_url: family.base.image_url, label: null as string | null, isBase: true, summary: 'the original' },
+    {
+      id: family.base.id, title: family.base.title, image_url: family.base.image_url,
+      label: null as string | null, isBase: true, summary: 'the original',
+      is_favorite: family.base.is_favorite, is_signature: family.base.is_signature, status: family.base.status,
+    },
     ...family.variations.map((v) => ({
       id: v.id, title: v.title, image_url: v.image_url, label: v.variation_of_label, isBase: false, summary: v.summary,
+      is_favorite: v.is_favorite, is_signature: v.is_signature, status: v.status,
     })),
   ];
   const active = versions[Math.min(cur, versions.length - 1)];
@@ -213,6 +219,11 @@ export default function RecipeVersionsPage() {
                   </span>
                   <span className="block text-[11.5px] text-text-secondary mt-[3px]">
                     {v.isBase ? 'base' : v.label || 'variation'}
+                    {/* Read-only here: the rail says which branches carry a
+                        mark, and the detail pane below is where you set one. */}
+                    {v.is_signature ? ' · signature' : ''}
+                    {v.is_favorite ? ' · loved' : ''}
+                    {v.status && v.status !== 'new' ? ` · ${v.status}` : ''}
                   </span>
                 </span>
               </button>
@@ -238,6 +249,18 @@ export default function RecipeVersionsPage() {
             branch {pad(cur + 1)} of {pad(versions.length)}{active.isBase ? ' · base' : ''}
           </p>
           <h1 className="text-[26px] tracking-[-0.01em] mt-2 mb-1">{active.title}</h1>
+          {/* Marks apply to this branch alone. Keyed by id so moving down the
+              rail remounts them with that branch's own state. */}
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-2">
+            <RecipeMarks
+              key={active.id}
+              recipeId={active.id}
+              initial={{ is_favorite: active.is_favorite, is_signature: active.is_signature, status: active.status }}
+              size={15}
+              showLabels
+              onChange={() => load()}
+            />
+          </div>
           <p className="text-[13px] text-text-secondary mb-4">{active.summary}</p>
 
           {!active.isBase && (

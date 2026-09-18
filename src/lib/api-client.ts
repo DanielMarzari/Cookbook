@@ -49,6 +49,7 @@ export const api = {
       if (filters?.search) params.append('search', filters.search);
       if (filters?.cuisine) params.append('cuisine', filters.cuisine);
       if (filters?.craft) params.append('craft', filters.craft);
+      if (filters?.mine) params.append('mine', '1');
       if (filters?.difficulty) params.append('difficulty', filters.difficulty);
       if (filters?.maxTime) params.append('maxTime', filters.maxTime);
       const queryString = params.toString();
@@ -67,10 +68,11 @@ export const api = {
       fetchJson<{ ok: boolean; recipeId: string }>('/api/recipes/archive', { method: 'POST', body: { archiveId } }),
     family: (id: string) =>
       fetchJson<{
-        base: { id: string; title: string; image_url: string | null };
+        base: { id: string; title: string; image_url: string | null; is_favorite: number | boolean | null; is_signature: number | boolean | null; status: string | null };
         baseIngredients: { name: string; quantity: number; unit: string; section: string | null }[];
         variations: {
           id: string; title: string; image_url: string | null; variation_of_label: string | null;
+          is_favorite: number | boolean | null; is_signature: number | boolean | null; status: string | null;
           ingredients: { name: string; quantity: number; unit: string; section: string | null; ingredient_id: string | null; custom_calories: number | null; custom_protein: number | null; custom_carbs: number | null; custom_fat: number | null }[];
           instructions: InstructionStep[];
           diff: {

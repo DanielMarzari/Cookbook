@@ -34,6 +34,7 @@ const defaultFilters: RecipeFilters = {
   search: '',
   cuisine: null,
   craft: null,
+  mine: false,
   dietary: [],
   difficulty: null,
   maxTime: null,

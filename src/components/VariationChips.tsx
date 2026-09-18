@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api-client';
+import RecipeMarks from '@/components/RecipeMarks';
 
 type Family = Awaited<ReturnType<typeof api.recipes.family>>;
 
@@ -93,6 +94,25 @@ export default function VariationChips({
         {chip(family.base.id, 'Base')}
         {family.variations.map((v) => chip(v.id, v.variation_of_label || v.title))}
       </div>
+      {/* The marks belong to the version on screen, not to the family. Keyed by
+          the active id so switching versions remounts them with that branch's
+          own state instead of carrying the last one's over. */}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mt-3">
+        <RecipeMarks
+          key={active ?? 'base'}
+          recipeId={active ?? family.base.id}
+          initial={
+            current
+              ? { is_favorite: current.is_favorite, is_signature: current.is_signature, status: current.status }
+              : { is_favorite: family.base.is_favorite, is_signature: family.base.is_signature, status: family.base.status }
+          }
+          size={14}
+        />
+        <span className="text-[12px] text-text-secondary">
+          {active === family.base.id ? 'marking the base' : `marking ${current?.title.toLowerCase()}`}
+        </span>
+      </div>
+
       <p className="text-[12.5px] text-text-secondary mt-2">
         {current ? (
           <>

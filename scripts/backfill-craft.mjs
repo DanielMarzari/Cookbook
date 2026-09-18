@@ -25,6 +25,66 @@ const dry = process.argv.includes('--dry');
 const force = process.argv.includes('--force');
 
 /**
+ * Hand-checked assignments, gone through one recipe at a time.
+ *
+ * These win over the patterns below, because a few of them are judgements no
+ * rule was ever going to make: almond paste and dulce de leche are Pantry
+ * rather than Sweets because you make them to make something else, za'atar is a
+ * spice blend rather than a condiment for the same reason, and the whole pizza
+ * dough family is Bases — a dough is never dinner, and this one is the stem
+ * three branches hang off.
+ *
+ * Matched case-insensitively on the exact title, and applied on prod as well as
+ * locally so both databases end up saying the same thing.
+ */
+const BY_TITLE = {
+  // Bases — the stem a family branches from
+  'pizza dough': 'Bases',
+  'pizza dough — honey': 'Bases',
+  'pizza dough — semolina': 'Bases',
+  'pizza dough — sourdough': 'Bases',
+
+  // Pantry — made in order to cook with it later
+  'almond paste': 'Pantry',
+  'dulce de leche': 'Pantry',
+  "za'atar": 'Pantry',
+
+  // Condiments — they go on the table beside the food
+  'chimichurri': 'Condiments',
+  'epityrum': 'Condiments',
+
+  // Baking
+  'alfajores': 'Baking',
+  'chocolate babka': 'Baking',
+  'classic challah': 'Baking',
+  'honey whole wheat challah': 'Baking',
+  'jerusalem bagel recipe': 'Baking',
+  'macaroons': 'Baking',
+  'rainbow cookies': 'Baking',
+  'the best hamantaschen': 'Baking',
+  'viking funeral bread': 'Baking',
+  "za'atar and olive focaccia": 'Baking',
+
+  // Sweets — finished sweet dishes that are not a baking job
+  'buko pandan': 'Sweets',
+  'crème brûlée': 'Sweets',
+  'globi': 'Sweets',
+  'rice crispy treats': 'Sweets',
+
+  // Mains
+  'braciole': 'Mains',
+  'chicken satti': 'Mains',
+  'döner kebab': 'Mains',
+  'empanadas criollas': 'Mains',
+  'manicotti': 'Mains',
+  'vori vori de carne': 'Mains',
+
+  // Sides
+  'roman honey glazed mushrooms': 'Sides',
+  'roman stuffed dates': 'Sides',
+};
+
+/**
  * Ordered — first match wins, so the specific rules come first.
  *
  * These read the TITLE, not the method. A first pass scanned the instructions
@@ -66,6 +126,8 @@ const rows = db
 
 function guess(r) {
   const title = r.title ?? '';
+  const known = BY_TITLE[title.trim().toLowerCase()];
+  if (known) return known;
   for (const [craft, re] of TITLE_RULES) if (re.test(title)) return craft;
   const body = (r.instructions ?? '').slice(0, 4000);
   for (const [craft, re] of BODY_RULES) if (re.test(body)) return craft;

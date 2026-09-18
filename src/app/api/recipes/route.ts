@@ -47,6 +47,11 @@ export async function GET(request: NextRequest) {
       params.push(craft);
     }
 
+    if (searchParams.get('mine') === '1') {
+      // Yours, in the row that already answers "whose is this".
+      query += ' AND is_mine = 1';
+    }
+
     const difficulty = searchParams.get('difficulty');
     if (difficulty) {
       query += ' AND difficulty = ?';

@@ -1,6 +1,6 @@
 'use client';
 
-import { Recipe } from '@/lib/types';
+import { Recipe, type RecipeStatus } from '@/lib/types';
 import { Heart, Sparkles, FlaskConical, CheckCircle, Award, Archive } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -9,8 +9,6 @@ import { api } from '@/lib/api-client';
 import { formatTime } from '@/lib/utils';
 import { framingStyle } from '@/lib/image';
 import BranchCollage, { BranchTicks, type VariationThumb } from '@/components/BranchCollage';
-
-type RecipeStatus = 'new' | 'testing' | 'approved' | 'archived';
 
 const STATUS_ICONS: Record<RecipeStatus, typeof Sparkles> = {
   new: Sparkles,

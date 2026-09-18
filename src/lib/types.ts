@@ -228,11 +228,17 @@ export interface MealPlanEntry {
 }
 
 // Filter options for recipes
+/** Where a recipe has got to. Per row, so each branch has its own. */
+export type RecipeStatus = 'new' | 'testing' | 'approved' | 'archived';
+
 export interface RecipeFilters {
   search: string;
   cuisine: string | null;
   /** The craft axis — baking, sweets, mains. Combines with cuisine. */
   craft: string | null;
+  /** Your own recipes. Not a cuisine, but it sits in that row because it is
+   *  the same question: whose is this. */
+  mine: boolean;
   dietary: string[];
   difficulty: string | null;
   maxTime: number | null;

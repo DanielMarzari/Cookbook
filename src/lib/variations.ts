@@ -13,6 +13,12 @@ export interface FamilyMember {
   image_url: string | null;
   variation_of_label: string | null;
   parent_recipe_id: string | null;
+  // The marks travel with the member because they belong to the branch, not to
+  // the family: the sourdough version can be the signature while the base is
+  // still being worked out.
+  is_favorite: number | boolean | null;
+  is_signature: number | boolean | null;
+  status: string | null;
 }
 
 export interface IngredientLine {
@@ -40,7 +46,8 @@ export function baseIdOf(db: DB, recipeId: string): string {
 /** Base + every variation hanging off it, base first. */
 export function recipeFamily(db: DB, recipeId: string): { base: FamilyMember | null; variations: FamilyMember[] } {
   const baseId = baseIdOf(db, recipeId);
-  const cols = 'id, title, image_url, variation_of_label, parent_recipe_id';
+  const cols =
+    'id, title, image_url, variation_of_label, parent_recipe_id, is_favorite, is_signature, status';
   const base = db.prepare(`SELECT ${cols} FROM recipes WHERE id = ?`).get(baseId) as FamilyMember | undefined;
   const variations = db.prepare(
     `SELECT ${cols} FROM recipes WHERE parent_recipe_id = ? ORDER BY created_at`

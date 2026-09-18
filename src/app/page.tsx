@@ -35,6 +35,7 @@ export default function RecipesPage() {
           search: filters.search || undefined,
           cuisine: filters.cuisine || undefined,
           craft: filters.craft || undefined,
+          mine: filters.mine || undefined,
           difficulty: filters.difficulty || undefined,
           maxTime: filters.maxTime || undefined,
         });
@@ -62,7 +63,7 @@ export default function RecipesPage() {
   };
 
   const hasActiveFilters =
-    filters.search || filters.cuisine || filters.craft || filters.difficulty || filters.maxTime;
+    filters.search || filters.cuisine || filters.craft || filters.mine || filters.difficulty || filters.maxTime;
 
   // A branch is not its own recipe any more.
   //
