@@ -140,3 +140,29 @@ textarea:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .charc-march, .charc-breathe { animation: none; }
 }
+
+/* ── The invitation ────────────────────────────────────────────────────────
+   The guest page is the one thing here a stranger sees, and it is a card
+   rather than a tool, so it gets a serif the rest of the system doesn't use.
+   Scoped to these classes so nothing leaks into the cookbook's one-sans rule. */
+.invite-serif {
+  font-family: "Iowan Old Style", "Hoefler Text", Palatino, Georgia, serif;
+}
+
+@keyframes inviteIn {
+  from { opacity: 0; transform: translateY(7px); }
+  to   { opacity: 1; transform: none; }
+}
+.invite-step { animation: inviteIn 0.34s ease both; }
+@media (prefers-reduced-motion: reduce) {
+  .invite-step { animation: none; }
+}
+
+/* One menu card per sheet, trimmed to A5 — the size that reads at a place
+   setting and cuts out of A4 with one pass. Everything that is app rather
+   than card is dropped. */
+@media print {
+  .no-print { display: none !important; }
+  .print-sheet { break-after: page; page-break-after: always; }
+  .print-sheet:last-child { break-after: auto; page-break-after: auto; }
+}

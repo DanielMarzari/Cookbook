@@ -14,6 +14,8 @@ import {
   Sprout,
   Search,
   Ruler,
+  Bookmark,
+  Utensils,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -22,7 +24,9 @@ import { useCookbookStore } from '@/lib/store';
 const navItems = [
   { icon: BookOpen, label: 'Recipes', href: '/' },
   { icon: CalendarDays, label: 'Planner', href: '/planner' },
+  { icon: Utensils, label: 'Dinners', href: '/events' },
   { icon: Sparkles, label: 'Flavor Lab', href: '/flavor' },
+  { icon: Bookmark, label: 'Inspiration', href: '/inspiration' },
   { icon: Sprout, label: 'Seasonal', href: '/seasonal' },
   { icon: Grape, label: 'Charcuterie', href: '/charcuterie' },
   { icon: ChefHat, label: 'Techniques', href: '/techniques' },
@@ -41,6 +45,10 @@ export default function Navigation() {
     if (href === '/') return pathname === '/';
     return pathname.startsWith(href);
   };
+
+  // The invitation is sent to people who have no account here and no reason to
+  // see the cookbook's navigation. It is one page, and this is the whole of it.
+  if (pathname.startsWith('/e/')) return null;
 
   const focusSearch = () => {
     // Jump to the recipes page and focus its search field.

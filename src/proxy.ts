@@ -24,6 +24,15 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // The invitation is public on purpose — it is sent to people who do not have
+  // the site password and never will. Only these two prefixes open: /e/<slug>
+  // is the guest page, and /api/events/public/* is the narrow API behind it,
+  // which can read one event by slug and write that guest's own reply. Nothing
+  // under /events (the host's side) is covered by this.
+  if (pathname.startsWith('/e/') || pathname.startsWith('/api/events/public/')) {
+    return NextResponse.next();
+  }
+
   // Allow other static assets
   if (
     pathname.startsWith('/_next') ||
