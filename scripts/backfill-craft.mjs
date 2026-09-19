@@ -41,23 +41,23 @@ const BY_TITLE = {
   "creamy potato soup with mushroom & pine nuts": "Mains",
   "esquites with cotija & corn yuzu": "Sides",
   "grilled seabass with sea buckthorn hot sauce salsa": "Mains",
-  "alfajores": "Baking",
-  "almond paste": "Pantry",
-  "apple crisp": "Baking",
+  "alfajores": "Sweets",
+  "almond paste": "Sub-recipes",
+  "apple crisp": "Sweets",
   "birria de res": "Mains",
   "braciole": "Mains",
   "buko pandan": "Sweets",
-  "cannoli filling": "Pantry",
+  "cannoli filling": "Sweets",
   "cep hummus": "Sides",
   "chicken satti": "Mains",
   "chimichurri": "Condiments",
   "chocolate babka": "Baking",
   "ciabatta bread": "Baking",
   "classic challah": "Baking",
-  "classic passover macaroons recipe": "Baking",
+  "classic passover macaroons recipe": "Sweets",
   "crème brûlée": "Sweets",
   "crème brûlée — fig leaf": "Sweets",
-  "dulce de leche": "Pantry",
+  "dulce de leche": "Sub-recipes",
   "döner kebab": "Mains",
   "empanadas criollas": "Mains",
   "epityrum": "Condiments",
@@ -65,7 +65,7 @@ const BY_TITLE = {
   "homemade ices": "Bases",
   "homemade ravioli with mushroom garum": "Mains",
   "honey whole wheat challah": "Baking",
-  "hot italian sausage": "Pantry",
+  "hot italian sausage": "Mains",
   "jerusalem bagel recipe": "Baking",
   "lemon buddies": "Sweets",
   "manicotti": "Mains",
@@ -73,33 +73,33 @@ const BY_TITLE = {
   "meatloaf": "Mains",
   "mud buddies": "Sweets",
   "ny style bagel recipe": "Baking",
-  "oatmeal and pumpkin seed praline": "Pantry",
-  "peanut butter blossoms": "Baking",
-  "pear crisp — mediterranean style": "Baking",
+  "oatmeal and pumpkin seed praline": "Mains",
+  "peanut butter blossoms": "Sweets",
+  "pear crisp — mediterranean style": "Sweets",
   "pesto": "Condiments",
-  "pignoli": "Baking",
+  "pignoli": "Sweets",
   "pizza dough": "Bases",
   "potato soup": "Mains",
-  "pumpkin pie": "Baking",
-  "rainbow cookies": "Baking",
+  "pumpkin pie": "Sweets",
+  "rainbow cookies": "Sweets",
   "rice crispy treats": "Sweets",
   "roman honey glazed mushrooms": "Sides",
-  "roman stuffed dates": "Sides",
+  "roman stuffed dates": "Sweets",
   "same-day focaccia": "Baking",
   "sorbet": "Bases",
   "sorbet — apple cider": "Sweets",
   "sourdough": "Baking",
   "steak pizzaiola": "Mains",
   "syrup": "Bases",
-  "syrup — fig leaf": "Pantry",
-  "the best hamantaschen": "Baking",
+  "syrup — fig leaf": "Sub-recipes",
+  "the best hamantaschen": "Sweets",
   "tiramisu": "Sweets",
   "tiramisu — calabria": "Sweets",
   "tortillas": "Bases",
   "vanilla ice cream": "Bases",
   "viking funeral bread": "Baking",
   "vori vori de carne": "Mains",
-  "za'atar": "Pantry",
+  "za'atar": "Sub-recipes",
   "za'atar and olive focaccia": "Baking",
 };
 
@@ -134,6 +134,17 @@ const cols = db.prepare('PRAGMA table_info(recipes)').all();
 if (!cols.some((c) => c.name === 'craft')) {
   console.error('No craft column yet — start the app once so the migration runs, then re-run this.');
   process.exit(1);
+}
+
+// The kind was called Pantry before it was called Sub-recipes. Rename in place
+// rather than leaving rows pointing at a value the filter row no longer offers.
+const renamed = db.prepare("UPDATE recipes SET craft = 'Sub-recipes' WHERE craft = 'Pantry'");
+if (!dry) {
+  const n = renamed.run().changes;
+  if (n) console.log(`renamed ${n} from Pantry to Sub-recipes\n`);
+} else {
+  const n = (db.prepare("SELECT COUNT(*) AS n FROM recipes WHERE craft = 'Pantry'").get()).n;
+  if (n) console.log(`would rename ${n} from Pantry to Sub-recipes\n`);
 }
 
 const rows = db

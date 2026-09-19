@@ -9,17 +9,20 @@
  *
  * Two of these are not dishes at all, which is the point:
  *
- *   Bases    the stem a family branches from — a pizza dough, an ice cream
- *            base. On its own it is not dinner; every branch off it is.
- *   Pantry   something you make in order to cook with it later: a spice blend,
- *            a syrup, a paste, a caramel. Distinct from Condiments, which go on
- *            the table beside the food rather than into it.
+ *   Bases        the stem a family branches from — a pizza dough, an ice
+ *                cream base. On its own it is not dinner; every branch off it
+ *                is.
+ *   Sub-recipes  something whose whole purpose is to go inside another recipe:
+ *                almond paste, dulce de leche, a spice blend. Distinct from
+ *                Condiments, which go on the table beside the food rather than
+ *                into it, and from Bases, which is about branching rather than
+ *                about being an ingredient.
  *
  * Custom values work the same way cuisines do: any craft written on a recipe
  * joins the row without editing this list.
  */
 export const DEFAULT_CRAFTS = [
-  'Baking', 'Mains', 'Sides', 'Sweets', 'Condiments', 'Pantry', 'Bases',
+  'Baking', 'Mains', 'Sides', 'Sweets', 'Condiments', 'Sub-recipes', 'Bases',
 ];
 
 export const DEFAULT_CUISINES = [
