@@ -15,6 +15,7 @@ import { UNITS, DEFAULT_CUISINES, MEAL_TYPES } from '@/lib/constants';
 import { useCuisines } from '@/lib/useCuisines';
 import { useCrafts } from '@/lib/useCrafts';
 import { usePrompt } from '@/components/Prompt';
+import CascadePanel from '@/components/CascadePanel';
 
 
 interface FormIngredient {
@@ -44,6 +45,13 @@ export default function EditRecipePage() {
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  // What the base looked like when this editor opened. The cascade needs a
+  // before-state and the autosave has already overwritten the one on disk, so
+  // it is captured here on load and moved forward after a successful push.
+  const [cascadeBase, setCascadeBase] = useState<{
+    ingredients: { name: string; quantity: number; unit: string; section: string | null }[];
+    instructions: { step_number: number; text: string }[];
+  } | null>(null);
   const [saved, setSaved] = useState(false);
   const [imageRotation, setImageRotation] = useState(0);
   const initialLoadDone = useRef(false);
@@ -129,6 +137,24 @@ export default function EditRecipePage() {
 
         // Load ingredients
         const recipeIngredients = await api.recipeIngredients.list(id);
+
+        // The cascade's baseline: the server's own rows, before they are
+        // reshaped into editable header rows below. Taken here so one push
+        // carries everything changed in this sitting.
+        setCascadeBase({
+          ingredients: ((recipeIngredients as unknown as Record<string, unknown>[]) || [])
+            .filter((r) => r.name !== '---OR---')
+            .map((r) => ({
+              name: String(r.name ?? ''),
+              quantity: Number(r.quantity ?? 0),
+              unit: String(r.unit ?? ''),
+              section: (r.section as string | null) ?? null,
+            })),
+          instructions: (recipe.instructions || []).map((inst: { text?: string }, i: number) => ({
+            step_number: i + 1,
+            text: inst.text || '',
+          })),
+        });
 
         if (recipeIngredients && recipeIngredients.length > 0) {
           // Sections live on the rows themselves; rebuild an editable header row
@@ -1143,6 +1169,29 @@ export default function EditRecipePage() {
                 : 'The recipe on disk stays exactly as it is. Your edits are held aside until you commit them to it — or turn them into a variation. Uploading or removing gallery photos still takes effect immediately: those are files, not text.'}
             </p>
           </div>
+
+          {/* Push this edit down into the branches, if there are any */}
+          <CascadePanel
+            recipeId={id}
+            before={cascadeBase}
+            onPushed={() => {
+              // The branches now match the current base, so the baseline moves
+              // up: pressing again finds nothing rather than re-applying.
+              api.recipeIngredients.list(id).then((rows) => {
+                setCascadeBase({
+                  ingredients: ((rows as unknown as Record<string, unknown>[]) || [])
+                    .filter((r) => r.name !== '---OR---')
+                    .map((r) => ({
+                      name: String(r.name ?? ''),
+                      quantity: Number(r.quantity ?? 0),
+                      unit: String(r.unit ?? ''),
+                      section: (r.section as string | null) ?? null,
+                    })),
+                  instructions: instructions.map((inst, i) => ({ step_number: i + 1, text: inst.text })),
+                });
+              }).catch(() => {});
+            }}
+          />
 
           {/* Autosave indicator + Done button */}
           <div className="flex items-center justify-between">
