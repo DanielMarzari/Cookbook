@@ -2,39 +2,44 @@
 
 import { useEffect, useState } from 'react';
 import { api } from './api-client';
-import { DEFAULT_CUISINES } from './constants';
 
 /**
- * Hook that returns the full list of cuisines: defaults + any custom ones from the DB.
- * Custom cuisines are any cuisine_type values in recipes that aren't in DEFAULT_CUISINES.
+ * The cuisines you actually have, and nothing else.
+ *
+ * This used to be a list of twenty-five defaults plus whatever the recipes
+ * added, which meant the filter row offered Ethiopian, Korean and Vietnamese
+ * to a cookbook containing none of them — twenty dead ends to read past to
+ * find the six that do something. The vocabulary now comes from the recipes,
+ * so the row is a description of the collection rather than a wishlist.
+ *
+ * New ones are written on a recipe (there is a free-text box beside the
+ * picker), and appear here as soon as one exists.
  */
 export function useCuisines() {
-  const [customCuisines, setCustomCuisines] = useState<string[]>([]);
+  const [cuisines, setCuisines] = useState<string[]>([]);
 
   useEffect(() => {
-    async function fetchCustom() {
-      try {
-        const recipes = await api.recipes.list();
-
-        if (recipes) {
-          const defaultSet = new Set(DEFAULT_CUISINES.map(c => c.toLowerCase()));
-          const customs = new Set<string>();
-          for (const recipe of recipes) {
-            const ct = recipe.cuisine_type;
-            if (ct && !defaultSet.has(ct.toLowerCase()) && ct.toLowerCase() !== 'other') {
-              customs.add(ct);
-            }
-          }
-          setCustomCuisines(Array.from(customs).sort());
+    let live = true;
+    api.recipes
+      .list()
+      .then((recipes) => {
+        if (!recipes || !live) return;
+        // Case-insensitive, but keep the spelling the recipes actually use.
+        const seen = new Map<string, string>();
+        for (const r of recipes) {
+          const c = (r.cuisine_type || '').trim();
+          if (!c || c.toLowerCase() === 'other') continue;
+          if (!seen.has(c.toLowerCase())) seen.set(c.toLowerCase(), c);
         }
-      } catch (err) {
-        console.error('Error fetching cuisines:', err);
-      }
-    }
-    fetchCustom();
+        setCuisines([...seen.values()].sort((a, b) => a.localeCompare(b)));
+      })
+      .catch(() => {
+        // An empty row is better than a page that fell over.
+      });
+    return () => {
+      live = false;
+    };
   }, []);
 
-  // Merge: defaults + custom + Other at the end
-  const allCuisines = [...DEFAULT_CUISINES, ...customCuisines, 'Other'];
-  return { cuisines: allCuisines, customCuisines };
+  return { cuisines };
 }

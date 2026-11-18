@@ -50,6 +50,7 @@ export const api = {
       if (filters?.cuisine) params.append('cuisine', filters.cuisine);
       if (filters?.craft) params.append('craft', filters.craft);
       if (filters?.mine) params.append('mine', '1');
+      if (filters?.signature) params.append('signature', '1');
       if (filters?.difficulty) params.append('difficulty', filters.difficulty);
       if (filters?.maxTime) params.append('maxTime', filters.maxTime);
       const queryString = params.toString();

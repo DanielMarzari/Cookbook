@@ -749,11 +749,15 @@ export default function AddRecipePage() {
                       }}
                       className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                     >
+                      {/* Only what the cookbook has — a new one is typed, not
+                          picked out of a list of places you've never cooked. */}
+                      <option value="">Cuisine — none</option>
                       {cuisines.map((c) => (
                         <option key={c} value={c}>
                           {c}
                         </option>
                       ))}
+                      <option value="Other">Add a new one…</option>
                     </select>
                     {(formData.cuisine_type === 'Other' || customCuisine) && (
                       <input

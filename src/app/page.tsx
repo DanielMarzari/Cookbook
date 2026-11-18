@@ -14,7 +14,6 @@ export default function RecipesPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   // Bases pulled in because one of their branches matched the search.
-  const [baseHits, setBaseHits] = useState<Record<string, Recipe>>({});
   const filters = useCookbookStore((state) => state.filters);
 
   // Total collection size, for the "Showing X of Y" line
@@ -36,6 +35,7 @@ export default function RecipesPage() {
           cuisine: filters.cuisine || undefined,
           craft: filters.craft || undefined,
           mine: filters.mine || undefined,
+          signature: filters.signature || undefined,
           difficulty: filters.difficulty || undefined,
           maxTime: filters.maxTime || undefined,
         });
@@ -63,46 +63,30 @@ export default function RecipesPage() {
   };
 
   const hasActiveFilters =
-    filters.search || filters.cuisine || filters.craft || filters.mine || filters.difficulty || filters.maxTime;
+    filters.search || filters.cuisine || filters.craft || filters.mine || filters.signature || filters.difficulty || filters.maxTime;
 
-  // A branch is not its own recipe any more.
+  // What a branch is, and when it stops being folded away.
   //
-  // Joining one recipe to another says they are the same dish, so the branch
-  // stops holding a cell of its own and lives inside its base's collage tile.
-  // That holds while searching too: an earlier version showed variations again
-  // as soon as a filter was on, which meant a recipe you had just folded into
-  // another reappeared the moment you looked for it.
+  // Unfiltered, a branch lives inside its base's collage tile: joining two
+  // recipes says they are the same dish, and the grid should not list the same
+  // dish four times. The exception is ownership — a variation you wrote on
+  // somebody else's base is your recipe, and hiding your own work inside their
+  // tile is how it goes missing.
   //
-  // A match still counts, though — searching "honey" when only the honey branch
-  // matches should not come back empty. So a matching branch is swapped for its
-  // base rather than dropped, and any base not already in the results is fetched
-  // below.
-  const parentsOfHits = Array.from(
-    new Set(recipes.filter((r) => r.parent_recipe_id).map((r) => r.parent_recipe_id as string)),
-  );
-  const shown = recipes.filter((r) => !r.parent_recipe_id);
-  const missingParents = parentsOfHits.filter((id) => !shown.some((r) => r.id === id));
-
-  useEffect(() => {
-    if (missingParents.length === 0) return;
-    let live = true;
-    Promise.all(missingParents.map((id) => api.recipes.get(id).catch(() => null)))
-      .then((rs) => {
-        if (!live) return;
-        const found = rs.filter(Boolean) as Recipe[];
-        if (found.length) setBaseHits((prev) => ({ ...prev, ...Object.fromEntries(found.map((r) => [r.id, r])) }));
-      })
-      .catch(() => {});
-    return () => {
-      live = false;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [missingParents.join(',')]);
-
+  // Filtered, the rule inverts: show what actually matched. Filtering for
+  // Mediterranean when the rose cardamom branch is the Mediterranean one and
+  // its vanilla base is not should answer with the rose cardamom. Swapping a
+  // matching branch for its base — which is what this used to do — answers a
+  // question nobody asked.
   const gridRecipes = (() => {
-    const bases = shown.filter((r) => hasActiveFilters || r.source_featured);
-    const pulled = missingParents.map((id) => baseHits[id]).filter(Boolean) as Recipe[];
-    return [...bases, ...pulled];
+    if (hasActiveFilters) return recipes;
+
+    const bases = recipes.filter((r) => !r.parent_recipe_id);
+    const baseById = new Map(bases.map((r) => [r.id, r]));
+    const mineOnSomeoneElses = recipes.filter(
+      (r) => r.parent_recipe_id && r.is_mine && !baseById.get(r.parent_recipe_id)?.is_mine,
+    );
+    return [...bases, ...mineOnSomeoneElses];
   })();
 
   const countLine = (() => {

@@ -35,6 +35,7 @@ const defaultFilters: RecipeFilters = {
   cuisine: null,
   craft: null,
   mine: false,
+  signature: false,
   dietary: [],
   difficulty: null,
   maxTime: null,

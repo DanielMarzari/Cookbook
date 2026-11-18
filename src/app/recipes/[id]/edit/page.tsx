@@ -11,7 +11,7 @@ import { toFraction, titleCaseIngredient } from '@/lib/utils';
 import { framingStyle, parsePosition, buildPosition } from '@/lib/image';
 import { fileToResizedDataUrl } from '@/lib/photo';
 import { toast } from '@/lib/toast';
-import { UNITS, DEFAULT_CUISINES, MEAL_TYPES } from '@/lib/constants';
+import { UNITS, MEAL_TYPES } from '@/lib/constants';
 import { useCuisines } from '@/lib/useCuisines';
 import { useCrafts } from '@/lib/useCrafts';
 import { usePrompt } from '@/components/Prompt';
@@ -104,10 +104,10 @@ export default function EditRecipePage() {
         setCraft(recipe.craft || '');
         setMealType(recipe.meal_type || '');
         setSourceId(recipe.source_id || '');
-        // If the cuisine is custom (not in defaults), pre-populate the custom input
-        if (recipe.cuisine_type && !DEFAULT_CUISINES.includes(recipe.cuisine_type) && recipe.cuisine_type !== 'Other') {
-          setCustomCuisine(recipe.cuisine_type);
-        }
+        // The picker lists what the cookbook already has, so an existing value
+        // is always in it — no need to prefill the "add a new one" box on load,
+        // which used to happen for anything outside a hardcoded default list
+        // and made every unusual cuisine look like it was mid-edit.
         setDifficulty(recipe.difficulty);
         setPrepTime(recipe.prep_time_minutes);
         setCookTime(recipe.cook_time_minutes);
@@ -620,7 +620,7 @@ export default function EditRecipePage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="flex flex-col gap-2">
                   <select
-                    value={cuisineType === 'Other' || (!cuisines.includes(cuisineType) && cuisineType !== '' && cuisineType !== 'Italian') ? 'Other' : cuisineType}
+                    value={cuisineType === 'Other' || customCuisine ? 'Other' : cuisineType}
                     onChange={(e) => {
                       if (e.target.value === 'Other') {
                         setCuisineType('Other');
@@ -632,9 +632,13 @@ export default function EditRecipePage() {
                     }}
                     className="px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                   >
+                    {/* The list is the cuisines this cookbook actually has, so
+                        a new one has to be writable rather than chosen. */}
+                    <option value="">Cuisine — none</option>
                     {cuisines.map((c) => (
                       <option key={c} value={c}>{c}</option>
                     ))}
+                    <option value="Other">Add a new one…</option>
                   </select>
                   {/* What kind of cooking, as opposed to whose tradition. Blank
                       is a real answer: plenty of recipes are one or the other
@@ -652,7 +656,7 @@ export default function EditRecipePage() {
                   {(cuisineType === 'Other' || customCuisine) && (
                     <input
                       type="text"
-                      placeholder="Enter cuisine type..."
+                      placeholder="Name the cuisine, e.g. Georgian"
                       value={customCuisine}
                       onChange={(e) => {
                         const val = e.target.value;

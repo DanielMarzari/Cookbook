@@ -103,6 +103,7 @@ export interface Recipe {
   variation_count?: number; // bases only: how many variations hang off this recipe
   meal_type?: string | null; // breakfast / dinner / hors d'oeuvre …
   craft?: string | null;     // Baking / Sweets / Mains — what kind of cooking, not where from
+  is_mine?: number | boolean | null; // you wrote this one, rather than saved it
   source_id?: string | null; // which source this came from (controlled vocabulary)
   source_featured?: number | null; // joined from sources: does its source lead the shelf
   source_label?: string | null; // joined from sources: its display name
@@ -239,6 +240,8 @@ export interface RecipeFilters {
   /** Your own recipes. Not a cuisine, but it sits in that row because it is
    *  the same question: whose is this. */
   mine: boolean;
+  /** The dishes you'd cook for someone — your signature menu. */
+  signature: boolean;
   dietary: string[];
   difficulty: string | null;
   maxTime: number | null;

@@ -12,11 +12,25 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 }
 
 /** Titles for the dish autocomplete — a dish is usually one of your recipes. */
+/**
+ * Everything cookable, branches included.
+ *
+ * This listed bases only, which meant you could put "Ice Cream" on a menu but
+ * not the rose cardamom one — and the branch is usually the thing you are
+ * actually making. A variation's title already carries its base ("Sorbet —
+ * Apple Cider"), so the list reads without any extra scaffolding.
+ */
 function recipeTitles() {
   try {
     return getDb()
-      .prepare('SELECT id, title FROM recipes WHERE parent_recipe_id IS NULL ORDER BY title')
-      .all() as { id: string; title: string }[];
+      .prepare(
+        `SELECT r.id, r.title, r.parent_recipe_id IS NOT NULL AS is_variation
+           FROM recipes r
+          ORDER BY COALESCE((SELECT b.title FROM recipes b WHERE b.id = r.parent_recipe_id), r.title),
+                   r.parent_recipe_id IS NOT NULL,
+                   r.title`,
+      )
+      .all() as { id: string; title: string; is_variation: number }[];
   } catch {
     return [];
   }

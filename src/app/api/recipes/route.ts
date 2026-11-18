@@ -47,6 +47,11 @@ export async function GET(request: NextRequest) {
       params.push(craft);
     }
 
+    if (searchParams.get('signature') === '1') {
+      // Per row, so a branch can be the signature while its base is not.
+      query += ' AND is_signature = 1';
+    }
+
     if (searchParams.get('mine') === '1') {
       // Yours, in the row that already answers "whose is this".
       query += ' AND is_mine = 1';

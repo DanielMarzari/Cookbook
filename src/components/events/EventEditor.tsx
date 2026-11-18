@@ -51,7 +51,7 @@ export default function EventEditor({
   event: DinnerEvent;
   dishes: EventDish[];
   guests: EventGuest[];
-  recipes: { id: string; title: string }[];
+  recipes: { id: string; title: string; is_variation?: number }[];
 }) {
   const router = useRouter();
   const [event, setEvent] = useState(initial);

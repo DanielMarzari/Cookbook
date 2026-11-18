@@ -212,9 +212,14 @@ export function setDishes(eventId: string, dishes: DishInput[]): EventDish[] {
        VALUES (@id, @event_id, @course_index, @course_name, @order_index,
          @recipe_id, @title, @subtitle, @contains, @is_choice)`,
     );
+    // A dish typed as one of your recipes should know which one, branches
+    // included — the rose cardamom on the card is that recipe, not its base.
+    const byTitle = db.prepare('SELECT id FROM recipes WHERE LOWER(title) = LOWER(?) LIMIT 1');
+
     dishes.forEach((d, i) => {
       const title = String(d.title ?? '').trim();
       if (!title) return; // a nameless dish is a blank line on the card
+      const matched = d.recipe_id ?? (byTitle.get(title) as { id: string } | undefined)?.id ?? null;
       const contains = (d.contains ?? []).filter((t) => (DIET_TAGS as readonly string[]).includes(t));
       ins.run({
         id: randomUUID(),
@@ -222,7 +227,7 @@ export function setDishes(eventId: string, dishes: DishInput[]): EventDish[] {
         course_index: Number.isFinite(d.course_index) ? d.course_index : 0,
         course_name: d.course_name ?? null,
         order_index: d.order_index ?? i,
-        recipe_id: d.recipe_id ?? null,
+        recipe_id: matched,
         title,
         subtitle: d.subtitle ?? null,
         contains: contains.length ? JSON.stringify(contains) : null,
