@@ -96,6 +96,48 @@ export default function RecipeVersionsPage() {
   const activeVariation = family.variations.find((v) => v.id === active.id);
   const shownIngredients = activeVariation ? activeVariation.ingredients : family.baseIngredients;
 
+  /**
+   * Make the selected branch the stem, and the old stem a branch of it.
+   *
+   * Confirmed first because it rearranges the whole family — and because the
+   * titles usually encode the old order, which this deliberately does not
+   * rewrite.
+   */
+  const promote = async (branchId: string, branchTitle: string) => {
+    // The prompt doubles as the label for the demoted base, so the one question
+    // asked is the one with an answer worth having.
+    const label = await ask({
+      title: `Make "${branchTitle}" the base?`,
+      hint:
+        `${family?.base.title} becomes a variation of it and the other branches move across. ` +
+        `Nothing is copied or lost. Titles are left as they are — rename them afterwards if the ` +
+        `family now reads backwards.`,
+      defaultValue: 'original',
+      confirmLabel: 'Make it the base',
+    });
+    if (label === null) return;
+    setBusy(true);
+    try {
+      const res = await fetch(`/api/recipes/${branchId}/promote`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ label }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || 'That did not work');
+      toast.success(
+        `"${data.promoted}" is the base now` +
+          (data.moved ? `, and ${data.moved} other branch${data.moved === 1 ? '' : 'es'} moved across` : ''),
+      );
+      router.replace(`/recipes/${branchId}/versions`);
+      load();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : 'That did not work');
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const commit = async (mode: 'update' | 'branch') => {
     if (busy) return;
     let title: string | undefined;
@@ -252,6 +294,15 @@ export default function RecipeVersionsPage() {
           {/* Marks apply to this branch alone. Keyed by id so moving down the
               rail remounts them with that branch's own state. */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-2">
+            {!active.isBase && (
+              <button
+                onClick={() => promote(active.id, active.title)}
+                disabled={busy}
+                className="text-[12px] text-text-secondary hover:text-text underline underline-offset-4 disabled:opacity-40"
+              >
+                Make this the base
+              </button>
+            )}
             <RecipeMarks
               key={active.id}
               recipeId={active.id}
