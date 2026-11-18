@@ -148,6 +148,9 @@ export function getDb(): Database.Database {
     db.exec(CHARCUTERIE_SCHEMA_SQL);
     // Dinners: the invitation, the guest list and the printed card.
     db.exec(EVENTS_SCHEMA_SQL);
+    ensureColumn(db, 'events', 'allow_plus_ones', 'INTEGER NOT NULL DEFAULT 1');
+    ensureColumn(db, 'events', 'ask_dietary', 'INTEGER NOT NULL DEFAULT 1');
+    ensureColumn(db, 'events', 'seating', 'INTEGER NOT NULL DEFAULT 0');
     // The want-to-try board.
     db.exec(IDEAS_SCHEMA_SQL);
     // Add columns introduced after a table already existed. CREATE TABLE

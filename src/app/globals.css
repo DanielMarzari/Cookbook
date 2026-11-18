@@ -141,19 +141,67 @@ textarea:focus-visible {
   .charc-march, .charc-breathe { animation: none; }
 }
 
-/* ── The invitation ────────────────────────────────────────────────────────
-   The guest page is the one thing here a stranger sees, and it is a card
-   rather than a tool, so it gets a serif the rest of the system doesn't use.
-   Scoped to these classes so nothing leaks into the cookbook's one-sans rule. */
-.invite-serif {
-  font-family: "Iowan Old Style", "Hoefler Text", Palatino, Georgia, serif;
+/* ── The invitation ──────────────────────────────────────────────────────
+   The one page a stranger sees, and a card rather than a tool — so it commits
+   to a single warm, low-light world instead of following the viewer's theme,
+   the same decision the menu stocks make. A cream invitation does not turn
+   charcoal because someone's phone is in dark mode. */
+.invite {
+  --ground: #17110d;
+  --raised: #1f1812;
+  --ink:    #f6eee2;
+  --muted:  #b6a390;
+  --rule:   rgba(246, 238, 226, 0.14);
+  --brass:  #c9a26b;
+  background: var(--ground);
+  color: var(--ink);
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  isolation: isolate;
 }
 
+/* Candlelight: one soft pool of warmth at the top, nothing animated. It gives
+   the page a light source, which is most of what makes a flat dark screen
+   stop reading as a flat dark screen. */
+.invite::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(60rem 38rem at 50% -8rem, rgba(201, 162, 107, 0.17), transparent 70%),
+    radial-gradient(42rem 30rem at 85% 110%, rgba(201, 162, 107, 0.08), transparent 70%);
+  pointer-events: none;
+}
+
+.invite-serif {
+  font-family: "Iowan Old Style", "Hoefler Text", Palatino, Georgia, serif;
+  font-weight: 400;
+}
+
+.invite-rule { background: var(--rule); }
+.invite-brass { color: var(--brass); }
+
+/* The card the menu sits on, lifted a little out of the ground. */
+.invite-card {
+  background: var(--raised);
+  border: 1px solid var(--rule);
+}
+
+.invite input,
+.invite textarea {
+  color: var(--ink);
+  caret-color: var(--brass);
+}
+.invite input::placeholder,
+.invite textarea::placeholder { color: rgba(182, 163, 144, 0.55); }
+
 @keyframes inviteIn {
-  from { opacity: 0; transform: translateY(7px); }
+  from { opacity: 0; transform: translateY(9px); }
   to   { opacity: 1; transform: none; }
 }
-.invite-step { animation: inviteIn 0.34s ease both; }
+.invite-step { animation: inviteIn 0.45s cubic-bezier(.2,.7,.3,1) both; }
 @media (prefers-reduced-motion: reduce) {
   .invite-step { animation: none; }
 }

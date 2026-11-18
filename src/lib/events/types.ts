@@ -90,6 +90,9 @@ export interface DinnerEvent {
   style: string;
   stock: string;
   status: 'draft' | 'open' | 'closed';
+  allow_plus_ones: number | boolean;
+  ask_dietary: number | boolean;
+  seating: number | boolean;
   created_at: string | null;
   updated_at: string | null;
 }

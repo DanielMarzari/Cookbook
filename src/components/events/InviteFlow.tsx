@@ -19,17 +19,23 @@ type PublicEvent = {
   bring: string | null;
   style: string;
   stock: string;
+  allow_plus_ones: boolean;
+  ask_dietary: boolean;
+  seating: boolean;
 };
 
 /**
- * One question at a time.
+ * One question at a time, and only the questions this host is asking.
  *
- * A dinner invitation asks four things and most of them are one tap, so a
- * single long form makes it look like paperwork and a wall of fields is the
- * reason people reply "yes!" in a text message and never say they're vegan.
- * Each step holds one decision, the menu sits between the yes and the dietary
- * question so people have a reason to keep going, and the whole thing is
- * answerable with a thumb.
+ * Everything here is read by someone who does not use this app and never will,
+ * so none of it explains how the app works. The earlier draft asked "who is
+ * this?" and then told the guest their answer would "land next to your name
+ * rather than as an anonymous yes", which is a note about the database wearing
+ * a question's clothes.
+ *
+ * Three of the steps are the host's to switch off. A plus-one offered at a
+ * table with no spare chair, or a dietary question from someone who is not
+ * going to cook around the answer, are both worse than not asking.
  */
 
 type StepId = 'welcome' | 'name' | 'expect' | 'menu' | 'rsvp' | 'diet' | 'done';
@@ -57,28 +63,33 @@ export default function InviteFlow({
   const courses = useMemo(() => toCourses(dishes), [dishes]);
   const blocked = useMemo(() => blockedBy(avoids), [avoids]);
   const hasMenu = courses.length > 0;
-
-  // Once they've said what they avoid, the card marks what that rules out —
-  // which is also the honest way to show a menu that doesn't suit them.
   const dimFor = avoids.length ? (d: EventDish) => !canEat(d, blocked) : undefined;
-
   const cal = useMemo(() => calendarLinks(event), [event]);
 
-  const order: StepId[] = hasMenu
-    ? ['welcome', 'name', 'expect', 'menu', 'rsvp', 'diet', 'done']
-    : ['welcome', 'name', 'expect', 'rsvp', 'diet', 'done'];
+  const order: StepId[] = [
+    'welcome',
+    'name',
+    'expect',
+    ...(hasMenu ? (['menu'] as StepId[]) : []),
+    'rsvp',
+    ...(event.ask_dietary ? (['diet'] as StepId[]) : []),
+    'done',
+  ];
   const at = order.indexOf(step);
 
   function go(to: StepId) {
     setStep(to);
-    if (typeof window !== 'undefined') window.scrollTo({ top: 0 });
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' });
   }
   const next = () => go(order[Math.min(order.length - 1, at + 1)]);
   const back = () => go(order[Math.max(0, at - 1)]);
 
-  // Someone who can't come is asked nothing else — no menu, no diet, no
-  // "sorry to hear that" page with a form still on it.
-  const forward = () => (step === 'rsvp' && rsvp === 'no' ? save('no') : next());
+  // Someone who can't come is asked nothing else.
+  const forward = () => {
+    if (step === 'rsvp' && rsvp === 'no') return save('no');
+    if (step === 'rsvp' && !event.ask_dietary) return save('yes');
+    next();
+  };
 
   async function save(finalRsvp: 'yes' | 'no' = rsvp === 'no' ? 'no' : 'yes') {
     setSaving(true);
@@ -90,8 +101,8 @@ export default function InviteFlow({
         body: JSON.stringify({
           name,
           rsvp: finalRsvp,
-          plus_ones: finalRsvp === 'yes' ? plus : 0,
-          avoids: finalRsvp === 'yes' ? avoids : [],
+          plus_ones: finalRsvp === 'yes' && event.allow_plus_ones ? plus : 0,
+          avoids: finalRsvp === 'yes' && event.ask_dietary ? avoids : [],
           note: note.trim() || null,
         }),
       });
@@ -105,75 +116,101 @@ export default function InviteFlow({
     }
   }
 
+  const when = `${formatDateLong(event.event_date)}${
+    event.start_time ? `, ${formatTimeRange(event.start_time, event.end_time)}` : ''
+  }`;
+
   return (
-    <div className="min-h-screen bg-background text-text flex flex-col">
-      {/* Progress: a thin rule rather than "step 3 of 6", which makes four
-          taps sound like a form. */}
-      <div className="h-[2px] bg-border">
+    <div className="invite flex flex-col">
+      <div className="h-px invite-rule">
         <div
-          className="h-full bg-text transition-[width] duration-300"
-          style={{ width: `${(at / (order.length - 1)) * 100}%` }}
+          className="h-px transition-[width] duration-500 ease-out"
+          style={{ width: `${(at / (order.length - 1)) * 100}%`, background: 'var(--brass)' }}
         />
       </div>
 
-      <div className="flex-1 flex flex-col justify-center max-w-[560px] w-full mx-auto px-5 py-12 md:py-16">
+      <div className="flex-1 flex flex-col justify-center max-w-[600px] w-full mx-auto px-6 py-16 md:py-24">
         {step === 'welcome' && (
           <Step>
-            <p className="text-[11px] uppercase tracking-[0.22em] text-text-secondary">You're asked to</p>
-            <h1 className="invite-serif text-[38px] md:text-[54px] leading-[1.05] mt-3 mb-4">{event.title}</h1>
-            <p className="text-[16px] text-text-secondary">
-              {formatDateLong(event.event_date)}
-              {event.start_time ? `, ${formatTimeRange(event.start_time, event.end_time)}` : ''}
-            </p>
-            {event.host && <p className="text-[14px] text-text-secondary mt-2">{event.host} is cooking</p>}
-            {comingCount > 0 && (
-              <p className="text-[13px] text-text-secondary mt-6">{comingCount} coming so far</p>
+            <Eyebrow>You're invited to</Eyebrow>
+            <h1 className="invite-serif text-[44px] md:text-[64px] leading-[1.02] mt-4 mb-5">
+              {event.title}
+            </h1>
+            <p className="text-[17px]" style={{ color: 'var(--muted)' }}>{when}</p>
+            {event.host && (
+              <p className="text-[15px] mt-2" style={{ color: 'var(--muted)' }}>
+                {event.host} is cooking
+              </p>
             )}
-            <Next onClick={next}>Open the invitation</Next>
+            {comingCount > 0 && (
+              <p className="text-[13px] mt-8" style={{ color: 'var(--muted)' }}>
+                {comingCount} coming so far
+              </p>
+            )}
+            <Primary onClick={next}>Open the invitation</Primary>
           </Step>
         )}
 
         {step === 'name' && (
           <Step>
-            <Q>First — who is this?</Q>
-            <Sub>So your answer lands next to your name rather than as an anonymous yes.</Sub>
+            <Q>{event.seating ? 'What should your place card say?' : "What's your name?"}</Q>
+            {event.seating && <Sub>There's a seating plan, so this is the name on the table.</Sub>}
             <input
               autoFocus
               value={name}
               onChange={(e) => setName(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && name.trim() && next()}
               placeholder="Your name"
-              className="w-full mt-7 bg-transparent border-b border-border focus:border-text outline-none
-                         text-[22px] py-2 placeholder:text-border transition-colors"
+              className="w-full mt-8 bg-transparent border-b outline-none text-[24px] py-2 transition-colors invite-serif"
+              style={{ borderColor: 'var(--rule)' }}
+              onFocus={(e) => (e.currentTarget.style.borderColor = 'var(--brass)')}
+              onBlur={(e) => (e.currentTarget.style.borderColor = 'var(--rule)')}
             />
-            <Next onClick={next} disabled={!name.trim()}>Continue</Next>
+            <Primary onClick={next} disabled={!name.trim()}>Continue</Primary>
             <Back onClick={back} />
           </Step>
         )}
 
         {step === 'expect' && (
           <Step>
-            <Q>Here's what's happening</Q>
-            <dl className="mt-7 flex flex-col gap-4">
-              <Fact k="When">
-                {formatDateLong(event.event_date)}
-                {event.start_time ? `, ${formatTimeRange(event.start_time, event.end_time)}` : ''}
-              </Fact>
+            <Q>What's happening</Q>
+            <dl className="mt-8 flex flex-col gap-5">
+              <Fact k="When">{when}</Fact>
               {event.location && <Fact k="Where">{event.location}</Fact>}
               {event.expect && <Fact k="The night">{event.expect}</Fact>}
               {event.dress && <Fact k="Dress">{event.dress}</Fact>}
               {event.bring && <Fact k="Bring">{event.bring}</Fact>}
             </dl>
-            <Next onClick={next}>{hasMenu ? "See what's being served" : 'Continue'}</Next>
+
+            {/* Put it in the calendar now, while the date is in front of them —
+                not only at the end, which they may never reach. */}
+            <div className="mt-9">
+              <Eyebrow>Add to calendar</Eyebrow>
+              <div className="flex flex-wrap gap-2 mt-3">
+                <CalLink href={cal.google}>Google</CalLink>
+                <CalLink
+                  href={cal.ics}
+                  download={`${event.title.replace(/[^\w]+/g, '-').toLowerCase()}.ics`}
+                >
+                  Apple
+                </CalLink>
+                <CalLink href={cal.outlook}>Outlook</CalLink>
+              </div>
+            </div>
+
+            <Primary onClick={next}>{hasMenu ? 'See the menu' : 'Continue'}</Primary>
             <Back onClick={back} />
           </Step>
         )}
 
         {step === 'menu' && (
           <Step>
-            <Q>What's being served</Q>
-            <Sub>The plan, anyway. Say what you don't eat on the next screen and this updates.</Sub>
-            <div className="mt-7">
+            <Q>The menu</Q>
+            <Sub>
+              {courses.length} course{courses.length === 1 ? '' : 's'}
+              {event.host ? `, cooked by ${event.host}` : ''}.
+            </Sub>
+            <div className="mt-8">
               <MenuCard
                 courses={courses}
                 title={event.title}
@@ -182,7 +219,7 @@ export default function InviteFlow({
                 stockId={event.stock}
               />
             </div>
-            <Next onClick={next}>Can you come?</Next>
+            <Primary onClick={next}>Can you come?</Primary>
             <Back onClick={back} />
           </Step>
         )}
@@ -190,26 +227,27 @@ export default function InviteFlow({
         {step === 'rsvp' && (
           <Step>
             <Q>Can you come?</Q>
-            <div className="flex gap-3 mt-7">
+            <div className="flex gap-3 mt-8">
               <Choice on={rsvp === 'yes'} onClick={() => setRsvp('yes')}>Yes</Choice>
               <Choice on={rsvp === 'no'} onClick={() => setRsvp('no')}>Can't make it</Choice>
             </div>
 
-            {rsvp === 'yes' && (
-              <div className="mt-8 flex items-center gap-4">
-                <span className="text-[13px] text-text-secondary">Bringing anyone?</span>
+            {/* Only where there is a chair for one. */}
+            {rsvp === 'yes' && event.allow_plus_ones && (
+              <div className="mt-9 flex items-center gap-5">
+                <span className="text-[14px]" style={{ color: 'var(--muted)' }}>Bringing anyone?</span>
                 <div className="flex items-center gap-3">
                   <Stepper onClick={() => setPlus((n) => Math.max(0, n - 1))} label="one fewer">−</Stepper>
-                  <span className="text-[16px] tabular-nums w-5 text-center">{plus}</span>
+                  <span className="text-[17px] tabular-nums w-5 text-center">{plus}</span>
                   <Stepper onClick={() => setPlus((n) => Math.min(6, n + 1))} label="one more">+</Stepper>
                 </div>
               </div>
             )}
 
-            {error && <p className="text-[13px] text-[#a0522d] mt-6">{error}</p>}
-            <Next onClick={forward} disabled={!rsvp || saving}>
-              {saving ? 'Sending…' : rsvp === 'no' ? 'Send' : 'Continue'}
-            </Next>
+            {error && <Err>{error}</Err>}
+            <Primary onClick={forward} disabled={!rsvp || saving}>
+              {saving ? 'Sending…' : rsvp === 'no' || (rsvp === 'yes' && !event.ask_dietary) ? 'Send' : 'Continue'}
+            </Primary>
             <Back onClick={back} />
           </Step>
         )}
@@ -217,8 +255,8 @@ export default function InviteFlow({
         {step === 'diet' && (
           <Step>
             <Q>Anything you don't eat?</Q>
-            <Sub>Asked before the shopping rather than at the table. Tap anything that applies.</Sub>
-            <div className="flex flex-wrap gap-2 mt-7">
+            <Sub>Better now than at the table. Tap anything that applies.</Sub>
+            <div className="flex flex-wrap gap-2 mt-8">
               {DIET_CHIPS.map((c) => {
                 const on = avoids.includes(c.id);
                 return (
@@ -227,9 +265,12 @@ export default function InviteFlow({
                     type="button"
                     aria-pressed={on}
                     onClick={() => setAvoids((a) => (on ? a.filter((x) => x !== c.id) : [...a, c.id]))}
-                    className={`text-[13px] px-3 py-2 border transition-colors ${
-                      on ? 'border-text bg-text text-background' : 'border-border text-text-secondary hover:border-text hover:text-text'
-                    }`}
+                    className="text-[13.5px] px-3.5 py-2 border transition-colors"
+                    style={
+                      on
+                        ? { borderColor: 'var(--brass)', background: 'var(--brass)', color: '#17110d' }
+                        : { borderColor: 'var(--rule)', color: 'var(--muted)' }
+                    }
                   >
                     {c.label}
                   </button>
@@ -240,85 +281,93 @@ export default function InviteFlow({
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              placeholder="Anything else worth knowing? An allergy, a dislike, something you're avoiding this month."
-              className="w-full mt-6 bg-transparent border border-border focus:border-text outline-none
-                         text-[14px] p-3 min-h-[84px] placeholder:text-border transition-colors resize-y"
+              placeholder="Anything else worth knowing?"
+              className="w-full mt-6 bg-transparent border outline-none text-[14px] p-3.5 min-h-[88px] resize-y transition-colors"
+              style={{ borderColor: 'var(--rule)' }}
             />
 
             {hasMenu && avoids.length > 0 && (
-              <div className="mt-7">
-                <p className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mb-3">
-                  What that leaves you
-                </p>
-                <MenuCard
-                  courses={courses}
-                  title={event.title}
-                  styleId={event.style}
-                  stockId={event.stock}
-                  showKey={false}
-                  dimFor={dimFor}
-                />
-                <p className="text-[12.5px] text-text-secondary mt-3 leading-[1.6]">
-                  Struck through is what you've ruled out. {event.host ?? 'The host'} sees this too — a course
-                  with nothing left on it is the sort of thing worth knowing now.
+              <div className="mt-9">
+                <Eyebrow>What that leaves you</Eyebrow>
+                <div className="mt-3">
+                  <MenuCard
+                    courses={courses}
+                    title={event.title}
+                    styleId={event.style}
+                    stockId={event.stock}
+                    showKey={false}
+                    dimFor={dimFor}
+                  />
+                </div>
+                <p className="text-[13px] mt-3 leading-[1.6]" style={{ color: 'var(--muted)' }}>
+                  {event.host ?? 'The host'} sees this too — a course with nothing left on it is
+                  worth knowing about now.
                 </p>
               </div>
             )}
 
-            {error && <p className="text-[13px] text-[#a0522d] mt-6">{error}</p>}
-            <Next onClick={() => save('yes')} disabled={saving}>{saving ? 'Sending…' : 'Send it'}</Next>
+            {error && <Err>{error}</Err>}
+            <Primary onClick={() => save('yes')} disabled={saving}>
+              {saving ? 'Sending…' : 'Send it'}
+            </Primary>
             <Back onClick={back} />
           </Step>
         )}
 
         {step === 'done' && (
           <Step>
-            <Q>{rsvp === 'no' ? 'Noted, and no explanation needed.' : `Thank you, ${name.split(' ')[0]}.`}</Q>
+            <Q>
+              {rsvp === 'no' ? 'Another time.' : `Thank you, ${name.split(' ')[0]}.`}
+            </Q>
             {rsvp === 'yes' ? (
               <>
                 <Sub>
-                  {event.host ?? 'The host'} can see you're coming
+                  {event.host ?? 'The host'} knows you're coming
                   {plus ? ` with ${plus} more` : ''}
-                  {avoids.length ? ', and what to keep off your plate' : ''}.
+                  {avoids.length ? ', and what to keep off your plate' : ''}. See you on{' '}
+                  {formatDateLong(event.event_date)}.
                 </Sub>
 
-                <p className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mt-10 mb-3">
-                  Put it in your calendar
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  <CalLink href={cal.google}>Google Calendar</CalLink>
-                  <CalLink href={cal.ics} download={`${event.title.replace(/[^\w]+/g, '-').toLowerCase()}.ics`}>
-                    Apple Calendar
-                  </CalLink>
-                  <CalLink href={cal.outlook}>Outlook</CalLink>
+                <div className="mt-10">
+                  <Eyebrow>Add to calendar</Eyebrow>
+                  <div className="flex flex-wrap gap-2 mt-3">
+                    <CalLink href={cal.google}>Google</CalLink>
+                    <CalLink
+                      href={cal.ics}
+                      download={`${event.title.replace(/[^\w]+/g, '-').toLowerCase()}.ics`}
+                    >
+                      Apple
+                    </CalLink>
+                    <CalLink href={cal.outlook}>Outlook</CalLink>
+                  </div>
                 </div>
 
                 {event.directions && (
-                  <>
-                    <p className="text-[11px] uppercase tracking-[0.13em] text-text-secondary mt-10 mb-2">
-                      Getting there
-                    </p>
-                    <p className="text-[13.5px] text-text-secondary leading-[1.7] whitespace-pre-line">
+                  <div className="mt-10">
+                    <Eyebrow>Getting there</Eyebrow>
+                    <p className="text-[14px] mt-3 leading-[1.75] whitespace-pre-line" style={{ color: 'var(--muted)' }}>
                       {event.directions}
                     </p>
-                  </>
+                  </div>
                 )}
 
                 <button
                   type="button"
                   onClick={() => go('name')}
-                  className="text-[12.5px] text-text-secondary hover:text-text underline underline-offset-4 mt-10 self-start"
+                  className="text-[13px] underline underline-offset-4 mt-10 self-start transition-colors"
+                  style={{ color: 'var(--muted)' }}
                 >
                   Change something
                 </button>
               </>
             ) : (
               <>
-                <Sub>Another time. {event.host ?? 'The host'} has been told, and that's all that's needed.</Sub>
+                <Sub>{event.host ?? 'The host'} has been told. No explanation needed.</Sub>
                 <button
                   type="button"
                   onClick={() => { setRsvp(null); go('rsvp'); }}
-                  className="text-[12.5px] text-text-secondary hover:text-text underline underline-offset-4 mt-10 self-start"
+                  className="text-[13px] underline underline-offset-4 mt-10 self-start"
+                  style={{ color: 'var(--muted)' }}
                 >
                   Actually, I can come
                 </button>
@@ -331,54 +380,65 @@ export default function InviteFlow({
   );
 }
 
-/* ── the small pieces ──────────────────────────────────────── */
+/* ── pieces ─────────────────────────────────────────────────── */
 
-function Step({ children }: { children: React.ReactNode }) {
-  return <div className="flex flex-col invite-step">{children}</div>;
-}
+const Step = ({ children }: { children: React.ReactNode }) => (
+  <div className="flex flex-col invite-step">{children}</div>
+);
 
-function Q({ children }: { children: React.ReactNode }) {
-  return <h2 className="invite-serif text-[27px] md:text-[33px] leading-[1.2] m-0">{children}</h2>;
-}
+const Eyebrow = ({ children }: { children: React.ReactNode }) => (
+  <p className="text-[10.5px] uppercase tracking-[0.24em] m-0" style={{ color: 'var(--brass)' }}>
+    {children}
+  </p>
+);
 
-function Sub({ children }: { children: React.ReactNode }) {
-  return <p className="text-[14px] text-text-secondary leading-[1.6] mt-3 mb-0 max-w-[46ch]">{children}</p>;
-}
+const Q = ({ children }: { children: React.ReactNode }) => (
+  <h2 className="invite-serif text-[30px] md:text-[38px] leading-[1.18] m-0">{children}</h2>
+);
+
+const Sub = ({ children }: { children: React.ReactNode }) => (
+  <p className="text-[15px] leading-[1.65] mt-3.5 mb-0 max-w-[46ch]" style={{ color: 'var(--muted)' }}>
+    {children}
+  </p>
+);
+
+const Err = ({ children }: { children: React.ReactNode }) => (
+  <p className="text-[13.5px] mt-6 mb-0" style={{ color: '#e0a07a' }}>{children}</p>
+);
 
 function Fact({ k, children }: { k: string; children: React.ReactNode }) {
   return (
-    <div className="grid grid-cols-[76px_1fr] gap-4 items-baseline">
-      <dt className="text-[10.5px] uppercase tracking-[0.12em] text-text-secondary">{k}</dt>
-      <dd className="text-[15px] leading-[1.55] m-0 whitespace-pre-line">{children}</dd>
+    <div className="grid grid-cols-[80px_1fr] gap-5 items-baseline">
+      <dt className="text-[10.5px] uppercase tracking-[0.14em]" style={{ color: 'var(--brass)' }}>{k}</dt>
+      <dd className="text-[16px] leading-[1.55] m-0 whitespace-pre-line">{children}</dd>
     </div>
   );
 }
 
-function Next({ children, onClick, disabled }: { children: React.ReactNode; onClick: () => void; disabled?: boolean }) {
+function Primary({ children, onClick, disabled }: { children: React.ReactNode; onClick: () => void; disabled?: boolean }) {
   return (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="mt-10 self-start bg-text text-background text-[14px] px-7 py-3
-                 disabled:opacity-25 disabled:cursor-not-allowed hover:opacity-85 transition-opacity"
+      className="mt-11 self-start text-[14px] px-8 py-3.5 transition-opacity disabled:opacity-25 disabled:cursor-not-allowed hover:opacity-85"
+      style={{ background: 'var(--brass)', color: '#17110d' }}
     >
       {children}
     </button>
   );
 }
 
-function Back({ onClick }: { onClick: () => void }) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="mt-4 self-start text-[12.5px] text-text-secondary hover:text-text transition-colors"
-    >
-      ← Back
-    </button>
-  );
-}
+const Back = ({ onClick }: { onClick: () => void }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className="mt-5 self-start text-[13px] transition-opacity hover:opacity-70"
+    style={{ color: 'var(--muted)' }}
+  >
+    ← Back
+  </button>
+);
 
 function Choice({ on, onClick, children }: { on: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
@@ -386,9 +446,12 @@ function Choice({ on, onClick, children }: { on: boolean; onClick: () => void; c
       type="button"
       aria-pressed={on}
       onClick={onClick}
-      className={`text-[15px] px-6 py-3 border transition-colors ${
-        on ? 'border-text bg-text text-background' : 'border-border text-text hover:border-text'
-      }`}
+      className="text-[16px] px-7 py-3.5 border transition-colors"
+      style={
+        on
+          ? { borderColor: 'var(--brass)', background: 'var(--brass)', color: '#17110d' }
+          : { borderColor: 'var(--rule)', color: 'var(--ink)' }
+      }
     >
       {children}
     </button>
@@ -401,7 +464,8 @@ function Stepper({ onClick, children, label }: { onClick: () => void; children: 
       type="button"
       onClick={onClick}
       aria-label={label}
-      className="w-8 h-8 border border-border text-text hover:border-text transition-colors text-[16px] leading-none"
+      className="w-9 h-9 border text-[17px] leading-none transition-colors"
+      style={{ borderColor: 'var(--rule)', color: 'var(--ink)' }}
     >
       {children}
     </button>
@@ -415,7 +479,8 @@ function CalLink({ href, children, download }: { href: string; children: React.R
       download={download}
       target={download ? undefined : '_blank'}
       rel="noopener noreferrer"
-      className="text-[13px] px-4 py-2.5 border border-border text-text hover:border-text transition-colors"
+      className="text-[13.5px] px-4 py-2.5 border transition-colors hover:opacity-80"
+      style={{ borderColor: 'var(--rule)', color: 'var(--ink)' }}
     >
       {children}
     </a>

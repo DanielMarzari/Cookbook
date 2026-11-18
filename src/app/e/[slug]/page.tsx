@@ -48,6 +48,9 @@ export default async function InvitePage({ params }: { params: Promise<{ slug: s
         bring: event.bring,
         style: event.style,
         stock: event.stock,
+        allow_plus_ones: Boolean(event.allow_plus_ones),
+        ask_dietary: Boolean(event.ask_dietary),
+        seating: Boolean(event.seating),
       }}
       dishes={dishesFor(event.id)}
       comingCount={coming.reduce((n, g) => n + 1 + g.plus_ones, 0)}

@@ -298,6 +298,28 @@ export default function EventEditor({
               </F>
               <F label="Dress"><Inp value={event.dress ?? ''} onChange={(v) => set('dress', v)} placeholder="Whatever you'd wear to a friend's kitchen" /></F>
               <F label="Bring"><Inp value={event.bring ?? ''} onChange={(v) => set('bring', v)} placeholder="Nothing" /></F>
+              {/* What the invitation is allowed to ask. Off means the guest
+                  never sees the question, rather than seeing it and having the
+                  answer thrown away. */}
+              <F label="The invitation asks" wide>
+                <div className="flex flex-wrap gap-x-6 gap-y-2 pt-1">
+                  {([
+                    ['allow_plus_ones', 'Can bring someone'],
+                    ['ask_dietary', 'What they don\'t eat'],
+                    ['seating', 'A name for the place card'],
+                  ] as const).map(([k, label]) => (
+                    <label key={k} className="flex items-center gap-2 text-[13px]">
+                      <input
+                        type="checkbox"
+                        checked={Boolean(event[k])}
+                        onChange={(e) => set(k, (e.target.checked ? 1 : 0) as never)}
+                      />
+                      {label}
+                    </label>
+                  ))}
+                </div>
+              </F>
+
               <F label="Getting there" wide>
                 <Area value={event.directions ?? ''} onChange={(v) => set('directions', v)}
                       placeholder="Buzzer 3. Street parking free after six. Two cats." />

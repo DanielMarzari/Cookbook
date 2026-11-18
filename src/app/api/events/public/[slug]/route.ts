@@ -29,6 +29,11 @@ function publicView(event: DinnerEvent) {
     bring: event.bring,
     style: event.style,
     stock: event.stock,
+    // What the invitation is allowed to ask. Sent so the guest page can leave
+    // a question out entirely rather than ask it and discard the answer.
+    allow_plus_ones: Boolean(event.allow_plus_ones),
+    ask_dietary: Boolean(event.ask_dietary),
+    seating: Boolean(event.seating),
   };
 }
 

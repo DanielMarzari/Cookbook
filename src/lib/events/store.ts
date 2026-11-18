@@ -2,6 +2,7 @@ import { randomUUID } from 'crypto';
 import { getDb } from '@/lib/db';
 import type { DinnerEvent, EventDish, EventGuest, DietTag } from './types';
 import { DIET_TAGS } from './types';
+import { tagsForIngredients } from './diet';
 import { DEFAULT_STYLE, DEFAULT_STOCK, MENU_STYLES, MENU_STOCKS } from './styles';
 
 /* ── rows in, typed values out ─────────────────────────────── */
@@ -96,6 +97,9 @@ export interface EventInput {
   style?: string;
   stock?: string;
   status?: string;
+  allow_plus_ones?: boolean | number;
+  ask_dietary?: boolean | number;
+  seating?: boolean | number;
 }
 
 const STYLE_IDS = new Set(MENU_STYLES.map((s) => s.id));
@@ -166,6 +170,9 @@ export function updateEvent(id: string, input: EventInput): DinnerEvent | undefi
   if (input.style !== undefined && STYLE_IDS.has(input.style)) put('style', input.style);
   if (input.stock !== undefined && STOCK_IDS.has(input.stock)) put('stock', input.stock);
   if (input.status !== undefined && STATUSES.has(input.status)) put('status', input.status);
+  if (input.allow_plus_ones !== undefined) put('allow_plus_ones', input.allow_plus_ones ? 1 : 0);
+  if (input.ask_dietary !== undefined) put('ask_dietary', input.ask_dietary ? 1 : 0);
+  if (input.seating !== undefined) put('seating', input.seating ? 1 : 0);
 
   if (sets.length === 0) return existing;
   getDb().prepare(`UPDATE events SET ${sets.join(', ')}, updated_at = @now WHERE id = @id`).run(params);
@@ -216,6 +223,9 @@ export function setDishes(eventId: string, dishes: DishInput[]): EventDish[] {
     // included — the rose cardamom on the card is that recipe, not its base.
     // Either name finds it: the card may carry the menu name, the kitchen the
     // recipe title, and both should land on the same row.
+    const ingredientNames = db.prepare(
+      `SELECT name FROM recipe_ingredients WHERE recipe_id = ? AND name <> '---OR---' ORDER BY order_index`,
+    );
     const byTitle = db.prepare(
       `SELECT id FROM recipes
         WHERE LOWER(title) = LOWER(?) OR LOWER(TRIM(COALESCE(menu_name, ''))) = LOWER(?)
@@ -226,7 +236,17 @@ export function setDishes(eventId: string, dishes: DishInput[]): EventDish[] {
       const title = String(d.title ?? '').trim();
       if (!title) return; // a nameless dish is a blank line on the card
       const matched = d.recipe_id ?? (byTitle.get(title, title) as { id: string } | undefined)?.id ?? null;
-      const contains = (d.contains ?? []).filter((t) => (DIET_TAGS as readonly string[]).includes(t));
+      let contains = (d.contains ?? []).filter((t) => (DIET_TAGS as readonly string[]).includes(t));
+
+      // Where nothing was said and the dish names one of your recipes, read the
+      // tags off its ingredients. An untagged dish used to mean "safe for
+      // everyone", so a birria with no tags was offered to a vegetarian.
+      if (contains.length === 0 && matched) {
+        const names = (
+          ingredientNames.all(matched) as { name: string }[]
+        ).map((r) => r.name);
+        contains = tagsForIngredients(names);
+      }
       ins.run({
         id: randomUUID(),
         event_id: eventId,

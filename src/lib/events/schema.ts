@@ -30,6 +30,13 @@ CREATE TABLE IF NOT EXISTS events (
   stock       TEXT NOT NULL DEFAULT 'plain',
   -- 'draft' while you build it, 'open' once the link is live, 'closed' after.
   status      TEXT NOT NULL DEFAULT 'draft',
+  -- What the invitation is allowed to ask. A guest should never be offered a
+  -- plus-one at a table that has no room for one, or asked about their diet by
+  -- a host who is not going to cook around it.
+  allow_plus_ones INTEGER NOT NULL DEFAULT 1,
+  ask_dietary     INTEGER NOT NULL DEFAULT 1,
+  -- There is a seating chart, so the name they give is the name on the card.
+  seating         INTEGER NOT NULL DEFAULT 0,
   created_at  TEXT,
   updated_at  TEXT
 );
