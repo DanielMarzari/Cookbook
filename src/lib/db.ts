@@ -167,6 +167,8 @@ export function getDb(): Database.Database {
     ensureColumn(db, 'recipes', 'meal_type', 'TEXT');
     // What kind of cooking it is — baking, sweets, mains — independent of cuisine.
     ensureColumn(db, 'recipes', 'craft', 'TEXT');
+    // What this dish is called on a printed menu, as opposed to in the kitchen.
+    ensureColumn(db, 'recipes', 'menu_name', 'TEXT');
     ensureColumn(db, 'recipes', 'is_mine', 'INTEGER');
     ensureColumn(db, 'recipes', 'source_id', 'TEXT');
     migrateSectionSentinels(db);

@@ -16,6 +16,7 @@ import { useCuisines } from '@/lib/useCuisines';
 import { useCrafts } from '@/lib/useCrafts';
 import { usePrompt } from '@/components/Prompt';
 import CascadePanel from '@/components/CascadePanel';
+import MenuNameField from '@/components/MenuNameField';
 
 
 interface FormIngredient {
@@ -64,6 +65,7 @@ export default function EditRecipePage() {
   const [yieldUnit, setYieldUnit] = useState('');
   const [cuisineType, setCuisineType] = useState('');
   const [craft, setCraft] = useState('');
+  const [menuName, setMenuName] = useState('');
   const [mealType, setMealType] = useState('');
   const [sourceId, setSourceId] = useState('');
   const [sourceList, setSourceList] = useState<{ id: string; name: string; featured: number }[]>([]);
@@ -102,6 +104,7 @@ export default function EditRecipePage() {
         setYieldUnit(recipe.yield_unit || '');
         setCuisineType(recipe.cuisine_type || '');
         setCraft(recipe.craft || '');
+        setMenuName(recipe.menu_name || '');
         setMealType(recipe.meal_type || '');
         setSourceId(recipe.source_id || '');
         // The picker lists what the cookbook already has, so an existing value
@@ -320,7 +323,7 @@ export default function EditRecipePage() {
         // Staged: the recipe on disk is deliberately left alone.
         await api.recipes.saveDraft(id, {
           title, description, notes, servings,
-          cuisine_type: cuisineType, craft: craft || null, difficulty,
+          cuisine_type: cuisineType, craft: craft || null, menu_name: menuName || null, difficulty,
           source_url: sourceUrl, source_name: sourceName, source_author: sourceAuthor,
           image_url: imageUrl, image_rotation: imageRotation,
           image_position: imagePosition, image_zoom: imageZoom,
@@ -340,7 +343,8 @@ export default function EditRecipePage() {
       }
 
       await api.recipes.update(id, {
-        title, description, notes, cuisine_type: cuisineType, craft: craft || null, difficulty,
+        title, description, notes, cuisine_type: cuisineType, craft: craft || null,
+        menu_name: menuName || null, difficulty,
         yield_quantity: yieldQuantity || undefined, yield_unit: yieldUnit || undefined,
         meal_type: mealType || undefined, source_id: sourceId || undefined,
         prep_time_minutes: prepTime, cook_time_minutes: cookTime,
@@ -390,14 +394,14 @@ export default function EditRecipePage() {
     } finally {
       setSaving(false);
     }
-  }, [id, target, title, description, notes, yieldQuantity, yieldUnit, mealType, sourceId, cuisineType, craft, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients]);
+  }, [id, target, title, description, notes, yieldQuantity, yieldUnit, mealType, sourceId, cuisineType, craft, menuName, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients]);
 
   useEffect(() => {
     if (!initialLoadDone.current) return;
     if (autosaveTimer.current) clearTimeout(autosaveTimer.current);
     autosaveTimer.current = setTimeout(doAutosave, 1500);
     return () => { if (autosaveTimer.current) clearTimeout(autosaveTimer.current); };
-  }, [target, title, description, notes, yieldQuantity, yieldUnit, mealType, sourceId, cuisineType, craft, difficulty, prepTime, cookTime, servings, imageUrl, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients, doAutosave]);
+  }, [target, title, description, notes, yieldQuantity, yieldUnit, mealType, sourceId, cuisineType, craft, menuName, difficulty, prepTime, cookTime, servings, imageUrl, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients, doAutosave]);
 
   const handleRotateImage = async () => {
     const newRotation = (imageRotation + 90) % 360;
@@ -1144,6 +1148,8 @@ export default function EditRecipePage() {
               className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             />
           </div>
+
+              <MenuNameField recipeId={id} value={menuName} onChange={setMenuName} />
 
           {/* Where edits land: straight through, or staged as a would-be variation */}
           <div className="border border-border p-5">

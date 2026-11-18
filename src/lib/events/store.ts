@@ -214,12 +214,18 @@ export function setDishes(eventId: string, dishes: DishInput[]): EventDish[] {
     );
     // A dish typed as one of your recipes should know which one, branches
     // included — the rose cardamom on the card is that recipe, not its base.
-    const byTitle = db.prepare('SELECT id FROM recipes WHERE LOWER(title) = LOWER(?) LIMIT 1');
+    // Either name finds it: the card may carry the menu name, the kitchen the
+    // recipe title, and both should land on the same row.
+    const byTitle = db.prepare(
+      `SELECT id FROM recipes
+        WHERE LOWER(title) = LOWER(?) OR LOWER(TRIM(COALESCE(menu_name, ''))) = LOWER(?)
+        LIMIT 1`,
+    );
 
     dishes.forEach((d, i) => {
       const title = String(d.title ?? '').trim();
       if (!title) return; // a nameless dish is a blank line on the card
-      const matched = d.recipe_id ?? (byTitle.get(title) as { id: string } | undefined)?.id ?? null;
+      const matched = d.recipe_id ?? (byTitle.get(title, title) as { id: string } | undefined)?.id ?? null;
       const contains = (d.contains ?? []).filter((t) => (DIET_TAGS as readonly string[]).includes(t));
       ins.run({
         id: randomUUID(),

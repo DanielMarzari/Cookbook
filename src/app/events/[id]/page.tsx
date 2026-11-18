@@ -24,13 +24,16 @@ function recipeTitles() {
   try {
     return getDb()
       .prepare(
-        `SELECT r.id, r.title, r.parent_recipe_id IS NOT NULL AS is_variation
+        `SELECT r.id,
+                COALESCE(NULLIF(TRIM(r.menu_name), ''), r.title) AS title,
+                r.title AS recipe_title,
+                r.parent_recipe_id IS NOT NULL AS is_variation
            FROM recipes r
           ORDER BY COALESCE((SELECT b.title FROM recipes b WHERE b.id = r.parent_recipe_id), r.title),
                    r.parent_recipe_id IS NOT NULL,
                    r.title`,
       )
-      .all() as { id: string; title: string; is_variation: number }[];
+      .all() as { id: string; title: string; recipe_title: string; is_variation: number }[];
   } catch {
     return [];
   }

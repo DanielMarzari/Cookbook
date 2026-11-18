@@ -104,6 +104,7 @@ export interface Recipe {
   meal_type?: string | null; // breakfast / dinner / hors d'oeuvre …
   craft?: string | null;     // Baking / Sweets / Mains — what kind of cooking, not where from
   is_mine?: number | boolean | null; // you wrote this one, rather than saved it
+  menu_name?: string | null; // what it's called on a menu, if that differs from the recipe title
   source_id?: string | null; // which source this came from (controlled vocabulary)
   source_featured?: number | null; // joined from sources: does its source lead the shelf
   source_label?: string | null; // joined from sources: its display name

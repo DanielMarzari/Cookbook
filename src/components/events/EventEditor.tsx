@@ -51,13 +51,46 @@ export default function EventEditor({
   event: DinnerEvent;
   dishes: EventDish[];
   guests: EventGuest[];
-  recipes: { id: string; title: string; is_variation?: number }[];
+  recipes: { id: string; title: string; recipe_title?: string; is_variation?: number }[];
 }) {
   const router = useRouter();
   const [event, setEvent] = useState(initial);
   const [dishes, setDishes] = useState<DraftDish[]>(toDraft(initialDishes));
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState<string | null>(null);
+  const [statusBusy, setStatusBusy] = useState(false);
+  const [dragging, setDragging] = useState<number | null>(null);
+  const [over, setOver] = useState<number | null>(null);
+  const [copied, setCopied] = useState(false);
+
+  const live = event.status === 'open';
+
+  /**
+   * Going live writes straight away rather than waiting for Save.
+   *
+   * It is one field and it is the one with a consequence: the difference
+   * between a link that works and a link that 404s is not something to leave
+   * sitting in local state next to a Copy button.
+   */
+  async function setStatus(status: DinnerEvent['status']) {
+    setStatusBusy(true);
+    const previous = event.status;
+    setEvent((e) => ({ ...e, status }));
+    try {
+      const res = await fetch(`/api/events/${event.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status }),
+      });
+      if (!res.ok) throw new Error();
+      router.refresh();
+    } catch {
+      setEvent((e) => ({ ...e, status: previous }));
+      setSaved('That did not save.');
+    } finally {
+      setStatusBusy(false);
+    }
+  }
 
   const courses = useMemo(
     () =>
@@ -139,6 +172,30 @@ export default function EventEditor({
   function renameCourse(courseIndex: number, name: string) {
     setDishes((ds) => ds.map((d) => (d.course_index === courseIndex ? { ...d, course_name: name } : d)));
   }
+  /**
+   * Dragging a course changes the order of the meal.
+   *
+   * A course has no row of its own — it is whatever dishes share a
+   * course_index — so reordering is a renumbering: take the sequence of
+   * indices, move one, and rewrite every dish to its new position. Doing it
+   * that way means a course keeps all its dishes, its name and its choice flag
+   * without any of them being touched.
+   */
+  function moveCourse(from: number, to: number) {
+    if (from === to) return;
+    const order = [...new Set(dishes.map((d) => d.course_index))].sort((a, b) => a - b);
+    const at = order.indexOf(from);
+    const target = order.indexOf(to);
+    if (at === -1 || target === -1) return;
+    order.splice(target, 0, ...order.splice(at, 1));
+    const position = new Map(order.map((old, i) => [old, i]));
+    setDishes((ds) =>
+      ds
+        .map((d) => ({ ...d, course_index: position.get(d.course_index) ?? d.course_index }))
+        .sort((a, b) => a.course_index - b.course_index),
+    );
+  }
+
   function setChoice(courseIndex: number, on: boolean) {
     setDishes((ds) => ds.map((d) => (d.course_index === courseIndex ? { ...d, is_choice: on } : d)));
   }
@@ -170,33 +227,53 @@ export default function EventEditor({
         </div>
       </div>
 
-      {/* the link */}
-      <section className="mt-8 border border-border p-4 flex flex-wrap items-center gap-3">
-        <span className="text-[10.5px] uppercase tracking-[0.13em] text-text-secondary">
-          {event.status === 'open' ? 'Live link' : 'Link (not live yet)'}
-        </span>
-        <code className="text-[12.5px] break-all">{link}</code>
-        <div className="ml-auto flex items-center gap-2">
-          <button
-            onClick={() => navigator.clipboard?.writeText(link)}
-            className="text-[11px] uppercase tracking-[0.1em] border border-border px-3 py-1.5 hover:border-text transition-colors"
-          >
-            Copy
-          </button>
-          <select
-            value={event.status}
-            onChange={(e) => set('status', e.target.value as DinnerEvent['status'])}
-            className="text-[12px] border border-border px-2 py-1.5 bg-background"
-          >
-            <option value="draft">Draft</option>
-            <option value="open">Open</option>
-            <option value="closed">Closed</option>
-          </select>
+      {/* The link, and whether it answers yet.
+          This was a status dropdown beside a Copy button, which meant you could
+          set it to Open, copy the link and send it — and have it 404, because
+          the dropdown only changed local state until you pressed Save at the
+          top of the page. Going live is now one button that writes immediately,
+          and the link cannot be copied while it would not work. */}
+      <section className="mt-8 border border-border p-4">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className={`text-[10.5px] uppercase tracking-[0.13em] ${live ? 'text-text' : 'text-text-secondary'}`}>
+            {live ? 'Live' : 'Not live yet'}
+          </span>
+          <code className={`text-[12.5px] break-all ${live ? 'text-text' : 'text-text-secondary line-through decoration-border'}`}>
+            {link}
+          </code>
+          <div className="ml-auto flex items-center gap-2">
+            {live ? (
+              <>
+                <button
+                  onClick={() => { navigator.clipboard?.writeText(link); setCopied(true); setTimeout(() => setCopied(false), 1800); }}
+                  className="text-[11px] uppercase tracking-[0.1em] border border-text px-3 py-1.5 hover:opacity-80 transition-opacity bg-text text-background"
+                >
+                  {copied ? 'Copied' : 'Copy link'}
+                </button>
+                <button
+                  onClick={() => setStatus('closed')}
+                  disabled={statusBusy}
+                  className="text-[11px] uppercase tracking-[0.1em] border border-border px-3 py-1.5 text-text-secondary hover:border-text hover:text-text transition-colors disabled:opacity-40"
+                >
+                  Close it
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => setStatus('open')}
+                disabled={statusBusy}
+                className="text-[11px] uppercase tracking-[0.1em] border border-text bg-text text-background px-3 py-1.5 hover:opacity-80 transition-opacity disabled:opacity-40"
+              >
+                {statusBusy ? 'Opening…' : 'Make the link live'}
+              </button>
+            )}
+          </div>
         </div>
-        {event.status !== 'open' && (
-          <p className="w-full text-[12px] text-text-secondary m-0">
-            Only an open dinner answers that link — a draft returns a plain not-found, so a link
-            forwarded early doesn't show a half-built menu.
+        {!live && (
+          <p className="w-full text-[12px] text-text-secondary mt-3 mb-0 max-w-[70ch]">
+            {event.status === 'closed'
+              ? 'This dinner is closed, so the link answers with a plain not-found. Reopen it to let anyone else reply.'
+              : 'Until you make it live the link answers with a plain not-found — a half-built menu forwarded early shows nothing rather than a draft.'}
           </p>
         )}
       </section>
@@ -241,8 +318,50 @@ export default function EventEditor({
               {courseIndices.map((ci) => {
                 const inCourse = dishes.filter((d) => d.course_index === ci);
                 return (
-                  <div key={ci} className="border border-border p-4">
+                  <div
+                    // Keyed by the course's first dish, not by its position.
+                    // Keying on the index made React unmount and remount the
+                    // whole block on every move, which threw away focus — so
+                    // the keyboard path could reorder once and then stopped.
+                    key={inCourse[0]?.key ?? `empty-${ci}`}
+                    onDragOver={(e) => {
+                      if (dragging === null || dragging === ci) return;
+                      e.preventDefault();
+                      setOver(ci);
+                    }}
+                    onDragLeave={() => setOver((o) => (o === ci ? null : o))}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      if (dragging !== null) moveCourse(dragging, ci);
+                      setDragging(null);
+                      setOver(null);
+                    }}
+                    className={`border p-4 transition-colors ${
+                      dragging === ci ? 'border-text opacity-50'
+                        : over === ci ? 'border-text' : 'border-border'
+                    }`}
+                  >
                     <div className="flex flex-wrap items-center gap-3 mb-3">
+                      {/* Only the grip starts a drag: the course name is a text
+                          field, and a draggable input cannot be selected with
+                          the mouse. */}
+                      <span
+                        draggable
+                        onDragStart={() => setDragging(ci)}
+                        onDragEnd={() => { setDragging(null); setOver(null); }}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={`Reorder ${inCourse[0]?.course_name || 'this course'}`}
+                        onKeyDown={(e) => {
+                          // Keyboard equivalent, since a drag has none.
+                          if (e.key === 'ArrowUp') { e.preventDefault(); moveCourse(ci, Math.max(0, ci - 1)); }
+                          if (e.key === 'ArrowDown') { e.preventDefault(); moveCourse(ci, ci + 1); }
+                        }}
+                        title="Drag to reorder, or focus and use the arrow keys"
+                        className="cursor-grab active:cursor-grabbing text-text-secondary hover:text-text select-none leading-none text-[15px] px-1"
+                      >
+                        ⠿
+                      </span>
                       <input
                         value={inCourse[0]?.course_name ?? ''}
                         onChange={(e) => renameCourse(ci, e.target.value)}
