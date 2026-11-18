@@ -9,12 +9,36 @@
     "cook_time_minutes": 20,
     "notes": "In Gram's hand on the page: \"Rose very nice, thick.\" Beside the salt: \"add more salt\" — written, then crossed out again. At the foot of the page: \"Refrigerate overnight after stretch & fold.\"",
     "ingredients": [
-      { "name": "Bread flour", "quantity": 4, "unit": "cup" },
-      { "name": "Yeast", "quantity": 2, "unit": "tbsp" },
-      { "name": "Warm water", "quantity": 2, "unit": "cup" },
-      { "name": "Salt", "quantity": 2, "unit": "tbsp" },
-      { "name": "Olive oil", "quantity": 2, "unit": "tbsp" },
-      { "name": "Olive oil, for the pan and the top", "quantity": 0, "unit": "" }
+      {
+        "name": "Bread flour",
+        "quantity": 4,
+        "unit": "cup"
+      },
+      {
+        "name": "Yeast",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Warm water",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "name": "Salt",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Olive oil, for the pan and the top",
+        "quantity": 0,
+        "unit": ""
+      }
     ],
     "instructions": [
       "Put the flour in one bowl. In a second bowl mix the yeast, warm water, salt and oil.",
@@ -35,22 +59,83 @@
     "servings": 16,
     "prep_time_minutes": 180,
     "cook_time_minutes": 30,
-    "notes": "The sheet carries faint pencil adjustments in the margin that were too light to read with certainty, so they have been left off rather than guessed at. Worth checking the original page before baking.",
     "ingredients": [
-      { "name": "Milk, scalded and cooled", "quantity": 1, "unit": "cup" },
-      { "name": "Dry active yeast", "quantity": 2, "unit": "packet" },
-      { "name": "Warm water", "quantity": 0.5, "unit": "cup" },
-      { "name": "Sugar", "quantity": 0.33, "unit": "cup" },
-      { "name": "Eggs", "quantity": 2, "unit": "" },
-      { "name": "Honey or Karo syrup", "quantity": 0.33, "unit": "cup" },
-      { "name": "Butter, melted in the warm milk", "quantity": 0.33, "unit": "cup" },
-      { "name": "Flour, more or less as needed", "quantity": 5, "unit": "cup" },
-      { "name": "Dark raisins", "quantity": 1, "unit": "cup", "section": "Fruit and nuts" },
-      { "name": "Golden raisins", "quantity": 1, "unit": "cup", "section": "Fruit and nuts" },
-      { "name": "Pecans", "quantity": 1, "unit": "cup", "section": "Fruit and nuts" },
-      { "name": "Walnuts", "quantity": 1, "unit": "cup", "section": "Fruit and nuts" },
-      { "name": "Dried candied fruit", "quantity": 1, "unit": "cup", "section": "Fruit and nuts" },
-      { "name": "Red and green candied cherries", "quantity": 0.5, "unit": "cup", "section": "Fruit and nuts" }
+      {
+        "name": "Milk, scalded and cooled",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Dry active yeast",
+        "quantity": 2,
+        "unit": "packet"
+      },
+      {
+        "name": "Warm water",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Sugar",
+        "quantity": 0.33,
+        "unit": "cup"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 2,
+        "unit": ""
+      },
+      {
+        "name": "Honey or Karo syrup",
+        "quantity": 0.33,
+        "unit": "cup"
+      },
+      {
+        "name": "Butter, melted in the warm milk",
+        "quantity": 0.33,
+        "unit": "cup"
+      },
+      {
+        "name": "Flour, more or less as needed",
+        "quantity": 5,
+        "unit": "cup"
+      },
+      {
+        "name": "Dark raisins",
+        "quantity": 1,
+        "unit": "cup",
+        "section": "Fruit and nuts"
+      },
+      {
+        "name": "Golden raisins",
+        "quantity": 1,
+        "unit": "cup",
+        "section": "Fruit and nuts"
+      },
+      {
+        "name": "Pecans",
+        "quantity": 1,
+        "unit": "cup",
+        "section": "Fruit and nuts"
+      },
+      {
+        "name": "Walnuts",
+        "quantity": 1,
+        "unit": "cup",
+        "section": "Fruit and nuts"
+      },
+      {
+        "name": "Dried candied fruit",
+        "quantity": 1,
+        "unit": "cup",
+        "section": "Fruit and nuts"
+      },
+      {
+        "name": "Red and green candied cherries",
+        "quantity": 0.5,
+        "unit": "cup",
+        "section": "Fruit and nuts"
+      }
     ],
     "instructions": [
       "In a large pot, dissolve the yeast in the warm water, add the sugar and let it stand 10 minutes.",
@@ -72,10 +157,26 @@
     "cook_time_minutes": 10,
     "notes": "The page is headed \"from grandson Bobby\". His handwritten sheet adds the detail that the cheese should be Parmigiano — BelGioioso, freshly grated, about 7 oz — and that the pan should cool slightly before the cream goes in.",
     "ingredients": [
-      { "name": "Garlic cloves, large", "quantity": 2, "unit": "" },
-      { "name": "Butter", "quantity": 4, "unit": "tbsp" },
-      { "name": "Heavy cream", "quantity": 1, "unit": "cup" },
-      { "name": "Parmigiano Reggiano, grated on a microplane", "quantity": 1, "unit": "cup" }
+      {
+        "name": "Garlic cloves, large",
+        "quantity": 2,
+        "unit": ""
+      },
+      {
+        "name": "Butter",
+        "quantity": 4,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Heavy cream",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Parmigiano Reggiano, grated on a microplane",
+        "quantity": 1,
+        "unit": "cup"
+      }
     ],
     "instructions": [
       "Melt the butter and add the garlic, finely chopped.",
@@ -93,16 +194,66 @@
     "cook_time_minutes": 25,
     "notes": "From Bob's handwritten sheet. Fresh pasta ratio: 100 g flour to 1 egg for two servings; 300 g flour to 3 eggs if you are making the full quantity of cream sauce. The dough is ready when it is smooth and presses back, and after resting it should not spring back at all.",
     "ingredients": [
-      { "name": "Garlic cloves", "quantity": 4, "unit": "", "section": "The sauce" },
-      { "name": "Olive oil", "quantity": 2, "unit": "tbsp", "section": "The sauce" },
-      { "name": "Cold butter", "quantity": 0.5, "unit": "stick", "section": "The sauce" },
-      { "name": "Heavy cream", "quantity": 1, "unit": "pint", "section": "The sauce" },
-      { "name": "Parmigiano, freshly grated", "quantity": 7, "unit": "oz", "section": "The sauce" },
-      { "name": "Chicken breasts", "quantity": 2, "unit": "", "section": "The chicken" },
-      { "name": "Italian dressing", "quantity": 0.25, "unit": "cup", "section": "The chicken" },
-      { "name": "Flour", "quantity": 100, "unit": "g", "section": "The pasta" },
-      { "name": "Egg", "quantity": 1, "unit": "", "section": "The pasta" },
-      { "name": "Flat parsley, to garnish", "quantity": 0, "unit": "", "section": "To finish" }
+      {
+        "name": "Garlic cloves",
+        "quantity": 4,
+        "unit": "",
+        "section": "The sauce"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 2,
+        "unit": "tbsp",
+        "section": "The sauce"
+      },
+      {
+        "name": "Cold butter",
+        "quantity": 0.5,
+        "unit": "stick",
+        "section": "The sauce"
+      },
+      {
+        "name": "Heavy cream",
+        "quantity": 1,
+        "unit": "pint",
+        "section": "The sauce"
+      },
+      {
+        "name": "Parmigiano, freshly grated",
+        "quantity": 7,
+        "unit": "oz",
+        "section": "The sauce"
+      },
+      {
+        "name": "Chicken breasts",
+        "quantity": 2,
+        "unit": "",
+        "section": "The chicken"
+      },
+      {
+        "name": "Italian dressing",
+        "quantity": 0.25,
+        "unit": "cup",
+        "section": "The chicken"
+      },
+      {
+        "name": "Flour",
+        "quantity": 100,
+        "unit": "g",
+        "section": "The pasta"
+      },
+      {
+        "name": "Egg",
+        "quantity": 1,
+        "unit": "",
+        "section": "The pasta"
+      },
+      {
+        "name": "Flat parsley, to garnish",
+        "quantity": 0,
+        "unit": "",
+        "section": "To finish"
+      }
     ],
     "instructions": [
       "Marinate the chicken in the Italian dressing.",
@@ -124,14 +275,46 @@
     "cook_time_minutes": 45,
     "notes": "The typed page reads \"4 cups raug\" — ragù, the tomato sauce. Gram's conversion note, on a sticky on the facing page: 1 pint = 2 cups, 1 quart = 4 cups, 24 oz = 3 cups, and a 24 oz jar covers one pound of pasta.",
     "ingredients": [
-      { "name": "Heavy cream", "quantity": 1, "unit": "quart" },
-      { "name": "Ragù or tomato sauce", "quantity": 4, "unit": "cup" },
-      { "name": "Pancetta", "quantity": 0.5, "unit": "lb" },
-      { "name": "Sweet white onion, small", "quantity": 1, "unit": "" },
-      { "name": "Vodka", "quantity": 1, "unit": "oz" },
-      { "name": "Fresh basil", "quantity": 0, "unit": "" },
-      { "name": "Romano cheese, grated by hand", "quantity": 1, "unit": "cup" },
-      { "name": "Penne pasta", "quantity": 2, "unit": "lb" }
+      {
+        "name": "Heavy cream",
+        "quantity": 1,
+        "unit": "quart"
+      },
+      {
+        "name": "Ragù or tomato sauce",
+        "quantity": 4,
+        "unit": "cup"
+      },
+      {
+        "name": "Pancetta",
+        "quantity": 0.5,
+        "unit": "lb"
+      },
+      {
+        "name": "Sweet white onion, small",
+        "quantity": 1,
+        "unit": ""
+      },
+      {
+        "name": "Vodka",
+        "quantity": 1,
+        "unit": "oz"
+      },
+      {
+        "name": "Fresh basil",
+        "quantity": 0,
+        "unit": ""
+      },
+      {
+        "name": "Romano cheese, grated by hand",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Penne pasta",
+        "quantity": 2,
+        "unit": "lb"
+      }
     ],
     "instructions": [
       "Dice the onion and pancetta very small.",
@@ -154,13 +337,41 @@
     "cook_time_minutes": 45,
     "notes": "Written beside a clipping of the original from Chef Oscar Morales at Cinelli's Pizzeria, which is where the recipe came into the family. Mandy's list ends \"Lots of cheese!\"",
     "ingredients": [
-      { "name": "Heavy cream", "quantity": 1, "unit": "quart" },
-      { "name": "Tomato sauce", "quantity": 4, "unit": "cup" },
-      { "name": "Pancetta", "quantity": 0.5, "unit": "lb" },
-      { "name": "White pearl onions", "quantity": 6, "unit": "" },
-      { "name": "Vodka", "quantity": 4, "unit": "oz" },
-      { "name": "Penne pasta", "quantity": 3, "unit": "lb" },
-      { "name": "Romano cheese, grated", "quantity": 2, "unit": "cup" }
+      {
+        "name": "Heavy cream",
+        "quantity": 1,
+        "unit": "quart"
+      },
+      {
+        "name": "Tomato sauce",
+        "quantity": 4,
+        "unit": "cup"
+      },
+      {
+        "name": "Pancetta",
+        "quantity": 0.5,
+        "unit": "lb"
+      },
+      {
+        "name": "White pearl onions",
+        "quantity": 6,
+        "unit": ""
+      },
+      {
+        "name": "Vodka",
+        "quantity": 4,
+        "unit": "oz"
+      },
+      {
+        "name": "Penne pasta",
+        "quantity": 3,
+        "unit": "lb"
+      },
+      {
+        "name": "Romano cheese, grated",
+        "quantity": 2,
+        "unit": "cup"
+      }
     ],
     "instructions": [
       "Sauté the pancetta and pearl onions until golden, then drain the fat.",
@@ -180,12 +391,36 @@
     "cook_time_minutes": 40,
     "notes": "In Gram's hand beside the ingredients: \"add almonds + almond filling + 1/4 cup more flour.\" Her own note on the second toasting: use a second cookie sheet so they have room, and watch them so they don't burn.",
     "ingredients": [
-      { "name": "Butter", "quantity": 1, "unit": "cup" },
-      { "name": "White sugar", "quantity": 1.5, "unit": "cup" },
-      { "name": "Eggs, room temperature", "quantity": 4, "unit": "" },
-      { "name": "Anisette or almond flavoring", "quantity": 3, "unit": "tsp" },
-      { "name": "Flour", "quantity": 2, "unit": "cup" },
-      { "name": "Baking powder", "quantity": 2, "unit": "tsp" }
+      {
+        "name": "Butter",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "White sugar",
+        "quantity": 1.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Eggs, room temperature",
+        "quantity": 4,
+        "unit": ""
+      },
+      {
+        "name": "Anisette or almond flavoring",
+        "quantity": 3,
+        "unit": "tsp"
+      },
+      {
+        "name": "Flour",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "name": "Baking powder",
+        "quantity": 2,
+        "unit": "tsp"
+      }
     ],
     "instructions": [
       "Heat the oven to 350°F and butter and flour a large cookie sheet.",
@@ -206,11 +441,31 @@
     "prep_time_minutes": 15,
     "cook_time_minutes": 15,
     "ingredients": [
-      { "name": "Butter, room temperature", "quantity": 1, "unit": "cup" },
-      { "name": "Confectioners' sugar", "quantity": 0.5, "unit": "cup" },
-      { "name": "Flour", "quantity": 2.25, "unit": "cup" },
-      { "name": "Walnuts and pecans, chopped", "quantity": 0.75, "unit": "cup" },
-      { "name": "Confectioners' sugar, for rolling", "quantity": 0, "unit": "" }
+      {
+        "name": "Butter, room temperature",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Confectioners' sugar",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Flour",
+        "quantity": 2.25,
+        "unit": "cup"
+      },
+      {
+        "name": "Walnuts and pecans, chopped",
+        "quantity": 0.75,
+        "unit": "cup"
+      },
+      {
+        "name": "Confectioners' sugar, for rolling",
+        "quantity": 0,
+        "unit": ""
+      }
     ],
     "instructions": [
       "Work everything together and roll into balls.",
@@ -228,18 +483,78 @@
     "cook_time_minutes": 15,
     "notes": "Gram's own aside on the cream: half a cup, \"or 1 cup for super moist scones\".",
     "ingredients": [
-      { "name": "Flour", "quantity": 2, "unit": "cup", "section": "Dry" },
-      { "name": "Sugar", "quantity": 4, "unit": "tbsp", "section": "Dry" },
-      { "name": "Baking powder", "quantity": 1, "unit": "tbsp", "section": "Dry" },
-      { "name": "Salt", "quantity": 1, "unit": "pinch", "section": "Dry" },
-      { "name": "Very cold butter, cut in small pieces", "quantity": 1, "unit": "stick", "section": "Dry" },
-      { "name": "Zest from the fruit, lemon or orange", "quantity": 0, "unit": "", "section": "Dry" },
-      { "name": "Fruit, fresh or frozen", "quantity": 1, "unit": "cup", "section": "Dry" },
-      { "name": "Heavy cream", "quantity": 0.5, "unit": "cup", "section": "Wet" },
-      { "name": "Egg", "quantity": 1, "unit": "", "section": "Wet" },
-      { "name": "Extract, whichever you are using", "quantity": 0, "unit": "", "section": "Wet" },
-      { "name": "Flavoring", "quantity": 1, "unit": "tsp", "section": "Icing" },
-      { "name": "Confectioners' sugar", "quantity": 0.5, "unit": "cup", "section": "Icing" }
+      {
+        "name": "Flour",
+        "quantity": 2,
+        "unit": "cup",
+        "section": "Dry"
+      },
+      {
+        "name": "Sugar",
+        "quantity": 4,
+        "unit": "tbsp",
+        "section": "Dry"
+      },
+      {
+        "name": "Baking powder",
+        "quantity": 1,
+        "unit": "tbsp",
+        "section": "Dry"
+      },
+      {
+        "name": "Salt",
+        "quantity": 1,
+        "unit": "pinch",
+        "section": "Dry"
+      },
+      {
+        "name": "Very cold butter, cut in small pieces",
+        "quantity": 1,
+        "unit": "stick",
+        "section": "Dry"
+      },
+      {
+        "name": "Zest from the fruit, lemon or orange",
+        "quantity": 0,
+        "unit": "",
+        "section": "Dry"
+      },
+      {
+        "name": "Fruit, fresh or frozen",
+        "quantity": 1,
+        "unit": "cup",
+        "section": "Dry"
+      },
+      {
+        "name": "Heavy cream",
+        "quantity": 0.5,
+        "unit": "cup",
+        "section": "Wet"
+      },
+      {
+        "name": "Egg",
+        "quantity": 1,
+        "unit": "",
+        "section": "Wet"
+      },
+      {
+        "name": "Extract, whichever you are using",
+        "quantity": 0,
+        "unit": "",
+        "section": "Wet"
+      },
+      {
+        "name": "Flavoring",
+        "quantity": 1,
+        "unit": "tsp",
+        "section": "Icing"
+      },
+      {
+        "name": "Confectioners' sugar",
+        "quantity": 0.5,
+        "unit": "cup",
+        "section": "Icing"
+      }
     ],
     "instructions": [
       "Mix the flour, sugar, baking powder and salt.",
@@ -263,18 +578,78 @@
     "cook_time_minutes": 20,
     "notes": "The page is covered in Gram's working notes. At the top: \"Keep.\" On the cocoa: \"half it — only used 1/4 cup.\" On the espresso: \"double it.\" On the chocolate chips: \"too many — 1/2 package.\" Beside the two sugars: \"may need a little more sugar — Dan said not sweet enough.\" On the baking time: \"depending on pan, 8–10 min if coated.\" And at the foot of the page: \"Mandy said this is good.\"",
     "ingredients": [
-      { "name": "Flour", "quantity": 2, "unit": "cup", "section": "A" },
-      { "name": "Cocoa powder", "quantity": 0.5, "unit": "cup", "section": "A" },
-      { "name": "Espresso coffee", "quantity": 3, "unit": "tbsp", "section": "A" },
-      { "name": "Baking powder", "quantity": 2, "unit": "tsp", "section": "A" },
-      { "name": "Baking soda", "quantity": 0.5, "unit": "tsp", "section": "A" },
-      { "name": "Chocolate chips or chunks", "quantity": 10, "unit": "oz", "section": "A" },
-      { "name": "Eggs", "quantity": 2, "unit": "", "section": "B" },
-      { "name": "Milk", "quantity": 1, "unit": "cup", "section": "B" },
-      { "name": "Oil", "quantity": 0.75, "unit": "cup", "section": "B" },
-      { "name": "Brown sugar", "quantity": 0.5, "unit": "cup", "section": "B" },
-      { "name": "White sugar", "quantity": 0.5, "unit": "cup", "section": "B" },
-      { "name": "Vanilla", "quantity": 1, "unit": "tsp", "section": "B" }
+      {
+        "name": "Flour",
+        "quantity": 2,
+        "unit": "cup",
+        "section": "A"
+      },
+      {
+        "name": "Cocoa powder",
+        "quantity": 0.5,
+        "unit": "cup",
+        "section": "A"
+      },
+      {
+        "name": "Espresso coffee",
+        "quantity": 3,
+        "unit": "tbsp",
+        "section": "A"
+      },
+      {
+        "name": "Baking powder",
+        "quantity": 2,
+        "unit": "tsp",
+        "section": "A"
+      },
+      {
+        "name": "Baking soda",
+        "quantity": 0.5,
+        "unit": "tsp",
+        "section": "A"
+      },
+      {
+        "name": "Chocolate chips or chunks",
+        "quantity": 10,
+        "unit": "oz",
+        "section": "A"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 2,
+        "unit": "",
+        "section": "B"
+      },
+      {
+        "name": "Milk",
+        "quantity": 1,
+        "unit": "cup",
+        "section": "B"
+      },
+      {
+        "name": "Oil",
+        "quantity": 0.75,
+        "unit": "cup",
+        "section": "B"
+      },
+      {
+        "name": "Brown sugar",
+        "quantity": 0.5,
+        "unit": "cup",
+        "section": "B"
+      },
+      {
+        "name": "White sugar",
+        "quantity": 0.5,
+        "unit": "cup",
+        "section": "B"
+      },
+      {
+        "name": "Vanilla",
+        "quantity": 1,
+        "unit": "tsp",
+        "section": "B"
+      }
     ],
     "instructions": [
       "Combine the dry ingredients (A).",
@@ -294,10 +669,26 @@
     "cook_time_minutes": 10,
     "notes": "The page gives two versions side by side. The first is the creamy one below; the second swaps the powdered milk and flavoring for a 6 oz can of juice.",
     "ingredients": [
-      { "name": "Water", "quantity": 7.5, "unit": "cup" },
-      { "name": "Sugar", "quantity": 1.5, "unit": "cup" },
-      { "name": "Powdered milk", "quantity": 0.5, "unit": "package" },
-      { "name": "Chocolate or strawberry flavoring, heaping", "quantity": 12, "unit": "tsp" }
+      {
+        "name": "Water",
+        "quantity": 7.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Sugar",
+        "quantity": 1.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Powdered milk",
+        "quantity": 0.5,
+        "unit": "package"
+      },
+      {
+        "name": "Chocolate or strawberry flavoring, heaping",
+        "quantity": 12,
+        "unit": "tsp"
+      }
     ],
     "instructions": [
       "Bring the water and sugar to a boil.",
@@ -316,14 +707,46 @@
     "cook_time_minutes": 35,
     "notes": "The sheet is written around Pampered Chef tools — an apple peeler/corer/slicer, a deep dish baker, a batter bowl and a food chopper — but none of them are necessary. Serve warm with whipped cream.",
     "ingredients": [
-      { "name": "Granny Smith apples", "quantity": 7, "unit": "" },
-      { "name": "Graham crackers, finely chopped", "quantity": 6, "unit": "sheet" },
-      { "name": "Rolled oats", "quantity": 1, "unit": "cup" },
-      { "name": "Brown sugar, packed", "quantity": 1, "unit": "cup" },
-      { "name": "All-purpose flour", "quantity": 1, "unit": "cup" },
-      { "name": "Cinnamon", "quantity": 2, "unit": "tsp" },
-      { "name": "Nutmeg", "quantity": 1, "unit": "tsp" },
-      { "name": "Butter or margarine, melted", "quantity": 2, "unit": "stick" }
+      {
+        "name": "Granny Smith apples",
+        "quantity": 7,
+        "unit": ""
+      },
+      {
+        "name": "Graham crackers, finely chopped",
+        "quantity": 6,
+        "unit": "sheet"
+      },
+      {
+        "name": "Rolled oats",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Brown sugar, packed",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "All-purpose flour",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Cinnamon",
+        "quantity": 2,
+        "unit": "tsp"
+      },
+      {
+        "name": "Nutmeg",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "name": "Butter or margarine, melted",
+        "quantity": 2,
+        "unit": "stick"
+      }
     ],
     "instructions": [
       "Peel, core and slice the apples. Cut the slices in half and fill a deep baking dish three quarters full.",
@@ -343,14 +766,54 @@
     "cook_time_minutes": 75,
     "notes": "The syrup must be completely cool and the baklava straight from the oven, or it will not drink it in. Gram underlined \"unsalted\" beside the butter. It needs 5 to 6 hours on the counter afterwards — her words: \"to soak in all the goodness.\"",
     "ingredients": [
-      { "name": "Sugar", "quantity": 1, "unit": "cup", "section": "Syrup" },
-      { "name": "Lemon juice", "quantity": 2, "unit": "tbsp", "section": "Syrup" },
-      { "name": "Water", "quantity": 0.75, "unit": "cup", "section": "Syrup" },
-      { "name": "Honey", "quantity": 1, "unit": "cup", "section": "Syrup" },
-      { "name": "Walnuts, chopped", "quantity": 4, "unit": "cup", "section": "Nut mixture" },
-      { "name": "Cinnamon", "quantity": 2, "unit": "tsp", "section": "Nut mixture" },
-      { "name": "Phyllo dough, about 40 sheets", "quantity": 1, "unit": "package", "section": "Pastry" },
-      { "name": "Unsalted butter, melted but not browned", "quantity": 1, "unit": "stick", "section": "Pastry" }
+      {
+        "name": "Sugar",
+        "quantity": 1,
+        "unit": "cup",
+        "section": "Syrup"
+      },
+      {
+        "name": "Lemon juice",
+        "quantity": 2,
+        "unit": "tbsp",
+        "section": "Syrup"
+      },
+      {
+        "name": "Water",
+        "quantity": 0.75,
+        "unit": "cup",
+        "section": "Syrup"
+      },
+      {
+        "name": "Honey",
+        "quantity": 1,
+        "unit": "cup",
+        "section": "Syrup"
+      },
+      {
+        "name": "Walnuts, chopped",
+        "quantity": 4,
+        "unit": "cup",
+        "section": "Nut mixture"
+      },
+      {
+        "name": "Cinnamon",
+        "quantity": 2,
+        "unit": "tsp",
+        "section": "Nut mixture"
+      },
+      {
+        "name": "Phyllo dough, about 40 sheets",
+        "quantity": 1,
+        "unit": "package",
+        "section": "Pastry"
+      },
+      {
+        "name": "Unsalted butter, melted but not browned",
+        "quantity": 1,
+        "unit": "stick",
+        "section": "Pastry"
+      }
     ],
     "instructions": [
       "Defrost the phyllo dough overnight in the fridge.",
@@ -376,13 +839,41 @@
     "prep_time_minutes": 20,
     "cook_time_minutes": 18,
     "ingredients": [
-      { "name": "Almond paste", "quantity": 8, "unit": "oz" },
-      { "name": "White sugar", "quantity": 0.25, "unit": "cup" },
-      { "name": "Powdered sugar", "quantity": 0.25, "unit": "cup" },
-      { "name": "Egg white, large", "quantity": 1, "unit": "" },
-      { "name": "Salt", "quantity": 0.125, "unit": "tsp" },
-      { "name": "Almond flour", "quantity": 0.5, "unit": "cup" },
-      { "name": "Pine nuts", "quantity": 1, "unit": "cup" }
+      {
+        "name": "Almond paste",
+        "quantity": 8,
+        "unit": "oz"
+      },
+      {
+        "name": "White sugar",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "Powdered sugar",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "Egg white, large",
+        "quantity": 1,
+        "unit": ""
+      },
+      {
+        "name": "Salt",
+        "quantity": 0.125,
+        "unit": "tsp"
+      },
+      {
+        "name": "Almond flour",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Pine nuts",
+        "quantity": 1,
+        "unit": "cup"
+      }
     ],
     "instructions": [
       "Work the almond paste, sugars, egg white, salt and almond flour together.",
@@ -401,19 +892,84 @@
     "cook_time_minutes": 70,
     "notes": "The rules, in the order they are written on the page: keep it in a gallon jar, which will be full by the end; use fruit packed in heavy syrup; stir every day; do not refrigerate; do not screw the top on tight. At the end you divide the juice — a cup and a half each — and pass the starters on in mason jars. The cake freezes, and Gram thought it might come out even better that way.",
     "ingredients": [
-      { "name": "Sugar", "quantity": 2.5, "unit": "cup", "section": "Day 1" },
-      { "name": "Sliced peaches in heavy syrup, 29 oz can", "quantity": 1, "unit": "", "section": "Day 1" },
-      { "name": "Sugar", "quantity": 2.5, "unit": "cup", "section": "Day 10" },
-      { "name": "Chunked pineapple in heavy syrup, 20 oz can", "quantity": 1, "unit": "", "section": "Day 10" },
-      { "name": "Sugar", "quantity": 2.5, "unit": "cup", "section": "Day 20" },
-      { "name": "Fruit cocktail with juice, 29 oz can", "quantity": 1, "unit": "", "section": "Day 20" },
-      { "name": "Maraschino cherries with juice, 10 oz", "quantity": 1, "unit": "", "section": "Day 20" },
-      { "name": "Yellow cake mix, plain", "quantity": 1, "unit": "box", "section": "Each cake" },
-      { "name": "Instant vanilla pudding, small box", "quantity": 1, "unit": "", "section": "Each cake" },
-      { "name": "Canola or vegetable oil", "quantity": 0.67, "unit": "cup", "section": "Each cake" },
-      { "name": "Eggs", "quantity": 4, "unit": "", "section": "Each cake" },
-      { "name": "Fruit from the jar", "quantity": 2, "unit": "cup", "section": "Each cake" },
-      { "name": "Starter liquid", "quantity": 0.33, "unit": "cup", "section": "Each cake" }
+      {
+        "name": "Sugar",
+        "quantity": 2.5,
+        "unit": "cup",
+        "section": "Day 1"
+      },
+      {
+        "name": "Sliced peaches in heavy syrup, 29 oz can",
+        "quantity": 1,
+        "unit": "",
+        "section": "Day 1"
+      },
+      {
+        "name": "Sugar",
+        "quantity": 2.5,
+        "unit": "cup",
+        "section": "Day 10"
+      },
+      {
+        "name": "Chunked pineapple in heavy syrup, 20 oz can",
+        "quantity": 1,
+        "unit": "",
+        "section": "Day 10"
+      },
+      {
+        "name": "Sugar",
+        "quantity": 2.5,
+        "unit": "cup",
+        "section": "Day 20"
+      },
+      {
+        "name": "Fruit cocktail with juice, 29 oz can",
+        "quantity": 1,
+        "unit": "",
+        "section": "Day 20"
+      },
+      {
+        "name": "Maraschino cherries with juice, 10 oz",
+        "quantity": 1,
+        "unit": "",
+        "section": "Day 20"
+      },
+      {
+        "name": "Yellow cake mix, plain",
+        "quantity": 1,
+        "unit": "box",
+        "section": "Each cake"
+      },
+      {
+        "name": "Instant vanilla pudding, small box",
+        "quantity": 1,
+        "unit": "",
+        "section": "Each cake"
+      },
+      {
+        "name": "Canola or vegetable oil",
+        "quantity": 0.67,
+        "unit": "cup",
+        "section": "Each cake"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 4,
+        "unit": "",
+        "section": "Each cake"
+      },
+      {
+        "name": "Fruit from the jar",
+        "quantity": 2,
+        "unit": "cup",
+        "section": "Each cake"
+      },
+      {
+        "name": "Starter liquid",
+        "quantity": 0.33,
+        "unit": "cup",
+        "section": "Each cake"
+      }
     ],
     "instructions": [
       "Day 1: add 2½ cups sugar and a 29 oz can of sliced peaches with their heavy syrup to the starter.",
@@ -436,15 +992,51 @@
     "cook_time_minutes": 15,
     "notes": "The rum is split: an eighth of a cup into the coffee, an eighth into the custard. Gram's aside on the egg yolks — \"use the whites for something else.\"",
     "ingredients": [
-      { "name": "Cold espresso coffee", "quantity": 1.5, "unit": "cup" },
-      { "name": "Dark rum", "quantity": 0.25, "unit": "cup" },
-      { "name": "Mascarpone cheese, room temperature", "quantity": 16, "unit": "oz" },
-      { "name": "Egg yolks", "quantity": 6, "unit": "" },
-      { "name": "White sugar", "quantity": 0.67, "unit": "cup" },
-      { "name": "Heavy whipping cream", "quantity": 2, "unit": "cup" },
-      { "name": "Vanilla extract", "quantity": 2, "unit": "tsp" },
-      { "name": "Ladyfingers", "quantity": 40, "unit": "" },
-      { "name": "Cocoa powder, to finish", "quantity": 0, "unit": "" }
+      {
+        "name": "Cold espresso coffee",
+        "quantity": 1.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Dark rum",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "Mascarpone cheese, room temperature",
+        "quantity": 16,
+        "unit": "oz"
+      },
+      {
+        "name": "Egg yolks",
+        "quantity": 6,
+        "unit": ""
+      },
+      {
+        "name": "White sugar",
+        "quantity": 0.67,
+        "unit": "cup"
+      },
+      {
+        "name": "Heavy whipping cream",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "name": "Vanilla extract",
+        "quantity": 2,
+        "unit": "tsp"
+      },
+      {
+        "name": "Ladyfingers",
+        "quantity": 40,
+        "unit": ""
+      },
+      {
+        "name": "Cocoa powder, to finish",
+        "quantity": 0,
+        "unit": ""
+      }
     ],
     "instructions": [
       "Make the espresso, stir in an eighth of a cup of the rum and set it aside to cool to room temperature.",
@@ -468,16 +1060,56 @@
     "cook_time_minutes": 50,
     "notes": "Titled on the page \"Pattie Flannery School Banana Nut Bread (GREAT)\", with the words banana nut bread picked out in highlighter.",
     "ingredients": [
-      { "name": "Flour", "quantity": 2.5, "unit": "cup" },
-      { "name": "Sugar", "quantity": 1, "unit": "cup" },
-      { "name": "Baking powder", "quantity": 3.5, "unit": "tsp" },
-      { "name": "Salt", "quantity": 1, "unit": "tsp" },
-      { "name": "Oil", "quantity": 3, "unit": "tbsp" },
-      { "name": "Milk", "quantity": 0.75, "unit": "cup" },
-      { "name": "Egg", "quantity": 1, "unit": "" },
-      { "name": "Chopped nuts", "quantity": 1, "unit": "cup" },
-      { "name": "Smashed bananas, 3 to 4", "quantity": 1, "unit": "cup" },
-      { "name": "Instant banana pudding", "quantity": 1, "unit": "box" }
+      {
+        "name": "Flour",
+        "quantity": 2.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Sugar",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Baking powder",
+        "quantity": 3.5,
+        "unit": "tsp"
+      },
+      {
+        "name": "Salt",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "name": "Oil",
+        "quantity": 3,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Milk",
+        "quantity": 0.75,
+        "unit": "cup"
+      },
+      {
+        "name": "Egg",
+        "quantity": 1,
+        "unit": ""
+      },
+      {
+        "name": "Chopped nuts",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Smashed bananas, 3 to 4",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Instant banana pudding",
+        "quantity": 1,
+        "unit": "box"
+      }
     ],
     "instructions": [
       "Grease and flour a loaf pan and heat the oven to 350°F.",
@@ -495,15 +1127,60 @@
     "cook_time_minutes": 60,
     "notes": "The crust was added later in pen: 1½ cups graham crumbs, 2 tablespoons sugar, 1 tablespoon brown sugar, 7 tablespoons butter. Her last line is the one that matters — cut around the edges to release it before it cools, or it will crack.",
     "ingredients": [
-      { "name": "Graham cracker crumbs", "quantity": 1.5, "unit": "cup", "section": "Crust" },
-      { "name": "Sugar", "quantity": 2, "unit": "tbsp", "section": "Crust" },
-      { "name": "Brown sugar", "quantity": 1, "unit": "tbsp", "section": "Crust" },
-      { "name": "Butter", "quantity": 7, "unit": "tbsp", "section": "Crust" },
-      { "name": "Eggs, room temperature", "quantity": 4, "unit": "", "section": "Filling" },
-      { "name": "Sugar", "quantity": 1, "unit": "cup", "section": "Filling" },
-      { "name": "Sour cream", "quantity": 16, "unit": "oz", "section": "Filling" },
-      { "name": "Cream cheese, 8 oz packages", "quantity": 2, "unit": "", "section": "Filling" },
-      { "name": "Flour", "quantity": 1, "unit": "tbsp", "section": "Filling" }
+      {
+        "name": "Graham cracker crumbs",
+        "quantity": 1.5,
+        "unit": "cup",
+        "section": "Crust"
+      },
+      {
+        "name": "Sugar",
+        "quantity": 2,
+        "unit": "tbsp",
+        "section": "Crust"
+      },
+      {
+        "name": "Brown sugar",
+        "quantity": 1,
+        "unit": "tbsp",
+        "section": "Crust"
+      },
+      {
+        "name": "Butter",
+        "quantity": 7,
+        "unit": "tbsp",
+        "section": "Crust"
+      },
+      {
+        "name": "Eggs, room temperature",
+        "quantity": 4,
+        "unit": "",
+        "section": "Filling"
+      },
+      {
+        "name": "Sugar",
+        "quantity": 1,
+        "unit": "cup",
+        "section": "Filling"
+      },
+      {
+        "name": "Sour cream",
+        "quantity": 16,
+        "unit": "oz",
+        "section": "Filling"
+      },
+      {
+        "name": "Cream cheese, 8 oz packages",
+        "quantity": 2,
+        "unit": "",
+        "section": "Filling"
+      },
+      {
+        "name": "Flour",
+        "quantity": 1,
+        "unit": "tbsp",
+        "section": "Filling"
+      }
     ],
     "instructions": [
       "Mix the crust ingredients and press them around a buttered tin.",
@@ -526,17 +1203,61 @@
     "cook_time_minutes": 110,
     "notes": "Clipped from a Penzeys catalogue and kept in the binder. The margin note on the salt says Jenny uses grey sea salt.",
     "ingredients": [
-      { "name": "Large russet potatoes", "quantity": 8, "unit": "" },
-      { "name": "Olive oil", "quantity": 0, "unit": "" },
-      { "name": "Salt", "quantity": 0.5, "unit": "tsp" },
-      { "name": "Butter, melted", "quantity": 0.5, "unit": "cup" },
-      { "name": "Milk", "quantity": 0.5, "unit": "cup" },
-      { "name": "Sour cream", "quantity": 0.5, "unit": "cup" },
-      { "name": "Bacon, fried and crumbled", "quantity": 0.5, "unit": "lb" },
-      { "name": "Shredded cheddar or marble cheddar", "quantity": 2, "unit": "cup" },
-      { "name": "Freshly ground pepper", "quantity": 0.5, "unit": "tsp" },
-      { "name": "Green goddess salad dressing mix", "quantity": 1, "unit": "tsp" },
-      { "name": "Smoked Spanish paprika", "quantity": 0.5, "unit": "tsp" }
+      {
+        "name": "Large russet potatoes",
+        "quantity": 8,
+        "unit": ""
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 0,
+        "unit": ""
+      },
+      {
+        "name": "Salt",
+        "quantity": 0.5,
+        "unit": "tsp"
+      },
+      {
+        "name": "Butter, melted",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Milk",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Sour cream",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Bacon, fried and crumbled",
+        "quantity": 0.5,
+        "unit": "lb"
+      },
+      {
+        "name": "Shredded cheddar or marble cheddar",
+        "quantity": 2,
+        "unit": "cup"
+      },
+      {
+        "name": "Freshly ground pepper",
+        "quantity": 0.5,
+        "unit": "tsp"
+      },
+      {
+        "name": "Green goddess salad dressing mix",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "name": "Smoked Spanish paprika",
+        "quantity": 0.5,
+        "unit": "tsp"
+      }
     ],
     "instructions": [
       "Heat the oven to 350°F. Scrub the potatoes, pat them dry and pierce them with a fork.",
@@ -558,12 +1279,36 @@
     "cook_time_minutes": 20,
     "notes": "A page torn from a children's colonial cookbook and kept in the binder — the instructions are written for a child with an adult helping.",
     "ingredients": [
-      { "name": "Sugar", "quantity": 1, "unit": "cup" },
-      { "name": "Cinnamon", "quantity": 4, "unit": "tbsp" },
-      { "name": "Nutmeg", "quantity": 0.25, "unit": "tsp" },
-      { "name": "Eggs", "quantity": 2, "unit": "" },
-      { "name": "Pecans", "quantity": 1, "unit": "cup" },
-      { "name": "Almonds", "quantity": 1, "unit": "cup" }
+      {
+        "name": "Sugar",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Cinnamon",
+        "quantity": 4,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Nutmeg",
+        "quantity": 0.25,
+        "unit": "tsp"
+      },
+      {
+        "name": "Eggs",
+        "quantity": 2,
+        "unit": ""
+      },
+      {
+        "name": "Pecans",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Almonds",
+        "quantity": 1,
+        "unit": "cup"
+      }
     ],
     "instructions": [
       "Heat the oven to 300°F and grease two cookie sheets.",
@@ -572,6 +1317,197 @@
       "Stir a few nuts at a time into the whites, then roll them in the sugar and spice.",
       "Lift them out with a slotted spoon onto the sheets. Do the rest the same way.",
       "Bake 20 minutes, stirring every 5. Let them cool before serving."
+    ]
+  },
+  {
+    "title": "Penne alla Vodka — Cinelli's",
+    "description": "The original, clipped from the paper: Chef Oscar Morales of Cinelli's Pizzeria. Restaurant portions, and the whole thing in one pan in about a minute.",
+    "cuisine_type": "Italian",
+    "craft": "Mains",
+    "servings": 2,
+    "prep_time_minutes": 10,
+    "cook_time_minutes": 15,
+    "notes": "This is where the recipe came into the family. Gram's big-batch version and Mandy's version both grew out of it — the two of them are written on the facing pages.",
+    "ingredients": [
+      {
+        "name": "Penne pasta",
+        "quantity": 12,
+        "unit": "oz"
+      },
+      {
+        "name": "Olive oil",
+        "quantity": 0,
+        "unit": ""
+      },
+      {
+        "name": "White onion",
+        "quantity": 0.5,
+        "unit": "oz"
+      },
+      {
+        "name": "Pancetta",
+        "quantity": 0.25,
+        "unit": "cup"
+      },
+      {
+        "name": "Vodka",
+        "quantity": 0.5,
+        "unit": "oz"
+      },
+      {
+        "name": "Heavy cream",
+        "quantity": 6,
+        "unit": "oz"
+      },
+      {
+        "name": "Tomato sauce",
+        "quantity": 6,
+        "unit": "oz"
+      },
+      {
+        "name": "Romano cheese, grated",
+        "quantity": 4,
+        "unit": "oz"
+      },
+      {
+        "name": "White pepper",
+        "quantity": 1,
+        "unit": "pinch"
+      },
+      {
+        "name": "Fresh basil",
+        "quantity": 0,
+        "unit": ""
+      }
+    ],
+    "instructions": [
+      "Sauté the onions and pancetta in olive oil until golden brown.",
+      "Add the vodka, heavy cream, tomato sauce and white pepper and cook with the onions and pancetta for a minute.",
+      "Add the Romano and fresh basil, and pour the sauce over the pasta."
+    ]
+  },
+  {
+    "title": "Italian Pignoli Cookies — Clipping",
+    "description": "The printed version Gram kept beside her own: more almond paste, four egg whites, and a full cup of confectioners' sugar.",
+    "cuisine_type": "Italian",
+    "craft": "Sweets",
+    "servings": 30,
+    "prep_time_minutes": 30,
+    "cook_time_minutes": 18,
+    "notes": "A magazine clipping in the binder. Gram's own pignoli recipe, on another page, is smaller and less sweet — half the almond paste and one egg white instead of four.",
+    "ingredients": [
+      {
+        "name": "Almond paste",
+        "quantity": 12,
+        "unit": "oz"
+      },
+      {
+        "name": "Sugar",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Egg whites, divided",
+        "quantity": 4,
+        "unit": ""
+      },
+      {
+        "name": "Confectioners' sugar",
+        "quantity": 1,
+        "unit": "cup"
+      },
+      {
+        "name": "Pine nuts",
+        "quantity": 1.5,
+        "unit": "cup"
+      }
+    ],
+    "instructions": [
+      "Beat the almond paste and sugar together until crumbly, then beat in 2 of the egg whites. Add the confectioners' sugar gradually and mix well.",
+      "Whisk the remaining egg whites in a shallow bowl and put the pine nuts in another.",
+      "Shape the dough into one-inch balls, roll them in the egg white and coat with pine nuts.",
+      "Place 2 inches apart on parchment-lined sheets and flatten slightly.",
+      "Bake at 325°F for 15 to 18 minutes, until lightly browned. Cool a minute before moving to racks, and store airtight."
+    ]
+  },
+  {
+    "title": "Peanut Butter Blossoms — Binder",
+    "description": "The version in Gram's binder, clipped from a Jif and Crisco advertisement: shortening rather than butter, rolled in sugar, a chocolate pressed in the moment they come out.",
+    "cuisine_type": "American",
+    "craft": "Sweets",
+    "servings": 48,
+    "prep_time_minutes": 25,
+    "cook_time_minutes": 12,
+    "notes": "Kept in the binder on a yellow legal pad page. There is already a Peanut Butter Blossoms in the cookbook — this one is here so you can see both and decide which to keep.",
+    "ingredients": [
+      {
+        "name": "Butter-flavour all-vegetable shortening",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Creamy peanut butter",
+        "quantity": 0.5,
+        "unit": "cup"
+      },
+      {
+        "name": "Brown sugar, firmly packed",
+        "quantity": 0.33,
+        "unit": "cup"
+      },
+      {
+        "name": "Granulated sugar",
+        "quantity": 0.33,
+        "unit": "cup"
+      },
+      {
+        "name": "Egg, large",
+        "quantity": 1,
+        "unit": ""
+      },
+      {
+        "name": "Milk",
+        "quantity": 2,
+        "unit": "tbsp"
+      },
+      {
+        "name": "Vanilla extract",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "name": "All-purpose flour",
+        "quantity": 1.75,
+        "unit": "cup"
+      },
+      {
+        "name": "Baking soda",
+        "quantity": 1,
+        "unit": "tsp"
+      },
+      {
+        "name": "Salt",
+        "quantity": 0.5,
+        "unit": "tsp"
+      },
+      {
+        "name": "Sugar, for rolling",
+        "quantity": 0,
+        "unit": ""
+      },
+      {
+        "name": "Milk chocolate pieces, unwrapped",
+        "quantity": 48,
+        "unit": ""
+      }
+    ],
+    "instructions": [
+      "Heat the oven to 375°F.",
+      "Cream the shortening, peanut butter, brown sugar and the granulated sugar together. Add the egg, milk and vanilla and beat well.",
+      "Stir the flour, baking soda and salt together and add to the creamed mixture. Beat on low until a stiff dough forms.",
+      "Shape into one-inch balls and roll them in sugar. Place 2 inches apart on an ungreased sheet.",
+      "Bake 10 to 12 minutes, until golden brown.",
+      "Top each cookie immediately with a chocolate piece, pressing down firmly so the cookie cracks around the edge. Move to racks to cool."
     ]
   }
 ]

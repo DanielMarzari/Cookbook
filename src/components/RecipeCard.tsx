@@ -9,6 +9,7 @@ import { api } from '@/lib/api-client';
 import { formatTime } from '@/lib/utils';
 import { framingStyle } from '@/lib/image';
 import BranchCollage, { BranchTicks, type VariationThumb } from '@/components/BranchCollage';
+import RecipeCardPlate from '@/components/RecipeCardPlate';
 
 const STATUS_ICONS: Record<RecipeStatus, typeof Sparkles> = {
   new: Sparkles,
@@ -120,9 +121,7 @@ export default function RecipeCard({
               })}
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <p className="text-[12.5px] text-text-secondary">no photo yet</p>
-            </div>
+            <RecipeCardPlate recipe={recipe} />
           )}
 
           {/* Signature sits apart from the status controls, top left, because it

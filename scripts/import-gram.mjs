@@ -9,9 +9,8 @@
  * of the pages run together.
  *
  * What is NOT changed is the content. Quantities, temperatures and times are
- * exactly as written. Where a page was ambiguous the recipe says so in its
- * notes rather than being tidied into a guess — her Stollen has pencil
- * adjustments too faint to read, and that is recorded instead of invented.
+ * exactly as written, and where a page was genuinely ambiguous the recipe says
+ * so in its notes rather than being tidied into a guess.
  *
  * Her marginalia is the reason this is worth doing carefully at all, so every
  * handwritten note is kept verbatim in the recipe's notes field: "Rose very
