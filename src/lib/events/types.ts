@@ -48,6 +48,33 @@ export const DIET_CHIPS: DietChip[] = [
   { id: 'alcohol', label: 'Not drinking', blocks: [] },
 ];
 
+/**
+ * What courses are usually called.
+ *
+ * Offered, never imposed: the field stays free text, because a course is called
+ * whatever the host calls it. These are the names that save typing — the
+ * classical European run, the Italian one, and the plain English one — grouped
+ * so a menu keeps one register rather than mixing "Antipasto" with "Pudding".
+ */
+export const COURSE_SETS: { label: string; courses: string[] }[] = [
+  {
+    label: 'Plain',
+    courses: ['To begin', 'Starter', 'Main', 'Side', 'Sweet', 'Cheese', 'Coffee'],
+  },
+  {
+    label: 'Classical',
+    courses: ['Amuse-bouche', 'Hors d\'oeuvre', 'Soup', 'Fish', 'Entrée', 'Main', 'Salad', 'Cheese', 'Dessert', 'Mignardises'],
+  },
+  {
+    label: 'Italian',
+    courses: ['Aperitivo', 'Antipasto', 'Primo', 'Secondo', 'Contorno', 'Formaggi', 'Dolce', 'Caffè'],
+  },
+  {
+    label: 'Tasting',
+    courses: ['Snacks', 'First', 'Second', 'Third', 'Fourth', 'Fifth', 'Pre-dessert', 'Dessert'],
+  },
+];
+
 export interface EventDish {
   id: string;
   event_id: string;

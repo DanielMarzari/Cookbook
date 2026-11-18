@@ -1,0 +1,577 @@
+[
+  {
+    "title": "Gram's Focaccia",
+    "description": "A wet, no-knead focaccia built on four stretch-and-folds. Gram's note says it rose very nice and thick.",
+    "cuisine_type": "Italian",
+    "craft": "Baking",
+    "servings": 12,
+    "prep_time_minutes": 150,
+    "cook_time_minutes": 20,
+    "notes": "In Gram's hand on the page: \"Rose very nice, thick.\" Beside the salt: \"add more salt\" — written, then crossed out again. At the foot of the page: \"Refrigerate overnight after stretch & fold.\"",
+    "ingredients": [
+      { "name": "Bread flour", "quantity": 4, "unit": "cup" },
+      { "name": "Yeast", "quantity": 2, "unit": "tbsp" },
+      { "name": "Warm water", "quantity": 2, "unit": "cup" },
+      { "name": "Salt", "quantity": 2, "unit": "tbsp" },
+      { "name": "Olive oil", "quantity": 2, "unit": "tbsp" },
+      { "name": "Olive oil, for the pan and the top", "quantity": 0, "unit": "" }
+    ],
+    "instructions": [
+      "Put the flour in one bowl. In a second bowl mix the yeast, warm water, salt and oil.",
+      "Add the wet ingredients to the flour and mix well with a spoon. The dough should be wet and sticky rather than smooth.",
+      "Cover and let stand half an hour.",
+      "Wet your hands and stretch and fold the dough about ten times. Cover and rest another half hour. Repeat until you have done four rounds of stretching and folding, resting in between.",
+      "Oil the bottom of a cookie sheet or cake pan and put the dough in. Coat the top with olive oil and let it rest half an hour.",
+      "Using your fingers, dimple the dough and stretch it to fit the pan — try not to pop the bubbles.",
+      "Top as you like and bake at 400°F for 15 to 20 minutes.",
+      "Take it out of the pan and onto a rack to cool."
+    ]
+  },
+  {
+    "title": "Gram's Stollen",
+    "description": "A sweet yeasted Christmas loaf, heavy with dried fruit, candied cherries, pecans and walnuts.",
+    "cuisine_type": "German",
+    "craft": "Baking",
+    "servings": 16,
+    "prep_time_minutes": 180,
+    "cook_time_minutes": 30,
+    "notes": "The sheet carries faint pencil adjustments in the margin that were too light to read with certainty, so they have been left off rather than guessed at. Worth checking the original page before baking.",
+    "ingredients": [
+      { "name": "Milk, scalded and cooled", "quantity": 1, "unit": "cup" },
+      { "name": "Dry active yeast", "quantity": 2, "unit": "packet" },
+      { "name": "Warm water", "quantity": 0.5, "unit": "cup" },
+      { "name": "Sugar", "quantity": 0.33, "unit": "cup" },
+      { "name": "Eggs", "quantity": 2, "unit": "" },
+      { "name": "Honey or Karo syrup", "quantity": 0.33, "unit": "cup" },
+      { "name": "Butter, melted in the warm milk", "quantity": 0.33, "unit": "cup" },
+      { "name": "Flour, more or less as needed", "quantity": 5, "unit": "cup" },
+      { "name": "Dark raisins", "quantity": 1, "unit": "cup", "section": "Fruit and nuts" },
+      { "name": "Golden raisins", "quantity": 1, "unit": "cup", "section": "Fruit and nuts" },
+      { "name": "Pecans", "quantity": 1, "unit": "cup", "section": "Fruit and nuts" },
+      { "name": "Walnuts", "quantity": 1, "unit": "cup", "section": "Fruit and nuts" },
+      { "name": "Dried candied fruit", "quantity": 1, "unit": "cup", "section": "Fruit and nuts" },
+      { "name": "Red and green candied cherries", "quantity": 0.5, "unit": "cup", "section": "Fruit and nuts" }
+    ],
+    "instructions": [
+      "In a large pot, dissolve the yeast in the warm water, add the sugar and let it stand 10 minutes.",
+      "Add the milk, the butter and 2 cups of the flour. Mix well and let it stand until bubbly.",
+      "Add the eggs and honey and mix well.",
+      "Add the remaining flour a cup at a time, until the dough is no longer sticky.",
+      "Cover and let rise.",
+      "Work in the fruit and nuts, form into loaves and let rise again.",
+      "Bake at 325°F for about half an hour, until golden."
+    ]
+  },
+  {
+    "title": "Bobby's Alfredo Sauce",
+    "description": "Four ingredients and no flour. Grandson Bobby's, written out on Gram's own page.",
+    "cuisine_type": "Italian",
+    "craft": "Sub-recipes",
+    "servings": 4,
+    "prep_time_minutes": 5,
+    "cook_time_minutes": 10,
+    "notes": "The page is headed \"from grandson Bobby\". His handwritten sheet adds the detail that the cheese should be Parmigiano — BelGioioso, freshly grated, about 7 oz — and that the pan should cool slightly before the cream goes in.",
+    "ingredients": [
+      { "name": "Garlic cloves, large", "quantity": 2, "unit": "" },
+      { "name": "Butter", "quantity": 4, "unit": "tbsp" },
+      { "name": "Heavy cream", "quantity": 1, "unit": "cup" },
+      { "name": "Parmigiano Reggiano, grated on a microplane", "quantity": 1, "unit": "cup" }
+    ],
+    "instructions": [
+      "Melt the butter and add the garlic, finely chopped.",
+      "Add the cream and simmer.",
+      "Take the pan off the heat and add the cheese, grated on a microplane."
+    ]
+  },
+  {
+    "title": "Bob's Chicken Alfredo",
+    "description": "The alfredo built into a whole dinner — barbecued chicken, fresh pasta cut to linguine, and parsley.",
+    "cuisine_type": "Italian",
+    "craft": "Mains",
+    "servings": 2,
+    "prep_time_minutes": 90,
+    "cook_time_minutes": 25,
+    "notes": "From Bob's handwritten sheet. Fresh pasta ratio: 100 g flour to 1 egg for two servings; 300 g flour to 3 eggs if you are making the full quantity of cream sauce. The dough is ready when it is smooth and presses back, and after resting it should not spring back at all.",
+    "ingredients": [
+      { "name": "Garlic cloves", "quantity": 4, "unit": "", "section": "The sauce" },
+      { "name": "Olive oil", "quantity": 2, "unit": "tbsp", "section": "The sauce" },
+      { "name": "Cold butter", "quantity": 0.5, "unit": "stick", "section": "The sauce" },
+      { "name": "Heavy cream", "quantity": 1, "unit": "pint", "section": "The sauce" },
+      { "name": "Parmigiano, freshly grated", "quantity": 7, "unit": "oz", "section": "The sauce" },
+      { "name": "Chicken breasts", "quantity": 2, "unit": "", "section": "The chicken" },
+      { "name": "Italian dressing", "quantity": 0.25, "unit": "cup", "section": "The chicken" },
+      { "name": "Flour", "quantity": 100, "unit": "g", "section": "The pasta" },
+      { "name": "Egg", "quantity": 1, "unit": "", "section": "The pasta" },
+      { "name": "Flat parsley, to garnish", "quantity": 0, "unit": "", "section": "To finish" }
+    ],
+    "instructions": [
+      "Marinate the chicken in the Italian dressing.",
+      "Make the pasta dough: work the flour and egg together until it is smooth and presses back. Wrap it and rest it in the fridge for an hour, or overnight — it should not bounce back once rested.",
+      "Roll the dough out and cut it to linguine.",
+      "Barbecue the chicken and cut it into thin slices.",
+      "Sauté the garlic in the oil, then add the cold butter.",
+      "When the pan has cooled slightly, add the cream. When the cream warms, add the grated Parmigiano.",
+      "Cook the pasta, dress it with the sauce, top with the sliced chicken and garnish with fresh parsley."
+    ]
+  },
+  {
+    "title": "Gram's Penne alla Vodka",
+    "description": "A big-batch vodka sauce — a quart of cream, pancetta and a whole jar of ragù. The warning on the page is in bold: do not boil it.",
+    "cuisine_type": "Italian",
+    "craft": "Mains",
+    "servings": 10,
+    "prep_time_minutes": 15,
+    "cook_time_minutes": 45,
+    "notes": "The typed page reads \"4 cups raug\" — ragù, the tomato sauce. Gram's conversion note, on a sticky on the facing page: 1 pint = 2 cups, 1 quart = 4 cups, 24 oz = 3 cups, and a 24 oz jar covers one pound of pasta.",
+    "ingredients": [
+      { "name": "Heavy cream", "quantity": 1, "unit": "quart" },
+      { "name": "Ragù or tomato sauce", "quantity": 4, "unit": "cup" },
+      { "name": "Pancetta", "quantity": 0.5, "unit": "lb" },
+      { "name": "Sweet white onion, small", "quantity": 1, "unit": "" },
+      { "name": "Vodka", "quantity": 1, "unit": "oz" },
+      { "name": "Fresh basil", "quantity": 0, "unit": "" },
+      { "name": "Romano cheese, grated by hand", "quantity": 1, "unit": "cup" },
+      { "name": "Penne pasta", "quantity": 2, "unit": "lb" }
+    ],
+    "instructions": [
+      "Dice the onion and pancetta very small.",
+      "Sauté them together until golden brown, then drain the fat.",
+      "Add the vodka and let it cook down.",
+      "Add the tomato sauce and cook 15 to 30 minutes.",
+      "Season with salt, black pepper and basil to taste.",
+      "Add the cream and cook on low heat just until warm. Do not boil it — the cream will spoil.",
+      "Pour three quarters of the sauce over the cooked pasta, cover with half the cheese and serve. Keep the rest of the sauce and cheese to add at the table.",
+      "If you reheat the sauce, do not boil it. Heat it only until very warm."
+    ]
+  },
+  {
+    "title": "Penne alla Vodka — Mandy's Version",
+    "description": "Mandy's hand on the facing page: more vodka, pearl onions instead of diced, three pounds of pasta and lots of cheese.",
+    "cuisine_type": "Italian",
+    "craft": "Mains",
+    "servings": 12,
+    "prep_time_minutes": 15,
+    "cook_time_minutes": 45,
+    "notes": "Written beside a clipping of the original from Chef Oscar Morales at Cinelli's Pizzeria, which is where the recipe came into the family. Mandy's list ends \"Lots of cheese!\"",
+    "ingredients": [
+      { "name": "Heavy cream", "quantity": 1, "unit": "quart" },
+      { "name": "Tomato sauce", "quantity": 4, "unit": "cup" },
+      { "name": "Pancetta", "quantity": 0.5, "unit": "lb" },
+      { "name": "White pearl onions", "quantity": 6, "unit": "" },
+      { "name": "Vodka", "quantity": 4, "unit": "oz" },
+      { "name": "Penne pasta", "quantity": 3, "unit": "lb" },
+      { "name": "Romano cheese, grated", "quantity": 2, "unit": "cup" }
+    ],
+    "instructions": [
+      "Sauté the pancetta and pearl onions until golden, then drain the fat.",
+      "Add the vodka and let it cook down.",
+      "Add the tomato sauce and cook 15 to 30 minutes.",
+      "Add the cream and warm it through without boiling.",
+      "Dress the cooked pasta and finish with plenty of grated Romano."
+    ]
+  },
+  {
+    "title": "Gram's Anisette Biscotti",
+    "description": "One sheet of batter, baked, sliced on an angle and toasted again. Anisette or almond, whichever you are in the mood for.",
+    "cuisine_type": "Italian",
+    "craft": "Sweets",
+    "servings": 36,
+    "prep_time_minutes": 20,
+    "cook_time_minutes": 40,
+    "notes": "In Gram's hand beside the ingredients: \"add almonds + almond filling + 1/4 cup more flour.\" Her own note on the second toasting: use a second cookie sheet so they have room, and watch them so they don't burn.",
+    "ingredients": [
+      { "name": "Butter", "quantity": 1, "unit": "cup" },
+      { "name": "White sugar", "quantity": 1.5, "unit": "cup" },
+      { "name": "Eggs, room temperature", "quantity": 4, "unit": "" },
+      { "name": "Anisette or almond flavoring", "quantity": 3, "unit": "tsp" },
+      { "name": "Flour", "quantity": 2, "unit": "cup" },
+      { "name": "Baking powder", "quantity": 2, "unit": "tsp" }
+    ],
+    "instructions": [
+      "Heat the oven to 350°F and butter and flour a large cookie sheet.",
+      "Melt the butter in a small pan — just melt it, don't let it get hot.",
+      "Beat the eggs, flavoring, butter and sugar until smooth.",
+      "Add the flour and baking powder all at once and mix well.",
+      "Pour the whole batter onto the baking sheet. Don't worry if it doesn't reach the ends — it will spread in the oven.",
+      "Bake until golden, then take it out and cut it into strips, and across on an angle.",
+      "Lay the pieces back on the sheet on their sides and toast again, watching so they don't burn."
+    ]
+  },
+  {
+    "title": "Gram's Russian Tea Balls",
+    "description": "Four ingredients, rolled twice in confectioners' sugar. The shortest recipe in the binder.",
+    "cuisine_type": "American",
+    "craft": "Sweets",
+    "servings": 36,
+    "prep_time_minutes": 15,
+    "cook_time_minutes": 15,
+    "ingredients": [
+      { "name": "Butter, room temperature", "quantity": 1, "unit": "cup" },
+      { "name": "Confectioners' sugar", "quantity": 0.5, "unit": "cup" },
+      { "name": "Flour", "quantity": 2.25, "unit": "cup" },
+      { "name": "Walnuts and pecans, chopped", "quantity": 0.75, "unit": "cup" },
+      { "name": "Confectioners' sugar, for rolling", "quantity": 0, "unit": "" }
+    ],
+    "instructions": [
+      "Work everything together and roll into balls.",
+      "Bake at 350°F until the bottoms are light brown.",
+      "Cool for a few minutes, then roll in confectioners' sugar."
+    ]
+  },
+  {
+    "title": "Gram's Scones",
+    "description": "One base, any fruit — lemon, orange, cranberry, chocolate chip, apricot. The butter stays cold and the dough is barely mixed.",
+    "cuisine_type": "American",
+    "craft": "Baking",
+    "servings": 8,
+    "prep_time_minutes": 45,
+    "cook_time_minutes": 15,
+    "notes": "Gram's own aside on the cream: half a cup, \"or 1 cup for super moist scones\".",
+    "ingredients": [
+      { "name": "Flour", "quantity": 2, "unit": "cup", "section": "Dry" },
+      { "name": "Sugar", "quantity": 4, "unit": "tbsp", "section": "Dry" },
+      { "name": "Baking powder", "quantity": 1, "unit": "tbsp", "section": "Dry" },
+      { "name": "Salt", "quantity": 1, "unit": "pinch", "section": "Dry" },
+      { "name": "Very cold butter, cut in small pieces", "quantity": 1, "unit": "stick", "section": "Dry" },
+      { "name": "Zest from the fruit, lemon or orange", "quantity": 0, "unit": "", "section": "Dry" },
+      { "name": "Fruit, fresh or frozen", "quantity": 1, "unit": "cup", "section": "Dry" },
+      { "name": "Heavy cream", "quantity": 0.5, "unit": "cup", "section": "Wet" },
+      { "name": "Egg", "quantity": 1, "unit": "", "section": "Wet" },
+      { "name": "Extract, whichever you are using", "quantity": 0, "unit": "", "section": "Wet" },
+      { "name": "Flavoring", "quantity": 1, "unit": "tsp", "section": "Icing" },
+      { "name": "Confectioners' sugar", "quantity": 0.5, "unit": "cup", "section": "Icing" }
+    ],
+    "instructions": [
+      "Mix the flour, sugar, baking powder and salt.",
+      "Add the cold butter and the zest and work it in just until it looks like small peas. Do not over mix.",
+      "Add the cup of fruit.",
+      "In another bowl mix the cream, egg and any extract.",
+      "Pour the liquid into the dry mix and stir just until most of it is wet.",
+      "Turn onto a floured surface and shape into a round about the size of a 9 inch dish. Cut it in half both ways, then each quarter in half again.",
+      "Brush with a little heavy cream, sprinkle with sugar if you want, and put on a parchment-lined pan. Refrigerate half an hour.",
+      "Bake at 350°F for 10 to 15 minutes, until golden brown.",
+      "Cool, then top with the icing."
+    ]
+  },
+  {
+    "title": "Gram's Chocolate Mocha Muffins",
+    "description": "Chocolate and espresso, with more pencil on the page than any other recipe in the binder. Marked \"Keep\".",
+    "cuisine_type": "American",
+    "craft": "Baking",
+    "servings": 12,
+    "prep_time_minutes": 15,
+    "cook_time_minutes": 20,
+    "notes": "The page is covered in Gram's working notes. At the top: \"Keep.\" On the cocoa: \"half it — only used 1/4 cup.\" On the espresso: \"double it.\" On the chocolate chips: \"too many — 1/2 package.\" Beside the two sugars: \"may need a little more sugar — Dan said not sweet enough.\" On the baking time: \"depending on pan, 8–10 min if coated.\" And at the foot of the page: \"Mandy said this is good.\"",
+    "ingredients": [
+      { "name": "Flour", "quantity": 2, "unit": "cup", "section": "A" },
+      { "name": "Cocoa powder", "quantity": 0.5, "unit": "cup", "section": "A" },
+      { "name": "Espresso coffee", "quantity": 3, "unit": "tbsp", "section": "A" },
+      { "name": "Baking powder", "quantity": 2, "unit": "tsp", "section": "A" },
+      { "name": "Baking soda", "quantity": 0.5, "unit": "tsp", "section": "A" },
+      { "name": "Chocolate chips or chunks", "quantity": 10, "unit": "oz", "section": "A" },
+      { "name": "Eggs", "quantity": 2, "unit": "", "section": "B" },
+      { "name": "Milk", "quantity": 1, "unit": "cup", "section": "B" },
+      { "name": "Oil", "quantity": 0.75, "unit": "cup", "section": "B" },
+      { "name": "Brown sugar", "quantity": 0.5, "unit": "cup", "section": "B" },
+      { "name": "White sugar", "quantity": 0.5, "unit": "cup", "section": "B" },
+      { "name": "Vanilla", "quantity": 1, "unit": "tsp", "section": "B" }
+    ],
+    "instructions": [
+      "Combine the dry ingredients (A).",
+      "Combine the wet ingredients (B).",
+      "Mix the two together and pour into cupcake liners.",
+      "Top with extra chocolate chips.",
+      "Bake at 350°F for 18 to 20 minutes."
+    ]
+  },
+  {
+    "title": "Gram's Italian Ice",
+    "description": "Boiled syrup, frozen overnight and broken up with a fork. Two ways: a creamy one with powdered milk, or a sharp one with a can of juice.",
+    "cuisine_type": "Italian",
+    "craft": "Sweets",
+    "servings": 12,
+    "prep_time_minutes": 15,
+    "cook_time_minutes": 10,
+    "notes": "The page gives two versions side by side. The first is the creamy one below; the second swaps the powdered milk and flavoring for a 6 oz can of juice.",
+    "ingredients": [
+      { "name": "Water", "quantity": 7.5, "unit": "cup" },
+      { "name": "Sugar", "quantity": 1.5, "unit": "cup" },
+      { "name": "Powdered milk", "quantity": 0.5, "unit": "package" },
+      { "name": "Chocolate or strawberry flavoring, heaping", "quantity": 12, "unit": "tsp" }
+    ],
+    "instructions": [
+      "Bring the water and sugar to a boil.",
+      "Add the flavoring and let it cool.",
+      "Freeze overnight.",
+      "Crush with a fork and a potato masher, and keep frozen."
+    ]
+  },
+  {
+    "title": "Mom's Apple Crisp",
+    "description": "Granny Smiths under graham cracker, oats and brown sugar. Written for a microwave first, with an oven and a stovetop fallback.",
+    "cuisine_type": "American",
+    "craft": "Sweets",
+    "servings": 8,
+    "prep_time_minutes": 20,
+    "cook_time_minutes": 35,
+    "notes": "The sheet is written around Pampered Chef tools — an apple peeler/corer/slicer, a deep dish baker, a batter bowl and a food chopper — but none of them are necessary. Serve warm with whipped cream.",
+    "ingredients": [
+      { "name": "Granny Smith apples", "quantity": 7, "unit": "" },
+      { "name": "Graham crackers, finely chopped", "quantity": 6, "unit": "sheet" },
+      { "name": "Rolled oats", "quantity": 1, "unit": "cup" },
+      { "name": "Brown sugar, packed", "quantity": 1, "unit": "cup" },
+      { "name": "All-purpose flour", "quantity": 1, "unit": "cup" },
+      { "name": "Cinnamon", "quantity": 2, "unit": "tsp" },
+      { "name": "Nutmeg", "quantity": 1, "unit": "tsp" },
+      { "name": "Butter or margarine, melted", "quantity": 2, "unit": "stick" }
+    ],
+    "instructions": [
+      "Peel, core and slice the apples. Cut the slices in half and fill a deep baking dish three quarters full.",
+      "Chop the graham crackers and mix them with the oats, brown sugar, flour, cinnamon, nutmeg and melted butter.",
+      "Layer the crumb mixture over the apples.",
+      "Bake at 350°F for 30 to 35 minutes, or until the apples are tender.",
+      "Cool slightly and serve warm with whipped cream."
+    ]
+  },
+  {
+    "title": "Natasha's Greek Baklava",
+    "description": "Forty sheets of phyllo in four layers, walnut and cinnamon between, and cold syrup poured over it straight out of the oven so it sizzles.",
+    "cuisine_type": "Greek",
+    "craft": "Sweets",
+    "servings": 24,
+    "prep_time_minutes": 60,
+    "cook_time_minutes": 75,
+    "notes": "The syrup must be completely cool and the baklava straight from the oven, or it will not drink it in. Gram underlined \"unsalted\" beside the butter. It needs 5 to 6 hours on the counter afterwards — her words: \"to soak in all the goodness.\"",
+    "ingredients": [
+      { "name": "Sugar", "quantity": 1, "unit": "cup", "section": "Syrup" },
+      { "name": "Lemon juice", "quantity": 2, "unit": "tbsp", "section": "Syrup" },
+      { "name": "Water", "quantity": 0.75, "unit": "cup", "section": "Syrup" },
+      { "name": "Honey", "quantity": 1, "unit": "cup", "section": "Syrup" },
+      { "name": "Walnuts, chopped", "quantity": 4, "unit": "cup", "section": "Nut mixture" },
+      { "name": "Cinnamon", "quantity": 2, "unit": "tsp", "section": "Nut mixture" },
+      { "name": "Phyllo dough, about 40 sheets", "quantity": 1, "unit": "package", "section": "Pastry" },
+      { "name": "Unsalted butter, melted but not browned", "quantity": 1, "unit": "stick", "section": "Pastry" }
+    ],
+    "instructions": [
+      "Defrost the phyllo dough overnight in the fridge.",
+      "Make the syrup first and let it cool completely: boil the sugar, water and lemon juice for 5 minutes, take it off the heat, stir in the honey and set it aside.",
+      "Chop the nuts and mix them with the cinnamon.",
+      "Melt the butter.",
+      "Unroll the phyllo and keep it under a damp — not wet — cloth, covering it again each time you take a sheet. Work fast.",
+      "Butter the bottom of a cake pan. Lay down 10 sheets, buttering each one.",
+      "Add three quarters of a cup of the nut mixture, then 5 more sheets with butter between each. Repeat that — nuts, then 5 buttered sheets — three more times.",
+      "Add the rest of the nut mixture, then finish with 10 more buttered sheets.",
+      "Cut it into triangles before it goes in the oven.",
+      "Bake at 325°F for 1 hour 15 minutes, until golden.",
+      "The moment it comes out, pour the cooled syrup over the whole pan — you will hear it sizzle.",
+      "Leave it on the counter at least 5 to 6 hours before cutting."
+    ]
+  },
+  {
+    "title": "Gram's Pignoli Cookies",
+    "description": "Almond paste, egg white and a cup of pine nuts to roll them in. Gram's own proportions, smaller and less sweet than the printed version beside it.",
+    "cuisine_type": "Italian",
+    "craft": "Sweets",
+    "servings": 24,
+    "prep_time_minutes": 20,
+    "cook_time_minutes": 18,
+    "ingredients": [
+      { "name": "Almond paste", "quantity": 8, "unit": "oz" },
+      { "name": "White sugar", "quantity": 0.25, "unit": "cup" },
+      { "name": "Powdered sugar", "quantity": 0.25, "unit": "cup" },
+      { "name": "Egg white, large", "quantity": 1, "unit": "" },
+      { "name": "Salt", "quantity": 0.125, "unit": "tsp" },
+      { "name": "Almond flour", "quantity": 0.5, "unit": "cup" },
+      { "name": "Pine nuts", "quantity": 1, "unit": "cup" }
+    ],
+    "instructions": [
+      "Work the almond paste, sugars, egg white, salt and almond flour together.",
+      "Roll into inch-and-a-half balls.",
+      "Roll the balls in the pine nuts and flatten them a little so the nuts stick.",
+      "Bake at 350°F for 15 to 18 minutes."
+    ]
+  },
+  {
+    "title": "Moon Shine Cake",
+    "description": "A thirty-day brandied fruit starter, fed with sugar and canned fruit, then baked into three cakes — and the starter passed on in mason jars.",
+    "cuisine_type": "American",
+    "craft": "Sweets",
+    "servings": 36,
+    "prep_time_minutes": 43200,
+    "cook_time_minutes": 70,
+    "notes": "The rules, in the order they are written on the page: keep it in a gallon jar, which will be full by the end; use fruit packed in heavy syrup; stir every day; do not refrigerate; do not screw the top on tight. At the end you divide the juice — a cup and a half each — and pass the starters on in mason jars. The cake freezes, and Gram thought it might come out even better that way.",
+    "ingredients": [
+      { "name": "Sugar", "quantity": 2.5, "unit": "cup", "section": "Day 1" },
+      { "name": "Sliced peaches in heavy syrup, 29 oz can", "quantity": 1, "unit": "", "section": "Day 1" },
+      { "name": "Sugar", "quantity": 2.5, "unit": "cup", "section": "Day 10" },
+      { "name": "Chunked pineapple in heavy syrup, 20 oz can", "quantity": 1, "unit": "", "section": "Day 10" },
+      { "name": "Sugar", "quantity": 2.5, "unit": "cup", "section": "Day 20" },
+      { "name": "Fruit cocktail with juice, 29 oz can", "quantity": 1, "unit": "", "section": "Day 20" },
+      { "name": "Maraschino cherries with juice, 10 oz", "quantity": 1, "unit": "", "section": "Day 20" },
+      { "name": "Yellow cake mix, plain", "quantity": 1, "unit": "box", "section": "Each cake" },
+      { "name": "Instant vanilla pudding, small box", "quantity": 1, "unit": "", "section": "Each cake" },
+      { "name": "Canola or vegetable oil", "quantity": 0.67, "unit": "cup", "section": "Each cake" },
+      { "name": "Eggs", "quantity": 4, "unit": "", "section": "Each cake" },
+      { "name": "Fruit from the jar", "quantity": 2, "unit": "cup", "section": "Each cake" },
+      { "name": "Starter liquid", "quantity": 0.33, "unit": "cup", "section": "Each cake" }
+    ],
+    "instructions": [
+      "Day 1: add 2½ cups sugar and a 29 oz can of sliced peaches with their heavy syrup to the starter.",
+      "Day 10: add 2½ cups sugar and a 20 oz can of chunked pineapple with its syrup.",
+      "Day 20: add 2½ cups sugar, a 29 oz can of fruit cocktail with its juice, and a 10 oz jar of maraschino cherries with their juice.",
+      "Stir every day. Keep it out of the fridge and don't screw the lid down tight.",
+      "Day 30: drain the liquid and let the fruit stand overnight. Divide the fruit into thirds — about 2 cups per cake.",
+      "For each cake, mix the cake mix, pudding, oil, eggs, a third of the fruit and a third of a cup of the starter liquid.",
+      "Pour into a greased Bundt pan and bake at 350°F for 50 to 70 minutes.",
+      "Divide the remaining juice, a cup and a half each, and pass the starters on in mason jars."
+    ]
+  },
+  {
+    "title": "Gram's Tiramisu",
+    "description": "Zabaglione over a double boiler, mascarpone, rum in both the custard and the coffee, and about forty ladyfingers.",
+    "cuisine_type": "Italian",
+    "craft": "Sweets",
+    "servings": 12,
+    "prep_time_minutes": 45,
+    "cook_time_minutes": 15,
+    "notes": "The rum is split: an eighth of a cup into the coffee, an eighth into the custard. Gram's aside on the egg yolks — \"use the whites for something else.\"",
+    "ingredients": [
+      { "name": "Cold espresso coffee", "quantity": 1.5, "unit": "cup" },
+      { "name": "Dark rum", "quantity": 0.25, "unit": "cup" },
+      { "name": "Mascarpone cheese, room temperature", "quantity": 16, "unit": "oz" },
+      { "name": "Egg yolks", "quantity": 6, "unit": "" },
+      { "name": "White sugar", "quantity": 0.67, "unit": "cup" },
+      { "name": "Heavy whipping cream", "quantity": 2, "unit": "cup" },
+      { "name": "Vanilla extract", "quantity": 2, "unit": "tsp" },
+      { "name": "Ladyfingers", "quantity": 40, "unit": "" },
+      { "name": "Cocoa powder, to finish", "quantity": 0, "unit": "" }
+    ],
+    "instructions": [
+      "Make the espresso, stir in an eighth of a cup of the rum and set it aside to cool to room temperature.",
+      "Set up a double boiler — the top pot should sit above the boiling water, not touching it. Put the egg yolks and the sugar in the top pot.",
+      "Cook, whisking, until the mixture turns a lighter yellow and thickens a little. Take it off the heat and let it rest a few minutes.",
+      "Whisk in the mascarpone and the other eighth of a cup of rum.",
+      "Whip the cream with the vanilla to very firm peaks.",
+      "Fold the cream into the cheese mixture.",
+      "Dip the ladyfingers one at a time, quickly, in the coffee and line the bottom of a 9x13 pan.",
+      "Add half the custard, another layer of dipped ladyfingers, then the rest of the custard.",
+      "Refrigerate overnight, or at least 3 hours. Dust with cocoa powder before serving."
+    ]
+  },
+  {
+    "title": "Pattie Flannery's Banana Nut Bread",
+    "description": "A school recipe with a box of instant banana pudding in it, which is what keeps it damp. The page says simply: great.",
+    "cuisine_type": "American",
+    "craft": "Baking",
+    "servings": 10,
+    "prep_time_minutes": 15,
+    "cook_time_minutes": 50,
+    "notes": "Titled on the page \"Pattie Flannery School Banana Nut Bread (GREAT)\", with the words banana nut bread picked out in highlighter.",
+    "ingredients": [
+      { "name": "Flour", "quantity": 2.5, "unit": "cup" },
+      { "name": "Sugar", "quantity": 1, "unit": "cup" },
+      { "name": "Baking powder", "quantity": 3.5, "unit": "tsp" },
+      { "name": "Salt", "quantity": 1, "unit": "tsp" },
+      { "name": "Oil", "quantity": 3, "unit": "tbsp" },
+      { "name": "Milk", "quantity": 0.75, "unit": "cup" },
+      { "name": "Egg", "quantity": 1, "unit": "" },
+      { "name": "Chopped nuts", "quantity": 1, "unit": "cup" },
+      { "name": "Smashed bananas, 3 to 4", "quantity": 1, "unit": "cup" },
+      { "name": "Instant banana pudding", "quantity": 1, "unit": "box" }
+    ],
+    "instructions": [
+      "Grease and flour a loaf pan and heat the oven to 350°F.",
+      "Mix everything together.",
+      "Bake about 50 minutes."
+    ]
+  },
+  {
+    "title": "Gram's Cheesecake",
+    "description": "Sour cream and cream cheese, lightened with beaten whites, started hot and dropped to a moderate oven. The crust is in Gram's hand at the bottom of the page.",
+    "cuisine_type": "American",
+    "craft": "Sweets",
+    "servings": 12,
+    "prep_time_minutes": 25,
+    "cook_time_minutes": 60,
+    "notes": "The crust was added later in pen: 1½ cups graham crumbs, 2 tablespoons sugar, 1 tablespoon brown sugar, 7 tablespoons butter. Her last line is the one that matters — cut around the edges to release it before it cools, or it will crack.",
+    "ingredients": [
+      { "name": "Graham cracker crumbs", "quantity": 1.5, "unit": "cup", "section": "Crust" },
+      { "name": "Sugar", "quantity": 2, "unit": "tbsp", "section": "Crust" },
+      { "name": "Brown sugar", "quantity": 1, "unit": "tbsp", "section": "Crust" },
+      { "name": "Butter", "quantity": 7, "unit": "tbsp", "section": "Crust" },
+      { "name": "Eggs, room temperature", "quantity": 4, "unit": "", "section": "Filling" },
+      { "name": "Sugar", "quantity": 1, "unit": "cup", "section": "Filling" },
+      { "name": "Sour cream", "quantity": 16, "unit": "oz", "section": "Filling" },
+      { "name": "Cream cheese, 8 oz packages", "quantity": 2, "unit": "", "section": "Filling" },
+      { "name": "Flour", "quantity": 1, "unit": "tbsp", "section": "Filling" }
+    ],
+    "instructions": [
+      "Mix the crust ingredients and press them around a buttered tin.",
+      "Separate the eggs. Beat the whites with ¼ cup of the sugar until stiff.",
+      "In a separate bowl, blend the yolks and the remaining ¾ cup sugar with the cream cheese.",
+      "Add the sour cream and flour and beat until smooth.",
+      "Fold in the egg whites with a spatula.",
+      "Heat the oven to 450°F, then reduce it to 350°F.",
+      "Bake 45 minutes to an hour.",
+      "Cut around the edges to release it before it cools."
+    ]
+  },
+  {
+    "title": "Twice Baked Potatoes",
+    "description": "Russets baked, scooped, mashed with sour cream, bacon and cheddar, and sent back into the oven in their own skins.",
+    "cuisine_type": "American",
+    "craft": "Sides",
+    "servings": 16,
+    "prep_time_minutes": 20,
+    "cook_time_minutes": 110,
+    "notes": "Clipped from a Penzeys catalogue and kept in the binder. The margin note on the salt says Jenny uses grey sea salt.",
+    "ingredients": [
+      { "name": "Large russet potatoes", "quantity": 8, "unit": "" },
+      { "name": "Olive oil", "quantity": 0, "unit": "" },
+      { "name": "Salt", "quantity": 0.5, "unit": "tsp" },
+      { "name": "Butter, melted", "quantity": 0.5, "unit": "cup" },
+      { "name": "Milk", "quantity": 0.5, "unit": "cup" },
+      { "name": "Sour cream", "quantity": 0.5, "unit": "cup" },
+      { "name": "Bacon, fried and crumbled", "quantity": 0.5, "unit": "lb" },
+      { "name": "Shredded cheddar or marble cheddar", "quantity": 2, "unit": "cup" },
+      { "name": "Freshly ground pepper", "quantity": 0.5, "unit": "tsp" },
+      { "name": "Green goddess salad dressing mix", "quantity": 1, "unit": "tsp" },
+      { "name": "Smoked Spanish paprika", "quantity": 0.5, "unit": "tsp" }
+    ],
+    "instructions": [
+      "Heat the oven to 350°F. Scrub the potatoes, pat them dry and pierce them with a fork.",
+      "Rub them generously with olive oil, set them on a foil-lined sheet and salt them all over.",
+      "Bake 60 to 90 minutes, until tender to a fork. Let them cool 10 to 15 minutes.",
+      "Halve them lengthwise and scoop the flesh into a bowl, keeping the skins intact. Lay the skins back on the sheet.",
+      "Mash the potato with the butter until smooth, then blend in the milk and sour cream.",
+      "Mix in the bacon, cheese, pepper, dressing mix and paprika. The mixture should be slightly stiff — it loosens as it bakes.",
+      "Fill the skins and bake at 350°F for 25 to 30 minutes, until lightly browned. Broil the last 5 minutes for more colour."
+    ]
+  },
+  {
+    "title": "Spiced Nuts",
+    "description": "Pecans and almonds turned in beaten egg white, rolled in cinnamon sugar and baked low and slow.",
+    "cuisine_type": "American",
+    "craft": "Sweets",
+    "servings": 8,
+    "prep_time_minutes": 15,
+    "cook_time_minutes": 20,
+    "notes": "A page torn from a children's colonial cookbook and kept in the binder — the instructions are written for a child with an adult helping.",
+    "ingredients": [
+      { "name": "Sugar", "quantity": 1, "unit": "cup" },
+      { "name": "Cinnamon", "quantity": 4, "unit": "tbsp" },
+      { "name": "Nutmeg", "quantity": 0.25, "unit": "tsp" },
+      { "name": "Eggs", "quantity": 2, "unit": "" },
+      { "name": "Pecans", "quantity": 1, "unit": "cup" },
+      { "name": "Almonds", "quantity": 1, "unit": "cup" }
+    ],
+    "instructions": [
+      "Heat the oven to 300°F and grease two cookie sheets.",
+      "Mix the sugar, cinnamon and nutmeg in a small bowl.",
+      "Separate the egg whites into another bowl and beat them with a fork.",
+      "Stir a few nuts at a time into the whites, then roll them in the sugar and spice.",
+      "Lift them out with a slotted spoon onto the sheets. Do the rest the same way.",
+      "Bake 20 minutes, stirring every 5. Let them cool before serving."
+    ]
+  }
+]

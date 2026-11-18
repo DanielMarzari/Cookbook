@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import MenuCard from './MenuCard';
 import { MENU_STYLES, MENU_STOCKS } from '@/lib/events/styles';
 import {
-  DIET_CHIPS, DIET_TAGS, coverage, coverageSummary, toCourses,
+  DIET_CHIPS, DIET_TAGS, COURSE_SETS, coverage, coverageSummary, toCourses,
 } from '@/lib/events/types';
 import type { DietTag, DinnerEvent, EventDish, EventGuest } from '@/lib/events/types';
 import { formatDateLong } from '@/lib/events/format';
@@ -196,6 +196,13 @@ export default function EventEditor({
     );
   }
 
+  /** Name every course from one set, in order, as far as the set goes. */
+  function applyCourseSet(courses: string[]) {
+    const order = [...new Set(dishes.map((d) => d.course_index))].sort((a, b) => a - b);
+    const name = new Map(order.map((ci, i) => [ci, courses[i] ?? '']));
+    setDishes((ds) => ds.map((d) => ({ ...d, course_name: name.get(d.course_index) ?? d.course_name })));
+  }
+
   function setChoice(courseIndex: number, on: boolean) {
     setDishes((ds) => ds.map((d) => (d.course_index === courseIndex ? { ...d, is_choice: on } : d)));
   }
@@ -205,6 +212,15 @@ export default function EventEditor({
       {/* One list for every dish field. Rendering it per row gave eight
           elements the same id, which is invalid and leaves the browser to
           pick one. */}
+      {/* Suggestions only — a course is called whatever you call it, so the
+          field stays free text and this just saves typing. Grouped by register
+          so a menu does not end up mixing "Antipasto" with "Pudding". */}
+      <datalist id="event-courses">
+        {COURSE_SETS.flatMap((set) => set.courses).filter((c, i, a) => a.indexOf(c) === i).map((c) => (
+          <option key={c} value={c} />
+        ))}
+      </datalist>
+
       <datalist id="event-recipes">
         {recipes.map((r) => (
           <option key={r.id} value={r.title} />
@@ -336,6 +352,23 @@ export default function EventEditor({
               arriving together is not a decision.
             </p>
 
+            {courseIndices.length > 0 && (
+              <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2 mb-5">
+                <span className="text-[11.5px] text-text-secondary">Name them</span>
+                {COURSE_SETS.map((set) => (
+                  <button
+                    key={set.label}
+                    onClick={() => applyCourseSet(set.courses)}
+                    title={set.courses.slice(0, 6).join(' · ')}
+                    className="text-[12px] text-text-secondary hover:text-text underline underline-offset-4 decoration-1"
+                  >
+                    {set.label}
+                  </button>
+                ))}
+                <span className="text-[11.5px] text-text-secondary">— or write your own</span>
+              </div>
+            )}
+
             <div className="flex flex-col gap-6">
               {courseIndices.map((ci) => {
                 const inCourse = dishes.filter((d) => d.course_index === ci);
@@ -385,6 +418,7 @@ export default function EventEditor({
                         ⠿
                       </span>
                       <input
+                        list="event-courses"
                         value={inCourse[0]?.course_name ?? ''}
                         onChange={(e) => renameCourse(ci, e.target.value)}
                         placeholder="Course name"
