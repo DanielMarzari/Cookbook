@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { recipeFamily, type IngredientLine } from '@/lib/variations';
 import { mergeIngredients, mergeInstructions, describeCascade, type BranchReport } from '@/lib/cascade';
+import { archiveRecipe } from '@/lib/archive';
 import type { InstructionStep } from '@/lib/types';
 
 /**
@@ -84,6 +85,10 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
           report.skipped = merged.skipped;
 
           if (merged.added.length || merged.updated.length || merged.removed.length) {
+            // Snapshot before overwriting. A cascade rewrites work that was typed
+            // by hand into each branch, and until now it was the one destructive
+            // operation here with no way back.
+            archiveRecipe(db, v.id, 'cascade');
             wipe.run(v.id);
             merged.ingredients.forEach((ing, i) => {
               insert.run({
@@ -107,6 +112,10 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
         if (applyInstructions && beforeSteps.length) {
           const merged = mergeInstructions(beforeSteps, afterSteps, parseSteps(v.id));
           if (merged.instructions) {
+            // Only archive once per branch, even when both halves cascade.
+            if (!report.added.length && !report.updated.length && !report.removed.length) {
+              archiveRecipe(db, v.id, 'cascade');
+            }
             setSteps.run(JSON.stringify(merged.instructions), new Date().toISOString(), v.id);
             report.stepsUpdated = true;
           }

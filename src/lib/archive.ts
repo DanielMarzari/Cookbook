@@ -14,7 +14,7 @@ type DB = Database.Database;
 
 export const ARCHIVE_TTL_HOURS = 24;
 
-export type ArchiveReason = 'delete' | 'promote-section' | 'commit-draft' | 'discard-draft';
+export type ArchiveReason = 'delete' | 'promote-section' | 'commit-draft' | 'discard-draft' | 'cascade';
 
 export interface ArchivedRecipe {
   id: number;

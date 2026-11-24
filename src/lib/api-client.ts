@@ -101,6 +101,13 @@ export const api = {
       fetchJson<{ ok: boolean; baseId: string; child: string; broughtCount: number; brought: string[] }>(`/api/recipes/${id}/adopt`, { method: 'POST', body: { childId, label } }),
     detach: (id: string, childId: string) =>
       fetchJson<{ ok: boolean; detached: boolean }>(`/api/recipes/${id}/adopt`, { method: 'POST', body: { childId, detach: true } }),
+    // What a branch is called inside its family — the word on the version chip,
+    // not the recipe's title. '' clears it.
+    setLabel: (id: string, label: string) =>
+      fetchJson<{ ok: boolean; id: string; title: string; label: string | null }>(
+        `/api/recipes/${id}/label`,
+        { method: 'POST', body: { label } }
+      ),
     promoteSection: (id: string, section: string, title?: string) =>
       fetchJson<{ recipe: Recipe; movedIngredients: number; movedSteps: number }>(
         `/api/recipes/${id}/promote-section`,

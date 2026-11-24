@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { api } from '@/lib/api-client';
 import { formatTime } from '@/lib/utils';
 import { framingStyle } from '@/lib/image';
-import BranchCollage, { BranchTicks, type VariationThumb } from '@/components/BranchCollage';
+import BranchCollage, { BranchTicks, familyPanes, type VariationThumb } from '@/components/BranchCollage';
 import RecipeCardPlate from '@/components/RecipeCardPlate';
 
 const STATUS_ICONS: Record<RecipeStatus, typeof Sparkles> = {
@@ -90,6 +90,11 @@ export default function RecipeCard({
   ];
   const variations: VariationThumb[] =
     ((recipe as unknown as { variations?: VariationThumb[] }).variations) || [];
+  // How many DIFFERENT pictures the family has, which is what decides whether
+  // the tile divides at all. A family sharing one photo gets one undivided
+  // photo, and a family with none falls through to the typeset plate rather
+  // than to a grid of empty grey cells.
+  const panes = variations.length > 0 ? familyPanes(recipe, variations) : [];
   const metaParts = [
     recipe.total_time_minutes ? formatTime(recipe.total_time_minutes) : null,
     recipe.servings ? `serves ${recipe.servings}` : null,
@@ -100,7 +105,7 @@ export default function RecipeCard({
       <article className="group cursor-pointer">
         {/* Tall image, honoring the recipe's framing (pan / zoom / rotate) */}
         <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#F4F4F4]">
-          {variations.length > 0 ? (
+          {panes.length > 0 ? (
             <>
               <BranchCollage base={recipe} variations={variations} />
               <span className="absolute left-3 bottom-3 bg-white/95 border border-border px-2 py-[3px] text-[9px] uppercase tracking-[0.1em] text-text-secondary">

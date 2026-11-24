@@ -7,6 +7,15 @@ interface AskOptions {
   hint?: string;
   defaultValue?: string;
   confirmLabel?: string;
+  /**
+   * Let an empty field through as an answer of "".
+   *
+   * Off by default, because for most of these questions a blank box is someone
+   * changing their mind, and resolving null is the right reading of it. But for
+   * a field that already has a value, emptying it and confirming is how you
+   * clear it — and treating that as a cancel makes the value unremovable.
+   */
+  allowEmpty?: boolean;
 }
 
 type Ask = (opts: AskOptions) => Promise<string | null>;
@@ -62,7 +71,10 @@ export function PromptProvider({ children }: { children: React.ReactNode }) {
           onMouseDown={(e) => { if (e.target === e.currentTarget) close(null); }}
         >
           <form
-            onSubmit={(e) => { e.preventDefault(); close(value.trim() || null); }}
+            onSubmit={(e) => {
+              e.preventDefault();
+              close(state.opts.allowEmpty ? value.trim() : value.trim() || null);
+            }}
             className="bg-white border border-text w-full max-w-[420px] p-6"
           >
             <h2 className="text-[17px] tracking-[-0.01em] mb-1">{state.opts.title}</h2>
@@ -80,7 +92,7 @@ export function PromptProvider({ children }: { children: React.ReactNode }) {
                 className="tlink text-[13px] text-text-secondary hover:text-text">
                 Cancel
               </button>
-              <button type="submit" disabled={!value.trim()}
+              <button type="submit" disabled={!state.opts.allowEmpty && !value.trim()}
                 className="px-4 py-2 border border-text text-[13px] hover:bg-text hover:text-white transition-colors disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:text-text">
                 {state.opts.confirmLabel || 'Save'}
               </button>

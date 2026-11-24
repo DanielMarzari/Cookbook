@@ -138,6 +138,37 @@ export default function RecipeVersionsPage() {
     }
   };
 
+  /**
+   * Rename what this branch is called within the family.
+   *
+   * Not the recipe's title — the short word the version chips read, which until
+   * now was written once when the branch was created and then stuck. A branch
+   * that stopped being marsala and became walnut went on saying marsala
+   * everywhere the family is listed.
+   */
+  const relabel = async (branchId: string, branchTitle: string, current: string | null) => {
+    const label = await ask({
+      title: `What is this branch called?`,
+      hint:
+        `The short name the family uses for ${branchTitle} — it is what the version chips on the ` +
+        `recipe read. Leave it empty and the chip falls back to the recipe's own title.`,
+      defaultValue: current || '',
+      confirmLabel: 'Rename',
+      allowEmpty: true,
+    });
+    if (label === null) return;
+    setBusy(true);
+    try {
+      const res = await api.recipes.setLabel(branchId, label);
+      toast.success(res.label ? `Now called "${res.label}"` : 'Label cleared');
+      load();
+    } catch {
+      toast.error('Could not rename that branch');
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const commit = async (mode: 'update' | 'branch') => {
     if (busy) return;
     let title: string | undefined;
@@ -291,6 +322,23 @@ export default function RecipeVersionsPage() {
             branch {pad(cur + 1)} of {pad(versions.length)}{active.isBase ? ' · base' : ''}
           </p>
           <h1 className="text-[26px] tracking-[-0.01em] mt-2 mb-1">{active.title}</h1>
+          {/* The branch's name within the family, shown where it can be changed.
+              It is the word the version chips read, so it is worth being able to
+              correct without renaming the recipe. */}
+          {!active.isBase && (
+            <p className="text-[12.5px] text-text-secondary mb-2">
+              called{' '}
+              <button
+                onClick={() => relabel(active.id, active.title, active.label)}
+                disabled={busy}
+                className="text-text underline underline-offset-4 decoration-1 disabled:opacity-40"
+                title="Rename this branch within the family"
+              >
+                {active.label || 'nothing in particular'}
+              </button>{' '}
+              in this family
+            </p>
+          )}
           {/* Marks apply to this branch alone. Keyed by id so moving down the
               rail remounts them with that branch's own state. */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-2">

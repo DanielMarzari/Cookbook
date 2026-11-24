@@ -247,9 +247,38 @@ export default function EditRecipePage() {
   // Recipes that can be used as an ingredient here (anything but this one).
   // The family this recipe belongs to, so its branches are reachable while editing.
   const [family, setFamily] = useState<Awaited<ReturnType<typeof api.recipes.family>> | null>(null);
-  useEffect(() => {
+  const loadFamily = useCallback(() => {
     api.recipes.family(id).then((f) => setFamily(f.isBranched ? f : null)).catch(() => setFamily(null));
   }, [id]);
+  useEffect(loadFamily, [loadFamily]);
+
+  /**
+   * Rename what a branch is called inside the family — the second line in the
+   * rail beside this editor, which is the list you are looking at when you
+   * notice that the branch you turned into walnut still says marsala.
+   */
+  const relabelBranch = useCallback(
+    async (branchId: string, branchTitle: string, current: string | null) => {
+      const label = await ask({
+        title: 'What is this branch called?',
+        hint:
+          `The short name the family uses for ${branchTitle}. It is this list and the version ` +
+          `chips on the recipe, not the recipe's own title. Leave it empty to fall back to the title.`,
+        defaultValue: current || '',
+        confirmLabel: 'Rename',
+        allowEmpty: true,
+      });
+      if (label === null) return;
+      try {
+        const res = await api.recipes.setLabel(branchId, label);
+        toast.success(res.label ? `Now called "${res.label}"` : 'Label cleared');
+        loadFamily();
+      } catch {
+        toast.error('Could not rename that branch');
+      }
+    },
+    [ask, loadFamily],
+  );
 
   useEffect(() => {
     api.sources.list().then((r) => setSourceList(r.sources)).catch(() => {});
@@ -557,24 +586,41 @@ export default function EditRecipePage() {
               <h2 className="text-[12.5px] text-text-secondary">This recipe branches</h2>
               <span className="text-[12.5px] text-text-secondary tabular-nums">{String(family.count + 1).padStart(2, '0')}</span>
             </div>
-            {[{ id: family.base.id, title: family.base.title, label: 'base' },
-              ...family.variations.map((v) => ({ id: v.id, title: v.title, label: v.variation_of_label || 'variation' }))
+            {[{ id: family.base.id, title: family.base.title, label: null as string | null, isBase: true },
+              ...family.variations.map((v) => ({ id: v.id, title: v.title, label: v.variation_of_label, isBase: false }))
             ].map((v) => {
               const here = v.id === id;
               return (
-                <Link
+                <div
                   key={v.id}
-                  href={`/recipes/${v.id}/edit`}
-                  aria-current={here}
-                  className={`block py-2.5 pl-3 border-b border-border last:border-b-0 border-l transition-colors ${
+                  className={`py-2.5 pl-3 border-b border-border last:border-b-0 border-l transition-colors ${
                     here ? 'border-l-text' : 'border-l-transparent'
                   }`}
                 >
-                  <span className={`block text-[13.5px] leading-[1.32] ${here ? 'text-text underline underline-offset-4 decoration-1' : 'text-text-secondary hover:text-text'}`}>
+                  <Link
+                    href={`/recipes/${v.id}/edit`}
+                    aria-current={here}
+                    className={`block text-[13.5px] leading-[1.32] ${here ? 'text-text underline underline-offset-4 decoration-1' : 'text-text-secondary hover:text-text'}`}
+                  >
                     {v.title}
-                  </span>
-                  <span className="block text-[11.5px] text-text-secondary mt-[3px]">{v.label}</span>
-                </Link>
+                  </Link>
+                  {/* The second line is the branch's name within the family, and
+                      it is editable in place — this is the list you are reading
+                      when you notice it is wrong. The base has no such name; it
+                      is just the base. */}
+                  {v.isBase ? (
+                    <span className="block text-[11.5px] text-text-secondary mt-[3px]">base</span>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => relabelBranch(v.id, v.title, v.label)}
+                      title="Rename this branch within the family"
+                      className="block text-[11.5px] text-text-secondary mt-[3px] hover:text-text underline underline-offset-[3px] decoration-dotted decoration-border"
+                    >
+                      {v.label || 'variation'}
+                    </button>
+                  )}
+                </div>
               );
             })}
             <p className="text-[11.5px] text-text-secondary mt-4 leading-[1.5]">
@@ -1184,6 +1230,10 @@ export default function EditRecipePage() {
           <CascadePanel
             recipeId={id}
             before={cascadeBase}
+            staged={target === 'draft'}
+            // The server measures the push against what is on disk, so the
+            // pending autosave has to land before it looks.
+            onBeforePush={doAutosave}
             onPushed={() => {
               // The branches now match the current base, so the baseline moves
               // up: pressing again finds nothing rather than re-applying.
