@@ -98,8 +98,11 @@ export default function RecipeDetailPage() {
   const [error, setError] = useState<string | null>(null);
   const [isFavorite, setIsFavorite] = useState(false);
   const [duplicating, setDuplicating] = useState(false);
-  // Which version of a branched recipe is being read. null = the base, as served.
+  // Which version of a branched recipe is being read. null = the recipe this
+  // page was opened as, which is not always the base — open a branch directly
+  // and that branch is what null means.
   const [version, setVersion] = useState<ActiveVersion | null>(null);
+  const [versionPhotos, setVersionPhotos] = useState<RecipePhoto[] | null>(null);
   const [nutrition, setNutrition] = useState<NutritionCalculation | null>(null);
   const [imageRotation, setImageRotation] = useState(0);
   const [recipeIngredients, setRecipeIngredients] = useState<RecipeIngredient[]>([]);
@@ -154,24 +157,48 @@ export default function RecipeDetailPage() {
     fetchRecipe();
   }, [id]);
 
-  // Load persisted unit system + checked-off state for this recipe.
+  // The id of whatever version is on screen. Everything that belongs to a
+  // recipe rather than to a family hangs off this: what you tick off, what you
+  // favourite, what Edit opens, what a cook log is logged against.
+  const shownId = version?.id ?? id;
+
+  // The heart in the header marks whatever is on screen, so it has to follow
+  // the version rather than stay on the recipe the URL names.
+  useEffect(() => {
+    if (version) setIsFavorite(Boolean(version.is_favorite));
+    else if (recipe) setIsFavorite(Boolean(recipe.is_favorite));
+  }, [version, recipe]);
+
+  // Switching versions brings that version's gallery with it. The hero picture
+  // and everything above it arrive with the family, so only this needs a
+  // request, and it is far below the fold by the time it lands.
+  useEffect(() => {
+    if (!version) { setVersionPhotos(null); return; }
+    let live = true;
+    api.recipePhotos.list(version.id)
+      .then((p) => { if (live) setVersionPhotos(p || []); })
+      .catch(() => { if (live) setVersionPhotos([]); });
+    return () => { live = false; };
+  }, [version]);
+
+  // Load persisted unit system + checked-off state. The ticks are per version:
+  // the base's half-ticked list has nothing to say about the branch you just
+  // switched to, and carrying it over would tick off lines that aren't there.
   useEffect(() => {
     try {
       const savedSystem = localStorage.getItem('cookbook:unitSystem') as UnitSystem | null;
       if (savedSystem) setUnitSystem(savedSystem);
-      const raw = localStorage.getItem(`cookbook:checked:${id}`);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        setCheckedIngredients(new Set<number>(parsed.ingredients || []));
-        setCheckedSteps(new Set<number>(parsed.steps || []));
-      }
+      const raw = localStorage.getItem(`cookbook:checked:${shownId}`);
+      const parsed = raw ? JSON.parse(raw) : {};
+      setCheckedIngredients(new Set<number>(parsed.ingredients || []));
+      setCheckedSteps(new Set<number>(parsed.steps || []));
     } catch { /* ignore corrupt storage */ }
-  }, [id]);
+  }, [shownId]);
 
   const persistChecked = (ingredients: Set<number>, steps: Set<number>) => {
     try {
       localStorage.setItem(
-        `cookbook:checked:${id}`,
+        `cookbook:checked:${shownId}`,
         JSON.stringify({ ingredients: [...ingredients], steps: [...steps] })
       );
     } catch { /* ignore */ }
@@ -212,17 +239,19 @@ export default function RecipeDetailPage() {
       }
 
       // Skip section headers and OR dividers; carry category from a matched
-      // library ingredient so the grocery list stays aisle-grouped.
-      const realIngredients = recipeIngredients.filter(
+      // library ingredient so the grocery list stays aisle-grouped. These are
+      // the lines on screen, not the base's — shopping for a recipe you aren't
+      // looking at is the sort of thing you only discover at the shop.
+      const realIngredients = (version?.ingredients ?? recipeIngredients).filter(
         (ing) => ing.name && !ing.name.startsWith('---')
-      );
+      ) as RecipeIngredient[];
 
       await Promise.all(
         realIngredients.map((ing) => {
           const match = matchIngredient(ing, allIngredients);
           return api.groceryListItems.create({
             list_id: list!.id,
-            recipe_id: recipe.id,
+            recipe_id: shownId,
             ingredient_id: match?.id || undefined,
             name: titleCaseIngredient(ing.name),
             quantity: ing.quantity || 1,
@@ -246,7 +275,7 @@ export default function RecipeDetailPage() {
     if (!recipe) return;
     try {
       const newFavorite = !isFavorite;
-      await api.recipes.update(recipe.id, { is_favorite: newFavorite });
+      await api.recipes.update(shownId, { is_favorite: newFavorite });
       setIsFavorite(newFavorite);
     } catch (err) {
       console.error('Error updating favorite:', err);
@@ -259,7 +288,7 @@ export default function RecipeDetailPage() {
     if (!recipe || duplicating) return;
     setDuplicating(true);
     try {
-      const copy = await api.recipes.duplicate(recipe.id);
+      const copy = await api.recipes.duplicate(shownId);
       toast.success(`Created "${copy.title}"`);
       router.push(`/recipes/${copy.id}/edit`);
     } catch (err) {
@@ -276,7 +305,10 @@ export default function RecipeDetailPage() {
     setBranching(false);
     setDuplicating(true);
     try {
-      const v = await api.recipes.branch(recipe.id, name, name.split('—').pop()?.trim().toLowerCase());
+      // Branching from a branch forks the branch you are reading — the
+      // duplicate route hangs it off the same stem, so it lands as a sibling
+      // rather than making the family two levels deep.
+      const v = await api.recipes.branch(shownId, name, name.split('—').pop()?.trim().toLowerCase());
       toast.success(`Branched "${v.title}"`);
       router.push(`/recipes/${v.id}/edit`);
     } catch (err) {
@@ -312,10 +344,10 @@ export default function RecipeDetailPage() {
     if (!recipe || duplicating) return;
     setDuplicating(true);
     try {
-      const { current } = await api.recipes.getDraft(recipe.id);
-      await api.recipes.saveDraft(recipe.id, current);
+      const { current } = await api.recipes.getDraft(shownId);
+      await api.recipes.saveDraft(shownId, current);
       toast.success('Started a draft — edits stay staged until you commit');
-      router.push(`/recipes/${recipe.id}/edit`);
+      router.push(`/recipes/${shownId}/edit`);
     } catch (err) {
       console.error('Error starting draft:', err);
       toast.error('Failed to start a draft');
@@ -323,13 +355,18 @@ export default function RecipeDetailPage() {
     }
   };
 
+  // Deletes whatever is on screen. Reading a branch and pressing Delete has to
+  // remove that branch, not the stem it hangs off — the confirm names it so
+  // there is no doubt which one is going.
   const handleDeleteRecipe = async () => {
     if (!recipe) return;
-    if (!confirm(`Are you sure you want to delete "${recipe.title}"? This cannot be undone.`)) return;
+    const title = version?.title ?? recipe.title;
+    if (!confirm(`Are you sure you want to delete "${title}"? This cannot be undone.`)) return;
     try {
-      await api.recipes.delete(recipe.id);
-      toast.success(`Deleted "${recipe.title}"`);
-      router.push('/');
+      await api.recipes.delete(shownId);
+      toast.success(`Deleted "${title}"`);
+      if (version) { setVersion(null); router.refresh(); }
+      else router.push('/');
     } catch (err) {
       console.error('Error deleting recipe:', err);
       toast.error('Failed to delete recipe');
@@ -363,27 +400,82 @@ export default function RecipeDetailPage() {
     );
   }
 
-  // A branched recipe renders whichever version is selected; the base is what the
-  // page loaded with, so `version === null` costs nothing and changes nothing.
+  /**
+   * The version on screen, as one recipe.
+   *
+   * Picking a branch used to rewrite only the ingredient lines, on the theory
+   * that a variation is three lines different and reprinting the whole recipe
+   * hides that. What it actually produced was the rose cardamom ingredients
+   * under the vanilla photograph and the vanilla title, which reads as a bug.
+   * So everything below renders from `shown`, and the only thing still
+   * expressed relative to the base is which lines changed.
+   */
+  const shown = version
+    ? {
+        id: version.id,
+        title: version.title,
+        cuisine_type: version.cuisine_type,
+        image_url: version.image_url,
+        image_position: version.image_position,
+        image_zoom: version.image_zoom,
+        image_rotation: version.image_rotation ?? 0,
+        description: version.description,
+        notes: version.notes,
+        servings: version.servings,
+        total_time_minutes: version.total_time_minutes,
+        yield_quantity: version.yield_quantity,
+        yield_unit: version.yield_unit,
+        difficulty: version.difficulty,
+        status: version.status,
+        source_url: version.source_url,
+        sourceLabel: version.source_name,
+      }
+    : {
+        id: recipe.id,
+        title: recipe.title,
+        cuisine_type: recipe.cuisine_type,
+        image_url: recipe.image_url ?? null,
+        image_position: recipe.image_position ?? null,
+        image_zoom: recipe.image_zoom ?? null,
+        image_rotation: imageRotation,
+        description: recipe.description ?? null,
+        notes: recipe.notes ?? null,
+        servings: recipe.servings ?? null,
+        total_time_minutes: recipe.total_time_minutes ?? null,
+        yield_quantity: recipe.yield_quantity ?? null,
+        yield_unit: recipe.yield_unit ?? null,
+        difficulty: recipe.difficulty ?? null,
+        status: recipe.status ?? null,
+        source_url: recipe.source_url ?? null,
+        sourceLabel: recipe.source?.name ?? recipe.source_name ?? null,
+      };
+
   const shownIngredients = (version?.ingredients ?? recipeIngredients) as typeof recipeIngredients;
   const shownSteps = version?.instructions ?? recipe.instructions ?? [];
   const changedKeys = new Set(version?.changedKeys ?? []);
   // Nutrition follows the version on screen — a variation that swaps butter for
   // oil is a different plate, and showing the base's numbers under it would lie.
+  // Its own serving count divides it, too, since a half batch is not half a
+  // portion.
   const shownNutrition = version
-    ? computeNutrition({ ...recipe, servings: recipe.servings }, shownIngredients as RecipeIngredient[], allIngredients)
+    ? computeNutrition(
+        { ...recipe, servings: version.servings ?? recipe.servings },
+        shownIngredients as RecipeIngredient[],
+        allIngredients,
+      )
     : nutrition;
+  const shownPhotos = version ? versionPhotos ?? [] : photos;
   const lineKey = (i: { name: string; section?: string | null }) =>
     `${(i.section || '').toLowerCase()}|${i.name.toLowerCase()}`;
 
   const metaParts = [
-    recipe.total_time_minutes ? formatTime(recipe.total_time_minutes) : null,
-    recipe.servings ? `serves ${recipe.servings}` : null,
+    shown.total_time_minutes ? formatTime(shown.total_time_minutes) : null,
+    shown.servings ? `serves ${shown.servings}` : null,
     // what a batch makes — the number other recipes scale against
-    recipe.yield_quantity ? `makes ${formatQuantity(recipe.yield_quantity, recipe.yield_unit || '')}` : null,
-    recipe.difficulty,
-    recipe.status && recipe.status !== 'new' ? recipe.status : null,
-    recipe.source?.name ? `via ${recipe.source.name}` : recipe.source_name ? `via ${recipe.source_name}` : null,
+    shown.yield_quantity ? `makes ${formatQuantity(shown.yield_quantity, shown.yield_unit || '')}` : null,
+    shown.difficulty,
+    shown.status && shown.status !== 'new' ? shown.status : null,
+    shown.sourceLabel ? `via ${shown.sourceLabel}` : null,
   ].filter(Boolean);
 
   return (
@@ -401,7 +493,7 @@ export default function RecipeDetailPage() {
           >
             <Heart size={17} strokeWidth={1.8} className={isFavorite ? 'fill-text text-text' : ''} />
           </button>
-          <button onClick={() => router.push(`/recipes/${id}/edit`)} className="tlink text-text-secondary hover:text-text">Edit</button>
+          <button onClick={() => router.push(`/recipes/${shownId}/edit`)} className="tlink text-text-secondary hover:text-text">Edit</button>
           <button onClick={handleDuplicateRecipe} disabled={duplicating} className="tlink text-text-secondary hover:text-text disabled:opacity-50">
             {duplicating ? 'Duplicating…' : 'Duplicate'}
           </button>
@@ -413,9 +505,9 @@ export default function RecipeDetailPage() {
 
       {/* Centered head */}
       <div className="text-center pt-6 md:pt-10 pb-7">
-        <p className="tag-link lowercase">{recipe.cuisine_type || 'other'}</p>
+        <p className="tag-link lowercase">{shown.cuisine_type || 'other'}</p>
         <h1 className="text-[30px] md:text-[48px] leading-[1.08] tracking-[-0.02em] font-normal text-text mt-3.5 mb-3.5 max-w-[22ch] mx-auto text-balance">
-          {recipe.title}
+          {shown.title}
         </h1>
         {metaParts.length > 0 && (
           <p className="text-[13.5px] text-text-secondary lowercase">{metaParts.join('  ·  ')}</p>
@@ -423,27 +515,28 @@ export default function RecipeDetailPage() {
       </div>
 
       {/* Hero image (framed) */}
-      {recipe.image_url && (
+      {shown.image_url && (
         <div className="relative w-full aspect-[3/2] overflow-hidden bg-[#F4F4F4]">
           <Image
-            src={recipe.image_url}
-            alt={recipe.title}
+            key={shown.image_url}
+            src={shown.image_url}
+            alt={shown.title}
             fill
             sizes="(max-width: 900px) 100vw, 896px"
             className="object-cover"
             style={framingStyle({
-              image_position: recipe.image_position,
-              image_zoom: recipe.image_zoom,
-              image_rotation: imageRotation,
+              image_position: shown.image_position,
+              image_zoom: shown.image_zoom,
+              image_rotation: shown.image_rotation,
             })}
           />
         </div>
       )}
 
       {/* Lede */}
-      {recipe.description && (
+      {shown.description && (
         <p className="text-center text-[16.5px] leading-[1.65] text-[#3A3A3A] max-w-[62ch] mx-auto mt-8">
-          {recipe.description}
+          {shown.description}
         </p>
       )}
 
@@ -456,8 +549,8 @@ export default function RecipeDetailPage() {
         >
           {addingToGrocery ? 'Adding…' : 'Add to grocery list'}
         </button>
-        {recipe.source_url && (
-          <a href={recipe.source_url} target="_blank" rel="noopener noreferrer" className="tlink text-text">
+        {shown.source_url && (
+          <a href={shown.source_url} target="_blank" rel="noopener noreferrer" className="tlink text-text">
             View original
           </a>
         )}
@@ -466,7 +559,10 @@ export default function RecipeDetailPage() {
       {/* Ingredients + method */}
       <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] gap-10 md:gap-16 pt-14">
         {/* Ingredients */}
-        {recipeIngredients.length > 0 && (
+        {/* `|| version` keeps the column — and with it the chips — alive when
+            you switch to a branch that lists no ingredients of its own.
+            Otherwise picking it would remove the only way back. */}
+        {(shownIngredients.length > 0 || version) && (
           <div>
             <div className="flex items-baseline justify-between border-b border-text pb-2.5">
               <h2 className="text-[12.5px] text-text-secondary">Ingredients</h2>
@@ -484,7 +580,7 @@ export default function RecipeDetailPage() {
                 ))}
               </div>
             </div>
-            <VariationChips recipeId={id} onChange={setVersion} />
+            <VariationChips recipeId={id} activeId={shownId} onChange={setVersion} />
             <div>
               {shownIngredients.map((ing, idx) => {
                 if (ing.name === '---OR---') {
@@ -622,11 +718,11 @@ export default function RecipeDetailPage() {
         )}
 
         {/* Notes — kept after the method, since they're about the making, not the doing */}
-        {recipe.notes && recipe.notes.trim() && (
+        {shown.notes && shown.notes.trim() && (
           <div className="pt-12">
             <h2 className="text-[12.5px] text-text-secondary border-b border-text pb-2.5">Notes</h2>
             <p className="text-[15px] leading-[1.7] text-text whitespace-pre-wrap pt-4">
-              {recipe.notes}
+              {shown.notes}
             </p>
           </div>
         )}
@@ -634,8 +730,8 @@ export default function RecipeDetailPage() {
 
       {branching && recipe && (
         <BranchDialog
-          recipeId={recipe.id}
-          recipeTitle={recipe.title}
+          recipeId={shownId}
+          recipeTitle={shown.title}
           onClose={() => setBranching(false)}
           onCreate={createBranch}
           onAdopt={adoptBranch}
@@ -647,21 +743,22 @@ export default function RecipeDetailPage() {
           buried under two sections nobody scrolls past. */}
       <div className="pt-14">
         <CookLogSection
-          recipeId={recipe.id}
+          key={shownId}
+          recipeId={shownId}
           ingredients={shownIngredients as RecipeIngredient[]}
         />
       </div>
 
       {/* Flavour profile & cohesion (from the Flavor Lab) */}
-      <RecipeFlavorCard recipeId={version?.id ?? recipe.id} />
+      <RecipeFlavorCard recipeId={shownId} />
 
       {/* Photo gallery */}
-      {photos.length > 0 && (
+      {shownPhotos.length > 0 && (
         <div className="pt-14">
           <h2 className="text-[12.5px] text-text-secondary border-b border-text pb-2.5 mb-4">Photos</h2>
           <PhotoGallery
-            images={[recipe.image_url, ...photos.map((p) => p.url)].filter((u): u is string => !!u)}
-            title={recipe.title}
+            images={[shown.image_url, ...shownPhotos.map((p) => p.url)].filter((u): u is string => !!u)}
+            title={shown.title}
           />
         </div>
       )}

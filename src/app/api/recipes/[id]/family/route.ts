@@ -31,9 +31,30 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       try { return row?.instructions ? JSON.parse(row.instructions) : []; } catch { return []; }
     };
 
+    // The sources row is authoritative — `source_name` on the recipe is only
+    // the raw text an import arrived with. Resolved here so a version carries
+    // the same "via …" line the recipe page prints when you open it directly.
+    const sourceName = db.prepare('SELECT name FROM sources WHERE id = ?');
+    const resolveSource = <T extends { source_id: string | null; source_name: string | null }>(r: T): T => {
+      if (!r.source_id) return r;
+      const row = sourceName.get(r.source_id) as { name: string } | undefined;
+      if (row?.name) r.source_name = row.name;
+      return r;
+    };
+    resolveSource(base);
+
     const members = variations.map((v) => {
-      // a variation with no photo of its own shows the base's
-      if (!v.image_url) v.image_url = base.image_url;
+      resolveSource(v);
+      // A variation with no photo of its own shows the base's — and the framing
+      // comes with it, because a crop describes an image rather than a recipe.
+      // Taking the photo without the framing would show the family's picture
+      // off-centre on half the branches.
+      if (!v.image_url) {
+        v.image_url = base.image_url;
+        v.image_position = base.image_position;
+        v.image_zoom = base.image_zoom;
+        v.image_rotation = base.image_rotation;
+      }
       const ingredients = ingredientsOf.all(v.id) as IngredientLine[];
       const d = diffIngredients(baseIngredients, ingredients);
       return {

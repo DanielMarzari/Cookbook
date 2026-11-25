@@ -19,7 +19,42 @@ export interface FamilyMember {
   is_favorite: number | boolean | null;
   is_signature: number | boolean | null;
   status: string | null;
+  // Enough of the recipe to RENDER it, not just to list it.
+  //
+  // Picking a version on the recipe page swaps the whole page — picture, title,
+  // times, lede, notes — rather than only the ingredient lines, so every field
+  // the page prints has to arrive with the family. Fetching the branch
+  // separately would work, but it puts a visible beat between the ingredients
+  // changing and the title catching up, which is the exact confusion this is
+  // meant to end.
+  description: string | null;
+  notes: string | null;
+  cuisine_type: string | null;
+  craft: string | null;
+  servings: number | null;
+  prep_time_minutes: number | null;
+  cook_time_minutes: number | null;
+  total_time_minutes: number | null;
+  yield_quantity: number | null;
+  yield_unit: string | null;
+  difficulty: string | null;
+  source_url: string | null;
+  // The authoritative name, already resolved from `source_id` where there is
+  // one — the raw source_name column is only the text an import arrived with.
+  source_name: string | null;
+  source_id: string | null;
+  source_author: string | null;
+  image_position: string | null;
+  image_zoom: number | null;
+  image_rotation: number | null;
 }
+
+/** The columns a FamilyMember is built from. */
+export const FAMILY_COLUMNS =
+  'id, title, image_url, variation_of_label, parent_recipe_id, is_favorite, is_signature, status, ' +
+  'description, notes, cuisine_type, craft, servings, prep_time_minutes, cook_time_minutes, ' +
+  'total_time_minutes, yield_quantity, yield_unit, difficulty, source_url, source_name, ' +
+  'source_id, source_author, image_position, image_zoom, image_rotation';
 
 export interface IngredientLine {
   name: string;
@@ -46,11 +81,9 @@ export function baseIdOf(db: DB, recipeId: string): string {
 /** Base + every variation hanging off it, base first. */
 export function recipeFamily(db: DB, recipeId: string): { base: FamilyMember | null; variations: FamilyMember[] } {
   const baseId = baseIdOf(db, recipeId);
-  const cols =
-    'id, title, image_url, variation_of_label, parent_recipe_id, is_favorite, is_signature, status';
-  const base = db.prepare(`SELECT ${cols} FROM recipes WHERE id = ?`).get(baseId) as FamilyMember | undefined;
+  const base = db.prepare(`SELECT ${FAMILY_COLUMNS} FROM recipes WHERE id = ?`).get(baseId) as FamilyMember | undefined;
   const variations = db.prepare(
-    `SELECT ${cols} FROM recipes WHERE parent_recipe_id = ? ORDER BY created_at`
+    `SELECT ${FAMILY_COLUMNS} FROM recipes WHERE parent_recipe_id = ? ORDER BY created_at`
   ).all(baseId) as FamilyMember[];
   return { base: base || null, variations };
 }
