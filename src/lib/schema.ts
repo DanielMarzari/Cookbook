@@ -407,6 +407,27 @@ CREATE TABLE IF NOT EXISTS ingredient_cooccur (
 );
 CREATE INDEX IF NOT EXISTS idx_cooccur_a ON ingredient_cooccur(name_a);
 
+-- What a pasted link actually is.
+--
+-- A URL dropped into a recipe's notes renders as a card naming the site and the
+-- page rather than as forty characters of raw address. The title has to come
+-- from the page itself, and fetching it on every render would be both slow and
+-- rude to the site, so each one is fetched once and kept here.
+--
+-- Failures are cached too, with ok = 0: a link that 404s or times out should
+-- not be retried every time the recipe is opened. Both are re-checked once
+-- their expires_at passes.
+CREATE TABLE IF NOT EXISTS link_previews (
+  url TEXT PRIMARY KEY,
+  ok INTEGER NOT NULL DEFAULT 1,
+  title TEXT,
+  site_name TEXT,
+  description TEXT,
+  fetched_at TEXT,
+  expires_at TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_link_previews_expires ON link_previews(expires_at);
+
 -- Imported cookbook files (PDF / EPUB the user owns). The file bytes live on
 -- disk in BOOKS_DIR (a sibling dir that survives deploys); this row is metadata.
 CREATE TABLE IF NOT EXISTS books (

@@ -8,6 +8,7 @@ import { toast } from '@/lib/toast';
 import { fileToResizedDataUrl } from '@/lib/photo';
 import { CookAdjustment, CookLog, RecipeIngredient } from '@/lib/types';
 import { UNITS } from '@/lib/constants';
+import NoteText from '@/components/NoteText';
 
 function StarRating({
   value,
@@ -414,7 +415,7 @@ export default function CookLogSection({
                   </span>
                 </div>
                 {log.rating ? <div className="mt-1"><StarRating value={log.rating} readOnly size={16} /></div> : null}
-                {log.notes && <p className="text-sm text-text-secondary mt-1 whitespace-pre-wrap">{log.notes}</p>}
+                {log.notes && <NoteText text={log.notes} className="text-sm text-text-secondary mt-1" />}
                 {log.adjustments && log.adjustments.length > 0 && (
                   <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
                     {log.adjustments.map((a) => (

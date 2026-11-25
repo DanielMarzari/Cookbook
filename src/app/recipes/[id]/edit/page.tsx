@@ -1193,6 +1193,12 @@ export default function EditRecipePage() {
               rows={5}
               className="w-full px-4 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
             />
+            {/* Said here because the two treatments are decided by how you type
+                the link, and that is not guessable from looking at the box. */}
+            <p className="text-xs text-text-secondary mt-2">
+              A link on a line of its own becomes a card naming the site and the page. One inside a
+              sentence stays in the sentence, shortened to the site&rsquo;s name.
+            </p>
           </div>
 
               <MenuNameField recipeId={id} value={menuName} onChange={setMenuName} />

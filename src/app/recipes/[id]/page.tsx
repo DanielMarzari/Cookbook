@@ -16,6 +16,7 @@ import CookLogSection from '@/components/CookLogSection';
 import PhotoGallery from '@/components/PhotoGallery';
 import RecipeFlavorCard from '@/components/RecipeFlavorCard';
 import VariationChips, { type ActiveVersion } from '@/components/VariationChips';
+import NoteText from '@/components/NoteText';
 import BranchDialog, { type BranchCandidate } from '@/components/BranchDialog';
 import { RecipePhoto } from '@/lib/types';
 
@@ -721,9 +722,7 @@ export default function RecipeDetailPage() {
         {shown.notes && shown.notes.trim() && (
           <div className="pt-12">
             <h2 className="text-[12.5px] text-text-secondary border-b border-text pb-2.5">Notes</h2>
-            <p className="text-[15px] leading-[1.7] text-text whitespace-pre-wrap pt-4">
-              {shown.notes}
-            </p>
+            <NoteText text={shown.notes} className="text-[15px] leading-[1.7] text-text pt-4" />
           </div>
         )}
       </div>
