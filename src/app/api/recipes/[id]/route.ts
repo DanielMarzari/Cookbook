@@ -3,6 +3,40 @@ import { getDb, hydrateRecipe } from '@/lib/db';
 import { Recipe } from '@/lib/types';
 import { archiveRecipe } from '@/lib/archive';
 import { resolvePhoto } from '@/lib/variations';
+import { labelFromTitle } from '@/lib/utils';
+
+/**
+ * Keep a branch's family label in step with its title.
+ *
+ * A branch is titled "Biscotti — Marsala" and labelled "marsala", and the two
+ * are the same fact written twice. Rename the recipe to "Biscotti — Fig and
+ * Walnut" and the chips went on saying marsala, which is how a branch ends up
+ * called one thing in the list and another on its own page.
+ *
+ * Only labels that were still the title's own tail move. One you typed by hand
+ * is a name you chose, and renaming the recipe is not permission to overwrite
+ * it — same rule as the cascade, which leaves alone any line a branch had
+ * already made its own.
+ *
+ * Returns the new label, or undefined to leave the column untouched.
+ */
+function labelAfterRename(
+  before: { title: string; variation_of_label: string | null; parent_recipe_id: string | null },
+  newTitle: string,
+): string | null | undefined {
+  if (!before.parent_recipe_id) return undefined; // the base has no label
+  if (newTitle === before.title) return undefined;
+
+  const wasDerived =
+    !before.variation_of_label ||
+    before.variation_of_label.trim().toLowerCase() === (labelFromTitle(before.title) || '');
+  if (!wasDerived) return undefined;
+
+  const next = labelFromTitle(newTitle);
+  // A new title with no separator leaves the old label rather than clearing it:
+  // dropping the name on the way past would be a loss, not a rename.
+  return next ?? undefined;
+}
 
 export async function GET(
   request: NextRequest,
@@ -41,6 +75,12 @@ export async function PUT(
     const db = getDb();
     const body = await request.json();
     const now = new Date().toISOString();
+
+    // Read before writing, so a rename can tell whether the label it is about
+    // to move was the old title's or somebody's own words.
+    const before = db
+      .prepare('SELECT title, variation_of_label, parent_recipe_id FROM recipes WHERE id = ?')
+      .get(id) as { title: string; variation_of_label: string | null; parent_recipe_id: string | null } | undefined;
 
     const stmt = db.prepare(`
       UPDATE recipes SET
@@ -111,6 +151,14 @@ export async function PUT(
       now,
       id
     );
+
+    // After the title has landed, carry the family label along with it.
+    if (before && body.title) {
+      const nextLabel = labelAfterRename(before, body.title);
+      if (nextLabel !== undefined) {
+        db.prepare('UPDATE recipes SET variation_of_label = ? WHERE id = ?').run(nextLabel, id);
+      }
+    }
 
     const getStmt = db.prepare('SELECT * FROM recipes WHERE id = ?');
     const updated = getStmt.get(id) as Recipe | undefined;

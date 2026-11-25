@@ -8,7 +8,7 @@ import { ArrowLeft } from 'lucide-react';
 import { api } from '@/lib/api-client';
 import { toast } from '@/lib/toast';
 import { formatQuantity } from '@/lib/units';
-import { titleCaseIngredient } from '@/lib/utils';
+import { titleCaseIngredient, labelFromTitle } from '@/lib/utils';
 import type { DraftPayload } from '@/lib/drafts';
 import { usePrompt } from '@/components/Prompt';
 import BranchDialog, { type BranchCandidate } from '@/components/BranchDialog';
@@ -182,7 +182,7 @@ export default function RecipeVersionsPage() {
       });
       if (!answer) return;
       title = answer;
-      label = answer.split('—').pop()?.trim().toLowerCase();
+      label = labelFromTitle(answer) ?? undefined;
     } else if (!confirm('Fold these changes into the recipe? The previous version is not kept.')) {
       return;
     }
@@ -257,7 +257,7 @@ export default function RecipeVersionsPage() {
             setBranching(false);
             setBusy(true);
             try {
-              const v = await api.recipes.branch(family.base.id, name, name.split('—').pop()?.trim().toLowerCase());
+              const v = await api.recipes.branch(family.base.id, name, labelFromTitle(name) ?? undefined);
               toast.success(`Branched "${v.title}"`);
               router.push(`/recipes/${v.id}/edit`);
             } catch { toast.error('Could not create that branch'); setBusy(false); }

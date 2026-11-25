@@ -59,3 +59,26 @@ export function titleCaseIngredient(name: string): string {
     })
     .join(' ');
 }
+
+/**
+ * The short name a branch goes by inside its family, read off its title.
+ *
+ * Branch titles are written as "Biscotti — Anisette": the dish, then what makes
+ * this one different. The part after the separator is the whole of what the
+ * version chips need to say, so it is what the label is derived from.
+ *
+ * Returns null when a title has no separator. A title that is just a name
+ * ("Jerusalem Bagel Recipe") has no shorter form hiding in it, and lowercasing
+ * the whole thing into the label would only print the title twice — the chips
+ * already fall back to the title when there is no label.
+ *
+ * A bare hyphen counts only with spaces around it, so "Twice-Baked Potatoes"
+ * stays one name.
+ */
+export function labelFromTitle(title: string | null | undefined): string | null {
+  if (!title) return null;
+  const parts = title.split(/\s+[—–:]\s*|\s+-\s+/);
+  if (parts.length < 2) return null;
+  const tail = parts[parts.length - 1].trim().toLowerCase();
+  return tail || null;
+}

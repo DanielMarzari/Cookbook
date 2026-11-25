@@ -418,12 +418,17 @@ export default function EditRecipePage() {
       }
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
+      // The rail beside this editor lists the family by title and label, and
+      // the save may have just changed both — a rename carries the branch's
+      // label with it. Re-read so the list is not describing the recipe as it
+      // was two keystrokes ago.
+      loadFamily();
     } catch (err) {
       console.error('Autosave error:', err);
     } finally {
       setSaving(false);
     }
-  }, [id, target, title, description, notes, yieldQuantity, yieldUnit, mealType, sourceId, cuisineType, craft, menuName, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients]);
+  }, [id, target, title, description, notes, yieldQuantity, yieldUnit, mealType, sourceId, cuisineType, craft, menuName, difficulty, prepTime, cookTime, servings, imageUrl, imageRotation, imagePosition, imageZoom, sourceUrl, sourceName, sourceAuthor, instructions, ingredients, loadFamily]);
 
   useEffect(() => {
     if (!initialLoadDone.current) return;

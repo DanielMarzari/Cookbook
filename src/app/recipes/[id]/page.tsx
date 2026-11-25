@@ -9,7 +9,7 @@ import { toast } from '@/lib/toast';
 import { Recipe, RecipeIngredient, Ingredient, NutritionInfo } from '@/lib/types';
 import { ArrowLeft, Heart, Check } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { formatTime, titleCaseIngredient } from '@/lib/utils';
+import { formatTime, titleCaseIngredient, labelFromTitle } from '@/lib/utils';
 import { convertUnitToGrams, convertMeasure, formatQuantity, type UnitSystem } from '@/lib/units';
 import { framingStyle } from '@/lib/image';
 import CookLogSection from '@/components/CookLogSection';
@@ -309,7 +309,7 @@ export default function RecipeDetailPage() {
       // Branching from a branch forks the branch you are reading — the
       // duplicate route hangs it off the same stem, so it lands as a sibling
       // rather than making the family two levels deep.
-      const v = await api.recipes.branch(shownId, name, name.split('—').pop()?.trim().toLowerCase());
+      const v = await api.recipes.branch(shownId, name, labelFromTitle(name) ?? undefined);
       toast.success(`Branched "${v.title}"`);
       router.push(`/recipes/${v.id}/edit`);
     } catch (err) {
